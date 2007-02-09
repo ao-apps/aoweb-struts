@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+    "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+    <!-- ========== Form Bean Definitions =================================== -->
+    <form-beans>
+        <form-bean name="passwordEvaluatorForm" type="com.aoindustries.website.clientarea.control.password.PasswordEvaluatorForm" />
+    </form-beans>
+
+    <!-- ========== Global Error Handlers =================================== -->
+    <global-exceptions>
+        <exception key="Exception.message" type="java.lang.Exception" handler="com.aoindustries.website.ExceptionHandler" />
+    </global-exceptions>
+
+    <!-- ========== Global Forward Definitions ============================== -->
+    <global-forwards>
+        <!-- / -->
+        <forward name="exception" contextRelative="true" path="/WEB-INF/jsp/exception.jsp" />
+        <forward name="login" contextRelative="true" path="/login.do" />
+        <!-- /clientarea/control -->
+    </global-forwards>
+
+    <!-- ========== Action Mapping Definitions ============================== -->
+    <action-mappings>
+        <action
+            path="/password/passwordEvaluator"
+            name="passwordEvaluatorForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.SkinAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/passwordEvaluator.jsp" redirect="false" />
+        </action>
+        <action
+            path="/password/passwordEvaluatorCompleted"
+            name="passwordEvaluatorForm"
+            scope="request"
+            validate="true"
+            input="/password/passwordEvaluator.do"
+            type="com.aoindustries.website.clientarea.control.password.PasswordEvaluatorCompletedAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/passwordEvaluator.jsp" redirect="false" />
+        </action>
+        <action
+            path="/password/passwordGenerator"
+            type="com.aoindustries.website.clientarea.control.password.PasswordGeneratorAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/passwordGenerator.jsp" redirect="false" />
+        </action>
+    </action-mappings>
+    
+    <!-- ========== Controller ============================================== -->
+    <controller
+        nocache="true"
+    />
+
+    <!-- ========== Message Resources ======================================= -->
+    <message-resources
+        parameter="com.aoindustries.website.SiteApplicationResources"
+        null="false"
+    />
+    <message-resources
+        key="/ApplicationResources"
+        parameter="com.aoindustries.website.ApplicationResources"
+        null="false"
+    />
+    <message-resources
+        key="/clientarea/ApplicationResources"
+        parameter="com.aoindustries.website.clientarea.ApplicationResources"
+        null="false"
+    />
+    <message-resources
+        key="/clientarea/control/ApplicationResources"
+        parameter="com.aoindustries.website.clientarea.control.ApplicationResources"
+        null="false"
+    />
+    <message-resources
+        key="/aoserv/client/ApplicationResources"
+        parameter="com.aoindustries.aoserv.client.ApplicationResources"
+        null="false"
+    />
+
+    <!-- ========== Validator Plug-In ======================================= -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property property="pathnames" value="/WEB-INF/lib/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml,/WEB-INF/validator-clientarea-control.xml"/>
+    </plug-in>
+</struts-config>

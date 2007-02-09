@@ -1,0 +1,43 @@
+package com.aoindustries.website;
+
+/*
+ * Copyright 2007 by AO Industries, Inc.,
+ * 816 Azalea Rd, Mobile, Alabama, 36693, U.S.A.
+ * All rights reserved.
+ */
+import java.io.Serializable;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.validator.ValidatorForm;
+
+/**
+ * @author  AO Industries, Inc.
+ */
+public class LoginForm extends ValidatorForm implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private String username;
+    private String password;
+
+    public void reset(ActionMapping mapping, HttpServletRequest request) {
+        setUsername("");
+        setPassword("");
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+}

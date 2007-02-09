@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE taglib
+        PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+        "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>1.2</jsp-version>
+    <short-name>aoweb-struts</short-name>
+    <uri>/aoweb-struts</uri>
+    <display-name>aoweb-struts-tags</display-name>
+    <tag>
+        <name>keywords</name>
+	<tag-class>com.aoindustries.website.skintags.KeywordsTag</tag-class>
+        <body-content>JSP</body-content>
+	<description>Sets the keywords for this page.</description>
+        <example></example>
+    </tag>
+    <tag>
+        <name>description</name>
+	<tag-class>com.aoindustries.website.skintags.DescriptionTag</tag-class>
+        <body-content>JSP</body-content>
+	<description>Sets the description for this page.</description>
+        <example></example>
+    </tag>
+    <tag>
+        <name>author</name>
+	<tag-class>com.aoindustries.website.skintags.AuthorTag</tag-class>
+        <body-content>JSP</body-content>
+	<description>Sets the author for this page.</description>
+        <example></example>
+    </tag>
+    <tag>
+        <name>copyright</name>
+	<tag-class>com.aoindustries.website.skintags.CopyrightTag</tag-class>
+        <body-content>JSP</body-content>
+	<description>Sets the copyright for this page.</description>
+        <example></example>
+    </tag>
+    <tag>
+        <name>path</name>
+	<tag-class>com.aoindustries.website.skintags.PathTag</tag-class>
+        <body-content>JSP</body-content>
+	<description>Sets the path for this page, relative to the root of the application.</description>
+        <example></example>
+    </tag>
+    <tag>
+        <name>title</name>
+	<tag-class>com.aoindustries.website.skintags.TitleTag</tag-class>
+        <body-content>JSP</body-content>
+	<description>Sets the title for this page, an addParent tag, or an addSibling tag.</description>
+        <example></example>
+    </tag>
+    <tag>
+        <name>navImageAlt</name>
+	<tag-class>com.aoindustries.website.skintags.NavImageAltTag</tag-class>
+        <body-content>JSP</body-content>
+	<description>Sets the navImageAlt for this page, an addParent tag, or an addSibling tag.</description>
+        <example></example>
+    </tag>
+    <tag>
+        <name>addParent</name>
+	<tag-class>com.aoindustries.website.skintags.AddParentTag</tag-class>
+        <body-content>JSP</body-content>
+	<description>Adds a parent to the hierarchy above this page.</description>
+        <attribute>
+            <name>useEncryption</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>boolean</type>
+            <description>If set, the encryption mode will be enforced within the generated URLs.</description>
+        </attribute>
+        <attribute>
+            <name>path</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>boolean</type>
+            <description>The application relative path to the page.</description>
+        </attribute>
+        <example></example>
+    </tag>
+    <tag>
+        <name>addSibling</name>
+	<tag-class>com.aoindustries.website.skintags.AddSiblingTag</tag-class>
+        <body-content>JSP</body-content>
+	<description>Adds a sibling to the hierarchy at the same level as this page.</description>
+        <attribute>
+            <name>useEncryption</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>boolean</type>
+            <description>If set, the encryption mode will be enforced within the generated URLs.</description>
+        </attribute>
+        <attribute>
+            <name>path</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>boolean</type>
+            <description>The application relative path to the page.</description>
+        </attribute>
+        <example></example>
+    </tag>
+    <tag>
+        <name>skin</name>
+	<tag-class>com.aoindustries.website.skintags.SkinTag</tag-class>
+        <body-content>JSP</body-content>
+	<description>Writes the skin between the HTML tags and the page content.</description>
+        <attribute>
+            <name>onLoad</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>String</type>
+            <description>The JavaScript that will be placed in the onLoad attribute of the body tag</description>
+        </attribute>
+        <example></example>
+    </tag>
+    <tag>
+        <name>lightArea</name>
+	<tag-class>com.aoindustries.website.skintags.LightAreaTag</tag-class>
+        <body-content>JSP</body-content>
+	<description>Surrounds the body with a light area.</description>
+        <example></example>
+    </tag>
+    <tag>
+        <name>setContentType</name>
+	<tag-class>com.aoindustries.website.skintags.SetContentTypeTag</tag-class>
+        <body-content>empty</body-content>
+	<description>Sets the content type appropriately for the current locale.</description>
+        <example></example>
+    </tag>
+</taglib>
