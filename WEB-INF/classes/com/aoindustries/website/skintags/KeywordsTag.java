@@ -21,7 +21,7 @@ public class KeywordsTag extends PageAttributesTag {
         return EVAL_BODY_BUFFERED;
     }
 
-    public int doAfterBody(PageAttributes pageAttributes) {
+    public int doEndTag(PageAttributes pageAttributes) {
         pageAttributes.setKeywords(getBodyContent().getString().trim());
         return SKIP_BODY;
     }

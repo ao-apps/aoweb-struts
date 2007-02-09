@@ -21,7 +21,7 @@ public class TitleTag extends PageAttributesTag {
         return EVAL_BODY_BUFFERED;
     }
 
-    public int doAfterBody(PageAttributes pageAttributes) {
+    public int doEndTag(PageAttributes pageAttributes) {
         String title = getBodyContent().getString().trim();
         AddParentTag addParentTag = (AddParentTag)findAncestorWithClass(this, AddParentTag.class);
         if(addParentTag!=null) {

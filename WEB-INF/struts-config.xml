@@ -27,6 +27,12 @@
     <action-mappings>
         <!-- =============== Common =============== -->
         <action
+            path="/exception"
+            type="com.aoindustries.website.SkinAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/exception.jsp" redirect="false" />
+        </action>
+        <action
             path="/login"
             name="loginForm"
             scope="request"

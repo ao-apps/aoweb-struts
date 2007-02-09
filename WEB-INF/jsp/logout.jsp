@@ -19,6 +19,12 @@
     <%@ include file="addParents.jsp" %>
     <%@ include file="addSiblings.jsp" %>
     <skin:skin>
-        <bean:message bundle="/ApplicationResources" key="logout.text"/>
+        <skin:content width="600">
+            <skin:contentTitle><bean:message bundle="/ApplicationResources" key="logout.title"/></skin:contentTitle>
+            <skin:contentHorizontalDivider/>
+            <skin:contentLine>
+                <bean:message bundle="/ApplicationResources" key="logout.text"/>
+            </skin:contentLine>
+        </skin:content>
     </skin:skin>
 </html:html>

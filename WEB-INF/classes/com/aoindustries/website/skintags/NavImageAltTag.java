@@ -26,7 +26,7 @@ public class NavImageAltTag extends PageAttributesTag {
         return EVAL_BODY_BUFFERED;
     }
 
-    public int doAfterBody(PageAttributes pageAttributes) throws JspException {
+    public int doEndTag(PageAttributes pageAttributes) throws JspException {
         String navImageAlt = getBodyContent().getString().trim();
         AddParentTag addParentTag = (AddParentTag)findAncestorWithClass(this, AddParentTag.class);
         if(addParentTag!=null) {

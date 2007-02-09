@@ -19,30 +19,36 @@
     <%@ include file="addParents.jsp" %>
     <%@ include file="addSiblings.jsp" %>
     <skin:skin onLoad="document.forms['loginForm'].username.focus(); document.forms['loginForm'].username.select();">
-        <html:javascript staticJavascript='false' bundle="/ApplicationResources" formName="loginForm"/>
-        <skin:lightArea>
-            <B>
-                <logic:present scope="request" name="authenticationMessage"><bean:write scope="request" name="authenticationMessage"/></logic:present>
-                <logic:notPresent scope="request" name="authenticationMessage"><bean:message bundle="/ApplicationResources" key="login.pleaseLogin"/></logic:notPresent>
-            </B>
-            <HR>
-            <html:form action="/loginCompleted" onsubmit="return validateLoginForm(this);">
-                <table border='0' cellspacing='2' cellpadding='0'>
-                    <tr>
-                        <td><bean:message bundle="/ApplicationResources" key="login.field.username.prompt"/></td>
-                        <td><html:text size="16" property="username" /></td>
-                        <td><html:errors bundle="/ApplicationResources" property="username"/></td>
-                    </tr>
-                    <tr>
-                        <td><bean:message bundle="/ApplicationResources" key="login.field.password.prompt"/></td>
-                        <td><html:password size="16" property="password" /></td>
-                        <td><html:errors bundle="/ApplicationResources" property="password"/></td>
-                    </tr>
-                    <tr>
-                        <td colspan='3' align='center'><html:submit styleClass='ao_button'><bean:message bundle="/ApplicationResources" key="login.field.submit.label"/></html:submit></td>
-                    </tr>
-                </table>
-            </html:form>
-        </skin:lightArea>
+        <skin:content width="600">
+            <skin:contentTitle><bean:message bundle="/ApplicationResources" key="login.title"/></skin:contentTitle>
+            <skin:contentHorizontalDivider/>
+            <skin:contentLine>
+                <html:javascript staticJavascript='false' bundle="/ApplicationResources" formName="loginForm"/>
+                <skin:lightArea>
+                    <B>
+                        <logic:present scope="request" name="authenticationMessage"><bean:write scope="request" name="authenticationMessage"/></logic:present>
+                        <logic:notPresent scope="request" name="authenticationMessage"><bean:message bundle="/ApplicationResources" key="login.pleaseLogin"/></logic:notPresent>
+                    </B>
+                    <HR>
+                    <html:form action="/loginCompleted" onsubmit="return validateLoginForm(this);">
+                        <table border='0' cellspacing='2' cellpadding='0'>
+                            <tr>
+                                <td><bean:message bundle="/ApplicationResources" key="login.field.username.prompt"/></td>
+                                <td><html:text size="16" property="username" /></td>
+                                <td><html:errors bundle="/ApplicationResources" property="username"/></td>
+                            </tr>
+                            <tr>
+                                <td><bean:message bundle="/ApplicationResources" key="login.field.password.prompt"/></td>
+                                <td><html:password size="16" property="password" /></td>
+                                <td><html:errors bundle="/ApplicationResources" property="password"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan='3' align='center'><html:submit styleClass='ao_button'><bean:message bundle="/ApplicationResources" key="login.field.submit.label"/></html:submit></td>
+                            </tr>
+                        </table>
+                    </html:form>
+                </skin:lightArea>
+            </skin:contentLine>
+        </skin:content>
     </skin:skin>
 </html:html>

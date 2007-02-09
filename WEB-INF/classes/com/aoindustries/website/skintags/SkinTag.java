@@ -7,11 +7,15 @@ package com.aoindustries.website.skintags;
  */
 import com.aoindustries.io.ChainWriter;
 import java.io.IOException;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 import com.aoindustries.website.*;
+import org.apache.struts.Globals;
+import org.apache.struts.util.MessageResources;
 
 /**
  * Writes the skin header and footer.
@@ -36,7 +40,12 @@ public class SkinTag extends PageAttributesTag {
 
             ChainWriter out = new ChainWriter(pageContext.getOut());
             Skin skin = (Skin)pageContext.getAttribute(Constants.SKIN, PageContext.REQUEST_SCOPE);
-            if(skin==null) throw new JspException("Unable to find skin in the request attributes");
+            if(skin==null) {
+                HttpSession session = pageContext.getSession();
+                Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
+                MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
+                throw new JspException(applicationResources.getMessage(locale, "skintags.unableToFindSkinInRequest"));
+            }
 
             HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
             skin.startSkin(req, out, pageAttributes);
@@ -51,7 +60,12 @@ public class SkinTag extends PageAttributesTag {
         try {
             ChainWriter out = new ChainWriter(pageContext.getOut());
             Skin skin = (Skin)pageContext.getAttribute(Constants.SKIN, PageContext.REQUEST_SCOPE);
-            if(skin==null) throw new JspException("Unable to find skin in the request attributes");
+            if(skin==null) {
+                HttpSession session = pageContext.getSession();
+                Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
+                MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
+                throw new JspException(applicationResources.getMessage(locale, "skintags.unableToFindSkinInRequest"));
+            }
 
             HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
             skin.endSkin(req, out, pageAttributes);

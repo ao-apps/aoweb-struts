@@ -40,13 +40,14 @@ abstract public class PageAttributesTag extends BodyTagSupport {
         return EVAL_BODY_BUFFERED;
     }
 
+    /*
     final public int doAfterBody() throws JspException {
         return doAfterBody(getPageAttributes());
     }
 
     public int doAfterBody(PageAttributes pageAttributes) throws JspException {
         return SKIP_BODY;
-    }
+    }*/
 
     final public int doEndTag() throws JspException {
         return doEndTag(getPageAttributes());

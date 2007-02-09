@@ -19,12 +19,18 @@
     <%@ include file="addParents.jsp" %>
     <%@ include file="addSiblings.jsp" %>
     <skin:skin>
-        <bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordGenerator.followingMayUse"/><br>
-        <br>
-        <code>
-            <logic:iterate name="generatedPasswords" id="generatedPassword">
-                <bean:write name="generatedPassword"/><br>
-            </logic:iterate>
-        </code>
+        <skin:content width="600">
+            <skin:contentTitle><bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordGenerator.title"/></skin:contentTitle>
+            <skin:contentHorizontalDivider/>
+            <skin:contentLine>
+                <bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordGenerator.followingMayUse"/><br>
+                <br>
+                <code>
+                    <logic:iterate name="generatedPasswords" id="generatedPassword">
+                        <bean:write name="generatedPassword"/><br>
+                    </logic:iterate>
+                </code>
+            </skin:contentLine>
+        </skin:content>
     </skin:skin>
 </html:html>

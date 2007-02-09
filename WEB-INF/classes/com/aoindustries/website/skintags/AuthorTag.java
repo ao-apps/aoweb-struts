@@ -21,7 +21,7 @@ public class AuthorTag extends PageAttributesTag {
         return EVAL_BODY_BUFFERED;
     }
 
-    public int doAfterBody(PageAttributes pageAttributes) {
+    public int doEndTag(PageAttributes pageAttributes) {
         pageAttributes.setAuthor(getBodyContent().getString().trim());
         return SKIP_BODY;
     }

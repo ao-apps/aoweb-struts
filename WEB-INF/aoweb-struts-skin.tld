@@ -1,131 +1,279 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
 
-<!DOCTYPE taglib
-        PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
-        "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
 <taglib>
-    <tlib-version>1.0</tlib-version>
-    <jsp-version>1.2</jsp-version>
-    <short-name>aoweb-struts</short-name>
-    <uri>/aoweb-struts</uri>
-    <display-name>aoweb-struts-tags</display-name>
-    <tag>
-        <name>keywords</name>
-	<tag-class>com.aoindustries.website.skintags.KeywordsTag</tag-class>
-        <body-content>JSP</body-content>
-	<description>Sets the keywords for this page.</description>
-        <example></example>
-    </tag>
-    <tag>
-        <name>description</name>
-	<tag-class>com.aoindustries.website.skintags.DescriptionTag</tag-class>
-        <body-content>JSP</body-content>
-	<description>Sets the description for this page.</description>
-        <example></example>
-    </tag>
-    <tag>
-        <name>author</name>
-	<tag-class>com.aoindustries.website.skintags.AuthorTag</tag-class>
-        <body-content>JSP</body-content>
-	<description>Sets the author for this page.</description>
-        <example></example>
-    </tag>
-    <tag>
-        <name>copyright</name>
-	<tag-class>com.aoindustries.website.skintags.CopyrightTag</tag-class>
-        <body-content>JSP</body-content>
-	<description>Sets the copyright for this page.</description>
-        <example></example>
-    </tag>
-    <tag>
-        <name>path</name>
-	<tag-class>com.aoindustries.website.skintags.PathTag</tag-class>
-        <body-content>JSP</body-content>
-	<description>Sets the path for this page, relative to the root of the application.</description>
-        <example></example>
-    </tag>
-    <tag>
-        <name>title</name>
-	<tag-class>com.aoindustries.website.skintags.TitleTag</tag-class>
-        <body-content>JSP</body-content>
-	<description>Sets the title for this page, an addParent tag, or an addSibling tag.</description>
-        <example></example>
-    </tag>
-    <tag>
-        <name>navImageAlt</name>
-	<tag-class>com.aoindustries.website.skintags.NavImageAltTag</tag-class>
-        <body-content>JSP</body-content>
-	<description>Sets the navImageAlt for this page, an addParent tag, or an addSibling tag.</description>
-        <example></example>
-    </tag>
-    <tag>
-        <name>addParent</name>
-	<tag-class>com.aoindustries.website.skintags.AddParentTag</tag-class>
-        <body-content>JSP</body-content>
-	<description>Adds a parent to the hierarchy above this page.</description>
-        <attribute>
-            <name>useEncryption</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>boolean</type>
-            <description>If set, the encryption mode will be enforced within the generated URLs.</description>
-        </attribute>
-        <attribute>
-            <name>path</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>boolean</type>
-            <description>The application relative path to the page.</description>
-        </attribute>
-        <example></example>
-    </tag>
-    <tag>
-        <name>addSibling</name>
-	<tag-class>com.aoindustries.website.skintags.AddSiblingTag</tag-class>
-        <body-content>JSP</body-content>
-	<description>Adds a sibling to the hierarchy at the same level as this page.</description>
-        <attribute>
-            <name>useEncryption</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>boolean</type>
-            <description>If set, the encryption mode will be enforced within the generated URLs.</description>
-        </attribute>
-        <attribute>
-            <name>path</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>boolean</type>
-            <description>The application relative path to the page.</description>
-        </attribute>
-        <example></example>
-    </tag>
-    <tag>
-        <name>skin</name>
-	<tag-class>com.aoindustries.website.skintags.SkinTag</tag-class>
-        <body-content>JSP</body-content>
-	<description>Writes the skin between the HTML tags and the page content.</description>
-        <attribute>
-            <name>onLoad</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>String</type>
-            <description>The JavaScript that will be placed in the onLoad attribute of the body tag</description>
-        </attribute>
-        <example></example>
-    </tag>
-    <tag>
-        <name>lightArea</name>
-	<tag-class>com.aoindustries.website.skintags.LightAreaTag</tag-class>
-        <body-content>JSP</body-content>
-	<description>Surrounds the body with a light area.</description>
-        <example></example>
-    </tag>
-    <tag>
-        <name>setContentType</name>
-	<tag-class>com.aoindustries.website.skintags.SetContentTypeTag</tag-class>
-        <body-content>empty</body-content>
-	<description>Sets the content type appropriately for the current locale.</description>
-        <example></example>
-    </tag>
+  <tlib-version>1.0</tlib-version>
+  <jsp-version>1.2</jsp-version>
+  <short-name>aoweb-struts</short-name>
+  <uri>/aoweb-struts</uri>
+  <display-name>aoweb-struts-tags</display-name>
+  <tag>
+    <name>keywords</name>
+    <tag-class>com.aoindustries.website.skintags.KeywordsTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Sets the keywords for this page.</description>
+    <example/>
+  </tag>
+  <tag>
+    <name>description</name>
+    <tag-class>com.aoindustries.website.skintags.DescriptionTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Sets the description for this page.</description>
+    <example/>
+  </tag>
+  <tag>
+    <name>author</name>
+    <tag-class>com.aoindustries.website.skintags.AuthorTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Sets the author for this page.</description>
+    <example/>
+  </tag>
+  <tag>
+    <name>copyright</name>
+    <tag-class>com.aoindustries.website.skintags.CopyrightTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Sets the copyright for this page.</description>
+    <example/>
+  </tag>
+  <tag>
+    <name>path</name>
+    <tag-class>com.aoindustries.website.skintags.PathTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Sets the path for this page, relative to the root of the application.</description>
+    <example/>
+  </tag>
+  <tag>
+    <name>title</name>
+    <tag-class>com.aoindustries.website.skintags.TitleTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Sets the title for this page, an addParent tag, or an addSibling tag.</description>
+    <example/>
+  </tag>
+  <tag>
+    <name>navImageAlt</name>
+    <tag-class>com.aoindustries.website.skintags.NavImageAltTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Sets the navImageAlt for this page, an addParent tag, or an addSibling tag.</description>
+    <example/>
+  </tag>
+  <tag>
+    <name>addParent</name>
+    <tag-class>com.aoindustries.website.skintags.AddParentTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Adds a parent to the hierarchy above this page.</description>
+    <attribute>
+      <name>useEncryption</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>If set, the encryption mode will be enforced within the generated URLs.</description>
+    </attribute>
+    <attribute>
+      <name>path</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>The application relative path to the page.</description>
+    </attribute>
+    <example/>
+  </tag>
+  <tag>
+    <name>addSibling</name>
+    <tag-class>com.aoindustries.website.skintags.AddSiblingTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Adds a sibling to the hierarchy at the same level as this page.</description>
+    <attribute>
+      <name>useEncryption</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>If set, the encryption mode will be enforced within the generated URLs.</description>
+    </attribute>
+    <attribute>
+      <name>path</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>The application relative path to the page.</description>
+    </attribute>
+    <example/>
+  </tag>
+  <tag>
+    <name>skin</name>
+    <tag-class>com.aoindustries.website.skintags.SkinTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Writes the skin between the HTML tags and the page content.</description>
+    <attribute>
+      <name>onLoad</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>String</type>
+      <description>The JavaScript that will be placed in the onLoad attribute of the body tag</description>
+    </attribute>
+    <example/>
+  </tag>
+  <tag>
+    <name>lightArea</name>
+    <tag-class>com.aoindustries.website.skintags.LightAreaTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Surrounds the body with a light area.</description>
+    <attribute>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>String</type>
+      <description>An optional width for the area</description>
+    </attribute>
+    <attribute>
+      <name>nowrap</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>If true, will cause the contents of the area to not wrap, defaults to false.</description>
+    </attribute>
+    <example/>
+  </tag>
+  <tag>
+    <name>whiteArea</name>
+    <tag-class>com.aoindustries.website.skintags.WhiteAreaTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Surrounds the body with a white area.</description>
+    <attribute>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>String</type>
+      <description>An optional width for the area</description>
+    </attribute>
+    <attribute>
+      <name>nowrap</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>If true, will cause the contents of the area to not wrap, defaults to false.</description>
+    </attribute>
+    <example/>
+  </tag>
+  <tag>
+    <name>setContentType</name>
+    <tag-class>com.aoindustries.website.skintags.SetContentTypeTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Sets the content type appropriately for the current locale.</description>
+    <example/>
+  </tag>
+  <tag>
+    <name>content</name>
+    <tag-class>com.aoindustries.website.skintags.ContentTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Writes the advanced content area with skin-provided formatting.  This is essentially a fancy way to make tables with skin-specific formatting and dividers.</description>
+    <attribute>
+      <name>colspans</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>String</type>
+      <description>The comma seperated list of colspan between each downward pointing connector, defaults to "1"</description>
+    </attribute>
+    <attribute>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>String</type>
+      <description>An optional width for the content area</description>
+    </attribute>
+    <example/>
+  </tag>
+  <tag>
+    <name>contentTitle</name>
+    <tag-class>com.aoindustries.website.skintags.ContentTitleTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Prints the content title line, must be nested in a content tag.</description>
+    <example/>
+  </tag>
+  <tag>
+    <name>contentLine</name>
+    <tag-class>com.aoindustries.website.skintags.ContentLineTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Prints a line of content in a content area, must be nested in a content tag.</description>
+    <attribute>
+      <name>colspan</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+      <description>The starting colspan, other colspan may be applied using contentVerticalDivider.  Defaults to 1.</description>
+    </attribute>
+    <attribute>
+      <name>align</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>String</type>
+      <description>The starting alignment, other alignments may be applied using contentVerticalDivider.</description>
+    </attribute>
+    <attribute>
+      <name>endsInternal</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>Indicates the line of content ends internal to the overall content area, this may be the case when a rowspan from a higher line is causing overlap.  Defaults to false.</description>
+    </attribute>
+    <example/>
+  </tag>
+  <tag>
+    <name>contentVerticalDivider</name>
+    <tag-class>com.aoindustries.website.skintags.ContentVerticalDividerTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Prints a vertical divider within the content line, must be nested in a contentLine tag.</description>
+    <attribute>
+      <name>visible</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>If true, will draw a visible separator and count as one in the overall line colspan.  When false, will not draw the separator and doesn't count in the overall line colspan.  Defaults to true.</description>
+    </attribute>
+    <attribute>
+      <name>colspan</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+      <description>The colspan for this part of the line.  Defaults to 1.</description>
+    </attribute>
+    <attribute>
+      <name>rowspan</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+      <description>The rowspan for this part of the line.  Defaults to 1.</description>
+    </attribute>
+    <attribute>
+      <name>align</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>String</type>
+      <description>The alignment for this part of the line.</description>
+    </attribute>
+    <example/>
+  </tag>
+  <tag>
+    <name>contentHorizontalDivider</name>
+    <tag-class>com.aoindustries.website.skintags.ContentHorizontalDividerTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Prints a horizontal divider line, must be nested in a content tag.</description>
+    <attribute>
+      <name>colspansAndDirections</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>String</type>
+      <description>
+        Provides the comma-separated colspan and directions for the line, defaults to "1".
+        It is in the format "colspan,direction,colspan,direction,colspan" where each colspan is for that part of the line and each direction is either up, down, or upAndDown.
+      </description>
+    </attribute>
+    <attribute>
+      <name>endsInternal</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>Indicates the line of content ends internal to the overall content area, this may be the case when a rowspan from a higher line is causing overlap.  Defaults to false.</description>
+    </attribute>
+    <example/>
+  </tag>
 </taglib>

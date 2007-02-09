@@ -8,11 +8,13 @@ package com.aoindustries.website.skintags;
 import com.aoindustries.website.Constants;
 import com.aoindustries.website.Skin;
 import java.util.Locale;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyContent;
-import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.TagSupport;
 import org.apache.struts.Globals;
+import org.apache.struts.util.MessageResources;
 
 /**
  * Sets the content type for the page.
@@ -21,17 +23,21 @@ import org.apache.struts.Globals;
  *
  * @author  AO Industries, Inc.
  */
-public class SetContentTypeTag extends BodyTagSupport {
+public class SetContentTypeTag extends TagSupport {
 
     public SetContentTypeTag() {
     }
 
     public int doStartTag() throws JspException {
         Skin skin = (Skin)pageContext.getAttribute(Constants.SKIN, PageContext.REQUEST_SCOPE);
-        if(skin==null) throw new JspException("Unable to find skin in the request attributes");
+        if(skin==null) {
+            HttpSession session = pageContext.getSession();
+            Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
+            MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
+            throw new JspException(applicationResources.getMessage(locale, "skintags.unableToFindSkinInRequest"));
+        }
 
         Locale locale = (Locale)pageContext.getSession().getAttribute(Globals.LOCALE_KEY);
-        if(locale==null) throw new JspException("Unable to find the locale in the session attributes");
 
         pageContext.getResponse().setContentType("text/html; charset="+skin.getCharacterSet(locale));
         return SKIP_BODY;

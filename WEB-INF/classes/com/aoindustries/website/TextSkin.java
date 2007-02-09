@@ -245,39 +245,112 @@ public class TextSkin extends Skin {
                 + "        </TD>\n"
                 + "        <TD valign='top'>\n");
         printCommonPages(req, out);
-        out.print("          <TABLE cellpadding=0 cellspacing=0 border=0 width='600'' align='left' valign='top'>\n"
-                + "            <TR>\n"
-                + "              <TD><HR></TD>\n"
-                + "            </TR>\n"
-                + "            <TR>\n"
-                + "              <TD valign='top' align='center'><H1>").print(pageAttributes.getTitle()).print("</H1></TD>\n"
-                + "            </TR>\n"
-                + "            <TR>\n"
-                + "              <TD><HR></TD>\n"
-                + "            </TR>\n"
-                + "            <TR>\n"
-                + "              <TD valign='top'>");
+    }
+
+    public void startContent(HttpServletRequest req, ChainWriter out, PageAttributes pageAttributes, int[] colspans, String width) throws IOException {
+        out.print("          <TABLE cellpadding='0' cellspacing='0' border='0'");
+        if(width!=null && (width=width.trim()).length()>0) out.print(" width='").print(width).print('\'');
+        out.print(" align='left' valign='top'>\n"
+                + "            <TR>\n");
+        int totalColumns=0;
+        for(int c=0;c<colspans.length;c++) {
+            if(c>0) totalColumns++;
+            totalColumns+=colspans[c];
+        }
+        out.print("              <TD");
+        if(totalColumns!=1) out.print(" colspan='").print(totalColumns).print('\'');
+        out.print("><HR></TD>\n"
+                + "            </TR>\n");
+    }
+
+    public void printContentTitle(HttpServletRequest req, ChainWriter out, String title, int colspan) {
+        startContentLine(req, out, colspan, "center");
+        out.print("<H1>").print(title).print("</H1>\n");
+        endContentLine(req, out, 1, false);
+    }
+
+    public void startContentLine(HttpServletRequest req, ChainWriter out, int colspan, String align) {
+        out.print("            <TR>\n"
+                + "              <TD valign='top'");
+        if(colspan!=1) out.print(" colspan='").print(colspan).print('\'');
+        if(align!=null && (align=align.trim()).length()>0) out.print(" align='").print(align).print('\'');
+        out.print('>');
+    }
+
+    public void printContentVerticalDivider(HttpServletRequest req, ChainWriter out, boolean visible, int colspan, int rowspan, String align) {
+        out.print("              </TD>\n");
+        if(visible) out.print("              <TD>&nbsp;</TD>\n");
+        out.print("              <TD valign='top'");
+        if(colspan!=1) out.print(" colspan='").print(colspan).print('\'');
+        if(rowspan!=1) out.print(" rowspan='").print(rowspan).print('\'');
+        if(align!=null && (align=align.trim()).length()>0) out.print(" align='").print(align).print('\'');
+        out.print('>');
+    }
+
+    public void endContentLine(HttpServletRequest req, ChainWriter out, int rowspan, boolean endsInternal) {
+        out.print("              </TD>\n"
+                + "            </TR>\n");
+    }
+
+    public void printContentHorizontalDivider(HttpServletRequest req, ChainWriter out, int[] colspansAndDirections, boolean endsInternal) {
+        out.print("            <TR>\n");
+        for(int c=0;c<colspansAndDirections.length;c+=2) {
+            if(c>0) {
+                int direction=colspansAndDirections[c-1];
+                switch(direction) {
+                    case UP:
+                        out.print("              <TD>&nbsp;</TD>\n");
+                        break;
+                    case DOWN:
+                        out.print("              <TD>&nbsp;</TD>\n");
+                        break;
+                    case UP_AND_DOWN:
+                        out.print("              <TD>&nbsp;</TD>\n");
+                        break;
+                    default: throw new IllegalArgumentException("Unknown direction: "+direction);
+                }
+            }
+
+            int colspan=colspansAndDirections[c];
+            out.print("              <TD");
+            if(colspan!=1) out.print(" colspan='").print(colspan).print('\'');
+            out.print("><HR></TD>\n");
+        }
+        out.print("            </TR>\n");
+    }
+
+    public void endContent(HttpServletRequest req, ChainWriter out, PageAttributes pageAttributes, int[] colspans) throws IOException {
+        int totalColumns=0;
+        for(int c=0;c<colspans.length;c++) {
+            if(c>0) totalColumns+=1;
+            totalColumns+=colspans[c];
+        }
+        out.print("            <TR><TD");
+        if(totalColumns!=1) out.print(" colspan='").print(totalColumns).print('\'');
+        out.print("><HR></TD></TR>\n");
+        String copyright = pageAttributes.getCopyright();
+        if(copyright!=null && copyright.length()>0) {
+            out.print("            <TR><TD");
+            if(totalColumns!=1) out.print(" colspan='").print(totalColumns).print('\'');
+            out.print(" align='center'><FONT size=-2>").print(copyright).print("</FONT></TD></TR>\n");
+        }
+        out.print("          </TABLE>\n");
     }
 
     public void endSkin(HttpServletRequest req, ChainWriter out, PageAttributes pageAttributes) throws IOException {
-        out.print("</TD>\n"
-                + "            </TR>\n"
-                + "            <TR><TD><HR></TD></TR>\n");
-        String copyright = pageAttributes.getCopyright();
-        if(copyright!=null && copyright.length()>0) {
-            out.print("            <TR><TD align='center'><FONT size=-2>"); out.print(copyright); out.print("</FONT></TD></TR>\n");
-        }
-        out.print("          </TABLE>\n"
-                + "        </TD>\n"
+        out.print("        </TD>\n"
                 + "      </TR>\n"
                 + "    </TABLE>\n"
                 + "  </BODY>\n");
     }
 
-    public void beginLightArea(ChainWriter out) {
-        out.print("<TABLE border=5 cellpadding=0 cellspacing=0>\n"
+    public void beginLightArea(ChainWriter out, String width, boolean nowrap) {
+        out.print("<TABLE border='5' cellpadding='0' cellspacing='0'>\n"
                 + "  <TR>\n"
-                + "    <TD class='ao_light_row'>");
+                + "    <TD class='ao_light_row'");
+        if(width!=null && (width=width.trim()).length()>0) out.print(" width='").print(width).print('\'');
+        if(nowrap) out.print(" nowrap");
+        out.print('>');
     }
 
     public void endLightArea(ChainWriter out) {
@@ -286,6 +359,21 @@ public class TextSkin extends Skin {
                 + "</TABLE>\n");
     }
     
+    public void beginWhiteArea(ChainWriter out, String width, boolean nowrap) {
+        out.print("<TABLE border='5' cellpadding='0' cellspacing='0'>\n"
+                + "  <TR>\n"
+                + "    <TD class='ao_light_row'");
+        if(width!=null && (width=width.trim()).length()>0) out.print(" width='").print(width).print('\'');
+        if(nowrap) out.print(" nowrap");
+        out.print(" bgcolor='white'>");
+    }
+
+    public void endWhiteArea(ChainWriter out) {
+	out.print("</TD>\n"
+                + "  </TR>\n"
+                + "</TABLE>\n");
+    }
+
     public static class Language {
         private String code;
         private String display;
