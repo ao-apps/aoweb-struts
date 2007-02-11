@@ -5,8 +5,6 @@ package com.aoindustries.website.skintags;
  * 816 Azalea Rd, Mobile, Alabama, 36693, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.io.ChainWriter;
-import java.io.IOException;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,6 +22,20 @@ import org.apache.struts.util.MessageResources;
  */
 public class SkinTag extends PageAttributesTag {
 
+    /**
+     * Gets the current skin from the session.  It is assumed the skin is already set.  Will throw an exception if not available.
+     */
+    static Skin getSkin(PageContext pageContext) throws JspException {
+        Skin skin = (Skin)pageContext.getAttribute(Constants.SKIN, PageContext.REQUEST_SCOPE);
+        if(skin==null) {
+            HttpSession session = pageContext.getSession();
+            Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
+            MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
+            throw new JspException(applicationResources.getMessage(locale, "skintags.unableToFindSkinInRequest"));
+        }
+        return skin;
+    }
+
     private String onLoad;
 
     public SkinTag() {
@@ -35,44 +47,24 @@ public class SkinTag extends PageAttributesTag {
     }
 
     public int doStartTag(PageAttributes pageAttributes) throws JspException {
-        try {
-            pageAttributes.setOnLoad(onLoad);
+        pageAttributes.setOnLoad(onLoad);
 
-            ChainWriter out = new ChainWriter(pageContext.getOut());
-            Skin skin = (Skin)pageContext.getAttribute(Constants.SKIN, PageContext.REQUEST_SCOPE);
-            if(skin==null) {
-                HttpSession session = pageContext.getSession();
-                Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-                MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
-                throw new JspException(applicationResources.getMessage(locale, "skintags.unableToFindSkinInRequest"));
-            }
+        Skin skin = SkinTag.getSkin(pageContext);
 
-            HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-            skin.startSkin(req, out, pageAttributes);
+        HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+        skin.startSkin(req, pageContext.getOut(), pageAttributes);
 
-            return EVAL_BODY_INCLUDE;
-        } catch(IOException err) {
-            throw new JspException(err);
-        }
+        return EVAL_BODY_INCLUDE;
     }
 
     public int doEndTag(PageAttributes pageAttributes) throws JspException {
         try {
-            ChainWriter out = new ChainWriter(pageContext.getOut());
-            Skin skin = (Skin)pageContext.getAttribute(Constants.SKIN, PageContext.REQUEST_SCOPE);
-            if(skin==null) {
-                HttpSession session = pageContext.getSession();
-                Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-                MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
-                throw new JspException(applicationResources.getMessage(locale, "skintags.unableToFindSkinInRequest"));
-            }
+            Skin skin = SkinTag.getSkin(pageContext);
 
             HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-            skin.endSkin(req, out, pageAttributes);
+            skin.endSkin(req, pageContext.getOut(), pageAttributes);
 
             return EVAL_PAGE;
-        } catch(IOException err) {
-            throw new JspException(err);
         } finally {
             init();
         }

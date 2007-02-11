@@ -5,7 +5,6 @@ package com.aoindustries.website.skintags;
  * 816 Azalea Rd, Mobile, Alabama, 36693, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.io.ChainWriter;
 import com.aoindustries.util.StringUtility;
 import com.aoindustries.website.Constants;
 import com.aoindustries.website.Skin;
@@ -47,14 +46,7 @@ public class ContentHorizontalDividerTag extends TagSupport {
                 throw new JspException(applicationResources.getMessage(locale, "skintags.ContentHorizontalDividerTag.mustNestInContentTag"));
             }
 
-            ChainWriter out = new ChainWriter(pageContext.getOut());
-            Skin skin = (Skin)pageContext.getAttribute(Constants.SKIN, PageContext.REQUEST_SCOPE);
-            if(skin==null) {
-                HttpSession session = pageContext.getSession();
-                Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-                MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
-                throw new JspException(applicationResources.getMessage(locale, "skintags.unableToFindSkinInRequest"));
-            }
+            Skin skin = SkinTag.getSkin(pageContext);
 
             List<String> list = StringUtility.splitStringCommaSpace(colspansAndDirections);
             if((list.size()&1)==0) {
@@ -81,7 +73,7 @@ public class ContentHorizontalDividerTag extends TagSupport {
             }
 
             HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-            skin.printContentHorizontalDivider(req, out, array, endsInternal);
+            skin.printContentHorizontalDivider(req, pageContext.getOut(), array, endsInternal);
 
             return SKIP_BODY;
         } finally {

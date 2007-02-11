@@ -1,5 +1,10 @@
 package com.aoindustries.website;
 
+/*
+ * Copyright 2007 by AO Industries, Inc.,
+ * 816 Azalea Rd, Mobile, Alabama, 36693, U.S.A.
+ * All rights reserved.
+ */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.util.ErrorPrinter;
 import java.io.IOException;

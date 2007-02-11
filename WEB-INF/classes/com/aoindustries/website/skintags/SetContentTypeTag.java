@@ -29,13 +29,7 @@ public class SetContentTypeTag extends TagSupport {
     }
 
     public int doStartTag() throws JspException {
-        Skin skin = (Skin)pageContext.getAttribute(Constants.SKIN, PageContext.REQUEST_SCOPE);
-        if(skin==null) {
-            HttpSession session = pageContext.getSession();
-            Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-            MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
-            throw new JspException(applicationResources.getMessage(locale, "skintags.unableToFindSkinInRequest"));
-        }
+        Skin skin = SkinTag.getSkin(pageContext);
 
         Locale locale = (Locale)pageContext.getSession().getAttribute(Globals.LOCALE_KEY);
 

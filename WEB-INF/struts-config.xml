@@ -76,11 +76,6 @@
         parameter="com.aoindustries.website.ApplicationResources"
         null="false"
     />
-    <message-resources
-        key="/clientarea/ApplicationResources"
-        parameter="com.aoindustries.website.clientarea.ApplicationResources"
-        null="false"
-    />
 
     <!-- ========== Validator Plug-In ======================================= -->
     <plug-in className="org.apache.struts.validator.ValidatorPlugIn">

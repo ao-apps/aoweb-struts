@@ -22,10 +22,6 @@
       <param-value>/WEB-INF/struts-config.xml</param-value>
     </init-param>
     <init-param>
-      <param-name>config/clientarea</param-name>
-      <param-value>/WEB-INF/struts-config-clientarea.xml</param-value>
-    </init-param>
-    <init-param>
       <param-name>config/clientarea/control</param-name>
       <param-value>/WEB-INF/struts-config-clientarea-control.xml</param-value>
     </init-param>

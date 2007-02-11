@@ -68,11 +68,6 @@
         null="false"
     />
     <message-resources
-        key="/clientarea/ApplicationResources"
-        parameter="com.aoindustries.website.clientarea.ApplicationResources"
-        null="false"
-    />
-    <message-resources
         key="/clientarea/control/ApplicationResources"
         parameter="com.aoindustries.website.clientarea.control.ApplicationResources"
         null="false"

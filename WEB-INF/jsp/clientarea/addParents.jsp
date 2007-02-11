@@ -8,7 +8,3 @@
 <%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
 
 <%@ include file="../addParents.jsp" %>
-<skin:addParent useEncryption="false" path="/clientarea/ClientAreaIndex.ao">
-    <skin:title><bean:message bundle="/clientarea/ApplicationResources" key="index.title"/></skin:title>
-    <skin:navImageAlt><bean:message bundle="/clientarea/ApplicationResources" key="index.navImageAlt"/></skin:navImageAlt>
-</skin:addParent>

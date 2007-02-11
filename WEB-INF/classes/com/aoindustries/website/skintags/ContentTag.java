@@ -5,9 +5,7 @@ package com.aoindustries.website.skintags;
  * 816 Azalea Rd, Mobile, Alabama, 36693, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.io.ChainWriter;
 import com.aoindustries.util.StringUtility;
-import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -49,37 +47,22 @@ public class ContentTag extends PageAttributesTag {
     }
 
     public int doStartTag(PageAttributes pageAttributes) throws JspException {
-        try {
-            ChainWriter out = new ChainWriter(pageContext.getOut());
-            Skin skin = (Skin)pageContext.getAttribute(Constants.SKIN, PageContext.REQUEST_SCOPE);
-            if(skin==null) {
-                HttpSession session = pageContext.getSession();
-                Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-                MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
-                throw new JspException(applicationResources.getMessage(locale, "skintags.unableToFindSkinInRequest"));
-            }
+        Skin skin = SkinTag.getSkin(pageContext);
 
-            HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-            skin.startContent(req, out, pageAttributes, colspansParsed, width);
+        HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+        skin.startContent(req, pageContext.getOut(), pageAttributes, colspansParsed, width);
 
-            return EVAL_BODY_INCLUDE;
-        } catch(IOException err) {
-            throw new JspException(err);
-        }
+        return EVAL_BODY_INCLUDE;
     }
 
     public int doEndTag(PageAttributes pageAttributes) throws JspException {
         try {
-            ChainWriter out = new ChainWriter(pageContext.getOut());
-            Skin skin = (Skin)pageContext.getAttribute(Constants.SKIN, PageContext.REQUEST_SCOPE);
-            if(skin==null) throw new JspException("Unable to find skin in the request attributes");
+            Skin skin = SkinTag.getSkin(pageContext);
 
             HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-            skin.endContent(req, out, pageAttributes, colspansParsed);
+            skin.endContent(req, pageContext.getOut(), pageAttributes, colspansParsed);
 
             return EVAL_PAGE;
-        } catch(IOException err) {
-            throw new JspException(err);
         } finally {
             init();
         }

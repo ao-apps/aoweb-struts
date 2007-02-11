@@ -5,7 +5,6 @@ package com.aoindustries.website.skintags;
  * 816 Azalea Rd, Mobile, Alabama, 36693, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.io.ChainWriter;
 import com.aoindustries.website.Constants;
 import com.aoindustries.website.Skin;
 import java.util.Locale;
@@ -49,17 +48,10 @@ public class ContentVerticalDividerTag extends TagSupport {
                 throw new JspException(applicationResources.getMessage(locale, "skintags.ContentVerticalDividerTag.mustNestInContentLineTag"));
             }
 
-            ChainWriter out = new ChainWriter(pageContext.getOut());
-            Skin skin = (Skin)pageContext.getAttribute(Constants.SKIN, PageContext.REQUEST_SCOPE);
-            if(skin==null) {
-                HttpSession session = pageContext.getSession();
-                Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-                MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
-                throw new JspException(applicationResources.getMessage(locale, "skintags.unableToFindSkinInRequest"));
-            }
+            Skin skin = SkinTag.getSkin(pageContext);
 
             HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-            skin.printContentVerticalDivider(req, out, visible, colspan, rowspan, align);
+            skin.printContentVerticalDivider(req, pageContext.getOut(), visible, colspan, rowspan, align);
 
             contentLineTag.setLastRowSpan(rowspan);
 
