@@ -1,5 +1,10 @@
 package com.aoindustries.website.clientarea.control.password;
 
+/*
+ * Copyright 2007 by AO Industries, Inc.,
+ * 816 Azalea Rd, Mobile, Alabama, 36693, U.S.A.
+ * All rights reserved.
+ */
 import com.aoindustries.aoserv.client.LinuxAccountTable;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.SkinAction;

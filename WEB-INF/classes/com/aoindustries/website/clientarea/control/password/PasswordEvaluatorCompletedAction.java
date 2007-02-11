@@ -1,5 +1,10 @@
 package com.aoindustries.website.clientarea.control.password;
 
+/*
+ * Copyright 2007 by AO Industries, Inc.,
+ * 816 Azalea Rd, Mobile, Alabama, 36693, U.S.A.
+ * All rights reserved.
+ */
 import com.aoindustries.aoserv.client.PasswordChecker;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.SkinAction;
@@ -12,6 +17,7 @@ import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessages;
 
 /**
  * Evaluates the strength of passwords, stores the results as a <code>PasswordChecker.Result[]</code> in request attribute "results".  The results are keys into the
@@ -30,6 +36,12 @@ public class PasswordEvaluatorCompletedAction extends SkinAction {
         Skin skin
     ) throws Exception {
         PasswordEvaluatorForm passwordEvaluatorForm = (PasswordEvaluatorForm)form;
+
+        ActionMessages errors = passwordEvaluatorForm.validate(mapping, request);
+        if(errors!=null && !errors.isEmpty()) {
+            saveErrors(request, errors);
+            return mapping.findForward("input");
+        }
 
         // Evaluate the password
         String password = passwordEvaluatorForm.getPassword();

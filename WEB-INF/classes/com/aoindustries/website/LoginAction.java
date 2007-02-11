@@ -34,7 +34,7 @@ public class LoginAction extends SkinAction {
         Skin skin
     ) throws Exception {
         String target = request.getParameter("target");
-        if(target!=null && target.length()>0) {
+        if(target!=null && target.length()>0 && !target.endsWith("/login.do")) {
             request.getSession().setAttribute(Constants.AUTHENTICATION_TARGET, target);
         }
 

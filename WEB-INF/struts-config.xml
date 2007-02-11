@@ -45,17 +45,16 @@
             path="/loginCompleted"
             name="loginForm"
             scope="request"
-            validate="true"
-            input="/login.do"
+            validate="false"
             type="com.aoindustries.website.LoginCompletedAction"
         >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/login.jsp" redirect="false" />
             <forward name="success" contextRelative="true" path="/clientarea/control/index.do" redirect="true" />
             <forward name="failure" contextRelative="true" path="/WEB-INF/jsp/login.jsp" redirect="false" />
         </action>
         <action
             path="/logout"
             type="com.aoindustries.website.LogoutAction"
-            validate="false"
         >
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/logout.jsp" redirect="false" />
         </action>

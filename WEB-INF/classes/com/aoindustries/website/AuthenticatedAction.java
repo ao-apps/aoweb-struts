@@ -41,7 +41,12 @@ public class AuthenticatedAction extends SkinAction {
         // Handle login
         AOServConnector aoConn = getAoConn(request);
         if(aoConn==null) {
-            request.getSession().setAttribute(Constants.AUTHENTICATION_TARGET, request.getRequestURL().toString());
+            String target = request.getRequestURL().toString();
+            if(!target.endsWith("/login.do")) {
+                request.getSession().setAttribute(Constants.AUTHENTICATION_TARGET, target);
+            } else {
+                request.getSession().removeAttribute(Constants.AUTHENTICATION_TARGET);
+            }
             return mapping.findForward("login");
         }
         

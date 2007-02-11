@@ -21,6 +21,7 @@ import org.apache.struts.Globals;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessages;
 import org.apache.struts.util.MessageResources;
 
 /**
@@ -37,6 +38,13 @@ public class LoginCompletedAction extends SkinAction {
         Skin skin
     ) throws Exception {
         LoginForm loginForm = (LoginForm)form;
+
+        ActionMessages errors = loginForm.validate(mapping, request);
+        if(errors!=null && !errors.isEmpty()) {
+            saveErrors(request, errors);
+            return mapping.findForward("input");
+        }
+
         String username = loginForm.getUsername();
         String password = loginForm.getPassword();
 
