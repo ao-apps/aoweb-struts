@@ -15,12 +15,14 @@ public class Page {
 
     private String title;
     private String navImageAlt;
+    private String description;
     private boolean useEncryption;
     private String path;
 
-    public Page(String title, String navImageAlt, boolean useEncryption, String path) {
+    public Page(String title, String navImageAlt, String description, boolean useEncryption, String path) {
         this.title = title;
         this.navImageAlt = navImageAlt;
+        this.description = description;
         this.useEncryption = useEncryption;
         this.path = path;
     }
@@ -31,6 +33,10 @@ public class Page {
 
     public String getNavImageAlt() {
         return navImageAlt;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public boolean getUseEncryption() {

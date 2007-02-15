@@ -6,22 +6,23 @@ package com.aoindustries.website.skintags;
  * All rights reserved.
  */
 import javax.servlet.jsp.tagext.BodyContent;
+import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Sets the title for a page.
  *
  * @author  AO Industries, Inc.
  */
-public class TitleTag extends PageAttributesTag {
+public class TitleTag extends BodyTagSupport {
 
     public TitleTag() {
     }
 
-    public int doStartTag(PageAttributes pageAttributes) {
+    public int doStartTag() {
         return EVAL_BODY_BUFFERED;
     }
 
-    public int doEndTag(PageAttributes pageAttributes) {
+    public int doEndTag() {
         String title = getBodyContent().getString().trim();
         AddParentTag addParentTag = (AddParentTag)findAncestorWithClass(this, AddParentTag.class);
         if(addParentTag!=null) {
@@ -31,7 +32,7 @@ public class TitleTag extends PageAttributesTag {
             if(addSiblingTag!=null) {
                 addSiblingTag.setTitle(title);
             } else {
-                pageAttributes.setTitle(title);
+                PageAttributesTag.getPageAttributes(pageContext).setTitle(title);
             }
         }
         return SKIP_BODY;

@@ -6,7 +6,6 @@ package com.aoindustries.website.clientarea.control.password;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.PasswordChecker;
 import com.aoindustries.util.AutoGrowArrayList;
 import com.aoindustries.website.AuthenticatedAction;
@@ -23,7 +22,7 @@ import org.apache.struts.action.ActionMessage;
 /**
  * @author Dan Armstrong &lt;dan@aoindustries.com&gt;
  */
-public class BusinessAdministratorPasswordSetterForm extends ActionForm implements Serializable {
+public class GlobalPasswordSetterForm extends ActionForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -83,12 +82,12 @@ public class BusinessAdministratorPasswordSetterForm extends ActionForm implemen
             String confirmPassword = confirmPasswords.get(c);
             if(!newPassword.equals(confirmPassword)) {
                 if(errors==null) errors = new ActionErrors();
-                errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.businessAdministratorPasswordSetter.field.confirmPasswords.mismatch"));
+                errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.globalPasswordSetter.field.confirmPasswords.mismatch"));
             } else {
                 if(newPassword.length()>0) {
                     String username = usernames.get(c);
                     // Check the password strength
-                    PasswordChecker.Result[] results = BusinessAdministrator.checkPassword(username, newPassword);
+                    PasswordChecker.Result[] results = PasswordChecker.checkPassword(username, newPassword,  true, false);
                     if(PasswordChecker.hasResults(results)) {
                         if(errors==null) errors = new ActionErrors();
                         errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results, locale), false));

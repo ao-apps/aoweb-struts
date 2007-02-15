@@ -6,8 +6,10 @@ package com.aoindustries.website;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.util.ErrorPrinter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Locale;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +30,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author  AO Industries, Inc.
  */
-public class AuthenticatedAction extends SkinAction {
+abstract public class AuthenticatedAction extends SkinAction {
 
     final public ActionForward execute(
         ActionMapping mapping,

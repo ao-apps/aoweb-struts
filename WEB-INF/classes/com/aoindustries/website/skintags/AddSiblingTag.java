@@ -21,6 +21,7 @@ public class AddSiblingTag extends PageAttributesTag {
 
     private String title;
     private String navImageAlt;
+    private String description;
     private boolean useEncryptionSet;
     private boolean useEncryption;
     private String path;
@@ -32,6 +33,7 @@ public class AddSiblingTag extends PageAttributesTag {
     private void init() {
         title = null;
         navImageAlt = null;
+        description = null;
         useEncryptionSet = false;
         useEncryption = false;
         path = null;
@@ -49,6 +51,10 @@ public class AddSiblingTag extends PageAttributesTag {
         this.navImageAlt = navImageAlt;
     }
     
+    void setDescription(String description) {
+        this.description = description;
+    }
+
     public boolean getUseEncryption() {
         return useEncryption;
     }
@@ -76,7 +82,9 @@ public class AddSiblingTag extends PageAttributesTag {
             }
             String navImageAlt = this.navImageAlt;
             if(navImageAlt == null || navImageAlt.length()==0) navImageAlt=title;
-            pageAttributes.addSibling(new Page(title, navImageAlt, useEncryptionSet ? useEncryption : pageContext.getRequest().isSecure(), path));
+            String description = this.description;
+            if(description == null || description.length()==0) description=title;
+            pageAttributes.addSibling(new Page(title, navImageAlt, description, useEncryptionSet ? useEncryption : pageContext.getRequest().isSecure(), path));
             return EVAL_PAGE;
         } finally {
             init();

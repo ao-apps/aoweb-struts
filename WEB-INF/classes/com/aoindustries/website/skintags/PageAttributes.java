@@ -21,7 +21,7 @@ public class PageAttributes {
     /**
      * The following key is used to store the objects in the page attributes.
      */
-    public static final String ATTRIBUTE_KEY = PageAttributes.class.getName();
+    public static final String ATTRIBUTE_KEY = "pageAttributes";
 
     /**
      * The following scope is used to store the objects in the page attributes.
@@ -41,7 +41,7 @@ public class PageAttributes {
     
     public PageAttributes() {
     }
-    
+
     public String getPath() {
         return path;
     }

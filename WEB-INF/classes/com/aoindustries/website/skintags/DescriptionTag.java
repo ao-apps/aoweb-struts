@@ -6,23 +6,35 @@ package com.aoindustries.website.skintags;
  * All rights reserved.
  */
 import javax.servlet.jsp.tagext.BodyContent;
+import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Sets the description for the page.
  *
  * @author  AO Industries, Inc.
  */
-public class DescriptionTag extends PageAttributesTag {
+public class DescriptionTag extends BodyTagSupport {
 
     public DescriptionTag() {
     }
 
-    public int doStartTag(PageAttributes pageAttributes) {
+    public int doStartTag() {
         return EVAL_BODY_BUFFERED;
     }
 
-    public int doEndTag(PageAttributes pageAttributes) {
-        pageAttributes.setDescription(getBodyContent().getString().trim());
+    public int doEndTag() {
+        String description = getBodyContent().getString().trim();
+        AddParentTag addParentTag = (AddParentTag)findAncestorWithClass(this, AddParentTag.class);
+        if(addParentTag!=null) {
+            addParentTag.setDescription(description);
+        } else {
+            AddSiblingTag addSiblingTag = (AddSiblingTag)findAncestorWithClass(this, AddSiblingTag.class);
+            if(addSiblingTag!=null) {
+                addSiblingTag.setDescription(description);
+            } else {
+                PageAttributesTag.getPageAttributes(pageContext).setDescription(description);
+            }
+        }
         return SKIP_BODY;
     }
 }

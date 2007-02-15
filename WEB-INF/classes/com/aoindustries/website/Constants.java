@@ -47,4 +47,9 @@ public class Constants {
      * The request key used to store the current <code>Locale</code>.
      */
     public static final String LOCALE = "locale";
+    
+    /**
+     * The session key used to store the <code>List&lt;AOServPermission&gt;</code> that ALL must be allowed for the specified task.
+     */
+    public static final String PERMISSION_DENIED = "permissionDenied";
 }

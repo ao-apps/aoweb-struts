@@ -285,8 +285,9 @@ public class TextSkin extends Skin {
                 out.print("</A><BR>\n");
             }
             out.print("          </SPAN>\n"
-                    + "          <HR>\n"
-                    + "        </TD>\n"
+                    + "          <HR>\n");
+            printBelowRelatedPages(req, out);
+            out.print("        </TD>\n"
                     + "        <TD valign='top'>\n");
             printCommonPages(req, out);
         } catch(IOException err) {
@@ -519,5 +520,54 @@ public class TextSkin extends Skin {
         } catch(IOException err) {
             throw new JspException(err);
         }
+    }
+
+    public void printAutoIndex(HttpServletRequest req, JspWriter out, PageAttributes pageAttributes) throws JspException {
+        try {
+            String httpsUrlBase = getHttpsUrlBase(req);
+            String httpUrlBase = getHttpUrlBase(req);
+
+            out.print("<table cellpadding='0' cellspacing='10' border='0'>\n");
+            List<Page> siblings = pageAttributes.getSiblings();
+            for(Page sibling : siblings) {
+                String navAlt=sibling.getNavImageAlt();
+                boolean useEncryption = sibling.getUseEncryption();
+                String siblingPath = sibling.getPath();
+                if(siblingPath.startsWith("/")) siblingPath=siblingPath.substring(1);
+
+                out.print("  <TR>\n"
+                        + "    <TD nowrap><A class='ao_light_link' href='");
+                out.print(useEncryption ? httpsUrlBase : httpUrlBase);
+                ChainWriter.writeHtmlAttribute(siblingPath, out);
+                out.print("'>");
+                ChainWriter.writeHtml(navAlt, out);
+                out.print("</A></TD>\n"
+                        + "    <TD width='12' nowrap>&nbsp;</TD>\n"
+                        + "    <TD nowrap>");
+                String description = sibling.getDescription();
+                if(description!=null && (description=description.trim()).length()>0) {
+                    out.print(description);
+                } else {
+                    String title = sibling.getTitle();
+                    if(title!=null && (title=title.trim()).length()>0) {
+                        out.print(title);
+                    } else {
+                        out.print("&nbsp;");
+                    }
+                }
+                out.print("</TD>\n"
+                        + "  </TR>\n")
+                ;
+            }
+            out.print("</table>\n");
+        } catch(IOException err) {
+            throw new JspException(err);
+        }
+    }
+
+    /**
+     * Prints content below the related pages area on the left.
+     */
+    public void printBelowRelatedPages(HttpServletRequest req, JspWriter out) throws JspException {
     }
 }

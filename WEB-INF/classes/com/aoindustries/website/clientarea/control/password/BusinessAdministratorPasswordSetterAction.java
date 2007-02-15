@@ -6,11 +6,13 @@ package com.aoindustries.website.clientarea.control.password;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.Username;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.Skin;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -27,8 +29,20 @@ import org.apache.struts.action.ActionMessages;
  */
 public class BusinessAdministratorPasswordSetterAction extends AuthenticatedAction {
 
-    static void populate(AOServConnector aoConn, BusinessAdministratorPasswordSetterForm businessAdministratorPasswordSetterForm) {
-        List<BusinessAdministrator> bas = aoConn.businessAdministrators.getRows();
+    public ActionForward execute(
+        ActionMapping mapping,
+        ActionForm form,
+        HttpServletRequest request,
+        HttpServletResponse response,
+        Locale locale,
+        Skin skin,
+        AOServConnector aoConn
+    ) throws Exception {
+        BusinessAdministratorPasswordSetterForm businessAdministratorPasswordSetterForm = (BusinessAdministratorPasswordSetterForm)form;
+
+        BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
+        
+        List<BusinessAdministrator> bas = thisBA.hasPermission(AOServPermission.SET_BUSINESS_ADMINISTRATOR_PASSWORD) ? aoConn.businessAdministrators.getRows() : Collections.singletonList(thisBA);
 
         List<String> packages = new ArrayList<String>(bas.size());
         List<String> usernames = new ArrayList<String>(bas.size());
@@ -49,19 +63,7 @@ public class BusinessAdministratorPasswordSetterAction extends AuthenticatedActi
         businessAdministratorPasswordSetterForm.setUsernames(usernames);
         businessAdministratorPasswordSetterForm.setNewPasswords(newPasswords);
         businessAdministratorPasswordSetterForm.setConfirmPasswords(confirmPasswords);
-    }
 
-    public ActionForward execute(
-        ActionMapping mapping,
-        ActionForm form,
-        HttpServletRequest request,
-        HttpServletResponse response,
-        Locale locale,
-        Skin skin,
-        AOServConnector aoConn
-    ) throws Exception {
-        BusinessAdministratorPasswordSetterForm businessAdministratorPasswordSetterForm = (BusinessAdministratorPasswordSetterForm)form;
-        BusinessAdministratorPasswordSetterAction.populate(aoConn, businessAdministratorPasswordSetterForm);
         return mapping.findForward("success");
     }
 }

@@ -21,7 +21,7 @@ abstract public class PageAttributesTag extends BodyTagSupport {
     public PageAttributesTag() {
     }
 
-    private PageAttributes getPageAttributes() {
+    static PageAttributes getPageAttributes(PageContext pageContext) {
         PageAttributes pageAttributes = (PageAttributes)pageContext.getAttribute(PageAttributes.ATTRIBUTE_KEY, PageAttributes.ATTRIBUTE_SCOPE);
         if(pageAttributes==null) {
             pageAttributes = new PageAttributes();
@@ -31,7 +31,7 @@ abstract public class PageAttributesTag extends BodyTagSupport {
     }
 
     final public int doStartTag() throws JspException {
-        return doStartTag(getPageAttributes());
+        return doStartTag(getPageAttributes(pageContext));
     }
 
     public int doStartTag(PageAttributes pageAttributes) throws JspException {
@@ -48,7 +48,7 @@ abstract public class PageAttributesTag extends BodyTagSupport {
     }*/
 
     final public int doEndTag() throws JspException {
-        return doEndTag(getPageAttributes());
+        return doEndTag(getPageAttributes(pageContext));
     }
 
     public int doEndTag(PageAttributes pageAttributes) throws JspException {

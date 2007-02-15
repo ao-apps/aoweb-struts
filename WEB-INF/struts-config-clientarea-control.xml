@@ -9,6 +9,7 @@
     <form-beans>
         <form-bean name="passwordEvaluatorForm" type="com.aoindustries.website.clientarea.control.password.PasswordEvaluatorForm" />
         <form-bean name="businessAdministratorPasswordSetterForm" type="com.aoindustries.website.clientarea.control.password.BusinessAdministratorPasswordSetterForm" />
+        <form-bean name="interBasePasswordSetterForm" type="com.aoindustries.website.clientarea.control.password.InterBasePasswordSetterForm" />
         <form-bean name="linuxAccountPasswordSetterForm" type="com.aoindustries.website.clientarea.control.password.LinuxAccountPasswordSetterForm" />
         <form-bean name="mySQLPasswordSetterForm" type="com.aoindustries.website.clientarea.control.password.MySQLPasswordSetterForm" />
         <form-bean name="postgreSQLPasswordSetterForm" type="com.aoindustries.website.clientarea.control.password.PostgreSQLPasswordSetterForm" />
@@ -25,11 +26,16 @@
         <!-- / -->
         <forward name="exception" contextRelative="true" path="/WEB-INF/jsp/exception.jsp" />
         <forward name="login" contextRelative="true" path="/login.do" />
-        <!-- /clientarea/control -->
     </global-forwards>
 
     <!-- ========== Action Mapping Definitions ============================== -->
     <action-mappings>
+        <action
+            path="/password/index"
+            type="com.aoindustries.website.SkinAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/index.jsp" redirect="false" />
+        </action>
         <action
             path="/password/passwordEvaluator"
             name="passwordEvaluatorForm"
@@ -75,12 +81,34 @@
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/businessAdministratorPasswordSetter.jsp" redirect="false" />
         </action>
         <action
+            path="/password/interBasePasswordSetter"
+            name="interBasePasswordSetterForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.clientarea.control.password.InterBasePasswordSetterAction"
+        >
+            <forward name="permissionDenied" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/interBasePasswordSetter.jsp" redirect="false" />
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/interBasePasswordSetter.jsp" redirect="false" />
+        </action>
+        <action
+            path="/password/interBasePasswordSetterCompleted"
+            name="interBasePasswordSetterForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.clientarea.control.password.InterBasePasswordSetterCompletedAction"
+        >
+            <forward name="permissionDenied" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/interBasePasswordSetter.jsp" redirect="false" />
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/interBasePasswordSetter.jsp" redirect="false" />
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/interBasePasswordSetter.jsp" redirect="false" />
+        </action>
+        <action
             path="/password/linuxAccountPasswordSetter"
             name="linuxAccountPasswordSetterForm"
             scope="request"
             validate="false"
             type="com.aoindustries.website.clientarea.control.password.LinuxAccountPasswordSetterAction"
         >
+            <forward name="permissionDenied" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/linuxAccountPasswordSetter.jsp" redirect="false" />
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/linuxAccountPasswordSetter.jsp" redirect="false" />
         </action>
         <action
@@ -90,6 +118,7 @@
             validate="false"
             type="com.aoindustries.website.clientarea.control.password.LinuxAccountPasswordSetterCompletedAction"
         >
+            <forward name="permissionDenied" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/linuxAccountPasswordSetter.jsp" redirect="false" />
             <forward name="input" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/linuxAccountPasswordSetter.jsp" redirect="false" />
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/linuxAccountPasswordSetter.jsp" redirect="false" />
         </action>
@@ -100,6 +129,7 @@
             validate="false"
             type="com.aoindustries.website.clientarea.control.password.MySQLPasswordSetterAction"
         >
+            <forward name="permissionDenied" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/mySQLPasswordSetter.jsp" redirect="false" />
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/mySQLPasswordSetter.jsp" redirect="false" />
         </action>
         <action
@@ -110,6 +140,7 @@
             type="com.aoindustries.website.clientarea.control.password.MySQLPasswordSetterCompletedAction"
         >
             <forward name="input" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/mySQLPasswordSetter.jsp" redirect="false" />
+            <forward name="permissionDenied" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/mySQLPasswordSetter.jsp" redirect="false" />
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/mySQLPasswordSetter.jsp" redirect="false" />
         </action>
         <action
@@ -119,6 +150,7 @@
             validate="false"
             type="com.aoindustries.website.clientarea.control.password.PostgreSQLPasswordSetterAction"
         >
+            <forward name="permissionDenied" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/postgreSQLPasswordSetter.jsp" redirect="false" />
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/postgreSQLPasswordSetter.jsp" redirect="false" />
         </action>
         <action
@@ -128,6 +160,7 @@
             validate="false"
             type="com.aoindustries.website.clientarea.control.password.PostgreSQLPasswordSetterCompletedAction"
         >
+            <forward name="permissionDenied" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/postgreSQLPasswordSetter.jsp" redirect="false" />
             <forward name="input" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/postgreSQLPasswordSetter.jsp" redirect="false" />
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/postgreSQLPasswordSetter.jsp" redirect="false" />
         </action>
@@ -138,6 +171,7 @@
             validate="false"
             type="com.aoindustries.website.clientarea.control.password.GlobalPasswordSetterAction"
         >
+            <forward name="permissionDenied" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/globalPasswordSetter.jsp" redirect="false" />
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/globalPasswordSetter.jsp" redirect="false" />
         </action>
         <action
@@ -147,6 +181,7 @@
             validate="false"
             type="com.aoindustries.website.clientarea.control.password.GlobalPasswordSetterCompletedAction"
         >
+            <forward name="permissionDenied" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/globalPasswordSetter.jsp" redirect="false" />
             <forward name="input" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/globalPasswordSetter.jsp" redirect="false" />
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/globalPasswordSetter.jsp" redirect="false" />
         </action>

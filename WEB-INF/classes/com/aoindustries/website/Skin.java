@@ -176,4 +176,9 @@ abstract public class Skin {
         layouts.add(new Layout("Text", applicationResources.getMessage(locale, "TextSkin.name")));
         return layouts;
     }
+
+    /**
+     * Prints the auto index of all the page siblings.
+     */
+    abstract public void printAutoIndex(HttpServletRequest req, JspWriter out, PageAttributes pageAttributes) throws JspException;
 }

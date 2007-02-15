@@ -18,7 +18,7 @@
     <name>description</name>
     <tag-class>com.aoindustries.website.skintags.DescriptionTag</tag-class>
     <body-content>JSP</body-content>
-    <description>Sets the description for this page.</description>
+    <description>Sets the description for this page, an addParent tag, or an addSibling tag.</description>
     <example/>
   </tag>
   <tag>
@@ -274,6 +274,13 @@
       <type>boolean</type>
       <description>Indicates the line of content ends internal to the overall content area, this may be the case when a rowspan from a higher line is causing overlap.  Defaults to false.</description>
     </attribute>
+    <example/>
+  </tag>
+  <tag>
+    <name>autoIndex</name>
+    <tag-class>com.aoindustries.website.skintags.AutoIndexTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Creates an auto index on a per-skin formatted basis.</description>
     <example/>
   </tag>
 </taglib>

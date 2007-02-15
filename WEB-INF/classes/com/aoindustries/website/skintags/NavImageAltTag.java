@@ -9,6 +9,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyContent;
+import javax.servlet.jsp.tagext.BodyTagSupport;
 import org.apache.struts.Globals;
 import org.apache.struts.util.MessageResources;
 
@@ -17,16 +18,16 @@ import org.apache.struts.util.MessageResources;
  *
  * @author  AO Industries, Inc.
  */
-public class NavImageAltTag extends PageAttributesTag {
+public class NavImageAltTag extends BodyTagSupport {
 
     public NavImageAltTag() {
     }
 
-    public int doStartTag(PageAttributes pageAttributes) {
+    public int doStartTag() {
         return EVAL_BODY_BUFFERED;
     }
 
-    public int doEndTag(PageAttributes pageAttributes) throws JspException {
+    public int doEndTag() throws JspException {
         String navImageAlt = getBodyContent().getString().trim();
         AddParentTag addParentTag = (AddParentTag)findAncestorWithClass(this, AddParentTag.class);
         if(addParentTag!=null) {
@@ -36,7 +37,7 @@ public class NavImageAltTag extends PageAttributesTag {
             if(addSiblingTag!=null) {
                 addSiblingTag.setNavImageAlt(navImageAlt);
             } else {
-                pageAttributes.setNavImageAlt(navImageAlt);
+                PageAttributesTag.getPageAttributes(pageContext).setNavImageAlt(navImageAlt);
             }
         }
         return SKIP_BODY;
