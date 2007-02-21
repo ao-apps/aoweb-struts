@@ -114,6 +114,7 @@ public class SkinAction extends LocaleAction {
 
     /**
      * Selects the <code>Skin</code>, sets the request attribute "skin", then the subclass execute method is invoked.
+     * It also stores any "su" request for later processing by AuthenticatedAction.
      *
      * @see #execute(ActionMapping,ActionForm,HttpServletRequest,HttpServletResponse,Locale,Skin)
      */
@@ -127,6 +128,12 @@ public class SkinAction extends LocaleAction {
         // Select Skin
         Skin skin = getSkin(getServlet().getServletContext(), request);
         request.setAttribute(Constants.SKIN, skin);
+
+        // Is a "su" requested?
+        String su=request.getParameter("su");
+        if(su!=null && (su=su.trim()).length()>0) {
+            request.getSession().setAttribute(Constants.SU_REQUESTED, su);
+        }
 
         return execute(mapping, form, request, response, locale, skin);
     }

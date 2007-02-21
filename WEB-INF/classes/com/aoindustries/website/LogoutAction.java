@@ -31,6 +31,8 @@ public class LogoutAction extends SkinAction {
         session.removeAttribute(Constants.AO_CONN);
         session.removeAttribute(Constants.AUTHENTICATED_AO_CONN);
         session.removeAttribute(Constants.AUTHENTICATION_TARGET);
+        session.removeAttribute(Constants.SU_REQUESTED);
+
         // Try redirect
         String target = request.getParameter("target");
         if(target!=null && target.length()>0) {

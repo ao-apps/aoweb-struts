@@ -30,9 +30,9 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author  AO Industries, Inc.
  */
-abstract public class AuthenticatedAction extends SkinAction {
+abstract public class AuthenticatedAction extends HttpsAction {
 
-    final public ActionForward execute(
+    final public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
@@ -59,7 +59,8 @@ abstract public class AuthenticatedAction extends SkinAction {
     }
 
     /**
-     * Gets the AOServConnector for the user or <code>null</code> if not logged in.  This also handles the "su" behavior.
+     * Gets the AOServConnector for the user or <code>null</code> if not logged in.  This also handles the "su" behavior that was
+     * stored in the session by <code>SkinAction</code>.
      */
     public static AOServConnector getAoConn(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -68,8 +69,9 @@ abstract public class AuthenticatedAction extends SkinAction {
         if(authenticatedAoConn==null) return null;
         
         // Is a "su" requested?
-        String su=request.getParameter("su");
-        if(su!=null && (su=su.trim()).length()>0) {
+        String su=(String)session.getAttribute(Constants.SU_REQUESTED);
+        if(su!=null) {
+            session.removeAttribute(Constants.SU_REQUESTED);
             try {
                 AOServConnector aoConn = authenticatedAoConn.switchUsers(su);
                 session.setAttribute(Constants.AO_CONN, aoConn);

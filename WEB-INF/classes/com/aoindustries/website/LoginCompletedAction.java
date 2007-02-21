@@ -27,9 +27,9 @@ import org.apache.struts.util.MessageResources;
 /**
  * @author  AO Industries, Inc.
  */
-public class LoginCompletedAction extends SkinAction {
+public class LoginCompletedAction extends HttpsAction {
 
-    public ActionForward execute(
+    public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,

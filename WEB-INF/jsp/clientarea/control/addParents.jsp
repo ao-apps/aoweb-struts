@@ -6,6 +6,6 @@
 <%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
 
 <%@ include file="../addParents.jsp" %>
-<skin:addParent useEncryption="false" path="/clientarea/control/ControlIndex.ao">
+<skin:addParent useEncryption="false" path="/clientarea/control/index.do">
     <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="index.title"/></skin:title>
 </skin:addParent>

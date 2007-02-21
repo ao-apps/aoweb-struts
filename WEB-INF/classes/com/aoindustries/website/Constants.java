@@ -14,6 +14,11 @@ package com.aoindustries.website;
 public class Constants {
 
     /**
+     * The session key that stores when a "su" has been requested.
+     */
+    public static final String SU_REQUESTED = "suRequested";
+
+    /**
      * The session key used to store the effective <code>AOServConnector</code> when the user has successfully authenticated.  Any "su" can change this.
      */
     public static final String AO_CONN = "aoConn";

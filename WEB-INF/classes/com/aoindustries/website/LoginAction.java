@@ -23,9 +23,9 @@ import org.apache.struts.action.ActionMapping;
 /**
  * @author  AO Industries, Inc.
  */
-public class LoginAction extends SkinAction {
+public class LoginAction extends HttpsAction {
 
-    public ActionForward execute(
+    public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,

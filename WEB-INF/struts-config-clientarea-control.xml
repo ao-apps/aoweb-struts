@@ -31,8 +31,14 @@
     <!-- ========== Action Mapping Definitions ============================== -->
     <action-mappings>
         <action
+            path="/index"
+            type="com.aoindustries.website.HttpAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/index.jsp" redirect="false" />
+        </action>
+        <action
             path="/password/index"
-            type="com.aoindustries.website.SkinAction"
+            type="com.aoindustries.website.HttpAction"
         >
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/index.jsp" redirect="false" />
         </action>
@@ -41,7 +47,7 @@
             name="passwordEvaluatorForm"
             scope="request"
             validate="false"
-            type="com.aoindustries.website.SkinAction"
+            type="com.aoindustries.website.HttpsAction"
         >
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/password/passwordEvaluator.jsp" redirect="false" />
         </action>

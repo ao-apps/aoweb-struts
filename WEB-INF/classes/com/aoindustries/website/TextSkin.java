@@ -39,7 +39,7 @@ public class TextSkin extends Skin {
         int port = req.getServerPort();
         if(port!=80 && port!=443) {
             // Non-ssl development area
-            return "http://"+req.getServerName()+":"+port+"/";
+            return "https://"+req.getServerName()+":8443/";
         } else {
             return "https://"+req.getServerName()+"/";
         }
@@ -52,7 +52,7 @@ public class TextSkin extends Skin {
         int port = req.getServerPort();
         if(port!=80 && port!=443) {
             // Non-ssl development area
-            return "http://"+req.getServerName()+":"+port+"/";
+            return "http://"+req.getServerName()+":8081/";
         } else {
             return "http://"+req.getServerName()+"/";
         }
@@ -97,16 +97,17 @@ public class TextSkin extends Skin {
 
     public void startSkin(HttpServletRequest req, JspWriter out, PageAttributes pageAttributes) throws JspException {
         try {
+            boolean isSecure = req.isSecure();
             HttpSession session = req.getSession();
             Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
             MessageResources applicationResources = (MessageResources)req.getAttribute("/ApplicationResources");
             if(applicationResources==null) throw new JspException("Unable to load resources: /ApplicationResources");
             String httpsUrlBase = getHttpsUrlBase(req);
             String httpUrlBase = getHttpUrlBase(req);
-            String urlBase = req.isSecure() ? httpsUrlBase : httpUrlBase;
+            String urlBase = isSecure ? httpsUrlBase : httpUrlBase;
             String path = pageAttributes.getPath();
             if(path.startsWith("/")) path=path.substring(1);
-            String fullPath = (req.isSecure() ? httpsUrlBase : httpUrlBase) + path;
+            String fullPath = (isSecure ? httpsUrlBase : httpUrlBase) + path;
 
             out.print("  <HEAD>\n"
                     + "    <META http-equiv='Content-Type' content='text/html; charset=");

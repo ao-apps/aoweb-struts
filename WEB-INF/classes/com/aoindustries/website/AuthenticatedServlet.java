@@ -43,7 +43,7 @@ abstract public class AuthenticatedServlet extends HttpServlet {
             String url;
             if(port!=80 && port!=443) {
                 // Non-ssl development area
-                url = "http://"+request.getServerName()+":"+port+"/login.do";
+                url = "https://"+request.getServerName()+":8443/login.do";
             } else {
                 url = "https://"+request.getServerName()+"/login.do";
             }

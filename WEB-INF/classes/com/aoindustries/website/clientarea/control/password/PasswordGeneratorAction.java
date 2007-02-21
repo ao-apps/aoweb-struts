@@ -6,8 +6,8 @@ package com.aoindustries.website.clientarea.control.password;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.LinuxAccountTable;
+import com.aoindustries.website.HttpsAction;
 import com.aoindustries.website.Skin;
-import com.aoindustries.website.SkinAction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -22,11 +22,11 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author  AO Industries, Inc.
  */
-public class PasswordGeneratorAction extends SkinAction {
+public class PasswordGeneratorAction extends HttpsAction {
 
     private static final int NUM_PASSWORDS = 10;
 
-    public ActionForward execute(
+    public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,

@@ -6,8 +6,8 @@ package com.aoindustries.website.clientarea.control.password;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.PasswordChecker;
+import com.aoindustries.website.HttpsAction;
 import com.aoindustries.website.Skin;
-import com.aoindustries.website.SkinAction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -25,9 +25,9 @@ import org.apache.struts.action.ActionMessages;
  *
  * @author  AO Industries, Inc.
  */
-public class PasswordEvaluatorCompletedAction extends SkinAction {
+public class PasswordEvaluatorCompletedAction extends HttpsAction {
 
-    public ActionForward execute(
+    public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
