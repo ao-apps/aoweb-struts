@@ -5,7 +5,7 @@
 --%>
 <%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
 
-<skin:addSibling useEncryption="false" path="/clientarea/control/admin/AdministratorIndex.ao">
+<skin:addSibling useEncryption="true" path="/clientarea/control/admin/AdministratorIndex.ao">
     <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="admin.index.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="admin.index.navImageAlt"/></skin:navImageAlt>
     <skin:description><bean:message bundle="/clientarea/control/ApplicationResources" key="admin.index.description"/></skin:description>
