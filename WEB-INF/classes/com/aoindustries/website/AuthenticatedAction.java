@@ -11,6 +11,7 @@ import com.aoindustries.util.ErrorPrinter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Locale;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +42,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
         Skin skin
     ) throws Exception {
         // Handle login
-        AOServConnector aoConn = getAoConn(request);
+        AOServConnector aoConn = getAoConn(request, response);
         if(aoConn==null) {
             String target = request.getRequestURL().toString();
             if(!target.endsWith("/login.do")) {
@@ -49,6 +50,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
             } else {
                 request.getSession().removeAttribute(Constants.AUTHENTICATION_TARGET);
             }
+            //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
             return mapping.findForward("login");
         }
         
@@ -62,7 +64,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
      * Gets the AOServConnector for the user or <code>null</code> if not logged in.  This also handles the "su" behavior that was
      * stored in the session by <code>SkinAction</code>.
      */
-    public static AOServConnector getAoConn(HttpServletRequest request) {
+    public static AOServConnector getAoConn(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         AOServConnector authenticatedAoConn = (AOServConnector)session.getAttribute(Constants.AUTHENTICATED_AO_CONN);
         // Not logged in
@@ -72,8 +74,9 @@ abstract public class AuthenticatedAction extends HttpsAction {
         String su=(String)session.getAttribute(Constants.SU_REQUESTED);
         if(su!=null) {
             session.removeAttribute(Constants.SU_REQUESTED);
+            //if(response!=null) AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
             try {
-                AOServConnector aoConn = authenticatedAoConn.switchUsers(su);
+                AOServConnector aoConn = su.length()==0 ? authenticatedAoConn : authenticatedAoConn.switchUsers(su);
                 session.setAttribute(Constants.AO_CONN, aoConn);
                 return aoConn;
             } catch(IOException err) {
@@ -87,6 +90,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
 
         // Default effective user to authenticated user
         session.setAttribute(Constants.AO_CONN, authenticatedAoConn);
+        //if(response!=null) AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
         return authenticatedAoConn;
     }
 
@@ -105,4 +109,18 @@ abstract public class AuthenticatedAction extends HttpsAction {
     ) throws Exception {
         return mapping.findForward("success");
     }
+    
+    /**
+     * Makes sure the JSESSIONID cookie is not set to secure, resends it if necessary.
+     */
+    /*
+    public static void makeTomcatNonSecureCookie(HttpServletRequest req, HttpServletResponse resp) {
+        if(req==null) throw new NullPointerException("req is null");
+        Cookie newCookie = new Cookie("JSESSIONID", req.getSession().getId());
+        //newCookie.setMaxAge(60 * 60);
+        newCookie.setPath("/");
+        newCookie.setSecure(false);
+        //System.err.println("DEBUG: AuthenticatedAction: makeTomcatNonSecureCookie: resetting JSESSIONID cookie");
+        resp.addCookie(newCookie);
+    }*/
 }

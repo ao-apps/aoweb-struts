@@ -34,7 +34,7 @@ public class LocaleAction extends Action {
         HttpServletResponse response
     ) throws Exception {
         // Resolve the locale
-        Locale locale = getEffectiveLocale(request);
+        Locale locale = getEffectiveLocale(request, response);
         request.setAttribute(Constants.LOCALE, locale);
 
         return execute(mapping, form, request, response, locale);
@@ -43,7 +43,7 @@ public class LocaleAction extends Action {
     /**
      * Gets the effective locale for the request.
      */
-    public static Locale getEffectiveLocale(HttpServletRequest request) {
+    public static Locale getEffectiveLocale(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
         String language=request.getParameter("language");
@@ -51,9 +51,11 @@ public class LocaleAction extends Action {
             if(Locale.ENGLISH.getLanguage().equals(language)) {
                 locale = new Locale(Locale.ENGLISH.getLanguage(), locale.getCountry(), locale.getVariant());
                 session.setAttribute(Globals.LOCALE_KEY, locale);
+                //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
             } else if(Locale.JAPANESE.getLanguage().equals(language)) {
                 locale = new Locale(Locale.JAPANESE.getLanguage(), locale.getCountry(), locale.getVariant());
                 session.setAttribute(Globals.LOCALE_KEY, locale);
+                //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
             }
         }
         return locale;

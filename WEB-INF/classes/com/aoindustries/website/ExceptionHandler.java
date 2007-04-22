@@ -23,11 +23,11 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
 	ErrorPrinter.printStackTraces(exception);
 
         // Resolve the Locale, to be compatible with LocaleAction
-        Locale locale = LocaleAction.getEffectiveLocale(request);
+        Locale locale = LocaleAction.getEffectiveLocale(request, response);
         request.setAttribute(Constants.LOCALE, locale);
 
         // Select Skin, to be compatible with SkinAction
-        Skin skin = SkinAction.getSkin(request.getSession().getServletContext(), request);
+        Skin skin = SkinAction.getSkin(request.getSession().getServletContext(), request, response);
         request.setAttribute(Constants.SKIN, skin);
 
         return mapping.findForward("exception");

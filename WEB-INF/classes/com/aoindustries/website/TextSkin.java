@@ -95,7 +95,7 @@ public class TextSkin extends Skin {
     public void printFavIcon(JspWriter out, String urlBase) throws JspException {
     }
 
-    public void startSkin(HttpServletRequest req, JspWriter out, PageAttributes pageAttributes) throws JspException {
+    public void startSkin(HttpServletRequest req, HttpServletResponse resp, JspWriter out, PageAttributes pageAttributes) throws JspException {
         try {
             boolean isSecure = req.isSecure();
             HttpSession session = req.getSession();
@@ -147,7 +147,7 @@ public class TextSkin extends Skin {
                     + "      <TR>\n"
                     + "        <TD valign='top'>\n");
             printLogo(req, out, urlBase);
-            AOServConnector aoConn = AuthenticatedAction.getAoConn(req);
+            AOServConnector aoConn = AuthenticatedAction.getAoConn(req, resp);
             if(aoConn!=null) {
                 out.print("          <HR>\n"
                         + "          ");

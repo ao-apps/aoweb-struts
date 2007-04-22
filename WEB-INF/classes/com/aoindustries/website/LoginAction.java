@@ -36,6 +36,7 @@ public class LoginAction extends HttpsAction {
         String target = request.getParameter("target");
         if(target!=null && target.length()>0 && !target.endsWith("/login.do")) {
             request.getSession().setAttribute(Constants.AUTHENTICATION_TARGET, target);
+            //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
         }
 
         // Return success

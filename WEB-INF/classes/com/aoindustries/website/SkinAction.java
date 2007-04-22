@@ -67,7 +67,7 @@ public class SkinAction extends LocaleAction {
      *   <li>Sets the skin from the servlet parameters for "Default".</li>
      * </ol>
      */
-    public static Skin getSkin(ServletContext servletContext, HttpServletRequest req) {
+    public static Skin getSkin(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
         String layout = req.getParameter("layout");
 
@@ -80,6 +80,7 @@ public class SkinAction extends LocaleAction {
                 Skin skin = getSkin(classname);
                 if(skin!=null) {
                     session.setAttribute(Constants.LAYOUT, skin.getName());
+                    //AuthenticatedAction.makeTomcatNonSecureCookie(req, resp);
                     return skin;
                 }
             }
@@ -102,6 +103,7 @@ public class SkinAction extends LocaleAction {
                 layout="Default";
             }
             session.setAttribute(Constants.LAYOUT, layout);
+            //AuthenticatedAction.makeTomcatNonSecureCookie(req, resp);
         }
         // Load the layout
         String paramName = SkinAction.class.getName()+"."+layout;
@@ -126,13 +128,14 @@ public class SkinAction extends LocaleAction {
         Locale locale
     ) throws Exception {
         // Select Skin
-        Skin skin = getSkin(getServlet().getServletContext(), request);
+        Skin skin = getSkin(getServlet().getServletContext(), request, response);
         request.setAttribute(Constants.SKIN, skin);
 
         // Is a "su" requested?
         String su=request.getParameter("su");
-        if(su!=null && (su=su.trim()).length()>0) {
-            request.getSession().setAttribute(Constants.SU_REQUESTED, su);
+        if(su!=null) {
+            request.getSession().setAttribute(Constants.SU_REQUESTED, su.trim());
+            //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
         }
 
         return execute(mapping, form, request, response, locale, skin);

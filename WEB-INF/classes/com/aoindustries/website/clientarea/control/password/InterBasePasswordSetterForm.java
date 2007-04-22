@@ -94,7 +94,7 @@ public class InterBasePasswordSetterForm extends ActionForm implements Serializa
     }
     
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-        AOServConnector aoConn = AuthenticatedAction.getAoConn(request);
+        AOServConnector aoConn = AuthenticatedAction.getAoConn(request, null);
         if(aoConn==null) throw new RuntimeException("aoConn is null");
         Locale locale = (Locale)request.getSession().getAttribute(Globals.LOCALE_KEY);
 

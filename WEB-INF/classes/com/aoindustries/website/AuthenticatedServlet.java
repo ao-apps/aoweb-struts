@@ -36,6 +36,7 @@ abstract public class AuthenticatedServlet extends HttpServlet {
             } else {
                 request.getSession().removeAttribute(Constants.AUTHENTICATION_TARGET);
             }
+            //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
 
             // TODO: This might not be completely web-app relative compatible
 

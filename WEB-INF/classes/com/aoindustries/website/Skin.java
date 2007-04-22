@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import com.aoindustries.website.skintags.PageAttributes;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -52,7 +53,7 @@ abstract public class Skin {
     /**
      * Writes the contents between the HTML tag and the page content (not including the HTML tag itself).
      */
-    abstract public void startSkin(HttpServletRequest req, JspWriter out, PageAttributes pageAttributes) throws JspException;
+    abstract public void startSkin(HttpServletRequest req, HttpServletResponse resp, JspWriter out, PageAttributes pageAttributes) throws JspException;
 
     /**
      * Starts the content area of a page.  The content area provides additional features such as a nice border, and vertical and horizontal dividers.
