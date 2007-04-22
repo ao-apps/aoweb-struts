@@ -7,6 +7,7 @@ package com.aoindustries.website.skintags;
  */
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -52,7 +53,8 @@ public class SkinTag extends PageAttributesTag {
         Skin skin = SkinTag.getSkin(pageContext);
 
         HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-        skin.startSkin(req, pageContext.getOut(), pageAttributes);
+        HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+        skin.startSkin(req, resp, pageContext.getOut(), pageAttributes);
 
         return EVAL_BODY_INCLUDE;
     }
