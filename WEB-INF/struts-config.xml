@@ -81,8 +81,23 @@
         null="false"
     />
     <message-resources
+        key="/clientarea/accounting/ApplicationResources"
+        parameter="com.aoindustries.website.clientarea.accounting.ApplicationResources"
+        null="false"
+    />
+    <message-resources
         key="/clientarea/control/ApplicationResources"
         parameter="com.aoindustries.website.clientarea.control.ApplicationResources"
+        null="false"
+    />
+    <message-resources
+        key="/clientarea/ticket/ApplicationResources"
+        parameter="com.aoindustries.website.clientarea.ticket.ApplicationResources"
+        null="false"
+    />
+    <message-resources
+        key="/clientarea/webmail/ApplicationResources"
+        parameter="com.aoindustries.website.clientarea.webmail.ApplicationResources"
         null="false"
     />
     <message-resources
