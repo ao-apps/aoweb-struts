@@ -7,8 +7,6 @@
 <struts-config>
     <!-- ========== Form Bean Definitions =================================== -->
     <form-beans>
-        <!-- / -->
-        <form-bean name="loginForm" type="com.aoindustries.website.LoginForm" />
     </form-beans>
 
     <!-- ========== Global Error Handlers =================================== -->
@@ -21,45 +19,19 @@
         <!-- / -->
         <forward name="exception" contextRelative="true" path="/WEB-INF/jsp/exception.jsp" />
         <forward name="login" contextRelative="true" path="/login.do" />
+        <!-- /clientarea -->
     </global-forwards>
 
     <!-- ========== Action Mapping Definitions ============================== -->
     <action-mappings>
-        <!-- =============== Common =============== -->
         <action
-            path="/exception"
-            type="com.aoindustries.website.SkinAction"
+            path="/index"
+            type="com.aoindustries.website.HttpAction"
         >
-            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/exception.jsp" redirect="false" />
-        </action>
-        <action
-            path="/login"
-            name="loginForm"
-            scope="request"
-            validate="false"
-            type="com.aoindustries.website.LoginAction"
-        >
-            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/login.jsp" redirect="false" />
-        </action>
-        <action
-            path="/loginCompleted"
-            name="loginForm"
-            scope="request"
-            validate="false"
-            type="com.aoindustries.website.LoginCompletedAction"
-        >
-            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/login.jsp" redirect="false" />
-            <forward name="success" contextRelative="true" path="/clientarea/control/index.do" redirect="true" />
-            <forward name="failure" contextRelative="true" path="/WEB-INF/jsp/login.jsp" redirect="false" />
-        </action>
-        <action
-            path="/logout"
-            type="com.aoindustries.website.LogoutAction"
-        >
-            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/logout.jsp" redirect="false" />
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/index.jsp" redirect="false" />
         </action>
     </action-mappings>
-
+    
     <!-- ========== Controller ============================================== -->
     <controller
         nocache="true"
@@ -93,6 +65,6 @@
 
     <!-- ========== Validator Plug-In ======================================= -->
     <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
-        <set-property property="pathnames" value="/WEB-INF/lib/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml,/WEB-INF/validator.xml"/>
+        <set-property property="pathnames" value="/WEB-INF/lib/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml"/>
     </plug-in>
 </struts-config>
