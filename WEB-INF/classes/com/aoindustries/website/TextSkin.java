@@ -33,32 +33,6 @@ public class TextSkin extends Skin {
     }
 
     /**
-     * Gets the prefix for URLs for the SSL server.  This should always end with a /.
-     */
-    public String getHttpsUrlBase(HttpServletRequest req) throws JspException {
-        int port = req.getServerPort();
-        if(port!=80 && port!=443) {
-            // Non-ssl development area
-            return "https://"+req.getServerName()+":8443/";
-        } else {
-            return "https://"+req.getServerName()+"/";
-        }
-    }
-
-    /**
-     * Gets the prefix for URLs for the non-SSL server.  This should always end with a /.
-     */
-    public String getHttpUrlBase(HttpServletRequest req) throws JspException {
-        int port = req.getServerPort();
-        if(port!=80 && port!=443) {
-            // Non-ssl development area
-            return "http://"+req.getServerName()+":8081/";
-        } else {
-            return "http://"+req.getServerName()+"/";
-        }
-    }
-
-    /**
      * Print the logo for the top left part of the page.
      */
     public void printLogo(HttpServletRequest req, JspWriter out, String urlBase) throws JspException {

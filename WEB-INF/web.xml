@@ -13,6 +13,20 @@
     <param-value>com.aoindustries.website.TextSkin</param-value>
   </context-param>
 
+  <!--
+    Configuration for auto-redirect between HTTP and HTTPS.  It is
+    recommended to now perform the redirect in development to make links as
+    direct as possible, and enable redirects in production to make the site
+    as reliable as possible.
+    
+    true:  a redirect will be sent to the client on unexpected protocol
+    false: a 403 error will be sent to the client on unexpected protocol
+  -->
+  <context-param>
+    <param-name>com.aoindustries.website.ProtocolAction.redirectOnMismatch</param-name>
+    <param-value>false</param-value>
+  </context-param>
+
   <!-- Filter to make HTTPS sessions be carried over to HTTP -->
   <filter>
     <filter-name>SessionSharingFilter</filter-name>

@@ -45,16 +45,32 @@ abstract public class ProtocolAction extends SkinAction {
             if((acceptableProtocols&HTTPS)!=0) {
                 return executeProtocolAccepted(mapping, form, request, response, locale, skin);
             } else {
-                MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-                response.sendError(HttpServletResponse.SC_FORBIDDEN, applicationResources.getMessage(locale, "ProtocolAction.httpsNotAllowed"));
+                // Will default to true for safety with incorrect value in config file
+                boolean redirectOnMismatch = !"false".equals(getServlet().getServletContext().getInitParameter("com.aoindustries.website.ProtocolAction.redirectOnMismatch"));
+                if(redirectOnMismatch) {
+                    String path = request.getRequestURI();
+                    if(path.startsWith("/")) path=path.substring(1);
+                    response.sendRedirect(skin.getHttpUrlBase(request) + path);
+                } else {
+                    MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, applicationResources.getMessage(locale, "ProtocolAction.httpsNotAllowed"));
+                }
                 return null;
             }
         } else {
             if((acceptableProtocols&HTTP)!=0) {
                 return executeProtocolAccepted(mapping, form, request, response, locale, skin);
             } else {
-                MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-                response.sendError(HttpServletResponse.SC_FORBIDDEN, applicationResources.getMessage(locale, "ProtocolAction.httpNotAllowed"));
+                // Will default to true for safety with incorrect value in config file
+                boolean redirectOnMismatch = !"false".equals(getServlet().getServletContext().getInitParameter("com.aoindustries.website.ProtocolAction.redirectOnMismatch"));
+                if(redirectOnMismatch) {
+                    String path = request.getRequestURI();
+                    if(path.startsWith("/")) path=path.substring(1);
+                    response.sendRedirect(skin.getHttpsUrlBase(request) + path);
+                } else {
+                    MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, applicationResources.getMessage(locale, "ProtocolAction.httpNotAllowed"));
+                }
                 return null;
             }
         }

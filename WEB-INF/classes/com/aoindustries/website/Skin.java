@@ -51,6 +51,32 @@ abstract public class Skin {
     abstract public String getName();
 
     /**
+     * Gets the prefix for URLs for the SSL server.  This should always end with a /.
+     */
+    public String getHttpsUrlBase(HttpServletRequest req) throws JspException {
+        int port = req.getServerPort();
+        if(port!=80 && port!=443) {
+            // Non-ssl development area
+            return "https://"+req.getServerName()+":8443/";
+        } else {
+            return "https://"+req.getServerName()+"/";
+        }
+    }
+
+    /**
+     * Gets the prefix for URLs for the non-SSL server.  This should always end with a /.
+     */
+    public String getHttpUrlBase(HttpServletRequest req) throws JspException {
+        int port = req.getServerPort();
+        if(port!=80 && port!=443) {
+            // Non-ssl development area
+            return "http://"+req.getServerName()+":8081/";
+        } else {
+            return "http://"+req.getServerName()+"/";
+        }
+    }
+
+    /**
      * Writes the contents between the HTML tag and the page content (not including the HTML tag itself).
      */
     abstract public void startSkin(HttpServletRequest req, HttpServletResponse resp, JspWriter out, PageAttributes pageAttributes) throws JspException;
