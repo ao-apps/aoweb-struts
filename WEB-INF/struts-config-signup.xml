@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+    "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+    <!-- ========== Form Bean Definitions =================================== -->
+    <form-beans>
+        <!-- /signup -->
+        <form-bean name="dedicatedSignupSelectServerForm" type="com.aoindustries.website.signup.DedicatedSignupSelectServerForm" />
+        <form-bean name="dedicatedSignupCustomizeServerForm" type="com.aoindustries.website.signup.DedicatedSignupCustomizeServerForm" />
+        <form-bean name="signupBusinessForm" type="com.aoindustries.website.signup.SignupBusinessForm" />
+        <form-bean name="signupTechnicalForm" type="com.aoindustries.website.signup.SignupTechnicalForm" />
+        <form-bean name="signupBillingInformationForm" type="com.aoindustries.website.signup.SignupBillingInformationForm" />
+    </form-beans>
+
+    <!-- ========== Global Error Handlers =================================== -->
+    <global-exceptions>
+        <exception key="Exception.message" type="java.lang.Exception" handler="com.aoindustries.website.ExceptionHandler" />
+    </global-exceptions>
+
+    <!-- ========== Global Forward Definitions ============================== -->
+    <global-forwards>
+        <!-- / -->
+        <forward name="exception" contextRelative="true" path="/WEB-INF/jsp/exception.jsp" />
+        <forward name="login" contextRelative="true" path="/login.do" />
+        <!-- /signup -->
+        <forward name="dedicated" path="/dedicated.do" redirect="true" />
+        <forward name="dedicated2" path="/dedicated2.do" redirect="true" />
+        <forward name="dedicated3" path="/dedicated3.do" redirect="true" />
+        <forward name="dedicated4" path="/dedicated4.do" redirect="true" />
+        <forward name="dedicated5" path="/dedicated5.do" redirect="true" />
+        <forward name="dedicated6" path="/dedicated6.do" redirect="true" />
+    </global-forwards>
+
+    <!-- ========== Action Mapping Definitions ============================== -->
+    <action-mappings>
+        <action
+            path="/dedicated"
+            name="dedicatedSignupSelectServerForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.DedicatedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/dedicated.jsp" redirect="false" />
+        </action>
+        <action
+            path="/dedicatedCompleted"
+            name="dedicatedSignupSelectServerForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.DedicatedCompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/dedicated.jsp" redirect="false" />
+        </action>
+        <action
+            path="/dedicated2"
+            name="dedicatedSignupCustomizeServerForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.Dedicated2Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/dedicated2.jsp" redirect="false" />
+        </action>
+        <action
+            path="/dedicated2Completed"
+            name="dedicatedSignupCustomizeServerForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.Dedicated2CompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/dedicated2.jsp" redirect="false" />
+        </action>
+        <action
+            path="/dedicated3"
+            name="signupBusinessForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.Dedicated3Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/dedicated3.jsp" redirect="false" />
+        </action>
+        <action
+            path="/dedicated3Completed"
+            name="signupBusinessForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.Dedicated3CompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/dedicated3.jsp" redirect="false" />
+        </action>
+        <action
+            path="/dedicated4"
+            name="signupTechnicalForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.Dedicated4Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/dedicated4.jsp" redirect="false" />
+        </action>
+        <action
+            path="/dedicated4Completed"
+            name="signupTechnicalForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.Dedicated4CompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/dedicated4.jsp" redirect="false" />
+        </action>
+        <action
+            path="/dedicated5"
+            name="signupBillingInformationForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.Dedicated5Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/dedicated5.jsp" redirect="false" />
+        </action>
+        <action
+            path="/dedicated5Completed"
+            name="signupBillingInformationForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.Dedicated5CompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/dedicated5.jsp" redirect="false" />
+        </action>
+        <action
+            path="/dedicated6"
+            type="com.aoindustries.website.signup.Dedicated6Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/dedicated6.jsp" redirect="false" />
+        </action>
+        <action
+            path="/dedicated6Completed"
+            type="com.aoindustries.website.signup.Dedicated6CompletedAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/signup/dedicated6Completed.jsp" redirect="false" />
+        </action>
+    </action-mappings>
+    
+    <!-- ========== Controller ============================================== -->
+    <controller
+        nocache="true"
+    />
+
+    <!-- ========== Message Resources ======================================= -->
+    <message-resources
+        parameter="com.aoindustries.website.SiteApplicationResources"
+        null="false"
+    />
+    <message-resources
+        key="/ApplicationResources"
+        parameter="com.aoindustries.website.ApplicationResources"
+        null="false"
+    />
+    <message-resources
+        key="/clientarea/ApplicationResources"
+        parameter="com.aoindustries.website.clientarea.ApplicationResources"
+        null="false"
+    />
+    <message-resources
+        key="/signup/ApplicationResources"
+        parameter="com.aoindustries.website.signup.ApplicationResources"
+        null="false"
+    />
+
+    <!-- ========== Validator Plug-In ======================================= -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property property="pathnames" value="/WEB-INF/lib/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml"/>
+    </plug-in>
+</struts-config>
