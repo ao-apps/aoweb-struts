@@ -12,10 +12,36 @@
     <param-name>com.aoindustries.website.SkinAction.Text</param-name>
     <param-value>com.aoindustries.website.TextSkin</param-value>
   </context-param>
+  <!-- Configuration for root AOServConnector -->
+  <context-param>
+    <param-name>root.aoserv.client.username</param-name>
+    <param-value>aoweb_app</param-value>
+  </context-param>
+  <context-param>
+    <param-name>root.aoserv.client.password</param-name>
+    <param-value>changeme</param-value>
+  </context-param>
+  <!-- Configuration for email -->
+  <context-param>
+    <param-name>com.aoindustries.website.smtp.server</param-name>
+    <param-value>192.168.1.129</param-value>
+  </context-param>
+  <context-param>
+    <param-name>com.aoindustries.website.signup.from.address</param-name>
+    <param-value>signup@aoindustries.com</param-value>
+  </context-param>
+  <context-param>
+    <param-name>com.aoindustries.website.signup.from.personal</param-name>
+    <param-value>AO Industries, Inc.</param-value>
+  </context-param>
+  <context-param>
+    <param-name>com.aoindustries.website.signup.admin.address</param-name>
+    <param-value>support@aoindustries.com</param-value>
+  </context-param>
 
   <!--
     Configuration for auto-redirect between HTTP and HTTPS.  It is
-    recommended to now perform the redirect in development to make links as
+    recommended to not perform the redirect in development to make links as
     direct as possible, and enable redirects in production to make the site
     as reliable as possible.
     
@@ -52,6 +78,10 @@
     <init-param>
       <param-name>config/clientarea/control</param-name>
       <param-value>/WEB-INF/struts-config-clientarea-control.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>config/signup</param-name>
+      <param-value>/WEB-INF/struts-config-signup.xml</param-value>
     </init-param>
     <init-param>
       <param-name>debug</param-name>

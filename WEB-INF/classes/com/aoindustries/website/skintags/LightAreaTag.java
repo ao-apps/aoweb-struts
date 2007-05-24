@@ -5,15 +5,14 @@ package com.aoindustries.website.skintags;
  * 816 Azalea Rd, Mobile, Alabama, 36693, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.website.Skin;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
-import com.aoindustries.website.*;
 import org.apache.struts.Globals;
-import org.apache.struts.util.MessageResources;
 
 /**
  * Writes the skin light area.

@@ -14,7 +14,6 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.TagSupport;
 import org.apache.struts.Globals;
-import org.apache.struts.util.MessageResources;
 
 /**
  * Sets the content type for the page.

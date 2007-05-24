@@ -98,6 +98,7 @@ public class TextSkin extends Skin {
             if(author!=null && author.length()>0) {
                 out.print("    <META name='author' content='"); ChainWriter.writeHtmlAttribute(author, out); out.print("'>\n");
             }
+            out.print("    <LINK rel='stylesheet' href='"); out.print(urlBase); out.print("textskin.css' type='text/css'>\n");
             printCssIncludes(out, urlBase);
             printJavaScriptSources(out, urlBase);
             out.print("    <TITLE>");

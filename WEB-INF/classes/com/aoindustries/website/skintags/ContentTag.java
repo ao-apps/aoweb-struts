@@ -15,7 +15,6 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 import com.aoindustries.website.*;
 import org.apache.struts.Globals;
-import org.apache.struts.util.MessageResources;
 
 /**
  * @author  AO Industries, Inc.

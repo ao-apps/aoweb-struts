@@ -38,7 +38,7 @@ abstract public class Skin {
      * Provides the correct character set for the given locale.
      */
     public String getCharacterSet(Locale locale) {
-        if(locale.getLanguage().equals(Locale.JAPANESE.getLanguage())) {
+        if(locale!=null && locale.getLanguage().equals(Locale.JAPANESE.getLanguage())) {
             return "euc-jp";
         } else {
             return "iso-8859-1";
