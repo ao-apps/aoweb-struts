@@ -23,6 +23,11 @@
             <skin:contentTitle><bean:message bundle="/signup/ApplicationResources" key="dedicated.title"/></skin:contentTitle>
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
+                <script language="JavaScript1.2"><!--
+                    function selectStep(step) {
+                        window.location.href=step+".do";
+                    }
+                // --></script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="6"/>
                 <%@ include file="dedicatedSteps.jsp" %>
                 <br>

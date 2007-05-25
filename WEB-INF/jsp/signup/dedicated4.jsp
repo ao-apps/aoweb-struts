@@ -23,10 +23,18 @@
             <skin:contentTitle><bean:message bundle="/signup/ApplicationResources" key="dedicated.title"/></skin:contentTitle>
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
+                <script language="JavaScript1.2"><!--
+                    function selectStep(step) {
+                        var form = document.forms['signupTechnicalForm'];
+                        form.selectedStep.value=step;
+                        form.submit();
+                    }
+                // --></script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="4"/>
                 <%@ include file="dedicatedSteps.jsp" %>
                 <br>
                 <html:form action="/dedicated4Completed.do">
+                    <input type="hidden" name="selectedStep" value="">
                     <skin:lightArea>
                          <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
                             <TR><TD COLSPAN="4"><B><bean:message bundle="/signup/ApplicationResources" key="dedicated4.stepLabel"/></B><BR><HR></TD></TR>

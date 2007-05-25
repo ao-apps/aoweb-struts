@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
@@ -36,10 +37,6 @@ public class Dedicated5CompletedAction extends Dedicated5Action {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        // Clear the checkboxes if not present in this request
-        if(!"on".equals(request.getParameter("billingUseMonthly"))) signupBillingInformationForm.setBillingUseMonthly(false);
-        if(!"on".equals(request.getParameter("billingPayOneYear"))) signupBillingInformationForm.setBillingPayOneYear(false);
-        
         // Forward to previous steps if they have not been completed
         if(!dedicatedSignupSelectServerFormComplete) return mapping.findForward("dedicated");
         if(!dedicatedSignupCustomizeServerFormComplete)  return mapping.findForward("dedicated2");
@@ -66,6 +63,16 @@ public class Dedicated5CompletedAction extends Dedicated5Action {
             );
         }
         return mapping.findForward("dedicated6");
+    }
+
+    /**
+     * Clears checkboxes when not in form.
+     */
+    protected void clearCheckboxes(HttpServletRequest request, ActionForm form) {
+        SignupBillingInformationForm signupBillingInformationForm = (SignupBillingInformationForm)form;
+        // Clear the checkboxes if not present in this request
+        if(!"on".equals(request.getParameter("billingUseMonthly"))) signupBillingInformationForm.setBillingUseMonthly(false);
+        if(!"on".equals(request.getParameter("billingPayOneYear"))) signupBillingInformationForm.setBillingPayOneYear(false);
     }
 
     /**

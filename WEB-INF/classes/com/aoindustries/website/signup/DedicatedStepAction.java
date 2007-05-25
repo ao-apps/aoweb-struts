@@ -32,6 +32,24 @@ abstract public class DedicatedStepAction extends HttpsAction {
         Locale locale,
         Skin skin
     ) throws Exception {
+        // Clear checkboxes that were not part of the request
+        clearCheckboxes(request, form);
+
+        // Perform redirect if requested a different step
+        String selectedStep = request.getParameter("selectedStep");
+        if(selectedStep!=null && (selectedStep=selectedStep.trim()).length()>0) {
+            if(
+                "dedicated".equals(selectedStep)
+                || "dedicated2".equals(selectedStep)
+                || "dedicated3".equals(selectedStep)
+                || "dedicated4".equals(selectedStep)
+                || "dedicated5".equals(selectedStep)
+                || "dedicated6".equals(selectedStep)
+            ) {
+                return mapping.findForward(selectedStep);
+            }
+        }
+
         HttpSession session = request.getSession();
 
         DedicatedSignupSelectServerForm dedicatedSignupSelectServerForm = (DedicatedSignupSelectServerForm)session.getAttribute("dedicatedSignupSelectServerForm");
@@ -75,6 +93,13 @@ abstract public class DedicatedStepAction extends HttpsAction {
             signupBillingInformationForm,
             signupBillingInformationFormComplete
         );
+    }
+
+    /**
+     * Clears checkboxes when not in form.
+     */
+    protected void clearCheckboxes(HttpServletRequest request, ActionForm form) {
+        // Do nothing by default
     }
 
     /**
