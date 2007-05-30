@@ -36,7 +36,7 @@
 <SCRIPT language='JavaScript1.2'><!--
   function hideAllDetails() {
     <logic:iterate scope="request" name="servers" id="server">
-        document.getElementById('popup_<bean:write name="server" property="packageDefinition"/>').style.visibility='hidden';
+        document.getElementById('popup_<bean:write name="server" property="minimumConfiguration.packageDefinition"/>').style.visibility='hidden';
     </logic:iterate>
   }
 
@@ -73,12 +73,12 @@
                             </tr>
                             <% int row = 0; %>
                             <logic:iterate scope="request" name="servers" id="server">
-                                <bean:define name="server" property="packageDefinition" id="packageDefinition" type="java.lang.Integer"/>
+                                <bean:define name="server" property="minimumConfiguration.packageDefinition" id="packageDefinition" type="java.lang.Integer"/>
                                 <tr class='<%= (row&1)==0 ? "ao_light_row" : "ao_dark_row" %>'>
-                                    <td nowrap><html:radio property="packageDefinition" idName="server" value="packageDefinition"/></td>
+                                    <td nowrap><html:radio property="packageDefinition" idName="server" value="minimumConfiguration.packageDefinition"/></td>
                                     <td nowrap>
                                         <span style="position:relative;">
-                                            <b><bean:write name="server" property="name"/></b>
+                                            <b><bean:write name="server" property="minimumConfiguration.name"/></b>
                                             <html:img
                                                 bundle="/signup/ApplicationResources"
                                                 altKey="dedicated.details.image.alt"
@@ -89,14 +89,14 @@
                                                 onmouseover='<%= "showDetails("+packageDefinition+");" %>'
                                                 onclick='<%= "toggleDetails("+packageDefinition+");" %>'
                                             />
-                                            <SPAN width='100%' id='popup_<bean:write name="server" property="packageDefinition"/>' style='white-space:nowrap; position:absolute; bottom:30px; visibility: hidden; z-index:1'>
+                                            <SPAN width='100%' id='popup_<bean:write name="server" property="minimumConfiguration.packageDefinition"/>' style='white-space:nowrap; position:absolute; bottom:30px; visibility: hidden; z-index:1'>
                                                 <DIV class='ao_popup'>
                                                     <table border="0" cellspacing="0" cellpadding="2" style='font-size:80%;'>
                                                         <tr>
                                                             <td colspan="3" class='ao_light_row' style='font-size:100%;'>
                                                                 <table border="0" cellspacing="0" cellpadding="0" width="100%">
                                                                     <tr>
-                                                                        <th class='ao_light_row'><bean:write name="server" property="name"/></th>
+                                                                        <th class='ao_light_row'><bean:write name="server" property="minimumConfiguration.name"/></th>
                                                                         <td class='ao_light_row' align="right">
                                                                             <html:img
                                                                                 bundle="/signup/ApplicationResources"
@@ -120,42 +120,42 @@
                                                         <% int row2 = 0; %>
                                                         <tr class='<%= ((row2++)&1)==0 ? "ao_light_row" : "ao_dark_row" %>'>
                                                             <td nowrap><b><bean:message bundle="/signup/ApplicationResources" key="dedicated.cpu.header"/></b></td>
-                                                            <td nowrap><bean:write name="server" property="minimumCpu" filter="false"/></td>
-                                                            <td nowrap><bean:write name="server" property="maximumCpu" filter="false"/></td>
+                                                            <td nowrap><bean:write name="server" property="minimumConfiguration.cpu" filter="false"/></td>
+                                                            <td nowrap><bean:write name="server" property="maximumConfiguration.cpu" filter="false"/></td>
                                                         </tr>
                                                         <tr class='<%= ((row2++)&1)==0 ? "ao_light_row" : "ao_dark_row" %>'>
                                                             <td nowrap><b><bean:message bundle="/signup/ApplicationResources" key="dedicated.ram.header"/></b></td>
-                                                            <td nowrap><bean:write name="server" property="minimumRam"/></td>
-                                                            <td nowrap><bean:write name="server" property="maximumRam"/></td>
+                                                            <td nowrap><bean:write name="server" property="minimumConfiguration.ram"/></td>
+                                                            <td nowrap><bean:write name="server" property="maximumConfiguration.ram"/></td>
                                                         </tr>
-                                                        <logic:notEmpty name="server" property="maximumIDE">
+                                                        <logic:notEmpty name="server" property="maximumConfiguration.ide">
                                                             <tr class='<%= ((row2++)&1)==0 ? "ao_light_row" : "ao_dark_row" %>'>
                                                                 <td nowrap><b><bean:message bundle="/signup/ApplicationResources" key="dedicated.ide.header"/></b></td>
                                                                 <td nowrap>
-                                                                    <logic:empty name="server" property="minimumIDE">&nbsp;</logic:empty>
-                                                                    <logic:notEmpty name="server" property="minimumIDE"><bean:write name="server" property="minimumIDE"/></logic:notEmpty>
+                                                                    <logic:empty name="server" property="minimumConfiguration.ide">&nbsp;</logic:empty>
+                                                                    <logic:notEmpty name="server" property="minimumConfiguration.ide"><bean:write name="server" property="minimumConfiguration.ide"/></logic:notEmpty>
                                                                     </td>
-                                                                <td nowrap><bean:write name="server" property="maximumIDE"/></td>
+                                                                <td nowrap><bean:write name="server" property="maximumConfiguration.ide"/></td>
                                                             </tr>
                                                         </logic:notEmpty>
-                                                        <logic:notEmpty name="server" property="maximumSATA">
+                                                        <logic:notEmpty name="server" property="maximumConfiguration.sata">
                                                             <tr class='<%= ((row2++)&1)==0 ? "ao_light_row" : "ao_dark_row" %>'>
                                                                 <td nowrap><b><bean:message bundle="/signup/ApplicationResources" key="dedicated.sata.header"/></b></td>
                                                                 <td nowrap>
-                                                                    <logic:empty name="server" property="minimumSATA">&nbsp;</logic:empty>
-                                                                    <logic:notEmpty name="server" property="minimumSATA"><bean:write name="server" property="minimumSATA"/></logic:notEmpty>
+                                                                    <logic:empty name="server" property="minimumConfiguration.sata">&nbsp;</logic:empty>
+                                                                    <logic:notEmpty name="server" property="minimumConfiguration.sata"><bean:write name="server" property="minimumConfiguration.sata"/></logic:notEmpty>
                                                                     </td>
-                                                                <td nowrap><bean:write name="server" property="maximumSATA"/></td>
+                                                                <td nowrap><bean:write name="server" property="maximumConfiguration.sata"/></td>
                                                             </tr>
                                                         </logic:notEmpty>
-                                                        <logic:notEmpty name="server" property="maximumSCSI">
+                                                        <logic:notEmpty name="server" property="maximumConfiguration.scsi">
                                                             <tr class='<%= ((row2++)&1)==0 ? "ao_light_row" : "ao_dark_row" %>'>
                                                                 <td nowrap><b><bean:message bundle="/signup/ApplicationResources" key="dedicated.scsi.header"/></b></td>
                                                                 <td nowrap>
-                                                                    <logic:empty name="server" property="minimumSCSI">&nbsp;</logic:empty>
-                                                                    <logic:notEmpty name="server" property="minimumSCSI"><bean:write name="server" property="minimumSCSI"/></logic:notEmpty>
+                                                                    <logic:empty name="server" property="minimumConfiguration.scsi">&nbsp;</logic:empty>
+                                                                    <logic:notEmpty name="server" property="minimumConfiguration.scsi"><bean:write name="server" property="minimumConfiguration.scsi"/></logic:notEmpty>
                                                                     </td>
-                                                                <td nowrap><bean:write name="server" property="maximumSCSI"/></td>
+                                                                <td nowrap><bean:write name="server" property="maximumConfiguration.scsi"/></td>
                                                             </tr>
                                                         </logic:notEmpty>
                                                     </table>
@@ -164,11 +164,11 @@
                                         </span>
                                     </td>
                                     <td nowrap>
-                                        <logic:empty name="server" property="setup"><bean:message bundle="/signup/ApplicationResources" key="dedicated.setup.none"/></logic:empty>
-                                        <logic:notEmpty name="server" property="setup">$<bean:write name="server" property="setup"/></logic:notEmpty>
+                                        <logic:empty name="server" property="minimumConfiguration.setup"><bean:message bundle="/signup/ApplicationResources" key="dedicated.setup.none"/></logic:empty>
+                                        <logic:notEmpty name="server" property="minimumConfiguration.setup">$<bean:write name="server" property="minimumConfiguration.setup"/></logic:notEmpty>
                                     </td>
-                                    <td nowrap>$<bean:write name="server" property="minimumMonthly"/></td>
-                                    <td nowrap>$<bean:write name="server" property="maximumMonthly"/></td>
+                                    <td nowrap>$<bean:write name="server" property="minimumConfiguration.monthly"/></td>
+                                    <td nowrap>$<bean:write name="server" property="maximumConfiguration.monthly"/></td>
                                 </tr>
                             </logic:iterate>
                             <tr><td colspan="5" align="center"><br><html:submit styleClass='ao_button'><bean:message bundle="/signup/ApplicationResources" key="dedicated.submit.label"/></html:submit><br><br></td></tr>
