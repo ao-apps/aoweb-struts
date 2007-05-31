@@ -11,8 +11,10 @@ import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.RootAOServConnector;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
+import org.apache.struts.Globals;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
@@ -182,6 +184,8 @@ public class SignupTechnicalForm extends ActionForm implements Serializable {
 
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         try {
+            Locale locale = (Locale)request.getSession().getAttribute(Globals.LOCALE_KEY);
+
             ActionErrors errors = new ActionErrors();
             if(GenericValidator.isBlankOrNull(baName)) errors.add("baName", new ActionMessage("signupTechnicalForm.baName.required"));
             if(GenericValidator.isBlankOrNull(baWorkPhone)) errors.add("baWorkPhone", new ActionMessage("signupTechnicalForm.baWorkPhone.required"));
@@ -196,8 +200,9 @@ public class SignupTechnicalForm extends ActionForm implements Serializable {
                 if(servlet!=null) {
                     AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servlet.getServletContext());
                     String lowerUsername = baUsername.toLowerCase();
-                    if(!Username.isValidUsername(lowerUsername)) errors.add("baUsername", new ActionMessage("signupTechnicalForm.baUsername.invalid"));
-                    else if(!rootConn.usernames.isUsernameAvailable(lowerUsername)) errors.add("baUsername", new ActionMessage("signupTechnicalForm.baUsername.unavailable"));
+                    String check = Username.checkUsername(lowerUsername, locale);
+                    if(check!=null) errors.add("baUsername", new ActionMessage(check, false));
+                    else if(!rootConn.usernames.isUsernameAvailable(lowerUsername, locale)) errors.add("baUsername", new ActionMessage("signupTechnicalForm.baUsername.unavailable"));
                 }
             }
             return errors;

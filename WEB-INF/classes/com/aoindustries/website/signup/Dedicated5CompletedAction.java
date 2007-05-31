@@ -26,10 +26,10 @@ public class Dedicated5CompletedAction extends Dedicated5Action {
         HttpServletResponse response,
         Locale locale,
         Skin skin,
-        DedicatedSignupSelectServerForm dedicatedSignupSelectServerForm,
-        boolean dedicatedSignupSelectServerFormComplete,
-        DedicatedSignupCustomizeServerForm dedicatedSignupCustomizeServerForm,
-        boolean dedicatedSignupCustomizeServerFormComplete,
+        SignupSelectServerForm signupSelectServerForm,
+        boolean signupSelectServerFormComplete,
+        SignupCustomizeServerForm signupCustomizeServerForm,
+        boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -38,8 +38,8 @@ public class Dedicated5CompletedAction extends Dedicated5Action {
         boolean signupBillingInformationFormComplete
     ) throws Exception {
         // Forward to previous steps if they have not been completed
-        if(!dedicatedSignupSelectServerFormComplete) return mapping.findForward("dedicated");
-        if(!dedicatedSignupCustomizeServerFormComplete)  return mapping.findForward("dedicated2");
+        if(!signupSelectServerFormComplete) return mapping.findForward("dedicated");
+        if(!signupCustomizeServerFormComplete)  return mapping.findForward("dedicated2");
         if(!signupBusinessFormComplete)  return mapping.findForward("dedicated3");
         if(!signupTechnicalFormComplete)  return mapping.findForward("dedicated4");
         if(!signupBillingInformationFormComplete) {
@@ -50,10 +50,10 @@ public class Dedicated5CompletedAction extends Dedicated5Action {
                 response,
                 locale,
                 skin,
-                dedicatedSignupSelectServerForm,
-                dedicatedSignupSelectServerFormComplete,
-                dedicatedSignupCustomizeServerForm,
-                dedicatedSignupCustomizeServerFormComplete,
+                signupSelectServerForm,
+                signupSelectServerFormComplete,
+                signupCustomizeServerForm,
+                signupCustomizeServerFormComplete,
                 signupBusinessForm,
                 signupBusinessFormComplete,
                 signupTechnicalForm,

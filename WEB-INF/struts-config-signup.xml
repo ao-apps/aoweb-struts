@@ -10,6 +10,8 @@
         <!-- /signup -->
         <form-bean name="dedicatedSignupSelectServerForm" type="com.aoindustries.website.signup.DedicatedSignupSelectServerForm" />
         <form-bean name="dedicatedSignupCustomizeServerForm" type="com.aoindustries.website.signup.DedicatedSignupCustomizeServerForm" />
+        <form-bean name="managedSignupSelectServerForm" type="com.aoindustries.website.signup.ManagedSignupSelectServerForm" />
+        <form-bean name="managedSignupCustomizeServerForm" type="com.aoindustries.website.signup.ManagedSignupCustomizeServerForm" />
         <form-bean name="signupBusinessForm" type="com.aoindustries.website.signup.SignupBusinessForm" />
         <form-bean name="signupTechnicalForm" type="com.aoindustries.website.signup.SignupTechnicalForm" />
         <form-bean name="signupBillingInformationForm" type="com.aoindustries.website.signup.SignupBillingInformationForm" />
@@ -32,6 +34,12 @@
         <forward name="dedicated4" path="/dedicated4.do" redirect="true" />
         <forward name="dedicated5" path="/dedicated5.do" redirect="true" />
         <forward name="dedicated6" path="/dedicated6.do" redirect="true" />
+        <forward name="managed" path="/managed.do" redirect="true" />
+        <forward name="managed2" path="/managed2.do" redirect="true" />
+        <forward name="managed3" path="/managed3.do" redirect="true" />
+        <forward name="managed4" path="/managed4.do" redirect="true" />
+        <forward name="managed5" path="/managed5.do" redirect="true" />
+        <forward name="managed6" path="/managed6.do" redirect="true" />
     </global-forwards>
 
     <!-- ========== Action Mapping Definitions ============================== -->
@@ -137,6 +145,108 @@
             type="com.aoindustries.website.signup.Dedicated6CompletedAction"
         >
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/signup/dedicated6Completed.jsp" redirect="false" />
+        </action>
+        <action
+            path="/managed"
+            name="managedSignupSelectServerForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.ManagedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/managed.jsp" redirect="false" />
+        </action>
+        <action
+            path="/managedCompleted"
+            name="managedSignupSelectServerForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.ManagedCompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/managed.jsp" redirect="false" />
+        </action>
+        <action
+            path="/managed2"
+            name="managedSignupCustomizeServerForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.Managed2Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/managed2.jsp" redirect="false" />
+        </action>
+        <action
+            path="/managed2Completed"
+            name="managedSignupCustomizeServerForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.Managed2CompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/managed2.jsp" redirect="false" />
+        </action>
+        <action
+            path="/managed3"
+            name="signupBusinessForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.Managed3Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/managed3.jsp" redirect="false" />
+        </action>
+        <action
+            path="/managed3Completed"
+            name="signupBusinessForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.Managed3CompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/managed3.jsp" redirect="false" />
+        </action>
+        <action
+            path="/managed4"
+            name="signupTechnicalForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.Managed4Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/managed4.jsp" redirect="false" />
+        </action>
+        <action
+            path="/managed4Completed"
+            name="signupTechnicalForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.Managed4CompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/managed4.jsp" redirect="false" />
+        </action>
+        <action
+            path="/managed5"
+            name="signupBillingInformationForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.Managed5Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/managed5.jsp" redirect="false" />
+        </action>
+        <action
+            path="/managed5Completed"
+            name="signupBillingInformationForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.Managed5CompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/managed5.jsp" redirect="false" />
+        </action>
+        <action
+            path="/managed6"
+            type="com.aoindustries.website.signup.Managed6Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/managed6.jsp" redirect="false" />
+        </action>
+        <action
+            path="/managed6Completed"
+            type="com.aoindustries.website.signup.Managed6CompletedAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/signup/managed6Completed.jsp" redirect="false" />
         </action>
     </action-mappings>
     

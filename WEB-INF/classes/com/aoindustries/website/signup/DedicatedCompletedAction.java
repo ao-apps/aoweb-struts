@@ -17,7 +17,7 @@ import org.apache.struts.action.ActionMapping;
 /**
  * @author  AO Industries, Inc.
  */
-public class DedicatedCompletedAction extends DedicatedStepAction {
+public class DedicatedCompletedAction extends DedicatedAction {
 
     public ActionForward executeDedicatedStep(
         ActionMapping mapping,
@@ -25,10 +25,10 @@ public class DedicatedCompletedAction extends DedicatedStepAction {
         HttpServletResponse response,
         Locale locale,
         Skin skin,
-        DedicatedSignupSelectServerForm dedicatedSignupSelectServerForm,
-        boolean dedicatedSignupSelectServerFormComplete,
-        DedicatedSignupCustomizeServerForm dedicatedSignupCustomizeServerForm,
-        boolean dedicatedSignupCustomizeServerFormComplete,
+        SignupSelectServerForm signupSelectServerForm,
+        boolean signupSelectServerFormComplete,
+        SignupCustomizeServerForm signupCustomizeServerForm,
+        boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -36,7 +36,25 @@ public class DedicatedCompletedAction extends DedicatedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!dedicatedSignupSelectServerFormComplete) return mapping.findForward("input");
+        if(!signupSelectServerFormComplete) {
+            return super.executeDedicatedStep(
+                mapping,
+                request,
+                response,
+                locale,
+                skin,
+                signupSelectServerForm,
+                signupSelectServerFormComplete,
+                signupCustomizeServerForm,
+                signupCustomizeServerFormComplete,
+                signupBusinessForm,
+                signupBusinessFormComplete,
+                signupTechnicalForm,
+                signupTechnicalFormComplete,
+                signupBillingInformationForm,
+                signupBillingInformationFormComplete
+            );
+        }
         return mapping.findForward("dedicated2");
     }
 }

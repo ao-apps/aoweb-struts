@@ -15,7 +15,7 @@
     <skin:navImageAlt><bean:message bundle="/signup/ApplicationResources" key="dedicated.navImageAlt"/></skin:navImageAlt>
     <skin:description><bean:message bundle="/signup/ApplicationResources" key="dedicated.description"/></skin:description>
 </skin:addSibling>
-<skin:addSibling useEncryption="true" path="/signup/ManagedSignUp.ao">
+<skin:addSibling useEncryption="true" path="/signup/managed.do">
     <skin:title><bean:message bundle="/signup/ApplicationResources" key="managed.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/signup/ApplicationResources" key="managed.navImageAlt"/></skin:navImageAlt>
     <skin:description><bean:message bundle="/signup/ApplicationResources" key="managed.description"/></skin:description>

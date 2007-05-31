@@ -25,10 +25,10 @@ public class Dedicated2CompletedAction extends Dedicated2Action {
         HttpServletResponse response,
         Locale locale,
         Skin skin,
-        DedicatedSignupSelectServerForm dedicatedSignupSelectServerForm,
-        boolean dedicatedSignupSelectServerFormComplete,
-        DedicatedSignupCustomizeServerForm dedicatedSignupCustomizeServerForm,
-        boolean dedicatedSignupCustomizeServerFormComplete,
+        SignupSelectServerForm signupSelectServerForm,
+        boolean signupSelectServerFormComplete,
+        SignupCustomizeServerForm signupCustomizeServerForm,
+        boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -36,8 +36,8 @@ public class Dedicated2CompletedAction extends Dedicated2Action {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!dedicatedSignupSelectServerFormComplete) return mapping.findForward("dedicated");
-        if(!dedicatedSignupCustomizeServerFormComplete) {
+        if(!signupSelectServerFormComplete) return mapping.findForward("dedicated");
+        if(!signupCustomizeServerFormComplete) {
             // Init values for the form
             return super.executeDedicatedStep(
                 mapping,
@@ -45,10 +45,10 @@ public class Dedicated2CompletedAction extends Dedicated2Action {
                 response,
                 locale,
                 skin,
-                dedicatedSignupSelectServerForm,
-                dedicatedSignupSelectServerFormComplete,
-                dedicatedSignupCustomizeServerForm,
-                dedicatedSignupCustomizeServerFormComplete,
+                signupSelectServerForm,
+                signupSelectServerFormComplete,
+                signupCustomizeServerForm,
+                signupCustomizeServerFormComplete,
                 signupBusinessForm,
                 signupBusinessFormComplete,
                 signupTechnicalForm,
@@ -57,9 +57,9 @@ public class Dedicated2CompletedAction extends Dedicated2Action {
                 signupBillingInformationFormComplete
             );
         }
-        if(!signupBusinessFormComplete) mapping.findForward("dedicated3");
-        if(!signupTechnicalFormComplete) mapping.findForward("dedicated4");
-        if(!signupBillingInformationFormComplete) mapping.findForward("dedicated5");
+        if(!signupBusinessFormComplete) return mapping.findForward("dedicated3");
+        if(!signupTechnicalFormComplete) return mapping.findForward("dedicated4");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("dedicated5");
         return mapping.findForward("dedicated6");
     }
 

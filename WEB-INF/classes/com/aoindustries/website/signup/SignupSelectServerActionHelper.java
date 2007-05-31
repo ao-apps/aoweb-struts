@@ -1,0 +1,109 @@
+package com.aoindustries.website.signup;
+
+/*
+ * Copyright 2007 by AO Industries, Inc.,
+ * 816 Azalea Rd, Mobile, Alabama, 36693, U.S.A.
+ * All rights reserved.
+ */
+import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.Business;
+import com.aoindustries.aoserv.client.PackageCategory;
+import com.aoindustries.aoserv.client.PackageDefinition;
+import com.aoindustries.io.ChainWriter;
+import com.aoindustries.sql.SQLUtility;
+import com.aoindustries.website.RootAOServConnector;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts.util.MessageResources;
+
+/**
+ * ManagedAction and DedicatedAction both use this to setup the request attributes.  This is implemented
+ * here because inheritence is not possible and neither one is logically above the other.
+ *
+ * @author  AO Industries, Inc.
+ */
+final public class SignupSelectServerActionHelper {
+
+    /**
+     * Make no instances.
+     */
+    private SignupSelectServerActionHelper() {}
+
+    public static void setRequestAttributes(
+        ServletContext servletContext,
+        HttpServletRequest request,
+        String packageCategoryName
+    ) throws IOException, SQLException {
+        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servletContext);
+        PackageCategory category = rootConn.packageCategories.get(packageCategoryName);
+        Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
+        List<PackageDefinition> packageDefinitions = rootBusiness.getPackageDefinitions(category);
+        List<Server> servers = new ArrayList<Server>();
+        
+        for(PackageDefinition packageDefinition : packageDefinitions) {
+            if(packageDefinition.isActive()) {
+                servers.add(
+                    new Server(
+                        ServerConfiguration.getMinimumConfiguration(packageDefinition),
+                        ServerConfiguration.getMaximumConfiguration(packageDefinition)
+                    )
+                );
+            }
+        }
+
+        request.setAttribute("servers", servers);
+    }
+
+    public static class Server {
+        final private ServerConfiguration minimumConfiguration;
+        final private ServerConfiguration maximumConfiguration;
+
+        private Server(
+            ServerConfiguration minimumConfiguration,
+            ServerConfiguration maximumConfiguration
+        ) {
+            this.minimumConfiguration = minimumConfiguration;
+            this.maximumConfiguration = maximumConfiguration;
+        }
+
+        public ServerConfiguration getMinimumConfiguration() {
+            return minimumConfiguration;
+        }
+
+        public ServerConfiguration getMaximumConfiguration() {
+            return maximumConfiguration;
+        }
+    }
+
+    public static BigDecimal getSetup(PackageDefinition packageDefinition) {
+        int setupFee = packageDefinition.getSetupFee();
+        return setupFee==-1 ? null : new BigDecimal(SQLUtility.getDecimal(setupFee));
+    }
+
+    public static void setConfirmationRequestAttributes(
+        ServletContext servletContext,
+        HttpServletRequest request,
+        SignupSelectServerForm signupSelectServerForm
+    ) throws IOException {
+        // Lookup things needed by the view
+        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servletContext);
+        PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());
+
+        // Store as request attribute for the view
+        request.setAttribute("setup", getSetup(packageDefinition));
+    }
+    
+    public static void printConfirmation(ChainWriter emailOut, Locale contentLocale, PackageDefinition packageDefinition, MessageResources signupApplicationResources) {
+        emailOut.print("    <TR>\n"
+                     + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
+                     + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupSelectServerForm.packageDefinition.prompt")).print("</TD>\n"
+                     + "        <TD>").writeHtml(packageDefinition.getDisplay()).print("</TD>\n"
+                     + "    </TR>\n");
+    }
+}

@@ -25,10 +25,10 @@ public class Dedicated4CompletedAction extends Dedicated4Action {
         HttpServletResponse response,
         Locale locale,
         Skin skin,
-        DedicatedSignupSelectServerForm dedicatedSignupSelectServerForm,
-        boolean dedicatedSignupSelectServerFormComplete,
-        DedicatedSignupCustomizeServerForm dedicatedSignupCustomizeServerForm,
-        boolean dedicatedSignupCustomizeServerFormComplete,
+        SignupSelectServerForm signupSelectServerForm,
+        boolean signupSelectServerFormComplete,
+        SignupCustomizeServerForm signupCustomizeServerForm,
+        boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -36,8 +36,8 @@ public class Dedicated4CompletedAction extends Dedicated4Action {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!dedicatedSignupSelectServerFormComplete) return mapping.findForward("dedicated");
-        if(!dedicatedSignupCustomizeServerFormComplete)  return mapping.findForward("dedicated2");
+        if(!signupSelectServerFormComplete) return mapping.findForward("dedicated");
+        if(!signupCustomizeServerFormComplete)  return mapping.findForward("dedicated2");
         if(!signupBusinessFormComplete)  return mapping.findForward("dedicated3");
         if(!signupTechnicalFormComplete) {
             // Init values for the form
@@ -47,10 +47,10 @@ public class Dedicated4CompletedAction extends Dedicated4Action {
                 response,
                 locale,
                 skin,
-                dedicatedSignupSelectServerForm,
-                dedicatedSignupSelectServerFormComplete,
-                dedicatedSignupCustomizeServerForm,
-                dedicatedSignupCustomizeServerFormComplete,
+                signupSelectServerForm,
+                signupSelectServerFormComplete,
+                signupCustomizeServerForm,
+                signupCustomizeServerFormComplete,
                 signupBusinessForm,
                 signupBusinessFormComplete,
                 signupTechnicalForm,
@@ -59,7 +59,7 @@ public class Dedicated4CompletedAction extends Dedicated4Action {
                 signupBillingInformationFormComplete
             );
         }
-        if(!signupBillingInformationFormComplete) mapping.findForward("dedicated5");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("dedicated5");
         return mapping.findForward("dedicated6");
     }
 

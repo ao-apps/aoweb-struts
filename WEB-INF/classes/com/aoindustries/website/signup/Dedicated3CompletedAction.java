@@ -25,10 +25,10 @@ public class Dedicated3CompletedAction extends Dedicated3Action {
         HttpServletResponse response,
         Locale locale,
         Skin skin,
-        DedicatedSignupSelectServerForm dedicatedSignupSelectServerForm,
-        boolean dedicatedSignupSelectServerFormComplete,
-        DedicatedSignupCustomizeServerForm dedicatedSignupCustomizeServerForm,
-        boolean dedicatedSignupCustomizeServerFormComplete,
+        SignupSelectServerForm signupSelectServerForm,
+        boolean signupSelectServerFormComplete,
+        SignupCustomizeServerForm signupCustomizeServerForm,
+        boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -36,8 +36,8 @@ public class Dedicated3CompletedAction extends Dedicated3Action {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!dedicatedSignupSelectServerFormComplete) return mapping.findForward("dedicated");
-        if(!dedicatedSignupCustomizeServerFormComplete)  return mapping.findForward("dedicated2");
+        if(!signupSelectServerFormComplete) return mapping.findForward("dedicated");
+        if(!signupCustomizeServerFormComplete)  return mapping.findForward("dedicated2");
         if(!signupBusinessFormComplete) {
             // Init values for the form
             return super.executeDedicatedStep(
@@ -46,10 +46,10 @@ public class Dedicated3CompletedAction extends Dedicated3Action {
                 response,
                 locale,
                 skin,
-                dedicatedSignupSelectServerForm,
-                dedicatedSignupSelectServerFormComplete,
-                dedicatedSignupCustomizeServerForm,
-                dedicatedSignupCustomizeServerFormComplete,
+                signupSelectServerForm,
+                signupSelectServerFormComplete,
+                signupCustomizeServerForm,
+                signupCustomizeServerFormComplete,
                 signupBusinessForm,
                 signupBusinessFormComplete,
                 signupTechnicalForm,
@@ -58,8 +58,8 @@ public class Dedicated3CompletedAction extends Dedicated3Action {
                 signupBillingInformationFormComplete
             );
         }
-        if(!signupTechnicalFormComplete) mapping.findForward("dedicated4");
-        if(!signupBillingInformationFormComplete) mapping.findForward("dedicated5");
+        if(!signupTechnicalFormComplete) return mapping.findForward("dedicated4");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("dedicated5");
         return mapping.findForward("dedicated6");
     }
 

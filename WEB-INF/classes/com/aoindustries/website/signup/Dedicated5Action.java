@@ -31,10 +31,10 @@ public class Dedicated5Action extends DedicatedStepAction {
         HttpServletResponse response,
         Locale locale,
         Skin skin,
-        DedicatedSignupSelectServerForm dedicatedSignupSelectServerForm,
-        boolean dedicatedSignupSelectServerFormComplete,
-        DedicatedSignupCustomizeServerForm dedicatedSignupCustomizeServerForm,
-        boolean dedicatedSignupCustomizeServerFormComplete,
+        SignupSelectServerForm signupSelectServerForm,
+        boolean signupSelectServerFormComplete,
+        SignupCustomizeServerForm signupCustomizeServerForm,
+        boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -42,18 +42,12 @@ public class Dedicated5Action extends DedicatedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!dedicatedSignupSelectServerFormComplete) return mapping.findForward("dedicated");
-        if(!dedicatedSignupCustomizeServerFormComplete) return mapping.findForward("dedicated2");
+        if(!signupSelectServerFormComplete) return mapping.findForward("dedicated");
+        if(!signupCustomizeServerFormComplete) return mapping.findForward("dedicated2");
         if(!signupBusinessFormComplete) return mapping.findForward("dedicated3");
         if(!signupTechnicalFormComplete) return mapping.findForward("dedicated4");
 
-        // Build the list of years
-        List<String> billingExpirationYears = new ArrayList<String>(12);
-        int startYear = Calendar.getInstance().get(Calendar.YEAR);
-        for(int c=0;c<12;c++) billingExpirationYears.add(Integer.toString(startYear+c));
-
-        // Store to request attributes
-        request.setAttribute("billingExpirationYears", billingExpirationYears);
+        SignupBillingInformationActionHelper.setRequestAttributes(request);
 
         // Clear errors if they should not be displayed
         clearErrors(request);

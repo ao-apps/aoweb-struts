@@ -36,10 +36,10 @@ public class DedicatedAction extends DedicatedStepAction {
         HttpServletResponse response,
         Locale locale,
         Skin skin,
-        DedicatedSignupSelectServerForm dedicatedSignupSelectServerForm,
-        boolean dedicatedSignupSelectServerFormComplete,
-        DedicatedSignupCustomizeServerForm dedicatedSignupCustomizeServerForm,
-        boolean dedicatedSignupCustomizeServerFormComplete,
+        SignupSelectServerForm signupSelectServerForm,
+        boolean signupSelectServerFormComplete,
+        SignupCustomizeServerForm signupCustomizeServerForm,
+        boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -47,46 +47,8 @@ public class DedicatedAction extends DedicatedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext());
-        PackageCategory category = rootConn.packageCategories.get(PackageCategory.DEDICATED);
-        Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
-        List<PackageDefinition> packageDefinitions = rootBusiness.getPackageDefinitions(category);
-        List<Server> servers = new ArrayList<Server>();
-        
-        for(PackageDefinition packageDefinition : packageDefinitions) {
-            if(packageDefinition.isActive()) {
-                servers.add(
-                    new Server(
-                        ServerConfiguration.getMinimumConfiguration(packageDefinition),
-                        ServerConfiguration.getMaximumConfiguration(packageDefinition)
-                    )
-                );
-            }
-        }
-
-        request.setAttribute("servers", servers);
+        SignupSelectServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, PackageCategory.DEDICATED);
 
         return mapping.findForward("input");
-    }
-    
-    public static class Server {
-        final private ServerConfiguration minimumConfiguration;
-        final private ServerConfiguration maximumConfiguration;
-
-        private Server(
-            ServerConfiguration minimumConfiguration,
-            ServerConfiguration maximumConfiguration
-        ) {
-            this.minimumConfiguration = minimumConfiguration;
-            this.maximumConfiguration = maximumConfiguration;
-        }
-
-        public ServerConfiguration getMinimumConfiguration() {
-            return minimumConfiguration;
-        }
-
-        public ServerConfiguration getMaximumConfiguration() {
-            return maximumConfiguration;
-        }
     }
 }
