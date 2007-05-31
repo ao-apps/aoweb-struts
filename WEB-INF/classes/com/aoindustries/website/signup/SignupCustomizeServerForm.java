@@ -174,39 +174,36 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
                 if(found) errors.add("scsiControllerOption", new ActionMessage("signupCustomizeServerForm.scsiControllerOption.required"));
             }
             // At least one hard drive must be selected
-            boolean foundDisk = false;
-            for(String ideOption : ideOptions) {
-                if(ideOption!=null && ideOption.length()>0 && !ideOption.equals("-1")) {
-                    foundDisk = true;
-                    break;
-                }
-            }
+            boolean foundDisk = isAtLeastOneDiskSelected();
             if(!foundDisk) {
-                for(String sataOption : sataOptions) {
-                    if(sataOption!=null && sataOption.length()>0 && !sataOption.equals("-1")) {
-                        foundDisk = true;
-                        break;
-                    }
-                }
-                if(!foundDisk) {
-                    for(String scsiOption : scsiOptions) {
-                        if(scsiOption!=null && scsiOption.length()>0 && !scsiOption.equals("-1")) {
-                            foundDisk = true;
-                            break;
-                        }
-                    }
-                    if(!foundDisk) {
-                        if(!ideOptions.isEmpty()) errors.add("ideOptions", new ActionMessage("signupCustomizeServerForm.atLeastOneDisk"));
-                        else if(!sataOptions.isEmpty()) errors.add("sataOptions", new ActionMessage("signupCustomizeServerForm.atLeastOneDisk"));
-                        else if(!scsiOptions.isEmpty()) errors.add("scsiOptions", new ActionMessage("signupCustomizeServerForm.atLeastOneDisk"));
-                    }
-                }
+                if(!ideOptions.isEmpty()) errors.add("ideOptions", new ActionMessage("signupCustomizeServerForm.atLeastOneDisk"));
+                else if(!sataOptions.isEmpty()) errors.add("sataOptions", new ActionMessage("signupCustomizeServerForm.atLeastOneDisk"));
+                else if(!scsiOptions.isEmpty()) errors.add("scsiOptions", new ActionMessage("signupCustomizeServerForm.atLeastOneDisk"));
             }
             return errors;
         } catch(IOException err) {
             throw new WrappedException(err);
         }
     }
-    
+
+    public boolean isAtLeastOneDiskSelected() {
+        for(String ideOption : ideOptions) {
+            if(ideOption!=null && ideOption.length()>0 && !ideOption.equals("-1")) {
+                return true;
+            }
+        }
+        for(String sataOption : sataOptions) {
+            if(sataOption!=null && sataOption.length()>0 && !sataOption.equals("-1")) {
+                return true;
+            }
+        }
+        for(String scsiOption : scsiOptions) {
+            if(scsiOption!=null && scsiOption.length()>0 && !scsiOption.equals("-1")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected abstract String getSignupSelectServerFromName();
 }

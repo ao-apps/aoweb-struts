@@ -11,31 +11,31 @@
 <%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
 <skin:setContentType/>
 <html:html lang="true">
-    <skin:path>/signup/managed2.do</skin:path>
-    <skin:title><bean:message bundle="/signup/ApplicationResources" key="managed.title"/></skin:title>
-    <skin:navImageAlt><bean:message bundle="/signup/ApplicationResources" key="managed.navImageAlt"/></skin:navImageAlt>
-    <skin:keywords><bean:message bundle="/signup/ApplicationResources" key="managed.keywords"/></skin:keywords>
-    <skin:description><bean:message bundle="/signup/ApplicationResources" key="managed.description"/></skin:description>
+    <skin:path>/signup/virtualDedicated2.do</skin:path>
+    <skin:title><bean:message bundle="/signup/ApplicationResources" key="virtualDedicated.title"/></skin:title>
+    <skin:navImageAlt><bean:message bundle="/signup/ApplicationResources" key="virtualDedicated.navImageAlt"/></skin:navImageAlt>
+    <skin:keywords><bean:message bundle="/signup/ApplicationResources" key="virtualDedicated.keywords"/></skin:keywords>
+    <skin:description><bean:message bundle="/signup/ApplicationResources" key="virtualDedicated.description"/></skin:description>
     <%@ include file="addParents.jsp" %>
     <%@ include file="addSiblings.jsp" %>
     <skin:skin onLoad="recalcMonthly();">
         <skin:content width="600">
-            <skin:contentTitle><bean:message bundle="/signup/ApplicationResources" key="managed.title"/></skin:contentTitle>
+            <skin:contentTitle><bean:message bundle="/signup/ApplicationResources" key="virtualDedicated.title"/></skin:contentTitle>
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
                 <script language="JavaScript1.2"><!--
-                    var signupCustomizeServerFormName = 'managedSignupCustomizeServerForm';
+                    var signupCustomizeServerFormName = 'virtualDedicatedSignupCustomizeServerForm';
                     function selectStep(step) {
-                        var form = document.forms['managedSignupCustomizeServerForm'];
+                        var form = document.forms['virtualDedicatedSignupCustomizeServerForm'];
                         form.selectedStep.value=step;
                         form.submit();
                     }
                 // --></script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="2"/>
-                <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="managed"/>
+                <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="virtualDedicated"/>
                 <%@ include file="serverSteps.jsp" %>
                 <br>
-                <html:form action="/managed2Completed.do">
+                <html:form action="/virtualDedicated2Completed.do">
                     <%@ include file="signupCustomizeServerForm.jsp" %>
                 </html:form>
             </skin:contentLine>

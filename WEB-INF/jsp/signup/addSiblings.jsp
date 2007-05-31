@@ -10,6 +10,16 @@
     <skin:navImageAlt><bean:message bundle="/signup/ApplicationResources" key="virtual.navImageAlt"/></skin:navImageAlt>
     <skin:description><bean:message bundle="/signup/ApplicationResources" key="virtual.description"/></skin:description>
 </skin:addSibling>
+<skin:addSibling useEncryption="true" path="/signup/virtualDedicated.do">
+    <skin:title><bean:message bundle="/signup/ApplicationResources" key="virtualDedicated.title"/></skin:title>
+    <skin:navImageAlt><bean:message bundle="/signup/ApplicationResources" key="virtualDedicated.navImageAlt"/></skin:navImageAlt>
+    <skin:description><bean:message bundle="/signup/ApplicationResources" key="virtualDedicated.description"/></skin:description>
+</skin:addSibling>
+<skin:addSibling useEncryption="true" path="/signup/virtualManaged.do">
+    <skin:title><bean:message bundle="/signup/ApplicationResources" key="virtualManaged.title"/></skin:title>
+    <skin:navImageAlt><bean:message bundle="/signup/ApplicationResources" key="virtualManaged.navImageAlt"/></skin:navImageAlt>
+    <skin:description><bean:message bundle="/signup/ApplicationResources" key="virtualManaged.description"/></skin:description>
+</skin:addSibling>
 <skin:addSibling useEncryption="true" path="/signup/dedicated.do">
     <skin:title><bean:message bundle="/signup/ApplicationResources" key="dedicated.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/signup/ApplicationResources" key="dedicated.navImageAlt"/></skin:navImageAlt>

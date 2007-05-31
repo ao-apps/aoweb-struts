@@ -8,6 +8,10 @@
     <!-- ========== Form Bean Definitions =================================== -->
     <form-beans>
         <!-- /signup -->
+        <form-bean name="virtualDedicatedSignupSelectServerForm" type="com.aoindustries.website.signup.VirtualDedicatedSignupSelectServerForm" />
+        <form-bean name="virtualDedicatedSignupCustomizeServerForm" type="com.aoindustries.website.signup.VirtualDedicatedSignupCustomizeServerForm" />
+        <form-bean name="virtualManagedSignupSelectServerForm" type="com.aoindustries.website.signup.VirtualManagedSignupSelectServerForm" />
+        <form-bean name="virtualManagedSignupCustomizeServerForm" type="com.aoindustries.website.signup.VirtualManagedSignupCustomizeServerForm" />
         <form-bean name="dedicatedSignupSelectServerForm" type="com.aoindustries.website.signup.DedicatedSignupSelectServerForm" />
         <form-bean name="dedicatedSignupCustomizeServerForm" type="com.aoindustries.website.signup.DedicatedSignupCustomizeServerForm" />
         <form-bean name="managedSignupSelectServerForm" type="com.aoindustries.website.signup.ManagedSignupSelectServerForm" />
@@ -28,6 +32,18 @@
         <forward name="exception" contextRelative="true" path="/WEB-INF/jsp/exception.jsp" />
         <forward name="login" contextRelative="true" path="/login.do" />
         <!-- /signup -->
+        <forward name="virtualDedicated" path="/virtualDedicated.do" redirect="true" />
+        <forward name="virtualDedicated2" path="/virtualDedicated2.do" redirect="true" />
+        <forward name="virtualDedicated3" path="/virtualDedicated3.do" redirect="true" />
+        <forward name="virtualDedicated4" path="/virtualDedicated4.do" redirect="true" />
+        <forward name="virtualDedicated5" path="/virtualDedicated5.do" redirect="true" />
+        <forward name="virtualDedicated6" path="/virtualDedicated6.do" redirect="true" />
+        <forward name="virtualManaged" path="/virtualManaged.do" redirect="true" />
+        <forward name="virtualManaged2" path="/virtualManaged2.do" redirect="true" />
+        <forward name="virtualManaged3" path="/virtualManaged3.do" redirect="true" />
+        <forward name="virtualManaged4" path="/virtualManaged4.do" redirect="true" />
+        <forward name="virtualManaged5" path="/virtualManaged5.do" redirect="true" />
+        <forward name="virtualManaged6" path="/virtualManaged6.do" redirect="true" />
         <forward name="dedicated" path="/dedicated.do" redirect="true" />
         <forward name="dedicated2" path="/dedicated2.do" redirect="true" />
         <forward name="dedicated3" path="/dedicated3.do" redirect="true" />
@@ -44,6 +60,210 @@
 
     <!-- ========== Action Mapping Definitions ============================== -->
     <action-mappings>
+        <action
+            path="/virtualDedicated"
+            name="virtualDedicatedSignupSelectServerForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualDedicatedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualDedicated.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualDedicatedCompleted"
+            name="virtualDedicatedSignupSelectServerForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualDedicatedCompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualDedicated.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualDedicated2"
+            name="virtualDedicatedSignupCustomizeServerForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualDedicated2Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualDedicated2.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualDedicated2Completed"
+            name="virtualDedicatedSignupCustomizeServerForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualDedicated2CompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualDedicated2.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualDedicated3"
+            name="signupBusinessForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualDedicated3Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualDedicated3.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualDedicated3Completed"
+            name="signupBusinessForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualDedicated3CompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualDedicated3.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualDedicated4"
+            name="signupTechnicalForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualDedicated4Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualDedicated4.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualDedicated4Completed"
+            name="signupTechnicalForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualDedicated4CompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualDedicated4.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualDedicated5"
+            name="signupBillingInformationForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualDedicated5Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualDedicated5.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualDedicated5Completed"
+            name="signupBillingInformationForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualDedicated5CompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualDedicated5.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualDedicated6"
+            type="com.aoindustries.website.signup.VirtualDedicated6Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualDedicated6.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualDedicated6Completed"
+            type="com.aoindustries.website.signup.VirtualDedicated6CompletedAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/signup/virtualDedicated6Completed.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualManaged"
+            name="virtualManagedSignupSelectServerForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualManagedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualManagedCompleted"
+            name="virtualManagedSignupSelectServerForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualManagedCompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualManaged2"
+            name="virtualManagedSignupCustomizeServerForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualManaged2Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged2.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualManaged2Completed"
+            name="virtualManagedSignupCustomizeServerForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualManaged2CompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged2.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualManaged3"
+            name="signupBusinessForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualManaged3Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged3.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualManaged3Completed"
+            name="signupBusinessForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualManaged3CompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged3.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualManaged4"
+            name="signupTechnicalForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualManaged4Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged4.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualManaged4Completed"
+            name="signupTechnicalForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualManaged4CompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged4.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualManaged5"
+            name="signupBillingInformationForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualManaged5Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged5.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualManaged5Completed"
+            name="signupBillingInformationForm"
+            scope="session"
+            validate="false"
+            type="com.aoindustries.website.signup.VirtualManaged5CompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged5.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualManaged6"
+            type="com.aoindustries.website.signup.VirtualManaged6Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged6.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualManaged6Completed"
+            type="com.aoindustries.website.signup.VirtualManaged6CompletedAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged6Completed.jsp" redirect="false" />
+        </action>
         <action
             path="/dedicated"
             name="dedicatedSignupSelectServerForm"

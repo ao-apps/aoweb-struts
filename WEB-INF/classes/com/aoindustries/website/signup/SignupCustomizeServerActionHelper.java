@@ -344,6 +344,9 @@ final public class SignupCustomizeServerActionHelper {
             }
         }
 
+        // Determine if at least one disk is selected
+        boolean isAtLeastOneDiskSelected = signupCustomizeServerForm.isAtLeastOneDiskSelected();
+
         // Default to cheapest if not already selected
         if(cheapestPower!=null && signupCustomizeServerForm.getPowerOption()==-1) signupCustomizeServerForm.setPowerOption(cheapestPower.getPKey());
         if(signupCustomizeServerForm.getCpuOption()==-1) signupCustomizeServerForm.setCpuOption(cheapestCPU.getPKey());
@@ -354,7 +357,7 @@ final public class SignupCustomizeServerActionHelper {
             List<Option> options = ideOptions.get(c);
             if(!options.isEmpty()) {
                 Option firstOption = options.get(0);
-                if(options.size()>=2 && firstOption.getPriceDifference().compareTo(BigDecimal.ZERO)<0) {
+                if(!isAtLeastOneDiskSelected && options.size()>=2 && firstOption.getPriceDifference().compareTo(BigDecimal.ZERO)<0) {
                     firstOption = options.get(1);
                 }
                 String defaultSelected = Integer.toString(firstOption.getPackageDefinitionLimit());
@@ -367,7 +370,7 @@ final public class SignupCustomizeServerActionHelper {
             List<Option> options = sataOptions.get(c);
             if(!options.isEmpty()) {
                 Option firstOption = options.get(0);
-                if(options.size()>=2 && firstOption.getPriceDifference().compareTo(BigDecimal.ZERO)<0) {
+                if(!isAtLeastOneDiskSelected && options.size()>=2 && firstOption.getPriceDifference().compareTo(BigDecimal.ZERO)<0) {
                     firstOption = options.get(1);
                 }
                 String defaultSelected = Integer.toString(firstOption.getPackageDefinitionLimit());
@@ -380,7 +383,7 @@ final public class SignupCustomizeServerActionHelper {
             List<Option> options = scsiOptions.get(c);
             if(!options.isEmpty()) {
                 Option firstOption = options.get(0);
-                if(options.size()>=2 && firstOption.getPriceDifference().compareTo(BigDecimal.ZERO)<0) {
+                if(!isAtLeastOneDiskSelected && options.size()>=2 && firstOption.getPriceDifference().compareTo(BigDecimal.ZERO)<0) {
                     firstOption = options.get(1);
                 }
                 String defaultSelected = Integer.toString(firstOption.getPackageDefinitionLimit());

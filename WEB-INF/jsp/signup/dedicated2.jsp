@@ -36,7 +36,7 @@
                 <%@ include file="serverSteps.jsp" %>
                 <br>
                 <html:form action="/dedicated2Completed.do">
-                    <%@ include file="dedicatedSignupCustomizeServerForm.jsp" %>
+                    <%@ include file="signupCustomizeServerForm.jsp" %>
                 </html:form>
             </skin:contentLine>
         </skin:content>
