@@ -25,7 +25,7 @@
             <skin:contentLine>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="3"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="virtualDedicated"/>
-                <%@ include file="serverSteps.jsp" %>
+                <%@ include file="dedicatedSteps.jsp" %>
                 <br>
                 <html:form action="/virtualDedicated3Completed.do">
                     <%@ include file="signupBusinessForm.jsp" %>

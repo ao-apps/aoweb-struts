@@ -29,6 +29,8 @@ public class VirtualManaged4CompletedAction extends VirtualManaged4Action {
         boolean signupSelectServerFormComplete,
         SignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
+        SignupCustomizeManagementForm signupCustomizeManagementForm,
+        boolean signupCustomizeManagementFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -38,8 +40,8 @@ public class VirtualManaged4CompletedAction extends VirtualManaged4Action {
     ) throws Exception {
         if(!signupSelectServerFormComplete) return mapping.findForward("virtualManaged");
         if(!signupCustomizeServerFormComplete)  return mapping.findForward("virtualManaged2");
-        if(!signupBusinessFormComplete)  return mapping.findForward("virtualManaged3");
-        if(!signupTechnicalFormComplete) {
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtualManaged3");
+        if(!signupBusinessFormComplete) {
             // Init values for the form
             return super.executeVirtualManagedStep(
                 mapping,
@@ -51,6 +53,8 @@ public class VirtualManaged4CompletedAction extends VirtualManaged4Action {
                 signupSelectServerFormComplete,
                 signupCustomizeServerForm,
                 signupCustomizeServerFormComplete,
+                signupCustomizeManagementForm,
+                signupCustomizeManagementFormComplete,
                 signupBusinessForm,
                 signupBusinessFormComplete,
                 signupTechnicalForm,
@@ -59,8 +63,9 @@ public class VirtualManaged4CompletedAction extends VirtualManaged4Action {
                 signupBillingInformationFormComplete
             );
         }
-        if(!signupBillingInformationFormComplete) return mapping.findForward("virtualManaged5");
-        return mapping.findForward("virtualManaged6");
+        if(!signupTechnicalFormComplete) return mapping.findForward("virtualManaged5");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("virtualManaged6");
+        return mapping.findForward("virtualManaged7");
     }
 
     /**

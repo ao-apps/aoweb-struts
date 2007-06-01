@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
@@ -30,6 +29,8 @@ public class VirtualManaged5CompletedAction extends VirtualManaged5Action {
         boolean signupSelectServerFormComplete,
         SignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
+        SignupCustomizeManagementForm signupCustomizeManagementForm,
+        boolean signupCustomizeManagementFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -37,12 +38,11 @@ public class VirtualManaged5CompletedAction extends VirtualManaged5Action {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        // Forward to previous steps if they have not been completed
         if(!signupSelectServerFormComplete) return mapping.findForward("virtualManaged");
         if(!signupCustomizeServerFormComplete)  return mapping.findForward("virtualManaged2");
-        if(!signupBusinessFormComplete)  return mapping.findForward("virtualManaged3");
-        if(!signupTechnicalFormComplete)  return mapping.findForward("virtualManaged4");
-        if(!signupBillingInformationFormComplete) {
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtualManaged3");
+        if(!signupBusinessFormComplete)  return mapping.findForward("virtualManaged4");
+        if(!signupTechnicalFormComplete) {
             // Init values for the form
             return super.executeVirtualManagedStep(
                 mapping,
@@ -54,6 +54,8 @@ public class VirtualManaged5CompletedAction extends VirtualManaged5Action {
                 signupSelectServerFormComplete,
                 signupCustomizeServerForm,
                 signupCustomizeServerFormComplete,
+                signupCustomizeManagementForm,
+                signupCustomizeManagementFormComplete,
                 signupBusinessForm,
                 signupBusinessFormComplete,
                 signupTechnicalForm,
@@ -62,17 +64,8 @@ public class VirtualManaged5CompletedAction extends VirtualManaged5Action {
                 signupBillingInformationFormComplete
             );
         }
-        return mapping.findForward("virtualManaged6");
-    }
-
-    /**
-     * Clears checkboxes when not in form.
-     */
-    protected void clearCheckboxes(HttpServletRequest request, ActionForm form) {
-        SignupBillingInformationForm signupBillingInformationForm = (SignupBillingInformationForm)form;
-        // Clear the checkboxes if not present in this request
-        if(!"on".equals(request.getParameter("billingUseMonthly"))) signupBillingInformationForm.setBillingUseMonthly(false);
-        if(!"on".equals(request.getParameter("billingPayOneYear"))) signupBillingInformationForm.setBillingPayOneYear(false);
+        if(!signupBillingInformationFormComplete) return mapping.findForward("virtualManaged6");
+        return mapping.findForward("virtualManaged7");
     }
 
     /**

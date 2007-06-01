@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessages;
@@ -34,6 +33,8 @@ public class VirtualManaged4Action extends VirtualManagedStepAction {
         boolean signupSelectServerFormComplete,
         SignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
+        SignupCustomizeManagementForm signupCustomizeManagementForm,
+        boolean signupCustomizeManagementFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -43,33 +44,14 @@ public class VirtualManaged4Action extends VirtualManagedStepAction {
     ) throws Exception {
         if(!signupSelectServerFormComplete) return mapping.findForward("virtualManaged");
         if(!signupCustomizeServerFormComplete) return mapping.findForward("virtualManaged2");
-        if(!signupBusinessFormComplete) return mapping.findForward("virtualManaged3");
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtualManaged3");
 
-        SignupTechnicalActionHelper.setRequestAttributes(getServlet().getServletContext(), request, signupTechnicalForm);
+        SignupBusinessActionHelper.setRequestAttributes(getServlet().getServletContext(), request);
 
         // Clear errors if they should not be displayed
         clearErrors(request);
 
         return mapping.findForward("input");
-    }
-
-    public static class CountryOption {
-
-        final private String code;
-        final private String name;
-
-        private CountryOption(String code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-        
-        public String getCode() {
-            return code;
-        }
-        
-        public String getName() {
-            return name;
-        }
     }
 
     /**

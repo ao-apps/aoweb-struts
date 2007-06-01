@@ -29,6 +29,8 @@ public class Managed2CompletedAction extends Managed2Action {
         boolean signupSelectServerFormComplete,
         SignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
+        SignupCustomizeManagementForm signupCustomizeManagementForm,
+        boolean signupCustomizeManagementFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -49,6 +51,8 @@ public class Managed2CompletedAction extends Managed2Action {
                 signupSelectServerFormComplete,
                 signupCustomizeServerForm,
                 signupCustomizeServerFormComplete,
+                signupCustomizeManagementForm,
+                signupCustomizeManagementFormComplete,
                 signupBusinessForm,
                 signupBusinessFormComplete,
                 signupTechnicalForm,
@@ -57,10 +61,7 @@ public class Managed2CompletedAction extends Managed2Action {
                 signupBillingInformationFormComplete
             );
         }
-        if(!signupBusinessFormComplete) return mapping.findForward("managed3");
-        if(!signupTechnicalFormComplete) return mapping.findForward("managed4");
-        if(!signupBillingInformationFormComplete) return mapping.findForward("managed5");
-        return mapping.findForward("managed6");
+        return mapping.findForward("managed3");
     }
 
     /**

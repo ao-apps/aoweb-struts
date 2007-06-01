@@ -9,6 +9,7 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.Skin;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import javax.servlet.ServletContext;
@@ -67,17 +68,18 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
         PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());
 
         // Build the options map
-        Map<String,String> options = ServerConfirmationCompletedActionHelper.getOptions(signupCustomizeServerForm);
+        Map<String,String> options = new HashMap<String,String>();
+        ConfirmationCompletedActionHelper.addOptions(options, signupCustomizeServerForm);
 
         // Store to the database
-        ServerConfirmationCompletedActionHelper.storeToDatabase(servlet, request, rootConn, packageDefinition, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm, options);
+        ConfirmationCompletedActionHelper.storeToDatabase(servlet, request, rootConn, packageDefinition, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm, options);
         String pkey = (String)request.getAttribute("pkey");
         String statusKey = (String)request.getAttribute("statusKey");
 
         Locale contentLocale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
 
         // Send confirmation email to support
-        ServerConfirmationCompletedActionHelper.sendSupportSummaryEmail(
+        ConfirmationCompletedActionHelper.sendSupportSummaryEmail(
             servlet,
             skin,
             request,
@@ -89,13 +91,14 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
             packageDefinition,
             signupSelectServerForm,
             signupCustomizeServerForm,
+            null,
             signupBusinessForm,
             signupTechnicalForm,
             signupBillingInformationForm
         );
 
         // Send confirmation email to customer
-        ServerConfirmationCompletedActionHelper.sendCustomerSummaryEmails(
+        ConfirmationCompletedActionHelper.sendCustomerSummaryEmails(
             servlet,
             skin,
             request,
@@ -107,6 +110,7 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
             packageDefinition,
             signupSelectServerForm,
             signupCustomizeServerForm,
+            null,
             signupBusinessForm,
             signupTechnicalForm,
             signupBillingInformationForm

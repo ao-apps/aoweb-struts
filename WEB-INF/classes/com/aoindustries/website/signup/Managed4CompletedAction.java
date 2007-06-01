@@ -29,6 +29,8 @@ public class Managed4CompletedAction extends Managed4Action {
         boolean signupSelectServerFormComplete,
         SignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
+        SignupCustomizeManagementForm signupCustomizeManagementForm,
+        boolean signupCustomizeManagementFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -38,8 +40,8 @@ public class Managed4CompletedAction extends Managed4Action {
     ) throws Exception {
         if(!signupSelectServerFormComplete) return mapping.findForward("managed");
         if(!signupCustomizeServerFormComplete)  return mapping.findForward("managed2");
-        if(!signupBusinessFormComplete)  return mapping.findForward("managed3");
-        if(!signupTechnicalFormComplete) {
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("managed3");
+        if(!signupBusinessFormComplete) {
             // Init values for the form
             return super.executeManagedStep(
                 mapping,
@@ -51,6 +53,8 @@ public class Managed4CompletedAction extends Managed4Action {
                 signupSelectServerFormComplete,
                 signupCustomizeServerForm,
                 signupCustomizeServerFormComplete,
+                signupCustomizeManagementForm,
+                signupCustomizeManagementFormComplete,
                 signupBusinessForm,
                 signupBusinessFormComplete,
                 signupTechnicalForm,
@@ -59,8 +63,9 @@ public class Managed4CompletedAction extends Managed4Action {
                 signupBillingInformationFormComplete
             );
         }
-        if(!signupBillingInformationFormComplete) return mapping.findForward("managed5");
-        return mapping.findForward("managed6");
+        if(!signupTechnicalFormComplete) return mapping.findForward("managed5");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("managed6");
+        return mapping.findForward("managed7");
     }
 
     /**

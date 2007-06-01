@@ -11,7 +11,7 @@
 <%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
 <skin:setContentType/>
 <html:html lang="true">
-    <skin:path>/signup/virtualManaged5.do</skin:path>
+    <skin:path>/signup/virtualManaged7.do</skin:path>
     <skin:title><bean:message bundle="/signup/ApplicationResources" key="virtualManaged.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/signup/ApplicationResources" key="virtualManaged.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/signup/ApplicationResources" key="virtualManaged.keywords"/></skin:keywords>
@@ -23,13 +23,18 @@
             <skin:contentTitle><bean:message bundle="/signup/ApplicationResources" key="virtualManaged.title"/></skin:contentTitle>
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
-                <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="5"/>
+                <script language="JavaScript1.2"><!--
+                    function selectStep(step) {
+                        window.location.href=step+".do";
+                    }
+                // --></script>
+                <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="7"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="virtualManaged"/>
                 <%@ include file="managedSteps.jsp" %>
                 <br>
-                <html:form action="/virtualManaged5Completed.do">
-                    <%@ include file="signupTechnicalForm.jsp" %>
-                </html:form>
+                <form action="virtualManaged7Completed.do" method="POST">
+                    <%@ include file="managedConfirmation.jsp" %>
+                </form>
             </skin:contentLine>
         </skin:content>
     </skin:skin>

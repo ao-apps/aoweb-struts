@@ -23,18 +23,13 @@
             <skin:contentTitle><bean:message bundle="/signup/ApplicationResources" key="virtualManaged.title"/></skin:contentTitle>
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
-                <script language="JavaScript1.2"><!--
-                    function selectStep(step) {
-                        window.location.href=step+".do";
-                    }
-                // --></script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="6"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="virtualManaged"/>
-                <%@ include file="serverSteps.jsp" %>
+                <%@ include file="managedSteps.jsp" %>
                 <br>
-                <form action="virtualManaged6Completed.do" method="POST">
-                    <%@ include file="serverConfirmation.jsp" %>
-                </form>
+                <html:form action="/virtualManaged6Completed.do">
+                    <%@ include file="signupBillingInformationForm.jsp" %>
+                </html:form>
             </skin:contentLine>
         </skin:content>
     </skin:skin>

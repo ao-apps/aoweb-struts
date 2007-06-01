@@ -282,14 +282,14 @@ final public class SignupCustomizeServerActionHelper {
         }
 
         // Sort by price
-        Collections.sort(powerOptions, new PriceComparator());
-        Collections.sort(cpuOptions, new PriceComparator());
-        Collections.sort(ramOptions, new PriceComparator());
-        Collections.sort(sataControllerOptions, new PriceComparator());
-        Collections.sort(scsiControllerOptions, new PriceComparator());
-        for(List<Option> ideOptionList : ideOptions) Collections.sort(ideOptionList, new PriceComparator());
-        for(List<Option> sataOptionList : sataOptions) Collections.sort(sataOptionList, new PriceComparator());
-        for(List<Option> scsiOptionList : scsiOptions) Collections.sort(scsiOptionList, new PriceComparator());
+        Collections.sort(powerOptions, new Option.PriceComparator());
+        Collections.sort(cpuOptions, new Option.PriceComparator());
+        Collections.sort(ramOptions, new Option.PriceComparator());
+        Collections.sort(sataControllerOptions, new Option.PriceComparator());
+        Collections.sort(scsiControllerOptions, new Option.PriceComparator());
+        for(List<Option> ideOptionList : ideOptions) Collections.sort(ideOptionList, new Option.PriceComparator());
+        for(List<Option> sataOptionList : sataOptions) Collections.sort(sataOptionList, new Option.PriceComparator());
+        for(List<Option> scsiOptionList : scsiOptions) Collections.sort(scsiOptionList, new Option.PriceComparator());
 
         // Clear any customization settings that are not part of the current package definition (this happens when they
         // select a different package type)
@@ -416,10 +416,84 @@ final public class SignupCustomizeServerActionHelper {
         request.setAttribute("basePrice", new BigDecimal(SQLUtility.getDecimal(basePrice)));
     }
 
-    private static class PriceComparator implements Comparator<Option> {
-        public int compare(Option pdl1, Option pdl2) {
-            return pdl1.getPriceDifference().compareTo(pdl2.getPriceDifference());
+    /**
+     * Gets the hardware monthly rate for the server, basic server + hardware options
+     */
+    public static BigDecimal getHardwareMonthlyRate(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, PackageDefinition packageDefinition) {
+        BigDecimal monthlyRate = new BigDecimal(SQLUtility.getDecimal(packageDefinition.getMonthlyRate()));
+
+        // Add the power option
+        int powerOption = signupCustomizeServerForm.getPowerOption();
+        if(powerOption!=-1) {
+            PackageDefinitionLimit powerPDL = rootConn.packageDefinitionLimits.get(powerOption);
+            int numPower = powerPDL.getHardLimit();
+            int powerRate = powerPDL.getAdditionalRate();
+            if(powerRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numPower * powerRate)));
         }
+
+        // Add the cpu option
+        PackageDefinitionLimit cpuPDL = rootConn.packageDefinitionLimits.get(signupCustomizeServerForm.getCpuOption());
+        int numCpu = cpuPDL.getHardLimit();
+        int cpuRate = cpuPDL.getAdditionalRate();
+        if(cpuRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numCpu * cpuRate)));
+
+        // Add the RAM option
+        PackageDefinitionLimit ramPDL = rootConn.packageDefinitionLimits.get(signupCustomizeServerForm.getRamOption());
+        int numRam = ramPDL.getHardLimit();
+        int ramRate = ramPDL.getAdditionalRate();
+        if(ramRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numRam * ramRate)));
+
+        // Add the SATA controller option
+        int sataControllerOption = signupCustomizeServerForm.getSataControllerOption();
+        if(sataControllerOption!=-1) {
+            PackageDefinitionLimit sataControllerPDL = rootConn.packageDefinitionLimits.get(sataControllerOption);
+            int numSataController = sataControllerPDL.getHardLimit();
+            int sataControllerRate = sataControllerPDL.getAdditionalRate();
+            if(sataControllerRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numSataController * sataControllerRate)));
+        }
+
+        // Add the SCSI controller option
+        int scsiControllerOption = signupCustomizeServerForm.getScsiControllerOption();
+        if(scsiControllerOption!=-1) {
+            PackageDefinitionLimit scsiControllerPDL = rootConn.packageDefinitionLimits.get(scsiControllerOption);
+            int numScsiController = scsiControllerPDL.getHardLimit();
+            int scsiControllerRate = scsiControllerPDL.getAdditionalRate();
+            if(scsiControllerRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numScsiController * scsiControllerRate)));
+        }
+
+        // Add the IDE options
+        for(String pkey : signupCustomizeServerForm.getIdeOptions()) {
+            if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
+                PackageDefinitionLimit idePDL = rootConn.packageDefinitionLimits.get(Integer.parseInt(pkey));
+                if(idePDL!=null) {
+                    int ideRate = idePDL.getAdditionalRate();
+                    if(ideRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(ideRate)));
+                }
+            }
+        }
+
+        // Add the SATA options
+        for(String pkey : signupCustomizeServerForm.getSataOptions()) {
+            if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
+                PackageDefinitionLimit sataPDL = rootConn.packageDefinitionLimits.get(Integer.parseInt(pkey));
+                if(sataPDL!=null) {
+                    int sataRate = sataPDL.getAdditionalRate();
+                    if(sataRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(sataRate)));
+                }
+            }
+        }
+
+        // Add the SCSI options
+        for(String pkey : signupCustomizeServerForm.getScsiOptions()) {
+            if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
+                PackageDefinitionLimit scsiPDL = rootConn.packageDefinitionLimits.get(Integer.parseInt(pkey));
+                if(scsiPDL!=null) {
+                    int scsiRate = scsiPDL.getAdditionalRate();
+                    if(scsiRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(scsiRate)));
+                }
+            }
+        }
+        return monthlyRate;
     }
 
     public static String getPowerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) {
@@ -514,83 +588,10 @@ final public class SignupCustomizeServerActionHelper {
         // Lookup things needed by the view
         AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servletContext);
         PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());
-        BigDecimal monthlyRate = new BigDecimal(SQLUtility.getDecimal(packageDefinition.getMonthlyRate()));
-
-        // Add the power option
-        int powerOption = signupCustomizeServerForm.getPowerOption();
-        if(powerOption!=-1) {
-            PackageDefinitionLimit powerPDL = rootConn.packageDefinitionLimits.get(powerOption);
-            int numPower = powerPDL.getHardLimit();
-            int powerRate = powerPDL.getAdditionalRate();
-            if(powerRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numPower * powerRate)));
-        }
-
-        // Add the cpu option
-        PackageDefinitionLimit cpuPDL = rootConn.packageDefinitionLimits.get(signupCustomizeServerForm.getCpuOption());
-        int numCpu = cpuPDL.getHardLimit();
-        int cpuRate = cpuPDL.getAdditionalRate();
-        if(cpuRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numCpu * cpuRate)));
-
-        // Add the RAM option
-        PackageDefinitionLimit ramPDL = rootConn.packageDefinitionLimits.get(signupCustomizeServerForm.getRamOption());
-        int numRam = ramPDL.getHardLimit();
-        int ramRate = ramPDL.getAdditionalRate();
-        if(ramRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numRam * ramRate)));
-
-        // Add the SATA controller option
-        int sataControllerOption = signupCustomizeServerForm.getSataControllerOption();
-        if(sataControllerOption!=-1) {
-            PackageDefinitionLimit sataControllerPDL = rootConn.packageDefinitionLimits.get(sataControllerOption);
-            int numSataController = sataControllerPDL.getHardLimit();
-            int sataControllerRate = sataControllerPDL.getAdditionalRate();
-            if(sataControllerRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numSataController * sataControllerRate)));
-        }
-
-        // Add the SCSI controller option
-        int scsiControllerOption = signupCustomizeServerForm.getScsiControllerOption();
-        if(scsiControllerOption!=-1) {
-            PackageDefinitionLimit scsiControllerPDL = rootConn.packageDefinitionLimits.get(scsiControllerOption);
-            int numScsiController = scsiControllerPDL.getHardLimit();
-            int scsiControllerRate = scsiControllerPDL.getAdditionalRate();
-            if(scsiControllerRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numScsiController * scsiControllerRate)));
-        }
-
-        // Add the IDE options
-        for(String pkey : signupCustomizeServerForm.getIdeOptions()) {
-            if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
-                PackageDefinitionLimit idePDL = rootConn.packageDefinitionLimits.get(Integer.parseInt(pkey));
-                if(idePDL!=null) {
-                    int ideRate = idePDL.getAdditionalRate();
-                    if(ideRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(ideRate)));
-                }
-            }
-        }
-
-        // Add the SATA options
-        for(String pkey : signupCustomizeServerForm.getSataOptions()) {
-            if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
-                PackageDefinitionLimit sataPDL = rootConn.packageDefinitionLimits.get(Integer.parseInt(pkey));
-                if(sataPDL!=null) {
-                    int sataRate = sataPDL.getAdditionalRate();
-                    if(sataRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(sataRate)));
-                }
-            }
-        }
-
-        // Add the SCSI options
-        for(String pkey : signupCustomizeServerForm.getScsiOptions()) {
-            if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
-                PackageDefinitionLimit scsiPDL = rootConn.packageDefinitionLimits.get(Integer.parseInt(pkey));
-                if(scsiPDL!=null) {
-                    int scsiRate = scsiPDL.getAdditionalRate();
-                    if(scsiRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(scsiRate)));
-                }
-            }
-        }
 
         // Store as request attribute for the view
         request.setAttribute("packageDefinition", packageDefinition);
-        request.setAttribute("monthlyRate", monthlyRate);
+        request.setAttribute("monthlyRate", getHardwareMonthlyRate(rootConn, signupCustomizeServerForm, packageDefinition));
         request.setAttribute("powerOption", getPowerOption(rootConn, signupCustomizeServerForm));
         request.setAttribute("cpuOption", getCpuOption(rootConn, signupCustomizeServerForm));
         request.setAttribute("ramOption", getRamOption(rootConn, signupCustomizeServerForm));
@@ -682,5 +683,56 @@ final public class SignupCustomizeServerActionHelper {
                      + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.monthlyRate.prompt")).print("</TD>\n"
                      + "        <TD>$").print(request.getAttribute("monthlyRate")).print("</TD>\n"
                      + "    </TR>\n");
+    }
+    
+    /**
+     * Gets the total amount of hard drive space in gigabytes.
+     */
+    public static int getTotalHardwareDiskSpace(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) {
+        if(signupCustomizeServerForm==null) return 0;
+        int total = 0;
+        for(String ideOption : signupCustomizeServerForm.getIdeOptions()) {
+            if(ideOption!=null && ideOption.length()>0 && !"-1".equals(ideOption)) {
+                PackageDefinitionLimit limit = rootConn.packageDefinitionLimits.get(Integer.parseInt(ideOption));
+                if(limit!=null) {
+                    Resource resource = limit.getResource();
+                    String name = resource.getName();
+                    if(name.startsWith("hardware_disk_ide_")) {
+                        // Is in formation hardware_disk_ide_RPM_SIZE
+                        int pos = name.indexOf('_', 18);
+                        if(pos!=-1) total += Integer.parseInt(name.substring(pos+1));
+                    }
+                }
+            }
+        }
+        for(String sataOption : signupCustomizeServerForm.getSataOptions()) {
+            if(sataOption!=null && sataOption.length()>0 && !"-1".equals(sataOption)) {
+                PackageDefinitionLimit limit = rootConn.packageDefinitionLimits.get(Integer.parseInt(sataOption));
+                if(limit!=null) {
+                    Resource resource = limit.getResource();
+                    String name = resource.getName();
+                    if(name.startsWith("hardware_disk_sata_")) {
+                        // Is in formation hardware_disk_sata_RPM_SIZE
+                        int pos = name.indexOf('_', 19);
+                        if(pos!=-1) total += Integer.parseInt(name.substring(pos+1));
+                    }
+                }
+            }
+        }
+        for(String scsiOption : signupCustomizeServerForm.getScsiOptions()) {
+            if(scsiOption!=null && scsiOption.length()>0 && !"-1".equals(scsiOption)) {
+                PackageDefinitionLimit limit = rootConn.packageDefinitionLimits.get(Integer.parseInt(scsiOption));
+                if(limit!=null) {
+                    Resource resource = limit.getResource();
+                    String name = resource.getName();
+                    if(name.startsWith("hardware_disk_scsi_")) {
+                        // Is in formation hardware_disk_scsi_RPM_SIZE
+                        int pos = name.indexOf('_', 19);
+                        if(pos!=-1) total += Integer.parseInt(name.substring(pos+1));
+                    }
+                }
+            }
+        }
+        return total;
     }
 }

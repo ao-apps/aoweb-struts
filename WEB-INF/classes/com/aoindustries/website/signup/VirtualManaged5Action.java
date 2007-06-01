@@ -10,7 +10,6 @@ import com.aoindustries.aoserv.client.CountryCode;
 import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.Skin;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +34,8 @@ public class VirtualManaged5Action extends VirtualManagedStepAction {
         boolean signupSelectServerFormComplete,
         SignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
+        SignupCustomizeManagementForm signupCustomizeManagementForm,
+        boolean signupCustomizeManagementFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -44,15 +45,34 @@ public class VirtualManaged5Action extends VirtualManagedStepAction {
     ) throws Exception {
         if(!signupSelectServerFormComplete) return mapping.findForward("virtualManaged");
         if(!signupCustomizeServerFormComplete) return mapping.findForward("virtualManaged2");
-        if(!signupBusinessFormComplete) return mapping.findForward("virtualManaged3");
-        if(!signupTechnicalFormComplete) return mapping.findForward("virtualManaged4");
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtualManaged3");
+        if(!signupBusinessFormComplete) return mapping.findForward("virtualManaged4");
 
-        SignupBillingInformationActionHelper.setRequestAttributes(request);
+        SignupTechnicalActionHelper.setRequestAttributes(getServlet().getServletContext(), request, signupTechnicalForm);
 
         // Clear errors if they should not be displayed
         clearErrors(request);
 
         return mapping.findForward("input");
+    }
+
+    public static class CountryOption {
+
+        final private String code;
+        final private String name;
+
+        private CountryOption(String code, String name) {
+            this.code = code;
+            this.name = name;
+        }
+        
+        public String getCode() {
+            return code;
+        }
+        
+        public String getName() {
+            return name;
+        }
     }
 
     /**

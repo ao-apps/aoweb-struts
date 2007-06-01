@@ -16,6 +16,7 @@
         <form-bean name="dedicatedSignupCustomizeServerForm" type="com.aoindustries.website.signup.DedicatedSignupCustomizeServerForm" />
         <form-bean name="managedSignupSelectServerForm" type="com.aoindustries.website.signup.ManagedSignupSelectServerForm" />
         <form-bean name="managedSignupCustomizeServerForm" type="com.aoindustries.website.signup.ManagedSignupCustomizeServerForm" />
+        <form-bean name="signupCustomizeManagementForm" type="com.aoindustries.website.signup.SignupCustomizeManagementForm" />
         <form-bean name="signupBusinessForm" type="com.aoindustries.website.signup.SignupBusinessForm" />
         <form-bean name="signupTechnicalForm" type="com.aoindustries.website.signup.SignupTechnicalForm" />
         <form-bean name="signupBillingInformationForm" type="com.aoindustries.website.signup.SignupBillingInformationForm" />
@@ -44,6 +45,7 @@
         <forward name="virtualManaged4" path="/virtualManaged4.do" redirect="true" />
         <forward name="virtualManaged5" path="/virtualManaged5.do" redirect="true" />
         <forward name="virtualManaged6" path="/virtualManaged6.do" redirect="true" />
+        <forward name="virtualManaged7" path="/virtualManaged7.do" redirect="true" />
         <forward name="dedicated" path="/dedicated.do" redirect="true" />
         <forward name="dedicated2" path="/dedicated2.do" redirect="true" />
         <forward name="dedicated3" path="/dedicated3.do" redirect="true" />
@@ -56,6 +58,7 @@
         <forward name="managed4" path="/managed4.do" redirect="true" />
         <forward name="managed5" path="/managed5.do" redirect="true" />
         <forward name="managed6" path="/managed6.do" redirect="true" />
+        <forward name="managed7" path="/managed7.do" redirect="true" />
     </global-forwards>
 
     <!-- ========== Action Mapping Definitions ============================== -->
@@ -200,7 +203,7 @@
         </action>
         <action
             path="/virtualManaged3"
-            name="signupBusinessForm"
+            name="signupCustomizeManagementForm"
             scope="session"
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged3Action"
@@ -209,7 +212,7 @@
         </action>
         <action
             path="/virtualManaged3Completed"
-            name="signupBusinessForm"
+            name="signupCustomizeManagementForm"
             scope="session"
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged3CompletedAction"
@@ -218,7 +221,7 @@
         </action>
         <action
             path="/virtualManaged4"
-            name="signupTechnicalForm"
+            name="signupBusinessForm"
             scope="session"
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged4Action"
@@ -227,7 +230,7 @@
         </action>
         <action
             path="/virtualManaged4Completed"
-            name="signupTechnicalForm"
+            name="signupBusinessForm"
             scope="session"
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged4CompletedAction"
@@ -236,7 +239,7 @@
         </action>
         <action
             path="/virtualManaged5"
-            name="signupBillingInformationForm"
+            name="signupTechnicalForm"
             scope="session"
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged5Action"
@@ -245,7 +248,7 @@
         </action>
         <action
             path="/virtualManaged5Completed"
-            name="signupBillingInformationForm"
+            name="signupTechnicalForm"
             scope="session"
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged5CompletedAction"
@@ -254,15 +257,33 @@
         </action>
         <action
             path="/virtualManaged6"
+            name="signupBillingInformationForm"
+            scope="session"
+            validate="false"
             type="com.aoindustries.website.signup.VirtualManaged6Action"
         >
             <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged6.jsp" redirect="false" />
         </action>
         <action
             path="/virtualManaged6Completed"
+            name="signupBillingInformationForm"
+            scope="session"
+            validate="false"
             type="com.aoindustries.website.signup.VirtualManaged6CompletedAction"
         >
-            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged6Completed.jsp" redirect="false" />
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged6.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualManaged7"
+            type="com.aoindustries.website.signup.VirtualManaged7Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged7.jsp" redirect="false" />
+        </action>
+        <action
+            path="/virtualManaged7Completed"
+            type="com.aoindustries.website.signup.VirtualManaged7CompletedAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/signup/virtualManaged7Completed.jsp" redirect="false" />
         </action>
         <action
             path="/dedicated"
@@ -404,7 +425,7 @@
         </action>
         <action
             path="/managed3"
-            name="signupBusinessForm"
+            name="signupCustomizeManagementForm"
             scope="session"
             validate="false"
             type="com.aoindustries.website.signup.Managed3Action"
@@ -413,7 +434,7 @@
         </action>
         <action
             path="/managed3Completed"
-            name="signupBusinessForm"
+            name="signupCustomizeManagementForm"
             scope="session"
             validate="false"
             type="com.aoindustries.website.signup.Managed3CompletedAction"
@@ -422,7 +443,7 @@
         </action>
         <action
             path="/managed4"
-            name="signupTechnicalForm"
+            name="signupBusinessForm"
             scope="session"
             validate="false"
             type="com.aoindustries.website.signup.Managed4Action"
@@ -431,7 +452,7 @@
         </action>
         <action
             path="/managed4Completed"
-            name="signupTechnicalForm"
+            name="signupBusinessForm"
             scope="session"
             validate="false"
             type="com.aoindustries.website.signup.Managed4CompletedAction"
@@ -440,7 +461,7 @@
         </action>
         <action
             path="/managed5"
-            name="signupBillingInformationForm"
+            name="signupTechnicalForm"
             scope="session"
             validate="false"
             type="com.aoindustries.website.signup.Managed5Action"
@@ -449,7 +470,7 @@
         </action>
         <action
             path="/managed5Completed"
-            name="signupBillingInformationForm"
+            name="signupTechnicalForm"
             scope="session"
             validate="false"
             type="com.aoindustries.website.signup.Managed5CompletedAction"
@@ -458,18 +479,36 @@
         </action>
         <action
             path="/managed6"
+            name="signupBillingInformationForm"
+            scope="session"
+            validate="false"
             type="com.aoindustries.website.signup.Managed6Action"
         >
             <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/managed6.jsp" redirect="false" />
         </action>
         <action
             path="/managed6Completed"
+            name="signupBillingInformationForm"
+            scope="session"
+            validate="false"
             type="com.aoindustries.website.signup.Managed6CompletedAction"
         >
-            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/signup/managed6Completed.jsp" redirect="false" />
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/managed6.jsp" redirect="false" />
+        </action>
+        <action
+            path="/managed7"
+            type="com.aoindustries.website.signup.Managed7Action"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/signup/managed7.jsp" redirect="false" />
+        </action>
+        <action
+            path="/managed7Completed"
+            type="com.aoindustries.website.signup.Managed7CompletedAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/signup/managed7Completed.jsp" redirect="false" />
         </action>
     </action-mappings>
-    
+
     <!-- ========== Controller ============================================== -->
     <controller
         nocache="true"

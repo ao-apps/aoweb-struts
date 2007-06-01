@@ -33,6 +33,8 @@ public class VirtualManaged3Action extends VirtualManagedStepAction {
         boolean signupSelectServerFormComplete,
         SignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
+        SignupCustomizeManagementForm signupCustomizeManagementForm,
+        boolean signupCustomizeManagementFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -43,7 +45,7 @@ public class VirtualManaged3Action extends VirtualManagedStepAction {
         if(!signupSelectServerFormComplete) return mapping.findForward("virtualManaged");
         if(!signupCustomizeServerFormComplete) return mapping.findForward("virtualManaged2");
 
-        SignupBusinessActionHelper.setRequestAttributes(getServlet().getServletContext(), request);
+        SignupCustomizeManagementActionHelper.setRequestAttributes(getServlet().getServletContext(), request, signupSelectServerForm, signupCustomizeServerForm, signupCustomizeManagementForm);
 
         // Clear errors if they should not be displayed
         clearErrors(request);

@@ -23,11 +23,11 @@
             <skin:contentTitle><bean:message bundle="/signup/ApplicationResources" key="managed.title"/></skin:contentTitle>
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
-                <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="7"/>
+                <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="8"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="managed"/>
-                <%@ include file="serverSteps.jsp" %>
+                <%@ include file="managedSteps.jsp" %>
                 <br>
-                <%@ include file="serverConfirmationCompleted.jsp" %>
+                <%@ include file="managedConfirmationCompleted.jsp" %>
             </skin:contentLine>
         </skin:content>
     </skin:skin>

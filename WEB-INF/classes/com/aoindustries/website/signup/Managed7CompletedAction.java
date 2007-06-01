@@ -24,9 +24,9 @@ import org.apache.struts.action.ActionServlet;
 /**
  * @author  AO Industries, Inc.
  */
-public class Dedicated6CompletedAction extends Dedicated6Action {
+public class Managed7CompletedAction extends Managed7Action {
 
-    public ActionForward executeDedicatedStep(
+    public ActionForward executeManagedStep(
         ActionMapping mapping,
         HttpServletRequest request,
         HttpServletResponse response,
@@ -36,6 +36,8 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
         boolean signupSelectServerFormComplete,
         SignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
+        SignupCustomizeManagementForm signupCustomizeManagementForm,
+        boolean signupCustomizeManagementFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -44,17 +46,19 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
         boolean signupBillingInformationFormComplete
     ) throws Exception {
         // Forward to previous steps if they have not been completed
-        if(!signupSelectServerFormComplete) return mapping.findForward("dedicated");
-        if(!signupCustomizeServerFormComplete) return mapping.findForward("dedicated2");
-        if(!signupBusinessFormComplete) return mapping.findForward("dedicated3");
-        if(!signupTechnicalFormComplete) return mapping.findForward("dedicated4");
-        if(!signupBillingInformationFormComplete) return mapping.findForward("dedicated5");
+        if(!signupSelectServerFormComplete) return mapping.findForward("managed");
+        if(!signupCustomizeServerFormComplete) return mapping.findForward("managed2");
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("managed3");
+        if(!signupBusinessFormComplete) return mapping.findForward("managed4");
+        if(!signupTechnicalFormComplete) return mapping.findForward("managed5");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("managed6");
 
         // Let the parent class do the initialization of the request attributes for both the emails and the final JSP
         initRequestAttributes(
             request,
             signupSelectServerForm,
             signupCustomizeServerForm,
+            signupCustomizeManagementForm,
             signupBusinessForm,
             signupTechnicalForm,
             signupBillingInformationForm
@@ -70,6 +74,7 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
         // Build the options map
         Map<String,String> options = new HashMap<String,String>();
         ConfirmationCompletedActionHelper.addOptions(options, signupCustomizeServerForm);
+        ConfirmationCompletedActionHelper.addOptions(options, signupCustomizeManagementForm);
 
         // Store to the database
         ConfirmationCompletedActionHelper.storeToDatabase(servlet, request, rootConn, packageDefinition, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm, options);
@@ -91,7 +96,7 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
             packageDefinition,
             signupSelectServerForm,
             signupCustomizeServerForm,
-            null,
+            signupCustomizeManagementForm,
             signupBusinessForm,
             signupTechnicalForm,
             signupBillingInformationForm
@@ -110,15 +115,15 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
             packageDefinition,
             signupSelectServerForm,
             signupCustomizeServerForm,
-            null,
+            signupCustomizeManagementForm,
             signupBusinessForm,
             signupTechnicalForm,
             signupBillingInformationForm
         );
         
-        // Clear dedicated signup-specific forms from the session
-        session.removeAttribute("dedicatedSignupSelectServerForm");
-        session.removeAttribute("dedicatedSignupCustomizeServerForm");
+        // Clear managed signup-specific forms from the session
+        session.removeAttribute("managedSignupSelectServerForm");
+        session.removeAttribute("managedSignupCustomizeServerForm");
 
         return mapping.findForward("success");
     }

@@ -18,17 +18,17 @@
     <skin:description><bean:message bundle="/signup/ApplicationResources" key="managed.description"/></skin:description>
     <%@ include file="addParents.jsp" %>
     <%@ include file="addSiblings.jsp" %>
-    <skin:skin>
+    <skin:skin onLoad="recalcMonthly();">
         <skin:content width="600">
             <skin:contentTitle><bean:message bundle="/signup/ApplicationResources" key="managed.title"/></skin:contentTitle>
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="3"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="managed"/>
-                <%@ include file="serverSteps.jsp" %>
+                <%@ include file="managedSteps.jsp" %>
                 <br>
                 <html:form action="/managed3Completed.do">
-                    <%@ include file="signupBusinessForm.jsp" %>
+                    <%@ include file="signupCustomizeManagementForm.jsp" %>
                 </html:form>
             </skin:contentLine>
         </skin:content>

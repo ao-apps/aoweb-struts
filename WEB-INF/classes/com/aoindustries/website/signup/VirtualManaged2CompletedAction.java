@@ -29,6 +29,8 @@ public class VirtualManaged2CompletedAction extends VirtualManaged2Action {
         boolean signupSelectServerFormComplete,
         SignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
+        SignupCustomizeManagementForm signupCustomizeManagementForm,
+        boolean signupCustomizeManagementFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -49,6 +51,8 @@ public class VirtualManaged2CompletedAction extends VirtualManaged2Action {
                 signupSelectServerFormComplete,
                 signupCustomizeServerForm,
                 signupCustomizeServerFormComplete,
+                signupCustomizeManagementForm,
+                signupCustomizeManagementFormComplete,
                 signupBusinessForm,
                 signupBusinessFormComplete,
                 signupTechnicalForm,
@@ -57,10 +61,7 @@ public class VirtualManaged2CompletedAction extends VirtualManaged2Action {
                 signupBillingInformationFormComplete
             );
         }
-        if(!signupBusinessFormComplete) return mapping.findForward("virtualManaged3");
-        if(!signupTechnicalFormComplete) return mapping.findForward("virtualManaged4");
-        if(!signupBillingInformationFormComplete) return mapping.findForward("virtualManaged5");
-        return mapping.findForward("virtualManaged6");
+        return mapping.findForward("virtualManaged3");
     }
 
     /**

@@ -6,20 +6,16 @@ package com.aoindustries.website.signup;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.PackageDefinition;
-import com.aoindustries.aoserv.client.PackageDefinitionLimit;
-import com.aoindustries.sql.SQLUtility;
+import com.aoindustries.aoserv.client.CountryCode;
 import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.Skin;
-import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessages;
@@ -39,6 +35,8 @@ public class Managed6Action extends ManagedStepAction {
         boolean signupSelectServerFormComplete,
         SignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
+        SignupCustomizeManagementForm signupCustomizeManagementForm,
+        boolean signupCustomizeManagementFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -48,36 +46,22 @@ public class Managed6Action extends ManagedStepAction {
     ) throws Exception {
         if(!signupSelectServerFormComplete) return mapping.findForward("managed");
         if(!signupCustomizeServerFormComplete) return mapping.findForward("managed2");
-        if(!signupBusinessFormComplete) return mapping.findForward("managed3");
-        if(!signupTechnicalFormComplete) return mapping.findForward("managed4");
-        if(!signupBillingInformationFormComplete) return mapping.findForward("managed5");
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("managed3");
+        if(!signupBusinessFormComplete) return mapping.findForward("managed4");
+        if(!signupTechnicalFormComplete) return mapping.findForward("managed5");
 
-        initRequestAttributes(
-            request,
-            signupSelectServerForm,
-            signupCustomizeServerForm,
-            signupBusinessForm,
-            signupTechnicalForm,
-            signupBillingInformationForm
-        );
+        SignupBillingInformationActionHelper.setRequestAttributes(request);
+
+        // Clear errors if they should not be displayed
+        clearErrors(request);
 
         return mapping.findForward("input");
     }
 
-    protected void initRequestAttributes(
-        HttpServletRequest request,
-        SignupSelectServerForm signupSelectServerForm,
-        SignupCustomizeServerForm signupCustomizeServerForm,
-        SignupBusinessForm signupBusinessForm,
-        SignupTechnicalForm signupTechnicalForm,
-        SignupBillingInformationForm signupBillingInformationForm
-    ) throws IOException {
-        ServletContext servletContext = getServlet().getServletContext();
-
-        SignupSelectServerActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectServerForm);
-        SignupCustomizeServerActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectServerForm, signupCustomizeServerForm);
-        SignupBusinessActionHelper.setConfirmationRequestAttributes(servletContext, request, signupBusinessForm);
-        SignupTechnicalActionHelper.setConfirmationRequestAttributes(servletContext, request, signupTechnicalForm);
-        SignupBillingInformationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupBillingInformationForm);
+    /**
+     * May clear specific errors here.
+     */
+    protected void clearErrors(HttpServletRequest request) {
+        saveErrors(request, new ActionMessages());
     }
 }

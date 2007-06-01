@@ -30,10 +30,10 @@
                 // --></script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="6"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="dedicated"/>
-                <%@ include file="serverSteps.jsp" %>
+                <%@ include file="dedicatedSteps.jsp" %>
                 <br>
                 <form action="dedicated6Completed.do" method="POST">
-                    <%@ include file="serverConfirmation.jsp" %>
+                    <%@ include file="dedicatedConfirmation.jsp" %>
                 </form>
             </skin:contentLine>
         </skin:content>

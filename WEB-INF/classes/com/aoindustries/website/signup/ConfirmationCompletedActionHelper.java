@@ -40,17 +40,14 @@ import org.apache.struts.util.MessageResources;
  *
  * @author  AO Industries, Inc.
  */
-final public class ServerConfirmationCompletedActionHelper {
+final public class ConfirmationCompletedActionHelper {
 
     /**
      * Make no instances.
      */
-    private ServerConfirmationCompletedActionHelper() {}
+    private ConfirmationCompletedActionHelper() {}
 
-    public static Map<String,String> getOptions(SignupCustomizeServerForm signupCustomizeServerForm) {
-        // Add the options
-        Map<String,String> options = new HashMap<String,String>();
-
+    public static void addOptions(Map<String,String> options, SignupCustomizeServerForm signupCustomizeServerForm) {
         // Power option
         options.put("powerOption", Integer.toString(signupCustomizeServerForm.getPowerOption()));
 
@@ -89,10 +86,16 @@ final public class ServerConfirmationCompletedActionHelper {
                 options.put("scsiOptions["+(number++)+"]", scsiOption);
             }
         }
-        
-        return options;
     }
     
+    public static void addOptions(Map<String,String> options, SignupCustomizeManagementForm signupCustomizeManagementForm) {
+        options.put("backupOnsiteOption", Integer.toString(signupCustomizeManagementForm.getBackupOnsiteOption()));
+        options.put("backupOffsiteOption", Integer.toString(signupCustomizeManagementForm.getBackupOffsiteOption()));
+        options.put("backupDvdOption", signupCustomizeManagementForm.getBackupDvdOption());
+        options.put("distributionScanOption", Integer.toString(signupCustomizeManagementForm.getDistributionScanOption()));
+        options.put("failoverOption", Integer.toString(signupCustomizeManagementForm.getFailoverOption()));
+    }
+
     /**
      * Stores to the database, if possible.  Sets request attributes "pkey" and "statusKey", both as String type.
      */
@@ -186,11 +189,12 @@ final public class ServerConfirmationCompletedActionHelper {
         PackageDefinition packageDefinition,
         SignupSelectServerForm signupSelectServerForm,
         SignupCustomizeServerForm signupCustomizeServerForm,
+        SignupCustomizeManagementForm signupCustomizeManagementForm,
         SignupBusinessForm signupBusinessForm,
         SignupTechnicalForm signupTechnicalForm,
         SignupBillingInformationForm signupBillingInformationForm
     ) {
-        sendSummaryEmail(servlet, skin, request, session, pkey, statusKey, servlet.getServletContext().getInitParameter("com.aoindustries.website.signup.admin.address"), contentLocale, Locale.US, rootConn, packageDefinition, signupSelectServerForm, signupCustomizeServerForm, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
+        sendSummaryEmail(servlet, skin, request, session, pkey, statusKey, servlet.getServletContext().getInitParameter("com.aoindustries.website.signup.admin.address"), contentLocale, Locale.US, rootConn, packageDefinition, signupSelectServerForm, signupCustomizeServerForm, signupCustomizeManagementForm, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
     }
     
     /**
@@ -208,6 +212,7 @@ final public class ServerConfirmationCompletedActionHelper {
         PackageDefinition packageDefinition,
         SignupSelectServerForm signupSelectServerForm,
         SignupCustomizeServerForm signupCustomizeServerForm,
+        SignupCustomizeManagementForm signupCustomizeManagementForm,
         SignupBusinessForm signupBusinessForm,
         SignupTechnicalForm signupTechnicalForm,
         SignupBillingInformationForm signupBillingInformationForm
@@ -220,7 +225,7 @@ final public class ServerConfirmationCompletedActionHelper {
         Iterator<String> I=addresses.iterator();
         while(I.hasNext()) {
             String address=I.next();
-            boolean success = sendSummaryEmail(servlet, skin, request, session, pkey, statusKey, address, contentLocale, contentLocale, rootConn, packageDefinition, signupSelectServerForm, signupCustomizeServerForm, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
+            boolean success = sendSummaryEmail(servlet, skin, request, session, pkey, statusKey, address, contentLocale, contentLocale, rootConn, packageDefinition, signupSelectServerForm, signupCustomizeServerForm, signupCustomizeManagementForm, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
             if(success) successAddresses.add(address);
             else failureAddresses.add(address);
         }
@@ -247,6 +252,7 @@ final public class ServerConfirmationCompletedActionHelper {
         PackageDefinition packageDefinition,
         SignupSelectServerForm signupSelectServerForm,
         SignupCustomizeServerForm signupCustomizeServerForm,
+        SignupCustomizeManagementForm signupCustomizeManagementForm,
         SignupBusinessForm signupBusinessForm,
         SignupTechnicalForm signupTechnicalForm,
         SignupBillingInformationForm signupBillingInformationForm
@@ -300,6 +306,18 @@ final public class ServerConfirmationCompletedActionHelper {
             emailOut.print("    <TR><TD colspan=\"3\">&nbsp;</TD></TR>\n"
                          + "    <TR><TH colspan=\"3\">").print(signupApplicationResources.getMessage(contentLocale, "steps.customizeServer.label")).print("</TH></TR>\n");
             SignupCustomizeServerActionHelper.printConfirmation(request, emailOut, contentLocale, rootConn, packageDefinition, signupCustomizeServerForm, signupApplicationResources);
+            if(signupCustomizeManagementForm!=null) {
+                emailOut.print("    <TR><TD colspan=\"3\">&nbsp;</TD></TR>\n"
+                             + "    <TR><TH colspan=\"3\">").print(signupApplicationResources.getMessage(contentLocale, "steps.customizeManagement.label")).print("</TH></TR>\n");
+                SignupCustomizeManagementActionHelper.printConfirmation(
+                    request,
+                    emailOut,
+                    contentLocale,
+                    rootConn,
+                    signupCustomizeManagementForm,
+                    signupApplicationResources
+                );
+            }
             emailOut.print("    <TR><TD colspan=\"3\">&nbsp;</TD></TR>\n"
                          + "    <TR><TH colspan=\"3\">").print(signupApplicationResources.getMessage(contentLocale, "steps.businessInfo.label")).print("</TH></TR>\n");
             SignupBusinessActionHelper.printConfirmation(emailOut, contentLocale, signupApplicationResources, rootConn, signupBusinessForm);

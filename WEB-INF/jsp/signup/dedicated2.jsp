@@ -33,7 +33,7 @@
                 // --></script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="2"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="dedicated"/>
-                <%@ include file="serverSteps.jsp" %>
+                <%@ include file="dedicatedSteps.jsp" %>
                 <br>
                 <html:form action="/dedicated2Completed.do">
                     <%@ include file="signupCustomizeServerForm.jsp" %>

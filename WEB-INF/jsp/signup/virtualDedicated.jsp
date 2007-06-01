@@ -32,7 +32,7 @@
                 // --></script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="1"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="virtualDedicated"/>
-                <%@ include file="serverSteps.jsp" %>
+                <%@ include file="dedicatedSteps.jsp" %>
                 <br>
                 <html:form action="/virtualDedicatedCompleted.do">
                     <input type="hidden" name="selectedStep" value="">

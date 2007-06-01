@@ -5,20 +5,15 @@ package com.aoindustries.website.signup;
  * 816 Azalea Rd, Mobile, Alabama, 36693, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.PackageDefinition;
-import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.Skin;
 import java.util.Locale;
-import java.util.Map;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.struts.Globals;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionServlet;
 
 /**
  * @author  AO Industries, Inc.
@@ -35,6 +30,8 @@ public class VirtualManaged6CompletedAction extends VirtualManaged6Action {
         boolean signupSelectServerFormComplete,
         SignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
+        SignupCustomizeManagementForm signupCustomizeManagementForm,
+        boolean signupCustomizeManagementFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -45,77 +42,48 @@ public class VirtualManaged6CompletedAction extends VirtualManaged6Action {
         // Forward to previous steps if they have not been completed
         if(!signupSelectServerFormComplete) return mapping.findForward("virtualManaged");
         if(!signupCustomizeServerFormComplete) return mapping.findForward("virtualManaged2");
-        if(!signupBusinessFormComplete) return mapping.findForward("virtualManaged3");
-        if(!signupTechnicalFormComplete) return mapping.findForward("virtualManaged4");
-        if(!signupBillingInformationFormComplete) return mapping.findForward("virtualManaged5");
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtualManaged3");
+        if(!signupBusinessFormComplete) return mapping.findForward("virtualManaged4");
+        if(!signupTechnicalFormComplete) return mapping.findForward("virtualManaged5");
+        if(!signupBillingInformationFormComplete) {
+            // Init values for the form
+            return super.executeVirtualManagedStep(
+                mapping,
+                request,
+                response,
+                locale,
+                skin,
+                signupSelectServerForm,
+                signupSelectServerFormComplete,
+                signupCustomizeServerForm,
+                signupCustomizeServerFormComplete,
+                signupCustomizeManagementForm,
+                signupCustomizeManagementFormComplete,
+                signupBusinessForm,
+                signupBusinessFormComplete,
+                signupTechnicalForm,
+                signupTechnicalFormComplete,
+                signupBillingInformationForm,
+                signupBillingInformationFormComplete
+            );
+        }
+        return mapping.findForward("virtualManaged7");
+    }
 
-        // Let the parent class do the initialization of the request attributes for both the emails and the final JSP
-        initRequestAttributes(
-            request,
-            signupSelectServerForm,
-            signupCustomizeServerForm,
-            signupBusinessForm,
-            signupTechnicalForm,
-            signupBillingInformationForm
-        );
+    /**
+     * Clears checkboxes when not in form.
+     */
+    protected void clearCheckboxes(HttpServletRequest request, ActionForm form) {
+        SignupBillingInformationForm signupBillingInformationForm = (SignupBillingInformationForm)form;
+        // Clear the checkboxes if not present in this request
+        if(!"on".equals(request.getParameter("billingUseMonthly"))) signupBillingInformationForm.setBillingUseMonthly(false);
+        if(!"on".equals(request.getParameter("billingPayOneYear"))) signupBillingInformationForm.setBillingPayOneYear(false);
+    }
 
-        // Used later
-        HttpSession session = request.getSession();
-        ActionServlet servlet = getServlet();
-        ServletContext servletContext = servlet.getServletContext();
-        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servletContext);
-        PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());
-
-        // Build the options map
-        Map<String,String> options = ServerConfirmationCompletedActionHelper.getOptions(signupCustomizeServerForm);
-
-        // Store to the database
-        ServerConfirmationCompletedActionHelper.storeToDatabase(servlet, request, rootConn, packageDefinition, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm, options);
-        String pkey = (String)request.getAttribute("pkey");
-        String statusKey = (String)request.getAttribute("statusKey");
-
-        Locale contentLocale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-
-        // Send confirmation email to support
-        ServerConfirmationCompletedActionHelper.sendSupportSummaryEmail(
-            servlet,
-            skin,
-            request,
-            session,
-            pkey,
-            statusKey,
-            contentLocale,
-            rootConn,
-            packageDefinition,
-            signupSelectServerForm,
-            signupCustomizeServerForm,
-            signupBusinessForm,
-            signupTechnicalForm,
-            signupBillingInformationForm
-        );
-
-        // Send confirmation email to customer
-        ServerConfirmationCompletedActionHelper.sendCustomerSummaryEmails(
-            servlet,
-            skin,
-            request,
-            session,
-            pkey,
-            statusKey,
-            contentLocale,
-            rootConn,
-            packageDefinition,
-            signupSelectServerForm,
-            signupCustomizeServerForm,
-            signupBusinessForm,
-            signupTechnicalForm,
-            signupBillingInformationForm
-        );
-        
-        // Clear virtualManaged signup-specific forms from the session
-        session.removeAttribute("virtualManagedSignupSelectServerForm");
-        session.removeAttribute("virtualManagedSignupCustomizeServerForm");
-
-        return mapping.findForward("success");
+    /**
+     * Errors are not cleared for the complete step.
+     */
+    protected void clearErrors(HttpServletRequest req) {
+        // Do nothing
     }
 }
