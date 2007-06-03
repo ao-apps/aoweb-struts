@@ -283,4 +283,36 @@
     <description>Creates an auto index on a per-skin formatted basis.</description>
     <example/>
   </tag>
+  <tag>
+    <name>popupGroup</name>
+    <tag-class>com.aoindustries.website.skintags.PopupGroupTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>
+        A popup group will only have one popup within the group visible at a
+        time.  Opening a second popup will close the one that was first opened.
+    </description>
+    <example/>
+  </tag>
+  <tag>
+    <name>popup</name>
+    <tag-class>com.aoindustries.website.skintags.PopupTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>
+        A popup will display extra information when the mouse is moved over
+        a link/image.
+        Popups must be nested inside a popupGroup.  Only one of the popups for
+        each popup group will be displayed at a time.
+    </description>
+    <example/>
+  </tag>
+  <tag>
+    <name>popupClose</name>
+    <tag-class>com.aoindustries.website.skintags.PopupCloseTag</tag-class>
+    <body-content>empty</body-content>
+    <description>
+        Renders a close button/link/image for a popup.  Must be nested inside a
+        popup tag.
+    </description>
+    <example/>
+  </tag>
 </taglib>

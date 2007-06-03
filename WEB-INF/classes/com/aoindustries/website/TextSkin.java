@@ -69,13 +69,18 @@ public class TextSkin extends Skin {
     public void printFavIcon(JspWriter out, String urlBase) throws JspException {
     }
 
+    public static MessageResources getMessageResources(HttpServletRequest req) throws JspException {
+        MessageResources resources = (MessageResources)req.getAttribute("/ApplicationResources");
+        if(resources==null) throw new JspException("Unable to load resources: /ApplicationResources");
+        return resources;
+    }
+
     public void startSkin(HttpServletRequest req, HttpServletResponse resp, JspWriter out, PageAttributes pageAttributes) throws JspException {
         try {
             boolean isSecure = req.isSecure();
             HttpSession session = req.getSession();
             Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-            MessageResources applicationResources = (MessageResources)req.getAttribute("/ApplicationResources");
-            if(applicationResources==null) throw new JspException("Unable to load resources: /ApplicationResources");
+            MessageResources applicationResources = getMessageResources(req);
             String httpsUrlBase = getHttpsUrlBase(req);
             String httpUrlBase = getHttpUrlBase(req);
             String urlBase = isSecure ? httpsUrlBase : httpUrlBase;
@@ -98,7 +103,7 @@ public class TextSkin extends Skin {
             if(author!=null && author.length()>0) {
                 out.print("    <META name='author' content='"); ChainWriter.writeHtmlAttribute(author, out); out.print("'>\n");
             }
-            out.print("    <LINK rel='stylesheet' href='"); out.print(urlBase); out.print("textskin.css' type='text/css'>\n");
+            out.print("    <LINK rel='stylesheet' href='"); out.print(urlBase); out.print("textskin/global.css' type='text/css'>\n");
             printCssIncludes(out, urlBase);
             printJavaScriptSources(out, urlBase);
             out.print("    <TITLE>");
@@ -544,6 +549,244 @@ public class TextSkin extends Skin {
     /**
      * Prints content below the related pages area on the left.
      */
-    public void printBelowRelatedPages(HttpServletRequest req, JspWriter out) throws JspException {
+    public void printBelowRelatedPages(HttpServletRequest req, JspWriter out) {
+    }
+
+    /**
+     * Begins a popup group.
+     */
+    public void beginPopupGroup(HttpServletRequest req, JspWriter out, long groupId) throws JspException {
+        try {
+            out.print("<SCRIPT language='JavaScript1.2'><!--\n"
+                    + "    function popupGroupHideAllDetails"); out.print(groupId); out.print("() {\n"
+                    + "        var spanElements = document.getElementsByTagName ? document.getElementsByTagName(\"span\") : document.all.tags(\"span\");\n"
+                    + "        for (var c=0; c < spanElements.length; c++) {\n"
+                    + "            if(spanElements[c].id.indexOf(\"groupedPopup_"); out.print(groupId); out.print("_\")==0) {\n"
+                    + "                spanElements[c].style.visibility=\"hidden\";\n"
+                    + "            }\n"
+                    + "        }\n"
+                    + "    }\n"
+                    + "    function popupGroupToggleDetails"); out.print(groupId); out.print("(popupId) {\n"
+                    + "        var elemStyle = document.getElementById(\"groupedPopup_"); out.print(groupId); out.print("_\"+popupId).style;\n"
+                    + "        if(elemStyle.visibility==\"visible\") {\n"
+                    + "            elemStyle.visibility=\"hidden\";\n"
+                    + "        } else {\n"
+                    + "            popupGroupHideAllDetails"); out.print(groupId); out.print("();\n"
+                    + "            elemStyle.visibility=\"visible\";\n"
+                    + "        }\n"
+                    + "    }\n"
+                    + "    function popupGroupShowDetails"); out.print(groupId); out.print("(popupId) {\n"
+                    + "        var elemStyle = document.getElementById(\"groupedPopup_"); out.print(groupId); out.print("_\"+popupId).style;\n"
+                    + "        if(elemStyle.visibility!=\"visible\") {\n"
+                    + "            popupGroupHideAllDetails"); out.print(groupId); out.print("();\n"
+                    + "            elemStyle.visibility=\"visible\";\n"
+                    + "        }\n"
+                    + "    }\n"
+                    + "// --></SCRIPT>\n");
+        } catch(IOException err) {
+            throw new JspException(err);
+        }
+    }
+
+    /**
+     * Ends a popup group.
+     */
+    public void endPopupGroup(HttpServletRequest req, JspWriter out, long groupId) {
+        // Nothing at the popup group end
+    }
+
+    /**
+     * Begins a popup that is in a popup group.
+     */
+    public void beginPopup(HttpServletRequest req, JspWriter out, long groupId, long popupId) throws JspException {
+        try {
+            HttpSession session = req.getSession();
+            Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
+            MessageResources applicationResources = getMessageResources(req);
+
+            out.print("<SPAN id=\"groupedPopupAnchor_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print("\" style=\"position:relative;\"><img src=\"");
+            out.print(req.isSecure() ? getHttpsUrlBase(req) : getHttpUrlBase(req));
+            out.print(applicationResources.getMessage(locale, "TextSkin.popup.src"));
+            out.print("\" alt=\"");
+            out.print(applicationResources.getMessage(locale, "TextSkin.popup.alt"));
+            out.print("\" border=\"0\" width=\"");
+            out.print(applicationResources.getMessage(locale, "TextSkin.popup.width"));
+            out.print("\" height=\"");
+            out.print(applicationResources.getMessage(locale, "TextSkin.popup.height"));
+            out.print("\" align=\"absmiddle\" style=\"cursor:pointer; cursor:hand;\" onMouseOver=\"popupGroupShowDetails");
+            out.print(groupId);
+            out.print('(');
+            out.print(popupId);
+            out.print(");\" onClick=\"popupGroupToggleDetails");
+            out.print(groupId);
+            out.print('(');
+            out.print(popupId);
+            out.print(");\"><SPAN width=\"100%\" id=\"groupedPopup_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print("\" style=\"white-space:nowrap; position:absolute; bottom:30px; right:30px; visibility: hidden; z-index:1\"><DIV class=\"ao_popup\">");
+        } catch(IOException err) {
+            throw new JspException(err);
+        }
+    }
+
+    /**
+     * Prints a popup close link/image/button for a popup that is part of a popup group.
+     */
+    public void printPopupClose(HttpServletRequest req, JspWriter out, long groupId, long popupId) throws JspException {
+        try {
+            HttpSession session = req.getSession();
+            Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
+            MessageResources applicationResources = getMessageResources(req);
+
+            out.print("<img src=\"");
+            out.print(req.isSecure() ? getHttpsUrlBase(req) : getHttpUrlBase(req));
+            out.print(applicationResources.getMessage(locale, "TextSkin.popupClose.src"));
+            out.print("\" alt=\"");
+            out.print(applicationResources.getMessage(locale, "TextSkin.popupClose.alt"));
+            out.print("\" border=\"0\" width=\"");
+            out.print(applicationResources.getMessage(locale, "TextSkin.popupClose.width"));
+            out.print("\" height=\"");
+            out.print(applicationResources.getMessage(locale, "TextSkin.popupClose.height"));
+            out.print("\" align=\"absmiddle\" style=\"cursor:pointer; cursor:hand;\" onClick=\"popupGroupHideAllDetails");
+            out.print(groupId);
+            out.print("();\">");
+        } catch(IOException err) {
+            throw new JspException(err);
+        }
+    }
+
+    /**
+     * Ends a popup that is in a popup group.
+     */
+    public void endPopup(HttpServletRequest req, JspWriter out, long groupId, long popupId) throws JspException {
+        try {
+            out.print("</DIV></SPAN></SPAN><SCRIPT language='JavaScript1.2'><!--\n"
+                    + "    // Override onload\n"
+                    + "    var groupedPopupOldOnload_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print(" = window.onload;\n"
+                    + "    function adjustPositionOnload_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print("() {\n"
+                    + "        adjustPosition_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print("();\n"
+                    + "        if(groupedPopupOldOnload_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print(") {\n"
+                    + "            groupedPopupOldOnload_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print("();\n"
+                    + "            groupedPopupOldOnload_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print(" = null;\n"
+                    + "        }\n"
+                    + "    }\n"
+                    + "    window.onload = adjustPositionOnload_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print(";\n"
+                    + "    // Override onresize\n"
+                    + "    var groupedPopupOldOnresize_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print(" = window.onresize;\n"
+                    + "    function adjustPositionOnresize_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print("() {\n"
+                    + "        adjustPosition_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print("();\n"
+                    + "        if(groupedPopupOldOnresize_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print(") {\n"
+                    + "            groupedPopupOldOnresize_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print("();\n"
+                    + "        }\n"
+                    + "    }\n"
+                    + "    window.onresize = adjustPositionOnresize_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print(";\n"
+                    + "    function adjustPosition_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print("() {\n"
+                    + "        var popupAnchor = document.getElementById(\"groupedPopupAnchor_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print("\");\n"
+                    + "        var popup = document.getElementById(\"groupedPopup_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print("\");\n"
+                    + "        // Find the screen position of the anchor\n"
+                    + "        var popupAnchorLeft = 0;\n"
+                    + "        var obj = popupAnchor;\n"
+                    + "        if(obj.offsetParent) {\n"
+                    + "            popupAnchorLeft = obj.offsetLeft\n"
+                    + "            while (obj = obj.offsetParent) {\n"
+                    + "                popupAnchorLeft += obj.offsetLeft\n"
+                    + "            }\n"
+                    + "        }\n"
+                    + "        var popupAnchorRight = popupAnchorLeft + popupAnchor.offsetWidth;\n"
+                    + "        // Find the width of the popup\n"
+                    + "        var popupWidth = popup.offsetWidth;\n"
+                    + "        // Find the width of the screen\n"
+                    + "        var screenWidth = (document.compatMode && document.compatMode == \"CSS1Compat\") ? document.documentElement.clientWidth : document.body.clientWidth;\n"
+                    + "        // Find the desired screen position of the popup\n"
+                    + "        var popupScreenPosition = 0;\n"
+                    + "        if(screenWidth<=popupWidth) {\n"
+                    + "            popupScreenPosition = 0;\n"
+                    + "        } else {\n"
+                    + "            popupScreenPosition = screenWidth - popupWidth;\n"
+                    + "            if(popupAnchorRight < popupScreenPosition) popupScreenPosition = popupAnchorRight;\n"
+                    + "        }\n"
+                    + "        popup.style.right=(popupAnchorRight-(popupScreenPosition+popupWidth))+\"px\";\n"
+                    //+ "        window.alert("); out.print(popupId); out.print("+\" \"+popup.style.right);\n"
+                    + "    }\n"
+                    + "    // Call once at parse time for when the popup is activated while page loading (before onload called)\n"
+                    + "    adjustPosition_");
+            out.print(groupId);
+            out.print('_');
+            out.print(popupId);
+            out.print("();\n"
+                    + "// --></SCRIPT>");
+        } catch(IOException err) {
+            throw new JspException(err);
+        }
     }
 }

@@ -24,6 +24,6 @@ public class PathTag extends PageAttributesTag {
     public int doEndTag(PageAttributes pageAttributes) {
         String path = getBodyContent().getString().trim();
         pageAttributes.setPath(path);
-        return SKIP_BODY;
+        return EVAL_PAGE;
     }
 }

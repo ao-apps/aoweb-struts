@@ -273,7 +273,7 @@ final public class ConfirmationCompletedActionHelper {
                          + "<HEAD>\n"
                          + "    <META http-equiv='Content-Type' content='text/html; charset=").print(charset).print("'>\n");
             // Embed the text-only style sheet
-            InputStream cssIn = servlet.getServletContext().getResourceAsStream("/textskin.css");
+            InputStream cssIn = servlet.getServletContext().getResourceAsStream("/textskin/global.css");
             if(cssIn!=null) {
                 try {
                     emailOut.print("    <style type=\"text/css\">\n");
@@ -290,7 +290,7 @@ final public class ConfirmationCompletedActionHelper {
                     cssIn.close();
                 }
             } else {
-                servlet.log("Warning: Unable to find resource: /textskin.css");
+                servlet.log("Warning: Unable to find resource: /global/textskin.css");
             }
             emailOut.print("</HEAD>\n"
                          + "<BODY>\n"

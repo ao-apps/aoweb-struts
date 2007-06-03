@@ -23,6 +23,6 @@ public class AuthorTag extends PageAttributesTag {
 
     public int doEndTag(PageAttributes pageAttributes) {
         pageAttributes.setAuthor(getBodyContent().getString().trim());
-        return SKIP_BODY;
+        return EVAL_PAGE;
     }
 }

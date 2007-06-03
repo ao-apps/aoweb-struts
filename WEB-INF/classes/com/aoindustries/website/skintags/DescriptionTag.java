@@ -35,6 +35,6 @@ public class DescriptionTag extends BodyTagSupport {
                 PageAttributesTag.getPageAttributes(pageContext).setDescription(description);
             }
         }
-        return SKIP_BODY;
+        return EVAL_PAGE;
     }
 }

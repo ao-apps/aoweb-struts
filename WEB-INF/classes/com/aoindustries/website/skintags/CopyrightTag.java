@@ -23,6 +23,6 @@ public class CopyrightTag extends PageAttributesTag {
 
     public int doEndTag(PageAttributes pageAttributes) {
         pageAttributes.setCopyright(getBodyContent().getString().trim());
-        return SKIP_BODY;
+        return EVAL_PAGE;
     }
 }

@@ -23,6 +23,6 @@ public class KeywordsTag extends PageAttributesTag {
 
     public int doEndTag(PageAttributes pageAttributes) {
         pageAttributes.setKeywords(getBodyContent().getString().trim());
-        return SKIP_BODY;
+        return EVAL_PAGE;
     }
 }

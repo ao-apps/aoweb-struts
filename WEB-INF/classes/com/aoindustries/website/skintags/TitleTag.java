@@ -35,6 +35,6 @@ public class TitleTag extends BodyTagSupport {
                 PageAttributesTag.getPageAttributes(pageContext).setTitle(title);
             }
         }
-        return SKIP_BODY;
+        return EVAL_PAGE;
     }
 }

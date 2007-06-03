@@ -39,6 +39,6 @@ public class NavImageAltTag extends BodyTagSupport {
                 PageAttributesTag.getPageAttributes(pageContext).setNavImageAlt(navImageAlt);
             }
         }
-        return SKIP_BODY;
+        return EVAL_PAGE;
     }
 }

@@ -208,4 +208,29 @@ abstract public class Skin {
      * Prints the auto index of all the page siblings.
      */
     abstract public void printAutoIndex(HttpServletRequest req, JspWriter out, PageAttributes pageAttributes) throws JspException;
+
+    /**
+     * Begins a popup group.
+     */
+    abstract public void beginPopupGroup(HttpServletRequest req, JspWriter out, long groupId) throws JspException;
+
+    /**
+     * Ends a popup group.
+     */
+    abstract public void endPopupGroup(HttpServletRequest req, JspWriter out, long groupId) throws JspException;
+
+    /**
+     * Begins a popup that is in a popup group.
+     */
+    abstract public void beginPopup(HttpServletRequest req, JspWriter out, long groupId, long popupId) throws JspException;
+
+    /**
+     * Prints a popup close link/image/button for a popup that is part of a popup group.
+     */
+    abstract public void printPopupClose(HttpServletRequest req, JspWriter out, long groupId, long popupId) throws JspException;
+
+    /**
+     * Ends a popup that is in a popup group.
+     */
+    abstract public void endPopup(HttpServletRequest req, JspWriter out, long groupId, long popupId) throws JspException;
 }
