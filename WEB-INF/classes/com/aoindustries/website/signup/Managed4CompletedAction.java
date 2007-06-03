@@ -38,9 +38,9 @@ public class Managed4CompletedAction extends Managed4Action {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("managed");
-        if(!signupCustomizeServerFormComplete)  return mapping.findForward("managed2");
-        if(!signupCustomizeManagementFormComplete) return mapping.findForward("managed3");
+        if(!signupSelectServerFormComplete) return mapping.findForward("managedCompleted");
+        if(!signupCustomizeServerFormComplete)  return mapping.findForward("managed2Completed");
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("managed3Completed");
         if(!signupBusinessFormComplete) {
             // Init values for the form
             return super.executeManagedStep(

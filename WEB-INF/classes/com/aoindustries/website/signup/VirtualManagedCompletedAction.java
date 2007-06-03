@@ -61,4 +61,11 @@ public class VirtualManagedCompletedAction extends VirtualManagedAction {
         }
         return mapping.findForward("virtualManaged2");
     }
+
+    /**
+     * Errors are not cleared for the complete step.
+     */
+    protected void clearErrors(HttpServletRequest req) {
+        // Do nothing
+    }
 }

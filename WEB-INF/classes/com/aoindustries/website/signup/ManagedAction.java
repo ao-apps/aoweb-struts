@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessages;
 
 /**
  * @author  AO Industries, Inc.
@@ -39,6 +40,16 @@ public class ManagedAction extends ManagedStepAction {
     ) throws Exception {
         SignupSelectServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, PackageCategory.MANAGED);
 
+        // Clear errors if they should not be displayed
+        clearErrors(request);
+
         return mapping.findForward("input");
+    }
+
+    /**
+     * May clear specific errors here.
+     */
+    protected void clearErrors(HttpServletRequest request) {
+        saveErrors(request, new ActionMessages());
     }
 }

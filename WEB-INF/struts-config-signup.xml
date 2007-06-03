@@ -12,11 +12,12 @@
         <form-bean name="virtualDedicatedSignupCustomizeServerForm" type="com.aoindustries.website.signup.VirtualDedicatedSignupCustomizeServerForm" />
         <form-bean name="virtualManagedSignupSelectServerForm" type="com.aoindustries.website.signup.VirtualManagedSignupSelectServerForm" />
         <form-bean name="virtualManagedSignupCustomizeServerForm" type="com.aoindustries.website.signup.VirtualManagedSignupCustomizeServerForm" />
+        <form-bean name="virtualManagedSignupCustomizeManagementForm" type="com.aoindustries.website.signup.SignupCustomizeManagementForm" />
         <form-bean name="dedicatedSignupSelectServerForm" type="com.aoindustries.website.signup.DedicatedSignupSelectServerForm" />
         <form-bean name="dedicatedSignupCustomizeServerForm" type="com.aoindustries.website.signup.DedicatedSignupCustomizeServerForm" />
         <form-bean name="managedSignupSelectServerForm" type="com.aoindustries.website.signup.ManagedSignupSelectServerForm" />
         <form-bean name="managedSignupCustomizeServerForm" type="com.aoindustries.website.signup.ManagedSignupCustomizeServerForm" />
-        <form-bean name="signupCustomizeManagementForm" type="com.aoindustries.website.signup.SignupCustomizeManagementForm" />
+        <form-bean name="managedSignupCustomizeManagementForm" type="com.aoindustries.website.signup.SignupCustomizeManagementForm" />
         <form-bean name="signupBusinessForm" type="com.aoindustries.website.signup.SignupBusinessForm" />
         <form-bean name="signupTechnicalForm" type="com.aoindustries.website.signup.SignupTechnicalForm" />
         <form-bean name="signupBillingInformationForm" type="com.aoindustries.website.signup.SignupBillingInformationForm" />
@@ -34,31 +35,57 @@
         <forward name="login" contextRelative="true" path="/login.do" />
         <!-- /signup -->
         <forward name="virtualDedicated" path="/virtualDedicated.do" redirect="true" />
+        <forward name="virtualDedicatedCompleted" path="/virtualDedicatedCompleted.do" redirect="true" />
         <forward name="virtualDedicated2" path="/virtualDedicated2.do" redirect="true" />
+        <forward name="virtualDedicated2Completed" path="/virtualDedicated2Completed.do" redirect="true" />
         <forward name="virtualDedicated3" path="/virtualDedicated3.do" redirect="true" />
+        <forward name="virtualDedicated3Completed" path="/virtualDedicated3Completed.do" redirect="true" />
         <forward name="virtualDedicated4" path="/virtualDedicated4.do" redirect="true" />
+        <forward name="virtualDedicated4Completed" path="/virtualDedicated4Completed.do" redirect="true" />
         <forward name="virtualDedicated5" path="/virtualDedicated5.do" redirect="true" />
+        <forward name="virtualDedicated5Completed" path="/virtualDedicated5Completed.do" redirect="true" />
         <forward name="virtualDedicated6" path="/virtualDedicated6.do" redirect="true" />
+        <forward name="virtualDedicated6Completed" path="/virtualDedicated6Completed.do" redirect="true" />
         <forward name="virtualManaged" path="/virtualManaged.do" redirect="true" />
+        <forward name="virtualManagedCompleted" path="/virtualManagedCompleted.do" redirect="true" />
         <forward name="virtualManaged2" path="/virtualManaged2.do" redirect="true" />
+        <forward name="virtualManaged2Completed" path="/virtualManaged2Completed.do" redirect="true" />
         <forward name="virtualManaged3" path="/virtualManaged3.do" redirect="true" />
+        <forward name="virtualManaged3Completed" path="/virtualManaged3Completed.do" redirect="true" />
         <forward name="virtualManaged4" path="/virtualManaged4.do" redirect="true" />
+        <forward name="virtualManaged4Completed" path="/virtualManaged4Completed.do" redirect="true" />
         <forward name="virtualManaged5" path="/virtualManaged5.do" redirect="true" />
+        <forward name="virtualManaged5Completed" path="/virtualManaged5Completed.do" redirect="true" />
         <forward name="virtualManaged6" path="/virtualManaged6.do" redirect="true" />
+        <forward name="virtualManaged6Completed" path="/virtualManaged6Completed.do" redirect="true" />
         <forward name="virtualManaged7" path="/virtualManaged7.do" redirect="true" />
+        <forward name="virtualManaged7Completed" path="/virtualManaged7Completed.do" redirect="true" />
         <forward name="dedicated" path="/dedicated.do" redirect="true" />
+        <forward name="dedicatedCompleted" path="/dedicatedCompleted.do" redirect="true" />
         <forward name="dedicated2" path="/dedicated2.do" redirect="true" />
+        <forward name="dedicated2Completed" path="/dedicated2Completed.do" redirect="true" />
         <forward name="dedicated3" path="/dedicated3.do" redirect="true" />
+        <forward name="dedicated3Completed" path="/dedicated3Completed.do" redirect="true" />
         <forward name="dedicated4" path="/dedicated4.do" redirect="true" />
+        <forward name="dedicated4Completed" path="/dedicated4Completed.do" redirect="true" />
         <forward name="dedicated5" path="/dedicated5.do" redirect="true" />
+        <forward name="dedicated5Completed" path="/dedicated5Completed.do" redirect="true" />
         <forward name="dedicated6" path="/dedicated6.do" redirect="true" />
+        <forward name="dedicated6Completed" path="/dedicated6Completed.do" redirect="true" />
         <forward name="managed" path="/managed.do" redirect="true" />
+        <forward name="managedCompleted" path="/managedCompleted.do" redirect="true" />
         <forward name="managed2" path="/managed2.do" redirect="true" />
+        <forward name="managed2Completed" path="/managed2Completed.do" redirect="true" />
         <forward name="managed3" path="/managed3.do" redirect="true" />
+        <forward name="managed3Completed" path="/managed3Completed.do" redirect="true" />
         <forward name="managed4" path="/managed4.do" redirect="true" />
+        <forward name="managed4Completed" path="/managed4Completed.do" redirect="true" />
         <forward name="managed5" path="/managed5.do" redirect="true" />
+        <forward name="managed5Completed" path="/managed5Completed.do" redirect="true" />
         <forward name="managed6" path="/managed6.do" redirect="true" />
+        <forward name="managed6Completed" path="/managed6Completed.do" redirect="true" />
         <forward name="managed7" path="/managed7.do" redirect="true" />
+        <forward name="managed7Completed" path="/managed7Completed.do" redirect="true" />
     </global-forwards>
 
     <!-- ========== Action Mapping Definitions ============================== -->
@@ -203,7 +230,7 @@
         </action>
         <action
             path="/virtualManaged3"
-            name="signupCustomizeManagementForm"
+            name="virtualManagedSignupCustomizeManagementForm"
             scope="session"
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged3Action"
@@ -212,7 +239,7 @@
         </action>
         <action
             path="/virtualManaged3Completed"
-            name="signupCustomizeManagementForm"
+            name="virtualManagedSignupCustomizeManagementForm"
             scope="session"
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged3CompletedAction"
@@ -425,7 +452,7 @@
         </action>
         <action
             path="/managed3"
-            name="signupCustomizeManagementForm"
+            name="managedSignupCustomizeManagementForm"
             scope="session"
             validate="false"
             type="com.aoindustries.website.signup.Managed3Action"
@@ -434,7 +461,7 @@
         </action>
         <action
             path="/managed3Completed"
-            name="signupCustomizeManagementForm"
+            name="managedSignupCustomizeManagementForm"
             scope="session"
             validate="false"
             type="com.aoindustries.website.signup.Managed3CompletedAction"

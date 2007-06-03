@@ -38,10 +38,10 @@ public class Dedicated5CompletedAction extends Dedicated5Action {
         boolean signupBillingInformationFormComplete
     ) throws Exception {
         // Forward to previous steps if they have not been completed
-        if(!signupSelectServerFormComplete) return mapping.findForward("dedicated");
-        if(!signupCustomizeServerFormComplete)  return mapping.findForward("dedicated2");
-        if(!signupBusinessFormComplete)  return mapping.findForward("dedicated3");
-        if(!signupTechnicalFormComplete)  return mapping.findForward("dedicated4");
+        if(!signupSelectServerFormComplete) return mapping.findForward("dedicatedCompleted");
+        if(!signupCustomizeServerFormComplete)  return mapping.findForward("dedicated2Completed");
+        if(!signupBusinessFormComplete)  return mapping.findForward("dedicated3Completed");
+        if(!signupTechnicalFormComplete)  return mapping.findForward("dedicated4Completed");
         if(!signupBillingInformationFormComplete) {
             // Init values for the form
             return super.executeDedicatedStep(

@@ -42,8 +42,8 @@ public class VirtualManaged3Action extends VirtualManagedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtualManaged");
-        if(!signupCustomizeServerFormComplete) return mapping.findForward("virtualManaged2");
+        if(!signupSelectServerFormComplete) return mapping.findForward("virtualManagedCompleted");
+        if(!signupCustomizeServerFormComplete) return mapping.findForward("virtualManaged2Completed");
 
         SignupCustomizeManagementActionHelper.setRequestAttributes(getServlet().getServletContext(), request, signupSelectServerForm, signupCustomizeServerForm, signupCustomizeManagementForm);
 

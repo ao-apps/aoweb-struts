@@ -52,9 +52,9 @@ public class VirtualManaged2Action extends VirtualManagedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtualManaged");
+        if(!signupSelectServerFormComplete) return mapping.findForward("virtualManagedCompleted");
 
-        SignupCustomizeServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, signupSelectServerForm, signupCustomizeServerForm);
+        SignupCustomizeServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, signupSelectServerForm, signupCustomizeServerForm, false);
 
         // Clear errors if they should not be displayed
         clearErrors(request);

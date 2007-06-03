@@ -36,7 +36,7 @@ public class Dedicated2CompletedAction extends Dedicated2Action {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("dedicated");
+        if(!signupSelectServerFormComplete) return mapping.findForward("dedicatedCompleted");
         if(!signupCustomizeServerFormComplete) {
             // Init values for the form
             return super.executeDedicatedStep(

@@ -23,6 +23,14 @@
             <skin:contentTitle><bean:message bundle="/signup/ApplicationResources" key="managed.title"/></skin:contentTitle>
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
+                <script language="JavaScript1.2"><!--
+                    var signupCustomizeManagementFormName = 'managedSignupCustomizeManagementForm';
+                    function selectStep(step) {
+                        var form = document.forms['managedSignupCustomizeManagementForm'];
+                        form.selectedStep.value=step;
+                        form.submit();
+                    }
+                // --></script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="3"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="managed"/>
                 <%@ include file="managedSteps.jsp" %>

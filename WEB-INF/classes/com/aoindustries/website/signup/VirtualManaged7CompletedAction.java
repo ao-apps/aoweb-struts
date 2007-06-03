@@ -46,12 +46,12 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
         boolean signupBillingInformationFormComplete
     ) throws Exception {
         // Forward to previous steps if they have not been completed
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtualManaged");
-        if(!signupCustomizeServerFormComplete) return mapping.findForward("virtualManaged2");
-        if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtualManaged3");
-        if(!signupBusinessFormComplete) return mapping.findForward("virtualManaged4");
-        if(!signupTechnicalFormComplete) return mapping.findForward("virtualManaged5");
-        if(!signupBillingInformationFormComplete) return mapping.findForward("virtualManaged6");
+        if(!signupSelectServerFormComplete) return mapping.findForward("virtualManagedCompleted");
+        if(!signupCustomizeServerFormComplete) return mapping.findForward("virtualManaged2Completed");
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtualManaged3Completed");
+        if(!signupBusinessFormComplete) return mapping.findForward("virtualManaged4Completed");
+        if(!signupTechnicalFormComplete) return mapping.findForward("virtualManaged5Completed");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("virtualManaged6Completed");
 
         // Let the parent class do the initialization of the request attributes for both the emails and the final JSP
         initRequestAttributes(
@@ -124,6 +124,7 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
         // Clear virtualManaged signup-specific forms from the session
         session.removeAttribute("virtualManagedSignupSelectServerForm");
         session.removeAttribute("virtualManagedSignupCustomizeServerForm");
+        session.removeAttribute("virtualManagedSignupCustomizeManagementForm");
 
         return mapping.findForward("success");
     }

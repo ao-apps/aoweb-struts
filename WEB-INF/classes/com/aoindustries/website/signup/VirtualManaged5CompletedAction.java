@@ -38,10 +38,10 @@ public class VirtualManaged5CompletedAction extends VirtualManaged5Action {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtualManaged");
-        if(!signupCustomizeServerFormComplete)  return mapping.findForward("virtualManaged2");
-        if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtualManaged3");
-        if(!signupBusinessFormComplete)  return mapping.findForward("virtualManaged4");
+        if(!signupSelectServerFormComplete) return mapping.findForward("virtualManagedCompleted");
+        if(!signupCustomizeServerFormComplete)  return mapping.findForward("virtualManaged2Completed");
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtualManaged3Completed");
+        if(!signupBusinessFormComplete)  return mapping.findForward("virtualManaged4Completed");
         if(!signupTechnicalFormComplete) {
             // Init values for the form
             return super.executeVirtualManagedStep(

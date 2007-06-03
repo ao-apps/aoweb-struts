@@ -40,8 +40,8 @@ public class VirtualDedicated3Action extends VirtualDedicatedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtualDedicated");
-        if(!signupCustomizeServerFormComplete) return mapping.findForward("virtualDedicated2");
+        if(!signupSelectServerFormComplete) return mapping.findForward("virtualDedicatedCompleted");
+        if(!signupCustomizeServerFormComplete) return mapping.findForward("virtualDedicated2Completed");
 
         SignupBusinessActionHelper.setRequestAttributes(getServlet().getServletContext(), request);
 

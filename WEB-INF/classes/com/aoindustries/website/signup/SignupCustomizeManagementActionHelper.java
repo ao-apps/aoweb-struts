@@ -107,6 +107,25 @@ final public class SignupCustomizeManagementActionHelper {
         Collections.sort(distributionScanOptions, new Option.PriceComparator());
         Collections.sort(failoverOptions, new Option.PriceComparator());
 
+        // Clear any customization settings that are not part of the current package definition (this happens when they
+        // select a different package type)
+        if(signupCustomizeManagementForm.getBackupOnsiteOption()!=-1) {
+            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(signupCustomizeManagementForm.getBackupOnsiteOption());
+            if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) signupCustomizeManagementForm.setBackupOnsiteOption(-1);
+        }
+        if(signupCustomizeManagementForm.getBackupOffsiteOption()!=-1) {
+            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(signupCustomizeManagementForm.getBackupOffsiteOption());
+            if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) signupCustomizeManagementForm.setBackupOffsiteOption(-1);
+        }
+        if(signupCustomizeManagementForm.getDistributionScanOption()!=-1) {
+            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(signupCustomizeManagementForm.getDistributionScanOption());
+            if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) signupCustomizeManagementForm.setDistributionScanOption(-1);
+        }
+        if(signupCustomizeManagementForm.getFailoverOption()!=-1) {
+            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(signupCustomizeManagementForm.getFailoverOption());
+            if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) signupCustomizeManagementForm.setFailoverOption(-1);
+        }
+
         // Store to request
         request.setAttribute("packageDefinition", packageDefinition);
         request.setAttribute("hardwareRate", SignupCustomizeServerActionHelper.getHardwareMonthlyRate(rootConn, signupCustomizeServerForm, packageDefinition));

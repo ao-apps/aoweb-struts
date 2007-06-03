@@ -37,17 +37,21 @@
       }
     // --></SCRIPT>
     <table border="0" cellspacing="0" cellpadding="2">
-        <TR><TD COLSPAN="5"><B><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.stepLabel"/></B><BR><HR></TD></TR>
-        <TR><TD COLSPAN="5"><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.stepHelp"/><BR><BR></TD></TR>
+        <TR><TD COLSPAN="6"><B><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.stepLabel"/></B><BR><HR></TD></TR>
+        <TR><TD COLSPAN="6">
+            <bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.stepHelp"/><BR>
+            <BR>
+        </TD></TR>
         <tr>
             <th nowrap><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.select.header"/></th>
             <th nowrap><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.packageDefinition.header"/></th>
             <th nowrap><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.setup.header"/></th>
             <th nowrap><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.minimumMonthlyRate.header"/></th>
             <th nowrap><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.maximumMonthlyRate.header"/></th>
+            <th nowrap>&nbsp;</th>
         </tr>
         <% int row = 0; %>
-        <logic:iterate scope="request" name="servers" id="server">
+        <logic:iterate scope="request" name="servers" id="server" indexId="serverIndex">
             <bean:define name="server" property="minimumConfiguration.packageDefinition" id="packageDefinition" type="java.lang.Integer"/>
             <tr class='<%= (row&1)==0 ? "ao_light_row" : "ao_dark_row" %>'>
                 <td nowrap><html:radio property="packageDefinition" idName="server" value="minimumConfiguration.packageDefinition"/></td>
@@ -144,8 +148,14 @@
                 </td>
                 <td nowrap>$<bean:write name="server" property="minimumConfiguration.monthly"/></td>
                 <td nowrap>$<bean:write name="server" property="maximumConfiguration.monthly"/></td>
+                <logic:equal name="serverIndex" value="0">
+                    <bean:size scope="request" name="servers" id="serversSize"/>
+                    <td rowspan="<%= serversSize %>" nowrap>
+                        <html:errors bundle="/signup/ApplicationResources" property="packageDefinition"/>
+                    </td>
+                </logic:equal>
             </tr>
         </logic:iterate>
-        <tr><td colspan="5" align="center"><br><html:submit styleClass='ao_button'><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.submit.label"/></html:submit><br><br></td></tr>
+        <tr><td colspan="6" align="center"><br><html:submit styleClass='ao_button'><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.submit.label"/></html:submit><br><br></td></tr>
     </table>
 </skin:lightArea>

@@ -36,8 +36,8 @@ public class VirtualDedicated3CompletedAction extends VirtualDedicated3Action {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtualDedicated");
-        if(!signupCustomizeServerFormComplete)  return mapping.findForward("virtualDedicated2");
+        if(!signupSelectServerFormComplete) return mapping.findForward("virtualDedicatedCompleted");
+        if(!signupCustomizeServerFormComplete)  return mapping.findForward("virtualDedicated2Completed");
         if(!signupBusinessFormComplete) {
             // Init values for the form
             return super.executeVirtualDedicatedStep(

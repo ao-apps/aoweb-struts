@@ -40,11 +40,11 @@ public class VirtualManaged6CompletedAction extends VirtualManaged6Action {
         boolean signupBillingInformationFormComplete
     ) throws Exception {
         // Forward to previous steps if they have not been completed
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtualManaged");
-        if(!signupCustomizeServerFormComplete) return mapping.findForward("virtualManaged2");
-        if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtualManaged3");
-        if(!signupBusinessFormComplete) return mapping.findForward("virtualManaged4");
-        if(!signupTechnicalFormComplete) return mapping.findForward("virtualManaged5");
+        if(!signupSelectServerFormComplete) return mapping.findForward("virtualManagedCompleted");
+        if(!signupCustomizeServerFormComplete) return mapping.findForward("virtualManaged2Completed");
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtualManaged3Completed");
+        if(!signupBusinessFormComplete) return mapping.findForward("virtualManaged4Completed");
+        if(!signupTechnicalFormComplete) return mapping.findForward("virtualManaged5Completed");
         if(!signupBillingInformationFormComplete) {
             // Init values for the form
             return super.executeVirtualManagedStep(

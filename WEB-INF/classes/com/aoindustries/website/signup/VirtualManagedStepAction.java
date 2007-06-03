@@ -55,7 +55,7 @@ abstract public class VirtualManagedStepAction extends HttpsAction {
 
         SignupSelectServerForm signupSelectServerForm = (SignupSelectServerForm)session.getAttribute("virtualManagedSignupSelectServerForm");
         SignupCustomizeServerForm signupCustomizeServerForm = (SignupCustomizeServerForm)session.getAttribute("virtualManagedSignupCustomizeServerForm");
-        SignupCustomizeManagementForm signupCustomizeManagementForm = (SignupCustomizeManagementForm)session.getAttribute("signupCustomizeManagementForm");
+        SignupCustomizeManagementForm signupCustomizeManagementForm = (SignupCustomizeManagementForm)session.getAttribute("virtualManagedSignupCustomizeManagementForm");
         SignupBusinessForm signupBusinessForm = (SignupBusinessForm)session.getAttribute("signupBusinessForm");
         SignupTechnicalForm signupTechnicalForm = (SignupTechnicalForm)session.getAttribute("signupTechnicalForm");
         SignupBillingInformationForm signupBillingInformationForm = (SignupBillingInformationForm)session.getAttribute("signupBillingInformationForm");

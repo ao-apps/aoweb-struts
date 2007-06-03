@@ -42,7 +42,8 @@ final public class SignupCustomizeServerActionHelper {
         ServletContext servletContext,
         HttpServletRequest request,
         SignupSelectServerForm signupSelectServerForm,
-        SignupCustomizeServerForm signupCustomizeServerForm
+        SignupCustomizeServerForm signupCustomizeServerForm,
+        boolean includeNoHardDriveOption
     ) throws IOException, SQLException {
         AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servletContext);
         PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());
@@ -236,7 +237,7 @@ final public class SignupCustomizeServerActionHelper {
                     for(int c=0;c<maxIDEs;c++) {
                         List<Option> options = ideOptions.get(c);
                         // Add none opption
-                        if(options.isEmpty()) options.add(new Option(-1, "None", new BigDecimal(SQLUtility.getDecimal(c==0 ? (adjustedRate-additionalRate) : 0))));
+                        if(includeNoHardDriveOption && options.isEmpty()) options.add(new Option(-1, "None", new BigDecimal(SQLUtility.getDecimal(c==0 ? (adjustedRate-additionalRate) : 0))));
                         options.add(new Option(limit.getPKey(), resource.getDescription(), new BigDecimal(SQLUtility.getDecimal(c==0 ? adjustedRate : additionalRate))));
                     }
                 }
@@ -255,7 +256,7 @@ final public class SignupCustomizeServerActionHelper {
                     for(int c=0;c<maxSATAs;c++) {
                         List<Option> options = sataOptions.get(c);
                         // Add none opption
-                        if(options.isEmpty()) options.add(new Option(-1, "None", new BigDecimal(SQLUtility.getDecimal(c==0 ? (adjustedRate-additionalRate) : 0))));
+                        if(includeNoHardDriveOption && options.isEmpty()) options.add(new Option(-1, "None", new BigDecimal(SQLUtility.getDecimal(c==0 ? (adjustedRate-additionalRate) : 0))));
                         options.add(new Option(limit.getPKey(), resource.getDescription(), new BigDecimal(SQLUtility.getDecimal(c==0 ? adjustedRate : additionalRate))));
                     }
                 }
@@ -274,7 +275,7 @@ final public class SignupCustomizeServerActionHelper {
                     for(int c=0;c<maxSCSIs;c++) {
                         List<Option> options = scsiOptions.get(c);
                         // Add none opption
-                        if(options.isEmpty()) options.add(new Option(-1, "None", new BigDecimal(SQLUtility.getDecimal(c==0 ? (adjustedRate-additionalRate) : 0))));
+                        if(includeNoHardDriveOption && options.isEmpty()) options.add(new Option(-1, "None", new BigDecimal(SQLUtility.getDecimal(c==0 ? (adjustedRate-additionalRate) : 0))));
                         options.add(new Option(limit.getPKey(), resource.getDescription(), new BigDecimal(SQLUtility.getDecimal(c==0 ? adjustedRate : additionalRate))));
                     }
                 }
@@ -700,7 +701,20 @@ final public class SignupCustomizeServerActionHelper {
                     if(name.startsWith("hardware_disk_ide_")) {
                         // Is in formation hardware_disk_ide_RPM_SIZE
                         int pos = name.indexOf('_', 18);
-                        if(pos!=-1) total += Integer.parseInt(name.substring(pos+1));
+                        if(pos!=-1) {
+                            int pos2 = name.indexOf('_', pos+1);
+                            if(pos2==-1) {
+                                // Not raid
+                                total += Integer.parseInt(name.substring(pos+1));
+                            } else {
+                                // Does it end with _raid1, double space if it does.
+                                if(name.endsWith("_raid1")) {
+                                    total += 2*Integer.parseInt(name.substring(pos+1, pos2));
+                                } else {
+                                    total += Integer.parseInt(name.substring(pos+1, pos2));
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -714,7 +728,20 @@ final public class SignupCustomizeServerActionHelper {
                     if(name.startsWith("hardware_disk_sata_")) {
                         // Is in formation hardware_disk_sata_RPM_SIZE
                         int pos = name.indexOf('_', 19);
-                        if(pos!=-1) total += Integer.parseInt(name.substring(pos+1));
+                        if(pos!=-1) {
+                            int pos2 = name.indexOf('_', pos+1);
+                            if(pos2==-1) {
+                                // Not raid
+                                total += Integer.parseInt(name.substring(pos+1));
+                            } else {
+                                // Does it end with _raid1, double space if it does.
+                                if(name.endsWith("_raid1")) {
+                                    total += 2*Integer.parseInt(name.substring(pos+1, pos2));
+                                } else {
+                                    total += Integer.parseInt(name.substring(pos+1, pos2));
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -728,7 +755,20 @@ final public class SignupCustomizeServerActionHelper {
                     if(name.startsWith("hardware_disk_scsi_")) {
                         // Is in formation hardware_disk_scsi_RPM_SIZE
                         int pos = name.indexOf('_', 19);
-                        if(pos!=-1) total += Integer.parseInt(name.substring(pos+1));
+                        if(pos!=-1) {
+                            int pos2 = name.indexOf('_', pos+1);
+                            if(pos2==-1) {
+                                // Not raid
+                                total += Integer.parseInt(name.substring(pos+1));
+                            } else {
+                                // Does it end with _raid1, double space if it does.
+                                if(name.endsWith("_raid1")) {
+                                    total += 2*Integer.parseInt(name.substring(pos+1, pos2));
+                                } else {
+                                    total += Integer.parseInt(name.substring(pos+1, pos2));
+                                }
+                            }
+                        }
                     }
                 }
             }

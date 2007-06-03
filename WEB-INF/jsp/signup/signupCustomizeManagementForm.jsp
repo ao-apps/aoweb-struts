@@ -11,11 +11,6 @@
 <%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
 
 <script language="JavaScript"><!--
-    function selectStep(step) {
-        var form = document.forms['signupCustomizeManagementForm'];
-        form.selectedStep.value=step;
-        form.submit();
-    }
     function formatDecimal(pennies) {
         var penniesOnly=pennies%100;
         var dollars=(pennies-penniesOnly)/100;
@@ -23,7 +18,7 @@
         return dollars+'.'+penniesOnly;
     }
     function recalcMonthly() {
-        var form = document.forms['signupCustomizeManagementForm'];
+        var form = document.forms[signupCustomizeManagementFormName];
         var totalMonthly = Math.round(Number(form.hardwareRate.value)*100);
 
         // Add the backup onsite options

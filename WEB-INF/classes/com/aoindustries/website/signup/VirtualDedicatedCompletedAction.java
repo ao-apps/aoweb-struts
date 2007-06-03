@@ -57,4 +57,11 @@ public class VirtualDedicatedCompletedAction extends VirtualDedicatedAction {
         }
         return mapping.findForward("virtualDedicated2");
     }
+
+    /**
+     * Errors are not cleared for the complete step.
+     */
+    protected void clearErrors(HttpServletRequest req) {
+        // Do nothing
+    }
 }

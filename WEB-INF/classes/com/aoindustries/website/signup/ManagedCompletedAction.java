@@ -61,4 +61,11 @@ public class ManagedCompletedAction extends ManagedAction {
         }
         return mapping.findForward("managed2");
     }
+
+    /**
+     * Errors are not cleared for the complete step.
+     */
+    protected void clearErrors(HttpServletRequest req) {
+        // Do nothing
+    }
 }

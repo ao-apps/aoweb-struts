@@ -38,10 +38,10 @@ public class VirtualDedicated5CompletedAction extends VirtualDedicated5Action {
         boolean signupBillingInformationFormComplete
     ) throws Exception {
         // Forward to previous steps if they have not been completed
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtualDedicated");
-        if(!signupCustomizeServerFormComplete)  return mapping.findForward("virtualDedicated2");
-        if(!signupBusinessFormComplete)  return mapping.findForward("virtualDedicated3");
-        if(!signupTechnicalFormComplete)  return mapping.findForward("virtualDedicated4");
+        if(!signupSelectServerFormComplete) return mapping.findForward("virtualDedicatedCompleted");
+        if(!signupCustomizeServerFormComplete)  return mapping.findForward("virtualDedicated2Completed");
+        if(!signupBusinessFormComplete)  return mapping.findForward("virtualDedicated3Completed");
+        if(!signupTechnicalFormComplete)  return mapping.findForward("virtualDedicated4Completed");
         if(!signupBillingInformationFormComplete) {
             // Init values for the form
             return super.executeVirtualDedicatedStep(

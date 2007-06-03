@@ -57,4 +57,11 @@ public class DedicatedCompletedAction extends DedicatedAction {
         }
         return mapping.findForward("dedicated2");
     }
+
+    /**
+     * Errors are not cleared for the complete step.
+     */
+    protected void clearErrors(HttpServletRequest req) {
+        // Do nothing
+    }
 }

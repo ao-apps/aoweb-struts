@@ -42,8 +42,8 @@ public class Managed3Action extends ManagedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("managed");
-        if(!signupCustomizeServerFormComplete) return mapping.findForward("managed2");
+        if(!signupSelectServerFormComplete) return mapping.findForward("managedCompleted");
+        if(!signupCustomizeServerFormComplete) return mapping.findForward("managed2Completed");
 
         SignupCustomizeManagementActionHelper.setRequestAttributes(getServlet().getServletContext(), request, signupSelectServerForm, signupCustomizeServerForm, signupCustomizeManagementForm);
 

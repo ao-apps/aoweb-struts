@@ -22,8 +22,13 @@ public class ServerConfiguration {
 
     private static String getDiskDescription(int numDrives, PackageDefinitionLimit pdl) {
         if(pdl==null || numDrives==0) return null;
-        if(numDrives==1) return "Single " + pdl.getResource().getDescription();
-        else return numDrives + "x" + pdl.getResource().getDescription();
+        String description = pdl.getResource().getDescription();
+        if(numDrives==1) {
+            if(description.startsWith("2x")) return description;
+            else return "Single " + description;
+        } else {
+            return numDrives + "x" + description;
+        }
     }
 
     public static ServerConfiguration getMinimumConfiguration(PackageDefinition packageDefinition) throws SQLException {
