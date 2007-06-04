@@ -651,7 +651,7 @@ public class TextSkin extends Skin {
             out.print(groupId);
             out.print('_');
             out.print(popupId);
-            out.print("\" style=\"white-space:nowrap; position:absolute; bottom:30px; right:30px; visibility: hidden; z-index:1\">\n"
+            out.print("\" style=\"white-space:nowrap; position:absolute; bottom:30px; left:30px; visibility: hidden; z-index:1\">\n"
                     + "        <TABLE border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"
                     + "            <TR>\n"
                     + "                <TD nowrap width=\"12\"><IMG src=\"");
@@ -842,8 +842,7 @@ public class TextSkin extends Skin {
                     + "            popupScreenPosition = screenWidth - popupWidth - 12;\n"
                     + "            if(popupAnchorRight < popupScreenPosition) popupScreenPosition = popupAnchorRight;\n"
                     + "        }\n"
-                    + "        popup.style.right=(popupAnchorRight-(popupScreenPosition+popupWidth))+\"px\";\n"
-                    //+ "        window.alert("); out.print(popupId); out.print("+\" \"+popup.style.right);\n"
+                    + "        popup.style.left=(popupScreenPosition-popupAnchorLeft)+\"px\";\n"
                     + "    }\n"
                     + "    // Call once at parse time for when the popup is activated while page loading (before onload called)\n"
                     + "    adjustPosition_");
