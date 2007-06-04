@@ -13,10 +13,11 @@ TH {
 }
 .ao_light_link {
 }
-.ao_popup {
-  background-color: #ffffff;
-  border: 2px solid;
-  border-color: black;
+.ao_popup_light_row {
+  background-color: #fff9ad;
+}
+.ao_popup_dark_row {
+  background-color: #f5efa6;
 }
 .error {
   color: red;

@@ -144,10 +144,18 @@ abstract public class Skin {
     public static class Language {
         private String code;
         private String display;
+        private String flagOnSrc;
+        private String flagOffSrc;
+        private String flagWidth;
+        private String flagHeight;
         
-        public Language(String code, String display) {
+        public Language(String code, String display, String flagOnSrc, String flagOffSrc, String flagWidth, String flagHeight) {
             this.code = code;
             this.display = display;
+            this.flagOnSrc = flagOnSrc;
+            this.flagOffSrc = flagOffSrc;
+            this.flagWidth = flagWidth;
+            this.flagHeight = flagHeight;
         }
         
         public String getCode() {
@@ -157,10 +165,32 @@ abstract public class Skin {
         public String getDisplay() {
             return display;
         }
+        
+        public String getFlagOnSrc() {
+            return flagOnSrc;
+        }
+
+        public String getFlagOffSrc() {
+            return flagOffSrc;
+        }
+
+        public String getFlagWidth() {
+            return flagWidth;
+        }
+
+        public String getFlagHeight() {
+            return flagHeight;
+        }
     }
 
     /**
      * Gets the list of languages supported by this site.
+     *
+     * The flags are obtained from http://commons.wikimedia.org/wiki/National_insignia.
+     *
+     * Then they are scaled to a height of 24 pixels.
+     *
+     * The off version is created by covering with black, opacity 25% in gimp 2.
      */
     public List<Language> getLanguages(HttpServletRequest req) throws JspException {
         HttpSession session = req.getSession();
@@ -168,8 +198,26 @@ abstract public class Skin {
         MessageResources applicationResources = (MessageResources)req.getAttribute("/ApplicationResources");
         if(applicationResources==null) throw new JspException("Unable to load resources: /ApplicationResources");
         List<Language> languages = new ArrayList<Language>(2);
-        languages.add(new Language(Locale.ENGLISH.getLanguage(), applicationResources.getMessage(locale, "TextSkin.language.en")));
-        languages.add(new Language(Locale.JAPANESE.getLanguage(), applicationResources.getMessage(locale, "TextSkin.language.ja")));
+        languages.add(
+            new Language(
+                Locale.ENGLISH.getLanguage(),
+                applicationResources.getMessage(locale, "TextSkin.language.en.alt"),
+                applicationResources.getMessage(locale, "TextSkin.language.en.flag.on.src"),
+                applicationResources.getMessage(locale, "TextSkin.language.en.flag.off.src"),
+                applicationResources.getMessage(locale, "TextSkin.language.en.flag.width"),
+                applicationResources.getMessage(locale, "TextSkin.language.en.flag.height")
+            )
+        );
+        languages.add(
+            new Language(
+                Locale.JAPANESE.getLanguage(),
+                applicationResources.getMessage(locale, "TextSkin.language.ja.alt"),
+                applicationResources.getMessage(locale, "TextSkin.language.ja.flag.on.src"),
+                applicationResources.getMessage(locale, "TextSkin.language.ja.flag.off.src"),
+                applicationResources.getMessage(locale, "TextSkin.language.ja.flag.width"),
+                applicationResources.getMessage(locale, "TextSkin.language.ja.flag.height")
+            )
+        );
         return languages;
     }
 

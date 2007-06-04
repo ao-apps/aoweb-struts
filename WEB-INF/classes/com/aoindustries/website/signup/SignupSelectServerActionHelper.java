@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.ServletContext;
@@ -40,6 +42,15 @@ final public class SignupSelectServerActionHelper {
         HttpServletRequest request,
         String packageCategoryName
     ) throws IOException, SQLException {
+        List<Server> servers = getServers(servletContext, packageCategoryName);
+        
+        request.setAttribute("servers", servers);
+    }
+
+    /**
+     * Gets the possible servers ordered by minimum monthly rate.
+     */
+    public static List<Server> getServers(ServletContext servletContext, String packageCategoryName) throws IOException, SQLException {
         AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servletContext);
         PackageCategory category = rootConn.packageCategories.get(packageCategoryName);
         Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
@@ -56,8 +67,10 @@ final public class SignupSelectServerActionHelper {
                 );
             }
         }
-
-        request.setAttribute("servers", servers);
+        
+        Collections.sort(servers, new ServerComparator());
+        
+        return servers;
     }
 
     public static class Server {
@@ -78,6 +91,12 @@ final public class SignupSelectServerActionHelper {
 
         public ServerConfiguration getMaximumConfiguration() {
             return maximumConfiguration;
+        }
+    }
+
+    private static class ServerComparator implements Comparator<Server> {
+        public int compare(Server s1, Server s2) {
+            return s1.getMinimumConfiguration().getMonthly().compareTo(s2.getMinimumConfiguration().getMonthly());
         }
     }
 

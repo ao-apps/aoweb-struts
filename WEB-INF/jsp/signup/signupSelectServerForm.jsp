@@ -33,33 +33,33 @@
                         <skin:popup>
                             <table border="0" cellspacing="0" cellpadding="2" style='font-size:80%;'>
                                 <tr>
-                                    <td colspan="3" class='ao_light_row' style='font-size:100%;'>
+                                    <td colspan="3" class='ao_popup_light_row' style='font-size:100%;'>
                                         <table border="0" cellspacing="0" cellpadding="0" width="100%">
                                             <tr>
-                                                <th class='ao_light_row'><bean:write name="server" property="minimumConfiguration.name"/></th>
-                                                <td class='ao_light_row' align="right"><skin:popupClose/></td>
+                                                <th class='ao_popup_light_row'><bean:write name="server" property="minimumConfiguration.name"/></th>
+                                                <td class='ao_popup_light_row' align="right"><skin:popupClose/></td>
                                             </tr>
                                         </table>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.resource.header"/></th>
-                                    <th><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.minimum.header"/></th>
-                                    <th><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.maximum.header"/></th>
+                                    <th class='ao_popup_dark_row'><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.resource.header"/></th>
+                                    <th class='ao_popup_dark_row'><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.minimum.header"/></th>
+                                    <th class='ao_popup_dark_row'><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.maximum.header"/></th>
                                 </tr>
                                 <% int row2 = 0; %>
-                                <tr class='<%= ((row2++)&1)==0 ? "ao_light_row" : "ao_dark_row" %>'>
+                                <tr class='<%= ((row2++)&1)==0 ? "ao_popup_light_row" : "ao_popup_dark_row" %>'>
                                     <td nowrap><b><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.cpu.header"/></b></td>
                                     <td nowrap><bean:write name="server" property="minimumConfiguration.cpu" filter="false"/></td>
                                     <td nowrap><bean:write name="server" property="maximumConfiguration.cpu" filter="false"/></td>
                                 </tr>
-                                <tr class='<%= ((row2++)&1)==0 ? "ao_light_row" : "ao_dark_row" %>'>
+                                <tr class='<%= ((row2++)&1)==0 ? "ao_popup_light_row" : "ao_popup_dark_row" %>'>
                                     <td nowrap><b><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.ram.header"/></b></td>
                                     <td nowrap><bean:write name="server" property="minimumConfiguration.ram"/></td>
                                     <td nowrap><bean:write name="server" property="maximumConfiguration.ram"/></td>
                                 </tr>
                                 <logic:notEmpty name="server" property="maximumConfiguration.ide">
-                                    <tr class='<%= ((row2++)&1)==0 ? "ao_light_row" : "ao_dark_row" %>'>
+                                    <tr class='<%= ((row2++)&1)==0 ? "ao_popup_light_row" : "ao_popup_dark_row" %>'>
                                         <td nowrap><b><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.ide.header"/></b></td>
                                         <td nowrap>
                                             <logic:empty name="server" property="minimumConfiguration.ide">&nbsp;</logic:empty>
@@ -69,7 +69,7 @@
                                     </tr>
                                 </logic:notEmpty>
                                 <logic:notEmpty name="server" property="maximumConfiguration.sata">
-                                    <tr class='<%= ((row2++)&1)==0 ? "ao_light_row" : "ao_dark_row" %>'>
+                                    <tr class='<%= ((row2++)&1)==0 ? "ao_popup_light_row" : "ao_popup_dark_row" %>'>
                                         <td nowrap><b><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.sata.header"/></b></td>
                                         <td nowrap>
                                             <logic:empty name="server" property="minimumConfiguration.sata">&nbsp;</logic:empty>
@@ -79,7 +79,7 @@
                                     </tr>
                                 </logic:notEmpty>
                                 <logic:notEmpty name="server" property="maximumConfiguration.scsi">
-                                    <tr class='<%= ((row2++)&1)==0 ? "ao_light_row" : "ao_dark_row" %>'>
+                                    <tr class='<%= ((row2++)&1)==0 ? "ao_popup_light_row" : "ao_popup_dark_row" %>'>
                                         <td nowrap><b><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.scsi.header"/></b></td>
                                         <td nowrap>
                                             <logic:empty name="server" property="minimumConfiguration.scsi">&nbsp;</logic:empty>

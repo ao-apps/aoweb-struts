@@ -153,9 +153,8 @@ public class TextSkin extends Skin {
             }
             out.print("          <HR>\n"
                     + "          <SPAN style='white-space: nowrap'>\n");
-            List<Language> languages = getLanguages(req);
             List<Layout> layouts = getLayouts(req);
-            if(languages.size()>1 || layouts.size()>1) {
+            if(layouts.size()>1) {
                 out.print("<SCRIPT language='JavaScript1.2'><!--\n");
                 if(layouts.size()>1) {
                     out.print("  function selectLayout(layout) {\n");
@@ -166,19 +165,6 @@ public class TextSkin extends Skin {
                         ChainWriter.writeHtmlAttribute(fullPath, out);
                         out.print("?layout=");
                         out.print(layout.getName());
-                        out.print("';\n");
-                    }
-                    out.print("  }\n");
-                }
-                if(languages.size()>1) {
-                    out.print("  function selectLanguage(language) {\n");
-                    for(Language language : languages) {
-                        out.print("    if(language=='");
-                        out.print(language.getCode());
-                        out.print("') window.top.location.href='");
-                        ChainWriter.writeHtmlAttribute(fullPath,out);
-                        out.print("?language=");
-                        out.print(language.getCode());
                         out.print("';\n");
                     }
                     out.print("  }\n");
@@ -201,23 +187,57 @@ public class TextSkin extends Skin {
                     out.print("              </SELECT>\n"
                             + "            </FORM><BR>\n");
                 }
-                if(languages.size()>1) {
-                    out.print("            <FORM style='display:inline;'>\n"
-                            + "              ");
-                    out.print(applicationResources.getMessage(locale, "TextSkin.languagePrompt"));
-                    out.print("<SELECT name='language_selector' onChange='selectLanguage(this.form.language_selector.options[this.form.language_selector.selectedIndex].value);'>\n");
-                    for(Language language : languages) {
-                        out.print("                <OPTION value='");
+            }
+            List<Language> languages = getLanguages(req);
+            if(languages.size()>1) {
+                out.print("            ");
+                for(Language language : languages) {
+                    if(language.getCode().equalsIgnoreCase(locale.getLanguage())) {
+                        out.print("&nbsp;<A href='");
+                        ChainWriter.writeHtmlAttribute(fullPath,out);
+                        out.print("?language=");
                         out.print(language.getCode());
-                        out.print('\'');
-                        if(language.getCode().equals(locale.getLanguage())) out.print(" selected");
-                        out.print('>');
+                        out.print("'><IMG src='");
+                        out.print(urlBase);
+                        out.print(language.getFlagOnSrc());
+                        out.print("' border='1' width='");
+                        out.print(language.getFlagWidth());
+                        out.print("' height='");
+                        out.print(language.getFlagHeight());
+                        out.print("' alt='");
                         out.print(language.getDisplay());
-                        out.print("</OPTION>\n");
-                    };
-                    out.print("              </SELECT>\n"
-                            + "            </FORM><BR>\n");
+                        out.print("'></A>");
+                    } else {
+                        out.print("&nbsp;<A href='");
+                        ChainWriter.writeHtmlAttribute(fullPath,out);
+                        out.print("?language=");
+                        out.print(language.getCode());
+                        out.print("' onMouseOver='document.images[\"flagSelector_");
+                        out.print(language.getCode());
+                        out.print("\"].src=\"");
+                        out.print(urlBase);
+                        out.print(language.getFlagOnSrc());
+                        out.print("\";' onMouseOut='document.images[\"flagSelector_");
+                        out.print(language.getCode());
+                        out.print("\"].src=\"");
+                        out.print(urlBase);
+                        out.print(language.getFlagOffSrc());
+                        out.print("\";'><IMG src='");
+                        out.print(urlBase);
+                        out.print(language.getFlagOffSrc());
+                        out.print("' name='flagSelector_");
+                        out.print(language.getCode());
+                        out.print("' border='1' width='");
+                        out.print(language.getFlagWidth());
+                        out.print("' height='");
+                        out.print(language.getFlagHeight());
+                        out.print("' alt='");
+                        out.print(language.getDisplay());
+                        out.print("'></A>");
+                        ChainWriter.writeHtmlImagePreloadJavaScript(urlBase + language.getFlagOnSrc(), out);
+                    }
                 }
+                out.print("<BR>\n");
             }
             printSearch(req, out);
             out.print("          </SPAN>\n"
@@ -549,7 +569,7 @@ public class TextSkin extends Skin {
     /**
      * Prints content below the related pages area on the left.
      */
-    public void printBelowRelatedPages(HttpServletRequest req, JspWriter out) {
+    public void printBelowRelatedPages(HttpServletRequest req, JspWriter out) throws JspException {
     }
 
     /**
@@ -557,7 +577,7 @@ public class TextSkin extends Skin {
      */
     public void beginPopupGroup(HttpServletRequest req, JspWriter out, long groupId) throws JspException {
         try {
-            out.print("<SCRIPT language='JavaScript1.2'><!--\n"
+            out.print("<SCRIPT language=\"JavaScript1.2\"><!--\n"
                     + "    function popupGroupHideAllDetails"); out.print(groupId); out.print("() {\n"
                     + "        var spanElements = document.getElementsByTagName ? document.getElementsByTagName(\"span\") : document.all.tags(\"span\");\n"
                     + "        for (var c=0; c < spanElements.length; c++) {\n"
@@ -603,13 +623,14 @@ public class TextSkin extends Skin {
             HttpSession session = req.getSession();
             Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
             MessageResources applicationResources = getMessageResources(req);
+            String urlBase = req.isSecure() ? getHttpsUrlBase(req) : getHttpUrlBase(req);
 
             out.print("<SPAN id=\"groupedPopupAnchor_");
             out.print(groupId);
             out.print('_');
             out.print(popupId);
             out.print("\" style=\"position:relative;\"><img src=\"");
-            out.print(req.isSecure() ? getHttpsUrlBase(req) : getHttpUrlBase(req));
+            out.print(urlBase);
             out.print(applicationResources.getMessage(locale, "TextSkin.popup.src"));
             out.print("\" alt=\"");
             out.print(applicationResources.getMessage(locale, "TextSkin.popup.alt"));
@@ -625,11 +646,33 @@ public class TextSkin extends Skin {
             out.print(groupId);
             out.print('(');
             out.print(popupId);
-            out.print(");\"><SPAN width=\"100%\" id=\"groupedPopup_");
+            out.print(");\">\n"
+                    + "    <SPAN width=\"100%\" id=\"groupedPopup_");
             out.print(groupId);
             out.print('_');
             out.print(popupId);
-            out.print("\" style=\"white-space:nowrap; position:absolute; bottom:30px; right:30px; visibility: hidden; z-index:1\"><DIV class=\"ao_popup\">");
+            out.print("\" style=\"white-space:nowrap; position:absolute; bottom:30px; right:30px; visibility: hidden; z-index:1\">\n"
+                    + "        <TABLE border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"
+                    + "            <TR>\n"
+                    + "                <TD nowrap width=\"12\"><IMG src=\"");
+            out.print(urlBase);
+            out.print("textskin/popup_topleft.gif\" width=\"12\" height=\"12\"></TD>\n"
+                    + "                <TD nowrap height=\"12\" style=\"background-image:url(");
+            out.print(urlBase);
+            out.print("textskin/popup_top.gif);\"><IMG src=\"");
+            out.print(urlBase);
+            out.print("textskin/popup_top.gif);\" width=\"1\" height=\"12\"></TD>\n"
+                    + "                <TD nowrap width=\"12\"><IMG src=\"");
+            out.print(urlBase);
+            out.print("textskin/popup_topright.gif\" width=\"12\" height=\"12\"></TD>\n"
+                    + "            </TR>\n"
+                    + "            <TR>\n"
+                    + "                <TD style=\"background-image:url(");
+            out.print(urlBase);
+            out.print("textskin/popup_left.gif);\"><IMG src=\"");
+            out.print(urlBase);
+            out.print("textskin/popup_left.gif\" width=\"12\" height=\"12\"></TD>\n"
+                    + "                <TD class=\"ao_popup_light_row\">");
         } catch(IOException err) {
             throw new JspException(err);
         }
@@ -666,7 +709,31 @@ public class TextSkin extends Skin {
      */
     public void endPopup(HttpServletRequest req, JspWriter out, long groupId, long popupId) throws JspException {
         try {
-            out.print("</DIV></SPAN></SPAN><SCRIPT language='JavaScript1.2'><!--\n"
+            String urlBase = req.isSecure() ? getHttpsUrlBase(req) : getHttpUrlBase(req);
+            out.print("</TD>\n"
+                    + "                <TD style=\"background-image:url(");
+            out.print(urlBase);
+            out.print("textskin/popup_right.gif);\"><IMG src=\"");
+            out.print(urlBase);
+            out.print("textskin/popup_right.gif\" width=\"12\" height=\"1\"></TD>\n"
+                    + "            </TR>\n"
+                    + "            <TR>\n" 
+                    + "                <TD nowrap width=\"12\"><IMG src=\"");
+            out.print(urlBase);
+            out.print("textskin/popup_bottomleft.gif\" width=\"12\" height=\"12\"></TD>\n"
+                    + "                <TD nowrap height=\"12\" style=\"background-image:url(");
+            out.print(urlBase);
+            out.print("textskin/popup_bottom.gif);\"><IMG src=\"");
+            out.print(urlBase);
+            out.print("textskin/popup_bottom.gif\" width=\"1\" height=\"12\"></TD>\n"
+                    + "                <TD nowrap width=\"12\"><IMG src=\"");
+            out.print(urlBase);
+            out.print("textskin/popup_bottomright.gif\" width=\"12\" height=\"12\"></TD>\n"
+                    + "            </TR>\n"
+                    + "        </TABLE>\n"
+                    + "    </SPAN>\n"
+                    + "</SPAN>\n"
+                    + "<SCRIPT language='JavaScript1.2'><!--\n"
                     + "    // Override onload\n"
                     + "    var groupedPopupOldOnload_");
             out.print(groupId);
@@ -769,10 +836,10 @@ public class TextSkin extends Skin {
                     + "        var screenWidth = (document.compatMode && document.compatMode == \"CSS1Compat\") ? document.documentElement.clientWidth : document.body.clientWidth;\n"
                     + "        // Find the desired screen position of the popup\n"
                     + "        var popupScreenPosition = 0;\n"
-                    + "        if(screenWidth<=popupWidth) {\n"
+                    + "        if(screenWidth<=(popupWidth+12)) {\n"
                     + "            popupScreenPosition = 0;\n"
                     + "        } else {\n"
-                    + "            popupScreenPosition = screenWidth - popupWidth;\n"
+                    + "            popupScreenPosition = screenWidth - popupWidth - 12;\n"
                     + "            if(popupAnchorRight < popupScreenPosition) popupScreenPosition = popupAnchorRight;\n"
                     + "        }\n"
                     + "        popup.style.right=(popupAnchorRight-(popupScreenPosition+popupWidth))+\"px\";\n"
