@@ -9,6 +9,7 @@ import com.aoindustries.website.Constants;
 import com.aoindustries.website.Skin;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -51,7 +52,8 @@ public class ContentVerticalDividerTag extends TagSupport {
             Skin skin = SkinTag.getSkin(pageContext);
 
             HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-            skin.printContentVerticalDivider(req, pageContext.getOut(), visible, colspan, rowspan, align);
+            HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+            skin.printContentVerticalDivider(req, resp, pageContext.getOut(), visible, colspan, rowspan, align);
 
             contentLineTag.setLastRowSpan(rowspan);
 

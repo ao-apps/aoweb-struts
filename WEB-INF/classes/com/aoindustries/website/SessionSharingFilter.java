@@ -28,8 +28,9 @@ public class SessionSharingFilter implements Filter {
         ServletResponse response,
         FilterChain chain
     ) throws IOException, ServletException {
-        SessionSharingRequestWrapper myrequest = new SessionSharingRequestWrapper((HttpServletRequest)request, (HttpServletResponse)response);
-        chain.doFilter(myrequest, response);
+        SessionSharingResponseWrapper myresponse = new SessionSharingResponseWrapper((HttpServletResponse)response, request.getServerName());
+        SessionSharingRequestWrapper myrequest = new SessionSharingRequestWrapper((HttpServletRequest)request, myresponse);
+        chain.doFilter(myrequest, myresponse);
     }
     
     public void destroy() {

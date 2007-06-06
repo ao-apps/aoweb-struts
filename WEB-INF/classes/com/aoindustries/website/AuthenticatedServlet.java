@@ -48,7 +48,7 @@ abstract public class AuthenticatedServlet extends HttpServlet {
             } else {
                 url = "https://"+request.getServerName()+"/login.do";
             }
-            response.sendRedirect(url);
+            response.sendRedirect(response.encodeRedirectURL(url));
             return;
         }
 

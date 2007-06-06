@@ -63,7 +63,7 @@ public class LoginCompletedAction extends HttpsAction {
                 // Try redirect
                 String target = (String)session.getAttribute(Constants.AUTHENTICATION_TARGET);
                 if(target!=null && target.length()>0) {
-                    response.sendRedirect(target);
+                    response.sendRedirect(response.encodeRedirectURL(target));
                     return null;
                 }
 

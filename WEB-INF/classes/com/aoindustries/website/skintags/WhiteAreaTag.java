@@ -8,6 +8,7 @@ package com.aoindustries.website.skintags;
 import com.aoindustries.website.Skin;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -36,7 +37,7 @@ public class WhiteAreaTag extends PageAttributesTag {
     public int doStartTag(PageAttributes pageAttributes) throws JspException {
         Skin skin = SkinTag.getSkin(pageContext);
 
-        skin.beginWhiteArea((HttpServletRequest)pageContext.getRequest(), pageContext.getOut(), width, nowrap);
+        skin.beginWhiteArea((HttpServletRequest)pageContext.getRequest(), (HttpServletResponse)pageContext.getResponse(), pageContext.getOut(), width, nowrap);
 
         return EVAL_BODY_INCLUDE;
     }
@@ -45,7 +46,7 @@ public class WhiteAreaTag extends PageAttributesTag {
         try {
             Skin skin = SkinTag.getSkin(pageContext);
 
-            skin.endWhiteArea((HttpServletRequest)pageContext.getRequest(), pageContext.getOut());
+            skin.endWhiteArea((HttpServletRequest)pageContext.getRequest(), (HttpServletResponse)pageContext.getResponse(), pageContext.getOut());
 
             return EVAL_PAGE;
         } finally {

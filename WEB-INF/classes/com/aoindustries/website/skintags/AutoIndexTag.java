@@ -7,6 +7,7 @@ package com.aoindustries.website.skintags;
  */
 import com.aoindustries.website.Skin;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -21,7 +22,7 @@ public class AutoIndexTag extends TagSupport {
     public int doStartTag() throws JspException {
         Skin skin = SkinTag.getSkin(pageContext);
         PageAttributes pageAttributes = PageAttributesTag.getPageAttributes(pageContext);
-        skin.printAutoIndex((HttpServletRequest)pageContext.getRequest(), pageContext.getOut(), pageAttributes);
+        skin.printAutoIndex((HttpServletRequest)pageContext.getRequest(), (HttpServletResponse)pageContext.getResponse(), pageContext.getOut(), pageAttributes);
         return SKIP_BODY;
     }
 }

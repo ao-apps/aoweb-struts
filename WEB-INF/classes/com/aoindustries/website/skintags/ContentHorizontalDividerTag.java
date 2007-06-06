@@ -11,6 +11,7 @@ import com.aoindustries.website.Skin;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -73,7 +74,8 @@ public class ContentHorizontalDividerTag extends TagSupport {
             }
 
             HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-            skin.printContentHorizontalDivider(req, pageContext.getOut(), array, endsInternal);
+            HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+            skin.printContentHorizontalDivider(req, resp, pageContext.getOut(), array, endsInternal);
 
             return SKIP_BODY;
         } finally {

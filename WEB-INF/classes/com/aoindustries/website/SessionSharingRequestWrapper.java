@@ -16,9 +16,9 @@ import javax.servlet.http.HttpSession;
  */
 public class SessionSharingRequestWrapper extends HttpServletRequestWrapper {
 
-    final private HttpServletResponse response;
+    final private SessionSharingResponseWrapper response;
 
-    public SessionSharingRequestWrapper(HttpServletRequest request, HttpServletResponse response) {
+    public SessionSharingRequestWrapper(HttpServletRequest request, SessionSharingResponseWrapper response) {
         super(request);
         this.response = response;
     }

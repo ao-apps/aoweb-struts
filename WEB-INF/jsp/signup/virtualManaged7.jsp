@@ -25,14 +25,19 @@
             <skin:contentLine>
                 <script language="JavaScript1.2"><!--
                     function selectStep(step) {
-                        window.location.href=step+".do";
+                        if(step=="virtualManaged") window.location.href="<%= response.encodeURL("virtualManaged.do") %>";
+                        else if(step=="virtualManaged2") window.location.href="<%= response.encodeURL("virtualManaged2.do") %>";
+                        else if(step=="virtualManaged3") window.location.href="<%= response.encodeURL("virtualManaged3.do") %>";
+                        else if(step=="virtualManaged4") window.location.href="<%= response.encodeURL("virtualManaged4.do") %>";
+                        else if(step=="virtualManaged5") window.location.href="<%= response.encodeURL("virtualManaged5.do") %>";
+                        else if(step=="virtualManaged6") window.location.href="<%= response.encodeURL("virtualManaged6.do") %>";
                     }
                 // --></script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="7"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="virtualManaged"/>
                 <%@ include file="managedSteps.jsp" %>
                 <br>
-                <form action="virtualManaged7Completed.do" method="POST">
+                <form action="<%= response.encodeURL("virtualManaged7Completed.do") %>" method="POST">
                     <%@ include file="managedConfirmation.jsp" %>
                 </form>
             </skin:contentLine>

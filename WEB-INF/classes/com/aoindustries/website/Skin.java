@@ -84,37 +84,37 @@ abstract public class Skin {
     /**
      * Starts the content area of a page.  The content area provides additional features such as a nice border, and vertical and horizontal dividers.
      */
-    abstract public void startContent(HttpServletRequest req, JspWriter out, PageAttributes pageAttributes, int[] colspans, String width) throws JspException;
+    abstract public void startContent(HttpServletRequest req, HttpServletResponse resp, JspWriter out, PageAttributes pageAttributes, int[] colspans, String width) throws JspException;
 
     /**
      * Prints an entire content line including the provided title.  The colspan should match the total colspan in startContent for proper appearance
      */
-    abstract public void printContentTitle(HttpServletRequest req, JspWriter out, String title, int colspan) throws JspException;
+    abstract public void printContentTitle(HttpServletRequest req, HttpServletResponse resp, JspWriter out, String title, int colspan) throws JspException;
 
     /**
      * Starts one line of content with the initial colspan set to the provided colspan.
      */
-    abstract public void startContentLine(HttpServletRequest req, JspWriter out, int colspan, String align) throws JspException;
+    abstract public void startContentLine(HttpServletRequest req, HttpServletResponse resp, JspWriter out, int colspan, String align) throws JspException;
 
     /**
      * Starts one line of content with the initial colspan set to the provided colspan.
      */
-    abstract public void printContentVerticalDivider(HttpServletRequest req, JspWriter out, boolean visible, int colspan, int rowspan, String align) throws JspException;
+    abstract public void printContentVerticalDivider(HttpServletRequest req, HttpServletResponse resp, JspWriter out, boolean visible, int colspan, int rowspan, String align) throws JspException;
 
     /**
      * Ends one line of content.
      */
-    abstract public void endContentLine(HttpServletRequest req, JspWriter out, int rowspan, boolean endsInternal) throws JspException;
+    abstract public void endContentLine(HttpServletRequest req, HttpServletResponse resp, JspWriter out, int rowspan, boolean endsInternal) throws JspException;
 
     /**
      * Prints a horizontal divider of the provided colspans.
      */
-    abstract public void printContentHorizontalDivider(HttpServletRequest req, JspWriter out, int[] colspansAndDirections, boolean endsInternal) throws JspException;
+    abstract public void printContentHorizontalDivider(HttpServletRequest req, HttpServletResponse resp, JspWriter out, int[] colspansAndDirections, boolean endsInternal) throws JspException;
 
     /**
      * Ends the content area of a page.
      */
-    abstract public void endContent(HttpServletRequest req, JspWriter out, PageAttributes pageAttributes, int[] colspans) throws JspException;
+    abstract public void endContent(HttpServletRequest req, HttpServletResponse resp, JspWriter out, PageAttributes pageAttributes, int[] colspans) throws JspException;
 
     /**
      * Writes the contents between the page content and the HTML tag (not including the HTML tag itself).
@@ -124,22 +124,22 @@ abstract public class Skin {
     /**
      * Begins a light area.
      */
-    abstract public void beginLightArea(HttpServletRequest req, JspWriter out, String width, boolean nowrap) throws JspException;
+    abstract public void beginLightArea(HttpServletRequest req, HttpServletResponse resp, JspWriter out, String width, boolean nowrap) throws JspException;
 
     /**
      * Ends a light area.
      */
-    abstract public void endLightArea(HttpServletRequest req, JspWriter out) throws JspException;
+    abstract public void endLightArea(HttpServletRequest req, HttpServletResponse resp, JspWriter out) throws JspException;
 
     /**
      * Begins a white area.
      */
-    abstract public void beginWhiteArea(HttpServletRequest req, JspWriter out, String width, boolean nowrap) throws JspException;
+    abstract public void beginWhiteArea(HttpServletRequest req, HttpServletResponse resp, JspWriter out, String width, boolean nowrap) throws JspException;
 
     /**
      * Ends a white area.
      */
-    abstract public void endWhiteArea(HttpServletRequest req, JspWriter out) throws JspException;
+    abstract public void endWhiteArea(HttpServletRequest req, HttpServletResponse resp, JspWriter out) throws JspException;
 
     public static class Language {
         private String code;
@@ -255,7 +255,7 @@ abstract public class Skin {
     /**
      * Prints the auto index of all the page siblings.
      */
-    abstract public void printAutoIndex(HttpServletRequest req, JspWriter out, PageAttributes pageAttributes) throws JspException;
+    abstract public void printAutoIndex(HttpServletRequest req, HttpServletResponse resp, JspWriter out, PageAttributes pageAttributes) throws JspException;
 
     /**
      * Begins a popup group.
@@ -270,15 +270,15 @@ abstract public class Skin {
     /**
      * Begins a popup that is in a popup group.
      */
-    abstract public void beginPopup(HttpServletRequest req, JspWriter out, long groupId, long popupId) throws JspException;
+    abstract public void beginPopup(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId) throws JspException;
 
     /**
      * Prints a popup close link/image/button for a popup that is part of a popup group.
      */
-    abstract public void printPopupClose(HttpServletRequest req, JspWriter out, long groupId, long popupId) throws JspException;
+    abstract public void printPopupClose(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId) throws JspException;
 
     /**
      * Ends a popup that is in a popup group.
      */
-    abstract public void endPopup(HttpServletRequest req, JspWriter out, long groupId, long popupId) throws JspException;
+    abstract public void endPopup(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId) throws JspException;
 }

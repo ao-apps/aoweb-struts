@@ -37,7 +37,7 @@ public class LogoutAction extends SkinAction {
         // Try redirect
         String target = request.getParameter("target");
         if(target!=null && target.length()>0) {
-            response.sendRedirect(target);
+            response.sendRedirect(response.encodeRedirectURL(target));
             return null;
         }
 

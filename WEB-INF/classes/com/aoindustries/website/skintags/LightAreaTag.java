@@ -8,6 +8,7 @@ package com.aoindustries.website.skintags;
 import com.aoindustries.website.Skin;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -36,7 +37,8 @@ public class LightAreaTag extends PageAttributesTag {
     public int doStartTag(PageAttributes pageAttributes) throws JspException {
         Skin skin = SkinTag.getSkin(pageContext);
 
-        skin.beginLightArea((HttpServletRequest)pageContext.getRequest(), pageContext.getOut(), width, nowrap);
+        HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+        skin.beginLightArea((HttpServletRequest)pageContext.getRequest(), resp, pageContext.getOut(), width, nowrap);
 
         return EVAL_BODY_INCLUDE;
     }
@@ -45,7 +47,8 @@ public class LightAreaTag extends PageAttributesTag {
         try {
             Skin skin = SkinTag.getSkin(pageContext);
 
-            skin.endLightArea((HttpServletRequest)pageContext.getRequest(), pageContext.getOut());
+            HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+            skin.endLightArea((HttpServletRequest)pageContext.getRequest(), resp, pageContext.getOut());
 
             return EVAL_PAGE;
         } finally {

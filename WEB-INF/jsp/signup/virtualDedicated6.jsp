@@ -25,14 +25,18 @@
             <skin:contentLine>
                 <script language="JavaScript1.2"><!--
                     function selectStep(step) {
-                        window.location.href=step+".do";
+                        if(step=="virtualDedicated") window.location.href="<%= response.encodeURL("virtualDedicated.do") %>";
+                        else if(step=="virtualDedicated2") window.location.href="<%= response.encodeURL("virtualDedicated2.do") %>";
+                        else if(step=="virtualDedicated3") window.location.href="<%= response.encodeURL("virtualDedicated3.do") %>";
+                        else if(step=="virtualDedicated4") window.location.href="<%= response.encodeURL("virtualDedicated4.do") %>";
+                        else if(step=="virtualDedicated5") window.location.href="<%= response.encodeURL("virtualDedicated5.do") %>";
                     }
                 // --></script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="6"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="virtualDedicated"/>
                 <%@ include file="dedicatedSteps.jsp" %>
                 <br>
-                <form action="virtualDedicated6Completed.do" method="POST">
+                <form action="<%= response.encodeURL("virtualDedicated6Completed.do") %>" method="POST">
                     <%@ include file="dedicatedConfirmation.jsp" %>
                 </form>
             </skin:contentLine>

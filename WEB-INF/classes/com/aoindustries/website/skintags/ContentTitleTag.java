@@ -9,6 +9,7 @@ import com.aoindustries.util.StringUtility;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -47,7 +48,8 @@ public class ContentTitleTag extends BodyTagSupport {
         for(int c=0;c<colspans.length;c++) totalColspan += colspans[c];
 
         HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-        skin.printContentTitle(req, pageContext.getOut(), title, totalColspan);
+        HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+        skin.printContentTitle(req, resp, pageContext.getOut(), title, totalColspan);
 
         return EVAL_PAGE;
     }

@@ -9,6 +9,7 @@ import com.aoindustries.util.StringUtility;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -50,7 +51,8 @@ public class ContentLineTag extends BodyTagSupport {
         Skin skin = SkinTag.getSkin(pageContext);
 
         HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-        skin.startContentLine(req, pageContext.getOut(), colspan, align);
+        HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+        skin.startContentLine(req, resp, pageContext.getOut(), colspan, align);
 
         return EVAL_BODY_INCLUDE;
     }
@@ -60,7 +62,8 @@ public class ContentLineTag extends BodyTagSupport {
             Skin skin = SkinTag.getSkin(pageContext);
 
             HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-            skin.endContentLine(req, pageContext.getOut(), lastRowSpan, endsInternal);
+            HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+            skin.endContentLine(req, resp, pageContext.getOut(), lastRowSpan, endsInternal);
 
             return EVAL_PAGE;
         } finally {

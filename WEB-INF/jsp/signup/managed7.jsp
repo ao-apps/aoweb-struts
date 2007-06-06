@@ -25,14 +25,19 @@
             <skin:contentLine>
                 <script language="JavaScript1.2"><!--
                     function selectStep(step) {
-                        window.location.href=step+".do";
+                        if(step=="managed") window.location.href="<%= response.encodeURL("managed.do") %>";
+                        else if(step=="managed2") window.location.href="<%= response.encodeURL("managed2.do") %>";
+                        else if(step=="managed3") window.location.href="<%= response.encodeURL("managed3.do") %>";
+                        else if(step=="managed4") window.location.href="<%= response.encodeURL("managed4.do") %>";
+                        else if(step=="managed5") window.location.href="<%= response.encodeURL("managed5.do") %>";
+                        else if(step=="managed6") window.location.href="<%= response.encodeURL("managed6.do") %>";
                     }
                 // --></script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="7"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="managed"/>
                 <%@ include file="managedSteps.jsp" %>
                 <br>
-                <form action="managed7Completed.do" method="POST">
+                <form action="<%= response.encodeURL("managed7Completed.do") %>" method="POST">
                     <%@ include file="managedConfirmation.jsp" %>
                 </form>
             </skin:contentLine>
