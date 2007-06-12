@@ -495,14 +495,14 @@ public class TextSkin extends Skin {
         try {
             out.print("<TABLE border='5' cellpadding='0' cellspacing='0'>\n"
                     + "  <TR>\n"
-                    + "    <TD class='ao_light_row'");
+                    + "    <TD class='ao_white_row'");
             if(width!=null && (width=width.trim()).length()>0) {
                 out.print(" width='");
                 out.print(width);
                 out.print('\'');
             }
             if(nowrap) out.print(" nowrap");
-            out.print(" bgcolor='white'>");
+            out.print('>');
         } catch(IOException err) {
             throw new JspException(err);
         }
