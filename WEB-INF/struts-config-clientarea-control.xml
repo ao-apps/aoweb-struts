@@ -37,6 +37,13 @@
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/index.jsp" redirect="false" />
         </action>
         <action
+            path="/monitor/mysqlReplicationMonitor"
+            type="com.aoindustries.website.clientarea.control.monitor.MySQLReplicationMonitorAction"
+        >
+            <forward name="permissionDenied" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/monitor/mysqlReplicationMonitor.jsp" redirect="false" />
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/control/monitor/mysqlReplicationMonitor.jsp" redirect="false" />
+        </action>
+        <action
             path="/password/index"
             type="com.aoindustries.website.HttpAction"
         >
