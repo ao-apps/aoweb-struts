@@ -37,6 +37,7 @@ public class InterBasePasswordSetterForm extends ActionForm implements Serializa
     private List<String> confirmPasswords;
 
     public void reset(ActionMapping mapping, HttpServletRequest request) {
+        super.reset(mapping, request);
         setPackages(new AutoGrowArrayList<String>());
         setUsernames(new AutoGrowArrayList<String>());
         setFullNames(new AutoGrowArrayList<String>());
@@ -94,27 +95,25 @@ public class InterBasePasswordSetterForm extends ActionForm implements Serializa
     }
     
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+        ActionErrors errors = super.validate(mapping, request);
+        if(errors==null) errors = new ActionErrors();
         AOServConnector aoConn = AuthenticatedAction.getAoConn(request, null);
         if(aoConn==null) throw new RuntimeException("aoConn is null");
         Locale locale = (Locale)request.getSession().getAttribute(Globals.LOCALE_KEY);
-
-        ActionErrors errors = null;
 
         for(int c=0;c<usernames.size();c++) {
             String newPassword = newPasswords.get(c);
             String confirmPassword = confirmPasswords.get(c);
             if(!newPassword.equals(confirmPassword)) {
-                if(errors==null) errors = new ActionErrors();
                 errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.interBasePasswordSetter.field.confirmPasswords.mismatch"));
             } else {
                 if(newPassword.length()>0) {
                     String username = usernames.get(c);
 
                     // Check the password strength
-                    PasswordChecker.Result[] results = InterBaseUser.checkPassword(username, newPassword);
-                    if(PasswordChecker.hasResults(results)) {
-                        if(errors==null) errors = new ActionErrors();
-                        errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results, locale), false));
+                    PasswordChecker.Result[] results = InterBaseUser.checkPassword(locale, username, newPassword);
+                    if(PasswordChecker.hasResults(locale, results)) {
+                        errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                     }
                 }
             }

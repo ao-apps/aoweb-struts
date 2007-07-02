@@ -19,8 +19,8 @@
     <!-- ========== Global Forward Definitions ============================== -->
     <global-forwards>
         <!-- / -->
-        <forward name="exception" contextRelative="true" path="/WEB-INF/jsp/exception.jsp" />
-        <forward name="login" contextRelative="true" path="/login.do" />
+        <forward name="exception" contextRelative="true" path="/WEB-INF/jsp/exception.jsp" redirect="false" />
+        <forward name="login" contextRelative="true" path="/login.do" redirect="false" />
     </global-forwards>
 
     <!-- ========== Action Mapping Definitions ============================== -->
@@ -33,6 +33,12 @@
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/exception.jsp" redirect="false" />
         </action>
         <action
+            path="/not-found"
+            type="com.aoindustries.website.SkinAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/not-found.jsp" redirect="false" />
+        </action>
+        <action
             path="/login"
             name="loginForm"
             scope="request"
@@ -42,7 +48,7 @@
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/login.jsp" redirect="false" />
         </action>
         <action
-            path="/loginCompleted"
+            path="/login-completed"
             name="loginForm"
             scope="request"
             validate="false"
@@ -98,11 +104,6 @@
     <message-resources
         key="/clientarea/webmail/ApplicationResources"
         parameter="com.aoindustries.website.clientarea.webmail.ApplicationResources"
-        null="false"
-    />
-    <message-resources
-        key="/aoserv/client/ApplicationResources"
-        parameter="com.aoindustries.aoserv.client.ApplicationResources"
         null="false"
     />
 

@@ -80,7 +80,7 @@ public class InterBasePasswordSetterCompletedAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    public List<String> getPermissions() {
-        return Collections.singletonList(AOServPermission.SET_INTERBASE_SERVER_USER_PASSWORD);
+    public List<AOServPermission.Permission> getPermissions() {
+        return Collections.singletonList(AOServPermission.Permission.set_interbase_server_user_password);
     }
 }

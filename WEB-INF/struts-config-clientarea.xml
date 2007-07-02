@@ -17,8 +17,8 @@
     <!-- ========== Global Forward Definitions ============================== -->
     <global-forwards>
         <!-- / -->
-        <forward name="exception" contextRelative="true" path="/WEB-INF/jsp/exception.jsp" />
-        <forward name="login" contextRelative="true" path="/login.do" />
+        <forward name="exception" contextRelative="true" path="/WEB-INF/jsp/exception.jsp" redirect="false" />
+        <forward name="login" contextRelative="true" path="/login.do" redirect="false" />
         <!-- /clientarea -->
     </global-forwards>
 
@@ -29,6 +29,19 @@
             type="com.aoindustries.website.HttpAction"
         >
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/index.jsp" redirect="false" />
+        </action>
+        <action
+            path="/accounting/index"
+            type="com.aoindustries.website.HttpAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/index.jsp" redirect="false" />
+        </action>
+        <action
+            path="/accounting/credit-card-manager"
+            type="com.aoindustries.website.clientarea.accounting.CreditCardManagerAction"
+        >
+            <forward name="permission-denied" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/credit-card-manager.jsp" redirect="false" />
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/credit-card-manager.jsp" redirect="false" />
         </action>
     </action-mappings>
     
@@ -70,11 +83,6 @@
     <message-resources
         key="/clientarea/webmail/ApplicationResources"
         parameter="com.aoindustries.website.clientarea.webmail.ApplicationResources"
-        null="false"
-    />
-    <message-resources
-        key="/aoserv/client/ApplicationResources"
-        parameter="com.aoindustries.aoserv.client.ApplicationResources"
         null="false"
     />
 

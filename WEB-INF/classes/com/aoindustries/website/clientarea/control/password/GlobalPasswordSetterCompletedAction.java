@@ -68,13 +68,13 @@ public class GlobalPasswordSetterCompletedAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    public List<String> getPermissions() {
-        List<String> permissions = new ArrayList<String>();
-        permissions.add(AOServPermission.SET_BUSINESS_ADMINISTRATOR_PASSWORD);
-        permissions.add(AOServPermission.SET_INTERBASE_SERVER_USER_PASSWORD);
-        permissions.add(AOServPermission.SET_LINUX_SERVER_ACCOUNT_PASSWORD);
-        permissions.add(AOServPermission.SET_MYSQL_SERVER_USER_PASSWORD);
-        permissions.add(AOServPermission.SET_POSTGRES_SERVER_USER_PASSWORD);
+    public List<AOServPermission.Permission> getPermissions() {
+        List<AOServPermission.Permission> permissions = new ArrayList<AOServPermission.Permission>();
+        permissions.add(AOServPermission.Permission.set_business_administrator_password);
+        permissions.add(AOServPermission.Permission.set_interbase_server_user_password);
+        permissions.add(AOServPermission.Permission.set_linux_server_account_password);
+        permissions.add(AOServPermission.Permission.set_mysql_server_user_password);
+        permissions.add(AOServPermission.Permission.set_postgres_server_user_password);
         return permissions;
     }
 }

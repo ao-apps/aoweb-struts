@@ -43,23 +43,23 @@ abstract public class PermissionAction extends AuthenticatedAction {
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
-        List<String> permissions = getPermissions();
+        List<AOServPermission.Permission> permissions = getPermissions();
         if(permissions==null || permissions.isEmpty()) {
             request.setAttribute(Constants.PERMISSION_DENIED, Collections.emptyList());
-            return mapping.findForward("permissionDenied");
+            return mapping.findForward("permission-denied");
         }
 
         BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
-        for(String permission : permissions) {
+        for(AOServPermission.Permission permission : permissions) {
             if(!thisBA.hasPermission(permission)) {
                 List<AOServPermission> aoPerms = new ArrayList<AOServPermission>(permissions.size());
-                for(String requiredPermission : permissions) {
+                for(AOServPermission.Permission requiredPermission : permissions) {
                     AOServPermission aoPerm = aoConn.aoservPermissions.get(requiredPermission);
                     if(aoPerm==null) throw new SQLException("Unable to find AOServPermission: "+requiredPermission);
                     aoPerms.add(aoPerm);
                 }
                 request.setAttribute(Constants.PERMISSION_DENIED, aoPerms);
-                return mapping.findForward("permissionDenied");
+                return mapping.findForward("permission-denied");
             }
         }
         return executePermissionGranted(mapping, form, request, response, locale, skin, aoConn);
@@ -80,7 +80,7 @@ abstract public class PermissionAction extends AuthenticatedAction {
     /**
      * Gets the list of permissions that are required for this action.  Returning a null or empty list will result in nothing being allowed.
      *
-     * @see  AOServPermission
+     * @see  AOServPermission.Permission
      */
-    abstract public List<String> getPermissions();
+    abstract public List<AOServPermission.Permission> getPermissions();
 }

@@ -55,7 +55,7 @@ public class VirtualDedicatedCompletedAction extends VirtualDedicatedAction {
                 signupBillingInformationFormComplete
             );
         }
-        return mapping.findForward("virtualDedicated2");
+        return mapping.findForward("virtual-dedicated-server-2");
     }
 
     /**

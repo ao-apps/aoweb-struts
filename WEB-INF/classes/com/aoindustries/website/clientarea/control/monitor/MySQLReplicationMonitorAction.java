@@ -8,10 +8,12 @@ package com.aoindustries.website.clientarea.control.monitor;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.AOServer;
+import com.aoindustries.aoserv.client.FailoverFileReplication;
 import com.aoindustries.aoserv.client.FailoverMySQLReplication;
 import com.aoindustries.aoserv.client.MySQLServer;
 import com.aoindustries.util.ErrorPrinter;
 import com.aoindustries.website.PermissionAction;
+import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -35,6 +37,7 @@ import org.apache.struts.util.MessageResources;
 public class MySQLReplicationMonitorAction extends PermissionAction {
 
     private static final int ERROR_SECONDS_BEHIND = 10;
+    private static final long ERROR_BYTES_BEHIND = 1024*1024;
 
     public ActionForward executePermissionGranted(
         ActionMapping mapping,
@@ -48,12 +51,20 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
         MessageResources controlApplicationResources = (MessageResources)request.getAttribute("/clientarea/control/ApplicationResources");
         if(controlApplicationResources==null) throw new JspException("Unable to load resources: /clientarea/control/ApplicationResources");
 
+        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext());
+
         List<MySQLServerRow> mysqlServerRows = new ArrayList<MySQLServerRow>();
         List<MySQLServer> mysqlServers = aoConn.mysqlServers.getRows();
         for(MySQLServer mysqlServer : mysqlServers) {
             StringBuilder name = new StringBuilder();
             AOServer aoServer = mysqlServer.getAOServer();
-            AOServer failoverServer = aoServer.getFailoverServer();
+            AOServer failoverServer;
+            try {
+                failoverServer = aoServer.getFailoverServer();
+            } catch(SQLException err) {
+                // May be filtered, need to use RootAOServConnector
+                failoverServer = rootConn.aoServers.get(aoServer.getPKey()).getFailoverServer();
+            }
 
             StringBuilder server = new StringBuilder();
             server.append(aoServer.getServer().getHostname());
@@ -61,21 +72,28 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 
             List<FailoverMySQLReplication> fmrs = mysqlServer.getFailoverMySQLReplications();
             if(!fmrs.isEmpty()) {
-                MySQLServerRow mysqlServerRow = new MySQLServerRow(mysqlServer.getVersion().getVersion(), server.toString());
-                mysqlServerRows.add(mysqlServerRow);
+                // Query the slaves first, this way the master will always appear equal to or ahead of the slaves
+                // since we can't query them both exactly at the same time.
+                List<ReplicationRow> replications = new ArrayList<ReplicationRow>();
                 for(FailoverMySQLReplication fmr : fmrs) {
-                    String slave = fmr.getFailoverFileReplication().getToAOServer().getServer().getHostname();
+                    FailoverFileReplication ffr = fmr.getFailoverFileReplication();
+                    String slave;
+                    try {
+                        slave = ffr.getToAOServer().getServer().getHostname();
+                    } catch(SQLException err) {
+                        // May be filtered, need to use RootAOServConnector
+                        slave = rootConn.failoverFileReplications.get(ffr.getPKey()).getToAOServer().getServer().getHostname();
+                    }
                     try {
                         FailoverMySQLReplication.SlaveStatus slaveStatus = fmr.getSlaveStatus();
                         if(slaveStatus==null) {
-                            mysqlServerRow.replications.add(
+                            replications.add(
                                 new ReplicationRow(
                                     true,
                                     slave,
                                     controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.slaveNotRunning")
                                 )
                             );
-                            mysqlServerRow.error = true;
                         } else {
                             String secondsBehindMaster = slaveStatus.getSecondsBehindMaster();
                             boolean error;
@@ -88,7 +106,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                                     error = true;
                                 }
                             }
-                            mysqlServerRow.replications.add(
+                            replications.add(
                                 new ReplicationRow(
                                     error,
                                     slave,
@@ -102,28 +120,100 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                                     secondsBehindMaster
                                 )
                             );
-                            if(error) mysqlServerRow.error = true;
                         }
                     } catch(SQLException err) {
-                        mysqlServerRow.replications.add(
+                        replications.add(
                             new ReplicationRow(
                                 true,
                                 slave,
                                 controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.sqlException", err.getMessage())
                             )
                         );
-                        mysqlServerRow.error = true;
                     } catch(IOException err) {
-                        mysqlServerRow.replications.add(
+                        replications.add(
                             new ReplicationRow(
                                 true,
                                 slave,
                                 controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.ioException", err.getMessage())
                             )
                         );
-                        mysqlServerRow.error = true;
                     }
                 }
+                // Next, query the master and add the results to the rows
+                MySQLServer.MasterStatus masterStatus;
+                MySQLServerRow mysqlServerRow;
+                try {
+                    masterStatus = mysqlServer.getMasterStatus();
+                    if(masterStatus==null) {
+                        mysqlServerRow = new MySQLServerRow(
+                            mysqlServer.getVersion().getVersion(),
+                            server.toString(),
+                            controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.masterNotRunning"),
+                            replications
+                        );
+                    } else {
+                        mysqlServerRow = new MySQLServerRow(
+                            mysqlServer.getVersion().getVersion(),
+                            server.toString(),
+                            masterStatus.getFile(),
+                            masterStatus.getPosition(),
+                            replications
+                        );
+                    }
+                } catch(SQLException err) {
+                    masterStatus = null;
+                    mysqlServerRow = new MySQLServerRow(
+                        mysqlServer.getVersion().getVersion(),
+                        server.toString(),
+                        controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.sqlException", err.getMessage()),
+                        replications
+                    );
+                } catch(IOException err) {
+                    masterStatus = null;
+                    mysqlServerRow = new MySQLServerRow(
+                        mysqlServer.getVersion().getVersion(),
+                        server.toString(),
+                        controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.ioException", err.getMessage()),
+                        replications
+                    );
+                }
+                // Also an individual replication row error if too far behind in log file position or can't determine how far behind
+                if(masterStatus==null) {
+                    mysqlServerRow.error = true;
+                    for(ReplicationRow replication : replications) replication.error = true;
+                } else {
+                    String masterLogFile = masterStatus.getFile();
+                    String masterLogPosString = masterStatus.getPosition();
+                    if(masterLogFile==null || masterLogPosString==null) {
+                        for(ReplicationRow replication : replications) replication.error = true;
+                    } else {
+                        try {
+                            long masterLogPos = Long.parseLong(masterLogPosString);
+                            for(ReplicationRow replication : replications) {
+                                String slaveLogFile = replication.getSlaveLogFile();
+                                String slaveLogPosString = replication.getSlaveLogPos();
+                                if(slaveLogFile==null || slaveLogPosString==null) {
+                                    replication.error = true;
+                                } else {
+                                    try {
+                                        long slaveLogPos = Long.parseLong(slaveLogPosString);
+                                        long difference = masterLogPos - slaveLogPos;
+                                        if(
+                                            !slaveLogFile.equals(masterLogFile)
+                                            || difference>=ERROR_BYTES_BEHIND
+                                            || difference<0
+                                        ) replication.error = true;
+                                    } catch(NumberFormatException err) {
+                                        replication.error = true;
+                                    }
+                                }
+                            }
+                        } catch(NumberFormatException err) {
+                            for(ReplicationRow replication : replications) replication.error = true;
+                        }
+                    }
+                }
+                mysqlServerRows.add(mysqlServerRow);
             }
         }
         
@@ -132,21 +222,46 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 
         return mapping.findForward("success");
     }
-    
-    public List<String> getPermissions() {
-        return Collections.singletonList(AOServPermission.GET_MYSQL_SLAVE_STATUS);
+
+    private static final List<AOServPermission.Permission> permissions = new ArrayList<AOServPermission.Permission>(2);
+    static {
+        permissions.add(AOServPermission.Permission.get_mysql_master_status);
+        permissions.add(AOServPermission.Permission.get_mysql_slave_status);
     }
-    
+    private static final List<AOServPermission.Permission> unmodifiablePermissions = Collections.unmodifiableList(permissions);
+
+    public List<AOServPermission.Permission> getPermissions() {
+        return unmodifiablePermissions;
+    }
+
     public static class MySQLServerRow {
 
         final private String version;
         final private String master;
-        final private List<ReplicationRow> replications = new ArrayList<ReplicationRow>();
+        final private List<ReplicationRow> replications;
         private boolean error = false;
+        final private String lineError;
+        final private String masterLogFile;
+        final private String masterLogPos;
 
-        private MySQLServerRow(String version, String master) {
+        private MySQLServerRow(String version, String master, String lineError, List<ReplicationRow> replications) {
             this.version = version;
             this.master = master;
+            this.replications = replications;
+            this.error = true;
+            this.lineError = lineError;
+            this.masterLogFile = null;
+            this.masterLogPos = null;
+        }
+
+        private MySQLServerRow(String version, String master, String masterLogFile, String masterLogPos, List<ReplicationRow> replications) {
+            this.version = version;
+            this.master = master;
+            this.replications = replications;
+            this.error = false;
+            this.lineError = null;
+            this.masterLogFile = masterLogFile;
+            this.masterLogPos = masterLogPos;
         }
 
         public String getVersion() {
@@ -164,16 +279,28 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
         public boolean getError() {
             return error;
         }
+        
+        public String getLineError() {
+            return lineError;
+        }
+
+        public String getMasterLogFile() {
+            return masterLogFile;
+        }
+
+        public String getMasterLogPos() {
+            return masterLogPos;
+        }
     }
 
     public static class ReplicationRow {
 
-        final private boolean error;
+        private boolean error;
         final private String slave;
         final private String lineError;
         final private String slaveIOState;
-        final private String masterLogFile;
-        final private String readMasterLogPos;
+        final private String slaveLogFile;
+        final private String slaveLogPos;
         final private String slaveIORunning;
         final private String slaveSQLRunning;
         final private String lastErrno;
@@ -185,8 +312,8 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
             this.slave = slave;
             this.lineError = lineError;
             this.slaveIOState = null;
-            this.masterLogFile = null;
-            this.readMasterLogPos = null;
+            this.slaveLogFile = null;
+            this.slaveLogPos = null;
             this.slaveIORunning = null;
             this.slaveSQLRunning = null;
             this.lastErrno = null;
@@ -195,13 +322,24 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
             
         }
 
-        private ReplicationRow(boolean error, String slave, String slaveIOState, String masterLogFile, String readMasterLogPos, String slaveIORunning, String slaveSQLRunning, String lastErrno, String lastError, String secondsBehindMaster) {
+        private ReplicationRow(
+            boolean error,
+            String slave,
+            String slaveIOState,
+            String slaveLogFile,
+            String slaveLogPos,
+            String slaveIORunning,
+            String slaveSQLRunning,
+            String lastErrno,
+            String lastError,
+            String secondsBehindMaster
+        ) {
             this.error = error;
             this.slave = slave;
             this.lineError = null;
             this.slaveIOState = slaveIOState;
-            this.masterLogFile = masterLogFile;
-            this.readMasterLogPos = readMasterLogPos;
+            this.slaveLogFile = slaveLogFile;
+            this.slaveLogPos = slaveLogPos;
             this.slaveIORunning = slaveIORunning;
             this.slaveSQLRunning = slaveSQLRunning;
             this.lastErrno = lastErrno;
@@ -225,14 +363,14 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
             return slaveIOState;
         }
 
-        public String getMasterLogFile() {
-            return masterLogFile;
+        public String getSlaveLogFile() {
+            return slaveLogFile;
         }
 
-        public String getReadMasterLogPos() {
-            return readMasterLogPos;
+        public String getSlaveLogPos() {
+            return slaveLogPos;
         }
-        
+
         public String getSlaveIORunning() {
             return slaveIORunning;
         }

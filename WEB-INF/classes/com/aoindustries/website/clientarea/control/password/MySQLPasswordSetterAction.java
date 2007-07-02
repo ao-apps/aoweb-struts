@@ -75,7 +75,7 @@ public class MySQLPasswordSetterAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    public List<String> getPermissions() {
-        return Collections.singletonList(AOServPermission.SET_MYSQL_SERVER_USER_PASSWORD);
+    public List<AOServPermission.Permission> getPermissions() {
+        return Collections.singletonList(AOServPermission.Permission.set_mysql_server_user_password);
     }
 }

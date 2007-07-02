@@ -41,9 +41,9 @@ public class Dedicated4Action extends DedicatedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("dedicatedCompleted");
-        if(!signupCustomizeServerFormComplete) return mapping.findForward("dedicated2Completed");
-        if(!signupBusinessFormComplete) return mapping.findForward("dedicated3Completed");
+        if(!signupSelectServerFormComplete) return mapping.findForward("dedicated-server-completed");
+        if(!signupCustomizeServerFormComplete) return mapping.findForward("dedicated-server-2-completed");
+        if(!signupBusinessFormComplete) return mapping.findForward("dedicated-server-3-completed");
 
         SignupTechnicalActionHelper.setRequestAttributes(getServlet().getServletContext(), request, signupTechnicalForm);
 

@@ -4,6 +4,8 @@
   All rights reserved.
 --%>
 <%@ page language="java" %>
+<%@ page buffer="256kb" %>
+<%@ page autoFlush="false" %>
 
 <%@ taglib uri="/WEB-INF/struts-bean.tld"       prefix="bean" %>
 <%@ taglib uri="/WEB-INF/struts-html.tld"       prefix="html" %>
@@ -16,8 +18,8 @@
     <skin:navImageAlt><bean:message bundle="/ApplicationResources" key="logout.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/ApplicationResources" key="logout.keywords"/></skin:keywords>
     <skin:description><bean:message bundle="/ApplicationResources" key="logout.description"/></skin:description>
-    <%@ include file="addParents.jsp" %>
-    <%@ include file="addSiblings.jsp" %>
+    <%@ include file="add-parents.jsp" %>
+    <%@ include file="add-siblings.jsp" %>
     <skin:skin>
         <skin:content width="600">
             <skin:contentTitle><bean:message bundle="/ApplicationResources" key="logout.title"/></skin:contentTitle>

@@ -39,13 +39,13 @@ abstract public class VirtualManagedStepAction extends HttpsAction {
         String selectedStep = request.getParameter("selectedStep");
         if(selectedStep!=null && (selectedStep=selectedStep.trim()).length()>0) {
             if(
-                "virtualManaged".equals(selectedStep)
-                || "virtualManaged2".equals(selectedStep)
-                || "virtualManaged3".equals(selectedStep)
-                || "virtualManaged4".equals(selectedStep)
-                || "virtualManaged5".equals(selectedStep)
-                || "virtualManaged6".equals(selectedStep)
-                || "virtualManaged7".equals(selectedStep)
+                "virtual-managed-server".equals(selectedStep)
+                || "virtual-managed-server-2".equals(selectedStep)
+                || "virtual-managed-server-3".equals(selectedStep)
+                || "virtual-managed-server-4".equals(selectedStep)
+                || "virtual-managed-server-5".equals(selectedStep)
+                || "virtual-managed-server-6".equals(selectedStep)
+                || "virtual-managed-server-7".equals(selectedStep)
             ) {
                 return mapping.findForward(selectedStep);
             }

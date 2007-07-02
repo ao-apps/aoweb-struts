@@ -46,12 +46,12 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
         boolean signupBillingInformationFormComplete
     ) throws Exception {
         // Forward to previous steps if they have not been completed
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtualManagedCompleted");
-        if(!signupCustomizeServerFormComplete) return mapping.findForward("virtualManaged2Completed");
-        if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtualManaged3Completed");
-        if(!signupBusinessFormComplete) return mapping.findForward("virtualManaged4Completed");
-        if(!signupTechnicalFormComplete) return mapping.findForward("virtualManaged5Completed");
-        if(!signupBillingInformationFormComplete) return mapping.findForward("virtualManaged6Completed");
+        if(!signupSelectServerFormComplete) return mapping.findForward("virtual-managed-server-completed");
+        if(!signupCustomizeServerFormComplete) return mapping.findForward("virtual-managed-server-2-completed");
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtual-managed-server-3-completed");
+        if(!signupBusinessFormComplete) return mapping.findForward("virtual-managed-server-4-completed");
+        if(!signupTechnicalFormComplete) return mapping.findForward("virtual-managed-server-5-completed");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("virtual-managed-server-6-completed");
 
         // Let the parent class do the initialization of the request attributes for both the emails and the final JSP
         initRequestAttributes(

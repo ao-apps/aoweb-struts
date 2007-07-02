@@ -39,12 +39,12 @@ abstract public class VirtualDedicatedStepAction extends HttpsAction {
         String selectedStep = request.getParameter("selectedStep");
         if(selectedStep!=null && (selectedStep=selectedStep.trim()).length()>0) {
             if(
-                "virtualDedicated".equals(selectedStep)
-                || "virtualDedicated2".equals(selectedStep)
-                || "virtualDedicated3".equals(selectedStep)
-                || "virtualDedicated4".equals(selectedStep)
-                || "virtualDedicated5".equals(selectedStep)
-                || "virtualDedicated6".equals(selectedStep)
+                "virtual-dedicated-server".equals(selectedStep)
+                || "virtual-dedicated-server-2".equals(selectedStep)
+                || "virtual-dedicated-server-3".equals(selectedStep)
+                || "virtual-dedicated-server-4".equals(selectedStep)
+                || "virtual-dedicated-server-5".equals(selectedStep)
+                || "virtual-dedicated-server-6".equals(selectedStep)
             ) {
                 return mapping.findForward(selectedStep);
             }

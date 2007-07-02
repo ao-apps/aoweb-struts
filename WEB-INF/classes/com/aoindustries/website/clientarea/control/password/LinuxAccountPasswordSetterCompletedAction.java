@@ -80,7 +80,7 @@ public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction 
         return mapping.findForward("success");
     }
 
-    public List<String> getPermissions() {
-        return Collections.singletonList(AOServPermission.SET_LINUX_SERVER_ACCOUNT_PASSWORD);
+    public List<AOServPermission.Permission> getPermissions() {
+        return Collections.singletonList(AOServPermission.Permission.set_linux_server_account_password);
     }
 }

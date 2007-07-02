@@ -44,11 +44,11 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
         boolean signupBillingInformationFormComplete
     ) throws Exception {
         // Forward to previous steps if they have not been completed
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtualDedicatedCompleted");
-        if(!signupCustomizeServerFormComplete) return mapping.findForward("virtualDedicated2Completed");
-        if(!signupBusinessFormComplete) return mapping.findForward("virtualDedicated3Completed");
-        if(!signupTechnicalFormComplete) return mapping.findForward("virtualDedicated4Completed");
-        if(!signupBillingInformationFormComplete) return mapping.findForward("virtualDedicated5Completed");
+        if(!signupSelectServerFormComplete) return mapping.findForward("virtual-dedicated-server-completed");
+        if(!signupCustomizeServerFormComplete) return mapping.findForward("virtual-dedicated-server-2-completed");
+        if(!signupBusinessFormComplete) return mapping.findForward("virtual-dedicated-server-3-completed");
+        if(!signupTechnicalFormComplete) return mapping.findForward("virtual-dedicated-server-4-completed");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("virtual-dedicated-server-5-completed");
 
         // Let the parent class do the initialization of the request attributes for both the emails and the final JSP
         initRequestAttributes(

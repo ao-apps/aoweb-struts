@@ -195,9 +195,7 @@ public class TextSkin extends Skin {
                 for(Language language : languages) {
                     if(language.getCode().equalsIgnoreCase(locale.getLanguage())) {
                         out.print("&nbsp;<A href='");
-                        ChainWriter.writeHtmlAttribute(encodedFullPath, out);
-                        out.print("?language=");
-                        out.print(language.getCode());
+                        ChainWriter.writeHtmlAttribute(resp.encodeURL(fullPath+(fullPath.indexOf('?')==-1 ? '?' : '&')+"language="+language.getCode()), out);
                         out.print("'><IMG src='");
                         out.print(resp.encodeURL(urlBase + language.getFlagOnSrc()));
                         out.print("' border='1' width='");
@@ -209,9 +207,7 @@ public class TextSkin extends Skin {
                         out.print("'></A>");
                     } else {
                         out.print("&nbsp;<A href='");
-                        ChainWriter.writeHtmlAttribute(encodedFullPath, out);
-                        out.print("?language=");
-                        out.print(language.getCode());
+                        ChainWriter.writeHtmlAttribute(resp.encodeURL(fullPath+(fullPath.indexOf('?')==-1 ? '?' : '&')+"language="+language.getCode()), out);
                         out.print("' onMouseOver='document.images[\"flagSelector_");
                         out.print(language.getCode());
                         out.print("\"].src=\"");
@@ -468,7 +464,7 @@ public class TextSkin extends Skin {
         try {
             out.print("<TABLE border='5' cellpadding='0' cellspacing='0'>\n"
                     + "  <TR>\n"
-                    + "    <TD class='ao_light_row'");
+                    + "    <TD class='ao_light_row' style='padding:4px;'");
             if(width!=null && (width=width.trim()).length()>0) {
                 out.print(" width='");
                 out.print(width);
@@ -495,7 +491,7 @@ public class TextSkin extends Skin {
         try {
             out.print("<TABLE border='5' cellpadding='0' cellspacing='0'>\n"
                     + "  <TR>\n"
-                    + "    <TD class='ao_white_row'");
+                    + "    <TD class='ao_white_row' style='padding:4px;'");
             if(width!=null && (width=width.trim()).length()>0) {
                 out.print(" width='");
                 out.print(width);
@@ -572,6 +568,8 @@ public class TextSkin extends Skin {
     public void beginPopupGroup(HttpServletRequest req, JspWriter out, long groupId) throws JspException {
         try {
             out.print("<SCRIPT language=\"JavaScript1.2\"><!--\n"
+                    + "    var popupGroupTimer"); out.print(groupId); out.print("=null;\n"
+                    + "    var popupGroupAuto"); out.print(groupId); out.print("=null;\n"
                     + "    function popupGroupHideAllDetails"); out.print(groupId); out.print("() {\n"
                     + "        var spanElements = document.getElementsByTagName ? document.getElementsByTagName(\"span\") : document.all.tags(\"span\");\n"
                     + "        for (var c=0; c < spanElements.length; c++) {\n"
@@ -581,6 +579,7 @@ public class TextSkin extends Skin {
                     + "        }\n"
                     + "    }\n"
                     + "    function popupGroupToggleDetails"); out.print(groupId); out.print("(popupId) {\n"
+                    + "        if(popupGroupTimer"); out.print(groupId); out.print("!=null) clearTimeout(popupGroupTimer"); out.print(groupId); out.print(");\n"
                     + "        var elemStyle = document.getElementById(\"groupedPopup_"); out.print(groupId); out.print("_\"+popupId).style;\n"
                     + "        if(elemStyle.visibility==\"visible\") {\n"
                     + "            elemStyle.visibility=\"hidden\";\n"
@@ -590,6 +589,7 @@ public class TextSkin extends Skin {
                     + "        }\n"
                     + "    }\n"
                     + "    function popupGroupShowDetails"); out.print(groupId); out.print("(popupId) {\n"
+                    + "        if(popupGroupTimer"); out.print(groupId); out.print("!=null) clearTimeout(popupGroupTimer"); out.print(groupId); out.print(");\n"
                     + "        var elemStyle = document.getElementById(\"groupedPopup_"); out.print(groupId); out.print("_\"+popupId).style;\n"
                     + "        if(elemStyle.visibility!=\"visible\") {\n"
                     + "            popupGroupHideAllDetails"); out.print(groupId); out.print("();\n"
@@ -612,7 +612,7 @@ public class TextSkin extends Skin {
     /**
      * Begins a popup that is in a popup group.
      */
-    public void beginPopup(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId) throws JspException {
+    public void beginPopup(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId, String width) throws JspException {
         try {
             HttpSession session = req.getSession();
             Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
@@ -631,11 +631,25 @@ public class TextSkin extends Skin {
             out.print(applicationResources.getMessage(locale, "TextSkin.popup.width"));
             out.print("\" height=\"");
             out.print(applicationResources.getMessage(locale, "TextSkin.popup.height"));
-            out.print("\" align=\"absmiddle\" style=\"cursor:pointer; cursor:hand;\" onMouseOver=\"popupGroupShowDetails");
+            out.print("\" align=\"absmiddle\" style=\"cursor:pointer; cursor:hand;\" onMouseOver=\"popupGroupTimer");
+            out.print(groupId);
+            out.print("=setTimeout('popupGroupAuto");
+            out.print(groupId);
+            out.print("=true; popupGroupShowDetails");
             out.print(groupId);
             out.print('(');
             out.print(popupId);
-            out.print(");\" onClick=\"popupGroupToggleDetails");
+            out.print(")', 1000);\" onMouseOut=\"if(popupGroupAuto");
+            out.print(groupId);
+            out.print(") popupGroupHideAllDetails");
+            out.print(groupId);
+            out.print("(); if(popupGroupTimer");
+            out.print(groupId);
+            out.print("!=null) clearTimeout(popupGroupTimer");
+            out.print(groupId);
+            out.print(");\" onClick=\"popupGroupAuto");
+            out.print(groupId);
+            out.print("=false; popupGroupToggleDetails");
             out.print(groupId);
             out.print('(');
             out.print(popupId);
@@ -645,7 +659,13 @@ public class TextSkin extends Skin {
             out.print('_');
             out.print(popupId);
             out.print("\" style=\"white-space:nowrap; position:absolute; bottom:30px; left:30px; visibility: hidden; z-index:1\">\n"
-                    + "        <TABLE border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"
+                    + "        <TABLE border=\"0\" cellpadding=\"0\" cellspacing=\"0\"");
+            if(width!=null && width.length()>0) {
+                out.print(" width=\"");
+                out.print(width);
+                out.print('"');
+            }
+            out.print(">\n"
                     + "            <TR>\n"
                     + "                <TD nowrap width=\"12\"><IMG src=\"");
             out.print(resp.encodeURL(urlBase + "textskin/popup_topleft.gif"));
@@ -700,7 +720,7 @@ public class TextSkin extends Skin {
     /**
      * Ends a popup that is in a popup group.
      */
-    public void endPopup(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId) throws JspException {
+    public void endPopup(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId, String width) throws JspException {
         try {
             String urlBase = req.isSecure() ? getHttpsUrlBase(req) : getHttpUrlBase(req);
             out.print("</TD>\n"

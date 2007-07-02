@@ -59,7 +59,7 @@ public class ManagedCompletedAction extends ManagedAction {
                 signupBillingInformationFormComplete
             );
         }
-        return mapping.findForward("managed2");
+        return mapping.findForward("managed-server-2");
     }
 
     /**

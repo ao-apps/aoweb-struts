@@ -50,7 +50,9 @@ abstract public class ProtocolAction extends SkinAction {
                 if(redirectOnMismatch) {
                     String path = request.getRequestURI();
                     if(path.startsWith("/")) path=path.substring(1);
-                    response.sendRedirect(response.encodeRedirectURL(skin.getHttpUrlBase(request) + path));
+                    // Send permanent redirect
+                    response.setHeader("Location", response.encodeRedirectURL(skin.getHttpUrlBase(request) + path));
+                    response.sendError(HttpServletResponse.SC_MOVED_PERMANENTLY);
                 } else {
                     MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
                     response.sendError(HttpServletResponse.SC_FORBIDDEN, applicationResources.getMessage(locale, "ProtocolAction.httpsNotAllowed"));
@@ -66,7 +68,9 @@ abstract public class ProtocolAction extends SkinAction {
                 if(redirectOnMismatch) {
                     String path = request.getRequestURI();
                     if(path.startsWith("/")) path=path.substring(1);
-                    response.sendRedirect(response.encodeRedirectURL(skin.getHttpsUrlBase(request) + path));
+                    // Send permanent redirect
+                    response.setHeader("Location", response.encodeRedirectURL(skin.getHttpsUrlBase(request) + path));
+                    response.sendError(HttpServletResponse.SC_MOVED_PERMANENTLY);
                 } else {
                     MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
                     response.sendError(HttpServletResponse.SC_FORBIDDEN, applicationResources.getMessage(locale, "ProtocolAction.httpNotAllowed"));

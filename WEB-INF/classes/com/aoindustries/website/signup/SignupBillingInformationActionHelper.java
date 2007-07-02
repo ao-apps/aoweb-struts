@@ -6,6 +6,7 @@ package com.aoindustries.website.signup;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.website.RootAOServConnector;
 import java.io.IOException;
@@ -42,28 +43,15 @@ final public class SignupBillingInformationActionHelper {
 
     /**
      * Only shows the first two and last four digits of a card number.
+     *
+     * @deprecated  Please call CreditCard.maskCreditCardNumber directly.
      */
     public static String hideCreditCardNumber(String number) {
-        if(number==null) return "";
-        number=number.trim();
-        int len=number.length();
-        if(len==0) return "";
-        StringBuilder SB=new StringBuilder(len);
-        for(int c=0;c<len;c++) {
-            char ch=number.charAt(c);
-            if(
-                ch<'0'
-                || ch>'9'
-                || c<2
-                || c>=(len-4)
-            ) SB.append(number.charAt(c));
-            else SB.append('X');
-        }
-        return SB.toString();
+        return CreditCard.maskCreditCardNumber(number);
     }
 
     public static String getBillingCardNumber(SignupBillingInformationForm signupBillingInformationForm) {
-        return hideCreditCardNumber(signupBillingInformationForm.getBillingCardNumber());
+        return CreditCard.maskCreditCardNumber(signupBillingInformationForm.getBillingCardNumber());
     }
 
     public static void setConfirmationRequestAttributes(

@@ -673,7 +673,7 @@ final public class SignupCustomizeServerActionHelper {
                      + "        <TD>\n");
         BigDecimal setup = SignupSelectServerActionHelper.getSetup(packageDefinition);
         if(setup==null) {
-            emailOut.print("            ").print(signupApplicationResources.getMessage(contentLocale, "server.setup.none")).print("\n");
+            emailOut.print("            ").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.setup.none")).print("\n");
         } else {
             emailOut.print("            $").print(setup).print("\n");
         }

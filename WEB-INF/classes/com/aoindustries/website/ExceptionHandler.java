@@ -30,6 +30,8 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
         Skin skin = SkinAction.getSkin(request.getSession().getServletContext(), request, response);
         request.setAttribute(Constants.SKIN, skin);
 
+        request.setAttribute("exception", exception);
+
         return mapping.findForward("exception");
     }
 }

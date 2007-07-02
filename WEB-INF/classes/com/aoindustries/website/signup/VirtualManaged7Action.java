@@ -13,6 +13,7 @@ import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -48,12 +49,12 @@ public class VirtualManaged7Action extends VirtualManagedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtualManagedCompleted");
-        if(!signupCustomizeServerFormComplete) return mapping.findForward("virtualManaged2Completed");
-        if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtualManaged3Completed");
-        if(!signupBusinessFormComplete) return mapping.findForward("virtualManaged4Completed");
-        if(!signupTechnicalFormComplete) return mapping.findForward("virtualManaged5Completed");
-        if(!signupBillingInformationFormComplete) return mapping.findForward("virtualManaged6Completed");
+        if(!signupSelectServerFormComplete) return mapping.findForward("virtual-managed-server-completed");
+        if(!signupCustomizeServerFormComplete) return mapping.findForward("virtual-managed-server-2-completed");
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtual-managed-server-3-completed");
+        if(!signupBusinessFormComplete) return mapping.findForward("virtual-managed-server-4-completed");
+        if(!signupTechnicalFormComplete) return mapping.findForward("virtual-managed-server-5-completed");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("virtual-managed-server-6-completed");
 
         initRequestAttributes(
             request,
@@ -76,7 +77,7 @@ public class VirtualManaged7Action extends VirtualManagedStepAction {
         SignupBusinessForm signupBusinessForm,
         SignupTechnicalForm signupTechnicalForm,
         SignupBillingInformationForm signupBillingInformationForm
-    ) throws IOException {
+    ) throws IOException, SQLException {
         ServletContext servletContext = getServlet().getServletContext();
 
         SignupSelectServerActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectServerForm);

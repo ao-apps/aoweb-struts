@@ -114,6 +114,8 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
     }
 
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+        ActionErrors errors = super.validate(mapping, request);
+        if(errors==null) errors = new ActionErrors();
         try {
             ActionServlet servlet = getServlet();
 
@@ -137,7 +139,6 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
             // Find the current limits
             List<PackageDefinitionLimit> limits = pd==null ? null : pd.getLimits();
 
-            ActionErrors errors = new ActionErrors();
             if(powerOption==-1 && limits!=null) {
                 // Only required when there is at least one power option available
                 boolean found = false;

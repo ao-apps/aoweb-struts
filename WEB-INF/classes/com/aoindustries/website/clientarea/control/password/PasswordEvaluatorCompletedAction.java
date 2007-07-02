@@ -20,8 +20,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessages;
 
 /**
- * Evaluates the strength of passwords, stores the results as a <code>PasswordChecker.Result[]</code> in request attribute "results".  The results are keys into the
- * resource bundle "/aoserv/client/ApplicationResources".
+ * Evaluates the strength of passwords, stores the results as a <code>PasswordChecker.Result[]</code> in request attribute "results".
  *
  * @author  AO Industries, Inc.
  */
@@ -45,7 +44,7 @@ public class PasswordEvaluatorCompletedAction extends HttpsAction {
 
         // Evaluate the password
         String password = passwordEvaluatorForm.getPassword();
-        PasswordChecker.Result[] results = PasswordChecker.checkPassword(null, password, true, false);
+        PasswordChecker.Result[] results = PasswordChecker.checkPassword(locale, null, password, true, false);
             
         // Set request values
         request.setAttribute("results", results);

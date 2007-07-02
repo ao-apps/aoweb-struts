@@ -55,7 +55,7 @@ public class DedicatedCompletedAction extends DedicatedAction {
                 signupBillingInformationFormComplete
             );
         }
-        return mapping.findForward("dedicated2");
+        return mapping.findForward("dedicated-server-2");
     }
 
     /**

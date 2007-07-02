@@ -183,10 +183,11 @@ public class SignupTechnicalForm extends ActionForm implements Serializable {
     }
 
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+        ActionErrors errors = super.validate(mapping, request);
+        if(errors==null) errors = new ActionErrors();
         try {
             Locale locale = (Locale)request.getSession().getAttribute(Globals.LOCALE_KEY);
 
-            ActionErrors errors = new ActionErrors();
             if(GenericValidator.isBlankOrNull(baName)) errors.add("baName", new ActionMessage("signupTechnicalForm.baName.required"));
             if(GenericValidator.isBlankOrNull(baWorkPhone)) errors.add("baWorkPhone", new ActionMessage("signupTechnicalForm.baWorkPhone.required"));
             if(GenericValidator.isBlankOrNull(baEmail)) {

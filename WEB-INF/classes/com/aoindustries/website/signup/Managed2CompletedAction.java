@@ -38,7 +38,7 @@ public class Managed2CompletedAction extends Managed2Action {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("managedCompleted");
+        if(!signupSelectServerFormComplete) return mapping.findForward("managed-server-completed");
         if(!signupCustomizeServerFormComplete) {
             // Init values for the form
             return super.executeManagedStep(
@@ -61,7 +61,7 @@ public class Managed2CompletedAction extends Managed2Action {
                 signupBillingInformationFormComplete
             );
         }
-        return mapping.findForward("managed3");
+        return mapping.findForward("managed-server-3");
     }
 
     /**

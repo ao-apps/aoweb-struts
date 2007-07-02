@@ -13,6 +13,7 @@ import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -48,12 +49,12 @@ public class Managed7Action extends ManagedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("managedCompleted");
-        if(!signupCustomizeServerFormComplete) return mapping.findForward("managed2Completed");
-        if(!signupCustomizeManagementFormComplete) return mapping.findForward("managed3Completed");
-        if(!signupBusinessFormComplete) return mapping.findForward("managed4Completed");
-        if(!signupTechnicalFormComplete) return mapping.findForward("managed5Completed");
-        if(!signupBillingInformationFormComplete) return mapping.findForward("managed6Completed");
+        if(!signupSelectServerFormComplete) return mapping.findForward("managed-server-completed");
+        if(!signupCustomizeServerFormComplete) return mapping.findForward("managed-server-2-completed");
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("managed-server-3-completed");
+        if(!signupBusinessFormComplete) return mapping.findForward("managed-server-4-completed");
+        if(!signupTechnicalFormComplete) return mapping.findForward("managed-server-5-completed");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("managed-server-6-completed");
 
         initRequestAttributes(
             request,
@@ -76,7 +77,7 @@ public class Managed7Action extends ManagedStepAction {
         SignupBusinessForm signupBusinessForm,
         SignupTechnicalForm signupTechnicalForm,
         SignupBillingInformationForm signupBillingInformationForm
-    ) throws IOException {
+    ) throws IOException, SQLException {
         ServletContext servletContext = getServlet().getServletContext();
 
         SignupSelectServerActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectServerForm);

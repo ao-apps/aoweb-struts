@@ -59,7 +59,7 @@ public class VirtualManagedCompletedAction extends VirtualManagedAction {
                 signupBillingInformationFormComplete
             );
         }
-        return mapping.findForward("virtualManaged2");
+        return mapping.findForward("virtual-managed-server-2");
     }
 
     /**

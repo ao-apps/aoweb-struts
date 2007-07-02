@@ -36,8 +36,8 @@ public class Dedicated3CompletedAction extends Dedicated3Action {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("dedicatedCompleted");
-        if(!signupCustomizeServerFormComplete)  return mapping.findForward("dedicated2Completed");
+        if(!signupSelectServerFormComplete) return mapping.findForward("dedicated-server-completed");
+        if(!signupCustomizeServerFormComplete)  return mapping.findForward("dedicated-server-2-completed");
         if(!signupBusinessFormComplete) {
             // Init values for the form
             return super.executeDedicatedStep(
@@ -58,9 +58,9 @@ public class Dedicated3CompletedAction extends Dedicated3Action {
                 signupBillingInformationFormComplete
             );
         }
-        if(!signupTechnicalFormComplete) return mapping.findForward("dedicated4");
-        if(!signupBillingInformationFormComplete) return mapping.findForward("dedicated5");
-        return mapping.findForward("dedicated6");
+        if(!signupTechnicalFormComplete) return mapping.findForward("dedicated-server-4");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("dedicated-server-5");
+        return mapping.findForward("dedicated-server-6");
     }
 
     /**

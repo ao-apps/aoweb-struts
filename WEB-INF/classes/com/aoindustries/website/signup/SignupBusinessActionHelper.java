@@ -39,12 +39,20 @@ final public class SignupBusinessActionHelper {
         AOServConnector rootConn=RootAOServConnector.getRootAOServConnector(servletContext);
 
         // Build the list of countries
+        List<CountryOption> countryOptions = getCountryOptions(rootConn);
+
+        // Store to the request
+        request.setAttribute("countryOptions", countryOptions);
+    }
+
+    public static List<CountryOption> getCountryOptions(AOServConnector aoConn) {
+        // Build the list of countries
         List<CountryOption> countryOptions = new ArrayList<CountryOption>();
         countryOptions.add(new CountryOption("", "---"));
         final int prioritySize = 10;
         int[] priorityCounter = new int[1];
         boolean selectedOne = false;
-	List<CountryCode> cc = rootConn.countryCodes.getCountryCodesByPriority(prioritySize, priorityCounter);
+	List<CountryCode> cc = aoConn.countryCodes.getCountryCodesByPriority(prioritySize, priorityCounter);
 	for (int i = 0; i<cc.size(); i++) {
             if(priorityCounter[0]!=0 && i==priorityCounter[0]) {
                 countryOptions.add(new CountryOption("", "---"));
@@ -53,9 +61,7 @@ final public class SignupBusinessActionHelper {
             String ccname = cc.get(i).getName();
             countryOptions.add(new CountryOption(code, ccname));
         }
-
-        // Store to the request
-        request.setAttribute("countryOptions", countryOptions);
+        return countryOptions;
     }
 
     public static class CountryOption {

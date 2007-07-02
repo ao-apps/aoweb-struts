@@ -43,8 +43,9 @@ abstract public class SignupSelectServerForm extends ActionForm implements Seria
     }
 
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+        ActionErrors errors = super.validate(mapping, request);
+        if(errors==null) errors = new ActionErrors();
         try {
-            ActionErrors errors = new ActionErrors();
             boolean found = false;
 
             // Must be one of the active package_definitions

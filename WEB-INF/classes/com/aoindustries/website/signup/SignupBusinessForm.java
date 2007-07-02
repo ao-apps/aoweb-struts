@@ -115,7 +115,8 @@ public class SignupBusinessForm extends ActionForm implements Serializable {
     }
     
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-        ActionErrors errors = new ActionErrors();
+        ActionErrors errors = super.validate(mapping, request);
+        if(errors==null) errors = new ActionErrors();
         if(GenericValidator.isBlankOrNull(businessName)) errors.add("businessName", new ActionMessage("signupBusinessForm.businessName.required"));
         if(GenericValidator.isBlankOrNull(businessPhone)) errors.add("businessPhone", new ActionMessage("signupBusinessForm.businessPhone.required"));
         if(GenericValidator.isBlankOrNull(businessAddress1)) errors.add("businessAddress1", new ActionMessage("signupBusinessForm.businessAddress1.required"));

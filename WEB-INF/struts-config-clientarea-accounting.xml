@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+    "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+    <!-- ========== Form Bean Definitions =================================== -->
+    <form-beans>
+        <form-bean name="addCreditCardForm" type="com.aoindustries.website.clientarea.accounting.AddCreditCardForm" />
+    </form-beans>
+
+    <!-- ========== Global Error Handlers =================================== -->
+    <global-exceptions>
+        <exception key="Exception.message" type="java.lang.Exception" handler="com.aoindustries.website.ExceptionHandler" />
+    </global-exceptions>
+
+    <!-- ========== Global Forward Definitions ============================== -->
+    <global-forwards>
+        <!-- / -->
+        <forward name="exception" contextRelative="true" path="/WEB-INF/jsp/exception.jsp" redirect="false" />
+        <forward name="login" contextRelative="true" path="/login.do" redirect="false" />
+        <!-- /clientarea/accounting -->
+        <forward name="credit-card-manager" contextRelative="false" path="/credit-card-manager.do" redirect="true" />
+    </global-forwards>
+
+    <!-- ========== Action Mapping Definitions ============================== -->
+    <action-mappings>
+        <action
+            path="/index"
+            type="com.aoindustries.website.HttpAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/index.jsp" redirect="false" />
+        </action>
+        <action
+            path="/credit-card-manager"
+            type="com.aoindustries.website.clientarea.accounting.CreditCardManagerAction"
+        >
+            <forward name="permission-denied" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/credit-card-manager.jsp" redirect="false" />
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/credit-card-manager.jsp" redirect="false" />
+        </action>
+        <action
+            path="/add-credit-card"
+            name="addCreditCardForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.clientarea.accounting.AddCreditCardAction"
+        >
+            <forward name="permission-denied" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/add-credit-card.jsp" redirect="false" />
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/add-credit-card.jsp" redirect="false" />
+        </action>
+        <action
+            path="/add-credit-card-completed"
+            name="addCreditCardForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.clientarea.accounting.AddCreditCardCompletedAction"
+        >
+            <forward name="permission-denied" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/add-credit-card.jsp" redirect="false" />
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/add-credit-card.jsp" redirect="false" />
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/add-credit-card-completed.jsp" redirect="false" />
+        </action>
+        <action
+            path="/delete-credit-card"
+            type="com.aoindustries.website.clientarea.accounting.DeleteCreditCardAction"
+        >
+            <forward name="permission-denied" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/delete-credit-card.jsp" redirect="false" />
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/delete-credit-card.jsp" redirect="false" />
+        </action>
+    </action-mappings>
+    
+    <!-- ========== Controller ============================================== -->
+    <controller
+        nocache="true"
+    />
+
+    <!-- ========== Message Resources ======================================= -->
+    <message-resources
+        parameter="com.aoindustries.website.SiteApplicationResources"
+        null="false"
+    />
+    <message-resources
+        key="/ApplicationResources"
+        parameter="com.aoindustries.website.ApplicationResources"
+        null="false"
+    />
+    <message-resources
+        key="/clientarea/ApplicationResources"
+        parameter="com.aoindustries.website.clientarea.ApplicationResources"
+        null="false"
+    />
+    <message-resources
+        key="/clientarea/accounting/ApplicationResources"
+        parameter="com.aoindustries.website.clientarea.accounting.ApplicationResources"
+        null="false"
+    />
+    <message-resources
+        key="/clientarea/control/ApplicationResources"
+        parameter="com.aoindustries.website.clientarea.control.ApplicationResources"
+        null="false"
+    />
+    <message-resources
+        key="/clientarea/ticket/ApplicationResources"
+        parameter="com.aoindustries.website.clientarea.ticket.ApplicationResources"
+        null="false"
+    />
+    <message-resources
+        key="/clientarea/webmail/ApplicationResources"
+        parameter="com.aoindustries.website.clientarea.webmail.ApplicationResources"
+        null="false"
+    />
+    <message-resources
+        key="/signup/ApplicationResources"
+        parameter="com.aoindustries.website.signup.ApplicationResources"
+        null="false"
+    />
+
+    <!-- ========== Validator Plug-In ======================================= -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property property="pathnames" value="/WEB-INF/lib/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml"/>
+    </plug-in>
+</struts-config>

@@ -4,6 +4,8 @@
   All rights reserved.
 --%>
 <%@ page language="java" %>
+<%@ page buffer="256kb" %>
+<%@ page autoFlush="false" %>
 
 <%@ taglib uri="/WEB-INF/struts-bean.tld"       prefix="bean" %>
 <%@ taglib uri="/WEB-INF/struts-html.tld"       prefix="html" %>
@@ -16,8 +18,8 @@
     <skin:navImageAlt><bean:message bundle="/ApplicationResources" key="login.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/ApplicationResources" key="login.keywords"/></skin:keywords>
     <skin:description><bean:message bundle="/ApplicationResources" key="login.description"/></skin:description>
-    <%@ include file="addParents.jsp" %>
-    <%@ include file="addSiblings.jsp" %>
+    <%@ include file="add-parents.jsp" %>
+    <%@ include file="add-siblings.jsp" %>
     <skin:skin onLoad="document.forms['loginForm'].username.focus(); document.forms['loginForm'].username.select();">
         <skin:content width="600">
             <skin:contentTitle><bean:message bundle="/ApplicationResources" key="login.title"/></skin:contentTitle>
@@ -30,7 +32,7 @@
                         <logic:notPresent scope="request" name="authenticationMessage"><bean:message bundle="/ApplicationResources" key="login.pleaseLogin"/></logic:notPresent>
                     </B>
                     <HR>
-                    <html:form action="/loginCompleted" onsubmit="return validateLoginForm(this);">
+                    <html:form action="/login-completed" onsubmit="return validateLoginForm(this);">
                         <table border='0' cellspacing='2' cellpadding='0'>
                             <tr>
                                 <td><bean:message bundle="/ApplicationResources" key="login.field.username.prompt"/></td>

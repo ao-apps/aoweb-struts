@@ -19,7 +19,7 @@ final public class RootAOServConnector {
 
     /**
      * Gets the root connector.  Because this potentially has unrestricted privileges, this must be used at an absolute minimum for situations
-     * where a user isn't logged-in but access to the master is required, such as for sign-up requests.
+     * where a user isn't logged-in but access to the master is required, such as for sign up requests.
      */
     public static AOServConnector getRootAOServConnector(ServletContext servletContext) throws IOException {
         return AOServConnector.getConnector(

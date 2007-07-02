@@ -5,6 +5,7 @@ package com.aoindustries.website.signup;
  * 816 Azalea Rd, Mobile, Alabama, 36693, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.creditcards.CreditCard;
 import java.io.Serializable;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
@@ -154,7 +155,8 @@ public class SignupBillingInformationForm extends ActionForm implements Serializ
     }
 
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-        ActionErrors errors = new ActionErrors();
+        ActionErrors errors = super.validate(mapping, request);
+        if(errors==null) errors = new ActionErrors();
         if(GenericValidator.isBlankOrNull(billingContact)) errors.add("billingContact", new ActionMessage("signupBillingInformationForm.billingContact.required"));
         if(GenericValidator.isBlankOrNull(billingEmail)) {
             errors.add("billingEmail", new ActionMessage("signupBillingInformationForm.billingEmail.required"));
@@ -177,16 +179,11 @@ public class SignupBillingInformationForm extends ActionForm implements Serializ
         if(GenericValidator.isBlankOrNull(billingZip)) errors.add("billingZip", new ActionMessage("signupBillingInformationForm.billingZip.required"));
         return errors;
     }
-    
+
+    /**
+     * @deprecated  Please call CreditCard.numbersOnly directly.
+     */
     public static String numbersOnly(String S) {
-        if(S==null) return null;
-        int len = S.length();
-        if(len==0) return S;
-        StringBuilder SB = new StringBuilder(len);
-        for(int c=0;c<len;c++) {
-            char ch = S.charAt(c);
-            if(ch>='0' && ch<='9') SB.append(ch);
-        }
-        return SB.length() == len ? S : SB.toString();
+        return CreditCard.numbersOnly(S);
     }
 }

@@ -259,7 +259,7 @@ final public class ConfirmationCompletedActionHelper {
     ) {
         try {
             // Find the locale and related resource bundles
-            String charset = skin.getCharacterSet(contentLocale);
+            String charset = Skin.getCharacterSet(contentLocale);
             MessageResources signupApplicationResources = (MessageResources)request.getAttribute("/signup/ApplicationResources");
             if(signupApplicationResources==null) throw new JspException("Unable to load resources: /signup/ApplicationResources");
 

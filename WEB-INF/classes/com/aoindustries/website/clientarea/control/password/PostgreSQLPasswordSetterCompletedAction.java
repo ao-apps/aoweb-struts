@@ -82,7 +82,7 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    public List<String> getPermissions() {
-        return Collections.singletonList(AOServPermission.SET_POSTGRES_SERVER_USER_PASSWORD);
+    public List<AOServPermission.Permission> getPermissions() {
+        return Collections.singletonList(AOServPermission.Permission.set_postgres_server_user_password);
     }
 }

@@ -32,6 +32,7 @@ public class GlobalPasswordSetterForm extends ActionForm implements Serializable
     private List<String> confirmPasswords;
 
     public void reset(ActionMapping mapping, HttpServletRequest request) {
+        super.reset(mapping, request);
         setPackages(new AutoGrowArrayList<String>());
         setUsernames(new AutoGrowArrayList<String>());
         setNewPasswords(new AutoGrowArrayList<String>());
@@ -71,26 +72,24 @@ public class GlobalPasswordSetterForm extends ActionForm implements Serializable
     }
     
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+        ActionErrors errors = super.validate(mapping, request);
+        if(errors==null) errors = new ActionErrors();
         AOServConnector aoConn = AuthenticatedAction.getAoConn(request, null);
         if(aoConn==null) throw new RuntimeException("aoConn is null");
         Locale locale = (Locale)request.getSession().getAttribute(Globals.LOCALE_KEY);
-
-        ActionErrors errors = null;
 
         for(int c=0;c<usernames.size();c++) {
             String newPassword = newPasswords.get(c);
             String confirmPassword = confirmPasswords.get(c);
             if(!newPassword.equals(confirmPassword)) {
-                if(errors==null) errors = new ActionErrors();
                 errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.globalPasswordSetter.field.confirmPasswords.mismatch"));
             } else {
                 if(newPassword.length()>0) {
                     String username = usernames.get(c);
                     // Check the password strength
-                    PasswordChecker.Result[] results = PasswordChecker.checkPassword(username, newPassword,  true, false);
-                    if(PasswordChecker.hasResults(results)) {
-                        if(errors==null) errors = new ActionErrors();
-                        errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results, locale), false));
+                    PasswordChecker.Result[] results = PasswordChecker.checkPassword(locale, username, newPassword,  true, false);
+                    if(PasswordChecker.hasResults(locale, results)) {
+                        errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                     }
                 }
             }

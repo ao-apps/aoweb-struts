@@ -40,20 +40,7 @@ final public class SignupTechnicalActionHelper {
         AOServConnector rootConn=RootAOServConnector.getRootAOServConnector(servletContext);
 
         // Build the list of countries
-        List<CountryOption> countryOptions = new ArrayList<CountryOption>();
-        countryOptions.add(new CountryOption("", "---"));
-        final int prioritySize = 10;
-        int[] priorityCounter = new int[1];
-        boolean selectedOne = false;
-	List<CountryCode> cc = rootConn.countryCodes.getCountryCodesByPriority(prioritySize, priorityCounter);
-	for (int i = 0; i<cc.size(); i++) {
-            if(priorityCounter[0]!=0 && i==priorityCounter[0]) {
-                countryOptions.add(new CountryOption("", "---"));
-            }
-            String code = cc.get(i).getCode();
-            String ccname = cc.get(i).getName();
-            countryOptions.add(new CountryOption(code, ccname));
-        }
+        List<SignupBusinessActionHelper.CountryOption> countryOptions = SignupBusinessActionHelper.getCountryOptions(rootConn);
 
         // Generate random passwords, keeping the selected password at index 0
         List<String> passwords = new ArrayList<String>(16);
@@ -63,25 +50,6 @@ final public class SignupTechnicalActionHelper {
         // Store to the request
         request.setAttribute("countryOptions", countryOptions);
         request.setAttribute("passwords", passwords);
-    }
-
-    public static class CountryOption {
-
-        final private String code;
-        final private String name;
-
-        private CountryOption(String code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-        
-        public String getCode() {
-            return code;
-        }
-        
-        public String getName() {
-            return name;
-        }
     }
 
     public static String getBaCountry(AOServConnector rootConn, SignupTechnicalForm signupTechnicalForm) {

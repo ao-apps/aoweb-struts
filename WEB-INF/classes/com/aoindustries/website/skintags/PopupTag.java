@@ -36,8 +36,14 @@ public class PopupTag extends BodyTagSupport {
     }
 
     long id;
+    String width;
 
     public PopupTag() {
+        init();
+    }
+
+    private void init() {
+        this.width = null;
     }
 
     public int doStartTag() throws JspException {
@@ -52,24 +58,36 @@ public class PopupTag extends BodyTagSupport {
             throw new JspException(applicationResources.getMessage(locale, "skintags.PopupTag.mustNestInPopupGroupTag"));
         } else {
             HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-            skin.beginPopup((HttpServletRequest)pageContext.getRequest(), resp, pageContext.getOut(), popupGroupTag.id, id);
+            skin.beginPopup((HttpServletRequest)pageContext.getRequest(), resp, pageContext.getOut(), popupGroupTag.id, id, width);
         }
         return EVAL_BODY_INCLUDE;
     }
 
     public int doEndTag() throws JspException  {
-        Skin skin = SkinTag.getSkin(pageContext);
-        // Look for containing popupGroup
-        PopupGroupTag popupGroupTag = (PopupGroupTag)findAncestorWithClass(this, PopupGroupTag.class);
-        if(popupGroupTag==null) {
-            HttpSession session = pageContext.getSession();
-            Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-            MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
-            throw new JspException(applicationResources.getMessage(locale, "skintags.PopupTag.mustNestInPopupGroupTag"));
-        } else {
-            HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-            skin.endPopup((HttpServletRequest)pageContext.getRequest(), resp, pageContext.getOut(), popupGroupTag.id, id);
+        try {
+            Skin skin = SkinTag.getSkin(pageContext);
+            // Look for containing popupGroup
+            PopupGroupTag popupGroupTag = (PopupGroupTag)findAncestorWithClass(this, PopupGroupTag.class);
+            if(popupGroupTag==null) {
+                HttpSession session = pageContext.getSession();
+                Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
+                MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
+                throw new JspException(applicationResources.getMessage(locale, "skintags.PopupTag.mustNestInPopupGroupTag"));
+            } else {
+                HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+                skin.endPopup((HttpServletRequest)pageContext.getRequest(), resp, pageContext.getOut(), popupGroupTag.id, id, width);
+            }
+            return EVAL_PAGE;
+        } finally {
+            init();
         }
-        return EVAL_PAGE;
+    }
+
+    public String getWidth() {
+        return width;
+    }
+
+    public void setWidth(String width) {
+        this.width = width;
     }
 }

@@ -39,13 +39,13 @@ abstract public class ManagedStepAction extends HttpsAction {
         String selectedStep = request.getParameter("selectedStep");
         if(selectedStep!=null && (selectedStep=selectedStep.trim()).length()>0) {
             if(
-                "managed".equals(selectedStep)
-                || "managed2".equals(selectedStep)
-                || "managed3".equals(selectedStep)
-                || "managed4".equals(selectedStep)
-                || "managed5".equals(selectedStep)
-                || "managed6".equals(selectedStep)
-                || "managed7".equals(selectedStep)
+                "managed-server".equals(selectedStep)
+                || "managed-server-2".equals(selectedStep)
+                || "managed-server-3".equals(selectedStep)
+                || "managed-server-4".equals(selectedStep)
+                || "managed-server-5".equals(selectedStep)
+                || "managed-server-6".equals(selectedStep)
+                || "managed-server-7".equals(selectedStep)
             ) {
                 return mapping.findForward(selectedStep);
             }

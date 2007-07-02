@@ -38,9 +38,9 @@ public class Managed4CompletedAction extends Managed4Action {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("managedCompleted");
-        if(!signupCustomizeServerFormComplete)  return mapping.findForward("managed2Completed");
-        if(!signupCustomizeManagementFormComplete) return mapping.findForward("managed3Completed");
+        if(!signupSelectServerFormComplete) return mapping.findForward("managed-server-completed");
+        if(!signupCustomizeServerFormComplete)  return mapping.findForward("managed-server-2-completed");
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("managed-server-3-completed");
         if(!signupBusinessFormComplete) {
             // Init values for the form
             return super.executeManagedStep(
@@ -63,9 +63,9 @@ public class Managed4CompletedAction extends Managed4Action {
                 signupBillingInformationFormComplete
             );
         }
-        if(!signupTechnicalFormComplete) return mapping.findForward("managed5");
-        if(!signupBillingInformationFormComplete) return mapping.findForward("managed6");
-        return mapping.findForward("managed7");
+        if(!signupTechnicalFormComplete) return mapping.findForward("managed-server-5");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("managed-server-6");
+        return mapping.findForward("managed-server-7");
     }
 
     /**

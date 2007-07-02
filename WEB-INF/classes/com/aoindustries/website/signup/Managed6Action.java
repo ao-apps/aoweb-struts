@@ -44,11 +44,11 @@ public class Managed6Action extends ManagedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("managedCompleted");
-        if(!signupCustomizeServerFormComplete) return mapping.findForward("managed2Completed");
-        if(!signupCustomizeManagementFormComplete) return mapping.findForward("managed3Completed");
-        if(!signupBusinessFormComplete) return mapping.findForward("managed4Completed");
-        if(!signupTechnicalFormComplete) return mapping.findForward("managed5Completed");
+        if(!signupSelectServerFormComplete) return mapping.findForward("managed-server-completed");
+        if(!signupCustomizeServerFormComplete) return mapping.findForward("managed-server-2-completed");
+        if(!signupCustomizeManagementFormComplete) return mapping.findForward("managed-server-3-completed");
+        if(!signupBusinessFormComplete) return mapping.findForward("managed-server-4-completed");
+        if(!signupTechnicalFormComplete) return mapping.findForward("managed-server-5-completed");
 
         SignupBillingInformationActionHelper.setRequestAttributes(request);
 

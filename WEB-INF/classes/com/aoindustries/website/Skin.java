@@ -37,7 +37,7 @@ abstract public class Skin {
     /**
      * Provides the correct character set for the given locale.
      */
-    public String getCharacterSet(Locale locale) {
+    static public String getCharacterSet(Locale locale) {
         if(locale!=null && locale.getLanguage().equals(Locale.JAPANESE.getLanguage())) {
             return "euc-jp";
         } else {
@@ -270,7 +270,7 @@ abstract public class Skin {
     /**
      * Begins a popup that is in a popup group.
      */
-    abstract public void beginPopup(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId) throws JspException;
+    abstract public void beginPopup(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId, String width) throws JspException;
 
     /**
      * Prints a popup close link/image/button for a popup that is part of a popup group.
@@ -280,5 +280,5 @@ abstract public class Skin {
     /**
      * Ends a popup that is in a popup group.
      */
-    abstract public void endPopup(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId) throws JspException;
+    abstract public void endPopup(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId, String width) throws JspException;
 }

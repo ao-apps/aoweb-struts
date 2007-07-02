@@ -38,7 +38,7 @@ public class VirtualManaged2CompletedAction extends VirtualManaged2Action {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtualManagedCompleted");
+        if(!signupSelectServerFormComplete) return mapping.findForward("virtual-managed-server-completed");
         if(!signupCustomizeServerFormComplete) {
             // Init values for the form
             return super.executeVirtualManagedStep(
@@ -61,7 +61,7 @@ public class VirtualManaged2CompletedAction extends VirtualManaged2Action {
                 signupBillingInformationFormComplete
             );
         }
-        return mapping.findForward("virtualManaged3");
+        return mapping.findForward("virtual-managed-server-3");
     }
 
     /**

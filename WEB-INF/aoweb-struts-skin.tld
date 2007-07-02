@@ -303,6 +303,13 @@
         Popups must be nested inside a popupGroup.  Only one of the popups for
         each popup group will be displayed at a time.
     </description>
+    <attribute>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>String</type>
+      <description>An optional width for the popup</description>
+    </attribute>
     <example/>
   </tag>
   <tag>

@@ -8,6 +8,7 @@ package com.aoindustries.website.skintags;
 import com.aoindustries.website.Constants;
 import com.aoindustries.website.Skin;
 import java.util.Locale;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -30,9 +31,19 @@ public class SetContentTypeTag extends TagSupport {
     public int doStartTag() throws JspException {
         Skin skin = SkinTag.getSkin(pageContext);
 
-        Locale locale = (Locale)pageContext.getSession().getAttribute(Globals.LOCALE_KEY);
+        ServletResponse response = pageContext.getResponse();
 
-        pageContext.getResponse().setContentType("text/html; charset="+skin.getCharacterSet(locale));
+        // Set the content type
+        response.setContentType("text/html");
+
+        // Set the locale
+        Locale locale = (Locale)pageContext.getSession().getAttribute(Globals.LOCALE_KEY);
+        response.setLocale(locale);
+        
+        // Set the encoding
+        String charset = Skin.getCharacterSet(locale);
+        response.setCharacterEncoding(charset);
+
         return SKIP_BODY;
     }
 }

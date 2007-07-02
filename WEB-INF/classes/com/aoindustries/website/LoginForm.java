@@ -21,6 +21,7 @@ public class LoginForm extends ValidatorForm implements Serializable {
     private String password;
 
     public void reset(ActionMapping mapping, HttpServletRequest request) {
+        super.reset(mapping, request);
         setUsername("");
         setPassword("");
     }
