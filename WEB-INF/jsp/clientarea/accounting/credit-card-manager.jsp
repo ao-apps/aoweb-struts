@@ -109,8 +109,13 @@
                                                     </td>
                                                 </logic:notEqual>
                                                 <td nowrap>
-                                                    <html:link action="/edit-credit-card" paramId="pkey" paramName="creditCard" paramProperty="PKey">
-                                                        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.edit.link"/>
+                                                    <html:link action="/edit-credit-card" paramId="persistenceId" paramName="creditCard" paramProperty="PKey">
+                                                        <logic:equal name="creditCard" property="isActive" value="true">
+                                                            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.edit.link"/>
+                                                        </logic:equal>
+                                                        <logic:notEqual name="creditCard" property="isActive" value="true">
+                                                            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.reactivate.link"/>
+                                                        </logic:notEqual>
                                                     </html:link>
                                                 </td>
                                                 <td nowrap>

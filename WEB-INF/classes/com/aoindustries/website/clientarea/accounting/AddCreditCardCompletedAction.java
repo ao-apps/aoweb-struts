@@ -97,16 +97,8 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
             ),
             locale
         );
-        /*
-        } catch(IllegalArgumentException err) {
-            getServlet().log("Failed store card", err);
-            if(errors==null) errors = new ActionMessages();
-            errors.add("cardNumber", new ActionMessage("addCreditCardForm.cardNumber.invalid"));
-            saveErrors(request, errors);
-            // Init request values before showing input
-            initRequestAttributes(request, aoConn);
-            return mapping.findForward("input");
-        }*/
+
+        request.setAttribute("cardNumber", CreditCard.maskCreditCardNumber(addCreditCardForm.getCardNumber()));
 
         return mapping.findForward("success");
     }

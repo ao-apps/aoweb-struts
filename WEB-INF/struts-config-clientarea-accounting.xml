@@ -8,6 +8,7 @@
     <!-- ========== Form Bean Definitions =================================== -->
     <form-beans>
         <form-bean name="addCreditCardForm" type="com.aoindustries.website.clientarea.accounting.AddCreditCardForm" />
+        <form-bean name="editCreditCardForm" type="com.aoindustries.website.clientarea.accounting.EditCreditCardForm" />
     </form-beans>
 
     <!-- ========== Global Error Handlers =================================== -->
@@ -67,8 +68,36 @@
             <forward name="permission-denied" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/delete-credit-card.jsp" redirect="false" />
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/delete-credit-card.jsp" redirect="false" />
         </action>
+        <action
+            path="/delete-credit-card-completed"
+            type="com.aoindustries.website.clientarea.accounting.DeleteCreditCardCompletedAction"
+        >
+            <forward name="permission-denied" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/delete-credit-card-completed.jsp" redirect="false" />
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/delete-credit-card-completed.jsp" redirect="false" />
+        </action>
+        <action
+            path="/edit-credit-card"
+            name="editCreditCardForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.clientarea.accounting.EditCreditCardAction"
+        >
+            <forward name="permission-denied" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
+        </action>
+        <action
+            path="/edit-credit-card-completed"
+            name="editCreditCardForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.clientarea.accounting.EditCreditCardCompletedAction"
+        >
+            <forward name="permission-denied" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/edit-credit-card-completed.jsp" redirect="false" />
+        </action>
     </action-mappings>
-    
+
     <!-- ========== Controller ============================================== -->
     <controller
         nocache="true"
