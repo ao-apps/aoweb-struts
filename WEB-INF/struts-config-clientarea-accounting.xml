@@ -96,6 +96,20 @@
             <forward name="input" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/edit-credit-card-completed.jsp" redirect="false" />
         </action>
+        <action
+            path="/configure-automatic-billing"
+            type="com.aoindustries.website.clientarea.accounting.ConfigureAutomaticBillingAction"
+        >
+            <forward name="permission-denied" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/configure-automatic-billing.jsp" redirect="false" />
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/configure-automatic-billing.jsp" redirect="false" />
+        </action>
+        <action
+            path="/configure-automatic-billing-completed"
+            type="com.aoindustries.website.clientarea.accounting.ConfigureAutomaticBillingCompletedAction"
+        >
+            <forward name="permission-denied" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/configure-automatic-billing-completed.jsp" redirect="false" />
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/configure-automatic-billing-completed.jsp" redirect="false" />
+        </action>
     </action-mappings>
 
     <!-- ========== Controller ============================================== -->

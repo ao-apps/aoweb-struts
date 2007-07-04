@@ -144,12 +144,12 @@
                                             <html:link action="/add-credit-card" paramId="accounting" paramName="businessAndCreditCards" paramProperty="business.accounting">
                                                 <bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.addCreditCard.link"/>
                                             </html:link>
-                                            <logic:greaterEqual name="creditCardsSize" value="1">
+                                            <logic:equal name="businessAndCreditCards" property="hasActiveCard" value="true">
                                                 |
                                                 <html:link action="/configure-automatic-billing" paramId="accounting" paramName="businessAndCreditCards" paramProperty="business.accounting">
                                                     <bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.configureAutomaticBilling.link"/>
                                                 </html:link>
-                                            </logic:greaterEqual>
+                                            </logic:equal>
                                         </td>
                                     </tr>
                                 </logic:iterate>

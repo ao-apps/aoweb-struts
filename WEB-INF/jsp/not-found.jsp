@@ -58,20 +58,20 @@
                             <hr>
                             <table border="1" cellspacing="0" cellpadding="2">
                                 <tr>
-                                    <th><bean:message bundle="/ApplicationResources" key="notFound.servletName.header"/></th>
-                                    <td><%= errorData.getServletName() %></td>
+                                    <th nowrap><bean:message bundle="/ApplicationResources" key="notFound.servletName.header"/></th>
+                                    <td nowrap><%= errorData.getServletName() %></td>
                                 </tr>
                                 <tr>
-                                    <th><bean:message bundle="/ApplicationResources" key="notFound.requestURI.header"/></th>
-                                    <td><%= errorData.getRequestURI() %></td>
+                                    <th nowrap><bean:message bundle="/ApplicationResources" key="notFound.requestURI.header"/></th>
+                                    <td nowrap><%= errorData.getRequestURI() %></td>
                                 </tr>
                                 <tr>
-                                    <th><bean:message bundle="/ApplicationResources" key="notFound.statusCode.header"/></th>
-                                    <td><%= errorData.getStatusCode() %></td>
+                                    <th nowrap><bean:message bundle="/ApplicationResources" key="notFound.statusCode.header"/></th>
+                                    <td nowrap><%= errorData.getStatusCode() %></td>
                                 </tr>
                                 <tr>
-                                    <th><bean:message bundle="/ApplicationResources" key="notFound.throwable.header"/></th>
-                                    <td>
+                                    <th nowrap><bean:message bundle="/ApplicationResources" key="notFound.throwable.header"/></th>
+                                    <td nowrap>
                                         <% Throwable throwable = errorData.getThrowable(); %>
                                         <% if(throwable!=null) { %>
 <pre><%= org.apache.commons.lang.StringEscapeUtils.escapeHtml(com.aoindustries.util.ErrorPrinter.getStackTraces(throwable)) %></pre>

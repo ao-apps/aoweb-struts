@@ -43,7 +43,14 @@ public class CreditCardManagerAction extends PermissionAction {
         List<BusinessAndCreditCards> businessCreditCards = new ArrayList<BusinessAndCreditCards>();
         for(Business business : aoConn.businesses.getRows()) {
             List<CreditCard> ccs = business.getCreditCards();
-            businessCreditCards.add(new BusinessAndCreditCards(business, ccs));
+            boolean hasActiveCard = false;
+            for(CreditCard cc : ccs) {
+                if(cc.getIsActive()) {
+                    hasActiveCard = true;
+                    break;
+                }
+            }
+            businessCreditCards.add(new BusinessAndCreditCards(business, ccs, hasActiveCard));
         }
         boolean showAccounting = aoConn.businesses.getRows().size()>1;
 
@@ -61,10 +68,12 @@ public class CreditCardManagerAction extends PermissionAction {
 
         final private Business business;
         final private List<CreditCard> creditCards;
+        final private boolean hasActiveCard;
         
-        private BusinessAndCreditCards(Business business, List<CreditCard> creditCards) {
+        private BusinessAndCreditCards(Business business, List<CreditCard> creditCards, boolean hasActiveCard) {
             this.business=business;
             this.creditCards=creditCards;
+            this.hasActiveCard=hasActiveCard;
         }
         
         public Business getBusiness() {
@@ -73,6 +82,10 @@ public class CreditCardManagerAction extends PermissionAction {
         
         public List<CreditCard> getCreditCards() {
             return creditCards;
+        }
+        
+        public boolean getHasActiveCard() {
+            return hasActiveCard;
         }
     }
 }
