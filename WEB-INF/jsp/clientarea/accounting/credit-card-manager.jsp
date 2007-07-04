@@ -56,14 +56,14 @@
                                     <logic:notEqual name="creditCardsSize" value="0">
                                         <tr class="<%= (businessesIndex&1)==0 ? "ao_light_row" : "ao_dark_row" %>">
                                             <logic:equal scope="request" name="showAccounting" value="true">
-                                                <td rowspan="<%= creditCardsSize+1 %>"><bean:write name="businessAndCreditCards" property="business.accounting"/></td>
+                                                <td nowrap rowspan="<%= creditCardsSize+1 %>"><bean:write name="businessAndCreditCards" property="business.accounting"/></td>
                                             </logic:equal>
                                             <logic:iterate name="creditCards" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard" indexId="creditCardsIndex">
                                                 <logic:notEqual name="creditCardsIndex" value="0">
                                                     </tr>
                                                     <tr class="<%= ((businessesIndex+creditCardsIndex)&1)==0 ? "ao_light_row" : "ao_dark_row" %>">
                                                 </logic:notEqual>
-                                                <td>
+                                                <td nowrap>
                                                     <% String cardInfo = creditCard.getCardInfo(); %>
                                                     <% if(cardInfo.startsWith("34") || cardInfo.startsWith("37")) { %>
                                                         <html:img src="amex.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.amex.alt" align="absmiddle" border="1" width="64" height="40"/>
@@ -77,13 +77,13 @@
                                                         <bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.creditCard.cardType.unknown"/>
                                                     <% } %>
                                                 </td>
-                                                <td><%= creditCard.getCardInfo().replace('X', 'x') %></td>
+                                                <td nowrap><%= creditCard.getCardInfo().replace('X', 'x') %></td>
                                                 <logic:equal name="creditCard" property="isActive" value="true">
                                                     <logic:notEqual name="creditCard" property="useMonthly" value="true">
-                                                        <td><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.header.status.active"/></td>
+                                                        <td nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.header.status.active"/></td>
                                                     </logic:notEqual>
                                                     <logic:equal name="creditCard" property="useMonthly" value="true">
-                                                        <td>
+                                                        <td nowrap>
                                                             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.header.status.useMonthly"/>
                                                             <skin:popup width="200">
                                                                 <bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.status.useMonthly.popup"/>
@@ -140,7 +140,7 @@
                                                 <td rowspan="<%= creditCardsSize+1 %>"><bean:write name="businessAndCreditCards" property="business.accounting"/></td>
                                             </logic:equal>
                                         </logic:equal>
-                                        <td colspan="7">
+                                        <td nowrap colspan="7">
                                             <html:link action="/add-credit-card" paramId="accounting" paramName="businessAndCreditCards" paramProperty="business.accounting">
                                                 <bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.addCreditCard.link"/>
                                             </html:link>

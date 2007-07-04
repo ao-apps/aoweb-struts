@@ -104,7 +104,15 @@ public class EditCreditCardAction extends PermissionAction {
         request.setAttribute("countryOptions", countryOptions);
     }
 
+    private static List<AOServPermission.Permission> permissions;
+    static {
+        List<AOServPermission.Permission> newList = new ArrayList<AOServPermission.Permission>(2);
+        newList.add(AOServPermission.Permission.get_credit_cards);
+        newList.add(AOServPermission.Permission.edit_credit_card);
+        permissions = Collections.unmodifiableList(newList);
+    }
+
     public List<AOServPermission.Permission> getPermissions() {
-        return Collections.singletonList(AOServPermission.Permission.add_credit_card);
+        return permissions;
     }
 }

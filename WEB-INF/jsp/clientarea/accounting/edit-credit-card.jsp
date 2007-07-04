@@ -15,20 +15,20 @@
 <html:html lang="true">
     <skin:path>/clientarea/accounting/edit-credit-card.do?persistenceId=<bean:write scope="request" name="editCreditCardForm" property="persistenceId"/></skin:path>
     <skin:title>
-        <logic:equal name="editCreditCardForm" property="isActive" value="true">
+        <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.title.edit"/>
-        </logic:equal>
-        <logic:notEqual name="editCreditCardForm" property="isActive" value="true">
-            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.title.reactivate"/>
         </logic:notEqual>
+        <logic:equal name="editCreditCardForm" property="isActive" value="false">
+            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.title.reactivate"/>
+        </logic:equal>
     </skin:title>
     <skin:navImageAlt>
-        <logic:equal name="editCreditCardForm" property="isActive" value="true">
+        <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.navImageAlt.edit"/>
-        </logic:equal>
-        <logic:notEqual name="editCreditCardForm" property="isActive" value="true">
-            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.navImageAlt.reactivate"/>
         </logic:notEqual>
+        <logic:equal name="editCreditCardForm" property="isActive" value="false">
+            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.navImageAlt.reactivate"/>
+        </logic:equal>
     </skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.keywords"/></skin:keywords>
     <skin:description><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.description"/></skin:description>
@@ -41,12 +41,12 @@
     <skin:skin>
         <skin:content width="600">
             <skin:contentTitle>
-                <logic:equal name="editCreditCardForm" property="isActive" value="true">
+                <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
                     <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.title.edit"/>
-                </logic:equal>
-                <logic:notEqual name="editCreditCardForm" property="isActive" value="true">
-                    <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.title.reactivate"/>
                 </logic:notEqual>
+                <logic:equal name="editCreditCardForm" property="isActive" value="false">
+                    <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.title.reactivate"/>
+                </logic:equal>
             </skin:contentTitle>
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
@@ -60,12 +60,12 @@
                             <html:hidden property="persistenceId"/>
                             <html:hidden property="isActive"/>
                             <skin:lightArea>
-                                <logic:equal name="editCreditCardForm" property="isActive" value="true">
+                                <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
                                     <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.form.title.edit"/>
-                                </logic:equal>
-                                <logic:notEqual name="editCreditCardForm" property="isActive" value="true">
-                                    <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.form.title.reactivate"/>
                                 </logic:notEqual>
+                                <logic:equal name="editCreditCardForm" property="isActive" value="false">
+                                    <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.form.title.reactivate"/>
+                                </logic:equal>
                                 <hr>
                                 <table border="0" cellspacing="0" cellpadding="2">
                                     <tr>
@@ -224,12 +224,12 @@
                                     <tr>
                                         <td nowrap colspan="4" align="center">
                                             <html:submit styleClass='ao_button'>
-                                                <logic:equal name="editCreditCardForm" property="isActive" value="true">
+                                                <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
                                                     <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.field.submit.label.edit"/>
-                                                </logic:equal>
-                                                <logic:notEqual name="editCreditCardForm" property="isActive" value="true">
-                                                    <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.field.submit.label.reactivate"/>
                                                 </logic:notEqual>
+                                                <logic:equal name="editCreditCardForm" property="isActive" value="false">
+                                                    <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.field.submit.label.reactivate"/>
+                                                </logic:equal>
                                             </html:submit>
                                         </td>
                                     </tr>

@@ -6,10 +6,13 @@ package com.aoindustries.website.clientarea.accounting;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.CountryCode;
 import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.BusinessGroup;
+import com.aoindustries.aoserv.creditcards.CreditCardFactory;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
+import com.aoindustries.creditcards.CreditCardProcessor;
 import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.Skin;
 import java.sql.SQLException;
@@ -71,17 +74,48 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             return mapping.findForward("input");
         }
 
+        // Tells the view layer what was updated
+        boolean updatedCardNumber = false;
+        boolean updatedExpirationDate = false;
+        boolean updatedCardDetails = false;
+        boolean reactivatedCard = false;
+
         String newCardNumber = editCreditCardForm.getCardNumber();
         String newExpirationMonth = editCreditCardForm.getExpirationMonth();
         String newExpirationYear = editCreditCardForm.getExpirationYear();
         if(!GenericValidator.isBlankOrNull(newCardNumber)) {
-            // TODO: Update card number and expiration
+            // Update card number and expiration
+            // Root connector used to get processor
+            CreditCard rootCreditCard = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext()).creditCards.get(creditCard.getPKey());
+            if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPKey());
+            CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
+            rootProcessor.updateCreditCardNumberAndExpiration(
+                new AOServConnectorPrincipal(aoConn),
+                CreditCardFactory.getCreditCard(rootCreditCard, locale),
+                newCardNumber,
+                Byte.parseByte(newExpirationMonth),
+                Short.parseShort(newExpirationYear),
+                locale
+            );
+            updatedCardNumber = true;
+            updatedExpirationDate = true;
         } else {
             if(
                 !GenericValidator.isBlankOrNull(newExpirationMonth)
                 && !GenericValidator.isBlankOrNull(newExpirationYear)
             ) {
-                // TODO: Update expiration only
+                // Update expiration only
+                // Root connector used to get processor
+                CreditCard rootCreditCard = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext()).creditCards.get(creditCard.getPKey());
+                if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPKey());
+                CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
+                rootProcessor.updateCreditCardExpiration(
+                    CreditCardFactory.getCreditCard(rootCreditCard, locale),
+                    Byte.parseByte(newExpirationMonth),
+                    Short.parseShort(newExpirationYear),
+                    locale
+                );
+                updatedExpirationDate = true;
             }
         }
 
@@ -102,6 +136,8 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             || !nullOrBlankEquals(editCreditCardForm.getDescription(), creditCard.getDescription())
         ) {
             // Update rest of the fields
+            CountryCode countryCode = aoConn.countryCodes.get(editCreditCardForm.getCountryCode());
+            if(countryCode==null) throw new SQLException("Unable to find CountryCode: "+editCreditCardForm.getCountryCode());
             creditCard.update(
                 editCreditCardForm.getFirstName(),
                 editCreditCardForm.getLastName(),
@@ -115,14 +151,16 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
                 editCreditCardForm.getCity(),
                 editCreditCardForm.getState(),
                 editCreditCardForm.getPostalCode(),
-                editCreditCardForm.getCountryCode(),
+                countryCode,
                 editCreditCardForm.getDescription()
             );
+            updatedCardDetails = true;
         }
         
         if(!creditCard.getIsActive()) {
-            // TODO: Reactivate if not active
-            // TODO: creditCard.reactivate();
+            // Reactivate if not active
+            creditCard.reactivate();
+            reactivatedCard = true;
         }
 
         // Set the cardNumber request attribute
@@ -130,6 +168,12 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
         if(!GenericValidator.isBlankOrNull(editCreditCardForm.getCardNumber())) cardNumber = com.aoindustries.creditcards.CreditCard.maskCreditCardNumber(editCreditCardForm.getCardNumber());
         else cardNumber = creditCard.getCardInfo();
         request.setAttribute("cardNumber", cardNumber);
+        
+        // Store which steps were done
+        request.setAttribute("updatedCardNumber", updatedCardNumber ? "true" : "false");
+        request.setAttribute("updatedExpirationDate", updatedExpirationDate ? "true" : "false");
+        request.setAttribute("updatedCardDetails", updatedCardDetails ? "true" : "false");
+        request.setAttribute("reactivatedCard", reactivatedCard ? "true" : "false");
 
         return mapping.findForward("success");
     }

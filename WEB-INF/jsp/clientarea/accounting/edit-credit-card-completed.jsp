@@ -15,20 +15,20 @@
 <html:html lang="true">
     <skin:path>/clientarea/accounting/edit-credit-card-completed.do</skin:path>
     <skin:title>
-        <logic:equal name="editCreditCardForm" property="isActive" value="true">
+        <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.title.edit"/>
-        </logic:equal>
-        <logic:notEqual name="editCreditCardForm" property="isActive" value="true">
-            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.title.reactivate"/>
         </logic:notEqual>
+        <logic:equal name="editCreditCardForm" property="isActive" value="false">
+            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.title.reactivate"/>
+        </logic:equal>
     </skin:title>
     <skin:navImageAlt>
-        <logic:equal name="editCreditCardForm" property="isActive" value="true">
+        <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.navImageAlt.edit"/>
-        </logic:equal>
-        <logic:notEqual name="editCreditCardForm" property="isActive" value="true">
-            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.navImageAlt.reactivate"/>
         </logic:notEqual>
+        <logic:equal name="editCreditCardForm" property="isActive" value="false">
+            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.navImageAlt.reactivate"/>
+        </logic:equal>
     </skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.keywords"/></skin:keywords>
     <skin:description><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.description"/></skin:description>
@@ -41,12 +41,12 @@
     <skin:skin>
         <skin:content width="600">
             <skin:contentTitle>
-                <logic:equal name="editCreditCardForm" property="isActive" value="true">
+                <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
                     <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.title.edit"/>
-                </logic:equal>
-                <logic:notEqual name="editCreditCardForm" property="isActive" value="true">
-                    <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.title.reactivate"/>
                 </logic:notEqual>
+                <logic:equal name="editCreditCardForm" property="isActive" value="false">
+                    <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.title.reactivate"/>
+                </logic:equal>
             </skin:contentTitle>
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
@@ -55,21 +55,34 @@
                 </logic:present>
                 <logic:notPresent scope="request" name="permissionDenied">
                     <skin:lightArea>
-                        <logic:equal name="editCreditCardForm" property="isActive" value="true">
+                        <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
                             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.title.edit"/>
-                        </logic:equal>
-                        <logic:notEqual name="editCreditCardForm" property="isActive" value="true">
-                            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.title.reactivate"/>
                         </logic:notEqual>
+                        <logic:equal name="editCreditCardForm" property="isActive" value="false">
+                            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.title.reactivate"/>
+                        </logic:equal>
                         <hr>
                         <bean:define scope="request" name="cardNumber" id="cardNumber" type="java.lang.String"/>
-                        <logic:equal name="editCreditCardForm" property="isActive" value="true">
+                        <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
                             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.text.edit" arg0="<%= cardNumber.replace('X', 'x') %>"/><br>
-                        </logic:equal>
-                        <logic:notEqual name="editCreditCardForm" property="isActive" value="true">
-                            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.text.reactivate" arg0="<%= cardNumber.replace('X', 'x') %>"/><br>
                         </logic:notEqual>
-                        <br>
+                        <logic:equal name="editCreditCardForm" property="isActive" value="false">
+                            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.text.reactivate" arg0="<%= cardNumber.replace('X', 'x') %>"/><br>
+                        </logic:equal>
+                        <ul>
+                            <logic:equal scope="request" name="updatedCardNumber" value="true">
+                                <li><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.updatedCardNumber"/></li>
+                            </logic:equal>
+                            <logic:equal scope="request" name="updatedExpirationDate" value="true">
+                                <li><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.updatedExpirationDate"/></li>
+                            </logic:equal>
+                            <logic:equal scope="request" name="updatedCardDetails" value="true">
+                                <li><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.updatedCardDetails"/></li>
+                            </logic:equal>
+                            <logic:equal scope="request" name="reactivatedCard" value="true">
+                                <li><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.reactivatedCard"/></li>
+                            </logic:equal>
+                        </ul>
                         <html:link action="/credit-card-manager"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.creditCardManager.link"/></html:link>
                     </skin:lightArea>
                 </logic:notPresent>

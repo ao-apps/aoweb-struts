@@ -10,6 +10,7 @@ import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.Skin;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -55,7 +56,15 @@ public class DeleteCreditCardAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
+    private static List<AOServPermission.Permission> permissions;
+    static {
+        List<AOServPermission.Permission> newList = new ArrayList<AOServPermission.Permission>(2);
+        newList.add(AOServPermission.Permission.get_credit_cards);
+        newList.add(AOServPermission.Permission.delete_credit_card);
+        permissions = Collections.unmodifiableList(newList);
+    }
+
     public List<AOServPermission.Permission> getPermissions() {
-        return Collections.singletonList(AOServPermission.Permission.delete_credit_card);
+        return permissions;
     }
 }
