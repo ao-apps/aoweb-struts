@@ -34,12 +34,12 @@
                     <p>
                         <table border='0' cellspacing='0' cellpadding='2'>
                             <tr>
-                                <td><b><bean:message bundle="/ApplicationResources" key="permissionDenied.permission.display"/></b></td>
-                                <td><bean:write name="permissionDisplay"/></td>
+                                <td nowrap><b><bean:message bundle="/ApplicationResources" key="permissionDenied.permission.display"/></b></td>
+                                <td nowrap><bean:write name="permissionDisplay"/></td>
                             </tr>
                             <tr>
-                                <td><b><bean:message bundle="/ApplicationResources" key="permissionDenied.permission.description"/></b></td>
-                                <td><bean:write name="permissionDescription"/></td>
+                                <td nowrap><b><bean:message bundle="/ApplicationResources" key="permissionDenied.permission.description"/></b></td>
+                                <td nowrap><bean:write name="permissionDescription"/></td>
                             </tr>
                         </table>
                     </p>
@@ -50,9 +50,9 @@
                 <p>
                     <table border='0' cellspacing='0' cellpadding='2'>
                         <tr>
-                            <th><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.display"/></th>
-                            <th><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.description"/></th>
-                            <th><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.hasPermission"/></th>
+                            <th nowrap><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.display"/></th>
+                            <th nowrap><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.description"/></th>
+                            <th nowrap><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.hasPermission"/></th>
                         </tr>
                         <bean:define scope="request" name="aoConn" property="thisBusinessAdministrator" id="thisBusinessAdministrator" type="com.aoindustries.aoserv.client.BusinessAdministrator"/>
                         <logic:iterate scope="request" name="permissionDenied" id="andPermission" type="com.aoindustries.aoserv.client.AOServPermission">
