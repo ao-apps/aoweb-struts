@@ -188,28 +188,42 @@ abstract public class Skin {
     /**
      * Gets the list of languages supported by this site.
      *
-     * The flags are obtained from http://commons.wikimedia.org/wiki/National_insignia.
+     * The flags are obtained from http://commons.wikimedia.org/wiki/National_insignia
      *
-     * Then they are scaled to a height of 24 pixels.
+     * Then they are scaled to a height of 24 pixels, rendered in gimp 2.
      *
-     * The off version is created by covering with black, opacity 25% in gimp 2.
+     * The off version is created by filling with black, opacity 25% in gimp 2.
      */
     public List<Language> getLanguages(HttpServletRequest req) throws JspException {
         HttpSession session = req.getSession();
         Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
+        boolean isUnitedStates = locale.getCountry().equals(Locale.US.getCountry());
         MessageResources applicationResources = (MessageResources)req.getAttribute("/ApplicationResources");
         if(applicationResources==null) throw new JspException("Unable to load resources: /ApplicationResources");
         List<Language> languages = new ArrayList<Language>(2);
-        languages.add(
-            new Language(
-                Locale.ENGLISH.getLanguage(),
-                applicationResources.getMessage(locale, "TextSkin.language.en.alt"),
-                applicationResources.getMessage(locale, "TextSkin.language.en.flag.on.src"),
-                applicationResources.getMessage(locale, "TextSkin.language.en.flag.off.src"),
-                applicationResources.getMessage(locale, "TextSkin.language.en.flag.width"),
-                applicationResources.getMessage(locale, "TextSkin.language.en.flag.height")
-            )
-        );
+        if(isUnitedStates) {
+            languages.add(
+                new Language(
+                    Locale.ENGLISH.getLanguage(),
+                    applicationResources.getMessage(locale, "TextSkin.language.en_US.alt"),
+                    applicationResources.getMessage(locale, "TextSkin.language.en_US.flag.on.src"),
+                    applicationResources.getMessage(locale, "TextSkin.language.en_US.flag.off.src"),
+                    applicationResources.getMessage(locale, "TextSkin.language.en_US.flag.width"),
+                    applicationResources.getMessage(locale, "TextSkin.language.en_US.flag.height")
+                )
+            );
+        } else {
+            languages.add(
+                new Language(
+                    Locale.ENGLISH.getLanguage(),
+                    applicationResources.getMessage(locale, "TextSkin.language.en.alt"),
+                    applicationResources.getMessage(locale, "TextSkin.language.en.flag.on.src"),
+                    applicationResources.getMessage(locale, "TextSkin.language.en.flag.off.src"),
+                    applicationResources.getMessage(locale, "TextSkin.language.en.flag.width"),
+                    applicationResources.getMessage(locale, "TextSkin.language.en.flag.height")
+                )
+            );
+        }
         languages.add(
             new Language(
                 Locale.JAPANESE.getLanguage(),
