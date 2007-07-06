@@ -170,6 +170,6 @@
                 <input type="text" name="totalMonthly" readonly size="10" value='$<bean:write scope="request" name="hardwareRate"/>'>
             </th>
         </tr>
-        <tr><td colspan="2" align="center"><br><html:submit styleClass='ao_button'><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.submit.label"/></html:submit><br><br></td></tr>
+        <tr><td colspan="2" align="center"><br><html:submit><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.submit.label"/></html:submit><br><br></td></tr>
     </table>
 </skin:lightArea>

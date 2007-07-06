@@ -223,7 +223,7 @@
                                     </tr>
                                     <tr>
                                         <td nowrap colspan="4" align="center">
-                                            <html:submit styleClass='ao_button'>
+                                            <html:submit>
                                                 <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
                                                     <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.field.submit.label.edit"/>
                                                 </logic:notEqual>

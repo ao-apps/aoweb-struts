@@ -89,6 +89,6 @@
             </TH>
         </TR>
         <%@ include file="signup-billing-information-confirmation.jsp" %>
-        <TR><TD colspan="3" align="center"><br><html:submit styleClass='ao_button'><bean:message bundle="/signup/ApplicationResources" key="serverConfirmation.submit.label"/></html:submit><br><br></td></tr>
+        <TR><TD colspan="3" align="center"><br><html:submit><bean:message bundle="/signup/ApplicationResources" key="serverConfirmation.submit.label"/></html:submit><br><br></td></tr>
     </TABLE>
 </skin:lightArea>

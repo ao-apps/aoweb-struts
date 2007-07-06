@@ -45,7 +45,7 @@
                                 <td><html:errors bundle="/ApplicationResources" property="password"/></td>
                             </tr>
                             <tr>
-                                <td colspan='3' align='center'><html:submit styleClass='ao_button'><bean:message bundle="/ApplicationResources" key="login.field.submit.label"/></html:submit></td>
+                                <td colspan='3' align='center'><html:submit><bean:message bundle="/ApplicationResources" key="login.field.submit.label"/></html:submit></td>
                             </tr>
                         </table>
                     </html:form>

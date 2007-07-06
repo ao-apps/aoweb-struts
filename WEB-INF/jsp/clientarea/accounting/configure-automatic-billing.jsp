@@ -121,7 +121,6 @@
                                         <input
                                             type="submit"
                                             name="submitButton"
-                                            class='ao_button'
                                             value="<bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBilling.field.submit.label"/>"
                                             disabled
                                         >

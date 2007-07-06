@@ -80,7 +80,7 @@ abstract public class PermissionAction extends AuthenticatedAction {
     /**
      * Gets the list of permissions that are required for this action.  Returning a null or empty list will result in nothing being allowed.
      *
-     * @see  AOServPermission.Permission
+     * @see  AOServPermission
      */
     abstract public List<AOServPermission.Permission> getPermissions();
 }

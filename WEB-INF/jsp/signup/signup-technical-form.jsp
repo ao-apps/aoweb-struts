@@ -138,6 +138,6 @@
             </TD>
             <TD NOWRAP><html:errors bundle="/signup/ApplicationResources" property="baPassword"/></TD>
         </TR>
-        <TR><TD colspan="4" align="center"><br><html:submit styleClass='ao_button'><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.submit.label"/></html:submit><br><br></td></tr>
+        <TR><TD colspan="4" align="center"><br><html:submit><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.submit.label"/></html:submit><br><br></td></tr>
     </TABLE>
 </skin:lightArea>

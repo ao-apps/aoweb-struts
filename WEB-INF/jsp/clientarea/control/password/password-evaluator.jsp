@@ -44,7 +44,7 @@
                                 </TABLE>
                             </logic:present><br>
                             <br>
-                            <CENTER><html:submit styleClass='ao_button'><bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordEvaluator.field.submit.label"/></html:submit></CENTER>
+                            <CENTER><html:submit><bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordEvaluator.field.submit.label"/></html:submit></CENTER>
                         </html:form>
                     </skin:lightArea>
                 </center>

@@ -77,7 +77,7 @@
                                             </TD>
                                         </TR>
                                     </logic:iterate>
-                                    <TR><TD colspan='7' align='center'><html:submit styleClass='ao_button'><bean:message bundle="/clientarea/control/ApplicationResources" key="password.linuxAccountPasswordSetter.field.submit.label"/></html:submit></TD></TR>
+                                    <TR><TD colspan='7' align='center'><html:submit><bean:message bundle="/clientarea/control/ApplicationResources" key="password.linuxAccountPasswordSetter.field.submit.label"/></html:submit></TD></TR>
                                 </TABLE>
                             </skin:lightArea>
                         </html:form>

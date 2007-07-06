@@ -88,13 +88,11 @@
                                     <td nowrap colspan="2" align="center">
                                         <br>
                                         <input
-                                            class="ao_button"
                                             type="submit"
                                             value="<bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.field.submit.label"/>"
                                         >
                                         &nbsp;&nbsp;&nbsp;
                                         <input
-                                            class="ao_button"
                                             type="button"
                                             value="<bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.field.cancel.label"/>"
                                             onClick="window.location.href='<%= response.encodeURL("credit-card-manager.do") %>'"

@@ -186,7 +186,7 @@
                                         <td nowrap><html:text property="description" size="32"/></td>
                                         <td nowrap><html:errors bundle="/clientarea/accounting/ApplicationResources" property="description"/></td>
                                     </tr>
-                                    <tr><td nowrap colspan="4" align="center"><html:submit styleClass='ao_button'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="addCreditCard.field.submit.label"/></html:submit></td></tr>
+                                    <tr><td nowrap colspan="4" align="center"><html:submit><bean:message bundle="/clientarea/accounting/ApplicationResources" key="addCreditCard.field.submit.label"/></html:submit></td></tr>
                                 </table>
                             </skin:lightArea>
                         </html:form><br>

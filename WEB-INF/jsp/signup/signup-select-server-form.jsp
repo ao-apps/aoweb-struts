@@ -107,7 +107,7 @@
                     </logic:equal>
                 </tr>
             </logic:iterate>
-            <tr><td colspan="6" align="center"><br><html:submit styleClass='ao_button'><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.submit.label"/></html:submit><br><br></td></tr>
+            <tr><td colspan="6" align="center"><br><html:submit><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.submit.label"/></html:submit><br><br></td></tr>
         </table>
     </skin:popupGroup>
 </skin:lightArea>

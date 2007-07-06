@@ -30,21 +30,8 @@
         >
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/index.jsp" redirect="false" />
         </action>
-        <action
-            path="/accounting/index"
-            type="com.aoindustries.website.HttpAction"
-        >
-            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/index.jsp" redirect="false" />
-        </action>
-        <action
-            path="/accounting/credit-card-manager"
-            type="com.aoindustries.website.clientarea.accounting.CreditCardManagerAction"
-        >
-            <forward name="permission-denied" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/credit-card-manager.jsp" redirect="false" />
-            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/credit-card-manager.jsp" redirect="false" />
-        </action>
     </action-mappings>
-    
+
     <!-- ========== Controller ============================================== -->
     <controller
         nocache="true"
