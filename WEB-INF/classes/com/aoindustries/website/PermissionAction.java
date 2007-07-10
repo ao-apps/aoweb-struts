@@ -44,12 +44,24 @@ abstract public class PermissionAction extends AuthenticatedAction {
         AOServConnector aoConn
     ) throws Exception {
         List<AOServPermission.Permission> permissions = getPermissions();
+        
+        // No permissions defined, default to denied
         if(permissions==null || permissions.isEmpty()) {
-            request.setAttribute(Constants.PERMISSION_DENIED, Collections.emptyList());
-            return mapping.findForward("permission-denied");
+            List<AOServPermission> aoPerms = Collections.emptyList();
+            return executePermissionDenied(
+                mapping,
+                form,
+                request,
+                response,
+                locale,
+                skin,
+                aoConn,
+                aoPerms
+            );
         }
 
         BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
+        // Return denied on first missing permission
         for(AOServPermission.Permission permission : permissions) {
             if(!thisBA.hasPermission(permission)) {
                 List<AOServPermission> aoPerms = new ArrayList<AOServPermission>(permissions.size());
@@ -58,13 +70,27 @@ abstract public class PermissionAction extends AuthenticatedAction {
                     if(aoPerm==null) throw new SQLException("Unable to find AOServPermission: "+requiredPermission);
                     aoPerms.add(aoPerm);
                 }
-                request.setAttribute(Constants.PERMISSION_DENIED, aoPerms);
-                return mapping.findForward("permission-denied");
+                return executePermissionDenied(
+                    mapping,
+                    form,
+                    request,
+                    response,
+                    locale,
+                    skin,
+                    aoConn,
+                    aoPerms
+                );
             }
         }
+        
+        // All permissions found, consider granted
         return executePermissionGranted(mapping, form, request, response, locale, skin, aoConn);
     }
 
+    /**
+     * Called when permission has been granted.  By default,
+     * returns mapping for "success".
+     */
     public ActionForward executePermissionGranted(
         ActionMapping mapping,
         ActionForm form,
@@ -75,6 +101,25 @@ abstract public class PermissionAction extends AuthenticatedAction {
         AOServConnector aoConn
     ) throws Exception {
         return mapping.findForward("success");
+    }
+
+    /**
+     * Called when the permissions has been denied.  By default,
+     * sets request attribute <code>Constants.PERMISSION_DENIED</code>
+     * and returns mapping for "permission-denied".
+     */
+    public ActionForward executePermissionDenied(
+        ActionMapping mapping,
+        ActionForm form,
+        HttpServletRequest request,
+        HttpServletResponse response,
+        Locale locale,
+        Skin skin,
+        AOServConnector aoConn,
+        List<AOServPermission> permissions
+    ) throws Exception {
+        request.setAttribute(Constants.PERMISSION_DENIED, permissions);
+        return mapping.findForward("permission-denied");
     }
 
     /**

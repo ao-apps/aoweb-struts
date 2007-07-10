@@ -15,7 +15,7 @@
     <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.navImageAlt"/></skin:navImageAlt>
     <skin:description><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.description"/></skin:description>
 </skin:addSibling>
-<skin:addSibling useEncryption="true" path="/clientarea/accounting/MakePayment.ao">
+<skin:addSibling useEncryption="true" path="/clientarea/accounting/make-payment.do">
     <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.navImageAlt"/></skin:navImageAlt>
     <skin:description><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.description"/></skin:description>

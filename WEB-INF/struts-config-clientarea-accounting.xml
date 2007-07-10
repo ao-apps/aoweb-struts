@@ -9,6 +9,7 @@
     <form-beans>
         <form-bean name="addCreditCardForm" type="com.aoindustries.website.clientarea.accounting.AddCreditCardForm" />
         <form-bean name="editCreditCardForm" type="com.aoindustries.website.clientarea.accounting.EditCreditCardForm" />
+        <form-bean name="makePaymentStoredCardForm" type="com.aoindustries.website.clientarea.accounting.MakePaymentStoredCardForm" />
     </form-beans>
 
     <!-- ========== Global Error Handlers =================================== -->
@@ -23,6 +24,7 @@
         <forward name="login" contextRelative="true" path="/login.do" redirect="false" />
         <!-- /clientarea/accounting -->
         <forward name="credit-card-manager" contextRelative="false" path="/credit-card-manager.do" redirect="true" />
+        <forward name="make-payment" contextRelative="false" path="/make-payment.do" redirect="true" />
     </global-forwards>
 
     <!-- ========== Action Mapping Definitions ============================== -->
@@ -109,6 +111,40 @@
         >
             <forward name="permission-denied" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/configure-automatic-billing-completed.jsp" redirect="false" />
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/configure-automatic-billing-completed.jsp" redirect="false" />
+        </action>
+        <action
+            path="/make-payment"
+            type="com.aoindustries.website.clientarea.accounting.MakePaymentAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment.jsp" redirect="false" />
+        </action>
+        <action
+            path="/make-payment-select-card"
+            type="com.aoindustries.website.clientarea.accounting.MakePaymentSelectCardAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment-select-card.jsp" redirect="false" />
+        </action>
+        <action
+            path="/make-payment-stored-card"
+            name="makePaymentStoredCardForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.clientarea.accounting.MakePaymentStoredCardAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment-stored-card.jsp" redirect="false" />
+        </action>
+        <action
+            path="/make-payment-stored-card-completed"
+            name="makePaymentStoredCardForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.clientarea.accounting.MakePaymentStoredCardCompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment-stored-card.jsp" redirect="false" />
+            <forward name="error" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment-stored-card-error.jsp" redirect="false" />
+            <forward name="hold" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment-stored-card-hold.jsp" redirect="false" />
+            <forward name="declined" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment-stored-card-declined.jsp" redirect="false" />
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment-stored-card-completed.jsp" redirect="false" />
         </action>
     </action-mappings>
 
