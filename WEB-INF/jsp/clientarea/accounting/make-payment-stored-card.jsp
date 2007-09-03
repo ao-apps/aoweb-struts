@@ -83,6 +83,9 @@
                                 <td nowrap colspan="2"><html:submit onclick="this.disabled='true'; return true;"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.submit.label"/></html:submit></td>
                             </tr>
                         </table>
+                    </skin:lightArea><br>
+                    <skin:lightArea width="500">
+                        <%@ include file="security-policy.jsp" %>
                     </skin:lightArea>
                 </html:form>
             </skin:contentLine>

@@ -9,7 +9,6 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.CountryCode;
 import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
-import com.aoindustries.aoserv.creditcards.BusinessGroup;
 import com.aoindustries.aoserv.creditcards.CreditCardFactory;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.creditcards.CreditCardProcessor;
@@ -86,11 +85,12 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
         if(!GenericValidator.isBlankOrNull(newCardNumber)) {
             // Update card number and expiration
             // Root connector used to get processor
-            CreditCard rootCreditCard = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext()).creditCards.get(creditCard.getPKey());
+            AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext());
+            CreditCard rootCreditCard = rootConn.creditCards.get(creditCard.getPKey());
             if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPKey());
             CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
             rootProcessor.updateCreditCardNumberAndExpiration(
-                new AOServConnectorPrincipal(aoConn),
+                new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
                 CreditCardFactory.getCreditCard(rootCreditCard, locale),
                 newCardNumber,
                 Byte.parseByte(newExpirationMonth),

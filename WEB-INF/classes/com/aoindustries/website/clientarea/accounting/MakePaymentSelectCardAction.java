@@ -9,6 +9,7 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.CreditCard;
+import com.aoindustries.aoserv.client.CreditCardTransaction;
 import com.aoindustries.website.HttpsAction;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.Skin;
@@ -79,8 +80,8 @@ public class MakePaymentSelectCardAction extends PermissionAction {
             // Store to request attributes, return success
             request.setAttribute("business", business);
             request.setAttribute("creditCards", creditCards);
-            // TODO: Find the card that was used for the last credit card payment
-            request.setAttribute("lastPaymentCreditCard", "");
+            CreditCardTransaction lastCCT = business.getLastCreditCardTransaction();
+            request.setAttribute("lastPaymentCreditCard", lastCCT==null ? null : lastCCT.getCreditCardProviderUniqueId());
             return mapping.findForward("success");
         }
     }

@@ -105,9 +105,15 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
         // Perform the transaction
         AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext());
         
-        // 1) Add the transaction as pending
-        Business rootBusiness = rootConn.businesses.get(business.getAccounting());
-        if(rootBusiness==null) throw new SQLException("Unable to find Business: "+business.getAccounting());
+        // 1) Pick a processor
+        CreditCard rootCreditCard = rootConn.creditCards.get(creditCard.getPKey());
+        if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPKey());
+        com.aoindustries.aoserv.client.CreditCardProcessor rootAoProcessor = rootCreditCard.getCreditCardProcessor();
+        CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootAoProcessor);
+
+        // 2) Add the transaction as pending on this processor
+        Business rootBusiness = rootConn.businesses.get(accounting);
+        if(rootBusiness==null) throw new SQLException("Unable to find Business: "+accounting);
         TransactionType paymentTransactionType = rootConn.transactionTypes.get(TransactionType.PAYMENT);
         if(paymentTransactionType==null) throw new SQLException("Unable to find TransactionType: "+TransactionType.PAYMENT);
         MessageResources applicationResources = (MessageResources)request.getAttribute("/clientarea/accounting/ApplicationResources");
@@ -135,23 +141,21 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
             rootBusiness,
             aoConn.getThisBusinessAdministrator(),
             paymentTransactionType,
-            applicationResources.getMessage(locale, "makePaymentSelectCardCompleted.transaction.description"),
+            applicationResources.getMessage(locale, "makePaymentStoredCardCompleted.transaction.description"),
             1000,
             -pennies,
             paymentType,
             cardInfo,
+            rootAoProcessor,
             com.aoindustries.aoserv.client.Transaction.WAITING_CONFIRMATION
         );
         com.aoindustries.aoserv.client.Transaction aoTransaction = rootConn.transactions.get(transID);
         if(aoTransaction==null) throw new SQLException("Unable to find Transaction: "+transID);
 
-        // 2) Process
-        CreditCard rootCreditCard = rootConn.creditCards.get(creditCard.getPKey());
-        if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPKey());
-        CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
+        // 3) Process
         Transaction transaction = rootProcessor.sale(
-            new AOServConnectorPrincipal(rootConn),
-            new BusinessGroup(business),
+            new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
+            new BusinessGroup(rootBusiness, accounting),
             new TransactionRequest(
                 locale,
                 false,
@@ -176,34 +180,38 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
                 null,
                 null,
                 null,
-                applicationResources.getMessage(Locale.US, "makePaymentSelectCardCompleted.transaction.description")
+                applicationResources.getMessage(Locale.US, "makePaymentStoredCardCompleted.transaction.description")
             ),
             CreditCardFactory.getCreditCard(creditCard, locale),
             locale
         );
         
-        // 3) Decline/approve based on results
+        // 4) Decline/approve based on results
         AuthorizationResult authorizationResult = transaction.getAuthorizationResult();
         switch(authorizationResult.getCommunicationResult()) {
             case LOCAL_ERROR :
             case IO_ERROR :
             case GATEWAY_ERROR :
                 // Update transaction as failed
-                // TODO
+                aoTransaction.declined(Integer.parseInt(transaction.getPersistenceUniqueId()));
                 return mapping.findForward("error");
             case SUCCESS :
                 // Check approval result
                 switch(authorizationResult.getApprovalResult()) {
                     case HOLD :
-                        // TODO
+                        aoTransaction.held(Integer.parseInt(transaction.getPersistenceUniqueId()));
                         return mapping.findForward("hold");
                     case DECLINED :
                         // Update transaction as declined
-                        // TODO
+                        aoTransaction.declined(Integer.parseInt(transaction.getPersistenceUniqueId()));
                         return mapping.findForward("declined");
                     case APPROVED :
                         // Update transaction as successful
-                        // TODO
+                        aoTransaction.approved(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                        request.setAttribute("business", business);
+                        request.setAttribute("creditCard", creditCard);
+                        request.setAttribute("transaction", transaction);
+                        request.setAttribute("aoTransaction", aoTransaction);
                         return mapping.findForward("success");
                     default:
                         throw new RuntimeException("Unexpected value for authorization approval result: "+authorizationResult.getApprovalResult());

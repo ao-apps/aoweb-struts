@@ -58,15 +58,16 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
         }
 
         // Get the credit card processor for the root connector of this website
-        CreditCardProcessor creditCardProcessor = CreditCardProcessorFactory.getCreditCardProcessor(RootAOServConnector.getRootAOServConnector(getServlet().getServletContext()));
+        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext());
+        CreditCardProcessor creditCardProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootConn);
         if(creditCardProcessor==null) throw new SQLException("Unable to find enabled CreditCardProcessor for root connector");
 
         // Add card
         if(!creditCardProcessor.canStoreCreditCards(locale)) throw new SQLException("CreditCardProcessor indicates it does not support storing credit cards.");
 
         creditCardProcessor.storeCreditCard(
-            new AOServConnectorPrincipal(aoConn),
-            new BusinessGroup(aoConn.businesses.get(accounting)),
+            new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
+            new BusinessGroup(aoConn.businesses.get(accounting), accounting),
             new CreditCard(
                 locale,
                 null,

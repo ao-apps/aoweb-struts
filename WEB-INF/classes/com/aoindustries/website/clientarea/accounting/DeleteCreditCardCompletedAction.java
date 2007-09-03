@@ -57,14 +57,15 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
         String cardNumber = creditCard.getCardInfo();
 
         // Lookup the card in the root connector (to get access to the processor)
-        CreditCard rootCreditCard = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext()).creditCards.get(creditCard.getPKey());
+        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext());
+        CreditCard rootCreditCard = rootConn.creditCards.get(creditCard.getPKey());
         if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPKey());
 
         // Delete the card from the bank and persistence
         CreditCardProcessor rootAoservCCP = rootCreditCard.getCreditCardProcessor();
         com.aoindustries.creditcards.CreditCardProcessor processor = CreditCardProcessorFactory.getCreditCardProcessor(rootAoservCCP);
         processor.deleteCreditCard(
-            new AOServConnectorPrincipal(aoConn),
+            new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
             CreditCardFactory.getCreditCard(rootCreditCard, locale),
             locale
         );

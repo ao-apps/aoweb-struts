@@ -40,10 +40,10 @@
                             <logic:iterate scope="request" name="creditCards" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard" indexId="row">
                                 <tr class="<%= (row&1)==0 ? "ao_light_row" : "ao_dark_row" %>"
                                     <td nowrap>
-                                        <logic:equal scope="request" name="lastPaymentCreditCard" value="<%= Integer.toString(creditCard.getPKey()) %>">
+                                        <logic:equal scope="request" name="lastPaymentCreditCard" value="<%= creditCard.getProviderUniqueId() %>">
                                             <input type="radio" name="pkey" value="<%= creditCard.getPKey() %>" checked>
                                         </logic:equal>
-                                        <logic:notEqual scope="request" name="lastPaymentCreditCard" value="<%= Integer.toString(creditCard.getPKey()) %>">
+                                        <logic:notEqual scope="request" name="lastPaymentCreditCard" value="<%= creditCard.getProviderUniqueId() %>">
                                             <input type="radio" name="pkey" value="<%= creditCard.getPKey() %>">
                                         </logic:notEqual>
                                     </td>
@@ -94,6 +94,9 @@
                                 </td>
                             </tr>
                         </table>
+                    </skin:lightArea><br>
+                    <skin:lightArea width="500">
+                        <%@ include file="security-policy.jsp" %>
                     </skin:lightArea>
                 </form>
             </skin:contentLine>
