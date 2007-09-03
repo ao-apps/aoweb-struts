@@ -35,11 +35,26 @@
                             <th nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.balance.header"/></th>
                             <th nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.makePayment.header"/></th>
                         </tr>
-                        <logic:iterate scope="request" name="businesses" id="business" indexId="row">
+                        <logic:iterate scope="request" name="businesses" id="business" type="com.aoindustries.aoserv.client.Business" indexId="row">
                             <tr class="<%= (row&1)==0 ? "ao_light_row" : "ao_dark_row" %>"
                                 <td nowrap><bean:write name="business" property="accounting"/></td>
                                 <td nowrap align='right'><bean:write name="business" property="monthlyRateString"/></td>
-                                <td nowrap align='right'><bean:write name="business" property="accountBalanceString"/></td>
+                                <td nowrap align='right'>
+                                    <% int balance = business.getAccountBalance(); %>
+                                    <% if(balance==0) { %>
+                                        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.balance.value.zero"/>
+                                    <% } else if(balance<0) { %>
+                                        <bean:message
+                                            bundle="/clientarea/accounting/ApplicationResources" key="makePayment.balance.value.credit"
+                                            arg0="<%= com.aoindustries.sql.SQLUtility.getDecimal(-balance) %>"
+                                        />
+                                    <% } else { %>
+                                        <bean:message
+                                            bundle="/clientarea/accounting/ApplicationResources" key="makePayment.balance.value.debt"
+                                            arg0="<%= com.aoindustries.sql.SQLUtility.getDecimal(balance) %>"
+                                        />
+                                    <% } %>
+                                </td>
                                 <td nowrap>
                                     <html:link action="/make-payment-select-card" paramId="accounting" paramName="business" paramProperty="accounting">
                                         <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.makePayment.link"/>

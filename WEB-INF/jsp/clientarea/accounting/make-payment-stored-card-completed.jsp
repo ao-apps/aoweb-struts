@@ -30,13 +30,14 @@
                     <hr>
                     <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.confirm.followingProcessed"/>
                     <bean:define scope="request" name="creditCard" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard"/>
+                    <bean:define scope="request" name="business" id="business" type="com.aoindustries.aoserv.client.Business"/>
                     <table border='0' cellspacing='0' cellpadding='2'>
                         <tr>
-                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.business.prompt"/></td>
+                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.business.prompt"/></td>
                             <td nowrap><bean:write scope="request" name="business"/></td>
                         </tr>
                         <tr>
-                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.card.prompt"/></td>
+                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.card.prompt"/></td>
                             <td nowrap>
                                 <% String cardInfo = creditCard.getCardInfo(); %>
                                 <% if(cardInfo.startsWith("34") || cardInfo.startsWith("37")) { %>
@@ -54,7 +55,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th nowrap align='left'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.cardComment.prompt"/></th>
+                            <th nowrap align='left'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.cardComment.prompt"/></th>
                             <td nowrap>
                                 <logic:notEmpty name="creditCard" property="description">
                                     <bean:write name="creditCard" property="description"/>
@@ -65,7 +66,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.paymentAmount.prompt"/></td>
+                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.paymentAmount.prompt"/></td>
                             <td nowrap>$<bean:write scope="request" name="transaction" property="transactionRequest.amount"/></td>
                         </tr>
                         <tr>
@@ -78,7 +79,22 @@
                         </tr>
                         <tr>
                             <th nowrap align='left'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.newBalance.prompt"/></th>
-                            <td nowrap><bean:write scope="request" name="business" property="accountBalanceString"/></td>
+                            <td nowrap>
+                                <% int balance = business.getAccountBalance(); %>
+                                <% if(balance==0) { %>
+                                    <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.newBalance.value.zero"/>
+                                <% } else if(balance<0) { %>
+                                    <bean:message
+                                        bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.newBalance.value.credit"
+                                        arg0="<%= com.aoindustries.sql.SQLUtility.getDecimal(-balance) %>"
+                                    />
+                                <% } else { %>
+                                    <bean:message
+                                        bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.newBalance.value.debt"
+                                        arg0="<%= com.aoindustries.sql.SQLUtility.getDecimal(balance) %>"
+                                    />
+                                <% } %>
+                            </td>
                         </tr>
                     </table><br>
                     <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.contactAndThankYou"/>

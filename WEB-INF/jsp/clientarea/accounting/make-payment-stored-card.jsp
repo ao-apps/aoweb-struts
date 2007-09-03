@@ -28,17 +28,18 @@
                 <html:form action="make-payment-stored-card-completed" focus="paymentAmount">
                     <html:hidden property="pkey"/>
                     <skin:lightArea>
-                        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.amount.title"/>
+                        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.amount.title"/>
                         <hr>
                         <bean:define scope="request" name="creditCard" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard"/>
+                        <bean:define scope="request" name="business" id="business" type="com.aoindustries.aoserv.client.Business"/>
                         <table border="0" cellspacing="0" cellpadding="2">
                             <tr>
-                                <th nowrap align='left'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.business.prompt"/></th>
+                                <th nowrap align='left'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.business.prompt"/></th>
                                 <td nowrap><html:hidden property="accounting" write="true"/></td>
                                 <td nowrap><html:errors bundle="/clientarea/accounting/ApplicationResources" property="accounting"/></td>
                             </tr>
                             <tr>
-                                <th nowrap align='left'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.card.prompt"/></th>
+                                <th nowrap align='left'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.card.prompt"/></th>
                                 <td nowrap>
                                     <% String cardInfo = creditCard.getCardInfo(); %>
                                     <% if(cardInfo.startsWith("34") || cardInfo.startsWith("37")) { %>
@@ -57,7 +58,7 @@
                                 <td nowrap><html:errors bundle="/clientarea/accounting/ApplicationResources" property="creditCard"/></td>
                             </tr>
                             <tr>
-                                <th nowrap align='left'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.cardComment.prompt"/></th>
+                                <th nowrap align='left'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.cardComment.prompt"/></th>
                                 <td nowrap>
                                     <logic:notEmpty name="creditCard" property="description">
                                         <bean:write name="creditCard" property="description"/>
@@ -69,18 +70,33 @@
                                 <td nowrap><html:errors bundle="/clientarea/accounting/ApplicationResources" property="cardComment"/></td>
                             </tr>
                             <tr>
-                                <th nowrap align='left'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.accountBalance.prompt"/></th>
-                                <td nowrap><bean:write scope="request" name="business" property="accountBalanceString"/></td>
+                                <th nowrap align='left'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.accountBalance.prompt"/></th>
+                                <td nowrap>
+                                    <% int balance = business.getAccountBalance(); %>
+                                    <% if(balance==0) { %>
+                                        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.balance.value.zero"/>
+                                    <% } else if(balance<0) { %>
+                                        <bean:message
+                                            bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.balance.value.credit"
+                                            arg0="<%= com.aoindustries.sql.SQLUtility.getDecimal(-balance) %>"
+                                        />
+                                    <% } else { %>
+                                        <bean:message
+                                            bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.balance.value.debt"
+                                            arg0="<%= com.aoindustries.sql.SQLUtility.getDecimal(balance) %>"
+                                        />
+                                    <% } %>
+                                </td>
                                 <td nowrap><html:errors bundle="/clientarea/accounting/ApplicationResources" property="accountBalance"/></td>
                             </tr>
                             <tr>
-                                <th nowrap align='left'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.paymentAmount.prompt"/></th>
+                                <th nowrap align='left'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.paymentAmount.prompt"/></th>
                                 <td nowrap>$<html:text property="paymentAmount" size="8"/></td>
                                 <td nowrap><html:errors bundle="/clientarea/accounting/ApplicationResources" property="paymentAmount"/></td>
                             </tr>
                             <tr>
                                 <td nowrap>&nbsp;</td>
-                                <td nowrap colspan="2"><html:submit onclick="this.disabled='true'; return true;"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.submit.label"/></html:submit></td>
+                                <td nowrap colspan="2"><html:submit onclick="this.disabled='true'; return true;"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.submit.label"/></html:submit></td>
                             </tr>
                         </table>
                     </skin:lightArea><br>
