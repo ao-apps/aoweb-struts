@@ -118,7 +118,7 @@
     <td nowrap><html:errors bundle="/clientarea/accounting/ApplicationResources" property="city"/></td>
 </tr>
 <tr>
-    <td nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardForm.required.no"/></td>
+    <td nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardForm.required.yes"/></td>
     <th nowrap align="left"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardForm.state.prompt"/></th>
     <td nowrap><html:text property="state" size="5"/></td>
     <td nowrap><html:errors bundle="/clientarea/accounting/ApplicationResources" property="state"/></td>
@@ -148,7 +148,7 @@
     <td nowrap><html:errors bundle="/clientarea/accounting/ApplicationResources" property="countryCode"/></td>
 </tr>
 <tr>
-    <td nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardForm.required.no"/></td>
+    <td nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardForm.required.yes"/></td>
     <th nowrap align="left"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardForm.postalCode.prompt"/></th>
     <td nowrap><html:text property="postalCode" size="10"/></td>
     <td nowrap><html:errors bundle="/clientarea/accounting/ApplicationResources" property="postalCode"/></td>

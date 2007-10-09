@@ -193,7 +193,9 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
         if(!GenericValidator.isBlankOrNull(email) && !GenericValidator.isEmail(email)) errors.add("email", new ActionMessage("creditCardForm.email.invalid"));
         if(GenericValidator.isBlankOrNull(streetAddress1)) errors.add("streetAddress1", new ActionMessage("creditCardForm.streetAddress1.required"));
         if(GenericValidator.isBlankOrNull(city)) errors.add("city", new ActionMessage("creditCardForm.city.required"));
+        if(GenericValidator.isBlankOrNull(state)) errors.add("state", new ActionMessage("creditCardForm.state.required"));
         if(GenericValidator.isBlankOrNull(countryCode)) errors.add("countryCode", new ActionMessage("creditCardForm.countryCode.required"));
+        if(GenericValidator.isBlankOrNull(postalCode)) errors.add("postalCode", new ActionMessage("creditCardForm.postalCode.required"));
         return errors;
     }
 
