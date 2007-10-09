@@ -67,7 +67,7 @@ public class MakePaymentStoredCardAction extends PermissionAction {
             return mapping.findForward("make-payment");
         }
 
-        // If the card pkey in "", new card was selected
+        // If the card pkey is "", new card was selected
         String pkeyString = makePaymentStoredCardForm.getPkey();
         if(pkeyString==null) {
             // pkey not provided, redirect back to make-payment

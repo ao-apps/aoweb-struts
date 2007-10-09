@@ -30,9 +30,30 @@
                     <hr>
                     <bean:define scope="request" name="reviewReason" id="reviewReason" type="java.lang.String"/>
                     <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardHold.hold.followingProcessed" arg0="<%= reviewReason %>"/>
+                    <%-- Card stored --%>
+                    <logic:equal scope="request" name="cardStored" value="true">
+                        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentNewCardCompleted.cardStored" />
+                    </logic:equal>
+
+                    <%-- Card store error --%>
+                    <logic:present scope="request" name="storeError">
+                        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentNewCardCompleted.storeError" />
+                    </logic:present>
+                    
+                    <%-- Card set automatic --%>
+                    <logic:equal scope="request" name="cardSetAutomatic" value="true">
+                        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentNewCardCompleted.cardSetAutomatic" />
+                    </logic:equal>
+                    
+                    <%-- Cart set automatic error --%>
+                    <logic:present scope="request" name="setAutomaticError">
+                        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentNewCardCompleted.setAutomaticError" />
+                    </logic:present>
+
                     <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardHold.hold.detailsFollow"/>
-                    <bean:define scope="request" name="creditCard" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard"/>
+
                     <bean:define scope="request" name="business" id="business" type="com.aoindustries.aoserv.client.Business"/>
+                    <bean:define scope="request" name="makePaymentNewCardForm" property="cardNumber" id="cardNumber" type="java.lang.String"/>
                     <table border='0' cellspacing='0' cellpadding='2'>
                         <tr>
                             <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.business.prompt"/></td>
@@ -41,28 +62,27 @@
                         <tr>
                             <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.card.prompt"/></td>
                             <td nowrap>
-                                <% String cardInfo = creditCard.getCardInfo(); %>
-                                <% if(cardInfo.startsWith("34") || cardInfo.startsWith("37")) { %>
+                                <% if(cardNumber.startsWith("34") || cardNumber.startsWith("37")) { %>
                                 <html:img src="amex.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.amex.alt" align="absmiddle" border="1" width="64" height="40"/>
-                                <% } else if(cardInfo.startsWith("60")) { %>
+                                <% } else if(cardNumber.startsWith("60")) { %>
                                 <html:img src="discv.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.discv.alt" align="absmiddle" border="1" width="63" height="40"/>
-                                <% } else if(cardInfo.startsWith("51") || cardInfo.startsWith("52") || cardInfo.startsWith("53") || cardInfo.startsWith("54") || cardInfo.startsWith("55")) { %>
+                                <% } else if(cardNumber.startsWith("51") || cardNumber.startsWith("52") || cardNumber.startsWith("53") || cardNumber.startsWith("54") || cardNumber.startsWith("55")) { %>
                                 <html:img src="mcard.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.mcard.alt" align="absmiddle" border="1" width="64" height="40"/>
-                                <% } else if(cardInfo.startsWith("4")) { %>
+                                <% } else if(cardNumber.startsWith("4")) { %>
                                 <html:img src="visa.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.visa.alt" align="absmiddle" border="1" width="64" height="40"/>
                                 <% } else { %>
                                 <bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.creditCard.cardType.unknown"/>
                                 <% } %>
-                                <%= creditCard.getCardInfo().replace('X', 'x') %>
+                                <%= com.aoindustries.creditcards.CreditCard.maskCreditCardNumber(cardNumber).replace('X', 'x') %>
                             </td>
                         </tr>
                         <tr>
                             <th nowrap align='left'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.cardComment.prompt"/></th>
                             <td nowrap>
-                                <logic:notEmpty name="creditCard" property="description">
-                                    <bean:write name="creditCard" property="description"/>
+                                <logic:notEmpty scope="request" name="makePaymentNewCardForm" property="description">
+                                    <bean:write scope="request" name="makePaymentNewCardForm" property="description"/>
                                 </logic:notEmpty>
-                                <logic:empty name="creditCard" property="description">
+                                <logic:empty scope="request" name="makePaymentNewCardForm" property="description">
                                     &nbsp;
                                 </logic:empty>
                             </td>
@@ -99,6 +119,7 @@
                             </td>
                         </tr>
                     </table><br>
+
                     <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.contactAndThankYou"/>
                 </skin:lightArea><br>
                 <skin:lightArea width="500">

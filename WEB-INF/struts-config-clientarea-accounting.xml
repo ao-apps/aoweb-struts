@@ -10,6 +10,7 @@
         <form-bean name="addCreditCardForm" type="com.aoindustries.website.clientarea.accounting.AddCreditCardForm" />
         <form-bean name="editCreditCardForm" type="com.aoindustries.website.clientarea.accounting.EditCreditCardForm" />
         <form-bean name="makePaymentStoredCardForm" type="com.aoindustries.website.clientarea.accounting.MakePaymentStoredCardForm" />
+        <form-bean name="makePaymentNewCardForm" type="com.aoindustries.website.clientarea.accounting.MakePaymentNewCardForm" />
     </form-beans>
 
     <!-- ========== Global Error Handlers =================================== -->
@@ -145,6 +146,28 @@
             <forward name="hold" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment-stored-card-hold.jsp" redirect="false" />
             <forward name="declined" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment-stored-card-declined.jsp" redirect="false" />
             <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment-stored-card-completed.jsp" redirect="false" />
+        </action>
+        <action
+            path="/make-payment-new-card"
+            name="makePaymentNewCardForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.clientarea.accounting.MakePaymentNewCardAction"
+        >
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
+        </action>
+        <action
+            path="/make-payment-new-card-completed"
+            name="makePaymentNewCardForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.clientarea.accounting.MakePaymentNewCardCompletedAction"
+        >
+            <forward name="input" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
+            <forward name="error" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
+            <forward name="hold" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment-new-card-hold.jsp" redirect="false" />
+            <forward name="declined" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
+            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/accounting/make-payment-new-card-completed.jsp" redirect="false" />
         </action>
     </action-mappings>
 

@@ -6,7 +6,9 @@ package com.aoindustries.website.clientarea.accounting;
  * All rights reserved.
  */
 import com.aoindustries.creditcards.CreditCard;
+import com.aoindustries.creditcards.TransactionResult;
 import java.io.Serializable;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionErrors;
@@ -70,5 +72,20 @@ public class AddCreditCardForm extends CreditCardForm implements Serializable {
             || GenericValidator.isBlankOrNull(expirationYear)
         ) errors.add("expirationDate", new ActionMessage("addCreditCardForm.expirationDate.required"));
         return errors;
+    }
+
+    public ActionErrors mapTransactionError(TransactionResult.ErrorCode errorCode, Locale userLocale) {
+        String errorString = errorCode.toString(userLocale);
+        ActionErrors errors = new ActionErrors();
+        switch(errorCode) {
+            case INVALID_CARD_NUMBER:
+                errors.add("cardNumber", new ActionMessage(errorString, false));
+                return errors;
+            case INVALID_EXPIRATION_DATE:
+                errors.add("expirationDate", new ActionMessage(errorString, false));
+                return errors;
+            default:
+                return super.mapTransactionError(errorCode, userLocale);
+        }
     }
 }

@@ -5,7 +5,9 @@ package com.aoindustries.website.clientarea.accounting;
  * 816 Azalea Rd, Mobile, Alabama, 36693, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.creditcards.TransactionResult;
 import java.io.Serializable;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionErrors;
@@ -193,5 +195,50 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
         if(GenericValidator.isBlankOrNull(city)) errors.add("city", new ActionMessage("creditCardForm.city.required"));
         if(GenericValidator.isBlankOrNull(countryCode)) errors.add("countryCode", new ActionMessage("creditCardForm.countryCode.required"));
         return errors;
+    }
+
+    /**
+     * Maps CreditCardProcessor-specific errors to appropriate errors.
+     *
+     * @return the <code>ActionErrors</code> with the mapping or <code>null</code> if unable to map
+     */
+    public ActionErrors mapTransactionError(TransactionResult.ErrorCode errorCode, Locale userLocale) {
+        String errorString = errorCode.toString(userLocale);
+        ActionErrors errors = new ActionErrors();
+        switch(errorCode) {
+            case INVALID_CARD_NAME:
+                errors.add("firstName", new ActionMessage(errorString, false));
+                errors.add("lastName", new ActionMessage(errorString, false));
+                return errors;
+            case INVALID_CARD_EMAIL:
+                errors.add("email", new ActionMessage(errorString, false));
+                return errors;
+            case INVALID_CARD_PHONE:
+                errors.add("phone", new ActionMessage(errorString, false));
+                return errors;
+            case INVALID_CARD_FAX:
+                errors.add("fax", new ActionMessage(errorString, false));
+                return errors;
+            case INVALID_CUSTOMER_TAX_ID:
+                errors.add("customerTaxId", new ActionMessage(errorString, false));
+                return errors;
+            case INVALID_CARD_ADDRESS:
+                errors.add("streetAddress1", new ActionMessage(errorString, false));
+                return errors;
+            case INVALID_CARD_CITY:
+                errors.add("city", new ActionMessage(errorString, false));
+                return errors;
+            case INVALID_CARD_STATE:
+                errors.add("state", new ActionMessage(errorString, false));
+                return errors;
+            case INVALID_CARD_POSTAL_CODE:
+                errors.add("postalCode", new ActionMessage(errorString, false));
+                return errors;
+            case INVALID_CARD_COUNTRY_CODE:
+                errors.add("countryCode", new ActionMessage(errorString, false));
+                return errors;
+            default:
+                return null;
+        }
     }
 }

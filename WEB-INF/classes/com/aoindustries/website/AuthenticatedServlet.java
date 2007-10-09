@@ -38,15 +38,13 @@ abstract public class AuthenticatedServlet extends HttpServlet {
             }
             //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
 
-            // TODO: This might not be completely web-app relative compatible
-
             int port = request.getServerPort();
             String url;
             if(port!=80 && port!=443) {
                 // Development area
-                url = "https://"+request.getServerName()+":8443/login.do";
+                url = "https://"+request.getServerName()+":8443"+request.getContextPath()+"/login.do";
             } else {
-                url = "https://"+request.getServerName()+"/login.do";
+                url = "https://"+request.getServerName()+request.getContextPath()+"/login.do";
             }
             response.sendRedirect(response.encodeRedirectURL(url));
             return;
