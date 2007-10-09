@@ -63,7 +63,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                 failoverServer = aoServer.getFailoverServer();
             } catch(SQLException err) {
                 // May be filtered, need to use RootAOServConnector
-                failoverServer = rootConn.aoServers.get(aoServer.getPKey()).getFailoverServer();
+                failoverServer = rootConn.aoServers.get(aoServer.getPkey()).getFailoverServer();
             }
 
             StringBuilder server = new StringBuilder();
@@ -82,7 +82,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                         slave = ffr.getToAOServer().getServer().getHostname();
                     } catch(SQLException err) {
                         // May be filtered, need to use RootAOServConnector
-                        slave = rootConn.failoverFileReplications.get(ffr.getPKey()).getToAOServer().getServer().getHostname();
+                        slave = rootConn.failoverFileReplications.get(ffr.getPkey()).getToAOServer().getServer().getHostname();
                     }
                     try {
                         FailoverMySQLReplication.SlaveStatus slaveStatus = fmr.getSlaveStatus();

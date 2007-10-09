@@ -55,25 +55,25 @@
                                                 <input
                                                     type="radio"
                                                     name="pkey"
-                                                    value="<%= creditCard.getPKey() %>"
+                                                    value="<%= creditCard.getPkey() %>"
                                                     onChange='this.form.submitButton.disabled=false;'
                                                 >
                                             </logic:notPresent>
                                             <logic:present scope="request" name="automaticCard">
-                                                <logic:equal scope="request" name="automaticCard" property="PKey" value="<%= Integer.toString(creditCard.getPKey()) %>">
+                                                <logic:equal scope="request" name="automaticCard" property="pkey" value="<%= Integer.toString(creditCard.getPkey()) %>">
                                                     <input
                                                         type="radio"
                                                         name="pkey"
-                                                        value="<%= creditCard.getPKey() %>"
+                                                        value="<%= creditCard.getPkey() %>"
                                                         checked
                                                         onChange='this.form.submitButton.disabled=true;'
                                                     >
                                                 </logic:equal>
-                                                <logic:notEqual scope="request" name="automaticCard" property="PKey" value="<%= Integer.toString(creditCard.getPKey()) %>">
+                                                <logic:notEqual scope="request" name="automaticCard" property="pkey" value="<%= Integer.toString(creditCard.getPkey()) %>">
                                                     <input
                                                         type="radio"
                                                         name="pkey"
-                                                        value="<%= creditCard.getPKey() %>"
+                                                        value="<%= creditCard.getPkey() %>"
                                                         onChange='this.form.submitButton.disabled=false;'
                                                     >
                                                 </logic:notEqual>

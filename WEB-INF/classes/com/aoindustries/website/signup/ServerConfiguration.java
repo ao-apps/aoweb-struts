@@ -197,7 +197,7 @@ public class ServerConfiguration {
         minimumMonthly += cheapestDisk.getAdditionalRate()==-1 ? 0 : cheapestDisk.getAdditionalRate();
 
         return new ServerConfiguration(
-            packageDefinition.getPKey(),
+            packageDefinition.getPkey(),
             packageDefinition.getDisplay(),
             minimumPower.toString(),
             minimumCpu.toString().replaceAll(", ", "<br>&nbsp;&nbsp;&nbsp;&nbsp;"),
@@ -406,7 +406,7 @@ public class ServerConfiguration {
         if(expensiveSCSI!=null) maximumMonthly += expensiveSCSI.getAdditionalRate()==-1 ? 0 : (expensiveSCSI.getAdditionalRate() * maxSCSIs);
 
         return new ServerConfiguration(
-            packageDefinition.getPKey(),
+            packageDefinition.getPkey(),
             packageDefinition.getDisplay(),
             maximumPower.toString(),
             maximumCpu.toString().replaceAll(", ", "<br>&nbsp;&nbsp;&nbsp;&nbsp;"),

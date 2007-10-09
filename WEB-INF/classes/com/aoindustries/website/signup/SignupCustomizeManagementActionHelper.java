@@ -67,7 +67,7 @@ final public class SignupCustomizeManagementActionHelper {
                     int additionalRate = limit.getAdditionalRate();
                     if(additionalRate==-1) additionalRate=0;
                     additionalRate *= totalHardwareDiskSpace;
-                    backupOnsiteOptions.add(new Option(limit.getPKey(), resource.getDescription(), new BigDecimal(SQLUtility.getDecimal(additionalRate))));
+                    backupOnsiteOptions.add(new Option(limit.getPkey(), resource.getDescription(), new BigDecimal(SQLUtility.getDecimal(additionalRate))));
                 }
             } else if(resourceName.startsWith("backup_offsite_")) {
                 int limitPower = limit.getHardLimit();
@@ -76,7 +76,7 @@ final public class SignupCustomizeManagementActionHelper {
                     int additionalRate = limit.getAdditionalRate();
                     if(additionalRate==-1) additionalRate=0;
                     additionalRate *= totalHardwareDiskSpace;
-                    backupOffsiteOptions.add(new Option(limit.getPKey(), resource.getDescription(), new BigDecimal(SQLUtility.getDecimal(additionalRate))));
+                    backupOffsiteOptions.add(new Option(limit.getPkey(), resource.getDescription(), new BigDecimal(SQLUtility.getDecimal(additionalRate))));
                 }
             }
         }
@@ -92,7 +92,7 @@ final public class SignupCustomizeManagementActionHelper {
                     if(hard==PackageDefinitionLimit.UNLIMITED || hard>0) {
                         int additionalRate = limit.getAdditionalRate();
                         if(additionalRate==-1) additionalRate=0;
-                        distributionScanOptions.add(new Option(limit.getPKey(), resource.getDescription(), new BigDecimal(SQLUtility.getDecimal(additionalRate))));
+                        distributionScanOptions.add(new Option(limit.getPkey(), resource.getDescription(), new BigDecimal(SQLUtility.getDecimal(additionalRate))));
                     }
                 }
             }
@@ -111,7 +111,7 @@ final public class SignupCustomizeManagementActionHelper {
                         int additionalRate = limit.getAdditionalRate();
                         if(additionalRate==-1) additionalRate=0;
                         additionalRate *= totalHardwareDiskSpace;
-                        failoverOptions.add(new Option(limit.getPKey(), resource.getDescription(), new BigDecimal(SQLUtility.getDecimal(additionalRate))));
+                        failoverOptions.add(new Option(limit.getPkey(), resource.getDescription(), new BigDecimal(SQLUtility.getDecimal(additionalRate))));
                         
                         // Only once the failover option is available will the MySQL replication option be available
                         Resource mrResource = rootConn.resources.get(Resource.MYSQL_REPLICATION);
@@ -124,7 +124,7 @@ final public class SignupCustomizeManagementActionHelper {
                                 if(mrHard==PackageDefinitionLimit.UNLIMITED || mrHard>0) {
                                     int mrAdditionalRate = mrLimit.getAdditionalRate();
                                     if(mrAdditionalRate==-1) mrAdditionalRate=0;
-                                    failoverOptions.add(new Option(mrLimit.getPKey(), mrResource.getDescription(), new BigDecimal(SQLUtility.getDecimal(additionalRate+mrAdditionalRate))));
+                                    failoverOptions.add(new Option(mrLimit.getPkey(), mrResource.getDescription(), new BigDecimal(SQLUtility.getDecimal(additionalRate+mrAdditionalRate))));
                                 }
                             }
                         }
@@ -298,7 +298,7 @@ final public class SignupCustomizeManagementActionHelper {
                 Resource failoverResource = rootConn.resources.get(Resource.FAILOVER);
                 if(failoverResource==null) throw new SQLException("Unable to find Resource: "+Resource.FAILOVER);
                 PackageDefinitionLimit failoverPDL = packageDefinition.getLimit(failoverResource);
-                if(failoverPDL==null) throw new SQLException("Unable to find PackageDefinitionLimit: "+Resource.FAILOVER+" on PackageDefinition #"+packageDefinition.getPKey());
+                if(failoverPDL==null) throw new SQLException("Unable to find PackageDefinitionLimit: "+Resource.FAILOVER+" on PackageDefinition #"+packageDefinition.getPkey());
                 int additionalRate = 0;
                 int failoverRate = failoverPDL.getAdditionalRate();
                 if(failoverRate>0) additionalRate = failoverRate * totalDiskSpace;

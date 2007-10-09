@@ -28,10 +28,10 @@
                 <tr class="<%= (row&1)==0 ? "ao_light_row" : "ao_dark_row" %>"
                     <td nowrap>
                         <logic:equal scope="request" name="lastPaymentCreditCard" value="<%= creditCard.getProviderUniqueId() %>">
-                            <input type="radio" name="pkey" value="<%= creditCard.getPKey() %>" checked>
+                            <input type="radio" name="pkey" value="<%= creditCard.getPkey() %>" checked>
                         </logic:equal>
                         <logic:notEqual scope="request" name="lastPaymentCreditCard" value="<%= creditCard.getProviderUniqueId() %>">
-                            <input type="radio" name="pkey" value="<%= creditCard.getPKey() %>">
+                            <input type="radio" name="pkey" value="<%= creditCard.getPkey() %>">
                         </logic:notEqual>
                     </td>
                     <td nowrap>

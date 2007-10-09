@@ -44,14 +44,15 @@ public class CreditCardManagerAction extends PermissionAction {
         // Create a map from business to list of credit cards
         List<BusinessAndCreditCards> businessCreditCards = new ArrayList<BusinessAndCreditCards>();
         for(Business business : aoConn.businesses.getRows()) {
+            List<CreditCard> ccs = business.getCreditCards();
             if(
                 thisBusiness.equals(business)
+                || !ccs.isEmpty()
                 || (
                     business.getCanceled()==-1
                     && !business.billParent()
                 ) || business.getAccountBalance()!=0
             ) {
-                List<CreditCard> ccs = business.getCreditCards();
                 boolean hasActiveCard = false;
                 for(CreditCard cc : ccs) {
                     if(cc.getIsActive()) {

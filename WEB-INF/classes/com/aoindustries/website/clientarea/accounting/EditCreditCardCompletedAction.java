@@ -86,8 +86,8 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             // Update card number and expiration
             // Root connector used to get processor
             AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext());
-            CreditCard rootCreditCard = rootConn.creditCards.get(creditCard.getPKey());
-            if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPKey());
+            CreditCard rootCreditCard = rootConn.creditCards.get(creditCard.getPkey());
+            if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPkey());
             CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
             rootProcessor.updateCreditCardNumberAndExpiration(
                 new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
@@ -106,8 +106,8 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             ) {
                 // Update expiration only
                 // Root connector used to get processor
-                CreditCard rootCreditCard = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext()).creditCards.get(creditCard.getPKey());
-                if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPKey());
+                CreditCard rootCreditCard = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext()).creditCards.get(creditCard.getPkey());
+                if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPkey());
                 CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
                 rootProcessor.updateCreditCardExpiration(
                     CreditCardFactory.getCreditCard(rootCreditCard, locale),
