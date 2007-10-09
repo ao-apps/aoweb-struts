@@ -159,6 +159,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
             new TransactionRequest(
                 locale,
                 false,
+                request.getRemoteAddr(),
                 120,
                 Integer.toString(transID),
                 TransactionRequest.CurrencyCode.USD,
@@ -182,7 +183,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
                 null,
                 applicationResources.getMessage(Locale.US, "makePaymentStoredCardCompleted.transaction.description")
             ),
-            CreditCardFactory.getCreditCard(creditCard, locale),
+            CreditCardFactory.getCreditCard(rootCreditCard, locale),
             locale
         );
         
@@ -192,18 +193,47 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
             case LOCAL_ERROR :
             case IO_ERROR :
             case GATEWAY_ERROR :
+            {
                 // Update transaction as failed
                 aoTransaction.declined(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                // Get the list of active credit cards stored for this business
+                List<CreditCard> allCreditCards = business.getCreditCards();
+                List<CreditCard> creditCards = new ArrayList<CreditCard>(allCreditCards.size());
+                for(CreditCard tCreditCard : allCreditCards) {
+                    if(tCreditCard.getDeactivatedOn()==-1) creditCards.add(tCreditCard);
+                }
+                // Store to request attributes, return success
+                request.setAttribute("business", business);
+                request.setAttribute("creditCards", creditCards);
+                request.setAttribute("lastPaymentCreditCard", creditCard.getProviderUniqueId());
+                request.setAttribute("errorReason", authorizationResult.getErrorCode().toString(locale));
                 return mapping.findForward("error");
+            }
             case SUCCESS :
                 // Check approval result
                 switch(authorizationResult.getApprovalResult()) {
                     case HOLD :
                         aoTransaction.held(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                        request.setAttribute("business", business);
+                        request.setAttribute("creditCard", creditCard);
+                        request.setAttribute("transaction", transaction);
+                        request.setAttribute("aoTransaction", aoTransaction);
+                        request.setAttribute("reviewReason", authorizationResult.getReviewReason().toString(locale));
                         return mapping.findForward("hold");
                     case DECLINED :
                         // Update transaction as declined
                         aoTransaction.declined(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                        // Get the list of active credit cards stored for this business
+                        List<CreditCard> allCreditCards = business.getCreditCards();
+                        List<CreditCard> creditCards = new ArrayList<CreditCard>(allCreditCards.size());
+                        for(CreditCard tCreditCard : allCreditCards) {
+                            if(tCreditCard.getDeactivatedOn()==-1) creditCards.add(tCreditCard);
+                        }
+                        // Store to request attributes, return success
+                        request.setAttribute("business", business);
+                        request.setAttribute("creditCards", creditCards);
+                        request.setAttribute("lastPaymentCreditCard", creditCard.getProviderUniqueId());
+                        request.setAttribute("declineReason", authorizationResult.getDeclineReason().toString(locale));
                         return mapping.findForward("declined");
                     case APPROVED :
                         // Update transaction as successful

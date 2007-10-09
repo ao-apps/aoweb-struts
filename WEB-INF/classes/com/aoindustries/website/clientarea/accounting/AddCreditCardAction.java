@@ -11,14 +11,17 @@ import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.BusinessProfile;
 import com.aoindustries.website.PermissionAction;
+import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.signup.SignupBusinessActionHelper;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
@@ -120,19 +123,20 @@ public class AddCreditCardAction extends PermissionAction {
             addCreditCardForm.setCountryCode(thisBA.getCountry()==null ? "" : thisBA.getCountry().getCode());
         }
 
-        initRequestAttributes(request, aoConn);
+        initRequestAttributes(request, getServlet().getServletContext());
 
         return mapping.findForward("success");
     }
 
-    protected void initRequestAttributes(HttpServletRequest request, AOServConnector aoConn) throws SQLException {
+    protected void initRequestAttributes(HttpServletRequest request, ServletContext context) throws SQLException, IOException {
         // Build the list of years
         List<String> expirationYears = new ArrayList<String>(12);
         int startYear = Calendar.getInstance().get(Calendar.YEAR);
         for(int c=0;c<12;c++) expirationYears.add(Integer.toString(startYear+c));
 
         // Build the list of countries
-        List<SignupBusinessActionHelper.CountryOption> countryOptions = SignupBusinessActionHelper.getCountryOptions(aoConn);
+        // We use the root connector to provide a better set of country values
+        List<SignupBusinessActionHelper.CountryOption> countryOptions = SignupBusinessActionHelper.getCountryOptions(RootAOServConnector.getRootAOServConnector(context));
 
         // Store to request attributes
         request.setAttribute("expirationYears", expirationYears);

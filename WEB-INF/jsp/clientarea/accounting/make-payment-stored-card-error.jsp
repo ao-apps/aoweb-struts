@@ -13,7 +13,7 @@
 <%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
 <skin:setContentType/>
 <html:html lang="true">
-    <skin:path>/clientarea/accounting/make-payment-stored-card.do?accounting=<bean:write scope="request" name="makePaymentStoredCardForm" property="accounting"/>&pkey=<bean:write scope="request" name="makePaymentStoredCardForm" property="pkey"/></skin:path>
+    <skin:path>/clientarea/accounting/make-payment-select-card.do?accounting=<bean:write scope="request" name="makePaymentStoredCardForm" property="accounting"/></skin:path>
     <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.keywords"/></skin:keywords>
@@ -25,7 +25,13 @@
             <skin:contentTitle><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.title"/></skin:contentTitle>
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
-                TODO: Error processing payment
+                <skin:lightArea>
+                    <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardError.error.header"/>
+                    <hr>
+                    <bean:define scope="request" name="errorReason" id="errorReason" type="java.lang.String"/>
+                    <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardError.error.description" arg0="<%= errorReason %>"/>
+                </skin:lightArea><br>
+                <%@ include file="make-payment-select-card-shared.jsp" %>
             </skin:contentLine>
         </skin:content>
     </skin:skin>

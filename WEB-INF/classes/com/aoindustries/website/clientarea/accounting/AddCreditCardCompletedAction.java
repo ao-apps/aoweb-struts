@@ -53,7 +53,7 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
         if(errors!=null && !errors.isEmpty()) {
             saveErrors(request, errors);
             // Init request values before showing input
-            initRequestAttributes(request, aoConn);
+            initRequestAttributes(request, getServlet().getServletContext());
             return mapping.findForward("input");
         }
 

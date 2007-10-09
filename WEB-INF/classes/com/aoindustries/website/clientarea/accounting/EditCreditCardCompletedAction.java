@@ -68,7 +68,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
         if(errors!=null && !errors.isEmpty()) {
             saveErrors(request, errors);
             // Init request values before showing input
-            initRequestAttributes(request, aoConn);
+            initRequestAttributes(request, getServlet().getServletContext());
             request.setAttribute("creditCard", creditCard);
             return mapping.findForward("input");
         }

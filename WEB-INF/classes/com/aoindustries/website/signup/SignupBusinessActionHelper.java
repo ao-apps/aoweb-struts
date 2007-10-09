@@ -45,6 +45,13 @@ final public class SignupBusinessActionHelper {
         request.setAttribute("countryOptions", countryOptions);
     }
 
+    /**
+     * Gets the options for use in a country list.
+     * Note: you probably want to use the RootAOServConnector to provide a more helpful list than a
+     * default user connector.
+     *
+     * @see  RootAOServConnector
+     */
     public static List<CountryOption> getCountryOptions(AOServConnector aoConn) {
         // Build the list of countries
         List<CountryOption> countryOptions = new ArrayList<CountryOption>();
