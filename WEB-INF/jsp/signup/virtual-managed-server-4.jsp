@@ -5,7 +5,7 @@
 --%>
 <%@ page language="java" %>
 <%@ page buffer="256kb" %>
-<%@ page autoFlush="false" %>
+<%@ page autoFlush="true" %>
 
 <%@ taglib uri="/WEB-INF/struts-bean.tld"       prefix="bean" %>
 <%@ taglib uri="/WEB-INF/struts-html.tld"       prefix="html" %>

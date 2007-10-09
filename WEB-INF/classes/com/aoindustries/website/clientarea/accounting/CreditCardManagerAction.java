@@ -39,18 +39,28 @@ public class CreditCardManagerAction extends PermissionAction {
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
+        Business thisBusiness = aoConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
+
         // Create a map from business to list of credit cards
         List<BusinessAndCreditCards> businessCreditCards = new ArrayList<BusinessAndCreditCards>();
         for(Business business : aoConn.businesses.getRows()) {
-            List<CreditCard> ccs = business.getCreditCards();
-            boolean hasActiveCard = false;
-            for(CreditCard cc : ccs) {
-                if(cc.getIsActive()) {
-                    hasActiveCard = true;
-                    break;
+            if(
+                thisBusiness.equals(business)
+                || (
+                    business.getCanceled()==-1
+                    && !business.billParent()
+                ) || business.getAccountBalance()!=0
+            ) {
+                List<CreditCard> ccs = business.getCreditCards();
+                boolean hasActiveCard = false;
+                for(CreditCard cc : ccs) {
+                    if(cc.getIsActive()) {
+                        hasActiveCard = true;
+                        break;
+                    }
                 }
+                businessCreditCards.add(new BusinessAndCreditCards(business, ccs, hasActiveCard));
             }
-            businessCreditCards.add(new BusinessAndCreditCards(business, ccs, hasActiveCard));
         }
         boolean showAccounting = aoConn.businesses.getRows().size()>1;
 

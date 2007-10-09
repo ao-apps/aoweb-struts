@@ -42,9 +42,11 @@ public class MakePaymentAction extends AuthenticatedAction {
         List<Business> businesses = new ArrayList<Business>(allBusinesses.size());
         for(Business business : allBusinesses) {
             if(
-                business.getCanceled()==-1
-                || thisBusiness.equals(business)
-                || business.getAccountBalance()!=0
+                thisBusiness.equals(business)
+                || (
+                    business.getCanceled()==-1
+                    && !business.billParent()
+                ) || business.getAccountBalance()!=0
             ) businesses.add(business);
         }
         if(businesses.size()==1) {
