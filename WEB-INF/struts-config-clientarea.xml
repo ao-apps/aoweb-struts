@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE struts-config PUBLIC
-    "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
-    "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+          "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+          "http://struts.apache.org/dtds/struts-config_1_3.dtd">
 
 <struts-config>
     <!-- ========== Form Bean Definitions =================================== -->
@@ -17,8 +17,8 @@
     <!-- ========== Global Forward Definitions ============================== -->
     <global-forwards>
         <!-- / -->
-        <forward name="exception" contextRelative="true" path="/WEB-INF/jsp/exception.jsp" redirect="false" />
-        <forward name="login" contextRelative="true" path="/login.do" redirect="false" />
+        <forward name="exception" module="" path="/WEB-INF/jsp/exception.jsp" redirect="false" />
+        <forward name="login" module="" path="/login.do" redirect="false" />
         <!-- /clientarea -->
     </global-forwards>
 
@@ -28,7 +28,7 @@
             path="/index"
             type="com.aoindustries.website.HttpAction"
         >
-            <forward name="success" contextRelative="true" path="/WEB-INF/jsp/clientarea/index.jsp" redirect="false" />
+            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/index.jsp" redirect="false" />
         </action>
     </action-mappings>
 
@@ -75,6 +75,6 @@
 
     <!-- ========== Validator Plug-In ======================================= -->
     <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
-        <set-property property="pathnames" value="/WEB-INF/lib/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml"/>
+        <set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml"/>
     </plug-in>
 </struts-config>

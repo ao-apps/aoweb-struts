@@ -116,7 +116,7 @@ public class TextSkin extends Skin {
             ChainWriter.writeHtml(pageAttributes.getTitle(), out);
             out.print("</TITLE>\n"
                     + "    <SCRIPT type='text/javascript' language='Javascript1.1' src='");
-            out.print(resp.encodeURL(urlBase + "commons-validator-1.3.0.js"));
+            out.print(resp.encodeURL(urlBase + "commons-validator-1.3.1-compress.js"));
             out.print("'></SCRIPT>\n");
             printFavIcon(resp, out, urlBase);
             out.print("  </HEAD>\n"

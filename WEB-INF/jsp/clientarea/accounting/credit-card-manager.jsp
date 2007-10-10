@@ -7,9 +7,9 @@
 <%@ page buffer="256kb" %>
 <%@ page autoFlush="true" %>
 
-<%@ taglib uri="/WEB-INF/struts-bean.tld"       prefix="bean" %>
-<%@ taglib uri="/WEB-INF/struts-html.tld"       prefix="html" %>
-<%@ taglib uri="/WEB-INF/struts-logic.tld"      prefix="logic" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
 <%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
 <skin:setContentType/>
 <html:html lang="true">
@@ -109,7 +109,7 @@
                                                     </td>
                                                 </logic:notEqual>
                                                 <td nowrap>
-                                                    <html:link action="/edit-credit-card" paramId="persistenceId" paramName="creditCard" paramProperty="key">
+                                                    <html:link action="/edit-credit-card" paramId="persistenceId" paramName="creditCard" paramProperty="pkey">
                                                         <logic:equal name="creditCard" property="isActive" value="true">
                                                             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.edit.link"/>
                                                         </logic:equal>
@@ -119,7 +119,7 @@
                                                     </html:link>
                                                 </td>
                                                 <td nowrap>
-                                                    <html:link action="/delete-credit-card" paramId="pkey" paramName="creditCard" paramProperty="key">
+                                                    <html:link action="/delete-credit-card" paramId="pkey" paramName="creditCard" paramProperty="pkey">
                                                         <bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.delete.link"/>
                                                     </html:link>
                                                 </td>

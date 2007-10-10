@@ -57,10 +57,6 @@
       <param-name>config/signup</param-name>
       <param-value>/WEB-INF/struts-config-signup.xml</param-value>
     </init-param>
-    <init-param>
-      <param-name>debug</param-name>
-      <param-value>2</param-value>
-    </init-param>
     <load-on-startup>2</load-on-startup>
   </servlet>
   
@@ -92,27 +88,5 @@
   <taglib>
     <taglib-uri>/WEB-INF/aoweb-struts-skin.tld</taglib-uri>
     <taglib-location>/WEB-INF/aoweb-struts-skin.tld</taglib-location>
-  </taglib>
-
-  <!-- Struts Tag Library Descriptors -->
-  <taglib>
-    <taglib-uri>http://struts.apache.org/tags-bean</taglib-uri>
-    <taglib-location>/WEB-INF/struts-bean.tld</taglib-location>
-  </taglib>
-  <taglib>
-    <taglib-uri>http://struts.apache.org/tags-html</taglib-uri>
-    <taglib-location>/WEB-INF/struts-html.tld</taglib-location>
-  </taglib>
-  <taglib>
-    <taglib-uri>http://struts.apache.org/tags-logic</taglib-uri>
-    <taglib-location>/WEB-INF/struts-logic.tld</taglib-location>
-  </taglib>
-  <taglib>
-    <taglib-uri>http://struts.apache.org/tags-tiles</taglib-uri>
-    <taglib-location>/WEB-INF/struts-tiles.tld</taglib-location>
-  </taglib>
-  <taglib>
-    <taglib-uri>http://struts.apache.org/tags-nested</taglib-uri>
-    <taglib-location>/WEB-INF/struts-nested.tld</taglib-location>
   </taglib>
 </web-app>

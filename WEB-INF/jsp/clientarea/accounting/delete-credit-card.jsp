@@ -7,9 +7,9 @@
 <%@ page buffer="256kb" %>
 <%@ page autoFlush="true" %>
 
-<%@ taglib uri="/WEB-INF/struts-bean.tld"       prefix="bean" %>
-<%@ taglib uri="/WEB-INF/struts-html.tld"       prefix="html" %>
-<%@ taglib uri="/WEB-INF/struts-logic.tld"      prefix="logic" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
 <%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
 <skin:setContentType/>
 <html:html lang="true">
@@ -35,7 +35,7 @@
                 <logic:notPresent scope="request" name="permissionDenied">
                     <bean:define scope="request" name="creditCard" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard"/>
                     <form method="POST" action="<%= response.encodeURL("delete-credit-card-completed.do") %>">
-                        <input type="hidden" name="pkey" value="<bean:write name="creditCard" property="key"/>">
+                        <input type="hidden" name="pkey" value="<bean:write name="creditCard" property="pkey"/>">
                         <skin:lightArea>
                             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.confirmation.title"/>
                             <hr>
