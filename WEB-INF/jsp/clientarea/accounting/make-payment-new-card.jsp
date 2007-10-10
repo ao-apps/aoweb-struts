@@ -80,7 +80,7 @@
                                         <html:radio property="storeCard" value="automatic"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentNewCard.storeCard.automatic"/></html:radio>
                                     </td>
                                 </tr>
-                                <tr><td nowrap colspan="4" align="center"><html:submit><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentNewCard.field.submit.label"/></html:submit></td></tr>
+                                <tr><td nowrap colspan="4" align="center"><html:submit onclick="this.disabled='true'; return true;"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentNewCard.field.submit.label"/></html:submit></td></tr>
                             </table>
                         </skin:lightArea>
                     </html:form><br>
