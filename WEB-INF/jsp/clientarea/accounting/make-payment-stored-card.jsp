@@ -96,7 +96,7 @@
                             </tr>
                             <tr>
                                 <td nowrap>&nbsp;</td>
-                                <td nowrap colspan="2"><html:submit onclick="this.disabled='true'; return true;"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.submit.label"/></html:submit></td>
+                                <td nowrap colspan="2"><html:submit onclick="this.disabled='true'; this.form.submit(); return false;"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.submit.label"/></html:submit></td>
                             </tr>
                         </table>
                     </skin:lightArea><br>
