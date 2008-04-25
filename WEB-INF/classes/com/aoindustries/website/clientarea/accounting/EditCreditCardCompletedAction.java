@@ -106,10 +106,12 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             ) {
                 // Update expiration only
                 // Root connector used to get processor
-                CreditCard rootCreditCard = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext()).creditCards.get(creditCard.getPkey());
+                AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext());
+                CreditCard rootCreditCard = rootConn.creditCards.get(creditCard.getPkey());
                 if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPkey());
                 CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
                 rootProcessor.updateCreditCardExpiration(
+                    new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
                     CreditCardFactory.getCreditCard(rootCreditCard, locale),
                     Byte.parseByte(newExpirationMonth),
                     Short.parseShort(newExpirationYear),

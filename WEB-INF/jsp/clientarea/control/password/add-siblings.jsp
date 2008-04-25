@@ -20,11 +20,6 @@
     <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="password.businessAdministratorPasswordSetter.navImageAlt"/></skin:navImageAlt>
     <skin:description><bean:message bundle="/clientarea/control/ApplicationResources" key="password.businessAdministratorPasswordSetter.description"/></skin:description>
 </skin:addSibling>
-<skin:addSibling useEncryption="true" path="/clientarea/control/password/interbase-password-setter.do">
-    <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="password.interBasePasswordSetter.title"/></skin:title>
-    <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="password.interBasePasswordSetter.navImageAlt"/></skin:navImageAlt>
-    <skin:description><bean:message bundle="/clientarea/control/ApplicationResources" key="password.interBasePasswordSetter.description"/></skin:description>
-</skin:addSibling>
 <skin:addSibling useEncryption="true" path="/clientarea/control/password/linux-account-password-setter.do">
     <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="password.linuxAccountPasswordSetter.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="password.linuxAccountPasswordSetter.navImageAlt"/></skin:navImageAlt>

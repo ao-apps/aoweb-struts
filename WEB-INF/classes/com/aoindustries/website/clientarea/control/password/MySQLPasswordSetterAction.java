@@ -58,7 +58,7 @@ public class MySQLPasswordSetterAction extends PermissionAction {
                 packages.add(un.getPackage().getName());
                 usernames.add(un.getUsername());
                 mySQLServers.add(ms.getName());
-                aoServers.add(ms.getAOServer().getServer().getHostname());
+                aoServers.add(ms.getAOServer().getHostname());
                 newPasswords.add("");
                 confirmPasswords.add("");
             }

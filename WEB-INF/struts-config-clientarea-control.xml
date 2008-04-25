@@ -9,7 +9,6 @@
     <form-beans>
         <form-bean name="passwordEvaluatorForm" type="com.aoindustries.website.clientarea.control.password.PasswordEvaluatorForm" />
         <form-bean name="businessAdministratorPasswordSetterForm" type="com.aoindustries.website.clientarea.control.password.BusinessAdministratorPasswordSetterForm" />
-        <form-bean name="interBasePasswordSetterForm" type="com.aoindustries.website.clientarea.control.password.InterBasePasswordSetterForm" />
         <form-bean name="linuxAccountPasswordSetterForm" type="com.aoindustries.website.clientarea.control.password.LinuxAccountPasswordSetterForm" />
         <form-bean name="mySQLPasswordSetterForm" type="com.aoindustries.website.clientarea.control.password.MySQLPasswordSetterForm" />
         <form-bean name="postgreSQLPasswordSetterForm" type="com.aoindustries.website.clientarea.control.password.PostgreSQLPasswordSetterForm" />
@@ -92,27 +91,6 @@
         >
             <forward name="input" module="" path="/WEB-INF/jsp/clientarea/control/password/business-administrator-password-setter.jsp" redirect="false" />
             <forward name="success" module="" path="/WEB-INF/jsp/clientarea/control/password/business-administrator-password-setter.jsp" redirect="false" />
-        </action>
-        <action
-            path="/password/interbase-password-setter"
-            name="interBasePasswordSetterForm"
-            scope="request"
-            validate="false"
-            type="com.aoindustries.website.clientarea.control.password.InterBasePasswordSetterAction"
-        >
-            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/control/password/interbase-password-setter.jsp" redirect="false" />
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/control/password/interbase-password-setter.jsp" redirect="false" />
-        </action>
-        <action
-            path="/password/interbase-password-setter-completed"
-            name="interBasePasswordSetterForm"
-            scope="request"
-            validate="false"
-            type="com.aoindustries.website.clientarea.control.password.InterBasePasswordSetterCompletedAction"
-        >
-            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/control/password/interbase-password-setter.jsp" redirect="false" />
-            <forward name="input" module="" path="/WEB-INF/jsp/clientarea/control/password/interbase-password-setter.jsp" redirect="false" />
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/control/password/interbase-password-setter.jsp" redirect="false" />
         </action>
         <action
             path="/password/linux-account-password-setter"

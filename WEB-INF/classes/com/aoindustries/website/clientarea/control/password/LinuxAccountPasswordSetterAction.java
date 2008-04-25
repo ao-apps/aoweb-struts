@@ -54,7 +54,7 @@ public class LinuxAccountPasswordSetterAction extends PermissionAction {
                 Username un = la.getUsername();
                 packages.add(un.getPackage().getName());
                 usernames.add(un.getUsername());
-                aoServers.add(lsa.getAOServer().getServer().getHostname());
+                aoServers.add(lsa.getAOServer().getHostname());
                 newPasswords.add("");
                 confirmPasswords.add("");
             }
