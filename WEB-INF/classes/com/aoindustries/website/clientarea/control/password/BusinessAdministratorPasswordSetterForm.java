@@ -32,6 +32,7 @@ public class BusinessAdministratorPasswordSetterForm extends ActionForm implemen
     private List<String> newPasswords;
     private List<String> confirmPasswords;
 
+    @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         super.reset(mapping, request);
         setPackages(new AutoGrowArrayList<String>());
@@ -72,6 +73,7 @@ public class BusinessAdministratorPasswordSetterForm extends ActionForm implemen
         this.confirmPasswords = confirmPasswords;
     }
     
+    @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = super.validate(mapping, request);
         if(errors==null) errors = new ActionErrors();
