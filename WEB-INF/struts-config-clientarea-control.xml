@@ -7,6 +7,7 @@
 <struts-config>
     <!-- ========== Form Bean Definitions =================================== -->
     <form-beans>
+        <form-bean name="cancelFeedbackForm" type="com.aoindustries.website.clientarea.control.business.CancelFeedbackForm" />
         <form-bean name="passwordEvaluatorForm" type="com.aoindustries.website.clientarea.control.password.PasswordEvaluatorForm" />
         <form-bean name="businessAdministratorPasswordSetterForm" type="com.aoindustries.website.clientarea.control.password.BusinessAdministratorPasswordSetterForm" />
         <form-bean name="linuxAccountPasswordSetterForm" type="com.aoindustries.website.clientarea.control.password.LinuxAccountPasswordSetterForm" />
@@ -34,6 +35,35 @@
             type="com.aoindustries.website.HttpAction"
         >
             <forward name="success" module="" path="/WEB-INF/jsp/clientarea/control/index.jsp" redirect="false" />
+        </action>
+        <action
+            path="/business/cancel"
+            type="com.aoindustries.website.clientarea.control.business.CancelAction"
+        >
+            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/control/business/cancel.jsp" redirect="false" />
+            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/control/business/cancel.jsp" redirect="false" />
+        </action>
+        <action
+            path="/business/cancel-feedback"
+            name="cancelFeedbackForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.clientarea.control.business.CancelFeedbackAction"
+        >
+            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/control/business/cancel-feedback.jsp" redirect="false" />
+            <forward name="invalid-business" path="/business/cancel.do" redirect="true" />
+            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/control/business/cancel-feedback.jsp" redirect="false" />
+        </action>
+        <action
+            path="/business/cancel-feedback-completed"
+            name="cancelFeedbackForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.clientarea.control.business.CancelFeedbackCompletedAction"
+        >
+            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/control/business/cancel-feedback-completed.jsp" redirect="false" />
+            <forward name="invalid-business" path="/business/cancel.do" redirect="true" />
+            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/control/business/cancel-feedback-completed.jsp" redirect="false" />
         </action>
         <action
             path="/monitor/mysql-replication-monitor"
