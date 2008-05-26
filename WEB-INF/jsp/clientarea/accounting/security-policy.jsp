@@ -12,7 +12,10 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
 <%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
 
-<bean:message bundle="/clientarea/accounting/ApplicationResources" key="securityPolicy.securityNotice.title"/>
-<hr>
-<%-- Should make a per-provider notice based on root-level business --%>
-<bean:message bundle="/clientarea/accounting/ApplicationResources" key="securityPolicy.securityNotice.body"/>
+<br>
+<skin:lightArea width="500">
+    <bean:message bundle="/clientarea/accounting/ApplicationResources" key="securityPolicy.securityNotice.title"/>
+    <hr>
+    <%-- Should make a per-provider notice based on root-level business --%>
+    <bean:message bundle="/clientarea/accounting/ApplicationResources" key="securityPolicy.securityNotice.body"/>
+</skin:lightArea>

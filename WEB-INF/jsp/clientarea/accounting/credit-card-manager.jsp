@@ -154,10 +154,8 @@
                                     </tr>
                                 </logic:iterate>
                             </table>
-                        </skin:lightArea><br>
-                        <skin:lightArea width="500">
-                            <%@ include file="security-policy.jsp" %>
                         </skin:lightArea>
+                        <%@ include file="security-policy.jsp" %>
                     </skin:popupGroup>
                 </logic:notPresent>
             </skin:contentLine>

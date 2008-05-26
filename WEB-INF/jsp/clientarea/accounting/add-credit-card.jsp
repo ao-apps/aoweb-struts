@@ -44,10 +44,8 @@
                                     <tr><td nowrap colspan="4" align="center"><html:submit><bean:message bundle="/clientarea/accounting/ApplicationResources" key="addCreditCard.field.submit.label"/></html:submit></td></tr>
                                 </table>
                             </skin:lightArea>
-                        </html:form><br>
-                        <skin:lightArea width="500">
-                            <%@ include file="security-policy.jsp" %>
-                        </skin:lightArea>
+                        </html:form>
+                        <%@ include file="security-policy.jsp" %>
                     </skin:popupGroup>
                 </logic:notPresent>
             </skin:contentLine>
