@@ -6,12 +6,9 @@ package com.aoindustries.website;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.util.ErrorPrinter;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Locale;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,6 +43,8 @@ abstract public class AuthenticatedAction extends HttpsAction {
         if(aoConn==null) {
             String target = request.getRequestURL().toString();
             if(!target.endsWith("/login.do")) {
+                String queryString = request.getQueryString();
+                if(queryString!=null) target = target+'?'+queryString;
                 request.getSession().setAttribute(Constants.AUTHENTICATION_TARGET, target);
             } else {
                 request.getSession().removeAttribute(Constants.AUTHENTICATION_TARGET);

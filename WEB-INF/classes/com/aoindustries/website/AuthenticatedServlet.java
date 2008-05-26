@@ -32,6 +32,8 @@ abstract public class AuthenticatedServlet extends HttpServlet {
             // Save target for later
             String target = request.getRequestURL().toString();
             if(!target.endsWith("/login.do")) {
+                String queryString = request.getQueryString();
+                if(queryString!=null) target = target+'?'+queryString;
                 request.getSession().setAttribute(Constants.AUTHENTICATION_TARGET, target);
             } else {
                 request.getSession().removeAttribute(Constants.AUTHENTICATION_TARGET);
