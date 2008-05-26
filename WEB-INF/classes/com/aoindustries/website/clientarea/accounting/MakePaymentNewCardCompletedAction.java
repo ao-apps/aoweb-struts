@@ -1,19 +1,17 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007 by AO Industries, Inc.,
+ * Copyright 2007-2008 by AO Industries, Inc.,
  * 816 Azalea Rd, Mobile, Alabama, 36693, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.aoserv.client.PaymentType;
 import com.aoindustries.aoserv.client.TransactionType;
 import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.BusinessGroup;
-import com.aoindustries.aoserv.creditcards.CreditCardFactory;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.creditcards.AuthorizationResult;
 import com.aoindustries.creditcards.CreditCardProcessor;
@@ -21,19 +19,14 @@ import com.aoindustries.creditcards.Transaction;
 import com.aoindustries.creditcards.TransactionRequest;
 import com.aoindustries.creditcards.TransactionResult;
 import com.aoindustries.sql.SQLUtility;
-import com.aoindustries.website.HttpsAction;
 import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -47,6 +40,7 @@ import org.apache.struts.util.MessageResources;
  */
 public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction {
 
+    @Override
     final public ActionForward execute(
         ActionMapping mapping,
         ActionForm form,

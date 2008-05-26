@@ -32,6 +32,10 @@ final public class SignupBillingInformationActionHelper {
     private SignupBillingInformationActionHelper() {}
 
     public static void setRequestAttributes(HttpServletRequest request) {
+        setBillingExpirationYearsRequestAttribute(request);
+    }
+    
+    public static void setBillingExpirationYearsRequestAttribute(HttpServletRequest request) {
         // Build the list of years
         List<String> billingExpirationYears = new ArrayList<String>(12);
         int startYear = Calendar.getInstance().get(Calendar.YEAR);

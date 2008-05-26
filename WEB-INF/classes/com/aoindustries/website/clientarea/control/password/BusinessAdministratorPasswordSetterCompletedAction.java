@@ -8,11 +8,9 @@ package com.aoindustries.website.clientarea.control.password;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
-import com.aoindustries.aoserv.client.Username;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.Skin;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +26,7 @@ import org.apache.struts.action.ActionMessages;
  */
 public class BusinessAdministratorPasswordSetterCompletedAction extends AuthenticatedAction {
 
+    @Override
     public ActionForward execute(
         ActionMapping mapping,
         ActionForm form,

@@ -166,7 +166,7 @@ public class SignupBillingInformationForm extends ActionForm implements Serializ
         if(GenericValidator.isBlankOrNull(billingCardholderName)) errors.add("billingCardholderName", new ActionMessage("signupBillingInformationForm.billingCardholderName.required"));
         if(GenericValidator.isBlankOrNull(billingCardNumber)) {
             errors.add("billingCardNumber", new ActionMessage("signupBillingInformationForm.billingCardNumber.required"));
-        } else if(!GenericValidator.isCreditCard(numbersOnly(billingCardNumber))) {
+        } else if(!GenericValidator.isCreditCard(CreditCard.numbersOnly(billingCardNumber))) {
             errors.add("billingCardNumber", new ActionMessage("signupBillingInformationForm.billingCardNumber.invalid"));
         }
         if(
