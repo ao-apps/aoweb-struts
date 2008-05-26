@@ -57,11 +57,12 @@ abstract public class Skin {
      */
     public String getHttpsUrlBase(HttpServletRequest req) throws JspException {
         int port = req.getServerPort();
+        String contextPath = req.getSession().getServletContext().getContextPath();
         if(port!=80 && port!=443) {
             // Non-ssl development area
-            return "https://"+req.getServerName()+":8443/";
+            return "https://"+req.getServerName()+":11257"+contextPath+"/";
         } else {
-            return "https://"+req.getServerName()+"/";
+            return "https://"+req.getServerName()+contextPath+"/";
         }
     }
 
@@ -70,11 +71,12 @@ abstract public class Skin {
      */
     public String getHttpUrlBase(HttpServletRequest req) throws JspException {
         int port = req.getServerPort();
+        String contextPath = req.getSession().getServletContext().getContextPath();
         if(port!=80 && port!=443) {
             // Non-ssl development area
-            return "http://"+req.getServerName()+":8081/";
+            return "http://"+req.getServerName()+":11156"+contextPath+"/";
         } else {
-            return "http://"+req.getServerName()+"/";
+            return "http://"+req.getServerName()+contextPath+"/";
         }
     }
 
