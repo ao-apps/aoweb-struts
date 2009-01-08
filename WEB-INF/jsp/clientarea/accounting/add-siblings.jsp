@@ -5,11 +5,11 @@
 --%>
 <%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
 
-<skin:addSibling useEncryption="true" path="/clientarea/accounting/AccountHistory.ao">
+<%--skin:addSibling useEncryption="true" path="/clientarea/accounting/AccountHistory.ao">
     <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="accountHistory.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="accountHistory.navImageAlt"/></skin:navImageAlt>
     <skin:description><bean:message bundle="/clientarea/accounting/ApplicationResources" key="accountHistory.description"/></skin:description>
-</skin:addSibling>
+</skin:addSibling--%>
 <skin:addSibling useEncryption="true" path="/clientarea/accounting/credit-card-manager.do">
     <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.navImageAlt"/></skin:navImageAlt>

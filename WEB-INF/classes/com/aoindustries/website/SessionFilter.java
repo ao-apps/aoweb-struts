@@ -14,6 +14,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Shared the sessionid cookie between HTTP and HTTPS servers.
@@ -40,8 +41,20 @@ public class SessionFilter implements Filter {
         SessionResponseWrapper myresponse = new SessionResponseWrapper(httpRequest, (HttpServletResponse)response);
         SessionRequestWrapper myrequest = new SessionRequestWrapper(httpRequest, myresponse);
         chain.doFilter(myrequest, myresponse);
+        // TODO: Could improve the efficiency by removing temporary sessions proactively here
+        /*
+        // The only time we keep the session data is when the user is logged-in or supports cookie-based sessions
+        HttpSession session = myrequest.getSession(false);
+        if(session!=null) {
+            if(session.isNew()...
+            try {
+                session.invalidate();
+            } catch(IllegalStateException err) {
+                // Ignore this because the session could have been already invalidated
+            }
+        }*/
     }
-    
+
     public void destroy() {
     }
 }

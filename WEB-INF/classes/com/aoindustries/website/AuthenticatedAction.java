@@ -30,6 +30,7 @@ import org.apache.struts.action.ActionMapping;
  */
 abstract public class AuthenticatedAction extends HttpsAction {
 
+    @Override
     final public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,

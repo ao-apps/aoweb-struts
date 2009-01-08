@@ -16,7 +16,7 @@
 <%
     // Set locale request attribute if not yet done
     if(request.getAttribute(com.aoindustries.website.Constants.LOCALE)==null) {
-        java.util.Locale locale = com.aoindustries.website.LocaleAction.getEffectiveLocale(request, response);
+        java.util.Locale locale = com.aoindustries.website.LocaleAction.getEffectiveLocale(request);
         request.setAttribute(com.aoindustries.website.Constants.LOCALE, locale);
     }
 

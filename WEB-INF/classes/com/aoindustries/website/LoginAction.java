@@ -25,6 +25,7 @@ import org.apache.struts.action.ActionMapping;
  */
 public class LoginAction extends HttpsAction {
 
+    @Override
     public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,

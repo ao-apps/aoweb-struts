@@ -93,10 +93,10 @@ public class SiteSettings {
     public List<Skin.Language> getLanguages(HttpServletRequest req) throws JspException {
         HttpSession session = req.getSession();
         Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-        if(locale==null) locale = Locale.getDefault();
+        if(locale==null) locale = LocaleAction.getDefaultLocale(req);
         boolean isUnitedStates = locale.getCountry().equals(Locale.US.getCountry());
         MessageResources applicationResources = (MessageResources)req.getAttribute("/ApplicationResources");
-        
+
         List<Skin.Language> languages = new ArrayList<Skin.Language>(2);
         if(isUnitedStates) {
             languages.add(

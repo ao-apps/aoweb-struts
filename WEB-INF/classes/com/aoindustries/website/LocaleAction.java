@@ -5,10 +5,12 @@ package com.aoindustries.website;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.JspException;
 import org.apache.struts.Globals;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -35,31 +37,66 @@ public class LocaleAction extends Action {
         HttpServletResponse response
     ) throws Exception {
         // Resolve the locale
-        Locale locale = getEffectiveLocale(request, response);
+        Locale locale = getEffectiveLocale(request);
         request.setAttribute(Constants.LOCALE, locale);
 
         return execute(mapping, form, request, response, locale);
     }
 
     /**
-     * Gets the effective locale for the request.
+     * Gets the effective locale for the request.  If the requested language is not
+     * one of the enabled languages for this site, will set to the default language
+     * (the first in the language list).  Also allows the parameter "language" to
+     * override the current settings.
      */
-    public static Locale getEffectiveLocale(HttpServletRequest request, HttpServletResponse response) {
+    public static Locale getEffectiveLocale(HttpServletRequest request) throws JspException {
         HttpSession session = request.getSession();
+        SiteSettings siteSettings = SiteSettings.getInstance(session.getServletContext());
+        List<Skin.Language> languages = siteSettings.getLanguages(request);
         Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-        String language=request.getParameter("language");
+        String language = request.getParameter("language");
         if(language!=null && (language=language.trim()).length()>0) {
-            if(Locale.ENGLISH.getLanguage().equals(language)) {
-                locale = new Locale(Locale.ENGLISH.getLanguage(), locale.getCountry(), locale.getVariant());
-                session.setAttribute(Globals.LOCALE_KEY, locale);
-                //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
-            } else if(Locale.JAPANESE.getLanguage().equals(language)) {
-                locale = new Locale(Locale.JAPANESE.getLanguage(), locale.getCountry(), locale.getVariant());
-                session.setAttribute(Globals.LOCALE_KEY, locale);
-                //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
+            // Make sure is a supported language
+            for(Skin.Language possLanguage : languages) {
+                String code = possLanguage.getCode();
+                if(code.equals(language)) {
+                    locale = locale==null ? new Locale(code) : new Locale(code, locale.getCountry(), locale.getVariant());
+                    session.setAttribute(Globals.LOCALE_KEY, locale);
+                    //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
+                    return locale;
+                }
             }
         }
+        if(locale!=null) {
+            // Make sure the language is a supported value, otherwise return the default language
+            String localeLanguage = locale.getLanguage();
+            for(Skin.Language possLanguage : languages) {
+                if(possLanguage.getCode().equals(localeLanguage)) {
+                    // Current value is from session and is OK
+                    return locale;
+                }
+            }
+        }
+        // Return the default
+        locale = getDefaultLocale(languages);
+        session.setAttribute(Globals.LOCALE_KEY, locale);
+        //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
         return locale;
+    }
+
+    /**
+     * Gets the default locale for the provided request.  The session is not
+     * set.
+     */
+    public static Locale getDefaultLocale(HttpServletRequest request) throws JspException {
+        HttpSession session = request.getSession();
+        SiteSettings siteSettings = SiteSettings.getInstance(session.getServletContext());
+        List<Skin.Language> languages = siteSettings.getLanguages(request);
+        return getDefaultLocale(languages);
+    }
+
+    private static Locale getDefaultLocale(List<Skin.Language> languages) {
+        return new Locale(languages.get(0).getCode());
     }
 
     /**

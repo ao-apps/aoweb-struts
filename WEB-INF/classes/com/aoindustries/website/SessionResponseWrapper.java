@@ -53,12 +53,12 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             } else if(url.length()>8 && (protocol=url.substring(0, 8)).equalsIgnoreCase("https://")) {
                 remaining = url.substring(8);
             } else {
-                return addNoCookieParameters(url);
+                return addNoCookieParameters(url, false);
                 //return response.encodeURL(url);
             }
             int slashPos = remaining.indexOf('/');
             if(slashPos==-1) {
-                return addNoCookieParameters(url);
+                return addNoCookieParameters(url, false);
                 //return response.encodeURL(url);
             }
             String hostPort = remaining.substring(0, slashPos);
@@ -66,7 +66,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             String host = colonPos==-1 ? hostPort : hostPort.substring(0, colonPos);
             String encoded;
             if(host.equalsIgnoreCase(request.getServerName())) {
-                encoded = protocol + hostPort + addNoCookieParameters(remaining.substring(slashPos));
+                encoded = protocol + hostPort + addNoCookieParameters(remaining.substring(slashPos), false);
                 //encoded = protocol + hostPort + response.encodeURL(remaining.substring(slashPos));
             } else {
                 // Going to an different hostname, do not add request parameters
@@ -106,12 +106,12 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             } else if(url.length()>8 && (protocol=url.substring(0, 8)).equalsIgnoreCase("https://")) {
                 remaining = url.substring(8);
             } else {
-                return addNoCookieParameters(url);
+                return addNoCookieParameters(url, true);
                 //return response.encodeRedirectURL(url);
             }
             int slashPos = remaining.indexOf('/');
             if(slashPos==-1) {
-                return addNoCookieParameters(url);
+                return addNoCookieParameters(url, true);
                 //return response.encodeRedirectURL(url);
             }
             String hostPort = remaining.substring(0, slashPos);
@@ -119,7 +119,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             String host = colonPos==-1 ? hostPort : hostPort.substring(0, colonPos);
             String encoded;
             if(host.equalsIgnoreCase(request.getServerName())) {
-                encoded = protocol + hostPort + addNoCookieParameters(remaining.substring(slashPos));
+                encoded = protocol + hostPort + addNoCookieParameters(remaining.substring(slashPos), true);
                 //encoded = protocol + hostPort + response.encodeRedirectURL(remaining.substring(slashPos));
             } else {
                 // Going to an different hostname, do not add request parameters
@@ -148,12 +148,13 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
     /**
      * Adds the no cookie parameters (language and layout) if needed and not already set.
      */
-    private String addNoCookieParameters(String url) throws JspException, UnsupportedEncodingException {
+    private String addNoCookieParameters(String url, boolean isRedirect) throws JspException, UnsupportedEncodingException {
         HttpSession session = request.getSession();
-        if(session.isNew()) {
+        if(session.isNew() || request.isRequestedSessionIdFromURL()) {
             // Don't add for certains file types
             int pos = url.indexOf('?');
             String lowerPath = (pos==-1 ? url : url.substring(0, pos)).toLowerCase(Locale.ENGLISH);
+            //System.err.println("DEBUG: addNoCookieParameters: lowerPath="+lowerPath);
             if(
                 !lowerPath.endsWith(".css")
                 && !lowerPath.endsWith(".gif")
@@ -164,17 +165,32 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                 && !lowerPath.endsWith(".png")
                 && !lowerPath.endsWith(".txt")
             ) {
+                // Use the default servlet container jsessionid when the user is authenticated
+                if(session.getAttribute(Constants.AUTHENTICATED_AO_CONN)!=null) {
+                    return isRedirect ? response.encodeRedirectURL(url) : response.encodeURL(url);
+                }
+                // Add the Constants.AUTHENTICATION_TARGET if needed
+                String authenticationTarget = (String)session.getAttribute(Constants.AUTHENTICATION_TARGET);
+                if(authenticationTarget==null) authenticationTarget = request.getParameter(Constants.AUTHENTICATION_TARGET);
+                //System.err.println("DEBUG: addNoCookieParameters: authenticationTarget="+authenticationTarget);
+                if(authenticationTarget!=null) url = addParamIfMissing(url, Constants.AUTHENTICATION_TARGET, authenticationTarget);
+
                 // Only add the language if there is more than one possibility
                 SiteSettings settings = SiteSettings.getInstance(session.getServletContext());
                 List<Skin.Language> languages = settings.getLanguages(request);
                 if(languages.size()>1) {
                     Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-                    if(locale==null) locale = Locale.getDefault();
-                    String code = locale.getLanguage();
-                    for(Skin.Language language : languages) {
-                        if(language.getCode().equals(code)) {
-                            url = addParamIfMissing(url, "language", code);
-                            break;
+                    if(locale!=null) {
+                        String code = locale.getLanguage();
+                        // Don't add if is the default language
+                        Locale defaultLocale = LocaleAction.getDefaultLocale(request);
+                        if(!code.equals(defaultLocale.getLanguage())) {
+                            for(Skin.Language language : languages) {
+                                if(language.getCode().equals(code)) {
+                                    url = addParamIfMissing(url, "language", code);
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
@@ -183,10 +199,15 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                 if(skins.size()>1) {
                     String layout = (String)session.getAttribute(Constants.LAYOUT);
                     if(layout!=null) {
-                        for(Skin skin : skins) {
-                            if(skin.getName().equals(layout)) {
-                                url = addParamIfMissing(url, "layout", layout);
-                                break;
+                        // Don't add if is the default layout
+                        Skin defaultSkin = SkinAction.getDefaultSkin(skins, request);
+                        if(!layout.equals(defaultSkin.getName())) {
+                            // Make sure it is one of the allowed skins
+                            for(Skin skin : skins) {
+                                if(skin.getName().equals(layout)) {
+                                    url = addParamIfMissing(url, "layout", layout);
+                                    break;
+                                }
                             }
                         }
                     }

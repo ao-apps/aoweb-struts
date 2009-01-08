@@ -61,7 +61,8 @@ public class LoginCompletedAction extends HttpsAction {
                 //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
 
                 // Try redirect
-                String target = (String)session.getAttribute(Constants.AUTHENTICATION_TARGET);
+                String target = (String)session.getAttribute(Constants.AUTHENTICATION_TARGET);   // Get from session
+                if(target==null) target = request.getParameter(Constants.AUTHENTICATION_TARGET); // With no cookies will be encoded in URL
                 if(target!=null && target.length()>0) {
                     response.sendRedirect(response.encodeRedirectURL(target));
                     return null;

@@ -61,6 +61,29 @@ public class SkinAction extends LocaleAction {
     }
 
     /**
+     * Gets the default skin from the provided list for the provided request.
+     * Blackberry and Lynx will default to "Text" if in the list, otherwise
+     * the first skin is selected.
+     */
+    public static Skin getDefaultSkin(List<Skin> skins, HttpServletRequest req) {
+        // Lynx and BlackBerry default to text
+        String agent = req.getHeader("user-agent");
+        if(
+            agent!=null
+            && (
+                agent.toLowerCase().indexOf("lynx") != -1
+                || agent.startsWith("BlackBerry")
+            )
+        ) {
+            for(Skin skin : skins) {
+                if(skin.getName().equals("Text")) return skin;
+            }
+        }
+        // Use the first as the default
+        return skins.get(0);
+    }
+
+    /**
      * Gets the skin for the current request.
      *
      * <ol>
@@ -92,35 +115,17 @@ public class SkinAction extends LocaleAction {
 
         // Try to reuse the currently selected skin
         layout = (String)session.getAttribute(Constants.LAYOUT);
-        if(layout==null) {
-            // Lynx and BlackBerry default to text
-            String agent = req.getHeader("user-agent");
-            if(
-                agent!=null
-                && (
-                    agent.toLowerCase().indexOf("lynx") != -1
-                    || agent.startsWith("BlackBerry")
-                )
-            ) {
-                for(Skin skin : skins) {
-                    if(skin.getName().equals("Text")) {
-                        session.setAttribute(Constants.LAYOUT, "Text");
-                        //AuthenticatedAction.makeTomcatNonSecureCookie(req, resp);
-                        return skin;
-                    }
+        if(layout!=null) {
+            // Match against possibilities
+            for(Skin skin : skins) {
+                if(skin.getName().equals(layout)) {
+                    session.setAttribute(Constants.LAYOUT, layout);
+                    //AuthenticatedAction.makeTomcatNonSecureCookie(req, resp);
+                    return skin;
                 }
             }
         }
-        // Match against possibilities
-        for(Skin skin : skins) {
-            if(skin.getName().equals(layout)) {
-                session.setAttribute(Constants.LAYOUT, layout);
-                //AuthenticatedAction.makeTomcatNonSecureCookie(req, resp);
-                return skin;
-            }
-        }
-        // Use the first as the default
-        Skin skin = skins.get(0);
+        Skin skin = getDefaultSkin(skins, req);
         session.setAttribute(Constants.LAYOUT, skin.getName());
         //AuthenticatedAction.makeTomcatNonSecureCookie(req, resp);
         return skin;

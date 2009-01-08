@@ -5,6 +5,7 @@ package com.aoindustries.website;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.util.ErrorPrinter;
 import java.io.IOException;
 import java.util.Locale;
 import javax.servlet.Filter;
@@ -14,7 +15,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.JspException;
 import org.apache.struts.Globals;
 
 /**
@@ -34,11 +37,16 @@ public class SetRequestCharacterEncodingFilter implements Filter {
         ServletResponse response,
         FilterChain chain
     ) throws IOException, ServletException {
-        HttpSession session = ((HttpServletRequest)request).getSession(false);
+        HttpServletRequest httpRequest = (HttpServletRequest)request;
+        HttpSession session = httpRequest.getSession(false);
         if(session!=null) {
-            Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-            if(locale!=null) {
-                request.setCharacterEncoding(Skin.getCharacterSet(locale));
+            try {
+                Locale locale = SkinAction.getEffectiveLocale(httpRequest); //(Locale)session.getAttribute(Globals.LOCALE_KEY);
+                if(locale!=null) {
+                    request.setCharacterEncoding(Skin.getCharacterSet(locale));
+                }
+            } catch(JspException err) {
+                ErrorPrinter.printStackTraces(err);
             }
         }
         

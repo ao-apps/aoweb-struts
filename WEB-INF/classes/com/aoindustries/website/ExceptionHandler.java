@@ -25,7 +25,14 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
 	ErrorPrinter.printStackTraces(exception);
 
         // Resolve the Locale, to be compatible with LocaleAction
-        Locale locale = LocaleAction.getEffectiveLocale(request, response);
+        Locale locale;
+        try {
+            locale = LocaleAction.getEffectiveLocale(request);
+        } catch(JspException err) {
+            ErrorPrinter.printStackTraces(err);
+            // Use default locale
+            locale = Locale.getDefault();
+        }
         request.setAttribute(Constants.LOCALE, locale);
 
         // Select Skin, to be compatible with SkinAction
