@@ -5,17 +5,12 @@ package com.aoindustries.website;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import com.aoindustries.website.skintags.PageAttributes;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
-import org.apache.struts.Globals;
-import org.apache.struts.util.MessageResources;
 
 /**
  * One look-and-feel for the website.
@@ -51,6 +46,11 @@ abstract public class Skin {
      * Gets the name of this skin.
      */
     abstract public String getName();
+
+    /**
+     * Gets the display value for this skin in the provided locale.
+     */
+    abstract public String getDisplay(HttpServletRequest req) throws JspException;
 
     /**
      * Gets the prefix for URLs for the SSL server.  This should always end with a /.
@@ -152,14 +152,19 @@ abstract public class Skin {
         private String flagOffSrc;
         private String flagWidth;
         private String flagHeight;
+        private String url;
         
-        public Language(String code, String display, String flagOnSrc, String flagOffSrc, String flagWidth, String flagHeight) {
+        /**
+         * @param url the constant URL to use or <code>null</code> to have automatically set.
+         */
+        public Language(String code, String display, String flagOnSrc, String flagOffSrc, String flagWidth, String flagHeight, String url) {
             this.code = code;
             this.display = display;
             this.flagOnSrc = flagOnSrc;
             this.flagOffSrc = flagOffSrc;
             this.flagWidth = flagWidth;
             this.flagHeight = flagHeight;
+            this.url = url;
         }
         
         public String getCode() {
@@ -185,89 +190,14 @@ abstract public class Skin {
         public String getFlagHeight() {
             return flagHeight;
         }
-    }
-
-    /**
-     * Gets the list of languages supported by this site.
-     *
-     * The flags are obtained from http://commons.wikimedia.org/wiki/National_insignia
-     *
-     * Then they are scaled to a height of 24 pixels, rendered in gimp 2.
-     *
-     * The off version is created by filling with black, opacity 25% in gimp 2.
-     */
-    public List<Language> getLanguages(HttpServletRequest req) throws JspException {
-        HttpSession session = req.getSession();
-        Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-        boolean isUnitedStates = locale.getCountry().equals(Locale.US.getCountry());
-        MessageResources applicationResources = (MessageResources)req.getAttribute("/ApplicationResources");
-        if(applicationResources==null) throw new JspException("Unable to load resources: /ApplicationResources");
-        List<Language> languages = new ArrayList<Language>(2);
-        if(isUnitedStates) {
-            languages.add(
-                new Language(
-                    Locale.ENGLISH.getLanguage(),
-                    applicationResources.getMessage(locale, "TextSkin.language.en_US.alt"),
-                    applicationResources.getMessage(locale, "TextSkin.language.en_US.flag.on.src"),
-                    applicationResources.getMessage(locale, "TextSkin.language.en_US.flag.off.src"),
-                    applicationResources.getMessage(locale, "TextSkin.language.en_US.flag.width"),
-                    applicationResources.getMessage(locale, "TextSkin.language.en_US.flag.height")
-                )
-            );
-        } else {
-            languages.add(
-                new Language(
-                    Locale.ENGLISH.getLanguage(),
-                    applicationResources.getMessage(locale, "TextSkin.language.en.alt"),
-                    applicationResources.getMessage(locale, "TextSkin.language.en.flag.on.src"),
-                    applicationResources.getMessage(locale, "TextSkin.language.en.flag.off.src"),
-                    applicationResources.getMessage(locale, "TextSkin.language.en.flag.width"),
-                    applicationResources.getMessage(locale, "TextSkin.language.en.flag.height")
-                )
-            );
-        }
-        languages.add(
-            new Language(
-                Locale.JAPANESE.getLanguage(),
-                applicationResources.getMessage(locale, "TextSkin.language.ja.alt"),
-                applicationResources.getMessage(locale, "TextSkin.language.ja.flag.on.src"),
-                applicationResources.getMessage(locale, "TextSkin.language.ja.flag.off.src"),
-                applicationResources.getMessage(locale, "TextSkin.language.ja.flag.width"),
-                applicationResources.getMessage(locale, "TextSkin.language.ja.flag.height")
-            )
-        );
-        return languages;
-    }
-
-    public static class Layout {
-        private String name;
-        private String display;
         
-        public Layout(String name, String display) {
-            this.name = name;
-            this.display = display;
+        /**
+         * Gets the absolute URL to use for this language or <code>null</code>
+         * to change language on the existing page.
+         */
+        public String getUrl() {
+            return url;
         }
-        
-        public String getName() {
-            return name;
-        }
-        
-        public String getDisplay() {
-            return display;
-        }
-    }
-
-    /**
-     * Gets the layouts supported by this site.
-     */
-    public List<Layout> getLayouts(HttpServletRequest req) throws JspException {
-        HttpSession session = req.getSession();
-        Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-        MessageResources applicationResources = (MessageResources)req.getAttribute("/ApplicationResources");
-        if(applicationResources==null) throw new JspException("Unable to load resources: /ApplicationResources");
-        List<Layout> layouts = new ArrayList<Layout>(2);
-        layouts.add(new Layout("Text", applicationResources.getMessage(locale, "TextSkin.name")));
-        return layouts;
     }
 
     /**

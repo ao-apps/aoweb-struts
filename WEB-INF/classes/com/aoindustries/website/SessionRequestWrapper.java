@@ -8,27 +8,28 @@ package com.aoindustries.website;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
  * @author  AO Industries, Inc.
  */
-public class SessionSharingRequestWrapper extends HttpServletRequestWrapper {
+public class SessionRequestWrapper extends HttpServletRequestWrapper {
 
-    final private SessionSharingResponseWrapper response;
+    final private SessionResponseWrapper response;
 
-    public SessionSharingRequestWrapper(HttpServletRequest request, SessionSharingResponseWrapper response) {
+    public SessionRequestWrapper(HttpServletRequest request, SessionResponseWrapper response) {
         super(request);
         this.response = response;
     }
 
+    @Override
     public HttpSession getSession() {
         HttpSession session = super.getSession();
         processSessionCookie(session);
         return session;
     }
 
+    @Override
     public HttpSession getSession(boolean create) {
         HttpSession session = super.getSession(create);
         processSessionCookie(session);
@@ -78,6 +79,7 @@ public class SessionSharingRequestWrapper extends HttpServletRequestWrapper {
      *
      * @see  HttpServletRequestWrapper#getRealPath(String)
      */
+    @Override
     public String getRealPath(String path) {
         return super.getRealPath(path);
     }
@@ -87,6 +89,7 @@ public class SessionSharingRequestWrapper extends HttpServletRequestWrapper {
      *
      * @see  HttpServletRequestWrapper#isRequestedSessionIdFromUrl()
      */
+    @Override
     public boolean isRequestedSessionIdFromUrl() {
         return super.isRequestedSessionIdFromUrl();
     }

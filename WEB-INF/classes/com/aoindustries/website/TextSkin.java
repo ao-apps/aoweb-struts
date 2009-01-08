@@ -9,12 +9,12 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.website.skintags.Page;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.aoindustries.website.skintags.PageAttributes;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -28,8 +28,28 @@ import org.apache.struts.util.MessageResources;
  */
 public class TextSkin extends Skin {
 
+    /**
+     * Reuse a single instance, not synchronized because if more than one is
+     * made no big deal.
+     */
+    private static TextSkin instance;
+    public static TextSkin getInstance() {
+        if(instance==null) instance = new TextSkin();
+        return instance;
+    }
+
+    protected TextSkin() {}
+    
     public String getName() {
         return "Text";
+    }
+
+    public String getDisplay(HttpServletRequest req) throws JspException {
+        HttpSession session = req.getSession();
+        Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
+        MessageResources applicationResources = (MessageResources)req.getAttribute("/ApplicationResources");
+        if(applicationResources==null) throw new JspException("Unable to load resources: /ApplicationResources");
+        return applicationResources.getMessage(locale, "TextSkin.name");
     }
 
     /**
@@ -88,10 +108,29 @@ public class TextSkin extends Skin {
             if(path.startsWith("/")) path=path.substring(1);
             final String fullPath = (isSecure ? httpsUrlBase : httpUrlBase) + path;
             final String encodedFullPath = resp.encodeURL(fullPath);
+            ServletContext servletContext = session.getServletContext();
+            SiteSettings settings = SiteSettings.getInstance(servletContext);
+            List<Skin> skins = settings.getSkins();
 
             out.print("  <HEAD>\n"
-                    + "    <META http-equiv='Content-Type' content='text/html; charset=");
+                    + "    <TITLE>");
+            List<Page> parents = pageAttributes.getParents();
+            for(Page parent : parents) {
+                ChainWriter.writeHtml(parent.getTitle(), out);
+                out.print(" - ");
+            }
+            ChainWriter.writeHtml(pageAttributes.getTitle(), out);
+            out.print("</TITLE>\n");
+            // If this is not the default skin, then robots noindex
+            if(!getName().equals(skins.get(0).getName())) {
+                out.print("    <META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\">\n");
+            }
+            out.print("    <META http-equiv='Content-Type' content='text/html; charset=");
             out.print(getCharacterSet(locale)); out.print("'>\n");
+            String googleVerify = settings.getGoogleVerifyContent();
+            if(googleVerify!=null) {
+                out.print("    <meta name=\"verify-v1\" content=\""); ChainWriter.writeHtmlAttribute(googleVerify, out); out.print("\" />\n");
+            }
             String keywords = pageAttributes.getKeywords();
             if(keywords!=null && keywords.length()>0) {
                 out.print("    <META name='keywords' content='"); ChainWriter.writeHtmlAttribute(keywords, out); out.print("'>\n");
@@ -107,15 +146,7 @@ public class TextSkin extends Skin {
             out.print("    <LINK rel='stylesheet' href='"); out.print(resp.encodeURL(urlBase+"textskin/global.css")); out.print("' type='text/css'>\n");
             printCssIncludes(resp, out, urlBase);
             printJavaScriptSources(resp, out, urlBase);
-            out.print("    <TITLE>");
-            List<Page> parents = pageAttributes.getParents();
-            for(Page parent : parents) {
-                ChainWriter.writeHtml(parent.getTitle(), out);
-                out.print(" - ");
-            }
-            ChainWriter.writeHtml(pageAttributes.getTitle(), out);
-            out.print("</TITLE>\n"
-                    + "    <SCRIPT type='text/javascript' language='Javascript1.1' src='");
+            out.print("    <SCRIPT type='text/javascript' language='Javascript1.1' src='");
             out.print(resp.encodeURL(urlBase + "commons-validator-1.3.1-compress.js"));
             out.print("'></SCRIPT>\n");
             printFavIcon(resp, out, urlBase);
@@ -156,46 +187,48 @@ public class TextSkin extends Skin {
             }
             out.print("          <HR>\n"
                     + "          <SPAN style='white-space: nowrap'>\n");
-            List<Layout> layouts = getLayouts(req);
-            if(layouts.size()>1) {
-                out.print("<SCRIPT language='JavaScript1.2'><!--\n");
-                if(layouts.size()>1) {
-                    out.print("  function selectLayout(layout) {\n");
-                    for(Layout layout : layouts) {
-                        out.print("    if(layout=='");
-                        out.print(layout.getName());
-                        out.print("') window.top.location.href='");
-                        ChainWriter.writeHtmlAttribute(resp.encodeURL(fullPath+"?layout="+layout.getName()), out);
-                        out.print("';\n");
-                    }
-                    out.print("  }\n");
+            if(skins.size()>1) {
+                out.print("<SCRIPT language='JavaScript1.2'><!--\n"
+                        + "  function selectLayout(layout) {\n");
+                for(Skin skin : skins) {
+                    out.print("    if(layout=='");
+                    out.print(skin.getName());
+                    out.print("') window.top.location.href='");
+                    ChainWriter.printEJ(resp.encodeURL(fullPath+"?layout="+skin.getName()), out);
+                    out.print("';\n");
                 }
-                out.print("// --></SCRIPT>\n");
-                if(layouts.size()>1) {
-                    out.print("            <FORM style='display:inline;'>\n"
-                            + "              ");
-                    out.print(applicationResources.getMessage(locale, "TextSkin.layoutPrompt"));
-                    out.print("<SELECT name='layout_selector' onChange='selectLayout(this.form.layout_selector.options[this.form.layout_selector.selectedIndex].value);'>\n");
-                    for(Layout layout : layouts) {
-                        out.print("                <OPTION value='");
-                        out.print(layout.getName());
-                        out.print('\'');
-                        if(getName().equals(layout.getName())) out.print(" selected");
-                        out.print('>');
-                        out.print(layout.getDisplay());
-                        out.print("</OPTION>\n");
-                    }
-                    out.print("              </SELECT>\n"
-                            + "            </FORM><BR>\n");
+                out.print("  }\n"
+                        + "// --></SCRIPT>\n"
+                        + "            <FORM style='display:inline;'>\n"
+                        + "              ");
+                out.print(applicationResources.getMessage(locale, "TextSkin.layoutPrompt"));
+                out.print("<SELECT name='layout_selector' onChange='selectLayout(this.form.layout_selector.options[this.form.layout_selector.selectedIndex].value);'>\n");
+                for(Skin skin : skins) {
+                    out.print("                <OPTION value='");
+                    out.print(skin.getName());
+                    out.print('\'');
+                    if(getName().equals(skin.getName())) out.print(" selected");
+                    out.print('>');
+                    out.print(skin.getDisplay(req));
+                    out.print("</OPTION>\n");
                 }
+                out.print("              </SELECT>\n"
+                        + "            </FORM><BR>\n");
             }
-            List<Language> languages = getLanguages(req);
+            List<Language> languages = settings.getLanguages(req);
             if(languages.size()>1) {
                 out.print("            ");
                 for(Language language : languages) {
+                    String url = language.getUrl();
                     if(language.getCode().equalsIgnoreCase(locale.getLanguage())) {
                         out.print("&nbsp;<A href='");
-                        ChainWriter.writeHtmlAttribute(resp.encodeURL(fullPath+(fullPath.indexOf('?')==-1 ? '?' : '&')+"language="+language.getCode()), out);
+                        ChainWriter.writeHtmlAttribute(
+                            resp.encodeURL(
+                                url==null
+                                ? (fullPath+(fullPath.indexOf('?')==-1 ? '?' : '&')+"language="+language.getCode())
+                                : url
+                            ), out
+                        );
                         out.print("'><IMG src='");
                         out.print(resp.encodeURL(urlBase + language.getFlagOnSrc()));
                         out.print("' border='1' width='");
@@ -207,7 +240,13 @@ public class TextSkin extends Skin {
                         out.print("'></A>");
                     } else {
                         out.print("&nbsp;<A href='");
-                        ChainWriter.writeHtmlAttribute(resp.encodeURL(fullPath+(fullPath.indexOf('?')==-1 ? '?' : '&')+"language="+language.getCode()), out);
+                        ChainWriter.writeHtmlAttribute(
+                            resp.encodeURL(
+                                url==null
+                                ? (fullPath+(fullPath.indexOf('?')==-1 ? '?' : '&')+"language="+language.getCode())
+                                : url
+                            ), out
+                        );
                         out.print("' onMouseOver='document.images[\"flagSelector_");
                         out.print(language.getCode());
                         out.print("\"].src=\"");

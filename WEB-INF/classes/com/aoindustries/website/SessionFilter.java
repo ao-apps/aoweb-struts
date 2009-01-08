@@ -16,9 +16,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Shared the sessionid cookie between HTTP and HTTPS servers.
+ * Also prevents the <code>;jsessionid</code> from being added for SEO purposes.
+ * If the client doesn't support cookies:
+ * <ol>
+ *   <li>If this site supports more than one language, adds a language parameter if it doesn't exist.</li>
+ *   <li>If this site supports more than one skin, adds a layout parameter if it doesn't exist.</li>
+ * </ol>
+ *
  * @author  AO Industries, Inc.
  */
-public class SessionSharingFilter implements Filter {
+public class SessionFilter implements Filter {
 
     public void init(FilterConfig config) {
     }
@@ -28,8 +36,9 @@ public class SessionSharingFilter implements Filter {
         ServletResponse response,
         FilterChain chain
     ) throws IOException, ServletException {
-        SessionSharingResponseWrapper myresponse = new SessionSharingResponseWrapper((HttpServletResponse)response, request.getServerName());
-        SessionSharingRequestWrapper myrequest = new SessionSharingRequestWrapper((HttpServletRequest)request, myresponse);
+        HttpServletRequest httpRequest = (HttpServletRequest)request;
+        SessionResponseWrapper myresponse = new SessionResponseWrapper(httpRequest, (HttpServletResponse)response);
+        SessionRequestWrapper myrequest = new SessionRequestWrapper(httpRequest, myresponse);
         chain.doFilter(myrequest, myresponse);
     }
     

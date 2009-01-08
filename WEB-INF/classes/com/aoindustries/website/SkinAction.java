@@ -7,12 +7,14 @@ package com.aoindustries.website;
  */
 import com.aoindustries.util.ErrorPrinter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.JspException;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -67,19 +69,21 @@ public class SkinAction extends LocaleAction {
      *   <li>Sets the skin from the servlet parameters for "Default".</li>
      * </ol>
      */
-    public static Skin getSkin(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp) {
-        HttpSession session = req.getSession();
-        String layout = req.getParameter("layout");
+    public static Skin getSkin(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp) throws JspException {
+        SiteSettings settings = SiteSettings.getInstance(servletContext);
+        List<Skin> skins = settings.getSkins();
 
+        String layout = req.getParameter("layout");
         // Trim and set to null if empty
         if(layout!=null && (layout=layout.trim()).length()==0) layout=null;
+        
+        HttpSession session = req.getSession();
 
         if(layout!=null) {
-            String classname = servletContext.getInitParameter(SkinAction.class.getName()+"."+layout);
-            if(classname!=null) {
-                Skin skin = getSkin(classname);
-                if(skin!=null) {
-                    session.setAttribute(Constants.LAYOUT, skin.getName());
+            // Match against possibilities
+            for(Skin skin : skins) {
+                if(skin.getName().equals(layout)) {
+                    session.setAttribute(Constants.LAYOUT, layout);
                     //AuthenticatedAction.makeTomcatNonSecureCookie(req, resp);
                     return skin;
                 }
@@ -98,19 +102,27 @@ public class SkinAction extends LocaleAction {
                     || agent.startsWith("BlackBerry")
                 )
             ) {
-                layout="Text";
-            } else {
-                layout="Default";
+                for(Skin skin : skins) {
+                    if(skin.getName().equals("Text")) {
+                        session.setAttribute(Constants.LAYOUT, "Text");
+                        //AuthenticatedAction.makeTomcatNonSecureCookie(req, resp);
+                        return skin;
+                    }
+                }
             }
-            session.setAttribute(Constants.LAYOUT, layout);
-            //AuthenticatedAction.makeTomcatNonSecureCookie(req, resp);
         }
-        // Load the layout
-        String paramName = SkinAction.class.getName()+"."+layout;
-        String classname = servletContext.getInitParameter(paramName);
-        if(classname==null) throw new IllegalArgumentException("Unable to find classname for default skin.  Please make sure you have provided the necessary <context-param>.  Looking for parameter: "+paramName);
-        Skin skin = getSkin(classname);
-        if(skin==null) throw new IllegalArgumentException("Unable to load skin for classname.  Looking for classname: "+classname);
+        // Match against possibilities
+        for(Skin skin : skins) {
+            if(skin.getName().equals(layout)) {
+                session.setAttribute(Constants.LAYOUT, layout);
+                //AuthenticatedAction.makeTomcatNonSecureCookie(req, resp);
+                return skin;
+            }
+        }
+        // Use the first as the default
+        Skin skin = skins.get(0);
+        session.setAttribute(Constants.LAYOUT, skin.getName());
+        //AuthenticatedAction.makeTomcatNonSecureCookie(req, resp);
         return skin;
     }
 
@@ -120,6 +132,7 @@ public class SkinAction extends LocaleAction {
      *
      * @see #execute(ActionMapping,ActionForm,HttpServletRequest,HttpServletResponse,Locale,Skin)
      */
+    @Override
     final public ActionForward execute(
         ActionMapping mapping,
         ActionForm form,

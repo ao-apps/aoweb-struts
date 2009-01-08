@@ -27,6 +27,7 @@ public class LocaleAction extends Action {
      *
      * @see #execute(ActionMapping,ActionForm,HttpServletRequest,HttpServletResponse,Locale)
      */
+    @Override
     final public ActionForward execute(
         ActionMapping mapping,
         ActionForm form,
