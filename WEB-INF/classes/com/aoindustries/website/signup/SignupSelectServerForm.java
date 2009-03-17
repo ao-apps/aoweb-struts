@@ -13,8 +13,8 @@ import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.RootAOServConnector;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
@@ -42,6 +42,7 @@ abstract public class SignupSelectServerForm extends ActionForm implements Seria
         this.packageDefinition = packageDefinition;
     }
 
+    @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = super.validate(mapping, request);
         if(errors==null) errors = new ActionErrors();
@@ -49,9 +50,9 @@ abstract public class SignupSelectServerForm extends ActionForm implements Seria
             boolean found = false;
 
             // Must be one of the active package_definitions
-            ActionServlet servlet = getServlet();
-            if(servlet!=null) {
-                AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servlet.getServletContext());
+            ActionServlet myServlet = getServlet();
+            if(myServlet!=null) {
+                AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(myServlet.getServletContext());
                 PackageCategory category = rootConn.packageCategories.get(getPackageCategory());
                 Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
 
@@ -62,6 +63,8 @@ abstract public class SignupSelectServerForm extends ActionForm implements Seria
             }
             return errors;
         } catch(IOException err) {
+            throw new WrappedException(err);
+        } catch(SQLException err) {
             throw new WrappedException(err);
         }
     }

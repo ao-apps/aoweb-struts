@@ -11,6 +11,7 @@ import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.RootAOServConnector;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
@@ -182,6 +183,7 @@ public class SignupTechnicalForm extends ActionForm implements Serializable {
         this.baPassword = baPassword.trim();
     }
 
+    @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = super.validate(mapping, request);
         if(errors==null) errors = new ActionErrors();
@@ -197,9 +199,9 @@ public class SignupTechnicalForm extends ActionForm implements Serializable {
             }
             if(GenericValidator.isBlankOrNull(baUsername)) errors.add("baUsername", new ActionMessage("signupTechnicalForm.baUsername.required"));
             else {
-                ActionServlet servlet = getServlet();
-                if(servlet!=null) {
-                    AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servlet.getServletContext());
+                ActionServlet myServlet = getServlet();
+                if(myServlet!=null) {
+                    AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(myServlet.getServletContext());
                     String lowerUsername = baUsername.toLowerCase();
                     String check = Username.checkUsername(lowerUsername, locale);
                     if(check!=null) errors.add("baUsername", new ActionMessage(check, false));
@@ -208,6 +210,8 @@ public class SignupTechnicalForm extends ActionForm implements Serializable {
             }
             return errors;
         } catch(IOException err) {
+            throw new WrappedException(err);
+        } catch(SQLException err) {
             throw new WrappedException(err);
         }
     }

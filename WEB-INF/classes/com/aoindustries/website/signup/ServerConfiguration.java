@@ -8,6 +8,7 @@ package com.aoindustries.website.signup;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.aoserv.client.PackageDefinitionLimit;
 import com.aoindustries.sql.SQLUtility;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class ServerConfiguration {
 
-    private static String getDiskDescription(int numDrives, PackageDefinitionLimit pdl) {
+    private static String getDiskDescription(int numDrives, PackageDefinitionLimit pdl) throws SQLException {
         if(pdl==null || numDrives==0) return null;
         String description = pdl.getResource().getDescription();
         if(numDrives==1) {
@@ -31,7 +32,7 @@ public class ServerConfiguration {
         }
     }
 
-    public static ServerConfiguration getMinimumConfiguration(PackageDefinition packageDefinition) throws SQLException {
+    public static ServerConfiguration getMinimumConfiguration(PackageDefinition packageDefinition) throws SQLException, IOException {
         List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
 
         // Calculate the total minimum monthly
@@ -212,7 +213,7 @@ public class ServerConfiguration {
         );
     }
     
-    public static ServerConfiguration getMaximumConfiguration(PackageDefinition packageDefinition) throws SQLException {
+    public static ServerConfiguration getMaximumConfiguration(PackageDefinition packageDefinition) throws SQLException, IOException {
         List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
 
         // Calculate the total maximum monthly

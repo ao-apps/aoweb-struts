@@ -10,6 +10,7 @@ import com.aoindustries.aoserv.client.CountryCode;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.website.RootAOServConnector;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -35,7 +36,7 @@ final public class SignupBusinessActionHelper {
     public static void setRequestAttributes(
         ServletContext servletContext,
         HttpServletRequest request
-    ) throws IOException {
+    ) throws IOException, SQLException {
         AOServConnector rootConn=RootAOServConnector.getRootAOServConnector(servletContext);
 
         // Build the list of countries
@@ -52,7 +53,7 @@ final public class SignupBusinessActionHelper {
      *
      * @see  RootAOServConnector
      */
-    public static List<CountryOption> getCountryOptions(AOServConnector aoConn) {
+    public static List<CountryOption> getCountryOptions(AOServConnector aoConn) throws IOException, SQLException {
         // Build the list of countries
         List<CountryOption> countryOptions = new ArrayList<CountryOption>();
         countryOptions.add(new CountryOption("", "---"));

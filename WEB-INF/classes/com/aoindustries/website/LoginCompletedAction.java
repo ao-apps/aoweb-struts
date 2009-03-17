@@ -6,18 +6,13 @@ package com.aoindustries.website;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.security.AccountDisabledException;
-import com.aoindustries.security.AccountNotFoundException;
-import com.aoindustries.security.BadPasswordException;
 import com.aoindustries.util.ErrorPrinter;
 import com.aoindustries.util.StandardErrorHandler;
-import com.aoindustries.util.WrappedException;
 import java.io.IOException;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.struts.Globals;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -49,32 +44,26 @@ public class LoginCompletedAction extends HttpsAction {
         String password = loginForm.getPassword();
 
         try {
-	    try {
-	        // Get connector
-	        AOServConnector aoConn = AOServConnector.getConnector(username, password, new StandardErrorHandler());
-	        aoConn.ping();
+            // Get connector
+            AOServConnector aoConn = AOServConnector.getConnector(username, password, new StandardErrorHandler());
+            aoConn.ping();
 
-	        // Store in session
-                HttpSession session = request.getSession();
-                session.setAttribute(Constants.AUTHENTICATED_AO_CONN, aoConn);
-	        session.setAttribute(Constants.AO_CONN, aoConn);
-                //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
+            // Store in session
+            HttpSession session = request.getSession();
+            session.setAttribute(Constants.AUTHENTICATED_AO_CONN, aoConn);
+            session.setAttribute(Constants.AO_CONN, aoConn);
+            //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
 
-                // Try redirect
-                String target = (String)session.getAttribute(Constants.AUTHENTICATION_TARGET);   // Get from session
-                if(target==null) target = request.getParameter(Constants.AUTHENTICATION_TARGET); // With no cookies will be encoded in URL
-                if(target!=null && target.length()>0) {
-                    response.sendRedirect(response.encodeRedirectURL(target));
-                    return null;
-                }
+            // Try redirect
+            String target = (String)session.getAttribute(Constants.AUTHENTICATION_TARGET);   // Get from session
+            if(target==null) target = request.getParameter(Constants.AUTHENTICATION_TARGET); // With no cookies will be encoded in URL
+            if(target!=null && target.length()>0) {
+                response.sendRedirect(response.encodeRedirectURL(target));
+                return null;
+            }
 
-                // Return success
-	        return mapping.findForward("success");
-	    } catch(WrappedException err) {
-	        Throwable wrapped = err.getCause();
-	        if(wrapped instanceof IOException) throw (IOException)wrapped;
-		throw err;
-	    }
+            // Return success
+            return mapping.findForward("success");
         } catch(IOException err) {
             ErrorPrinter.printStackTraces(err);
 	    String message=err.getMessage();

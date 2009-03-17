@@ -13,9 +13,9 @@ import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.RootAOServConnector;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
@@ -113,16 +113,17 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
         this.scsiOptions = scsiOptions;
     }
 
+    @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = super.validate(mapping, request);
         if(errors==null) errors = new ActionErrors();
         try {
-            ActionServlet servlet = getServlet();
+            ActionServlet myServlet = getServlet();
 
             // Find the connector
             AOServConnector rootConn;
-            if(servlet!=null) {
-                rootConn = RootAOServConnector.getRootAOServConnector(servlet.getServletContext());
+            if(myServlet!=null) {
+                rootConn = RootAOServConnector.getRootAOServConnector(myServlet.getServletContext());
             } else {
                 rootConn = null;
             }
@@ -183,6 +184,8 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
             }
             return errors;
         } catch(IOException err) {
+            throw new WrappedException(err);
+        } catch(SQLException err) {
             throw new WrappedException(err);
         }
     }

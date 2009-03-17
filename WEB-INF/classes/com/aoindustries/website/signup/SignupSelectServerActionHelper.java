@@ -109,7 +109,7 @@ final public class SignupSelectServerActionHelper {
         ServletContext servletContext,
         HttpServletRequest request,
         SignupSelectServerForm signupSelectServerForm
-    ) throws IOException {
+    ) throws IOException, SQLException {
         // Lookup things needed by the view
         AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servletContext);
         PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());

@@ -18,7 +18,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.sql.SQLException;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
@@ -30,7 +29,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import org.apache.commons.validator.GenericValidator;
-import org.apache.struts.Globals;
 import org.apache.struts.action.ActionServlet;
 import org.apache.struts.util.MessageResources;
 
@@ -350,6 +348,9 @@ final public class ConfirmationCompletedActionHelper {
             servlet.log("Unable to send sign up details to "+recipient, err);
             return false;
         } catch(IOException err) {
+            servlet.log("Unable to send sign up details to "+recipient, err);
+            return false;
+        } catch(SQLException err) {
             servlet.log("Unable to send sign up details to "+recipient, err);
             return false;
         } catch(MessagingException err) {

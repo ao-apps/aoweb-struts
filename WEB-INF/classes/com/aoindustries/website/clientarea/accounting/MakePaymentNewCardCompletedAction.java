@@ -346,7 +346,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
      *                   Otherwise there is a race condition between the non-root AOServConnector getting the invalidation signal
      *                   and this method being called.
      */
-    private void setAutomatic(AOServConnector rootConn, com.aoindustries.creditcards.CreditCard newCreditCard, Business business) throws SQLException {
+    private void setAutomatic(AOServConnector rootConn, com.aoindustries.creditcards.CreditCard newCreditCard, Business business) throws SQLException, IOException {
         String persistenceUniqueId = newCreditCard.getPersistenceUniqueId();
         CreditCard creditCard = rootConn.creditCards.get(Integer.parseInt(persistenceUniqueId));
         if(creditCard==null) throw new SQLException("Unable to find CreditCard: "+persistenceUniqueId);

@@ -6,12 +6,12 @@ package com.aoindustries.website.signup;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.CountryCode;
+import com.aoindustries.aoserv.client.LinuxAccountTable;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.website.RootAOServConnector;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.ServletContext;
@@ -36,7 +36,7 @@ final public class SignupTechnicalActionHelper {
         ServletContext servletContext,
         HttpServletRequest request,
         SignupTechnicalForm signupTechnicalForm
-    ) throws IOException {
+    ) throws IOException, SQLException {
         AOServConnector rootConn=RootAOServConnector.getRootAOServConnector(servletContext);
 
         // Build the list of countries
@@ -45,7 +45,7 @@ final public class SignupTechnicalActionHelper {
         // Generate random passwords, keeping the selected password at index 0
         List<String> passwords = new ArrayList<String>(16);
         if(!GenericValidator.isBlankOrNull(signupTechnicalForm.getBaPassword())) passwords.add(signupTechnicalForm.getBaPassword());
-        while(passwords.size()<16) passwords.add(rootConn.linuxAccounts.generatePassword());
+        while(passwords.size()<16) passwords.add(LinuxAccountTable.generatePassword());
 
         // Store to the request
         request.setAttribute("countryOptions", countryOptions);

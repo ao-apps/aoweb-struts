@@ -17,7 +17,6 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.ServletContext;
@@ -420,7 +419,7 @@ final public class SignupCustomizeServerActionHelper {
     /**
      * Gets the hardware monthly rate for the server, basic server + hardware options
      */
-    public static BigDecimal getHardwareMonthlyRate(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, PackageDefinition packageDefinition) {
+    public static BigDecimal getHardwareMonthlyRate(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, PackageDefinition packageDefinition) throws IOException, SQLException {
         BigDecimal monthlyRate = new BigDecimal(SQLUtility.getDecimal(packageDefinition.getMonthlyRate()));
 
         // Add the power option
@@ -497,7 +496,7 @@ final public class SignupCustomizeServerActionHelper {
         return monthlyRate;
     }
 
-    public static String getPowerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) {
+    public static String getPowerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         int powerOption = signupCustomizeServerForm.getPowerOption();
         if(powerOption==-1) return null;
         PackageDefinitionLimit powerPDL = rootConn.packageDefinitionLimits.get(powerOption);
@@ -506,21 +505,21 @@ final public class SignupCustomizeServerActionHelper {
         else return numPower + "x" + powerPDL.getResource().getDescription();
     }
 
-    public static String getCpuOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) {
+    public static String getCpuOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         PackageDefinitionLimit cpuPDL = rootConn.packageDefinitionLimits.get(signupCustomizeServerForm.getCpuOption());
         int numCpu = cpuPDL.getHardLimit();
         if(numCpu==1) return cpuPDL.getResource().getDescription().replaceAll(", ", "<br>&nbsp;&nbsp;&nbsp;&nbsp;");
         else return numCpu + "x" + cpuPDL.getResource().getDescription().replaceAll(", ", "<br>&nbsp;&nbsp;&nbsp;&nbsp;");
     }
     
-    public static String getRamOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) {
+    public static String getRamOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         PackageDefinitionLimit ramPDL = rootConn.packageDefinitionLimits.get(signupCustomizeServerForm.getRamOption());
         int numRam = ramPDL.getHardLimit();
         if(numRam==1) return ramPDL.getResource().getDescription();
         else return numRam + "x" + ramPDL.getResource().getDescription();
     }
     
-    public static String getSataControllerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) {
+    public static String getSataControllerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         int sataControllerOption = signupCustomizeServerForm.getSataControllerOption();
         if(sataControllerOption==-1) return null;
         PackageDefinitionLimit sataControllerPDL = rootConn.packageDefinitionLimits.get(sataControllerOption);
@@ -529,7 +528,7 @@ final public class SignupCustomizeServerActionHelper {
         else return numSataController + "x" + sataControllerPDL.getResource().getDescription();
     }
 
-    public static String getScsiControllerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) {
+    public static String getScsiControllerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         int scsiControllerOption = signupCustomizeServerForm.getScsiControllerOption();
         if(scsiControllerOption==-1) return null;
         PackageDefinitionLimit scsiControllerPDL = rootConn.packageDefinitionLimits.get(scsiControllerOption);
@@ -538,7 +537,7 @@ final public class SignupCustomizeServerActionHelper {
         else return numScsiController + "x" + scsiControllerPDL.getResource().getDescription();
     }
 
-    public static List<String> getIdeOptions(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) {
+    public static List<String> getIdeOptions(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         List<String> ideOptions = new ArrayList<String>();
         for(String pkey : signupCustomizeServerForm.getIdeOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
@@ -552,7 +551,7 @@ final public class SignupCustomizeServerActionHelper {
         return ideOptions;
     }
 
-    public static List<String> getSataOptions(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) {
+    public static List<String> getSataOptions(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         List<String> sataOptions = new ArrayList<String>();
         for(String pkey : signupCustomizeServerForm.getSataOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
@@ -566,7 +565,7 @@ final public class SignupCustomizeServerActionHelper {
         return sataOptions;
     }
 
-    public static List<String> getScsiOptions(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) {
+    public static List<String> getScsiOptions(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         List<String> scsiOptions = new ArrayList<String>();
         for(String pkey : signupCustomizeServerForm.getScsiOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
@@ -585,7 +584,7 @@ final public class SignupCustomizeServerActionHelper {
         HttpServletRequest request,
         SignupSelectServerForm signupSelectServerForm,
         SignupCustomizeServerForm signupCustomizeServerForm
-    ) throws IOException {
+    ) throws IOException, SQLException {
         // Lookup things needed by the view
         AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servletContext);
         PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());
@@ -611,7 +610,7 @@ final public class SignupCustomizeServerActionHelper {
         PackageDefinition packageDefinition,
         SignupCustomizeServerForm signupCustomizeServerForm,
         MessageResources signupApplicationResources
-    ) {
+    ) throws IOException, SQLException {
         String powerOption = getPowerOption(rootConn, signupCustomizeServerForm);
         if(!GenericValidator.isBlankOrNull(powerOption)) {
             emailOut.print("    <TR>\n"
@@ -689,7 +688,7 @@ final public class SignupCustomizeServerActionHelper {
     /**
      * Gets the total amount of hard drive space in gigabytes.
      */
-    public static int getTotalHardwareDiskSpace(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) {
+    public static int getTotalHardwareDiskSpace(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         if(signupCustomizeServerForm==null) return 0;
         int total = 0;
         for(String ideOption : signupCustomizeServerForm.getIdeOptions()) {
