@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import org.apache.struts.Globals;
-import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -22,7 +21,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author Dan Armstrong &lt;dan@aoindustries.com&gt;
  */
-public class LocaleAction extends Action {
+public class LocaleAction extends SiteSettingsAction {
 
     /**
      * Selects the <code>Locale</code>, sets the request attribute "locale", then the subclass execute method is invoked.
@@ -34,13 +33,14 @@ public class LocaleAction extends Action {
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
-        HttpServletResponse response
+        HttpServletResponse response,
+        SiteSettings siteSettings
     ) throws Exception {
         // Resolve the locale
-        Locale locale = getEffectiveLocale(request);
+        Locale locale = getEffectiveLocale(siteSettings, request);
         request.setAttribute(Constants.LOCALE, locale);
 
-        return execute(mapping, form, request, response, locale);
+        return execute(mapping, form, request, response, siteSettings, locale);
     }
 
     /**
@@ -49,9 +49,8 @@ public class LocaleAction extends Action {
      * (the first in the language list).  Also allows the parameter "language" to
      * override the current settings.
      */
-    public static Locale getEffectiveLocale(HttpServletRequest request) throws JspException {
+    public static Locale getEffectiveLocale(SiteSettings siteSettings, HttpServletRequest request) throws JspException {
         HttpSession session = request.getSession();
-        SiteSettings siteSettings = SiteSettings.getInstance(session.getServletContext());
         List<Skin.Language> languages = siteSettings.getLanguages(request);
         Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
         String language = request.getParameter("language");
@@ -88,15 +87,22 @@ public class LocaleAction extends Action {
      * Gets the default locale for the provided request.  The session is not
      * set.
      */
-    public static Locale getDefaultLocale(HttpServletRequest request) throws JspException {
-        HttpSession session = request.getSession();
-        SiteSettings siteSettings = SiteSettings.getInstance(session.getServletContext());
-        List<Skin.Language> languages = siteSettings.getLanguages(request);
-        return getDefaultLocale(languages);
+    public static Locale getDefaultLocale(SiteSettings siteSettings, HttpServletRequest request) throws JspException {
+        return getDefaultLocale(siteSettings.getLanguages(request));
     }
 
     private static Locale getDefaultLocale(List<Skin.Language> languages) {
         return new Locale(languages.get(0).getCode());
+    }
+
+    final public ActionForward execute(
+        ActionMapping mapping,
+        ActionForm form,
+        HttpServletRequest request,
+        HttpServletResponse response,
+        Locale locale
+    ) throws Exception {
+        throw new RuntimeException("TODO: Delete this method");
     }
 
     /**
@@ -108,6 +114,7 @@ public class LocaleAction extends Action {
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale
     ) throws Exception {
         return mapping.findForward("success");

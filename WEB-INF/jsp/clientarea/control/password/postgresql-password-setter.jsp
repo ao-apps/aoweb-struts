@@ -14,7 +14,7 @@
 <skin:setContentType/>
 <html:html lang="true">
     <skin:path>/clientarea/control/password/postgresql-password-setter.do</skin:path>
-    <skin:meta name="ROBOTS">NOINDEX</skin:meta>
+    <logic:equal name="siteSettings" property="noindexAowebStruts" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
     <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="password.postgreSQLPasswordSetter.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="password.postgreSQLPasswordSetter.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/control/ApplicationResources" key="password.postgreSQLPasswordSetter.keywords"/></skin:keywords>

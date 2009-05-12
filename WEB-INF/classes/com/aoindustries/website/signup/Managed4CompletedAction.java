@@ -5,12 +5,11 @@ package com.aoindustries.website.signup;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
@@ -19,10 +18,12 @@ import org.apache.struts.action.ActionMapping;
  */
 public class Managed4CompletedAction extends Managed4Action {
 
+    @Override
     public ActionForward executeManagedStep(
         ActionMapping mapping,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         SignupSelectServerForm signupSelectServerForm,
@@ -71,6 +72,7 @@ public class Managed4CompletedAction extends Managed4Action {
     /**
      * Errors are not cleared for the complete step.
      */
+    @Override
     protected void clearErrors(HttpServletRequest req) {
         // Do nothing
     }

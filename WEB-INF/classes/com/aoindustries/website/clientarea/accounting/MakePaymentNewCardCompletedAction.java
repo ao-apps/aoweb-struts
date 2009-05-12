@@ -20,6 +20,7 @@ import com.aoindustries.creditcards.TransactionRequest;
 import com.aoindustries.creditcards.TransactionResult;
 import com.aoindustries.sql.SQLUtility;
 import com.aoindustries.website.RootAOServConnector;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -46,6 +47,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn

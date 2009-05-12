@@ -11,11 +11,10 @@ import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.PostgresServer;
 import com.aoindustries.aoserv.client.PostgresServerUser;
 import com.aoindustries.aoserv.client.Server;
-import com.aoindustries.aoserv.client.Username;
 import com.aoindustries.website.PermissionAction;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -32,11 +31,13 @@ import org.apache.struts.action.ActionMessages;
  */
 public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
 
+    @Override
     public ActionForward executePermissionGranted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn

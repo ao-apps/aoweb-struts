@@ -12,6 +12,7 @@ import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.creditcards.CreditCardProcessor;
 import com.aoindustries.website.RootAOServConnector;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.sql.SQLException;
 import java.util.Locale;
@@ -21,7 +22,6 @@ import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
 /**
@@ -31,11 +31,13 @@ import org.apache.struts.action.ActionMessages;
  */
 public class AddCreditCardCompletedAction extends AddCreditCardAction {
 
+    @Override
     public ActionForward executePermissionGranted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn

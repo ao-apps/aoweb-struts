@@ -14,7 +14,7 @@
 <skin:setContentType/>
 <html:html lang="true">
     <skin:path>/clientarea/accounting/add-credit-card-completed.do</skin:path>
-    <skin:meta name="ROBOTS">NOINDEX</skin:meta>
+    <logic:equal name="siteSettings" property="noindexAowebStruts" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
     <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="addCreditCardCompleted.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="addCreditCardCompleted.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/accounting/ApplicationResources" key="addCreditCardCompleted.keywords"/></skin:keywords>

@@ -6,6 +6,7 @@ package com.aoindustries.website.signup;
  * All rights reserved.
  */
 import com.aoindustries.website.HttpsAction;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -24,11 +25,13 @@ abstract public class VirtualDedicatedStepAction extends HttpsAction {
     /**
      * Initializes the step details.
      */
+    @Override
     final public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin
     ) throws Exception {
@@ -80,6 +83,7 @@ abstract public class VirtualDedicatedStepAction extends HttpsAction {
             mapping,
             request,
             response,
+            siteSettings,
             locale,
             skin,
             signupSelectServerForm,
@@ -113,10 +117,31 @@ abstract public class VirtualDedicatedStepAction extends HttpsAction {
         return false;
     }
 
+    final public ActionForward executeVirtualDedicatedStep(
+        ActionMapping mapping,
+        HttpServletRequest request,
+        HttpServletResponse response,
+        Locale locale,
+        Skin skin,
+        SignupSelectServerForm signupSelectServerForm,
+        boolean signupSelectServerFormComplete,
+        SignupCustomizeServerForm signupCustomizeServerForm,
+        boolean signupCustomizeServerFormComplete,
+        SignupBusinessForm signupBusinessForm,
+        boolean signupBusinessFormComplete,
+        SignupTechnicalForm signupTechnicalForm,
+        boolean signupTechnicalFormComplete,
+        SignupBillingInformationForm signupBillingInformationForm,
+        boolean signupBillingInformationFormComplete
+    ) throws Exception {
+        throw new RuntimeException("TODO: Delete this method");
+    }
+
     public abstract ActionForward executeVirtualDedicatedStep(
         ActionMapping mapping,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         SignupSelectServerForm signupSelectServerForm,

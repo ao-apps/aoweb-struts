@@ -6,6 +6,7 @@ package com.aoindustries.website.signup;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.PackageCategory;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ public class ManagedAction extends ManagedStepAction {
         ActionMapping mapping,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         SignupSelectServerForm signupSelectServerForm,

@@ -176,14 +176,14 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                 if(authenticationTarget!=null) url = addParamIfMissing(url, Constants.AUTHENTICATION_TARGET, authenticationTarget);
 
                 // Only add the language if there is more than one possibility
-                SiteSettings settings = SiteSettings.getInstance(session.getServletContext());
-                List<Skin.Language> languages = settings.getLanguages(request);
+                SiteSettings siteSettings = SiteSettings.getInstance(session.getServletContext());
+                List<Skin.Language> languages = siteSettings.getLanguages(request);
                 if(languages.size()>1) {
                     Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
                     if(locale!=null) {
                         String code = locale.getLanguage();
                         // Don't add if is the default language
-                        Locale defaultLocale = LocaleAction.getDefaultLocale(request);
+                        Locale defaultLocale = LocaleAction.getDefaultLocale(siteSettings, request);
                         if(!code.equals(defaultLocale.getLanguage())) {
                             for(Skin.Language language : languages) {
                                 if(language.getCode().equals(code)) {
@@ -195,7 +195,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                     }
                 }
                 // Only add the layout if there is more than one possibility
-                List<Skin> skins = settings.getSkins();
+                List<Skin> skins = siteSettings.getSkins();
                 if(skins.size()>1) {
                     String layout = (String)session.getAttribute(Constants.LAYOUT);
                     if(layout!=null) {

@@ -6,7 +6,6 @@ package com.aoindustries.website.clientarea.accounting;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.aoserv.client.PaymentType;
@@ -20,13 +19,12 @@ import com.aoindustries.creditcards.CreditCardProcessor;
 import com.aoindustries.creditcards.Transaction;
 import com.aoindustries.creditcards.TransactionRequest;
 import com.aoindustries.sql.SQLUtility;
-import com.aoindustries.website.HttpsAction;
 import com.aoindustries.website.RootAOServConnector;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -44,11 +42,13 @@ import org.apache.struts.util.MessageResources;
  */
 public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardAction {
 
+    @Override
     final public ActionForward executePermissionGranted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn

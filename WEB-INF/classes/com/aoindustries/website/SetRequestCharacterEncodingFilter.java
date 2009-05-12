@@ -15,10 +15,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
-import org.apache.struts.Globals;
 
 /**
  * Sets the request encoding based on the users locale stored in their session.  If
@@ -41,7 +39,8 @@ public class SetRequestCharacterEncodingFilter implements Filter {
         HttpSession session = httpRequest.getSession(false);
         if(session!=null) {
             try {
-                Locale locale = SkinAction.getEffectiveLocale(httpRequest); //(Locale)session.getAttribute(Globals.LOCALE_KEY);
+                SiteSettings siteSettings = SiteSettings.getInstance(session.getServletContext());
+                Locale locale = SkinAction.getEffectiveLocale(siteSettings, httpRequest); //(Locale)session.getAttribute(Globals.LOCALE_KEY);
                 if(locale!=null) {
                     request.setCharacterEncoding(Skin.getCharacterSet(locale));
                 }

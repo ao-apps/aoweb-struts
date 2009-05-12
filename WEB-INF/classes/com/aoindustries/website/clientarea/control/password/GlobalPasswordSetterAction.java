@@ -7,22 +7,18 @@ package com.aoindustries.website.clientarea.control.password;
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
-import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.Username;
-import com.aoindustries.website.Constants;
 import com.aoindustries.website.PermissionAction;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessages;
 
 /**
  * Prepares for business administrator password setting.  Populates lists in globalPasswordSetterForm.
@@ -31,11 +27,13 @@ import org.apache.struts.action.ActionMessages;
  */
 public class GlobalPasswordSetterAction extends PermissionAction {
 
+    @Override
     public ActionForward executePermissionGranted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn

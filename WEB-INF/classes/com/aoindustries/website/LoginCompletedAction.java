@@ -24,11 +24,13 @@ import org.apache.struts.util.MessageResources;
  */
 public class LoginCompletedAction extends HttpsAction {
 
+    @Override
     public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin
     ) throws Exception {

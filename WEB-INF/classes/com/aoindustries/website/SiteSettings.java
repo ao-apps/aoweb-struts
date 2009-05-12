@@ -132,4 +132,11 @@ public class SiteSettings {
     public String getGoogleVerifyContent() {
         return null;
     }
+
+    /**
+     * If true (the default), all of the common aoweb-struts content will have ROBOTS NOINDEX.
+     */
+    public boolean getNoindexAowebStruts() {
+        return true;
+    }
 }

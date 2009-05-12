@@ -49,6 +49,11 @@ public class Constants {
     public static final String SKIN = "skin";
 
     /**
+     * The request key used to store the current <code>SiteSettings</code>.
+     */
+    public static final String SITE_SETTINGS = "siteSettings";
+
+    /**
      * The request key used to store the current <code>Locale</code>.
      */
     public static final String LOCALE = "locale";

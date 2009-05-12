@@ -7,6 +7,7 @@ package com.aoindustries.website.clientarea.control.password;
  */
 import com.aoindustries.aoserv.client.PasswordChecker;
 import com.aoindustries.website.HttpsAction;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class PasswordEvaluatorCompletedAction extends HttpsAction {
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin
     ) throws Exception {

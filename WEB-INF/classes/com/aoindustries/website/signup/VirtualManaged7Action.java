@@ -5,25 +5,16 @@ package com.aoindustries.website.signup;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.PackageDefinition;
-import com.aoindustries.aoserv.client.PackageDefinitionLimit;
-import com.aoindustries.sql.SQLUtility;
-import com.aoindustries.website.RootAOServConnector;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessages;
 
 /**
  * @author  AO Industries, Inc.
@@ -34,6 +25,7 @@ public class VirtualManaged7Action extends VirtualManagedStepAction {
         ActionMapping mapping,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         SignupSelectServerForm signupSelectServerForm,

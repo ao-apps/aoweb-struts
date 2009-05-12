@@ -10,6 +10,7 @@ import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.Username;
 import com.aoindustries.website.AuthenticatedAction;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessages;
 
 /**
  * Prepares for business administrator password setting.  Populates lists in businessAdministratorPasswordSetterForm.
@@ -29,11 +29,13 @@ import org.apache.struts.action.ActionMessages;
  */
 public class BusinessAdministratorPasswordSetterAction extends AuthenticatedAction {
 
+    @Override
     public ActionForward execute(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn

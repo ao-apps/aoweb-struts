@@ -14,7 +14,7 @@
 <skin:setContentType/>
 <html:html lang="true">
     <skin:path>/clientarea/index.do</skin:path>
-    <skin:meta name="ROBOTS">NOINDEX</skin:meta>
+    <logic:equal name="siteSettings" property="noindexAowebStruts" value="true"><logic:equal name="siteSettings" property="noindexAowebStruts" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal></logic:equal>
     <skin:title><bean:message bundle="/clientarea/ApplicationResources" key="index.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/ApplicationResources" key="index.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/ApplicationResources" key="index.keywords"/></skin:keywords>

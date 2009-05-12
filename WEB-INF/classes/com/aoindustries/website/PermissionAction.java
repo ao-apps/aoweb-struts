@@ -8,14 +8,11 @@ package com.aoindustries.website;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
-import com.aoindustries.util.ErrorPrinter;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -39,6 +36,7 @@ abstract public class PermissionAction extends AuthenticatedAction {
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn
@@ -53,6 +51,7 @@ abstract public class PermissionAction extends AuthenticatedAction {
                 form,
                 request,
                 response,
+                siteSettings,
                 locale,
                 skin,
                 aoConn,
@@ -75,6 +74,7 @@ abstract public class PermissionAction extends AuthenticatedAction {
                     form,
                     request,
                     response,
+                    siteSettings,
                     locale,
                     skin,
                     aoConn,
@@ -84,7 +84,19 @@ abstract public class PermissionAction extends AuthenticatedAction {
         }
         
         // All permissions found, consider granted
-        return executePermissionGranted(mapping, form, request, response, locale, skin, aoConn);
+        return executePermissionGranted(mapping, form, request, response, siteSettings, locale, skin, aoConn);
+    }
+
+    final public ActionForward executePermissionGranted(
+        ActionMapping mapping,
+        ActionForm form,
+        HttpServletRequest request,
+        HttpServletResponse response,
+        Locale locale,
+        Skin skin,
+        AOServConnector aoConn
+    ) throws Exception {
+        throw new RuntimeException("TODO: Delete this method");
     }
 
     /**
@@ -96,11 +108,25 @@ abstract public class PermissionAction extends AuthenticatedAction {
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
         return mapping.findForward("success");
+    }
+
+    final public ActionForward executePermissionDenied(
+        ActionMapping mapping,
+        ActionForm form,
+        HttpServletRequest request,
+        HttpServletResponse response,
+        Locale locale,
+        Skin skin,
+        AOServConnector aoConn,
+        List<AOServPermission> permissions
+    ) throws Exception {
+        throw new RuntimeException("TODO: Delete this method");
     }
 
     /**
@@ -113,6 +139,7 @@ abstract public class PermissionAction extends AuthenticatedAction {
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn,

@@ -12,6 +12,7 @@ import com.aoindustries.aoserv.client.MySQLServerUser;
 import com.aoindustries.aoserv.client.MySQLUser;
 import com.aoindustries.aoserv.client.Username;
 import com.aoindustries.website.PermissionAction;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessages;
 
 /**
  * Prepares for business administrator password setting.  Populates lists in mySQLPasswordSetterForm.
@@ -31,11 +31,13 @@ import org.apache.struts.action.ActionMessages;
  */
 public class MySQLPasswordSetterAction extends PermissionAction {
 
+    @Override
     public ActionForward executePermissionGranted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn

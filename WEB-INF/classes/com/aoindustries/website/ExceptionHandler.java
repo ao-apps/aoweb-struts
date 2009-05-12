@@ -24,10 +24,21 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
     public ActionForward execute(Exception exception, ExceptionConfig config, ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
 	ErrorPrinter.printStackTraces(exception);
 
+        // Resolve the SiteSettings, to be compatible with SiteSettingsAction
+        SiteSettings siteSettings;
+        try {
+            siteSettings = SiteSettings.getInstance(request.getSession().getServletContext());
+        } catch(JspException err) {
+            ErrorPrinter.printStackTraces(err);
+            // Use default settings
+            siteSettings = new SiteSettings();
+        }
+        request.setAttribute(Constants.SITE_SETTINGS, siteSettings);
+
         // Resolve the Locale, to be compatible with LocaleAction
         Locale locale;
         try {
-            locale = LocaleAction.getEffectiveLocale(request);
+            locale = LocaleAction.getEffectiveLocale(siteSettings, request);
         } catch(JspException err) {
             ErrorPrinter.printStackTraces(err);
             // Use default locale
@@ -38,7 +49,7 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
         // Select Skin, to be compatible with SkinAction
         Skin skin;
         try {
-            skin = SkinAction.getSkin(request.getSession().getServletContext(), request, response);
+            skin = SkinAction.getSkin(siteSettings, request, response);
         } catch(JspException err) {
             ErrorPrinter.printStackTraces(err);
             // Use text skin

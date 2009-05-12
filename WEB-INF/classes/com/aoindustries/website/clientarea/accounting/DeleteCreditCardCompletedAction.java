@@ -14,6 +14,7 @@ import com.aoindustries.aoserv.creditcards.CreditCardFactory;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.RootAOServConnector;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.sql.SQLException;
 import java.util.Collections;
@@ -32,11 +33,13 @@ import org.apache.struts.action.ActionMapping;
  */
 public class DeleteCreditCardCompletedAction extends PermissionAction {
 
+    @Override
     public ActionForward executePermissionGranted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn

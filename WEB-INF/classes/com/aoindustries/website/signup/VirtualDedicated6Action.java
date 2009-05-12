@@ -5,6 +5,7 @@ package com.aoindustries.website.signup;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -24,6 +25,7 @@ public class VirtualDedicated6Action extends VirtualDedicatedStepAction {
         ActionMapping mapping,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         SignupSelectServerForm signupSelectServerForm,

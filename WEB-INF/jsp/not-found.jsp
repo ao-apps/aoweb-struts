@@ -14,15 +14,22 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
 <%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
 <%
-    // Set locale request attribute if not yet done
+    // Set siteSettings request attribute if not yet done
+    com.aoindustries.website.SiteSettings siteSettings = (com.aoindustries.website.SiteSettings)request.getAttribute(com.aoindustries.website.Constants.SITE_SETTINGS);
+    if(siteSettings==null) {
+        siteSettings = com.aoindustries.website.SiteSettings.getInstance(getServletContext());
+        request.setAttribute(com.aoindustries.website.Constants.SITE_SETTINGS, siteSettings);
+    }
+
+       // Set locale request attribute if not yet done
     if(request.getAttribute(com.aoindustries.website.Constants.LOCALE)==null) {
-        java.util.Locale locale = com.aoindustries.website.LocaleAction.getEffectiveLocale(request);
+        java.util.Locale locale = com.aoindustries.website.LocaleAction.getEffectiveLocale(siteSettings, request);
         request.setAttribute(com.aoindustries.website.Constants.LOCALE, locale);
     }
 
     // Set the skin request attribute if not yet done
     if(request.getAttribute(com.aoindustries.website.Constants.SKIN)==null) {
-        com.aoindustries.website.Skin skin = com.aoindustries.website.SkinAction.getSkin(getServletContext(), request, response);
+        com.aoindustries.website.Skin skin = com.aoindustries.website.SkinAction.getSkin(siteSettings, request, response);
         request.setAttribute(com.aoindustries.website.Constants.SKIN, skin);
     }
 %>

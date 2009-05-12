@@ -10,10 +10,9 @@ import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.sql.SQLUtility;
-import com.aoindustries.website.HttpsAction;
 import com.aoindustries.website.PermissionAction;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -33,11 +32,13 @@ public class MakePaymentStoredCardAction extends PermissionAction {
     /**
      * When permission denied, redirect straight to the new card step.
      */
+    @Override
     public ActionForward executePermissionDenied(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn,
@@ -48,11 +49,13 @@ public class MakePaymentStoredCardAction extends PermissionAction {
         return null;
     }
 
+    @Override
     public ActionForward executePermissionGranted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn

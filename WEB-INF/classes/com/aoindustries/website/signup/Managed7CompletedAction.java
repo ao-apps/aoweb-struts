@@ -8,6 +8,7 @@ package com.aoindustries.website.signup;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.website.RootAOServConnector;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.HashMap;
 import java.util.Locale;
@@ -30,6 +31,7 @@ public class Managed7CompletedAction extends Managed7Action {
         ActionMapping mapping,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         SignupSelectServerForm signupSelectServerForm,
@@ -66,8 +68,8 @@ public class Managed7CompletedAction extends Managed7Action {
 
         // Used later
         HttpSession session = request.getSession();
-        ActionServlet servlet = getServlet();
-        ServletContext servletContext = servlet.getServletContext();
+        ActionServlet myServlet = getServlet();
+        ServletContext servletContext = myServlet.getServletContext();
         AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servletContext);
         PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());
 
@@ -77,7 +79,7 @@ public class Managed7CompletedAction extends Managed7Action {
         ConfirmationCompletedActionHelper.addOptions(options, signupCustomizeManagementForm);
 
         // Store to the database
-        ConfirmationCompletedActionHelper.storeToDatabase(servlet, request, rootConn, packageDefinition, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm, options);
+        ConfirmationCompletedActionHelper.storeToDatabase(myServlet, request, rootConn, packageDefinition, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm, options);
         String pkey = (String)request.getAttribute("pkey");
         String statusKey = (String)request.getAttribute("statusKey");
 
@@ -85,7 +87,7 @@ public class Managed7CompletedAction extends Managed7Action {
 
         // Send confirmation email to support
         ConfirmationCompletedActionHelper.sendSupportSummaryEmail(
-            servlet,
+            myServlet,
             skin,
             request,
             session,
@@ -104,7 +106,7 @@ public class Managed7CompletedAction extends Managed7Action {
 
         // Send confirmation email to customer
         ConfirmationCompletedActionHelper.sendCustomerSummaryEmails(
-            servlet,
+            myServlet,
             skin,
             request,
             session,

@@ -12,6 +12,7 @@ import com.aoindustries.aoserv.client.BusinessProfile;
 import com.aoindustries.sql.SQLUtility;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.RootAOServConnector;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.signup.SignupBusinessActionHelper;
 import java.io.IOException;
@@ -35,11 +36,13 @@ import org.apache.struts.action.ActionMapping;
  */
 public class MakePaymentNewCardAction extends AuthenticatedAction {
 
+    @Override
     public ActionForward execute(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn

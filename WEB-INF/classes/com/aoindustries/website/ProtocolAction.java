@@ -31,11 +31,13 @@ abstract public class ProtocolAction extends SkinAction {
      */
     public static final int HTTPS = 2;
 
+    @Override
     final public ActionForward execute(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin
     ) throws Exception {
@@ -43,7 +45,7 @@ abstract public class ProtocolAction extends SkinAction {
         boolean isSecure = request.isSecure();
         if(isSecure) {
             if((acceptableProtocols&HTTPS)!=0) {
-                return executeProtocolAccepted(mapping, form, request, response, locale, skin);
+                return executeProtocolAccepted(mapping, form, request, response, siteSettings, locale, skin);
             } else {
                 // Will default to true for safety with incorrect value in config file
                 boolean redirectOnMismatch = !"false".equals(getServlet().getServletContext().getInitParameter("com.aoindustries.website.ProtocolAction.redirectOnMismatch"));
@@ -61,7 +63,7 @@ abstract public class ProtocolAction extends SkinAction {
             }
         } else {
             if((acceptableProtocols&HTTP)!=0) {
-                return executeProtocolAccepted(mapping, form, request, response, locale, skin);
+                return executeProtocolAccepted(mapping, form, request, response, siteSettings, locale, skin);
             } else {
                 // Will default to true for safety with incorrect value in config file
                 boolean redirectOnMismatch = !"false".equals(getServlet().getServletContext().getInitParameter("com.aoindustries.website.ProtocolAction.redirectOnMismatch"));
@@ -85,6 +87,17 @@ abstract public class ProtocolAction extends SkinAction {
      */
     abstract public int getAcceptableProtocols();
 
+    final public ActionForward executeProtocolAccepted(
+        ActionMapping mapping,
+        ActionForm form,
+        HttpServletRequest request,
+        HttpServletResponse response,
+        Locale locale,
+        Skin skin
+    ) throws Exception {
+        throw new RuntimeException("TODO: Delete this method");
+    }
+
     /**
      * Once the protocols is accepted, this version of the execute method is invoked.
      * The default implementation of this method simply returns the mapping of "success".
@@ -94,6 +107,7 @@ abstract public class ProtocolAction extends SkinAction {
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin
     ) throws Exception {

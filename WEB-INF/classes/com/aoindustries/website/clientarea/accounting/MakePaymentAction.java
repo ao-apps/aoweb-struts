@@ -8,7 +8,7 @@ package com.aoindustries.website.clientarea.accounting;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.website.AuthenticatedAction;
-import com.aoindustries.website.HttpsAction;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +26,13 @@ import org.apache.struts.action.ActionMapping;
  */
 public class MakePaymentAction extends AuthenticatedAction {
 
+    @Override
     final public ActionForward execute(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn

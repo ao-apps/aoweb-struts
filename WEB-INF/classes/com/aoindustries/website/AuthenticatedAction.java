@@ -36,6 +36,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin
     ) throws Exception {
@@ -57,7 +58,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
         // Set request values
         request.setAttribute("aoConn", aoConn);
 
-        return execute(mapping, form, request, response, locale, skin, aoConn);
+        return execute(mapping, form, request, response, siteSettings, locale, skin, aoConn);
     }
 
     /**
@@ -94,6 +95,18 @@ abstract public class AuthenticatedAction extends HttpsAction {
         return authenticatedAoConn;
     }
 
+    final public ActionForward execute(
+        ActionMapping mapping,
+        ActionForm form,
+        HttpServletRequest request,
+        HttpServletResponse response,
+        Locale locale,
+        Skin skin,
+        AOServConnector aoConn
+    ) throws Exception {
+        throw new RuntimeException("TODO: Delete this method");
+    }
+
     /**
      * Once authentication has been handled, this version of the execute method is invoked.
      * The default implementation of this method simply returns the mapping of "success".
@@ -103,6 +116,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn

@@ -14,7 +14,7 @@
 <skin:setContentType/>
 <html:html lang="true">
     <skin:path>/clientarea/accounting/delete-credit-card.do?pkey=<%= request.getParameter("pkey") %></skin:path>
-    <skin:meta name="ROBOTS">NOINDEX</skin:meta>
+    <logic:equal name="siteSettings" property="noindexAowebStruts" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
     <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.keywords"/></skin:keywords>

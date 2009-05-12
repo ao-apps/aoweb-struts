@@ -11,9 +11,9 @@ import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.FailoverFileReplication;
 import com.aoindustries.aoserv.client.FailoverMySQLReplication;
 import com.aoindustries.aoserv.client.MySQLServer;
-import com.aoindustries.util.ErrorPrinter;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.RootAOServConnector;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -39,11 +39,13 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
     private static final int ERROR_SECONDS_BEHIND = 10;
     private static final long ERROR_BYTES_BEHIND = 1024*1024;
 
+    @Override
     public ActionForward executePermissionGranted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn

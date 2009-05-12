@@ -5,12 +5,8 @@ package com.aoindustries.website;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.util.ErrorPrinter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,11 +25,12 @@ public class SkinAction extends LocaleAction {
     /**
      * The skins are loaded once per classname for efficiency.
      */
-    private static final Map<String,Skin> nameToSkinMap = new HashMap<String,Skin>();
+    //private static final Map<String,Skin> nameToSkinMap = new HashMap<String,Skin>();
 
     /**
      * Gets a skin given its class name or <code>null</code> if unable to load, only one instance per unique classname.
      */
+    /*
     private static Skin getSkin(String classname) {
         synchronized(nameToSkinMap) {
             Skin skin = nameToSkinMap.get(classname);
@@ -58,7 +55,7 @@ public class SkinAction extends LocaleAction {
             }
             return skin;
         }
-    }
+    }*/
 
     /**
      * Gets the default skin from the provided list for the provided request.
@@ -92,8 +89,7 @@ public class SkinAction extends LocaleAction {
      *   <li>Sets the skin from the servlet parameters for "Default".</li>
      * </ol>
      */
-    public static Skin getSkin(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp) throws JspException {
-        SiteSettings settings = SiteSettings.getInstance(servletContext);
+    public static Skin getSkin(SiteSettings settings, HttpServletRequest req, HttpServletResponse resp) throws JspException {
         List<Skin> skins = settings.getSkins();
 
         String layout = req.getParameter("layout");
@@ -143,10 +139,11 @@ public class SkinAction extends LocaleAction {
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale
     ) throws Exception {
         // Select Skin
-        Skin skin = getSkin(getServlet().getServletContext(), request, response);
+        Skin skin = getSkin(siteSettings, request, response);
         request.setAttribute(Constants.SKIN, skin);
 
         // Is a "su" requested?
@@ -156,7 +153,18 @@ public class SkinAction extends LocaleAction {
             //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
         }
 
-        return execute(mapping, form, request, response, locale, skin);
+        return execute(mapping, form, request, response, siteSettings, locale, skin);
+    }
+
+    final public ActionForward execute(
+        ActionMapping mapping,
+        ActionForm form,
+        HttpServletRequest request,
+        HttpServletResponse response,
+        Locale locale,
+        Skin skin
+    ) throws Exception {
+        throw new RuntimeException("TODO: Delete this method");
     }
 
     /**
@@ -168,6 +176,7 @@ public class SkinAction extends LocaleAction {
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin
     ) throws Exception {

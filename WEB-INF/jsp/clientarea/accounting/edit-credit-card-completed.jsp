@@ -14,7 +14,7 @@
 <skin:setContentType/>
 <html:html lang="true">
     <skin:path>/clientarea/accounting/edit-credit-card-completed.do</skin:path>
-    <skin:meta name="ROBOTS">NOINDEX</skin:meta>
+    <logic:equal name="siteSettings" property="noindexAowebStruts" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
     <skin:title>
         <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.title.edit"/>

@@ -7,12 +7,10 @@ package com.aoindustries.website.clientarea.accounting;
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
-import com.aoindustries.aoserv.client.Business;
-import com.aoindustries.aoserv.client.BusinessAdministrator;
-import com.aoindustries.aoserv.client.BusinessProfile;
 import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.RootAOServConnector;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.signup.SignupBusinessActionHelper;
 import java.io.IOException;
@@ -37,11 +35,13 @@ import org.apache.struts.action.ActionMapping;
  */
 public class EditCreditCardAction extends PermissionAction {
 
+    @Override
     public ActionForward executePermissionGranted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn

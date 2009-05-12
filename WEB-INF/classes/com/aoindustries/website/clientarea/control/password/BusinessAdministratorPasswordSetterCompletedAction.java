@@ -9,6 +9,7 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.website.AuthenticatedAction;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.sql.SQLException;
 import java.util.List;
@@ -32,6 +33,7 @@ public class BusinessAdministratorPasswordSetterCompletedAction extends Authenti
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
+        SiteSettings siteSettings,
         Locale locale,
         Skin skin,
         AOServConnector aoConn
