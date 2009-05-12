@@ -14,6 +14,7 @@
 <skin:setContentType/>
 <html:html lang="true">
     <skin:path>/clientarea/accounting/make-payment.do</skin:path>
+    <skin:meta name="ROBOTS">NOINDEX</skin:meta>
     <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.keywords"/></skin:keywords>
@@ -33,11 +34,11 @@
                     <bean:define scope="request" name="business" id="business" type="com.aoindustries.aoserv.client.Business"/>
                     <table border='0' cellspacing='0' cellpadding='2'>
                         <tr>
-                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.business.prompt"/></td>
+                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.business.prompt"/></th>
                             <td nowrap><bean:write scope="request" name="business"/></td>
                         </tr>
                         <tr>
-                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.card.prompt"/></td>
+                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.card.prompt"/></th>
                             <td nowrap>
                                 <% String cardInfo = creditCard.getCardInfo(); %>
                                 <% if(cardInfo.startsWith("34") || cardInfo.startsWith("37")) { %>
@@ -66,15 +67,15 @@
                             </td>
                         </tr>
                         <tr>
-                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.paymentAmount.prompt"/></td>
+                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.paymentAmount.prompt"/></th>
                             <td nowrap>$<bean:write scope="request" name="transaction" property="transactionRequest.amount"/></td>
                         </tr>
                         <tr>
-                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.transid.prompt"/></td>
+                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.transid.prompt"/></th>
                             <td nowrap><bean:write scope="request" name="aoTransaction" property="transID"/></td>
                         </tr>
                         <tr>
-                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.approvalCode.prompt"/></td>
+                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.approvalCode.prompt"/></th>
                             <td nowrap><bean:write scope="request" name="transaction" property="authorizationResult.approvalCode"/></td>
                         </tr>
                         <tr>

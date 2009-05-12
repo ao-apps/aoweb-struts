@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.servlet.jsp.PageContext;
-import com.aoindustries.website.*;
 
 /**
  * During the processing of the skin, page attributes are built and stored here, one instance per request.
@@ -28,11 +27,32 @@ public class PageAttributes {
      */
     public static final int ATTRIBUTE_SCOPE = PageContext.PAGE_SCOPE;
 
+    public static class Meta {
+
+        private final String name;
+        private final String content;
+
+        Meta(String name, String content) {
+            this.name = name;
+            this.content = content;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getContent() {
+            return content;
+        }
+    }
+
     private String path;
     private String keywords;
     private String description;
     private String author;
     private String copyright;
+    private List<Meta> metas;
+    private List<Meta> unmodifiableMetas;
     private String title;
     private String navImageAlt;
     private List<Page> parents;
@@ -80,6 +100,17 @@ public class PageAttributes {
     
     public void setCopyright(String copyright) {
         this.copyright = copyright;
+    }
+
+    public List<Meta> getMetas() {
+        if(metas==null) return Collections.emptyList();
+        if(unmodifiableMetas==null) unmodifiableMetas = Collections.unmodifiableList(metas);
+        return unmodifiableMetas;
+    }
+
+    public void addMeta(String name, String content) {
+        if(metas==null) metas = new ArrayList<Meta>();
+        metas.add(new Meta(name, content));
     }
 
     public String getTitle() {

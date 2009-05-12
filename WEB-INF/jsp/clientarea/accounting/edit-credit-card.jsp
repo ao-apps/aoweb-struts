@@ -14,6 +14,7 @@
 <skin:setContentType/>
 <html:html lang="true">
     <skin:path>/clientarea/accounting/edit-credit-card.do?persistenceId=<bean:write scope="request" name="editCreditCardForm" property="persistenceId"/></skin:path>
+    <skin:meta name="ROBOTS">NOINDEX</skin:meta>
     <skin:title>
         <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.title.edit"/>
@@ -114,7 +115,7 @@
                                     </tr>
                                     <tr>
                                         <td nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.required.no"/></td>
-                                        <td nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.newExpirationDate.prompt"/></TD>
+                                        <td nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCard.newExpirationDate.prompt"/></td>
                                         <td nowrap>
                                             <html:select property="expirationMonth">
                                                 <html:option bundle="/signup/ApplicationResources" key="signupBillingInformationForm.billingExpirationMonth.none.display" value=""/>

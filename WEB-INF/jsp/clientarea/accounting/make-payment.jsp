@@ -14,6 +14,7 @@
 <skin:setContentType/>
 <html:html lang="true">
     <skin:path>/clientarea/accounting/make-payment.do</skin:path>
+    <skin:meta name="ROBOTS">NOINDEX</skin:meta>
     <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.keywords"/></skin:keywords>
@@ -36,7 +37,7 @@
                             <th nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.makePayment.header"/></th>
                         </tr>
                         <logic:iterate scope="request" name="businesses" id="business" type="com.aoindustries.aoserv.client.Business" indexId="row">
-                            <tr class="<%= (row&1)==0 ? "ao_light_row" : "ao_dark_row" %>"
+                            <tr class="<%= (row&1)==0 ? "ao_light_row" : "ao_dark_row" %>">
                                 <td nowrap><bean:write name="business" property="accounting"/></td>
                                 <td nowrap align='right'><bean:write name="business" property="monthlyRateString"/></td>
                                 <td nowrap align='right'>

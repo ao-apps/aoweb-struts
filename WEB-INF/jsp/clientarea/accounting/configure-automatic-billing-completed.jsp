@@ -14,6 +14,7 @@
 <skin:setContentType/>
 <html:html lang="true">
     <skin:path>/clientarea/accounting/configure-automatic-billing-completed.do</skin:path>
+    <skin:meta name="ROBOTS">NOINDEX</skin:meta>
     <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBillingCompleted.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBillingCompleted.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBillingCompleted.keywords"/></skin:keywords>

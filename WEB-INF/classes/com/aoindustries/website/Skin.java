@@ -11,6 +11,7 @@ import com.aoindustries.website.skintags.PageAttributes;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
+import org.apache.struts.util.MessageResources;
 
 /**
  * One look-and-feel for the website.
@@ -146,24 +147,47 @@ abstract public class Skin {
     abstract public void endWhiteArea(HttpServletRequest req, HttpServletResponse resp, JspWriter out) throws JspException;
 
     public static class Language {
-        private String code;
-        private String display;
-        private String flagOnSrc;
-        private String flagOffSrc;
-        private String flagWidth;
-        private String flagHeight;
-        private String url;
-        
+        private final String code;
+        private final String displayResourcesKey;
+        private final String displayKey;
+        private final String flagOnSrcResourcesKey;
+        private final String flagOnSrcKey;
+        private final String flagOffSrcResourcesKey;
+        private final String flagOffSrcKey;
+        private final String flagWidthResourcesKey;
+        private final String flagWidthKey;
+        private final String flagHeightResourcesKey;
+        private final String flagHeightKey;
+        private final String url;
+
         /**
          * @param url the constant URL to use or <code>null</code> to have automatically set.
          */
-        public Language(String code, String display, String flagOnSrc, String flagOffSrc, String flagWidth, String flagHeight, String url) {
+        public Language(
+            String code,
+            String displayResourcesKey,
+            String displayKey,
+            String flagOnSrcResourcesKey,
+            String flagOnSrcKey,
+            String flagOffSrcResourcesKey,
+            String flagOffSrcKey,
+            String flagWidthResourcesKey,
+            String flagWidthKey,
+            String flagHeightResourcesKey,
+            String flagHeightKey,
+            String url
+        ) {
             this.code = code;
-            this.display = display;
-            this.flagOnSrc = flagOnSrc;
-            this.flagOffSrc = flagOffSrc;
-            this.flagWidth = flagWidth;
-            this.flagHeight = flagHeight;
+            this.displayResourcesKey = displayResourcesKey;
+            this.displayKey = displayKey;
+            this.flagOnSrcResourcesKey = flagOnSrcResourcesKey;
+            this.flagOnSrcKey = flagOnSrcKey;
+            this.flagOffSrcResourcesKey = flagOffSrcResourcesKey;
+            this.flagOffSrcKey = flagOffSrcKey;
+            this.flagWidthResourcesKey = flagWidthResourcesKey;
+            this.flagWidthKey = flagWidthKey;
+            this.flagHeightResourcesKey = flagHeightResourcesKey;
+            this.flagHeightKey = flagHeightKey;
             this.url = url;
         }
         
@@ -171,26 +195,36 @@ abstract public class Skin {
             return code;
         }
         
-        public String getDisplay() {
-            return display;
-        }
-        
-        public String getFlagOnSrc() {
-            return flagOnSrc;
+        public String getDisplay(HttpServletRequest req, Locale locale) throws JspException {
+            MessageResources applicationResources = (MessageResources)req.getAttribute(displayResourcesKey);
+            if(applicationResources==null) throw new JspException("Unable to load resources: "+displayResourcesKey);
+            return applicationResources.getMessage(locale, displayKey);
         }
 
-        public String getFlagOffSrc() {
-            return flagOffSrc;
+        public String getFlagOnSrc(HttpServletRequest req, Locale locale) throws JspException {
+            MessageResources applicationResources = (MessageResources)req.getAttribute(flagOnSrcResourcesKey);
+            if(applicationResources==null) throw new JspException("Unable to load resources: "+flagOnSrcResourcesKey);
+            return applicationResources.getMessage(locale, flagOnSrcKey);
         }
 
-        public String getFlagWidth() {
-            return flagWidth;
+        public String getFlagOffSrc(HttpServletRequest req, Locale locale) throws JspException {
+            MessageResources applicationResources = (MessageResources)req.getAttribute(flagOffSrcResourcesKey);
+            if(applicationResources==null) throw new JspException("Unable to load resources: "+flagOffSrcResourcesKey);
+            return applicationResources.getMessage(locale, flagOffSrcKey);
         }
 
-        public String getFlagHeight() {
-            return flagHeight;
+        public String getFlagWidth(HttpServletRequest req, Locale locale) throws JspException {
+            MessageResources applicationResources = (MessageResources)req.getAttribute(flagWidthResourcesKey);
+            if(applicationResources==null) throw new JspException("Unable to load resources: "+flagWidthResourcesKey);
+            return applicationResources.getMessage(locale, flagWidthKey);
         }
-        
+
+        public String getFlagHeight(HttpServletRequest req, Locale locale) throws JspException {
+            MessageResources applicationResources = (MessageResources)req.getAttribute(flagHeightResourcesKey);
+            if(applicationResources==null) throw new JspException("Unable to load resources: "+flagHeightResourcesKey);
+            return applicationResources.getMessage(locale, flagHeightKey);
+        }
+
         /**
          * Gets the absolute URL to use for this language or <code>null</code>
          * to change language on the existing page.

@@ -25,7 +25,7 @@
                 <th nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.comments.header"/></th>
             </tr>
             <logic:iterate scope="request" name="creditCards" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard" indexId="row">
-                <tr class="<%= (row&1)==0 ? "ao_light_row" : "ao_dark_row" %>"
+                <tr class="<%= (row&1)==0 ? "ao_light_row" : "ao_dark_row" %>">
                     <td nowrap>
                         <logic:equal scope="request" name="lastPaymentCreditCard" value="<%= creditCard.getProviderUniqueId() %>">
                             <input type="radio" name="pkey" value="<%= creditCard.getPkey() %>" checked>

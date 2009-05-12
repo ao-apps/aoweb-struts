@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import org.apache.struts.Globals;
-import org.apache.struts.util.MessageResources;
 
 /**
  * Provides site-wide settings.
@@ -73,15 +72,6 @@ public class SiteSettings {
     }
 
     /**
-     * Gets a message while applicationResources may be null.
-     * We may need to use an ApplicationResourceAccessor instead.
-     */
-    private static String getMessage(MessageResources applicationResources, Locale locale, String key) {
-        if(applicationResources==null) return "???"+locale.toString()+"."+key+"???";
-        return applicationResources.getMessage(locale, key);
-    }
-
-    /**
      * Gets the unmodifiable list of languages supported by this site.
      *
      * The flags are obtained from http://commons.wikimedia.org/wiki/National_insignia
@@ -93,20 +83,19 @@ public class SiteSettings {
     public List<Skin.Language> getLanguages(HttpServletRequest req) throws JspException {
         HttpSession session = req.getSession();
         Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-        if(locale==null) locale = Locale.getDefault(); // Can't use: LocaleAction.getDefaultLocale(req);
+        if(locale==null) locale = Locale.getDefault(); // Can't use: LocaleAction.getDefaultLocale(req); due to stack overflow
         boolean isUnitedStates = locale.getCountry().equals(Locale.US.getCountry());
-        MessageResources applicationResources = (MessageResources)req.getAttribute("/ApplicationResources");
 
         List<Skin.Language> languages = new ArrayList<Skin.Language>(2);
         if(isUnitedStates) {
             languages.add(
                 new Skin.Language(
                     Locale.ENGLISH.getLanguage(),
-                    getMessage(applicationResources, locale, "TextSkin.language.en_US.alt"),
-                    getMessage(applicationResources, locale, "TextSkin.language.en_US.flag.on.src"),
-                    getMessage(applicationResources, locale, "TextSkin.language.en_US.flag.off.src"),
-                    getMessage(applicationResources, locale, "TextSkin.language.en_US.flag.width"),
-                    getMessage(applicationResources, locale, "TextSkin.language.en_US.flag.height"),
+                    "/ApplicationResources", "TextSkin.language.en_US.alt",
+                    "/ApplicationResources", "TextSkin.language.en_US.flag.on.src",
+                    "/ApplicationResources", "TextSkin.language.en_US.flag.off.src",
+                    "/ApplicationResources", "TextSkin.language.en_US.flag.width",
+                    "/ApplicationResources", "TextSkin.language.en_US.flag.height",
                     null
                 )
             );
@@ -114,11 +103,11 @@ public class SiteSettings {
             languages.add(
                 new Skin.Language(
                     Locale.ENGLISH.getLanguage(),
-                    getMessage(applicationResources, locale, "TextSkin.language.en.alt"),
-                    getMessage(applicationResources, locale, "TextSkin.language.en.flag.on.src"),
-                    getMessage(applicationResources, locale, "TextSkin.language.en.flag.off.src"),
-                    getMessage(applicationResources, locale, "TextSkin.language.en.flag.width"),
-                    getMessage(applicationResources, locale, "TextSkin.language.en.flag.height"),
+                    "/ApplicationResources", "TextSkin.language.en.alt",
+                    "/ApplicationResources", "TextSkin.language.en.flag.on.src",
+                    "/ApplicationResources", "TextSkin.language.en.flag.off.src",
+                    "/ApplicationResources", "TextSkin.language.en.flag.width",
+                    "/ApplicationResources", "TextSkin.language.en.flag.height",
                     null
                 )
             );
@@ -126,17 +115,17 @@ public class SiteSettings {
         languages.add(
             new Skin.Language(
                 Locale.JAPANESE.getLanguage(),
-                getMessage(applicationResources, locale, "TextSkin.language.ja.alt"),
-                getMessage(applicationResources, locale, "TextSkin.language.ja.flag.on.src"),
-                getMessage(applicationResources, locale, "TextSkin.language.ja.flag.off.src"),
-                getMessage(applicationResources, locale, "TextSkin.language.ja.flag.width"),
-                getMessage(applicationResources, locale, "TextSkin.language.ja.flag.height"),
+                "/ApplicationResources", "TextSkin.language.ja.alt",
+                "/ApplicationResources", "TextSkin.language.ja.flag.on.src",
+                "/ApplicationResources", "TextSkin.language.ja.flag.off.src",
+                "/ApplicationResources", "TextSkin.language.ja.flag.width",
+                "/ApplicationResources", "TextSkin.language.ja.flag.height",
                 null
             )
         );
         return Collections.unmodifiableList(languages);
     }
-    
+
     /**
      * Gets the google verify content or <code>null</code> if doesn't have one.
      */

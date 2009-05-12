@@ -14,6 +14,7 @@
 <skin:setContentType/>
 <html:html lang="true">
     <skin:path>/clientarea/control/password/password-generator.do</skin:path>
+    <skin:meta name="ROBOTS">NOINDEX</skin:meta>
     <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordGenerator.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordGenerator.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordGenerator.keywords"/></skin:keywords>

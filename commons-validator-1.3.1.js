@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2007/10/10 01:32:11 $ */
+    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2009/05/12 03:30:16 $ */
     /**
     * Check to see if fields are a valid byte.
     * Fields are not checked if they are disabled.
@@ -98,7 +98,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2007/10/10 01:32:11 $ */
+    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2009/05/12 03:30:16 $ */
     /**
     * Check to see if fields are a valid creditcard number based on Luhn checksum.
     * Fields are not checked if they are disabled.
@@ -153,12 +153,12 @@
                 if (!((count & 1) ^ oddoeven)) {
                     digit *= 2;
                     if (digit > 9) digit -= 9;
-                };
+                }
                 sum += digit;
-            };
+            }
             if (sum == 0) return false;
             if (sum % 10 == 0) return true;
-        };
+        }
         return false;
     }
 
@@ -191,7 +191,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-   /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2007/10/10 01:32:11 $ */
+   /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2009/05/12 03:30:16 $ */
     /**
     * Check to see if fields are a valid date.
     * Fields are not checked if they are disabled.
@@ -396,7 +396,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2007/10/10 01:32:11 $ */
+    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2009/05/12 03:30:16 $ */
     /**
     * Check to see if fields are a valid email address.
     * Fields are not checked if they are disabled.
@@ -518,7 +518,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2007/10/10 01:32:11 $ */
+    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2009/05/12 03:30:16 $ */
     /**
     * Check to see if fields are a valid float.
     * Fields are not checked if they are disabled.
@@ -609,7 +609,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-   /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2007/10/10 01:32:11 $ */
+   /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2009/05/12 03:30:16 $ */
     /**
     * Check to see if fields are in a valid float range.
     * Fields are not checked if they are disabled.
@@ -668,7 +668,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2007/10/10 01:32:11 $ */
+    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2009/05/12 03:30:16 $ */
     /**
     * Check to see if fields are a valid integer.
     * Fields are not checked if they are disabled.
@@ -750,7 +750,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2007/10/10 01:32:11 $ */
+    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2009/05/12 03:30:16 $ */
     /**
     * Check to see if fields is in a valid integer range.
     * Fields are not checked if they are disabled.
@@ -816,7 +816,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2007/10/10 01:32:11 $ */
+    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2009/05/12 03:30:16 $ */
     /**
     * Check to see if fields are a valid using a regular expression.
     * Fields are not checked if they are disabled.
@@ -879,7 +879,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2007/10/10 01:32:11 $ */
+    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2009/05/12 03:30:16 $ */
     /**
     * A field is considered valid if less than the specified maximum.
     * Fields are not checked if they are disabled.
@@ -962,7 +962,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2007/10/10 01:32:11 $ */
+    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2009/05/12 03:30:16 $ */
     /**
     * A field is considered valid if greater than the specified minimum.
     * Fields are not checked if they are disabled.
@@ -1046,7 +1046,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2007/10/10 01:32:11 $ */
+    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2009/05/12 03:30:16 $ */
     /**
     *  Check to see if fields must contain a value.
     * Fields are not checked if they are disabled.
@@ -1163,7 +1163,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2007/10/10 01:32:11 $ */
+    /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2009/05/12 03:30:16 $ */
     /**
     *  Check to see if fields are a valid short.
     * Fields are not checked if they are disabled.
@@ -1247,7 +1247,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-  /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2007/10/10 01:32:11 $ */
+  /*$RCSfile: commons-validator-1.3.1.js,v $ $Rev: 478676 $ $Date: 2009/05/12 03:30:16 $ */
   /**
   * This is a place holder for common utilities used across the javascript validation
   *
@@ -1319,7 +1319,7 @@
    * prototype library inserts an "extends" into
    * all objects, including Arrays).
    * @param name The element name.
-   * @param value The element value.
+   * @param element The element value.
    */
   function jcv_verifyArrayElement(name, element) {
       if (element && element.length && element.length == 3) {

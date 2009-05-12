@@ -5,11 +5,9 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
-import com.aoindustries.website.*;
 
 /**
  * Resolves a shared instance of <code>PageAttributes</code> for all subclasses.
@@ -30,6 +28,7 @@ abstract public class PageAttributesTag extends BodyTagSupport {
         return pageAttributes;
     }
 
+    @Override
     final public int doStartTag() throws JspException {
         return doStartTag(getPageAttributes(pageContext));
     }
@@ -47,6 +46,7 @@ abstract public class PageAttributesTag extends BodyTagSupport {
         return SKIP_BODY;
     }*/
 
+    @Override
     final public int doEndTag() throws JspException {
         return doEndTag(getPageAttributes(pageContext));
     }

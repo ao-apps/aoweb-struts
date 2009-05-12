@@ -112,20 +112,34 @@ public class TextSkin extends Skin {
             SiteSettings settings = SiteSettings.getInstance(servletContext);
             List<Skin> skins = settings.getSkins();
 
-            out.print("  <HEAD>\n"
-                    + "    <TITLE>");
+            out.print("  <HEAD>\n");
+            // If this is not the default skin, then robots noindex
+            boolean robotsMetaUsed = false;
+            if(!getName().equals(skins.get(0).getName())) {
+                out.print("    <META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\" />\n");
+                robotsMetaUsed = true;
+            }
+            for(PageAttributes.Meta meta : pageAttributes.getMetas()) {
+                // Skip ROBOTS if not on default skin
+                boolean isRobots = meta.getName().equalsIgnoreCase("ROBOTS");
+                if(!robotsMetaUsed || !isRobots) {
+                    out.print("    <META NAME=\"");
+                    ChainWriter.writeHtmlAttribute(meta.getName(), out);
+                    out.print("\" CONTENT=\"");
+                    ChainWriter.writeHtmlAttribute(meta.getContent(), out);
+                    out.print("\" />\n");
+                    if(isRobots) robotsMetaUsed = true;
+                }
+            }
+            out.print("    <TITLE>");
             List<Page> parents = pageAttributes.getParents();
             for(Page parent : parents) {
                 ChainWriter.writeHtml(parent.getTitle(), out);
                 out.print(" - ");
             }
             ChainWriter.writeHtml(pageAttributes.getTitle(), out);
-            out.print("</TITLE>\n");
-            // If this is not the default skin, then robots noindex
-            if(!getName().equals(skins.get(0).getName())) {
-                out.print("    <META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\">\n");
-            }
-            out.print("    <META http-equiv='Content-Type' content='text/html; charset=");
+            out.print("</TITLE>\n"
+                    + "    <META http-equiv='Content-Type' content='text/html; charset=");
             out.print(getCharacterSet(locale)); out.print("'>\n");
             String googleVerify = settings.getGoogleVerifyContent();
             if(googleVerify!=null) {
@@ -230,13 +244,13 @@ public class TextSkin extends Skin {
                             ), out
                         );
                         out.print("'><IMG src='");
-                        out.print(resp.encodeURL(urlBase + language.getFlagOnSrc()));
+                        out.print(resp.encodeURL(urlBase + language.getFlagOnSrc(req, locale)));
                         out.print("' border='1' width='");
-                        out.print(language.getFlagWidth());
+                        out.print(language.getFlagWidth(req, locale));
                         out.print("' height='");
-                        out.print(language.getFlagHeight());
+                        out.print(language.getFlagHeight(req, locale));
                         out.print("' alt='");
-                        out.print(language.getDisplay());
+                        out.print(language.getDisplay(req, locale));
                         out.print("'></A>");
                     } else {
                         out.print("&nbsp;<A href='");
@@ -250,23 +264,23 @@ public class TextSkin extends Skin {
                         out.print("' onMouseOver='document.images[\"flagSelector_");
                         out.print(language.getCode());
                         out.print("\"].src=\"");
-                        out.print(resp.encodeURL(urlBase + language.getFlagOnSrc()));
+                        out.print(resp.encodeURL(urlBase + language.getFlagOnSrc(req, locale)));
                         out.print("\";' onMouseOut='document.images[\"flagSelector_");
                         out.print(language.getCode());
                         out.print("\"].src=\"");
-                        out.print(resp.encodeURL(urlBase + language.getFlagOffSrc()));
+                        out.print(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)));
                         out.print("\";'><IMG src='");
-                        out.print(resp.encodeURL(urlBase + language.getFlagOffSrc()));
+                        out.print(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)));
                         out.print("' name='flagSelector_");
                         out.print(language.getCode());
                         out.print("' border='1' width='");
-                        out.print(language.getFlagWidth());
+                        out.print(language.getFlagWidth(req, locale));
                         out.print("' height='");
-                        out.print(language.getFlagHeight());
+                        out.print(language.getFlagHeight(req, locale));
                         out.print("' alt='");
-                        out.print(language.getDisplay());
+                        out.print(language.getDisplay(req, locale));
                         out.print("'></A>");
-                        ChainWriter.writeHtmlImagePreloadJavaScript(resp.encodeURL(urlBase + language.getFlagOnSrc()), out);
+                        ChainWriter.writeHtmlImagePreloadJavaScript(resp.encodeURL(urlBase + language.getFlagOnSrc(req, locale)), out);
                     }
                 }
                 out.print("<BR>\n");

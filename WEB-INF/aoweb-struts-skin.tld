@@ -43,6 +43,20 @@
     <example/>
   </tag>
   <tag>
+    <name>meta</name>
+    <tag-class>com.aoindustries.website.skintags.MetaTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Adds a META tag to this page.  The content is provided in the JSP body.</description>
+    <attribute>
+      <name>name</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>String</type>
+      <description>The name of the META tag.</description>
+    </attribute>
+    <example/>
+  </tag>
+  <tag>
     <name>title</name>
     <tag-class>com.aoindustries.website.skintags.TitleTag</tag-class>
     <body-content>JSP</body-content>
