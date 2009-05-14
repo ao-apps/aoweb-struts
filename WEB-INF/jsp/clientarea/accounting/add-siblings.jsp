@@ -7,10 +7,10 @@
 <%@ page language="java" buffer="256kb" autoFlush="true" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
-<aoweb:exists page="add-siblings.override.jsp">
-    <jsp:include page="add-siblings.override.jsp"/>
+<aoweb:exists path="/WEB-INF/jsp/clientarea/accounting/add-siblings.override.jsp">
+    <jsp:include page="/WEB-INF/jsp/clientarea/accounting/add-siblings.override.jsp"/>
 </aoweb:exists>
-<aoweb:notExists page="add-siblings.override.jsp">
+<aoweb:notExists path="/WEB-INF/jsp/clientarea/accounting/add-siblings.override.jsp">
     <%--skin:addSibling useEncryption="true" path="/clientarea/accounting/AccountHistory.ao">
         <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="accountHistory.title"/></skin:title>
         <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="accountHistory.navImageAlt"/></skin:navImageAlt>

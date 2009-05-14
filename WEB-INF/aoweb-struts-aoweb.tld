@@ -11,13 +11,13 @@
     <name>exists</name>
     <tag-class>com.aoindustries.website.aowebtags.ExistsTag</tag-class>
     <body-content>JSP</body-content>
-    <description>Conditionally includes the body if the provided page exists.</description>
+    <description>Conditionally includes the body if the resources with the provided path exists.</description>
     <attribute>
-      <name>page</name>
+      <name>path</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
       <type>String</type>
-      <description>The page to test existance.  This is compatible with the page attribute of jsp:include.</description>
+      <description>The context-relative path to test existence.  This does not support relative paths.</description>
     </attribute>
     <example/>
   </tag>
@@ -25,13 +25,13 @@
     <name>notExists</name>
     <tag-class>com.aoindustries.website.aowebtags.NotExistsTag</tag-class>
     <body-content>JSP</body-content>
-    <description>Conditionally includes the body if the provided page does not exist.</description>
+    <description>Conditionally includes the body if the resources with the provided path does not exist.</description>
     <attribute>
-      <name>page</name>
+      <name>path</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
       <type>String</type>
-      <description>The page to test existance.  This is compatible with the page attribute of jsp:include.</description>
+      <description>The context-relative path to test existence.  This does not support relative paths.</description>
     </attribute>
     <example/>
   </tag>

@@ -7,31 +7,30 @@ package com.aoindustries.website.aowebtags;
  */
 import com.aoindustries.servlet.http.ServletUtil;
 import java.net.MalformedURLException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Evaluates the body if the provided page exists.
+ * Evaluates the body if the provided resource exists.
  *
  * @author  AO Industries, Inc.
  */
 public class ExistsTag extends BodyTagSupport {
 
-    private String page;
+    private String path;
 
     public ExistsTag() {
         init();
     }
 
     private void init() {
-        page = null;
+        path = null;
     }
 
     @Override
     public int doStartTag() throws JspException {
         try {
-            return ServletUtil.resourceExists(pageContext.getServletContext(), (HttpServletRequest)pageContext.getRequest(), page) ? EVAL_BODY_INCLUDE : SKIP_BODY;
+            return ServletUtil.resourceExists(pageContext.getServletContext(), path) ? EVAL_BODY_INCLUDE : SKIP_BODY;
         } catch(MalformedURLException err) {
             throw new JspException(err);
         }
@@ -44,10 +43,10 @@ public class ExistsTag extends BodyTagSupport {
     }
 
     public String getPage() {
-        return page;
+        return path;
     }
 
-    public void setPage(String page) {
-        this.page = page;
+    public void setPath(String path) {
+        this.path = path;
     }
 }

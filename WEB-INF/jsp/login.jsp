@@ -14,8 +14,12 @@
     <skin:navImageAlt><bean:message bundle="/ApplicationResources" key="login.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/ApplicationResources" key="login.keywords"/></skin:keywords>
     <skin:description><bean:message bundle="/ApplicationResources" key="login.description"/></skin:description>
-    <%@ include file="add-parents.jsp" %>
-    <%@ include file="add-siblings.jsp" %>
+    <aoweb:exists path="/WEB-INF/jsp/add-parents.jsp">
+        <jsp:include page="/WEB-INF/jsp/add-parents.jsp"/>
+    </aoweb:exists>
+    <aoweb:exists path="/WEB-INF/jsp/add-siblings.jsp">
+        <jsp:include page="/WEB-INF/jsp/add-siblings.jsp"/>
+    </aoweb:exists>
     <skin:skin onLoad="document.forms['loginForm'].username.focus(); document.forms['loginForm'].username.select();">
         <skin:content width="600">
             <skin:contentTitle><bean:message bundle="/ApplicationResources" key="login.title"/></skin:contentTitle>

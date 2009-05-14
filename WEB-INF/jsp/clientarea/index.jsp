@@ -15,7 +15,9 @@
     <skin:navImageAlt><bean:message bundle="/clientarea/ApplicationResources" key="index.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/ApplicationResources" key="index.keywords"/></skin:keywords>
     <skin:description><bean:message bundle="/clientarea/ApplicationResources" key="index.description"/></skin:description>
-    <%@ include file="../add-parents.jsp" %>
+    <aoweb:exists path="/WEB-INF/jsp/add-parents.jsp">
+        <jsp:include page="/WEB-INF/jsp/add-parents.jsp"/>
+    </aoweb:exists>
     <%@ include file="add-siblings.jsp" %>
     <skin:skin>
         <skin:content width="600">
