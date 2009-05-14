@@ -8,7 +8,6 @@ package com.aoindustries.website.skintags;
 import java.util.Locale;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyContent;
 import org.apache.struts.Globals;
 import org.apache.struts.util.MessageResources;
 

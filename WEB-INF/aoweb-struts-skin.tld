@@ -4,9 +4,9 @@
 <taglib>
   <tlib-version>1.0</tlib-version>
   <jsp-version>1.2</jsp-version>
-  <short-name>aoweb-struts</short-name>
-  <uri>/aoweb-struts</uri>
-  <display-name>aoweb-struts-tags</display-name>
+  <short-name>aoweb-struts-aoweb</short-name>
+  <uri>/aoweb-struts-aoweb</uri>
+  <display-name>aoweb-struts-aoweb</display-name>
   <tag>
     <name>keywords</name>
     <tag-class>com.aoindustries.website.skintags.KeywordsTag</tag-class>

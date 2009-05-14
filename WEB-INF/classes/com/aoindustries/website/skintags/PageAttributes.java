@@ -25,7 +25,7 @@ public class PageAttributes {
     /**
      * The following scope is used to store the objects in the page attributes.
      */
-    public static final int ATTRIBUTE_SCOPE = PageContext.PAGE_SCOPE;
+    public static final int ATTRIBUTE_SCOPE = PageContext.REQUEST_SCOPE;
 
     public static class Meta {
 
@@ -122,9 +122,9 @@ public class PageAttributes {
     }
 
     public String getNavImageAlt() {
-        String navImageAlt = this.navImageAlt;
-        if(navImageAlt==null || navImageAlt.length()==0) navImageAlt = this.title;
-        return navImageAlt;
+        String myNavImageAlt = this.navImageAlt;
+        if(myNavImageAlt==null || myNavImageAlt.length()==0) myNavImageAlt = this.title;
+        return myNavImageAlt;
     }
     
     public void setNavImageAlt(String navImageAlt) {

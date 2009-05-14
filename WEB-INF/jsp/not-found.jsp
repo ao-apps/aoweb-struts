@@ -1,13 +1,11 @@
+<%-- aoweb-struts --%>
 <%--
   Copyright 2007-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" %>
-<%@ page isErrorPage="true" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" isErrorPage="true" %>
 <% response.setStatus(HttpServletResponse.SC_NOT_FOUND); %>
-<%@ page buffer="256kb" %>
-<%@ page autoFlush="true" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 <%
     // Set siteSettings request attribute if not yet done
