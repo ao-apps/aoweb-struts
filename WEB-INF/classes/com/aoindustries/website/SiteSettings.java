@@ -154,7 +154,7 @@ public class SiteSettings {
      * Determines if Japense is enabled, disabled by default.
      */
     protected boolean getJapaneseEnabled() {
-        return true;
+        return false;
     }
 
     /**
