@@ -39,7 +39,8 @@ public class Constants {
     public static final String AUTHENTICATION_MESSAGE = "authenticationMessage";
 
     /**
-     * The session key used to store the current <code>layout</code>.
+     * The session key used to store the current <code>layout</code>.  The layout setting
+     * affects the per-request skin selection.
      */
     public static final String LAYOUT = "layout";
 
