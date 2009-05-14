@@ -8,7 +8,7 @@ package com.aoindustries.website.signup;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Username;
 import com.aoindustries.util.WrappedException;
-import com.aoindustries.website.RootAOServConnector;
+import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -201,7 +201,7 @@ public class SignupTechnicalForm extends ActionForm implements Serializable {
             else {
                 ActionServlet myServlet = getServlet();
                 if(myServlet!=null) {
-                    AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(myServlet.getServletContext());
+                    AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
                     String lowerUsername = baUsername.toLowerCase();
                     String check = Username.checkUsername(lowerUsername, locale);
                     if(check!=null) errors.add("baUsername", new ActionMessage(check, false));

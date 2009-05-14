@@ -10,6 +10,7 @@ import com.aoindustries.aoserv.client.CountryCode;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.website.Mailer;
+import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.io.CharArrayWriter;
 import java.io.IOException;
@@ -24,9 +25,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import javax.mail.MessagingException;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionServlet;
@@ -177,22 +176,19 @@ final public class ConfirmationCompletedActionHelper {
     
     public static void sendSupportSummaryEmail(
         ActionServlet servlet,
-        Skin skin,
         HttpServletRequest request,
-        HttpSession session,
         String pkey,
         String statusKey,
         Locale contentLocale,
-        AOServConnector rootConn,
+        SiteSettings siteSettings,
         PackageDefinition packageDefinition,
-        SignupSelectServerForm signupSelectServerForm,
         SignupCustomizeServerForm signupCustomizeServerForm,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
         SignupBusinessForm signupBusinessForm,
         SignupTechnicalForm signupTechnicalForm,
         SignupBillingInformationForm signupBillingInformationForm
     ) {
-        sendSummaryEmail(servlet, skin, request, session, pkey, statusKey, servlet.getServletContext().getInitParameter("com.aoindustries.website.signup.admin.address"), contentLocale, Locale.US, rootConn, packageDefinition, signupSelectServerForm, signupCustomizeServerForm, signupCustomizeManagementForm, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
+        sendSummaryEmail(servlet, request, pkey, statusKey, siteSettings.getSignupAdminAddress(), contentLocale, Locale.US, siteSettings, packageDefinition, signupCustomizeServerForm, signupCustomizeManagementForm, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
     }
     
     /**
@@ -200,15 +196,12 @@ final public class ConfirmationCompletedActionHelper {
      */
     public static void sendCustomerSummaryEmails(
         ActionServlet servlet,
-        Skin skin,
         HttpServletRequest request,
-        HttpSession session,
         String pkey,
         String statusKey,
         Locale contentLocale,
-        AOServConnector rootConn,
+        SiteSettings siteSettings,
         PackageDefinition packageDefinition,
-        SignupSelectServerForm signupSelectServerForm,
         SignupCustomizeServerForm signupCustomizeServerForm,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
         SignupBusinessForm signupBusinessForm,
@@ -223,7 +216,7 @@ final public class ConfirmationCompletedActionHelper {
         Iterator<String> I=addresses.iterator();
         while(I.hasNext()) {
             String address=I.next();
-            boolean success = sendSummaryEmail(servlet, skin, request, session, pkey, statusKey, address, contentLocale, contentLocale, rootConn, packageDefinition, signupSelectServerForm, signupCustomizeServerForm, signupCustomizeManagementForm, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
+            boolean success = sendSummaryEmail(servlet, request, pkey, statusKey, address, contentLocale, contentLocale, siteSettings, packageDefinition, signupCustomizeServerForm, signupCustomizeManagementForm, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
             if(success) successAddresses.add(address);
             else failureAddresses.add(address);
         }
@@ -238,17 +231,14 @@ final public class ConfirmationCompletedActionHelper {
      */
     private static boolean sendSummaryEmail(
         ActionServlet servlet,
-        Skin skin,
         HttpServletRequest request,
-        HttpSession session,
         String pkey,
         String statusKey,
         String recipient,
         Locale contentLocale,
         Locale subjectLocale,
-        AOServConnector rootConn,
+        SiteSettings siteSettings,
         PackageDefinition packageDefinition,
-        SignupSelectServerForm signupSelectServerForm,
         SignupCustomizeServerForm signupCustomizeServerForm,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
         SignupBusinessForm signupBusinessForm,
@@ -303,6 +293,7 @@ final public class ConfirmationCompletedActionHelper {
             SignupSelectServerActionHelper.printConfirmation(emailOut, contentLocale, packageDefinition, signupApplicationResources);
             emailOut.print("    <TR><TD colspan=\"3\">&nbsp;</TD></TR>\n"
                          + "    <TR><TH colspan=\"3\">").print(signupApplicationResources.getMessage(contentLocale, "steps.customizeServer.label")).print("</TH></TR>\n");
+            AOServConnector rootConn = siteSettings.getRootAOServConnector();
             SignupCustomizeServerActionHelper.printConfirmation(request, emailOut, contentLocale, rootConn, packageDefinition, signupCustomizeServerForm, signupApplicationResources);
             if(signupCustomizeManagementForm!=null) {
                 emailOut.print("    <TR><TD colspan=\"3\">&nbsp;</TD></TR>\n"
@@ -331,13 +322,12 @@ final public class ConfirmationCompletedActionHelper {
             emailOut.flush();
 
             // Send the email
-            ServletContext servletContext = servlet.getServletContext();
             Mailer.sendEmail(
-                servletContext.getInitParameter("com.aoindustries.website.smtp.server"),
+                siteSettings.getSmtpServer(),
                 "text/html",
                 charset,
-                servletContext.getInitParameter("com.aoindustries.website.signup.from.address"),
-                servletContext.getInitParameter("com.aoindustries.website.signup.from.personal"),
+                siteSettings.getSignupFromAddress(),
+                siteSettings.getSignupFromPersonal(),
                 Collections.singletonList(recipient),
                 signupApplicationResources.getMessage(subjectLocale, "serverConfirmationCompleted.email.subject", pkey),
                 cout.toString()

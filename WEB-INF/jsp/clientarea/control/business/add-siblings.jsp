@@ -3,7 +3,7 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
+<%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:addSibling useEncryption="true" path="/clientarea/control/business/cancel.do">
     <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.title"/></skin:title>

@@ -10,7 +10,7 @@ import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.aoserv.client.PackageDefinitionLimit;
 import com.aoindustries.util.AutoGrowArrayList;
 import com.aoindustries.util.WrappedException;
-import com.aoindustries.website.RootAOServConnector;
+import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -123,7 +123,7 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
             // Find the connector
             AOServConnector rootConn;
             if(myServlet!=null) {
-                rootConn = RootAOServConnector.getRootAOServConnector(myServlet.getServletContext());
+                rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
             } else {
                 rootConn = null;
             }

@@ -7,7 +7,6 @@ package com.aoindustries.website.signup;
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.PackageDefinition;
-import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.HashMap;
@@ -27,6 +26,7 @@ import org.apache.struts.action.ActionServlet;
  */
 public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
 
+    @Override
     public ActionForward executeVirtualDedicatedStep(
         ActionMapping mapping,
         HttpServletRequest request,
@@ -66,7 +66,7 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
         HttpSession session = request.getSession();
         ActionServlet myServlet = getServlet();
         ServletContext servletContext = myServlet.getServletContext();
-        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servletContext);
+        AOServConnector rootConn = siteSettings.getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());
 
         // Build the options map
@@ -83,15 +83,12 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
         // Send confirmation email to support
         ConfirmationCompletedActionHelper.sendSupportSummaryEmail(
             myServlet,
-            skin,
             request,
-            session,
             pkey,
             statusKey,
             contentLocale,
-            rootConn,
+            siteSettings,
             packageDefinition,
-            signupSelectServerForm,
             signupCustomizeServerForm,
             null,
             signupBusinessForm,
@@ -102,15 +99,12 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
         // Send confirmation email to customer
         ConfirmationCompletedActionHelper.sendCustomerSummaryEmails(
             myServlet,
-            skin,
             request,
-            session,
             pkey,
             statusKey,
             contentLocale,
-            rootConn,
+            siteSettings,
             packageDefinition,
-            signupSelectServerForm,
             signupCustomizeServerForm,
             null,
             signupBusinessForm,

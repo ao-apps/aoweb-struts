@@ -6,11 +6,7 @@
 <%@ page language="java" %>
 <%@ page buffer="256kb" %>
 <%@ page autoFlush="true" %>
-
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
-<%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
+<%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <input type="hidden" name="selectedStep" value="">
 <script language="JavaScript1.2"><!--
@@ -97,6 +93,6 @@
             <TD NOWRAP><html:text size="10" property="businessZip" maxlength="255"/></TD>
             <TD NOWRAP><html:errors bundle="/signup/ApplicationResources" property="businessZip"/></TD>
         </TR>
-        <TR><TD colspan="4" align="center"><br><html:submit><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.submit.label"/></html:submit><br><br></td></tr>
+        <TR><TD colspan="4" align="center"><br><html:submit><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.submit.label"/></html:submit><br><br></TD></TR>
      </TABLE>
 </skin:lightArea>

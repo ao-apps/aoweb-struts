@@ -48,7 +48,7 @@ abstract public class ProtocolAction extends SkinAction {
                 return executeProtocolAccepted(mapping, form, request, response, siteSettings, locale, skin);
             } else {
                 // Will default to true for safety with incorrect value in config file
-                boolean redirectOnMismatch = !"false".equals(getServlet().getServletContext().getInitParameter("com.aoindustries.website.ProtocolAction.redirectOnMismatch"));
+                boolean redirectOnMismatch = siteSettings.getProtocolActionRedirectOnMismatch();
                 if(redirectOnMismatch) {
                     String path = request.getRequestURI();
                     if(path.startsWith("/")) path=path.substring(1);
@@ -66,7 +66,7 @@ abstract public class ProtocolAction extends SkinAction {
                 return executeProtocolAccepted(mapping, form, request, response, siteSettings, locale, skin);
             } else {
                 // Will default to true for safety with incorrect value in config file
-                boolean redirectOnMismatch = !"false".equals(getServlet().getServletContext().getInitParameter("com.aoindustries.website.ProtocolAction.redirectOnMismatch"));
+                boolean redirectOnMismatch = siteSettings.getProtocolActionRedirectOnMismatch();
                 if(redirectOnMismatch) {
                     String path = request.getRequestURI();
                     if(path.startsWith("/")) path=path.substring(1);

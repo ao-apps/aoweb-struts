@@ -12,7 +12,6 @@ import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.CreditCardFactory;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.creditcards.CreditCardProcessor;
-import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.sql.SQLException;
@@ -87,7 +86,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
         if(!GenericValidator.isBlankOrNull(newCardNumber)) {
             // Update card number and expiration
             // Root connector used to get processor
-            AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext());
+            AOServConnector rootConn = siteSettings.getRootAOServConnector();
             CreditCard rootCreditCard = rootConn.creditCards.get(creditCard.getPkey());
             if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPkey());
             CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
@@ -108,7 +107,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             ) {
                 // Update expiration only
                 // Root connector used to get processor
-                AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext());
+                AOServConnector rootConn = siteSettings.getRootAOServConnector();
                 CreditCard rootCreditCard = rootConn.creditCards.get(creditCard.getPkey());
                 if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPkey());
                 CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());

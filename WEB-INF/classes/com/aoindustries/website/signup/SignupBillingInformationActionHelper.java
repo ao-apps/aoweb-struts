@@ -8,7 +8,6 @@ package com.aoindustries.website.signup;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.io.ChainWriter;
-import com.aoindustries.website.RootAOServConnector;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -63,9 +62,6 @@ final public class SignupBillingInformationActionHelper {
         HttpServletRequest request,
         SignupBillingInformationForm signupBillingInformationForm
     ) throws IOException {
-        // Lookup things needed by the view
-        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servletContext);
-
         // Store as request attribute for the view
         request.setAttribute("billingCardNumber", getBillingCardNumber(signupBillingInformationForm));
     }

@@ -11,7 +11,6 @@ import com.aoindustries.aoserv.creditcards.BusinessGroup;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.creditcards.CreditCardProcessor;
-import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.sql.SQLException;
@@ -60,7 +59,7 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
         }
 
         // Get the credit card processor for the root connector of this website
-        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext());
+        AOServConnector rootConn = siteSettings.getRootAOServConnector();
         CreditCardProcessor creditCardProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootConn);
         if(creditCardProcessor==null) throw new SQLException("Unable to find enabled CreditCardProcessor for root connector");
 

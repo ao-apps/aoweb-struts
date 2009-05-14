@@ -8,7 +8,7 @@ package com.aoindustries.website.signup;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.LinuxAccountTable;
 import com.aoindustries.io.ChainWriter;
-import com.aoindustries.website.RootAOServConnector;
+import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ final public class SignupTechnicalActionHelper {
         HttpServletRequest request,
         SignupTechnicalForm signupTechnicalForm
     ) throws IOException, SQLException {
-        AOServConnector rootConn=RootAOServConnector.getRootAOServConnector(servletContext);
+        AOServConnector rootConn=SiteSettings.getInstance(servletContext).getRootAOServConnector();
 
         // Build the list of countries
         List<SignupBusinessActionHelper.CountryOption> countryOptions = SignupBusinessActionHelper.getCountryOptions(rootConn);
@@ -63,7 +63,7 @@ final public class SignupTechnicalActionHelper {
         SignupTechnicalForm signupTechnicalForm
     ) throws IOException {
         // Lookup things needed by the view
-        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servletContext);
+        AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
 
         // Store as request attribute for the view
         request.setAttribute("baCountry", getBaCountry(rootConn, signupTechnicalForm));

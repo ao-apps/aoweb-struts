@@ -7,13 +7,11 @@ package com.aoindustries.website.signup;
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.PackageDefinition;
-import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,6 +25,7 @@ import org.apache.struts.action.ActionServlet;
  */
 public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
 
+    @Override
     public ActionForward executeVirtualManagedStep(
         ActionMapping mapping,
         HttpServletRequest request,
@@ -69,8 +68,7 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
         // Used later
         HttpSession session = request.getSession();
         ActionServlet myServlet = getServlet();
-        ServletContext servletContext = myServlet.getServletContext();
-        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servletContext);
+        AOServConnector rootConn = siteSettings.getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());
 
         // Build the options map
@@ -88,15 +86,12 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
         // Send confirmation email to support
         ConfirmationCompletedActionHelper.sendSupportSummaryEmail(
             myServlet,
-            skin,
             request,
-            session,
             pkey,
             statusKey,
             contentLocale,
-            rootConn,
+            siteSettings,
             packageDefinition,
-            signupSelectServerForm,
             signupCustomizeServerForm,
             signupCustomizeManagementForm,
             signupBusinessForm,
@@ -107,15 +102,12 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
         // Send confirmation email to customer
         ConfirmationCompletedActionHelper.sendCustomerSummaryEmails(
             myServlet,
-            skin,
             request,
-            session,
             pkey,
             statusKey,
             contentLocale,
-            rootConn,
+            siteSettings,
             packageDefinition,
-            signupSelectServerForm,
             signupCustomizeServerForm,
             signupCustomizeManagementForm,
             signupBusinessForm,

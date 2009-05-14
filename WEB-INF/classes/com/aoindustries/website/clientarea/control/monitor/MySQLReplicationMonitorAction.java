@@ -12,7 +12,6 @@ import com.aoindustries.aoserv.client.FailoverFileReplication;
 import com.aoindustries.aoserv.client.FailoverMySQLReplication;
 import com.aoindustries.aoserv.client.MySQLServer;
 import com.aoindustries.website.PermissionAction;
-import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
@@ -53,7 +52,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
         MessageResources controlApplicationResources = (MessageResources)request.getAttribute("/clientarea/control/ApplicationResources");
         if(controlApplicationResources==null) throw new JspException("Unable to load resources: /clientarea/control/ApplicationResources");
 
-        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext());
+        AOServConnector rootConn = siteSettings.getRootAOServConnector();
 
         List<MySQLServerRow> mysqlServerRows = new ArrayList<MySQLServerRow>();
         List<MySQLServer> mysqlServers = aoConn.mysqlServers.getRows();

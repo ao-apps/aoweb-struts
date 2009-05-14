@@ -11,7 +11,7 @@ import com.aoindustries.aoserv.client.PackageDefinitionLimit;
 import com.aoindustries.aoserv.client.Resource;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.sql.SQLUtility;
-import com.aoindustries.website.RootAOServConnector;
+import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -44,7 +44,7 @@ final public class SignupCustomizeManagementActionHelper {
         SignupCustomizeServerForm signupCustomizeServerForm,
         SignupCustomizeManagementForm signupCustomizeManagementForm
     ) throws IOException, SQLException {
-        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servletContext);
+        AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());
         if(packageDefinition==null) throw new SQLException("Unable to find PackageDefinition: "+signupSelectServerForm.getPackageDefinition());
         List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
@@ -180,7 +180,7 @@ final public class SignupCustomizeManagementActionHelper {
         SignupCustomizeManagementForm signupCustomizeManagementForm
     ) throws IOException, SQLException {
         // Lookup things needed by the view
-        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(servletContext);
+        AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());
 
         // Store as request attribute for the view

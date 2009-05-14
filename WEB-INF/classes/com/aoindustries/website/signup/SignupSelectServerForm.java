@@ -10,7 +10,7 @@ import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.PackageCategory;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.util.WrappedException;
-import com.aoindustries.website.RootAOServConnector;
+import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -52,7 +52,7 @@ abstract public class SignupSelectServerForm extends ActionForm implements Seria
             // Must be one of the active package_definitions
             ActionServlet myServlet = getServlet();
             if(myServlet!=null) {
-                AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(myServlet.getServletContext());
+                AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
                 PackageCategory category = rootConn.packageCategories.get(getPackageCategory());
                 Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
 

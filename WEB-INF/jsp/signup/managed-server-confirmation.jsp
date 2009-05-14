@@ -6,11 +6,7 @@
 <%@ page language="java" %>
 <%@ page buffer="256kb" %>
 <%@ page autoFlush="true" %>
-
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
-<%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
+<%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:lightArea>
     <bean:define name="actionPrefix" id="myActionPrefix" type="java.lang.String"/>
@@ -89,6 +85,6 @@
             </TH>
         </TR>
         <%@ include file="signup-billing-information-confirmation.jsp" %>
-        <TR><TD colspan="3" align="center"><br><html:submit><bean:message bundle="/signup/ApplicationResources" key="serverConfirmation.submit.label"/></html:submit><br><br></td></tr>
+        <TR><TD colspan="3" align="center"><br><html:submit><bean:message bundle="/signup/ApplicationResources" key="serverConfirmation.submit.label"/></html:submit><br><br></TD></TR>
     </TABLE>
 </skin:lightArea>

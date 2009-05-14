@@ -9,7 +9,6 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.website.PermissionAction;
-import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.signup.SignupBusinessActionHelper;
@@ -100,7 +99,7 @@ public class EditCreditCardAction extends PermissionAction {
         for(int c=0;c<12;c++) expirationYears.add(Integer.toString(startYear+c));
 
         // Build the list of countries
-        List<SignupBusinessActionHelper.CountryOption> countryOptions = SignupBusinessActionHelper.getCountryOptions(RootAOServConnector.getRootAOServConnector(context));
+        List<SignupBusinessActionHelper.CountryOption> countryOptions = SignupBusinessActionHelper.getCountryOptions(SiteSettings.getInstance(context).getRootAOServConnector());
 
         // Store to request attributes
         request.setAttribute("expirationYears", expirationYears);

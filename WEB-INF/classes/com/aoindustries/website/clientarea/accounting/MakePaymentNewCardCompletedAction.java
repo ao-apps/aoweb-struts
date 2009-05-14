@@ -19,7 +19,6 @@ import com.aoindustries.creditcards.Transaction;
 import com.aoindustries.creditcards.TransactionRequest;
 import com.aoindustries.creditcards.TransactionResult;
 import com.aoindustries.sql.SQLUtility;
-import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
@@ -109,7 +108,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         );
 
         // Perform the transaction
-        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext());
+        AOServConnector rootConn = siteSettings.getRootAOServConnector();
         
         // 1) Pick a processor
         CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootConn);

@@ -8,11 +8,7 @@
 <% response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); %>
 <%@ page buffer="256kb" %>
 <%@ page autoFlush="true" %>
-
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
-<%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
+<%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 <%
     // Set siteSettings request attribute if not yet done
     com.aoindustries.website.SiteSettings siteSettings = (com.aoindustries.website.SiteSettings)request.getAttribute(com.aoindustries.website.Constants.SITE_SETTINGS);
@@ -49,7 +45,7 @@
             <skin:contentLine>
                 <bean:message bundle="/ApplicationResources" key="exception.message"/><br>
                 <br>
-                <% if("true".equals(getServletContext().getInitParameter("exception.showError"))) { %>
+                <logic:equal scope="request" name="siteSettings" property="exceptionShowError" value="true">
                     <%-- Error Data --%>
                     <%
                         javax.servlet.jsp.ErrorData errorData;
@@ -110,7 +106,7 @@
 <pre><%= org.apache.commons.lang.StringEscapeUtils.escapeHtml(com.aoindustries.util.ErrorPrinter.getStackTraces(myException)) %></pre>
                         </skin:lightArea>
                     <% } %>
-                <% } %>
+                </logic:equal>
             </skin:contentLine>
         </skin:content>
     </skin:skin>

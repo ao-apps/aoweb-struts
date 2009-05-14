@@ -6,7 +6,6 @@
 <%@ page language="java" %>
 <%@ page buffer="256kb" %>
 <%@ page autoFlush="true" %>
-
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.message"/>

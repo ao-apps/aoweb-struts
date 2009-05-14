@@ -13,7 +13,6 @@ import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.CreditCardFactory;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.website.PermissionAction;
-import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.sql.SQLException;
@@ -60,7 +59,7 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
         String cardNumber = creditCard.getCardInfo();
 
         // Lookup the card in the root connector (to get access to the processor)
-        AOServConnector rootConn = RootAOServConnector.getRootAOServConnector(getServlet().getServletContext());
+        AOServConnector rootConn = siteSettings.getRootAOServConnector();
         CreditCard rootCreditCard = rootConn.creditCards.get(creditCard.getPkey());
         if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPkey());
 

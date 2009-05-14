@@ -506,8 +506,20 @@ public class TextSkin extends Skin {
         try {
             out.print("        </TD>\n"
                     + "      </TR>\n"
-                    + "    </TABLE>\n"
-                    + "  </BODY>\n");
+                    + "    </TABLE>\n");
+            String googleAnalyticsNewTrackingCode = SiteSettings.getInstance(req.getSession().getServletContext()).getGoogleAnalyticsNewTrackingCode();
+            if(googleAnalyticsNewTrackingCode!=null) {
+                out.print("<script type=\"text/javascript\">\n"
+                        + "var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");\n"
+                        + "document.write(unescape(\"%3Cscript src='\" + gaJsHost + \"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E\"));\n"
+                        + "</script>\n"
+                        + "<script type=\"text/javascript\">\n"
+                        + "try {\n"
+                        + "var pageTracker = _gat._getTracker(\""); out.print(googleAnalyticsNewTrackingCode); out.print("\");\n"
+                        + "pageTracker._trackPageview();\n"
+                        + "} catch(err) {}</script>\n");
+            }
+            out.print("  </BODY>\n");
         } catch(IOException err) {
             throw new JspException(err);
         }

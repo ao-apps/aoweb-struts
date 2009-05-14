@@ -11,7 +11,6 @@ import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.BusinessProfile;
 import com.aoindustries.sql.SQLUtility;
 import com.aoindustries.website.AuthenticatedAction;
-import com.aoindustries.website.RootAOServConnector;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.signup.SignupBusinessActionHelper;
@@ -110,7 +109,7 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
 
         // Build the list of countries
         // We use the root connector to provide a better set of country values
-        List<SignupBusinessActionHelper.CountryOption> countryOptions = SignupBusinessActionHelper.getCountryOptions(RootAOServConnector.getRootAOServConnector(context));
+        List<SignupBusinessActionHelper.CountryOption> countryOptions = SignupBusinessActionHelper.getCountryOptions(SiteSettings.getInstance(context).getRootAOServConnector());
 
         // Store to request attributes
         request.setAttribute("expirationYears", expirationYears);

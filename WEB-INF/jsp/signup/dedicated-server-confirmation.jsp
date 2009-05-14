@@ -6,11 +6,7 @@
 <%@ page language="java" %>
 <%@ page buffer="256kb" %>
 <%@ page autoFlush="true" %>
-
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
-<%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
+<%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:lightArea>
     <bean:define name="actionPrefix" id="myActionPrefix" type="java.lang.String"/>

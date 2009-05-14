@@ -3,7 +3,7 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
+<%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <%@ include file="../add-parents.jsp" %>
 <skin:addParent useEncryption="false" path="/clientarea/control/business/BusinessIndex.ao">
