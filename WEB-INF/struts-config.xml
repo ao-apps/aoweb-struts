@@ -8,6 +8,7 @@
     <!-- ========== Form Bean Definitions =================================== -->
     <form-beans>
         <!-- / -->
+        <form-bean name="contactForm" type="com.aoindustries.website.ContactForm" />
         <form-bean name="loginForm" type="com.aoindustries.website.LoginForm" />
     </form-beans>
 
@@ -37,6 +38,25 @@
             type="com.aoindustries.website.SkinAction"
         >
             <forward name="success" module="" path="/WEB-INF/jsp/not-found.jsp" redirect="false" />
+        </action>
+        <action
+            path="/contact"
+            name="contactForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.HttpsAction"
+        >
+            <forward name="success" module="" path="/WEB-INF/jsp/contact.jsp" redirect="false" />
+        </action>
+        <action
+            path="/contact-completed"
+            name="contactForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.ContactCompletedAction"
+        >
+            <forward name="input" module="" path="/WEB-INF/jsp/contact.jsp" redirect="false" />
+            <forward name="success" module="" path="/WEB-INF/jsp/contact-completed.jsp" redirect="false" />
         </action>
         <action
             path="/login"

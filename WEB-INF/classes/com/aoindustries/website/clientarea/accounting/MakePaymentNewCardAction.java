@@ -55,7 +55,7 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
         }
 
         // Populate the initial details from the selected accounting code or authenticated user
-        Business business = aoConn.businesses.get(accounting);
+        Business business = aoConn.getBusinesses().get(accounting);
         if(business==null) throw new SQLException("Unable to find Business: "+accounting);
         BusinessProfile profile = business.getBusinessProfile();
         if(profile!=null) {

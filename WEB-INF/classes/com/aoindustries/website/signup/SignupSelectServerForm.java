@@ -53,11 +53,11 @@ abstract public class SignupSelectServerForm extends ActionForm implements Seria
             ActionServlet myServlet = getServlet();
             if(myServlet!=null) {
                 AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
-                PackageCategory category = rootConn.packageCategories.get(getPackageCategory());
+                PackageCategory category = rootConn.getPackageCategories().get(getPackageCategory());
                 Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
 
-                PackageDefinition pd = rootConn.packageDefinitions.get(packageDefinition);
-                if(pd==null || !pd.getPackageCategory().equals(category) || !pd.getBusiness().equals(rootBusiness)) {
+                PackageDefinition pd = rootConn.getPackageDefinitions().get(packageDefinition);
+                if(pd==null || !pd.getPackageCategory().equals(category) || !pd.getBrand().getBusiness().equals(rootBusiness)) {
                     errors.add("packageDefinition", new ActionMessage("signupSelectServerForm.packageDefinition.required"));
                 }
             }

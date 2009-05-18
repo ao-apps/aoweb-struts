@@ -69,7 +69,7 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
         HttpSession session = request.getSession();
         ActionServlet myServlet = getServlet();
         AOServConnector rootConn = siteSettings.getRootAOServConnector();
-        PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());
+        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectServerForm.getPackageDefinition());
 
         // Build the options map
         Map<String,String> options = new HashMap<String,String>();

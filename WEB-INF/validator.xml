@@ -6,6 +6,15 @@
 
 <form-validation>
     <formset>
+        <form name="contactForm">
+            <field property="from" depends="required,email">
+                <msg name="required" key="contact.field.from.required"/>
+                <msg name="email" key="contact.field.from.email"/>
+            </field>
+            <field property="subject" depends="required">
+                <msg name="required" key="contact.field.subject.required"/>
+            </field>
+        </form>
         <form name="loginForm">
             <field property="username" depends="required">
                 <msg name="required" key="login.field.username.required"/>

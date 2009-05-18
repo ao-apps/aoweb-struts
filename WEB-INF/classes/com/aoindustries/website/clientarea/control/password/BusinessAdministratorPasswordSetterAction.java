@@ -44,7 +44,7 @@ public class BusinessAdministratorPasswordSetterAction extends AuthenticatedActi
 
         BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
         
-        List<BusinessAdministrator> bas = thisBA.hasPermission(AOServPermission.Permission.set_business_administrator_password) ? aoConn.businessAdministrators.getRows() : Collections.singletonList(thisBA);
+        List<BusinessAdministrator> bas = thisBA.hasPermission(AOServPermission.Permission.set_business_administrator_password) ? aoConn.getBusinessAdministrators().getRows() : Collections.singletonList(thisBA);
 
         List<String> packages = new ArrayList<String>(bas.size());
         List<String> usernames = new ArrayList<String>(bas.size());

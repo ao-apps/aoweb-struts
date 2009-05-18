@@ -43,7 +43,7 @@ public class LinuxAccountPasswordSetterAction extends PermissionAction {
     ) throws Exception {
         LinuxAccountPasswordSetterForm linuxAccountPasswordSetterForm = (LinuxAccountPasswordSetterForm)form;
 
-        List<LinuxServerAccount> lsas = aoConn.linuxServerAccounts.getRows();
+        List<LinuxServerAccount> lsas = aoConn.getLinuxServerAccounts().getRows();
 
         List<String> packages = new ArrayList<String>(lsas.size());
         List<String> usernames = new ArrayList<String>(lsas.size());

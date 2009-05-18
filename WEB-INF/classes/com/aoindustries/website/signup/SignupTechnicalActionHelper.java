@@ -52,16 +52,16 @@ final public class SignupTechnicalActionHelper {
         request.setAttribute("passwords", passwords);
     }
 
-    public static String getBaCountry(AOServConnector rootConn, SignupTechnicalForm signupTechnicalForm) {
+    public static String getBaCountry(AOServConnector rootConn, SignupTechnicalForm signupTechnicalForm) throws IOException, SQLException {
         String baCountry = signupTechnicalForm.getBaCountry();
-        return baCountry==null || baCountry.length()==0 ? "" : rootConn.countryCodes.get(baCountry).getName();
+        return baCountry==null || baCountry.length()==0 ? "" : rootConn.getCountryCodes().get(baCountry).getName();
     }
 
     public static void setConfirmationRequestAttributes(
         ServletContext servletContext,
         HttpServletRequest request,
         SignupTechnicalForm signupTechnicalForm
-    ) throws IOException {
+    ) throws IOException, SQLException {
         // Lookup things needed by the view
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
 
@@ -69,7 +69,7 @@ final public class SignupTechnicalActionHelper {
         request.setAttribute("baCountry", getBaCountry(rootConn, signupTechnicalForm));
     }
 
-    public static void printConfirmation(ChainWriter emailOut, Locale contentLocale, MessageResources signupApplicationResources, AOServConnector rootConn, SignupTechnicalForm signupTechnicalForm) {
+    public static void printConfirmation(ChainWriter emailOut, Locale contentLocale, MessageResources signupApplicationResources, AOServConnector rootConn, SignupTechnicalForm signupTechnicalForm) throws IOException, SQLException {
         emailOut.print("    <TR>\n"
                      + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.required")).print("</TD>\n"
                      + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupTechnicalForm.baName.prompt")).print("</TD>\n"

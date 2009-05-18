@@ -40,7 +40,7 @@ public class MakePaymentAction extends AuthenticatedAction {
         Business thisBusiness = aoConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
 
         // Get the list of businesses that are not canceled or have a non-zero balance, or are thisBusiness
-        List<Business> allBusinesses = aoConn.businesses.getRows();
+        List<Business> allBusinesses = aoConn.getBusinesses().getRows();
         List<Business> businesses = new ArrayList<Business>(allBusinesses.size());
         for(Business business : allBusinesses) {
             if(

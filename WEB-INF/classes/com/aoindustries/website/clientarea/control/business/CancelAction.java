@@ -38,7 +38,7 @@ public class CancelAction  extends PermissionAction {
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
-        List<Business> businesses = aoConn.businesses.getRows();
+        List<Business> businesses = aoConn.getBusinesses().getRows();
 
         // Set request values
         request.setAttribute("businesses", businesses);

@@ -5,6 +5,8 @@ package com.aoindustries.website;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +51,7 @@ public class LocaleAction extends SiteSettingsAction {
      * (the first in the language list).  Also allows the parameter "language" to
      * override the current settings.
      */
-    public static Locale getEffectiveLocale(SiteSettings siteSettings, HttpServletRequest request) throws JspException {
+    public static Locale getEffectiveLocale(SiteSettings siteSettings, HttpServletRequest request) throws JspException, IOException, SQLException {
         HttpSession session = request.getSession();
         List<Skin.Language> languages = siteSettings.getLanguages(request);
         Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
@@ -87,7 +89,7 @@ public class LocaleAction extends SiteSettingsAction {
      * Gets the default locale for the provided request.  The session is not
      * set.
      */
-    public static Locale getDefaultLocale(SiteSettings siteSettings, HttpServletRequest request) throws JspException {
+    public static Locale getDefaultLocale(SiteSettings siteSettings, HttpServletRequest request) throws JspException, IOException, SQLException {
         return getDefaultLocale(siteSettings.getLanguages(request));
     }
 

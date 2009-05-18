@@ -10,7 +10,7 @@
 <skin:setContentType/>
 <html:html lang="true">
     <skin:path>/clientarea/control/monitor/mysql-replication-monitor.do</skin:path>
-    <logic:equal name="siteSettings" property="noindexAowebStruts" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
+    <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
     <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="monitor.mysqlReplicationMonitor.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="monitor.mysqlReplicationMonitor.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/control/ApplicationResources" key="monitor.mysqlReplicationMonitor.keywords"/></skin:keywords>

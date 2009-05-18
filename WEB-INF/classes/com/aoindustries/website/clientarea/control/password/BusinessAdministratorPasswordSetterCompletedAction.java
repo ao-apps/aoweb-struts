@@ -58,14 +58,14 @@ public class BusinessAdministratorPasswordSetterCompletedAction extends Authenti
             if(newPassword.length()>0) {
                 String username = usernames.get(c);
                 if(!thisBA.hasPermission(AOServPermission.Permission.set_business_administrator_password) && !thisBA.getUsername().getUsername().equals(username)) {
-                    AOServPermission aoPerm = aoConn.aoservPermissions.get(AOServPermission.Permission.set_business_administrator_password);
+                    AOServPermission aoPerm = aoConn.getAoservPermissions().get(AOServPermission.Permission.set_business_administrator_password);
                     if(aoPerm==null) throw new SQLException("Unable to find AOServPermission: "+AOServPermission.Permission.set_business_administrator_password);
                     request.setAttribute("permission", aoPerm);
                     ActionForward forward = mapping.findForward("permission-denied");
                     if(forward==null) throw new Exception("Unable to find ActionForward: permission-denied");
                     return forward;
                 }
-                BusinessAdministrator ba = aoConn.businessAdministrators.get(username);
+                BusinessAdministrator ba = aoConn.getBusinessAdministrators().get(username);
                 if(ba==null) throw new SQLException("Unable to find BusinessAdministrator: "+username);
                 ba.setPassword(newPassword);
                 messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.businessAdministratorPasswordSetter.field.confirmPasswords.passwordReset"));

@@ -57,7 +57,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         initRequestAttributes(request, getServlet().getServletContext());
 
         String accounting = makePaymentNewCardForm.getAccounting();
-        Business business = accounting==null ? null : aoConn.businesses.get(accounting);
+        Business business = accounting==null ? null : aoConn.getBusinesses().get(accounting);
         if(business==null) {
             // Redirect back to make-payment if business not found
             return mapping.findForward("make-payment");
@@ -113,13 +113,13 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         // 1) Pick a processor
         CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootConn);
         if(rootProcessor==null) throw new SQLException("Unable to find enabled CreditCardProcessor for root connector");
-        com.aoindustries.aoserv.client.CreditCardProcessor rootAoProcessor = rootConn.creditCardProcessors.get(rootProcessor.getProviderId());
+        com.aoindustries.aoserv.client.CreditCardProcessor rootAoProcessor = rootConn.getCreditCardProcessors().get(rootProcessor.getProviderId());
         if(rootAoProcessor==null) throw new SQLException("Unable to find CreditCardProcessor: "+rootProcessor.getProviderId());
 
         // 2) Add the transaction as pending on this processor
-        Business rootBusiness = rootConn.businesses.get(accounting);
+        Business rootBusiness = rootConn.getBusinesses().get(accounting);
         if(rootBusiness==null) throw new SQLException("Unable to find Business: "+accounting);
-        TransactionType paymentTransactionType = rootConn.transactionTypes.get(TransactionType.PAYMENT);
+        TransactionType paymentTransactionType = rootConn.getTransactionTypes().get(TransactionType.PAYMENT);
         if(paymentTransactionType==null) throw new SQLException("Unable to find TransactionType: "+TransactionType.PAYMENT);
         MessageResources applicationResources = (MessageResources)request.getAttribute("/clientarea/accounting/ApplicationResources");
         String paymentTypeName;
@@ -137,7 +137,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         PaymentType paymentType;
         if(paymentTypeName==null) paymentType = null;
         else {
-            paymentType = rootConn.paymentTypes.get(paymentTypeName);
+            paymentType = rootConn.getPaymentTypes().get(paymentTypeName);
             if(paymentType==null) throw new SQLException("Unable to find PaymentType: "+paymentTypeName);
         }
 
@@ -153,7 +153,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
             rootAoProcessor,
             com.aoindustries.aoserv.client.Transaction.WAITING_CONFIRMATION
         );
-        com.aoindustries.aoserv.client.Transaction aoTransaction = rootConn.transactions.get(transID);
+        com.aoindustries.aoserv.client.Transaction aoTransaction = rootConn.getTransactions().get(transID);
         if(aoTransaction==null) throw new SQLException("Unable to find Transaction: "+transID);
 
         // 3) Process
@@ -349,7 +349,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
      */
     private void setAutomatic(AOServConnector rootConn, com.aoindustries.creditcards.CreditCard newCreditCard, Business business) throws SQLException, IOException {
         String persistenceUniqueId = newCreditCard.getPersistenceUniqueId();
-        CreditCard creditCard = rootConn.creditCards.get(Integer.parseInt(persistenceUniqueId));
+        CreditCard creditCard = rootConn.getCreditCards().get(Integer.parseInt(persistenceUniqueId));
         if(creditCard==null) throw new SQLException("Unable to find CreditCard: "+persistenceUniqueId);
         if(!creditCard.getBusiness().equals(business)) throw new SQLException("Requested business and CreditCard business do not match: "+creditCard.getBusiness().getAccounting()+"!="+business.getAccounting());
         business.setUseMonthlyCreditCard(creditCard);

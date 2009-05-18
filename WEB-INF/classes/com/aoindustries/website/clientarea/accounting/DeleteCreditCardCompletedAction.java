@@ -49,7 +49,7 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
         if(S!=null && S.length()>0) {
             try {
                 int pkey = Integer.parseInt(S);
-                creditCard = aoConn.creditCards.get(pkey);
+                creditCard = aoConn.getCreditCards().get(pkey);
             } catch(NumberFormatException err) {
                 getServlet().log(null, err);
             }
@@ -60,7 +60,7 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
 
         // Lookup the card in the root connector (to get access to the processor)
         AOServConnector rootConn = siteSettings.getRootAOServConnector();
-        CreditCard rootCreditCard = rootConn.creditCards.get(creditCard.getPkey());
+        CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
         if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPkey());
 
         // Delete the card from the bank and persistence

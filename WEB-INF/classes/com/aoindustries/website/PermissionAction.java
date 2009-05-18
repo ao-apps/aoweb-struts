@@ -65,7 +65,7 @@ abstract public class PermissionAction extends AuthenticatedAction {
             if(!thisBA.hasPermission(permission)) {
                 List<AOServPermission> aoPerms = new ArrayList<AOServPermission>(permissions.size());
                 for(AOServPermission.Permission requiredPermission : permissions) {
-                    AOServPermission aoPerm = aoConn.aoservPermissions.get(requiredPermission);
+                    AOServPermission aoPerm = aoConn.getAoservPermissions().get(requiredPermission);
                     if(aoPerm==null) throw new SQLException("Unable to find AOServPermission: "+requiredPermission);
                     aoPerms.add(aoPerm);
                 }

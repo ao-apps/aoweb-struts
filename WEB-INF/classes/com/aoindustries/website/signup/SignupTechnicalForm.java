@@ -205,7 +205,7 @@ public class SignupTechnicalForm extends ActionForm implements Serializable {
                     String lowerUsername = baUsername.toLowerCase();
                     String check = Username.checkUsername(lowerUsername, locale);
                     if(check!=null) errors.add("baUsername", new ActionMessage(check, false));
-                    else if(!rootConn.usernames.isUsernameAvailable(lowerUsername, locale)) errors.add("baUsername", new ActionMessage("signupTechnicalForm.baUsername.unavailable"));
+                    else if(!rootConn.getUsernames().isUsernameAvailable(lowerUsername, locale)) errors.add("baUsername", new ActionMessage("signupTechnicalForm.baUsername.unavailable"));
                 }
             }
             return errors;

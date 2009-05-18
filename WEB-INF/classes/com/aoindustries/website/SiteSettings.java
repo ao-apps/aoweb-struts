@@ -6,11 +6,13 @@ package com.aoindustries.website;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.Brand;
 import com.aoindustries.util.ErrorHandler;
 import com.aoindustries.util.StandardErrorHandler;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -29,6 +31,7 @@ import org.apache.struts.Globals;
  */
 public class SiteSettings {
 
+    // <editor-fold desc="Instance Selection">
     /**
      * Only one instance is created per unique classname.
      */
@@ -70,7 +73,8 @@ public class SiteSettings {
     public SiteSettings(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
-
+    // </editor-fold>
+    // <editor-fold desc="Skins">
     private static final List<Skin> skins = Collections.singletonList((Skin)TextSkin.getInstance());
 
     /**
@@ -83,102 +87,8 @@ public class SiteSettings {
     public List<Skin> getSkins() {
         return skins;
     }
-
-    /**
-     * Gets the unmodifiable list of languages supported by this site.
-     *
-     * The flags are obtained from http://commons.wikimedia.org/wiki/National_insignia
-     *
-     * Then they are scaled to a height of 24 pixels, rendered in gimp 2.
-     *
-     * The off version is created by filling with black, opacity 25% in gimp 2.
-     */
-    public List<Skin.Language> getLanguages(HttpServletRequest req) {
-        HttpSession session = req.getSession();
-        Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-        if(locale==null) locale = Locale.getDefault(); // Can't use: LocaleAction.getDefaultLocale(req); due to stack overflow
-        boolean isUnitedStates = locale.getCountry().equals(Locale.US.getCountry());
-
-        List<Skin.Language> languages = new ArrayList<Skin.Language>(2);
-        if(getEnglishEnabled()) {
-            if(isUnitedStates) {
-                languages.add(
-                    new Skin.Language(
-                        Locale.ENGLISH.getLanguage(),
-                        "/ApplicationResources", "TextSkin.language.en_US.alt",
-                        "/ApplicationResources", "TextSkin.language.en_US.flag.on.src",
-                        "/ApplicationResources", "TextSkin.language.en_US.flag.off.src",
-                        "/ApplicationResources", "TextSkin.language.en_US.flag.width",
-                        "/ApplicationResources", "TextSkin.language.en_US.flag.height",
-                        null
-                    )
-                );
-            } else {
-                languages.add(
-                    new Skin.Language(
-                        Locale.ENGLISH.getLanguage(),
-                        "/ApplicationResources", "TextSkin.language.en.alt",
-                        "/ApplicationResources", "TextSkin.language.en.flag.on.src",
-                        "/ApplicationResources", "TextSkin.language.en.flag.off.src",
-                        "/ApplicationResources", "TextSkin.language.en.flag.width",
-                        "/ApplicationResources", "TextSkin.language.en.flag.height",
-                        null
-                    )
-                );
-            }
-        }
-        if(getJapaneseEnabled()) {
-            languages.add(
-                new Skin.Language(
-                    Locale.JAPANESE.getLanguage(),
-                    "/ApplicationResources", "TextSkin.language.ja.alt",
-                    "/ApplicationResources", "TextSkin.language.ja.flag.on.src",
-                    "/ApplicationResources", "TextSkin.language.ja.flag.off.src",
-                    "/ApplicationResources", "TextSkin.language.ja.flag.width",
-                    "/ApplicationResources", "TextSkin.language.ja.flag.height",
-                    null
-                )
-            );
-        }
-        return Collections.unmodifiableList(languages);
-    }
-
-    /**
-     * Determines if English is enabled, enabled by default.
-     */
-    protected boolean getEnglishEnabled() {
-        return true;
-    }
-
-    /**
-     * Determines if Japense is enabled, disabled by default.
-     */
-    protected boolean getJapaneseEnabled() {
-        return false;
-    }
-
-    /**
-     * Gets the google verify content or <code>null</code> if doesn't have one.
-     */
-    public String getGoogleVerifyContent() {
-        return null;
-    }
-
-    /**
-     * If true (the default), all of the common aoweb-struts content will have ROBOTS NOINDEX.
-     */
-    public boolean getNoindexAowebStruts() {
-        return true;
-    }
-
-    /**
-     * Gets the Google Analytics New Tracking Code (ga.js) or <code>null</code>
-     * if unavailable.
-     */
-    public String getGoogleAnalyticsNewTrackingCode() {
-        return null;
-    }
-
+    // </editor-fold>
+    // <editor-fold desc="AOServ Integration">
     /**
      * Gets the username for the root AOServConnector.
      *
@@ -220,33 +130,76 @@ public class SiteSettings {
     }
 
     /**
-     * Gets the SMTP server used by this website.
+     * Gets the Brand for this site.
      */
-    public String getSmtpServer() {
-        return servletContext.getInitParameter("com.aoindustries.website.smtp.server");
+    public Brand getBrand() throws IOException, SQLException {
+        Brand br = getRootAOServConnector().getThisBusinessAdministrator().getUsername().getPackage().getBusiness().getBrand();
+        if(br==null) throw new SQLException("Unable to find Brand for username="+getRootAOServConnectorUsername());
+        return br;
     }
-
+    // </editor-fold>
+    // <editor-fold desc="Languages">
     /**
-     * Gets the From address used for any signup emails.
+     * Gets the unmodifiable list of languages supported by this site.
+     *
+     * The flags are obtained from http://commons.wikimedia.org/wiki/National_insignia
+     *
+     * Then they are scaled to a height of 24 pixels, rendered in gimp 2.
+     *
+     * The off version is created by filling with black, opacity 25% in gimp 2.
      */
-    public String getSignupFromAddress() {
-        return servletContext.getInitParameter("com.aoindustries.website.signup.from.address");
-    }
+    public List<Skin.Language> getLanguages(HttpServletRequest req) throws IOException, SQLException {
+        HttpSession session = req.getSession();
+        Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
+        if(locale==null) locale = Locale.getDefault(); // Can't use: LocaleAction.getDefaultLocale(req); due to stack overflow
+        boolean isUnitedStates = locale.getCountry().equals(Locale.US.getCountry());
 
-    /**
-     * Gets the display name used for any signup emails.
-     */
-    public String getSignupFromPersonal() {
-        return servletContext.getInitParameter("com.aoindustries.website.signup.from.personal");
+        Brand brand = getBrand();
+        List<Skin.Language> languages = new ArrayList<Skin.Language>(2);
+        if(brand.getEnglishEnabled()) {
+            if(isUnitedStates) {
+                languages.add(
+                    new Skin.Language(
+                        Locale.ENGLISH.getLanguage(),
+                        "/ApplicationResources", "TextSkin.language.en_US.alt",
+                        "/ApplicationResources", "TextSkin.language.en_US.flag.on.src",
+                        "/ApplicationResources", "TextSkin.language.en_US.flag.off.src",
+                        "/ApplicationResources", "TextSkin.language.en_US.flag.width",
+                        "/ApplicationResources", "TextSkin.language.en_US.flag.height",
+                        null
+                    )
+                );
+            } else {
+                languages.add(
+                    new Skin.Language(
+                        Locale.ENGLISH.getLanguage(),
+                        "/ApplicationResources", "TextSkin.language.en.alt",
+                        "/ApplicationResources", "TextSkin.language.en.flag.on.src",
+                        "/ApplicationResources", "TextSkin.language.en.flag.off.src",
+                        "/ApplicationResources", "TextSkin.language.en.flag.width",
+                        "/ApplicationResources", "TextSkin.language.en.flag.height",
+                        null
+                    )
+                );
+            }
+        }
+        if(brand.getJapaneseEnabled()) {
+            languages.add(
+                new Skin.Language(
+                    Locale.JAPANESE.getLanguage(),
+                    "/ApplicationResources", "TextSkin.language.ja.alt",
+                    "/ApplicationResources", "TextSkin.language.ja.flag.on.src",
+                    "/ApplicationResources", "TextSkin.language.ja.flag.off.src",
+                    "/ApplicationResources", "TextSkin.language.ja.flag.width",
+                    "/ApplicationResources", "TextSkin.language.ja.flag.height",
+                    null
+                )
+            );
+        }
+        return Collections.unmodifiableList(languages);
     }
-
-    /**
-     * Gets the email address that is notified when a signup occurs.
-     */
-    public String getSignupAdminAddress() {
-        return servletContext.getInitParameter("com.aoindustries.website.signup.admin.address");
-    }
-
+    // </editor-fold>
+    // <editor-fold desc="Development vs Production">
     public boolean getProtocolActionRedirectOnMismatch() {
         return !"false".equals(servletContext.getInitParameter("com.aoindustries.website.ProtocolAction.redirectOnMismatch"));
     }
@@ -254,4 +207,5 @@ public class SiteSettings {
     public boolean getExceptionShowError() {
         return "true".equals(servletContext.getInitParameter("exception.showError"));
     }
+    // </editor-fold>
 }

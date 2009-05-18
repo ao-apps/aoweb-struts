@@ -10,7 +10,7 @@
 <skin:setContentType/>
 <html:html lang="true">
     <skin:path>/clientarea/accounting/delete-credit-card-completed.do?pkey=<%= request.getParameter("pkey") %></skin:path>
-    <logic:equal name="siteSettings" property="noindexAowebStruts" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
+    <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
     <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.keywords"/></skin:keywords>

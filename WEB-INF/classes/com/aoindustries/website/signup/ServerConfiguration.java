@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class ServerConfiguration {
 
-    private static String getDiskDescription(int numDrives, PackageDefinitionLimit pdl) throws SQLException {
+    private static String getDiskDescription(int numDrives, PackageDefinitionLimit pdl) throws SQLException, IOException {
         if(pdl==null || numDrives==0) return null;
         String description = pdl.getResource().getDescription();
         if(numDrives==1) {

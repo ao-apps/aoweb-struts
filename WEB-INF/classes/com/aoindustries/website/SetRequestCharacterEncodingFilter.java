@@ -16,7 +16,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspException;
 
 /**
  * Sets the request encoding based on the users locale stored in their session.  If
@@ -44,7 +43,8 @@ public class SetRequestCharacterEncodingFilter implements Filter {
                 if(locale!=null) {
                     request.setCharacterEncoding(Skin.getCharacterSet(locale));
                 }
-            } catch(JspException err) {
+            } catch(Exception err) {
+                //throw new ServletException(err);
                 ErrorPrinter.printStackTraces(err);
             }
         }

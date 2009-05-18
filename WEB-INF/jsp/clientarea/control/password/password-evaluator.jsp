@@ -10,7 +10,7 @@
 <skin:setContentType/>
 <html:html lang="true">
     <skin:path>/clientarea/control/password/password-evaluator.do</skin:path>
-    <logic:equal name="siteSettings" property="noindexAowebStruts" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
+    <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
     <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordEvaluator.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordEvaluator.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordEvaluator.keywords"/></skin:keywords>

@@ -13,6 +13,7 @@ import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.AuthenticatedAction;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -102,7 +103,7 @@ public class LinuxAccountPasswordSetterForm extends ActionForm implements Serial
                 } else {
                     if(newPassword.length()>0) {
                         String username = usernames.get(c);
-                        LinuxAccount la = aoConn.linuxAccounts.get(username);
+                        LinuxAccount la = aoConn.getLinuxAccounts().get(username);
                         if(la==null) {
                             throw new AssertionError("Unable to find LinuxAccount: "+username);
                         } else {
@@ -117,6 +118,8 @@ public class LinuxAccountPasswordSetterForm extends ActionForm implements Serial
             }
             return errors;
         } catch(IOException err) {
+            throw new WrappedException(err);
+        } catch(SQLException err) {
             throw new WrappedException(err);
         }
     }

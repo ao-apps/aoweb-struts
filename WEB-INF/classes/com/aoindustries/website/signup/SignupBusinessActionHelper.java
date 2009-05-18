@@ -12,7 +12,6 @@ import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.ServletContext;
@@ -60,7 +59,7 @@ final public class SignupBusinessActionHelper {
         final int prioritySize = 10;
         int[] priorityCounter = new int[1];
         boolean selectedOne = false;
-	List<CountryCode> cc = aoConn.countryCodes.getCountryCodesByPriority(prioritySize, priorityCounter);
+	List<CountryCode> cc = aoConn.getCountryCodes().getCountryCodesByPriority(prioritySize, priorityCounter);
 	for (int i = 0; i<cc.size(); i++) {
             if(priorityCounter[0]!=0 && i==priorityCounter[0]) {
                 countryOptions.add(new CountryOption("", "---"));
@@ -91,15 +90,15 @@ final public class SignupBusinessActionHelper {
         }
     }
 
-    public static String getBusinessCountry(AOServConnector rootConn, SignupBusinessForm signupBusinessForm) {
-        return rootConn.countryCodes.get(signupBusinessForm.getBusinessCountry()).getName();
+    public static String getBusinessCountry(AOServConnector rootConn, SignupBusinessForm signupBusinessForm) throws IOException, SQLException {
+        return rootConn.getCountryCodes().get(signupBusinessForm.getBusinessCountry()).getName();
     }
 
     public static void setConfirmationRequestAttributes(
         ServletContext servletContext,
         HttpServletRequest request,
         SignupBusinessForm signupBusinessForm
-    ) throws IOException {
+    ) throws IOException, SQLException {
         // Lookup things needed by the view
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
 
@@ -107,7 +106,7 @@ final public class SignupBusinessActionHelper {
         request.setAttribute("businessCountry", getBusinessCountry(rootConn, signupBusinessForm));
     }
 
-    public static void printConfirmation(ChainWriter emailOut, Locale contentLocale, MessageResources signupApplicationResources, AOServConnector rootConn, SignupBusinessForm signupBusinessForm) {
+    public static void printConfirmation(ChainWriter emailOut, Locale contentLocale, MessageResources signupApplicationResources, AOServConnector rootConn, SignupBusinessForm signupBusinessForm) throws IOException, SQLException {
         emailOut.print("    <TR>\n"
                      + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.required")).print("</TD>\n"
                      + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupBusinessForm.businessName.prompt")).print("</TD>\n"

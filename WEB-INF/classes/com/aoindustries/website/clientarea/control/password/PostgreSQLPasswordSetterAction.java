@@ -44,7 +44,7 @@ public class PostgreSQLPasswordSetterAction extends PermissionAction {
     ) throws Exception {
         PostgreSQLPasswordSetterForm postgreSQLPasswordSetterForm = (PostgreSQLPasswordSetterForm)form;
 
-        List<PostgresServerUser> psus = aoConn.postgresServerUsers.getRows();
+        List<PostgresServerUser> psus = aoConn.getPostgresServerUsers().getRows();
 
         List<String> packages = new ArrayList<String>(psus.size());
         List<String> usernames = new ArrayList<String>(psus.size());

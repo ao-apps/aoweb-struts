@@ -6,8 +6,10 @@ package com.aoindustries.website;
  * All rights reserved.
  */
 import com.aoindustries.util.ErrorPrinter;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -78,7 +80,10 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
         } catch(JspException err) {
             ErrorPrinter.printStackTraces(err);
             return url;
-        } catch(UnsupportedEncodingException err) {
+        } catch(IOException err) {
+            ErrorPrinter.printStackTraces(err);
+            return url;
+        } catch(SQLException err) {
             ErrorPrinter.printStackTraces(err);
             return url;
         }
@@ -131,7 +136,10 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
         } catch(JspException err) {
             ErrorPrinter.printStackTraces(err);
             return url;
-        } catch(UnsupportedEncodingException err) {
+        } catch(IOException err) {
+            ErrorPrinter.printStackTraces(err);
+            return url;
+        } catch(SQLException err) {
             ErrorPrinter.printStackTraces(err);
             return url;
         }
@@ -148,7 +156,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
     /**
      * Adds the no cookie parameters (language and layout) if needed and not already set.
      */
-    private String addNoCookieParameters(String url, boolean isRedirect) throws JspException, UnsupportedEncodingException {
+    private String addNoCookieParameters(String url, boolean isRedirect) throws JspException, UnsupportedEncodingException, IOException, SQLException {
         HttpSession session = request.getSession();
         if(session.isNew() || request.isRequestedSessionIdFromURL()) {
             // Don't add for certains file types

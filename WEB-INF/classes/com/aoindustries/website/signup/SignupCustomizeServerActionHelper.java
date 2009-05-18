@@ -45,7 +45,7 @@ final public class SignupCustomizeServerActionHelper {
         boolean includeNoHardDriveOption
     ) throws IOException, SQLException {
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
-        PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());
+        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectServerForm.getPackageDefinition());
         if(packageDefinition==null) throw new SQLException("Unable to find PackageDefinition: "+signupSelectServerForm.getPackageDefinition());
         List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
 
@@ -294,23 +294,23 @@ final public class SignupCustomizeServerActionHelper {
         // Clear any customization settings that are not part of the current package definition (this happens when they
         // select a different package type)
         if(signupCustomizeServerForm.getPowerOption()!=-1) {
-            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(signupCustomizeServerForm.getPowerOption());
+            PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getPowerOption());
             if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) signupCustomizeServerForm.setPowerOption(-1);
         }
         if(signupCustomizeServerForm.getCpuOption()!=-1) {
-            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(signupCustomizeServerForm.getCpuOption());
+            PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getCpuOption());
             if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) signupCustomizeServerForm.setCpuOption(-1);
         }
         if(signupCustomizeServerForm.getRamOption()!=-1) {
-            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(signupCustomizeServerForm.getRamOption());
+            PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getRamOption());
             if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) signupCustomizeServerForm.setRamOption(-1);
         }
         if(signupCustomizeServerForm.getSataControllerOption()!=-1) {
-            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(signupCustomizeServerForm.getSataControllerOption());
+            PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getSataControllerOption());
             if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) signupCustomizeServerForm.setSataControllerOption(-1);
         }
         if(signupCustomizeServerForm.getScsiControllerOption()!=-1) {
-            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(signupCustomizeServerForm.getScsiControllerOption());
+            PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getScsiControllerOption());
             if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) signupCustomizeServerForm.setScsiControllerOption(-1);
         }
         List<String> formIdeOptions = signupCustomizeServerForm.getIdeOptions();
@@ -319,7 +319,7 @@ final public class SignupCustomizeServerActionHelper {
             String S = formIdeOptions.get(c);
             if(S!=null && S.length()>0 && !S.equals("-1")) {
                 int pkey = Integer.parseInt(S);
-                PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(pkey);
+                PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(pkey);
                 if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) formIdeOptions.set(c, "-1");
             }
         }
@@ -329,7 +329,7 @@ final public class SignupCustomizeServerActionHelper {
             String S = formSataOptions.get(c);
             if(S!=null && S.length()>0 && !S.equals("-1")) {
                 int pkey = Integer.parseInt(S);
-                PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(pkey);
+                PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(pkey);
                 if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) formSataOptions.set(c, "-1");
             }
         }
@@ -339,7 +339,7 @@ final public class SignupCustomizeServerActionHelper {
             String S = formScsiOptions.get(c);
             if(S!=null && S.length()>0 && !S.equals("-1")) {
                 int pkey = Integer.parseInt(S);
-                PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(pkey);
+                PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(pkey);
                 if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) formScsiOptions.set(c, "-1");
             }
         }
@@ -425,20 +425,20 @@ final public class SignupCustomizeServerActionHelper {
         // Add the power option
         int powerOption = signupCustomizeServerForm.getPowerOption();
         if(powerOption!=-1) {
-            PackageDefinitionLimit powerPDL = rootConn.packageDefinitionLimits.get(powerOption);
+            PackageDefinitionLimit powerPDL = rootConn.getPackageDefinitionLimits().get(powerOption);
             int numPower = powerPDL.getHardLimit();
             int powerRate = powerPDL.getAdditionalRate();
             if(powerRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numPower * powerRate)));
         }
 
         // Add the cpu option
-        PackageDefinitionLimit cpuPDL = rootConn.packageDefinitionLimits.get(signupCustomizeServerForm.getCpuOption());
+        PackageDefinitionLimit cpuPDL = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getCpuOption());
         int numCpu = cpuPDL.getHardLimit();
         int cpuRate = cpuPDL.getAdditionalRate();
         if(cpuRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numCpu * cpuRate)));
 
         // Add the RAM option
-        PackageDefinitionLimit ramPDL = rootConn.packageDefinitionLimits.get(signupCustomizeServerForm.getRamOption());
+        PackageDefinitionLimit ramPDL = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getRamOption());
         int numRam = ramPDL.getHardLimit();
         int ramRate = ramPDL.getAdditionalRate();
         if(ramRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numRam * ramRate)));
@@ -446,7 +446,7 @@ final public class SignupCustomizeServerActionHelper {
         // Add the SATA controller option
         int sataControllerOption = signupCustomizeServerForm.getSataControllerOption();
         if(sataControllerOption!=-1) {
-            PackageDefinitionLimit sataControllerPDL = rootConn.packageDefinitionLimits.get(sataControllerOption);
+            PackageDefinitionLimit sataControllerPDL = rootConn.getPackageDefinitionLimits().get(sataControllerOption);
             int numSataController = sataControllerPDL.getHardLimit();
             int sataControllerRate = sataControllerPDL.getAdditionalRate();
             if(sataControllerRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numSataController * sataControllerRate)));
@@ -455,7 +455,7 @@ final public class SignupCustomizeServerActionHelper {
         // Add the SCSI controller option
         int scsiControllerOption = signupCustomizeServerForm.getScsiControllerOption();
         if(scsiControllerOption!=-1) {
-            PackageDefinitionLimit scsiControllerPDL = rootConn.packageDefinitionLimits.get(scsiControllerOption);
+            PackageDefinitionLimit scsiControllerPDL = rootConn.getPackageDefinitionLimits().get(scsiControllerOption);
             int numScsiController = scsiControllerPDL.getHardLimit();
             int scsiControllerRate = scsiControllerPDL.getAdditionalRate();
             if(scsiControllerRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numScsiController * scsiControllerRate)));
@@ -464,7 +464,7 @@ final public class SignupCustomizeServerActionHelper {
         // Add the IDE options
         for(String pkey : signupCustomizeServerForm.getIdeOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
-                PackageDefinitionLimit idePDL = rootConn.packageDefinitionLimits.get(Integer.parseInt(pkey));
+                PackageDefinitionLimit idePDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
                 if(idePDL!=null) {
                     int ideRate = idePDL.getAdditionalRate();
                     if(ideRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(ideRate)));
@@ -475,7 +475,7 @@ final public class SignupCustomizeServerActionHelper {
         // Add the SATA options
         for(String pkey : signupCustomizeServerForm.getSataOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
-                PackageDefinitionLimit sataPDL = rootConn.packageDefinitionLimits.get(Integer.parseInt(pkey));
+                PackageDefinitionLimit sataPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
                 if(sataPDL!=null) {
                     int sataRate = sataPDL.getAdditionalRate();
                     if(sataRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(sataRate)));
@@ -486,7 +486,7 @@ final public class SignupCustomizeServerActionHelper {
         // Add the SCSI options
         for(String pkey : signupCustomizeServerForm.getScsiOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
-                PackageDefinitionLimit scsiPDL = rootConn.packageDefinitionLimits.get(Integer.parseInt(pkey));
+                PackageDefinitionLimit scsiPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
                 if(scsiPDL!=null) {
                     int scsiRate = scsiPDL.getAdditionalRate();
                     if(scsiRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(scsiRate)));
@@ -499,21 +499,21 @@ final public class SignupCustomizeServerActionHelper {
     public static String getPowerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         int powerOption = signupCustomizeServerForm.getPowerOption();
         if(powerOption==-1) return null;
-        PackageDefinitionLimit powerPDL = rootConn.packageDefinitionLimits.get(powerOption);
+        PackageDefinitionLimit powerPDL = rootConn.getPackageDefinitionLimits().get(powerOption);
         int numPower = powerPDL.getHardLimit();
         if(numPower==1) return powerPDL.getResource().getDescription();
         else return numPower + "x" + powerPDL.getResource().getDescription();
     }
 
     public static String getCpuOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
-        PackageDefinitionLimit cpuPDL = rootConn.packageDefinitionLimits.get(signupCustomizeServerForm.getCpuOption());
+        PackageDefinitionLimit cpuPDL = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getCpuOption());
         int numCpu = cpuPDL.getHardLimit();
         if(numCpu==1) return cpuPDL.getResource().getDescription().replaceAll(", ", "<br>&nbsp;&nbsp;&nbsp;&nbsp;");
         else return numCpu + "x" + cpuPDL.getResource().getDescription().replaceAll(", ", "<br>&nbsp;&nbsp;&nbsp;&nbsp;");
     }
     
     public static String getRamOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
-        PackageDefinitionLimit ramPDL = rootConn.packageDefinitionLimits.get(signupCustomizeServerForm.getRamOption());
+        PackageDefinitionLimit ramPDL = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getRamOption());
         int numRam = ramPDL.getHardLimit();
         if(numRam==1) return ramPDL.getResource().getDescription();
         else return numRam + "x" + ramPDL.getResource().getDescription();
@@ -522,7 +522,7 @@ final public class SignupCustomizeServerActionHelper {
     public static String getSataControllerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         int sataControllerOption = signupCustomizeServerForm.getSataControllerOption();
         if(sataControllerOption==-1) return null;
-        PackageDefinitionLimit sataControllerPDL = rootConn.packageDefinitionLimits.get(sataControllerOption);
+        PackageDefinitionLimit sataControllerPDL = rootConn.getPackageDefinitionLimits().get(sataControllerOption);
         int numSataController = sataControllerPDL.getHardLimit();
         if(numSataController==1) return sataControllerPDL.getResource().getDescription();
         else return numSataController + "x" + sataControllerPDL.getResource().getDescription();
@@ -531,7 +531,7 @@ final public class SignupCustomizeServerActionHelper {
     public static String getScsiControllerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         int scsiControllerOption = signupCustomizeServerForm.getScsiControllerOption();
         if(scsiControllerOption==-1) return null;
-        PackageDefinitionLimit scsiControllerPDL = rootConn.packageDefinitionLimits.get(scsiControllerOption);
+        PackageDefinitionLimit scsiControllerPDL = rootConn.getPackageDefinitionLimits().get(scsiControllerOption);
         int numScsiController = scsiControllerPDL.getHardLimit();
         if(numScsiController==1) return scsiControllerPDL.getResource().getDescription();
         else return numScsiController + "x" + scsiControllerPDL.getResource().getDescription();
@@ -541,7 +541,7 @@ final public class SignupCustomizeServerActionHelper {
         List<String> ideOptions = new ArrayList<String>();
         for(String pkey : signupCustomizeServerForm.getIdeOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
-                PackageDefinitionLimit idePDL = rootConn.packageDefinitionLimits.get(Integer.parseInt(pkey));
+                PackageDefinitionLimit idePDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
                 if(idePDL!=null) {
                     int ideRate = idePDL.getAdditionalRate();
                     ideOptions.add(idePDL.getResource().getDescription());
@@ -555,7 +555,7 @@ final public class SignupCustomizeServerActionHelper {
         List<String> sataOptions = new ArrayList<String>();
         for(String pkey : signupCustomizeServerForm.getSataOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
-                PackageDefinitionLimit sataPDL = rootConn.packageDefinitionLimits.get(Integer.parseInt(pkey));
+                PackageDefinitionLimit sataPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
                 if(sataPDL!=null) {
                     int sataRate = sataPDL.getAdditionalRate();
                     sataOptions.add(sataPDL.getResource().getDescription());
@@ -569,7 +569,7 @@ final public class SignupCustomizeServerActionHelper {
         List<String> scsiOptions = new ArrayList<String>();
         for(String pkey : signupCustomizeServerForm.getScsiOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
-                PackageDefinitionLimit scsiPDL = rootConn.packageDefinitionLimits.get(Integer.parseInt(pkey));
+                PackageDefinitionLimit scsiPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
                 if(scsiPDL!=null) {
                     int scsiRate = scsiPDL.getAdditionalRate();
                     scsiOptions.add(scsiPDL.getResource().getDescription());
@@ -587,7 +587,7 @@ final public class SignupCustomizeServerActionHelper {
     ) throws IOException, SQLException {
         // Lookup things needed by the view
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
-        PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());
+        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectServerForm.getPackageDefinition());
 
         // Store as request attribute for the view
         request.setAttribute("packageDefinition", packageDefinition);
@@ -693,7 +693,7 @@ final public class SignupCustomizeServerActionHelper {
         int total = 0;
         for(String ideOption : signupCustomizeServerForm.getIdeOptions()) {
             if(ideOption!=null && ideOption.length()>0 && !"-1".equals(ideOption)) {
-                PackageDefinitionLimit limit = rootConn.packageDefinitionLimits.get(Integer.parseInt(ideOption));
+                PackageDefinitionLimit limit = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(ideOption));
                 if(limit!=null) {
                     Resource resource = limit.getResource();
                     String name = resource.getName();
@@ -720,7 +720,7 @@ final public class SignupCustomizeServerActionHelper {
         }
         for(String sataOption : signupCustomizeServerForm.getSataOptions()) {
             if(sataOption!=null && sataOption.length()>0 && !"-1".equals(sataOption)) {
-                PackageDefinitionLimit limit = rootConn.packageDefinitionLimits.get(Integer.parseInt(sataOption));
+                PackageDefinitionLimit limit = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(sataOption));
                 if(limit!=null) {
                     Resource resource = limit.getResource();
                     String name = resource.getName();
@@ -747,7 +747,7 @@ final public class SignupCustomizeServerActionHelper {
         }
         for(String scsiOption : signupCustomizeServerForm.getScsiOptions()) {
             if(scsiOption!=null && scsiOption.length()>0 && !"-1".equals(scsiOption)) {
-                PackageDefinitionLimit limit = rootConn.packageDefinitionLimits.get(Integer.parseInt(scsiOption));
+                PackageDefinitionLimit limit = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(scsiOption));
                 if(limit!=null) {
                     Resource resource = limit.getResource();
                     String name = resource.getName();

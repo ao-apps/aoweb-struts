@@ -64,7 +64,7 @@ public class MakePaymentStoredCardAction extends PermissionAction {
 
         // Find the requested business
         String accounting = makePaymentStoredCardForm.getAccounting();
-        Business business = accounting==null ? null : aoConn.businesses.get(accounting);
+        Business business = accounting==null ? null : aoConn.getBusinesses().get(accounting);
         if(business==null) {
             // Redirect back to make-payment if business not found
             return mapping.findForward("make-payment");
@@ -88,7 +88,7 @@ public class MakePaymentStoredCardAction extends PermissionAction {
             // Can't parse int, redirect back to make-payment
             return mapping.findForward("make-payment");
         }
-        CreditCard creditCard = aoConn.creditCards.get(pkey);
+        CreditCard creditCard = aoConn.getCreditCards().get(pkey);
         if(creditCard==null) {
             // creditCard not found, redirect back to make-payment
             return mapping.findForward("make-payment");

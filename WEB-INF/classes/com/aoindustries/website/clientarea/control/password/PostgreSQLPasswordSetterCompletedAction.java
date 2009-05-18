@@ -63,7 +63,7 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
             if(newPassword.length()>0) {
                 String username = usernames.get(c);
                 String hostname = aoServers.get(c);
-                Server server = aoConn.servers.get(hostname);
+                Server server = aoConn.getServers().get(hostname);
                 if(server==null) throw new SQLException("Unable to find Server: "+server);
                 AOServer aoServer = server.getAOServer();
                 if(aoServer==null) throw new SQLException("Unable to find AOServer: "+aoServer);

@@ -6,6 +6,7 @@ package com.aoindustries.website;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.Brand;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.website.skintags.Page;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.aoindustries.website.skintags.PageAttributes;
+import java.sql.SQLException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
@@ -141,7 +143,8 @@ public class TextSkin extends Skin {
             out.print("</TITLE>\n"
                     + "    <META http-equiv='Content-Type' content='text/html; charset=");
             out.print(getCharacterSet(locale)); out.print("'>\n");
-            String googleVerify = settings.getGoogleVerifyContent();
+            Brand brand = settings.getBrand();
+            String googleVerify = brand.getAowebStrutsGoogleVerifyContent();
             if(googleVerify!=null) {
                 out.print("    <meta name=\"verify-v1\" content=\""); ChainWriter.writeHtmlAttribute(googleVerify, out); out.print("\" />\n");
             }
@@ -337,6 +340,8 @@ public class TextSkin extends Skin {
             printCommonPages(req, resp, out);
         } catch(IOException err) {
             throw new JspException(err);
+        } catch(SQLException err) {
+            throw new JspException(err);
         }
     }
 
@@ -507,7 +512,7 @@ public class TextSkin extends Skin {
             out.print("        </TD>\n"
                     + "      </TR>\n"
                     + "    </TABLE>\n");
-            String googleAnalyticsNewTrackingCode = SiteSettings.getInstance(req.getSession().getServletContext()).getGoogleAnalyticsNewTrackingCode();
+            String googleAnalyticsNewTrackingCode = SiteSettings.getInstance(req.getSession().getServletContext()).getBrand().getAowebStrutsGoogleAnalyticsNewTrackingCode();
             if(googleAnalyticsNewTrackingCode!=null) {
                 out.print("<script type=\"text/javascript\">\n"
                         + "var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");\n"
@@ -521,6 +526,8 @@ public class TextSkin extends Skin {
             }
             out.print("  </BODY>\n");
         } catch(IOException err) {
+            throw new JspException(err);
+        } catch(SQLException err) {
             throw new JspException(err);
         }
     }

@@ -44,7 +44,7 @@ public class MySQLPasswordSetterAction extends PermissionAction {
     ) throws Exception {
         MySQLPasswordSetterForm mySQLPasswordSetterForm = (MySQLPasswordSetterForm)form;
 
-        List<MySQLServerUser> msus = aoConn.mysqlServerUsers.getRows();
+        List<MySQLServerUser> msus = aoConn.getMysqlServerUsers().getRows();
 
         List<String> packages = new ArrayList<String>(msus.size());
         List<String> usernames = new ArrayList<String>(msus.size());

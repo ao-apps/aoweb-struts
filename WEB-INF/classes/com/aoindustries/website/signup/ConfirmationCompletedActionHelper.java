@@ -6,6 +6,7 @@ package com.aoindustries.website.signup;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.Brand;
 import com.aoindustries.aoserv.client.CountryCode;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.io.ChainWriter;
@@ -110,11 +111,11 @@ final public class ConfirmationCompletedActionHelper {
         int pkey;
         String statusKey;
         try {
-            CountryCode businessCountry = rootConn.countryCodes.get(signupBusinessForm.getBusinessCountry());
-            CountryCode baCountry = GenericValidator.isBlankOrNull(signupTechnicalForm.getBaCountry()) ? null : rootConn.countryCodes.get(signupTechnicalForm.getBaCountry());
+            CountryCode businessCountry = rootConn.getCountryCodes().get(signupBusinessForm.getBusinessCountry());
+            CountryCode baCountry = GenericValidator.isBlankOrNull(signupTechnicalForm.getBaCountry()) ? null : rootConn.getCountryCodes().get(signupTechnicalForm.getBaCountry());
 
-            pkey = rootConn.signupRequests.addSignupRequest(
-                rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness(),
+            pkey = rootConn.getSignupRequests().addSignupRequest(
+                rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness().getBrand(),
                 request.getRemoteAddr(),
                 packageDefinition,
                 signupBusinessForm.getBusinessName(),
@@ -188,7 +189,11 @@ final public class ConfirmationCompletedActionHelper {
         SignupTechnicalForm signupTechnicalForm,
         SignupBillingInformationForm signupBillingInformationForm
     ) {
-        sendSummaryEmail(servlet, request, pkey, statusKey, siteSettings.getSignupAdminAddress(), contentLocale, Locale.US, siteSettings, packageDefinition, signupCustomizeServerForm, signupCustomizeManagementForm, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
+        try {
+            sendSummaryEmail(servlet, request, pkey, statusKey, siteSettings.getBrand().getAowebStrutsSignupAdminAddress(), contentLocale, Locale.US, siteSettings, packageDefinition, signupCustomizeServerForm, signupCustomizeManagementForm, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
+        } catch(Exception err) {
+            servlet.log("Unable to send sign up details to support admin address", err);
+        }
     }
     
     /**
@@ -322,12 +327,13 @@ final public class ConfirmationCompletedActionHelper {
             emailOut.flush();
 
             // Send the email
+            Brand brand = siteSettings.getBrand();
             Mailer.sendEmail(
-                siteSettings.getSmtpServer(),
+                brand.getSignupEmailAddress().getDomain().getAOServer().getHostname(),
                 "text/html",
                 charset,
-                siteSettings.getSignupFromAddress(),
-                siteSettings.getSignupFromPersonal(),
+                brand.getSignupEmailAddress().toString(),
+                brand.getSignupEmailDisplay(),
                 Collections.singletonList(recipient),
                 signupApplicationResources.getMessage(subjectLocale, "serverConfirmationCompleted.email.subject", pkey),
                 cout.toString()

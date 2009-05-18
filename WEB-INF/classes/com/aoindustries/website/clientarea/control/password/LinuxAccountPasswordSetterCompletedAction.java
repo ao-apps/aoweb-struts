@@ -61,10 +61,10 @@ public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction 
             String newPassword = newPasswords.get(c);
             if(newPassword.length()>0) {
                 String username = usernames.get(c);
-                LinuxAccount la = aoConn.linuxAccounts.get(username);
+                LinuxAccount la = aoConn.getLinuxAccounts().get(username);
                 if(la==null) throw new SQLException("Unable to find LinuxAccount: "+username);
                 String hostname = aoServers.get(c);
-                Server server = aoConn.servers.get(hostname);
+                Server server = aoConn.getServers().get(hostname);
                 if(server==null) throw new SQLException("Unable to find Server: "+server);
                 AOServer aoServer = server.getAOServer();
                 if(aoServer==null) throw new SQLException("Unable to find AOServer: "+aoServer);

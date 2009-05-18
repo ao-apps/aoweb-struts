@@ -68,7 +68,7 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
 
         creditCardProcessor.storeCreditCard(
             new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
-            new BusinessGroup(aoConn.businesses.get(accounting), accounting),
+            new BusinessGroup(aoConn.getBusinesses().get(accounting), accounting),
             new CreditCard(
                 locale,
                 null,

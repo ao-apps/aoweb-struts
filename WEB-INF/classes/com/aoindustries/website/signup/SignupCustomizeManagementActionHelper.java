@@ -45,7 +45,7 @@ final public class SignupCustomizeManagementActionHelper {
         SignupCustomizeManagementForm signupCustomizeManagementForm
     ) throws IOException, SQLException {
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
-        PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());
+        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectServerForm.getPackageDefinition());
         if(packageDefinition==null) throw new SQLException("Unable to find PackageDefinition: "+signupSelectServerForm.getPackageDefinition());
         List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
 
@@ -82,7 +82,7 @@ final public class SignupCustomizeManagementActionHelper {
         }
         // Distribution scan option
         {
-            Resource resource = rootConn.resources.get(Resource.DISTRIBUTION_SCAN);
+            Resource resource = rootConn.getResources().get(Resource.DISTRIBUTION_SCAN);
             if(resource==null) {
                 servletContext.log(null, new SQLException("Unable to find Resource: "+Resource.DISTRIBUTION_SCAN));
             } else {
@@ -99,7 +99,7 @@ final public class SignupCustomizeManagementActionHelper {
         }
         // Failover option
         {
-            Resource resource = rootConn.resources.get(Resource.FAILOVER);
+            Resource resource = rootConn.getResources().get(Resource.FAILOVER);
             if(resource==null) {
                 servletContext.log(null, new SQLException("Unable to find Resource: "+Resource.FAILOVER));
             } else {
@@ -114,7 +114,7 @@ final public class SignupCustomizeManagementActionHelper {
                         failoverOptions.add(new Option(limit.getPkey(), resource.getDescription(), new BigDecimal(SQLUtility.getDecimal(additionalRate))));
                         
                         // Only once the failover option is available will the MySQL replication option be available
-                        Resource mrResource = rootConn.resources.get(Resource.MYSQL_REPLICATION);
+                        Resource mrResource = rootConn.getResources().get(Resource.MYSQL_REPLICATION);
                         if(mrResource==null) {
                             servletContext.log(null, new SQLException("Unable to find Resource: "+Resource.MYSQL_REPLICATION));
                         } else {
@@ -147,19 +147,19 @@ final public class SignupCustomizeManagementActionHelper {
         // Clear any customization settings that are not part of the current package definition (this happens when they
         // select a different package type)
         if(signupCustomizeManagementForm.getBackupOnsiteOption()!=-1) {
-            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(signupCustomizeManagementForm.getBackupOnsiteOption());
+            PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(signupCustomizeManagementForm.getBackupOnsiteOption());
             if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) signupCustomizeManagementForm.setBackupOnsiteOption(-1);
         }
         if(signupCustomizeManagementForm.getBackupOffsiteOption()!=-1) {
-            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(signupCustomizeManagementForm.getBackupOffsiteOption());
+            PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(signupCustomizeManagementForm.getBackupOffsiteOption());
             if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) signupCustomizeManagementForm.setBackupOffsiteOption(-1);
         }
         if(signupCustomizeManagementForm.getDistributionScanOption()!=-1) {
-            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(signupCustomizeManagementForm.getDistributionScanOption());
+            PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(signupCustomizeManagementForm.getDistributionScanOption());
             if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) signupCustomizeManagementForm.setDistributionScanOption(-1);
         }
         if(signupCustomizeManagementForm.getFailoverOption()!=-1) {
-            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(signupCustomizeManagementForm.getFailoverOption());
+            PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(signupCustomizeManagementForm.getFailoverOption());
             if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) signupCustomizeManagementForm.setFailoverOption(-1);
         }
 
@@ -181,7 +181,7 @@ final public class SignupCustomizeManagementActionHelper {
     ) throws IOException, SQLException {
         // Lookup things needed by the view
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
-        PackageDefinition packageDefinition = rootConn.packageDefinitions.get(signupSelectServerForm.getPackageDefinition());
+        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectServerForm.getPackageDefinition());
 
         // Store as request attribute for the view
         request.setAttribute("totalMonthlyRate", getTotalMonthlyRate(rootConn, signupCustomizeServerForm, signupCustomizeManagementForm, packageDefinition));
@@ -263,7 +263,7 @@ final public class SignupCustomizeManagementActionHelper {
         // Add the backup onsite option
         int backupOnsiteOption = signupCustomizeManagementForm.getBackupOnsiteOption();
         if(backupOnsiteOption!=-1) {
-            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(backupOnsiteOption);
+            PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(backupOnsiteOption);
             int rate = pdl.getAdditionalRate();
             if(rate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(rate * totalDiskSpace)));
         }
@@ -271,7 +271,7 @@ final public class SignupCustomizeManagementActionHelper {
         // Add the backup offsite option
         int backupOffsiteOption = signupCustomizeManagementForm.getBackupOffsiteOption();
         if(backupOffsiteOption!=-1) {
-            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(backupOffsiteOption);
+            PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(backupOffsiteOption);
             int rate = pdl.getAdditionalRate();
             if(rate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(rate * totalDiskSpace)));
         }
@@ -279,7 +279,7 @@ final public class SignupCustomizeManagementActionHelper {
         // Add the distributionScanOption option
         int distributionScanOption = signupCustomizeManagementForm.getDistributionScanOption();
         if(distributionScanOption!=-1) {
-            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(distributionScanOption);
+            PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(distributionScanOption);
             int rate = pdl.getAdditionalRate();
             if(rate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(rate)));
         }
@@ -287,7 +287,7 @@ final public class SignupCustomizeManagementActionHelper {
         // Add the backup offsite option
         int failoverOption = signupCustomizeManagementForm.getFailoverOption();
         if(failoverOption!=-1) {
-            PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(failoverOption);
+            PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(failoverOption);
             String resourceName = pdl.getResource().getName();
             if(Resource.FAILOVER.equals(resourceName)) {
                 // Failover mirror only
@@ -295,7 +295,7 @@ final public class SignupCustomizeManagementActionHelper {
                 if(rate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(rate * totalDiskSpace)));
             } else if(Resource.MYSQL_REPLICATION.equals(resourceName)) {
                 // Failover mirror plus MySQL replication
-                Resource failoverResource = rootConn.resources.get(Resource.FAILOVER);
+                Resource failoverResource = rootConn.getResources().get(Resource.FAILOVER);
                 if(failoverResource==null) throw new SQLException("Unable to find Resource: "+Resource.FAILOVER);
                 PackageDefinitionLimit failoverPDL = packageDefinition.getLimit(failoverResource);
                 if(failoverPDL==null) throw new SQLException("Unable to find PackageDefinitionLimit: "+Resource.FAILOVER+" on PackageDefinition #"+packageDefinition.getPkey());
@@ -314,14 +314,14 @@ final public class SignupCustomizeManagementActionHelper {
     public static String getBackupOnsiteOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) throws IOException, SQLException {
         int option = signupCustomizeManagementForm.getBackupOnsiteOption();
         if(option==-1) return null;
-        PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(option);
+        PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(option);
         return pdl.getResource().getDescription();
     }
 
     public static String getBackupOffsiteOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) throws IOException, SQLException {
         int option = signupCustomizeManagementForm.getBackupOffsiteOption();
         if(option==-1) return null;
-        PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(option);
+        PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(option);
         return pdl.getResource().getDescription();
     }
 
@@ -334,14 +334,14 @@ final public class SignupCustomizeManagementActionHelper {
     public static String getDistributionScanOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) throws SQLException, IOException {
         int option = signupCustomizeManagementForm.getDistributionScanOption();
         if(option==-1) return null;
-        PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(option);
+        PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(option);
         return pdl.getResource().getDescription();
     }
 
     public static String getFailoverOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) throws IOException, SQLException {
         int option = signupCustomizeManagementForm.getFailoverOption();
         if(option==-1) return null;
-        PackageDefinitionLimit pdl = rootConn.packageDefinitionLimits.get(option);
+        PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(option);
         return pdl.getResource().getDescription();
     }
 }

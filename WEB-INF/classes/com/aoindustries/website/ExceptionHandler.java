@@ -10,7 +10,6 @@ import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspException;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -41,7 +40,7 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
         Locale locale;
         try {
             locale = LocaleAction.getEffectiveLocale(siteSettings, request);
-        } catch(JspException err) {
+        } catch(Exception err) {
             ErrorPrinter.printStackTraces(err);
             // Use default locale
             locale = Locale.getDefault();
@@ -52,7 +51,7 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
         Skin skin;
         try {
             skin = SkinAction.getSkin(siteSettings, request, response);
-        } catch(JspException err) {
+        } catch(Exception err) {
             ErrorPrinter.printStackTraces(err);
             // Use text skin
             skin = TextSkin.getInstance();
