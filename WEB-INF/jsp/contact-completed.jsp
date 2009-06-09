@@ -1,4 +1,4 @@
-<%-- aoweb-struts --%>
+<%-- aoweb-struts: Do not edit --%>
 <%--
   Copyright 2000-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
@@ -20,7 +20,7 @@
     <aoweb:exists path="/WEB-INF/jsp/add-siblings.jsp">
         <jsp:include page="/WEB-INF/jsp/add-siblings.jsp"/>
     </aoweb:exists>
-    <skin:skin onLoad="document.forms['contactForm'].from.select(); document.forms['contactForm'].form.focus();">
+    <skin:skin>
         <skin:content width="600">
             <skin:contentTitle><bean:message bundle="/ApplicationResources" key="contact.title"/></skin:contentTitle>
             <skin:contentHorizontalDivider/>

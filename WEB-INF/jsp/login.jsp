@@ -1,4 +1,4 @@
-<%-- aoweb-struts --%>
+<%-- aoweb-struts: Do not edit --%>
 <%--
   Copyright 2007-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
@@ -10,6 +10,7 @@
 <skin:setContentType/>
 <html:html lang="true">
     <skin:path>/login.do</skin:path>
+    <skin:meta name="ROBOTS">NOINDEX</skin:meta>
     <skin:title><bean:message bundle="/ApplicationResources" key="login.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/ApplicationResources" key="login.navImageAlt"/></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/ApplicationResources" key="login.keywords"/></skin:keywords>

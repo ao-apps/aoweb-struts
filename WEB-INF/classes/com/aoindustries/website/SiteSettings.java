@@ -43,6 +43,7 @@ public class SiteSettings {
      */
     public static SiteSettings getInstance(ServletContext servletContext) {
         String classname = servletContext.getInitParameter("com.aoindustries.website.SiteSettings.classname");
+        if(classname==null) classname = SiteSettings.class.getName();
         try {
             synchronized(instanceCache) {
                 SiteSettings settings = instanceCache.get(classname);

@@ -1,4 +1,4 @@
-<%-- aoweb-struts --%>
+<%-- aoweb-struts: Do not edit --%>
 <%--
   Copyright 2007-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
@@ -19,8 +19,8 @@
                 <th nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.cardNumber.header"/></th>
                 <th nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.comments.header"/></th>
             </tr>
-            <logic:iterate scope="request" name="creditCards" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard" indexId="row">
-                <tr class="<%= (row&1)==0 ? "ao_light_row" : "ao_dark_row" %>">
+            <logic:iterate scope="request" name="creditCards" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard">
+                <skin:lightDarkTableRow>
                     <td nowrap>
                         <logic:equal scope="request" name="lastPaymentCreditCard" value="<%= creditCard.getProviderUniqueId() %>">
                             <input type="radio" name="pkey" value="<%= creditCard.getPkey() %>" checked>
@@ -52,10 +52,9 @@
                             &nbsp;
                         </logic:empty>
                     </td>
-                </tr>
+                </skin:lightDarkTableRow>
             </logic:iterate>
-            <bean:size scope="request" name="creditCards" id="creditCardsSize"/>
-            <tr class="<%= (creditCardsSize&1)==0 ? "ao_light_row" : "ao_dark_row" %>">
+            <skin:lightDarkTableRow>
                 <td nowrap>
                     <logic:equal scope="request" name="lastPaymentCreditCard" value="">
                         <input type="radio" name="pkey" value="" checked>
@@ -65,7 +64,7 @@
                     </logic:notEqual>
                 </td>
                 <td nowrap colspan="3"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.newCard.link"/></td>
-            </tr>
+            </skin:lightDarkTableRow>
             <tr>
                 <td nowrap colspan="4" align="center">
                     <input

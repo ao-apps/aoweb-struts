@@ -1,4 +1,4 @@
-<%-- aoweb-struts --%>
+<%-- aoweb-struts: Do not edit --%>
 <%--
   Copyright 2003-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
@@ -43,8 +43,8 @@
                                             <TH><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.header.canceled"/></TH>
                                             <TH><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.header.actions"/></TH>
                                         </TR>
-                                        <logic:iterate scope="request" name="businesses" id="bu" type="com.aoindustries.aoserv.client.Business" indexId="c">
-                                            <TR class='<%= ((c & 1) == 0)?"ao_light_row":"ao_dark_row" %>'>
+                                        <logic:iterate scope="request" name="businesses" id="bu" type="com.aoindustries.aoserv.client.Business">
+                                            <skin:lightDarkTableRow>
                                                 <TD>
                                                     <logic:notEmpty name="bu" property="businessProfile">
                                                         <bean:define name="bu" property="businessProfile" id="bp" type="com.aoindustries.aoserv.client.BusinessProfile"/>
@@ -115,7 +115,7 @@
                                                         <bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.field.balance.zero" />
                                                     <% } %>
                                                 </TD>
-                                                <TD><%= com.aoindustries.sql.SQLUtility.getDate(bu.getCreated()) %></TD>
+                                                <TD><aoweb:date><bean:write name="bu" property="created"/></aoweb:date></TD>
                                                 <TD>
                                                     <% long canceled=bu.getCanceled(); %>
                                                     <% if(canceled==-1) { %>
@@ -133,7 +133,7 @@
                                                         </html:link>
                                                     <% } %>
                                                 </TD>
-                                            </TR>
+                                            </skin:lightDarkTableRow>
                                         </logic:iterate>
                                     </TABLE>
                                 </skin:lightArea>

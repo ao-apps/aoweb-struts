@@ -35,4 +35,34 @@
     </attribute>
     <example/>
   </tag>
+  <tag>
+    <name>date</name>
+    <tag-class>com.aoindustries.website.aowebtags.DateTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>
+        Prints a browser-local date.  The body should evaluate to the number of milliseconds since the Epoch.
+        If the body is empty, will print &amp;nbsp; as a placeholder.
+    </description>
+    <example/>
+  </tag>
+  <tag>
+    <name>dateTime</name>
+    <tag-class>com.aoindustries.website.aowebtags.DateTimeTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>
+        Prints a browser-local date and time.  The body should evaluate to the number of milliseconds since the Epoch.
+        If the body is empty, will print &amp;nbsp; as a placeholder.
+    </description>
+    <example/>
+  </tag>
+  <tag>
+    <name>time</name>
+    <tag-class>com.aoindustries.website.aowebtags.TimeTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>
+        Prints a browser-local time.  The body should evaluate to the number of milliseconds since the Epoch.
+        If the body is empty, will print &amp;nbsp; as a placeholder.
+    </description>
+    <example/>
+  </tag>
 </taglib>

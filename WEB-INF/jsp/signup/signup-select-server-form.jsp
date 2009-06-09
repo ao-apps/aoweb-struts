@@ -1,4 +1,4 @@
-<%-- aoweb-struts --%>
+<%-- aoweb-struts: Do not edit --%>
 <%--
   Copyright 2000-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
@@ -20,10 +20,9 @@
                 <th nowrap><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.maximumMonthlyRate.header"/></th>
                 <th nowrap>&nbsp;</th>
             </tr>
-            <% int row = 0; %>
             <logic:iterate scope="request" name="servers" id="server" indexId="serverIndex">
                 <bean:define name="server" property="minimumConfiguration.packageDefinition" id="packageDefinition" type="java.lang.Integer"/>
-                <tr class='<%= (row&1)==0 ? "ao_light_row" : "ao_dark_row" %>'>
+                <skin:lightDarkTableRow>
                     <td nowrap><html:radio property="packageDefinition" idName="server" value="minimumConfiguration.packageDefinition"/></td>
                     <td nowrap>
                         <b><bean:write name="server" property="minimumConfiguration.name"/></b>
@@ -95,12 +94,12 @@
                     <td nowrap>$<bean:write name="server" property="minimumConfiguration.monthly"/></td>
                     <td nowrap>$<bean:write name="server" property="maximumConfiguration.monthly"/></td>
                     <logic:equal name="serverIndex" value="0">
-                        <bean:size scope="request" name="servers" id="serversSize"/>
+                        <bean:size scope="request" name="servers" property="map" id="serversSize"/>
                         <td rowspan="<%= serversSize %>" nowrap>
                             <html:errors bundle="/signup/ApplicationResources" property="packageDefinition"/>
                             </td>
                     </logic:equal>
-                </tr>
+                </skin:lightDarkTableRow>
             </logic:iterate>
             <tr><td colspan="6" align="center"><br><html:submit><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.submit.label"/></html:submit><br><br></td></tr>
         </table>

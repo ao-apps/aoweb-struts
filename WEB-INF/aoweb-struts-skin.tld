@@ -336,4 +336,23 @@
     </description>
     <example/>
   </tag>
+  <tag>
+    <name>lightDarkTableRow</name>
+    <tag-class>com.aoindustries.website.skintags.LightDarkTableRowTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>
+        Alternates between ao_light_row and ao_dark_row classes.
+    </description>
+    <example/>
+    <attribute>
+      <name>pageAttributeId</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>String</type>
+      <description>
+        The name of the page-scoped attribute that keeps the isDark Boolean flag.
+        Defaults to "LightDarkTableRowTag.isDark"
+      </description>
+    </attribute>
+  </tag>
 </taglib>

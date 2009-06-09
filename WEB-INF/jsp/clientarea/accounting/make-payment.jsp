@@ -1,4 +1,4 @@
-<%-- aoweb-struts --%>
+<%-- aoweb-struts: Do not edit --%>
 <%--
   Copyright 2007-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
@@ -32,8 +32,8 @@
                             <th nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.balance.header"/></th>
                             <th nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.makePayment.header"/></th>
                         </tr>
-                        <logic:iterate scope="request" name="businesses" id="business" type="com.aoindustries.aoserv.client.Business" indexId="row">
-                            <tr class="<%= (row&1)==0 ? "ao_light_row" : "ao_dark_row" %>">
+                        <logic:iterate scope="request" name="businesses" id="business" type="com.aoindustries.aoserv.client.Business">
+                            <skin:lightDarkTableRow>
                                 <td nowrap><bean:write name="business" property="accounting"/></td>
                                 <td nowrap align='right'><bean:write name="business" property="monthlyRateString"/></td>
                                 <td nowrap align='right'>
@@ -57,7 +57,7 @@
                                         <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.makePayment.link"/>
                                     </html:link>
                                 </td>
-                            </tr>
+                            </skin:lightDarkTableRow>
                         </logic:iterate>
                     </table>
                 </skin:lightArea>

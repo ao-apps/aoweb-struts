@@ -1,4 +1,4 @@
-<%-- aoweb-struts --%>
+<%-- aoweb-struts: Do not edit --%>
 <%--
   Copyright 2000-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
@@ -34,16 +34,16 @@
                             <skin:lightArea>
                                 <TABLE cellspacing='0' cellpadding='2' border='0'>
                                     <TR>
-                                        <bean:size scope="request" name="aoConn" property="packages" id="packagesSize"/>
+                                        <bean:size scope="request" name="aoConn" property="packages.map" id="packagesSize"/>
                                         <logic:greaterThan name="packagesSize" value="1">
                                             <TH><bean:message bundle="/clientarea/control/ApplicationResources" key="password.mySQLPasswordSetter.header.package"/></TH>
                                         </logic:greaterThan>
                                         <TH><bean:message bundle="/clientarea/control/ApplicationResources" key="password.mySQLPasswordSetter.header.username"/></TH>
-                                        <bean:size scope="request" name="aoConn" property="mysqlServers" id="mysqlServersSize"/>
+                                        <bean:size scope="request" name="aoConn" property="mysqlServers.map" id="mysqlServersSize"/>
                                         <logic:greaterThan name="mysqlServersSize" value="1">
                                             <TH><bean:message bundle="/clientarea/control/ApplicationResources" key="password.mySQLPasswordSetter.header.mySQLServer"/></TH>
                                         </logic:greaterThan>
-                                        <bean:size scope="request" name="aoConn" property="aoServers" id="aoServersSize"/>
+                                        <bean:size scope="request" name="aoConn" property="aoServers.map" id="aoServersSize"/>
                                         <logic:greaterThan name="aoServersSize" value="1">
                                             <TH><bean:message bundle="/clientarea/control/ApplicationResources" key="password.mySQLPasswordSetter.header.aoServer"/></TH>
                                         </logic:greaterThan>

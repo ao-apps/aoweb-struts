@@ -42,41 +42,27 @@ public class ContactCompletedAction extends HttpsAction {
             return mapping.findForward("input");
         }
 
-        // Try several times to be on the safe side
-        for(int attempt=1; attempt<=10; attempt++) {
-            try {
-                AOServConnector rootConn = siteSettings.getRootAOServConnector();
-                Language language = rootConn.getLanguages().get(locale.getLanguage());
-                if(language==null) {
-                    language = rootConn.getLanguages().get(Language.EN);
-                    if(language==null) throw new SQLException("Unable to find Language: "+Language.EN);
-                }
-                TicketType ticketType = rootConn.getTicketTypes().get(TicketType.CONTACT);
-                if(ticketType==null) throw new SQLException("Unable to find TicketType: "+ticketType);
-                TicketPriority clientPriority = rootConn.getTicketPriorities().get(TicketPriority.NORMAL);
-                if(clientPriority==null) throw new SQLException("Unable to find TicketPriority: "+TicketPriority.NORMAL);
-                rootConn.getTickets().addTicket(
-                    null,
-                    language,
-                    null,
-                    ticketType,
-                    contactForm.getSubject(),
-                    contactForm.getMessage(),
-                    clientPriority,
-                    contactForm.getFrom(),
-                    ""
-                );
-                break;
-            } catch(Exception err) {
-                if(attempt==10) throw err;
-                servlet.log("Exception trying to add ticket, will sleep one second and try again: attempt="+attempt, err);
-                try {
-                    Thread.sleep(1000);
-                } catch(InterruptedException err2) {
-                    servlet.log("Interrupted unexpectedly during sleep", err2);
-                }
-            }
+        AOServConnector rootConn = siteSettings.getRootAOServConnector();
+        Language language = rootConn.getLanguages().get(locale.getLanguage());
+        if(language==null) {
+            language = rootConn.getLanguages().get(Language.EN);
+            if(language==null) throw new SQLException("Unable to find Language: "+Language.EN);
         }
+        TicketType ticketType = rootConn.getTicketTypes().get(TicketType.CONTACT);
+        if(ticketType==null) throw new SQLException("Unable to find TicketType: "+ticketType);
+        TicketPriority clientPriority = rootConn.getTicketPriorities().get(TicketPriority.NORMAL);
+        if(clientPriority==null) throw new SQLException("Unable to find TicketPriority: "+TicketPriority.NORMAL);
+        rootConn.getTickets().addTicket(
+            null,
+            language,
+            null,
+            ticketType,
+            contactForm.getSubject(),
+            contactForm.getMessage(),
+            clientPriority,
+            contactForm.getFrom(),
+            ""
+        );
 
         return mapping.findForward("success");
     }

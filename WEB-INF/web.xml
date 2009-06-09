@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  aoweb-struts: Do not edit
+
+  This page is the master template for the web.xml file.  If the following files
+  exist, the contents of the file will be substituted into the proper place in
+  this file by the build system.
+
+  web.xml.contextParams         Context parameters
+  web.xml.strutsInitParams      Additional Struts servlet init parameters
+  web.xml.servlets              Additional servlets
+  web.xml.servletMappingsPre    Servlet mappings placed before the Struts mappings
+  web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
+-->
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-  <!-- Configuration for site, individual sites may provide their own SiteSettings implementation. -->
-  <context-param>
-    <param-name>com.aoindustries.website.SiteSettings.classname</param-name>
-    <param-value>com.aoindustries.website.SiteSettings</param-value>
-  </context-param>
+
+<!-- Include "web.xml.contextParams" -->
 
   <!-- Filter to make HTTPS sessions be carried over to HTTP -->
   <filter>
@@ -57,18 +67,29 @@
       <param-value>/WEB-INF/struts-config-clientarea-control.xml</param-value>
     </init-param>
     <init-param>
+      <param-name>config/clientarea/ticket</param-name>
+      <param-value>/WEB-INF/struts-config-clientarea-ticket.xml</param-value>
+    </init-param>
+    <init-param>
       <param-name>config/signup</param-name>
       <param-value>/WEB-INF/struts-config-signup.xml</param-value>
     </init-param>
+<!-- Include "web.xml.strutsInitParams" -->
     <load-on-startup>2</load-on-startup>
   </servlet>
-  
+
+<!-- Include "web.xml.servlets" -->
+
+<!-- Include "web.xml.servletMappingsPre" -->
+
   <!-- Action Servlet Mapping -->
   <servlet-mapping>
     <servlet-name>action</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
   
+<!-- Include "web.xml.servletMappingsPost" -->
+
   <session-config>
     <session-timeout>60</session-timeout>
   </session-config>

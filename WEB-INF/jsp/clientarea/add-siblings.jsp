@@ -1,4 +1,4 @@
-<%-- aoweb-struts --%>
+<%-- aoweb-struts: Do not edit --%>
 <%--
   Copyright 2007-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
@@ -20,5 +20,10 @@
         <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="index.title"/></skin:title>
         <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="index.navImageAlt"/></skin:navImageAlt>
         <skin:description><bean:message bundle="/clientarea/accounting/ApplicationResources" key="index.description"/></skin:description>
+    </skin:addSibling>
+    <skin:addSibling useEncryption="true" path="/clientarea/ticket/index.do">
+        <skin:title><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.title"/></skin:title>
+        <skin:navImageAlt><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.navImageAlt"/></skin:navImageAlt>
+        <skin:description><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.description"/></skin:description>
     </skin:addSibling>
 </aoweb:notExists>

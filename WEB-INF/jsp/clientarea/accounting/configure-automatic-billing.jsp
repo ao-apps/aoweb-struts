@@ -1,4 +1,4 @@
-<%-- aoweb-struts --%>
+<%-- aoweb-struts: Do not edit --%>
 <%--
   Copyright 2007-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
@@ -46,7 +46,7 @@
                                     <th><bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBilling.header.description"/></th>
                                 </tr>
                                 <logic:iterate scope="request" name="activeCards" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard" indexId="row">
-                                    <tr class="<%= (row&1)==0 ? "ao_light_row" : "ao_dark_row" %>">
+                                    <skin:lightDarkTableRow>
                                         <td nowrap>
                                             <logic:notPresent scope="request" name="automaticCard">
                                                 <input
@@ -99,10 +99,9 @@
                                                 &nbsp;
                                             </logic:empty>
                                         </td>
-                                    </tr>
+                                    </skin:lightDarkTableRow>
                                 </logic:iterate>
-                                <bean:size scope="request" name="activeCards" id="activeCardsSize"/>
-                                <tr class="<%= (activeCardsSize&1)==0 ? "ao_light_row" : "ao_dark_row" %>">
+                                <skin:lightDarkTableRow>
                                     <td nowrap>
                                         <logic:notPresent scope="request" name="automaticCard">
                                             <input type="radio" name="pkey" value="" checked onChange='this.form.submitButton.disabled=true;'>
@@ -112,7 +111,7 @@
                                         </logic:present>
                                     </td>
                                     <td nowrap colspan="3"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBilling.noAutomaticBilling"/></td>
-                                </tr>
+                                </skin:lightDarkTableRow>
                                 <tr>
                                     <td nowrap colspan="4" align="center">
                                         <input
