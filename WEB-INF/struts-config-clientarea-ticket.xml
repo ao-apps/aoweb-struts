@@ -15,6 +15,7 @@
 <struts-config>
     <!-- ========== Form Bean Definitions =================================== -->
     <form-beans>
+        <form-bean name="ticketForm" type="com.aoindustries.website.clientarea.ticket.TicketForm" />
     </form-beans>
 
     <!-- ========== Global Error Handlers =================================== -->
@@ -37,8 +38,51 @@
         >
             <forward name="success" module="" path="/WEB-INF/jsp/clientarea/ticket/index.jsp" redirect="false" />
         </action>
+        <action
+            path="/create"
+            name="ticketForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.clientarea.ticket.CreateAction"
+        >
+            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/ticket/create.jsp" redirect="false" />
+            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/ticket/create.jsp" redirect="false" />
+        </action>
+        <action
+            path="/create-completed"
+            name="ticketForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.clientarea.ticket.CreateCompletedAction"
+        >
+            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/ticket/create.jsp" redirect="false" />
+            <forward name="input" module="" path="/WEB-INF/jsp/clientarea/ticket/create.jsp" redirect="false" />
+            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/ticket/create-completed.jsp" redirect="false" />
+        </action>
+        <action
+            path="/edit"
+            name="ticketForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.clientarea.ticket.EditAction"
+        >
+            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/ticket/edit.jsp" redirect="false" />
+            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/ticket/edit.jsp" redirect="false" />
+        </action>
+        <action
+            path="/edit-completed"
+            name="ticketForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.clientarea.ticket.EditCompletedAction"
+        >
+            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/ticket/edit.jsp" redirect="false" />
+            <forward name="input" module="" path="/WEB-INF/jsp/clientarea/ticket/edit.jsp" redirect="false" />
+            <forward name="index" path="/index.do" redirect="true" />
+            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/ticket/edit-completed.jsp" redirect="false" />
+        </action>
     </action-mappings>
-    
+
     <!-- ========== Controller ============================================== -->
     <controller
         nocache="true"
@@ -84,6 +128,6 @@
 
     <!-- ========== Validator Plug-In ======================================= -->
     <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
-        <set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml"/>
+        <set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml,/WEB-INF/validator-clientarea-ticket.xml"/>
     </plug-in>
 </struts-config>

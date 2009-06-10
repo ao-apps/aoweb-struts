@@ -50,22 +50,6 @@
                                 <skin:lightDarkTableRow pageAttributeId="isDark">
                                     <td nowrap><html:link action="/edit" paramId="pkey" paramName="ticket" paramProperty="pkey"><bean:write name="ticket" property="pkey"/></html:link></td>
                                     <td nowrap>
-                                        <logic:equal name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.JUNK %>">
-                                            <logic:equal name="isDark" value="true">
-                                                <img align="absmiddle" height="25" width="25" src="p_dark_black.gif">&nbsp;
-                                            </logic:equal>
-                                            <logic:equal name="isDark" value="false">
-                                                <img align="absmiddle" height="25" width="25" src="p_light_black.gif">&nbsp;
-                                            </logic:equal>
-                                        </logic:equal>
-                                        <logic:equal name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.DELETED %>">
-                                            <logic:equal name="isDark" value="true">
-                                                <img align="absmiddle" height="25" width="25" src="p_dark_black.gif">&nbsp;
-                                            </logic:equal>
-                                            <logic:equal name="isDark" value="false">
-                                                <img align="absmiddle" height="25" width="25" src="p_light_black.gif">&nbsp;
-                                            </logic:equal>
-                                        </logic:equal>
                                         <logic:equal name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
                                             <logic:equal name="isDark" value="true">
                                                 <img align="absmiddle" height="25" width="25" src="p_dark_black.gif">&nbsp;
@@ -74,43 +58,39 @@
                                                 <img align="absmiddle" height="25" width="25" src="p_light_black.gif">&nbsp;
                                             </logic:equal>
                                         </logic:equal>
-                                        <logic:notEqual name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.JUNK %>">
-                                            <logic:notEqual name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.DELETED %>">
-                                                <logic:notEqual name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
-                                                    <logic:equal name="ticket" property="clientPriority.priority" value="<%= com.aoindustries.aoserv.client.TicketPriority.LOW %>">
-                                                        <logic:equal name="isDark" value="true">
-                                                            <img align="absmiddle" height="25" width="25" src="p_dark_green.gif">&nbsp;
-                                                        </logic:equal>
-                                                        <logic:equal name="isDark" value="false">
-                                                            <img align="absmiddle" height="25" width="25" src="p_light_green.gif">&nbsp;
-                                                        </logic:equal>
-                                                    </logic:equal>
-                                                    <logic:equal name="ticket" property="clientPriority.priority" value="<%= com.aoindustries.aoserv.client.TicketPriority.NORMAL %>">
-                                                        <logic:equal name="isDark" value="true">
-                                                            <img align="absmiddle" height="25" width="25" src="p_dark_yellow.gif">&nbsp;
-                                                        </logic:equal>
-                                                        <logic:equal name="isDark" value="false">
-                                                            <img align="absmiddle" height="25" width="25" src="p_light_yellow.gif">&nbsp;
-                                                        </logic:equal>
-                                                    </logic:equal>
-                                                    <logic:equal name="ticket" property="clientPriority.priority" value="<%= com.aoindustries.aoserv.client.TicketPriority.HIGH %>">
-                                                        <logic:equal name="isDark" value="true">
-                                                            <img align="absmiddle" height="25" width="25" src="p_dark_orange.gif">&nbsp;
-                                                        </logic:equal>
-                                                        <logic:equal name="isDark" value="false">
-                                                            <img align="absmiddle" height="25" width="25" src="p_light_orange.gif">&nbsp;
-                                                        </logic:equal>
-                                                    </logic:equal>
-                                                    <logic:equal name="ticket" property="clientPriority.priority" value="<%= com.aoindustries.aoserv.client.TicketPriority.URGENT %>">
-                                                        <logic:equal name="isDark" value="true">
-                                                            <img align="absmiddle" height="25" width="25" src="p_dark_red.gif">&nbsp;
-                                                        </logic:equal>
-                                                        <logic:equal name="isDark" value="false">
-                                                            <img align="absmiddle" height="25" width="25" src="p_light_red.gif">&nbsp;
-                                                        </logic:equal>
-                                                    </logic:equal>
-                                                </logic:notEqual>
-                                            </logic:notEqual>
+                                        <logic:notEqual name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
+                                            <logic:equal name="ticket" property="clientPriority.priority" value="<%= com.aoindustries.aoserv.client.TicketPriority.LOW %>">
+                                                <logic:equal name="isDark" value="true">
+                                                    <img align="absmiddle" height="25" width="25" src="p_dark_green.gif">&nbsp;
+                                                </logic:equal>
+                                                <logic:equal name="isDark" value="false">
+                                                    <img align="absmiddle" height="25" width="25" src="p_light_green.gif">&nbsp;
+                                                </logic:equal>
+                                            </logic:equal>
+                                            <logic:equal name="ticket" property="clientPriority.priority" value="<%= com.aoindustries.aoserv.client.TicketPriority.NORMAL %>">
+                                                <logic:equal name="isDark" value="true">
+                                                    <img align="absmiddle" height="25" width="25" src="p_dark_yellow.gif">&nbsp;
+                                                </logic:equal>
+                                                <logic:equal name="isDark" value="false">
+                                                    <img align="absmiddle" height="25" width="25" src="p_light_yellow.gif">&nbsp;
+                                                </logic:equal>
+                                            </logic:equal>
+                                            <logic:equal name="ticket" property="clientPriority.priority" value="<%= com.aoindustries.aoserv.client.TicketPriority.HIGH %>">
+                                                <logic:equal name="isDark" value="true">
+                                                    <img align="absmiddle" height="25" width="25" src="p_dark_orange.gif">&nbsp;
+                                                </logic:equal>
+                                                <logic:equal name="isDark" value="false">
+                                                    <img align="absmiddle" height="25" width="25" src="p_light_orange.gif">&nbsp;
+                                                </logic:equal>
+                                            </logic:equal>
+                                            <logic:equal name="ticket" property="clientPriority.priority" value="<%= com.aoindustries.aoserv.client.TicketPriority.URGENT %>">
+                                                <logic:equal name="isDark" value="true">
+                                                    <img align="absmiddle" height="25" width="25" src="p_dark_red.gif">&nbsp;
+                                                </logic:equal>
+                                                <logic:equal name="isDark" value="false">
+                                                    <img align="absmiddle" height="25" width="25" src="p_light_red.gif">&nbsp;
+                                                </logic:equal>
+                                            </logic:equal>
                                         </logic:notEqual>
                                         <bean:write name="ticket" property="clientPriority"/>
                                     </td>

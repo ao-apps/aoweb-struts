@@ -83,7 +83,7 @@ public class EditCreditCardForm extends CreditCardForm implements Serializable {
         if(errors==null) errors = new ActionErrors();
         // persistenceId
         if(GenericValidator.isBlankOrNull(persistenceId)) errors.add("persistenceId", new ActionMessage("editCreditCardForm.persistenceId.required"));
-        
+
         // cardNumber
         if(
             !GenericValidator.isBlankOrNull(cardNumber)

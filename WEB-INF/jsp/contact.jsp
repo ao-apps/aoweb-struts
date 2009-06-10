@@ -123,7 +123,7 @@
                             </tr>
                             <tr><td colspan=2>&nbsp;</td></tr>
                             <tr><td colspan=2><bean:message bundle="/ApplicationResources" key="contact.field.message.prompt"/></td></tr>
-                            <tr><td colspan=2><html:textarea property="message" cols="60" rows="12"/></td></tr>
+                            <tr><td colspan=2><textarea name="message" cols="60" rows="12" wrap="hard"><bean:write scope="request" name="contactForm" property="message"/></textarea></td></tr>
                             <tr>
                                 <td colspan=2 align="center">
                                     <br>

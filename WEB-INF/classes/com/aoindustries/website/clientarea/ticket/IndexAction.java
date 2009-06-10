@@ -7,9 +7,11 @@ package com.aoindustries.website.clientarea.ticket;
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Ticket;
+import com.aoindustries.aoserv.client.TicketStatus;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.SiteSettings;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +40,16 @@ public class IndexAction  extends AuthenticatedAction {
     ) throws Exception {
         List<Ticket> tickets = aoConn.getTickets().getRows();
 
+        List<Ticket> filteredTickets = new ArrayList<Ticket>(tickets.size());
+        for(Ticket ticket : tickets) {
+            String status = ticket.getStatus().getStatus();
+            if(!status.equals(TicketStatus.JUNK) && !status.equals(TicketStatus.DELETED)) {
+                filteredTickets.add(ticket);
+            }
+        }
+
         // Set request values
-        request.setAttribute("tickets", tickets);
+        request.setAttribute("tickets", filteredTickets);
 
         return mapping.findForward("success");
     }

@@ -49,7 +49,7 @@ public class ContactCompletedAction extends HttpsAction {
             if(language==null) throw new SQLException("Unable to find Language: "+Language.EN);
         }
         TicketType ticketType = rootConn.getTicketTypes().get(TicketType.CONTACT);
-        if(ticketType==null) throw new SQLException("Unable to find TicketType: "+ticketType);
+        if(ticketType==null) throw new SQLException("Unable to find TicketType: "+TicketType.CONTACT);
         TicketPriority clientPriority = rootConn.getTicketPriorities().get(TicketPriority.NORMAL);
         if(clientPriority==null) throw new SQLException("Unable to find TicketPriority: "+TicketPriority.NORMAL);
         rootConn.getTickets().addTicket(
