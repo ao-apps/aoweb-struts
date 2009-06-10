@@ -3,11 +3,6 @@
   <!-- Configuration for root AOServConnector -->
   <Parameter name="root.aoserv.client.username" value="$AOSERV_USERNAME"/>
   <Parameter name="root.aoserv.client.password" value="$AOSERV_PASSWORD"/>
-  <!-- Configuration for email -->
-  <Parameter name="com.aoindustries.website.smtp.server" value="$SMTP_SERVER"/>
-  <Parameter name="com.aoindustries.website.signup.from.address" value="$SIGNUP_FROM_ADDRESS"/>
-  <Parameter name="com.aoindustries.website.signup.from.personal" value="$SIGNUP_FROM_NAME"/>
-  <Parameter name="com.aoindustries.website.signup.admin.address" value="$SIGNUP_ADMIN_ADDRESS"/>
   <!--
     Configuration for auto-redirect between HTTP and HTTPS.  It is
     recommended to not perform the redirect in development to make links as

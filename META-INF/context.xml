@@ -4,11 +4,6 @@
   <Parameter name="root.aoserv.client.username" value="aoweb_app"/>
   <Parameter name="root.aoserv.client.password" value="changeme"/>
   <!--<Parameter name="root.aoserv.client.password" value="Kuz39Istrul"/-->
-  <!-- Configuration for email -->
-  <Parameter name="com.aoindustries.website.smtp.server" value="192.168.1.129"/>
-  <Parameter name="com.aoindustries.website.signup.from.address" value="signup@aoindustries.com"/>
-  <Parameter name="com.aoindustries.website.signup.from.personal" value="AO Industries, Inc."/>
-  <Parameter name="com.aoindustries.website.signup.admin.address" value="support@aoindustries.com"/>
   <!--
     Configuration for auto-redirect between HTTP and HTTPS.  It is
     recommended to not perform the redirect in development to make links as
