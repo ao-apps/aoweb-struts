@@ -117,26 +117,6 @@ abstract public class VirtualDedicatedStepAction extends HttpsAction {
         return false;
     }
 
-    final public ActionForward executeVirtualDedicatedStep(
-        ActionMapping mapping,
-        HttpServletRequest request,
-        HttpServletResponse response,
-        Locale locale,
-        Skin skin,
-        SignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
-        SignupCustomizeServerForm signupCustomizeServerForm,
-        boolean signupCustomizeServerFormComplete,
-        SignupBusinessForm signupBusinessForm,
-        boolean signupBusinessFormComplete,
-        SignupTechnicalForm signupTechnicalForm,
-        boolean signupTechnicalFormComplete,
-        SignupBillingInformationForm signupBillingInformationForm,
-        boolean signupBillingInformationFormComplete
-    ) throws Exception {
-        throw new RuntimeException("TODO: Delete this method");
-    }
-
     public abstract ActionForward executeVirtualDedicatedStep(
         ActionMapping mapping,
         HttpServletRequest request,

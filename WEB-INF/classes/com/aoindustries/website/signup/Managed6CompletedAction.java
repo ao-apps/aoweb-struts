@@ -19,6 +19,7 @@ import org.apache.struts.action.ActionMapping;
  */
 public class Managed6CompletedAction extends Managed6Action {
 
+    @Override
     public ActionForward executeManagedStep(
         ActionMapping mapping,
         HttpServletRequest request,
@@ -51,6 +52,7 @@ public class Managed6CompletedAction extends Managed6Action {
                 mapping,
                 request,
                 response,
+                siteSettings,
                 locale,
                 skin,
                 signupSelectServerForm,

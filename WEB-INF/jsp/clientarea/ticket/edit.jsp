@@ -72,7 +72,9 @@
                                         <logic:notEqual name="aoConn" property="businesses.size" value="1">
                                             <logic:notEqual name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
                                                 <html:select property="accounting">
-                                                    <%--<html:option value=""/>--%>
+                                                    <logic:empty scope="request" name="ticketForm" property="accounting">
+                                                        <html:option value=""/>
+                                                    </logic:empty>
                                                     <html:optionsCollection name="aoConn" property="businesses.rows" label="accounting" value="accounting"/>
                                                 </html:select>
                                             </logic:notEqual>
@@ -155,7 +157,7 @@
                             <skin:lightArea>
                                 <bean:message bundle="/clientarea/ticket/ApplicationResources" key="TicketForm.field.details.header"/>
                                 <hr>
-                                <div style="border:1px inset; padding:4px"><pre style="display:inline"><html:hidden property="details" write="true"/></pre></div>
+                                <div style="border:1px inset; padding:4px"><pre><html:hidden property="details" write="true"/></pre></div>
                                 <%--<html:textarea readonly="<%= Boolean.TRUE %>" property="details" cols="80" rows="20"/><br>--%>
                                 <html:errors bundle="/clientarea/ticket/ApplicationResources" property="details"/>
                             </skin:lightArea>
@@ -191,12 +193,12 @@
                                         <logic:notEmpty name="action" property="details">
                                             <logic:equal name="isDark" value="true">
                                                 <tr class="ao_light_row">
-                                                    <td colspan="4" width="100%"><div style="border:1px inset; padding: 4px"><pre style="display:inline"><bean:write name="action" property="details"/></pre></div></td>
+                                                    <td colspan="4" width="100%"><div style="border:1px inset; padding: 4px"><pre><bean:write name="action" property="details"/></pre></div></td>
                                                 </tr>
                                             </logic:equal>
                                             <logic:equal name="isDark" value="false">
                                                 <tr class="ao_dark_row">
-                                                    <td colspan="4" width="100%"><div style="border:1px inset; padding: 4px"><pre style="display:inline"><bean:write name="action" property="details"/></pre></div></td>
+                                                    <td colspan="4" width="100%"><div style="border:1px inset; padding: 4px"><pre><bean:write name="action" property="details"/></pre></div></td>
                                                 </tr>
                                             </logic:equal>
                                         </logic:notEmpty>

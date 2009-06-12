@@ -130,28 +130,6 @@ abstract public class ManagedStepAction extends HttpsAction {
         return false;
     }
 
-    final public ActionForward executeManagedStep(
-        ActionMapping mapping,
-        HttpServletRequest request,
-        HttpServletResponse response,
-        Locale locale,
-        Skin skin,
-        SignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
-        SignupCustomizeServerForm signupCustomizeServerForm,
-        boolean signupCustomizeServerFormComplete,
-        SignupCustomizeManagementForm signupCustomizeManagementForm,
-        boolean signupCustomizeManagementFormComplete,
-        SignupBusinessForm signupBusinessForm,
-        boolean signupBusinessFormComplete,
-        SignupTechnicalForm signupTechnicalForm,
-        boolean signupTechnicalFormComplete,
-        SignupBillingInformationForm signupBillingInformationForm,
-        boolean signupBillingInformationFormComplete
-    ) throws Exception {
-        throw new RuntimeException("TODO: Delete this method");
-    }
-
     public abstract ActionForward executeManagedStep(
         ActionMapping mapping,
         HttpServletRequest request,

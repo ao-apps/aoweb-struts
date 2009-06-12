@@ -52,6 +52,7 @@ public class VirtualManaged6CompletedAction extends VirtualManaged6Action {
                 mapping,
                 request,
                 response,
+                siteSettings,
                 locale,
                 skin,
                 signupSelectServerForm,

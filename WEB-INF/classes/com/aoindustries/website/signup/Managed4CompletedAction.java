@@ -48,6 +48,7 @@ public class Managed4CompletedAction extends Managed4Action {
                 mapping,
                 request,
                 response,
+                siteSettings,
                 locale,
                 skin,
                 signupSelectServerForm,

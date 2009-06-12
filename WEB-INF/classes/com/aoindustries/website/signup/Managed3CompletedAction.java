@@ -47,6 +47,7 @@ public class Managed3CompletedAction extends Managed3Action {
                 mapping,
                 request,
                 response,
+                siteSettings,
                 locale,
                 skin,
                 signupSelectServerForm,

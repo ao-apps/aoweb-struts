@@ -64,8 +64,11 @@ public class LoginCompletedAction extends HttpsAction {
                 return null;
             }
 
+            // Redirect to the clientarea instead of returning mapping because of switch from HTTPS to HTTP
+            response.sendRedirect(response.encodeRedirectURL(skin.getHttpUrlBase(request)+"clientarea/index.do"));
+            return null;
             // Return success
-            return mapping.findForward("success");
+            //return mapping.findForward("success");
         } catch(IOException err) {
             ErrorPrinter.printStackTraces(err);
 	    String message=err.getMessage();

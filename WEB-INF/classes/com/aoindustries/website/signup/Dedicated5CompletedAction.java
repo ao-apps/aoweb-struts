@@ -49,6 +49,7 @@ public class Dedicated5CompletedAction extends Dedicated5Action {
                 mapping,
                 request,
                 response,
+                siteSettings,
                 locale,
                 skin,
                 signupSelectServerForm,

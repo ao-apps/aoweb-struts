@@ -54,7 +54,7 @@ final public class SignupSelectServerActionHelper {
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageCategory category = rootConn.getPackageCategories().get(packageCategoryName);
         Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
-        List<PackageDefinition> packageDefinitions = rootBusiness.getBrand().getPackageDefinitions(category);
+        List<PackageDefinition> packageDefinitions = rootBusiness.getPackageDefinitions(category);
         List<Server> servers = new ArrayList<Server>();
         
         for(PackageDefinition packageDefinition : packageDefinitions) {

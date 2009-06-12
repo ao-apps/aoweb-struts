@@ -156,17 +156,6 @@ public class SkinAction extends LocaleAction {
         return execute(mapping, form, request, response, siteSettings, locale, skin);
     }
 
-    final public ActionForward execute(
-        ActionMapping mapping,
-        ActionForm form,
-        HttpServletRequest request,
-        HttpServletResponse response,
-        Locale locale,
-        Skin skin
-    ) throws Exception {
-        throw new RuntimeException("TODO: Delete this method");
-    }
-
     /**
      * Once the skin is selected, this version of the execute method is invoked.
      * The default implementation of this method simply returns the mapping of "success".

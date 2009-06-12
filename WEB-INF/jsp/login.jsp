@@ -29,11 +29,16 @@
                 <html:javascript staticJavascript='false' bundle="/ApplicationResources" formName="loginForm"/>
                 <skin:lightArea>
                     <B>
-                        <logic:present scope="request" name="authenticationMessage"><bean:write scope="request" name="authenticationMessage"/></logic:present>
+                        <logic:present scope="request" name="authenticationMessage"><bean:write scope="request" name="authenticationMessage" filter="false"/></logic:present>
                         <logic:notPresent scope="request" name="authenticationMessage"><bean:message bundle="/ApplicationResources" key="login.pleaseLogin"/></logic:notPresent>
                     </B>
                     <HR>
                     <html:form action="/login-completed" onsubmit="return validateLoginForm(this);">
+                        <%-- Add the authenticationTarget to the form because the new session could expire before they login and lost their target --%>
+                        <logic:present scope="session" name="authenticationTarget">
+                            <bean:define scope="session" name="authenticationTarget" type="java.lang.String" id="authenticationTarget"/>
+                            <input type="hidden" name="authenticationTarget" value="<% com.aoindustries.io.ChainWriter.writeHtmlAttribute(authenticationTarget, out); %>">
+                        </logic:present>
                         <table border='0' cellspacing='2' cellpadding='0'>
                             <tr>
                                 <td><bean:message bundle="/ApplicationResources" key="login.field.username.prompt"/></td>

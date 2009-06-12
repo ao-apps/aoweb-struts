@@ -84,8 +84,17 @@
             type="com.aoindustries.website.LoginCompletedAction"
         >
             <forward name="input" module="" path="/WEB-INF/jsp/login.jsp" redirect="false" />
-            <forward name="success" module="" path="/clientarea/index.do" redirect="true" />
+            <!-- Redirect done directly from Action now: forward name="success" module="" path="/clientarea/index.do" redirect="true" /-->
             <forward name="failure" module="" path="/WEB-INF/jsp/login.jsp" redirect="false" />
+        </action>
+        <action
+            path="/session-timeout"
+            name="loginForm"
+            scope="request"
+            validate="false"
+            type="com.aoindustries.website.SessionTimeoutAction"
+        >
+            <forward name="success" module="" path="/WEB-INF/jsp/login.jsp" redirect="false" />
         </action>
         <action
             path="/logout"

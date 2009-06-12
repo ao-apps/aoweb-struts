@@ -87,18 +87,6 @@ abstract public class PermissionAction extends AuthenticatedAction {
         return executePermissionGranted(mapping, form, request, response, siteSettings, locale, skin, aoConn);
     }
 
-    final public ActionForward executePermissionGranted(
-        ActionMapping mapping,
-        ActionForm form,
-        HttpServletRequest request,
-        HttpServletResponse response,
-        Locale locale,
-        Skin skin,
-        AOServConnector aoConn
-    ) throws Exception {
-        throw new RuntimeException("TODO: Delete this method");
-    }
-
     /**
      * Called when permission has been granted.  By default,
      * returns mapping for "success".
@@ -114,19 +102,6 @@ abstract public class PermissionAction extends AuthenticatedAction {
         AOServConnector aoConn
     ) throws Exception {
         return mapping.findForward("success");
-    }
-
-    final public ActionForward executePermissionDenied(
-        ActionMapping mapping,
-        ActionForm form,
-        HttpServletRequest request,
-        HttpServletResponse response,
-        Locale locale,
-        Skin skin,
-        AOServConnector aoConn,
-        List<AOServPermission> permissions
-    ) throws Exception {
-        throw new RuntimeException("TODO: Delete this method");
     }
 
     /**

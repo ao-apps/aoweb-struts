@@ -45,6 +45,7 @@ public class Dedicated3CompletedAction extends Dedicated3Action {
                 mapping,
                 request,
                 response,
+                siteSettings,
                 locale,
                 skin,
                 signupSelectServerForm,

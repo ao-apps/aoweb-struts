@@ -42,6 +42,7 @@ public class DedicatedCompletedAction extends DedicatedAction {
                 mapping,
                 request,
                 response,
+                siteSettings,
                 locale,
                 skin,
                 signupSelectServerForm,

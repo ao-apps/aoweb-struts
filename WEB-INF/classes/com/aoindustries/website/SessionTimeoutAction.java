@@ -12,14 +12,15 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.MessageResources;
 
 /**
  * @author  AO Industries, Inc.
  */
-public class LogoutAction extends SkinAction {
+public class SessionTimeoutAction extends HttpsAction {
 
     @Override
-    public ActionForward execute(
+    public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
@@ -28,20 +29,23 @@ public class LogoutAction extends SkinAction {
         Locale locale,
         Skin skin
     ) throws Exception {
-        // Handle logout
+        // Logout, just in case session not actually expired
         HttpSession session = request.getSession();
         session.removeAttribute(Constants.AO_CONN);
         session.removeAttribute(Constants.AUTHENTICATED_AO_CONN);
         session.removeAttribute(Constants.AUTHENTICATION_TARGET);
         session.removeAttribute(Constants.SU_REQUESTED);
-        //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
 
-        // Try redirect
+        // Save the target so authentication will return to the previous page
         String target = request.getParameter("target");
-        if(target!=null && target.length()>0) {
-            response.sendRedirect(response.encodeRedirectURL(target));
-            return null;
+        if(target!=null && target.length()>0 && !target.endsWith("/login.do")) {
+            request.getSession().setAttribute(Constants.AUTHENTICATION_TARGET, target);
+            //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
         }
+
+        // Set the authenticationMessage
+        MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
+        request.setAttribute(Constants.AUTHENTICATION_MESSAGE, applicationResources.getMessage(locale, "SessionTimeoutAction.authenticationMessage"));
 
         return mapping.findForward("success");
     }

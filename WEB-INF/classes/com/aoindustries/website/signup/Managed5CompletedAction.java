@@ -49,6 +49,7 @@ public class Managed5CompletedAction extends Managed5Action {
                 mapping,
                 request,
                 response,
+                siteSettings,
                 locale,
                 skin,
                 signupSelectServerForm,

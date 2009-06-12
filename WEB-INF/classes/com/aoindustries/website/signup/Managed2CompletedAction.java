@@ -46,6 +46,7 @@ public class Managed2CompletedAction extends Managed2Action {
                 mapping,
                 request,
                 response,
+                siteSettings,
                 locale,
                 skin,
                 signupSelectServerForm,

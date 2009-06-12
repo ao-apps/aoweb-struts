@@ -18,6 +18,7 @@ import org.apache.struts.action.ActionMapping;
  */
 public class VirtualDedicated4CompletedAction extends VirtualDedicated4Action {
 
+    @Override
     public ActionForward executeVirtualDedicatedStep(
         ActionMapping mapping,
         HttpServletRequest request,
@@ -45,6 +46,7 @@ public class VirtualDedicated4CompletedAction extends VirtualDedicated4Action {
                 mapping,
                 request,
                 response,
+                siteSettings,
                 locale,
                 skin,
                 signupSelectServerForm,

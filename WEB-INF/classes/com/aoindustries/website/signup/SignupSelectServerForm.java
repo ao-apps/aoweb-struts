@@ -57,7 +57,7 @@ abstract public class SignupSelectServerForm extends ActionForm implements Seria
                 Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
 
                 PackageDefinition pd = rootConn.getPackageDefinitions().get(packageDefinition);
-                if(pd==null || !pd.getPackageCategory().equals(category) || !pd.getBrand().getBusiness().equals(rootBusiness)) {
+                if(pd==null || !pd.getPackageCategory().equals(category) || !pd.getBusiness().equals(rootBusiness)) {
                     errors.add("packageDefinition", new ActionMessage("signupSelectServerForm.packageDefinition.required"));
                 }
             }

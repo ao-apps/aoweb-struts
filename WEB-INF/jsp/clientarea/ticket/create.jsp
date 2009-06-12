@@ -34,7 +34,9 @@
                                     <td>
                                         <logic:notEqual name="aoConn" property="businesses.size" value="1">
                                             <html:select property="accounting">
-                                                <%--<html:option value=""/>--%>
+                                                <logic:empty scope="request" name="ticketForm" property="accounting">
+                                                    <html:option value=""/>
+                                                </logic:empty>
                                                 <html:optionsCollection name="aoConn" property="businesses.rows" label="accounting" value="accounting"/>
                                             </html:select>
                                         </logic:notEqual>

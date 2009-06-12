@@ -87,17 +87,6 @@ abstract public class ProtocolAction extends SkinAction {
      */
     abstract public int getAcceptableProtocols();
 
-    final public ActionForward executeProtocolAccepted(
-        ActionMapping mapping,
-        ActionForm form,
-        HttpServletRequest request,
-        HttpServletResponse response,
-        Locale locale,
-        Skin skin
-    ) throws Exception {
-        throw new RuntimeException("TODO: Delete this method");
-    }
-
     /**
      * Once the protocols is accepted, this version of the execute method is invoked.
      * The default implementation of this method simply returns the mapping of "success".

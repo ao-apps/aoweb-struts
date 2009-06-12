@@ -15,6 +15,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.aoindustries.website.skintags.PageAttributes;
+import java.net.URLEncoder;
 import java.sql.SQLException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -121,6 +122,15 @@ public class TextSkin extends Skin {
                 out.print("    <META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\" />\n");
                 robotsMetaUsed = true;
             }
+            // If this is an authenticated page, redirect to session timeout after one hour
+            if(req.getAttribute("aoConn")!=null) {
+                out.print("    <META HTTP-EQUIV=\"Refresh\" CONTENT=\"");
+                out.print(Math.max(60, session.getMaxInactiveInterval()-60));
+                out.print(";URL=");
+                out.print(resp.encodeRedirectURL(getHttpsUrlBase(req) + "session-timeout.do?target="));
+                out.print(URLEncoder.encode(fullPath, "UTF-8"));
+                out.print("\">\n");
+            }
             for(PageAttributes.Meta meta : pageAttributes.getMetas()) {
                 // Skip ROBOTS if not on default skin
                 boolean isRobots = meta.getName().equalsIgnoreCase("ROBOTS");
@@ -196,9 +206,14 @@ public class TextSkin extends Skin {
                 out.print(applicationResources.getMessage(locale, "TextSkin.loginPrompt"));
                 out.print("<FORM style='display:inline;' name='login_form' method='post' action='");
                 out.print(resp.encodeURL(httpsUrlBase+"login.do"));
-                out.print("'><INPUT type='hidden' name='target' value='");
-                ChainWriter.writeHtmlAttribute(fullPath, out);
-                out.print("'><INPUT type='submit' value='");
+                out.print("'>");
+                // Only include the target when they are not in the /clientarea/ part of the site
+                if(path.startsWith("clientarea/")) {
+                    out.print("<INPUT type='hidden' name='target' value='");
+                    ChainWriter.writeHtmlAttribute(fullPath, out);
+                    out.print("'>");
+                }
+                out.print("<INPUT type='submit' value='");
                 out.print(applicationResources.getMessage(locale, "TextSkin.loginButtonLabel"));
                 out.print("'></FORM>\n");
             }
