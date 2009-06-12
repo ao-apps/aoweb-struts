@@ -64,6 +64,7 @@ public class CreateCompletedAction extends PermissionAction {
         TicketPriority clientPriority = aoConn.getTicketPriorities().get(ticketForm.getClientPriority());
         if(clientPriority==null) throw new SQLException("Unable to find TicketPriority: "+ticketForm.getClientPriority());
         int pkey = aoConn.getTickets().addTicket(
+            siteSettings.getBrand(),
             business,
             language,
             null,

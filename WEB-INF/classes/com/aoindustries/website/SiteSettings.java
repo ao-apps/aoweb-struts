@@ -131,7 +131,9 @@ public class SiteSettings {
     }
 
     /**
-     * Gets the Brand for this site.
+     * Gets the Brand for this site.  The returned instance has the permissions of the
+     * site's RootAOServConnector and should therefore be used carefully to not
+     * allow privilege escelation.
      */
     public Brand getBrand() throws IOException, SQLException {
         Brand br = getRootAOServConnector().getThisBusinessAdministrator().getUsername().getPackage().getBusiness().getBrand();

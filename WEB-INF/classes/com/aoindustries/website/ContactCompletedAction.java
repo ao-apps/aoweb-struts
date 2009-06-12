@@ -53,6 +53,7 @@ public class ContactCompletedAction extends HttpsAction {
         TicketPriority clientPriority = rootConn.getTicketPriorities().get(TicketPriority.NORMAL);
         if(clientPriority==null) throw new SQLException("Unable to find TicketPriority: "+TicketPriority.NORMAL);
         rootConn.getTickets().addTicket(
+            siteSettings.getBrand(),
             null,
             language,
             null,
