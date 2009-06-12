@@ -123,7 +123,8 @@ public class TextSkin extends Skin {
                 robotsMetaUsed = true;
             }
             // If this is an authenticated page, redirect to session timeout after one hour
-            if(req.getAttribute("aoConn")!=null) {
+            AOServConnector aoConn = AuthenticatedAction.getAoConn(req, resp);
+            if(aoConn!=null) {
                 out.print("    <META HTTP-EQUIV=\"Refresh\" CONTENT=\"");
                 out.print(Math.max(60, session.getMaxInactiveInterval()-60));
                 out.print(";URL=");
@@ -188,7 +189,6 @@ public class TextSkin extends Skin {
                     + "      <TR>\n"
                     + "        <TD valign='top'>\n");
             printLogo(req, resp, out, urlBase);
-            AOServConnector aoConn = AuthenticatedAction.getAoConn(req, resp);
             if(aoConn!=null) {
                 out.print("          <HR>\n"
                         + "          ");
