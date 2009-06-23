@@ -52,6 +52,7 @@ public class ContactCompletedAction extends HttpsAction {
         if(ticketType==null) throw new SQLException("Unable to find TicketType: "+TicketType.CONTACT);
         TicketPriority clientPriority = rootConn.getTicketPriorities().get(TicketPriority.NORMAL);
         if(clientPriority==null) throw new SQLException("Unable to find TicketPriority: "+TicketPriority.NORMAL);
+        TODO: Add fromAddress as equal to contactForm.getFrom()
         rootConn.getTickets().addTicket(
             siteSettings.getBrand(),
             null,

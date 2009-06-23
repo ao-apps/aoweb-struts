@@ -8,6 +8,7 @@ package com.aoindustries.website.clientarea.ticket;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Ticket;
 import com.aoindustries.aoserv.client.TicketStatus;
+import com.aoindustries.aoserv.client.TicketType;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.SiteSettings;
@@ -42,9 +43,20 @@ public class IndexAction  extends AuthenticatedAction {
 
         List<Ticket> filteredTickets = new ArrayList<Ticket>(tickets.size());
         for(Ticket ticket : tickets) {
-            String status = ticket.getStatus().getStatus();
-            if(!status.equals(TicketStatus.JUNK) && !status.equals(TicketStatus.DELETED)) {
-                filteredTickets.add(ticket);
+            // Only show support or project tickets here
+            String type = ticket.getTicketType().getType();
+            if(
+                type.equals(TicketType.SUPPORT)
+                || type.equals(TicketType.PROJECTS)
+            ) {
+                // Do not show junk or deleted tickets
+                String status = ticket.getStatus().getStatus();
+                if(
+                    !status.equals(TicketStatus.JUNK)
+                    && !status.equals(TicketStatus.DELETED)
+                ) {
+                    filteredTickets.add(ticket);
+                }
             }
         }
 
