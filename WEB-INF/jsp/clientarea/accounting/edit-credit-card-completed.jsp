@@ -8,7 +8,8 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
-<html:html lang="true">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html:html lang="true" xhtml="true">
     <skin:path>/clientarea/accounting/edit-credit-card-completed.do</skin:path>
     <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
     <skin:title>
@@ -58,13 +59,13 @@
                         <logic:equal name="editCreditCardForm" property="isActive" value="false">
                             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.title.reactivate"/>
                         </logic:equal>
-                        <hr>
+                        <hr />
                         <bean:define scope="request" name="cardNumber" id="cardNumber" type="java.lang.String"/>
                         <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
-                            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.text.edit" arg0="<%= cardNumber.replace('X', 'x') %>"/><br>
+                            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.text.edit" arg0="<%= cardNumber.replace('X', 'x') %>"/><br />
                         </logic:notEqual>
                         <logic:equal name="editCreditCardForm" property="isActive" value="false">
-                            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.text.reactivate" arg0="<%= cardNumber.replace('X', 'x') %>"/><br>
+                            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.text.reactivate" arg0="<%= cardNumber.replace('X', 'x') %>"/><br />
                         </logic:equal>
                         <ul>
                             <logic:equal scope="request" name="updatedCardNumber" value="true">

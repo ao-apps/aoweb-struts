@@ -8,42 +8,42 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <logic:notEmpty scope="request" name="backupOnsiteOption">
-    <TR>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.backupOnsite.prompt"/></TD>
-        <TD><bean:write name="backupOnsiteOption"/></TD>
-    </TR>
+    <tr>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.backupOnsite.prompt"/></td>
+        <td><bean:write name="backupOnsiteOption"/></td>
+    </tr>
 </logic:notEmpty>
 <logic:notEmpty scope="request" name="backupOffsiteOption">
-    <TR>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.backupOffsite.prompt"/></TD>
-        <TD><bean:write name="backupOffsiteOption"/></TD>
-    </TR>
+    <tr>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.backupOffsite.prompt"/></td>
+        <td><bean:write name="backupOffsiteOption"/></td>
+    </tr>
 </logic:notEmpty>
 <logic:notEmpty scope="request" name="backupDvdOption">
-    <TR>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.backupDvd.prompt"/></TD>
-        <TD><bean:write name="backupDvdOption"/></TD>
-    </TR>
+    <tr>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.backupDvd.prompt"/></td>
+        <td><bean:write name="backupDvdOption"/></td>
+    </tr>
 </logic:notEmpty>
 <logic:notEmpty scope="request" name="distributionScanOption">
-    <TR>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.distributionScan.prompt"/></TD>
-        <TD><bean:write name="distributionScanOption"/></TD>
-    </TR>
+    <tr>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.distributionScan.prompt"/></td>
+        <td><bean:write name="distributionScanOption"/></td>
+    </tr>
 </logic:notEmpty>
 <logic:notEmpty scope="request" name="failoverOption">
-    <TR>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.failover.prompt"/></TD>
-        <TD><bean:write name="failoverOption"/></TD>
-    </TR>
+    <tr>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.failover.prompt"/></td>
+        <td><bean:write name="failoverOption"/></td>
+    </tr>
 </logic:notEmpty>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.totalMonthlyRate.prompt"/></TD>
-    <TD>$<bean:write name="totalMonthlyRate"/></TD>
-</TR>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.totalMonthlyRate.prompt"/></td>
+    <td>$<bean:write name="totalMonthlyRate"/></td>
+</tr>

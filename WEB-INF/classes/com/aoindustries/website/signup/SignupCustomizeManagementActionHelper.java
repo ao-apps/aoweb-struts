@@ -202,49 +202,49 @@ final public class SignupCustomizeManagementActionHelper {
     ) throws IOException, SQLException {
         String backupOnsiteOption = getBackupOnsiteOption(rootConn, signupCustomizeManagementForm);
         if(!GenericValidator.isBlankOrNull(backupOnsiteOption)) {
-            emailOut.print("    <TR>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeManagementConfirmation.backupOnsite.prompt")).print("</TD>\n"
-                         + "        <TD>").print(backupOnsiteOption).print("</TD>\n"
-                         + "    </TR>\n");
+            emailOut.print("    <tr>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeManagementConfirmation.backupOnsite.prompt")).print("</td>\n"
+                         + "        <td>").print(backupOnsiteOption).print("</td>\n"
+                         + "    </tr>\n");
         }
         String backupOffsiteOption = getBackupOffsiteOption(rootConn, signupCustomizeManagementForm);
         if(!GenericValidator.isBlankOrNull(backupOffsiteOption)) {
-            emailOut.print("    <TR>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeManagementConfirmation.backupOffsite.prompt")).print("</TD>\n"
-                         + "        <TD>").print(backupOffsiteOption).print("</TD>\n"
-                         + "    </TR>\n");
+            emailOut.print("    <tr>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeManagementConfirmation.backupOffsite.prompt")).print("</td>\n"
+                         + "        <td>").print(backupOffsiteOption).print("</td>\n"
+                         + "    </tr>\n");
         }
         String backupDvdOption = getBackupDvdOption(rootConn, signupCustomizeManagementForm);
         if(!GenericValidator.isBlankOrNull(backupDvdOption)) {
-            emailOut.print("    <TR>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeManagementConfirmation.backupDvd.prompt")).print("</TD>\n"
-                         + "        <TD>").print(backupDvdOption).print("</TD>\n"
-                         + "    </TR>\n");
+            emailOut.print("    <tr>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeManagementConfirmation.backupDvd.prompt")).print("</td>\n"
+                         + "        <td>").print(backupDvdOption).print("</td>\n"
+                         + "    </tr>\n");
         }
         String distributionScanOption = getDistributionScanOption(rootConn, signupCustomizeManagementForm);
         if(!GenericValidator.isBlankOrNull(distributionScanOption)) {
-            emailOut.print("    <TR>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeManagementConfirmation.distributionScan.prompt")).print("</TD>\n"
-                         + "        <TD>").print(distributionScanOption).print("</TD>\n"
-                         + "    </TR>\n");
+            emailOut.print("    <tr>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeManagementConfirmation.distributionScan.prompt")).print("</td>\n"
+                         + "        <td>").print(distributionScanOption).print("</td>\n"
+                         + "    </tr>\n");
         }
         String failoverOption = getFailoverOption(rootConn, signupCustomizeManagementForm);
         if(!GenericValidator.isBlankOrNull(failoverOption)) {
-            emailOut.print("    <TR>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeManagementConfirmation.failover.prompt")).print("</TD>\n"
-                         + "        <TD>").print(failoverOption).print("</TD>\n"
-                         + "    </TR>\n");
+            emailOut.print("    <tr>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeManagementConfirmation.failover.prompt")).print("</td>\n"
+                         + "        <td>").print(failoverOption).print("</td>\n"
+                         + "    </tr>\n");
         }
-        emailOut.print("    <TR>\n"
-                     + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                     + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeManagementConfirmation.totalMonthlyRate.prompt")).print("</TD>\n"
-                     + "        <TD>$").print(request.getAttribute("totalMonthlyRate")).print("</TD>\n"
-                     + "    </TR>\n");
+        emailOut.print("    <tr>\n"
+                     + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeManagementConfirmation.totalMonthlyRate.prompt")).print("</td>\n"
+                     + "        <td>$").print(request.getAttribute("totalMonthlyRate")).print("</td>\n"
+                     + "    </tr>\n");
     }
 
     /**

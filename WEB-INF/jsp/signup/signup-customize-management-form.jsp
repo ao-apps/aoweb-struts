@@ -7,7 +7,7 @@
 <%@ page language="java" buffer="256kb" autoFlush="true" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
-<script language="JavaScript"><!--
+<script type='text/javascript'>
     function formatDecimal(pennies) {
         var penniesOnly=pennies%100;
         var dollars=(pennies-penniesOnly)/100;
@@ -72,24 +72,24 @@
 
         form.totalMonthly.value="$"+formatDecimal(totalMonthly);
     }
-// --></script>
-<input type="hidden" name="selectedStep" value="">
+</script>
+<input type="hidden" name="selectedStep" value="" />
 <skin:lightArea>
-    <table border="0" cellspacing="0" cellpadding="2">
-        <tr><th colspan="2" class='ao_light_row'>
+    <table cellspacing="0" cellpadding="2">
+        <tr><th colspan="2" class='aoLightRow'>
             <font size="+1"><bean:write scope="request" name="packageDefinition" property="display"/></font>
         </th></tr>
         <logic:notEmpty scope="request" name="backupOnsiteOptions">
             <tr>
                 <th>
-                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.selectBackupOnsite"/><br>
+                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.selectBackupOnsite"/><br />
                     <html:errors bundle="/signup/ApplicationResources" property="backupOnsiteOption"/>
                 </th>
                 <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.backupOnsiteMonthly"/></th>
             </tr>
             <logic:iterate scope="request" name="backupOnsiteOptions" id="option">
                 <tr>
-                    <td nowrap>
+                    <td style="white-space:nowrap">
                         <html:radio onclick="recalcMonthly();" property="backupOnsiteOption" idName="option" value="packageDefinitionLimit"/>
                         <bean:write name="option" property="display"/>
                     </td>
@@ -100,14 +100,14 @@
         <logic:notEmpty scope="request" name="backupOffsiteOptions">
             <tr>
                 <th>
-                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.selectBackupOffsite"/><br>
+                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.selectBackupOffsite"/><br />
                     <html:errors bundle="/signup/ApplicationResources" property="backupOffsiteOption"/>
                 </th>
                 <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.backupOffsiteMonthly"/></th>
             </tr>
             <logic:iterate scope="request" name="backupOffsiteOptions" id="option">
                 <tr>
-                    <td nowrap>
+                    <td style="white-space:nowrap">
                         <html:radio onclick="recalcMonthly();" property="backupOffsiteOption" idName="option" value="packageDefinitionLimit"/>
                         <bean:write name="option" property="display"/>
                     </td>
@@ -118,14 +118,14 @@
         <logic:notEmpty scope="request" name="distributionScanOptions">
             <tr>
                 <th>
-                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.selectDistributionScan"/><br>
+                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.selectDistributionScan"/><br />
                     <html:errors bundle="/signup/ApplicationResources" property="distributionScanOption"/>
                 </th>
                 <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.distributionScanMonthly"/></th>
             </tr>
             <logic:iterate scope="request" name="distributionScanOptions" id="option">
                 <tr>
-                    <td nowrap>
+                    <td style="white-space:nowrap">
                         <html:radio onclick="recalcMonthly();" property="distributionScanOption" idName="option" value="packageDefinitionLimit"/>
                         <bean:write name="option" property="display"/>
                     </td>
@@ -136,14 +136,14 @@
         <logic:notEmpty scope="request" name="failoverOptions">
             <tr>
                 <th>
-                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.selectFailover"/><br>
+                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.selectFailover"/><br />
                     <html:errors bundle="/signup/ApplicationResources" property="failoverOption"/>
                 </th>
                 <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.failoverMonthly"/></th>
             </tr>
             <logic:iterate scope="request" name="failoverOptions" id="option">
                 <tr>
-                    <td nowrap>
+                    <td style="white-space:nowrap">
                         <html:radio onclick="recalcMonthly();" property="failoverOption" idName="option" value="packageDefinitionLimit"/>
                         <bean:write name="option" property="display"/>
                     </td>
@@ -154,17 +154,17 @@
         <tr>
             <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.hardwareRate.title"/></th>
             <th align='left'>
-                <input type="hidden" name="formCompleted" value="true">
-                <input type="hidden" name="hardwareRate" value='<bean:write scope="request" name="hardwareRate"/>'>
-                <input type="text" name="hardwareRateDisplay" readonly size="10" value='$<bean:write scope="request" name="hardwareRate"/>'>
+                <input type="hidden" name="formCompleted" value="true" />
+                <input type="hidden" name="hardwareRate" value='<bean:write scope="request" name="hardwareRate"/>' />
+                <input type="text" name="hardwareRateDisplay" readonly size="10" value='$<bean:write scope="request" name="hardwareRate"/>' />
             </th>
         </tr>
         <tr>
             <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.total"/></th>
             <th align='left'>
-                <input type="text" name="totalMonthly" readonly size="10" value='$<bean:write scope="request" name="hardwareRate"/>'>
+                <input type="text" name="totalMonthly" readonly size="10" value='$<bean:write scope="request" name="hardwareRate"/>' />
             </th>
         </tr>
-        <tr><td colspan="2" align="center"><br><html:submit><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.submit.label"/></html:submit><br><br></td></tr>
+        <tr><td colspan="2" align="center"><br /><html:submit><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.submit.label"/></html:submit><br /><br /></td></tr>
     </table>
 </skin:lightArea>

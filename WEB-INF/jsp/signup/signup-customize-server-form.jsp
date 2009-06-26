@@ -7,7 +7,7 @@
 <%@ page language="java" buffer="256kb" autoFlush="true" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
-<script language="JavaScript"><!--
+<script type='text/javascript'>
     function formatDecimal(pennies) {
         var penniesOnly=pennies%100;
         var dollars=(pennies-penniesOnly)/100;
@@ -130,24 +130,24 @@
 
         form.totalMonthly.value="$"+formatDecimal(totalMonthly);
     }
-// --></script>
-<input type="hidden" name="selectedStep" value="">
+</script>
+<input type="hidden" name="selectedStep" value="" />
 <skin:lightArea>
-    <table border="0" cellspacing="0" cellpadding="2">
-        <tr><th colspan="2" class='ao_light_row'>
+    <table cellspacing="0" cellpadding="2">
+        <tr><th colspan="2" class='aoLightRow'>
             <font size="+1"><bean:write scope="request" name="packageDefinition" property="display"/></font>
         </th></tr>
         <logic:notEmpty scope="request" name="powerOptions">
             <tr>
                 <th>
-                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectPower"/><br>
+                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectPower"/><br />
                     <html:errors bundle="/signup/ApplicationResources" property="powerOption"/>
                 </th>
                 <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.powerMonthly"/></th>
             </tr>
             <logic:iterate scope="request" name="powerOptions" id="option">
                 <tr>
-                    <td nowrap>
+                    <td style="white-space:nowrap">
                         <html:radio onclick="recalcMonthly();" property="powerOption" idName="option" value="packageDefinitionLimit"/>
                         <bean:write name="option" property="display"/>
                     </td>
@@ -156,18 +156,18 @@
             </logic:iterate>
         </logic:notEmpty>
         <logic:empty scope="request" name="powerOptions">
-            <input type="hidden" name="powerOption" value="-1">
+            <input type="hidden" name="powerOption" value="-1" />
         </logic:empty>
         <tr>
             <th>
-                <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectCPU"/><br>
+                <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectCPU"/><br />
                 <html:errors bundle="/signup/ApplicationResources" property="cpuOption"/>
             </th>
             <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.cpuMonthly"/></th>
         </tr>
         <logic:iterate scope="request" name="cpuOptions" id="option">
             <tr>
-                <td nowrap>
+                <td style="white-space:nowrap">
                     <html:radio onclick="recalcMonthly();" property="cpuOption" idName="option" value="packageDefinitionLimit"/>
                     <bean:write name="option" property="display"/>
                 </td>
@@ -176,14 +176,14 @@
         </logic:iterate>
         <tr>
             <th>
-                <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectRAM"/><br>
+                <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectRAM"/><br />
                 <html:errors bundle="/signup/ApplicationResources" property="ramOption"/>
             </th>
             <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.ramMonthly"/></th>
         </tr>
         <logic:iterate scope="request" name="ramOptions" id="option">
             <tr>
-                <td nowrap>
+                <td style="white-space:nowrap">
                     <html:radio onclick="recalcMonthly();" property="ramOption" idName="option" value="packageDefinitionLimit"/>
                     <bean:write name="option" property="display"/>
                 </td>
@@ -193,14 +193,14 @@
         <logic:notEmpty scope="request" name="sataControllerOptions">
             <tr>
                 <th>
-                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectSataController"/><br>
+                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectSataController"/><br />
                     <html:errors bundle="/signup/ApplicationResources" property="sataControllerOption"/>
                 </th>
                 <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.sataControllerMonthly"/></th>
             </tr>
             <logic:iterate scope="request" name="sataControllerOptions" id="option">
                 <tr>
-                    <td nowrap>
+                    <td style="white-space:nowrap">
                         <html:radio onclick="recalcMonthly();" property="sataControllerOption" idName="option" value="packageDefinitionLimit"/>
                         <bean:write name="option" property="display"/>
                     </td>
@@ -209,19 +209,19 @@
             </logic:iterate>
         </logic:notEmpty>
         <logic:empty scope="request" name="sataControllerOptions">
-            <input type="hidden" name="sataControllerOption" value="-1">
+            <input type="hidden" name="sataControllerOption" value="-1" />
         </logic:empty>
         <logic:notEmpty scope="request" name="scsiControllerOptions">
             <tr>
                 <th>
-                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectScsiController"/><br>
+                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectScsiController"/><br />
                     <html:errors bundle="/signup/ApplicationResources" property="scsiControllerOption"/>
                 </th>
                 <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.scsiControllerMonthly"/></th>
             </tr>
             <logic:iterate scope="request" name="scsiControllerOptions" id="option">
                 <tr>
-                    <td nowrap>
+                    <td style="white-space:nowrap">
                         <html:radio onclick="recalcMonthly();" property="scsiControllerOption" idName="option" value="packageDefinitionLimit"/>
                         <bean:write name="option" property="display"/>
                     </td>
@@ -230,19 +230,19 @@
             </logic:iterate>
         </logic:notEmpty>
         <logic:empty scope="request" name="scsiControllerOptions">
-            <input type="hidden" name="scsiControllerOption" value="-1">
+            <input type="hidden" name="scsiControllerOption" value="-1" />
         </logic:empty>
         <logic:iterate name="ideOptions" id="ideOptionList" indexId="index">
             <tr>
                 <th>
-                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectIDE" arg0="<%= Integer.toString(index.intValue()+1) %>"/><br>
+                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectIDE" arg0="<%= Integer.toString(index.intValue()+1) %>"/><br />
                     <logic:equal name="index" value="0"><html:errors bundle="/signup/ApplicationResources" property="ideOptions"/></logic:equal>
                 </th>
                 <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.ideMonthly"/></th>
             </tr>
             <logic:iterate name="ideOptionList" id="option">
                 <tr>
-                    <td nowrap>
+                    <td style="white-space:nowrap">
                         <html:radio onclick="recalcMonthly();" property='<%= "ideOptions[" + index + "]" %>' idName="option" value="packageDefinitionLimit"/>
                         <bean:write name="option" property="display"/>
                     </td>
@@ -253,14 +253,14 @@
         <logic:iterate name="sataOptions" id="sataOptionList" indexId="index">
             <tr>
                 <th>
-                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectSATA" arg0="<%= Integer.toString(index.intValue()+1) %>"/><br>
+                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectSATA" arg0="<%= Integer.toString(index.intValue()+1) %>"/><br />
                     <logic:equal name="index" value="0"><html:errors bundle="/signup/ApplicationResources" property="sataOptions"/></logic:equal>
                 </th>
                 <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.sataMonthly"/></th>
             </tr>
             <logic:iterate name="sataOptionList" id="option">
                 <tr>
-                    <td nowrap>
+                    <td style="white-space:nowrap">
                         <html:radio onclick="recalcMonthly();" property='<%= "sataOptions[" + index + "]" %>' idName="option" value="packageDefinitionLimit"/>
                         <bean:write name="option" property="display"/>
                     </td>
@@ -271,14 +271,14 @@
         <logic:iterate name="scsiOptions" id="scsiOptionList" indexId="index">
             <tr>
                 <th>
-                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectSCSI" arg0="<%= Integer.toString(index.intValue()+1) %>"/><br>
+                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectSCSI" arg0="<%= Integer.toString(index.intValue()+1) %>"/><br />
                     <logic:equal name="index" value="0"><html:errors bundle="/signup/ApplicationResources" property="scsiOptions"/></logic:equal>
                 </th>
                 <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.scsiMonthly"/></th>
             </tr>
             <logic:iterate name="scsiOptionList" id="option">
                 <tr>
-                    <td nowrap>
+                    <td style="white-space:nowrap">
                         <html:radio onclick="recalcMonthly();" property='<%= "scsiOptions[" + index + "]" %>' idName="option" value="packageDefinitionLimit"/>
                         <bean:write name="option" property="display"/>
                     </td>
@@ -289,16 +289,16 @@
         <tr>
             <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.basePrice.title"/></th>
             <th align='left'>
-                <input type="hidden" name="basePrice" value='<bean:write scope="request" name="basePrice"/>'>
-                <input type="text" name="basePriceDisplay" readonly size="10" value='$<bean:write scope="request" name="basePrice"/>'>
+                <input type="hidden" name="basePrice" value='<bean:write scope="request" name="basePrice"/>' />
+                <input type="text" name="basePriceDisplay" readonly size="10" value='$<bean:write scope="request" name="basePrice"/>' />
             </th>
         </tr>
         <tr>
             <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.total"/></th>
             <th align='left'>
-                <input type="text" name="totalMonthly" readonly size="10" value='$<bean:write scope="request" name="basePrice"/>'>
+                <input type="text" name="totalMonthly" readonly size="10" value='$<bean:write scope="request" name="basePrice"/>' />
             </th>
         </tr>
-        <tr><td colspan="2" align="center"><br><html:submit><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.submit.label"/></html:submit><br><br></td></tr>
+        <tr><td colspan="2" align="center"><br /><html:submit><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.submit.label"/></html:submit><br /><br /></td></tr>
     </table>
 </skin:lightArea>

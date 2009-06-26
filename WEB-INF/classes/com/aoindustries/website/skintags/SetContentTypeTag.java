@@ -5,14 +5,10 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.website.Constants;
 import com.aoindustries.website.Skin;
 import java.util.Locale;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.TagSupport;
 import org.apache.struts.Globals;
 
@@ -28,8 +24,9 @@ public class SetContentTypeTag extends TagSupport {
     public SetContentTypeTag() {
     }
 
+    @Override
     public int doStartTag() throws JspException {
-        Skin skin = SkinTag.getSkin(pageContext);
+        // Skin skin = SkinTag.getSkin(pageContext);
 
         ServletResponse response = pageContext.getResponse();
 

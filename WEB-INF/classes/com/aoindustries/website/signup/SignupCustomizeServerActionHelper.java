@@ -508,8 +508,8 @@ final public class SignupCustomizeServerActionHelper {
     public static String getCpuOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         PackageDefinitionLimit cpuPDL = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getCpuOption());
         int numCpu = cpuPDL.getHardLimit();
-        if(numCpu==1) return cpuPDL.getResource().getDescription().replaceAll(", ", "<br>&nbsp;&nbsp;&nbsp;&nbsp;");
-        else return numCpu + "x" + cpuPDL.getResource().getDescription().replaceAll(", ", "<br>&nbsp;&nbsp;&nbsp;&nbsp;");
+        if(numCpu==1) return cpuPDL.getResource().getDescription().replaceAll(", ", "<br />&nbsp;&nbsp;&nbsp;&nbsp;");
+        else return numCpu + "x" + cpuPDL.getResource().getDescription().replaceAll(", ", "<br />&nbsp;&nbsp;&nbsp;&nbsp;");
     }
     
     public static String getRamOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
@@ -613,76 +613,76 @@ final public class SignupCustomizeServerActionHelper {
     ) throws IOException, SQLException {
         String powerOption = getPowerOption(rootConn, signupCustomizeServerForm);
         if(!GenericValidator.isBlankOrNull(powerOption)) {
-            emailOut.print("    <TR>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.power.prompt")).print("</TD>\n"
-                         + "        <TD>").print(powerOption).print("</TD>\n"
-                         + "    </TR>\n");
+            emailOut.print("    <tr>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.power.prompt")).print("</td>\n"
+                         + "        <td>").print(powerOption).print("</td>\n"
+                         + "    </tr>\n");
         }
-        emailOut.print("    <TR>\n"
-                     + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                     + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.cpu.prompt")).print("</TD>\n"
-                     + "        <TD>").print(getCpuOption(rootConn, signupCustomizeServerForm)).print("</TD>\n"
-                     + "    </TR>\n"
-                     + "    <TR>\n"
-                     + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                     + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.ram.prompt")).print("</TD>\n"
-                     + "        <TD>").writeHtml(getRamOption(rootConn, signupCustomizeServerForm)).print("</TD>\n"
-                     + "    </TR>\n");
+        emailOut.print("    <tr>\n"
+                     + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.cpu.prompt")).print("</td>\n"
+                     + "        <td>").print(getCpuOption(rootConn, signupCustomizeServerForm)).print("</td>\n"
+                     + "    </tr>\n"
+                     + "    <tr>\n"
+                     + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.ram.prompt")).print("</td>\n"
+                     + "        <td>").writeHtml(getRamOption(rootConn, signupCustomizeServerForm)).print("</td>\n"
+                     + "    </tr>\n");
         String sataControllerOption = getSataControllerOption(rootConn, signupCustomizeServerForm);
         if(!GenericValidator.isBlankOrNull(sataControllerOption)) {
-            emailOut.print("    <TR>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.sataController.prompt")).print("</TD>\n"
-                         + "        <TD>").print(sataControllerOption).print("</TD>\n"
-                         + "    </TR>\n");
+            emailOut.print("    <tr>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.sataController.prompt")).print("</td>\n"
+                         + "        <td>").print(sataControllerOption).print("</td>\n"
+                         + "    </tr>\n");
         }
         String scsiControllerOption = getScsiControllerOption(rootConn, signupCustomizeServerForm);
         if(!GenericValidator.isBlankOrNull(scsiControllerOption)) {
-            emailOut.print("    <TR>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.scsiController.prompt")).print("</TD>\n"
-                         + "        <TD>").print(scsiControllerOption).print("</TD>\n"
-                         + "    </TR>\n");
+            emailOut.print("    <tr>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.scsiController.prompt")).print("</td>\n"
+                         + "        <td>").print(scsiControllerOption).print("</td>\n"
+                         + "    </tr>\n");
         }
         for(String ideOption : getIdeOptions(rootConn, signupCustomizeServerForm)) {
-            emailOut.print("    <TR>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.ide.prompt")).print("</TD>\n"
-                         + "        <TD>").writeHtml(ideOption).print("</TD>\n"
-                         + "    </TR>\n");
+            emailOut.print("    <tr>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.ide.prompt")).print("</td>\n"
+                         + "        <td>").writeHtml(ideOption).print("</td>\n"
+                         + "    </tr>\n");
         }
         for(String sataOption : getSataOptions(rootConn, signupCustomizeServerForm)) {
-            emailOut.print("    <TR>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.sata.prompt")).print("</TD>\n"
-                         + "        <TD>").writeHtml(sataOption).print("</TD>\n"
-                         + "    </TR>\n");
+            emailOut.print("    <tr>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.sata.prompt")).print("</td>\n"
+                         + "        <td>").writeHtml(sataOption).print("</td>\n"
+                         + "    </tr>\n");
         }
         for(String scsiOption : getScsiOptions(rootConn, signupCustomizeServerForm)) {
-            emailOut.print("    <TR>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                         + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.scsi.prompt")).print("</TD>\n"
-                         + "        <TD>").writeHtml(scsiOption).print("</TD>\n"
-                         + "    </TR>\n");
+            emailOut.print("    <tr>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.scsi.prompt")).print("</td>\n"
+                         + "        <td>").writeHtml(scsiOption).print("</td>\n"
+                         + "    </tr>\n");
         }
-        emailOut.print("    <TR>\n"
-                     + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                     + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.setup.prompt")).print("</TD>\n"
-                     + "        <TD>\n");
+        emailOut.print("    <tr>\n"
+                     + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.setup.prompt")).print("</td>\n"
+                     + "        <td>\n");
         BigDecimal setup = SignupSelectServerActionHelper.getSetup(packageDefinition);
         if(setup==null) {
             emailOut.print("            ").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.setup.none")).print("\n");
         } else {
             emailOut.print("            $").print(setup).print("\n");
         }
-        emailOut.print("        </TD>\n"
-                     + "    </TR>\n"
-                     + "    <TR>\n"
-                     + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                     + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.monthlyRate.prompt")).print("</TD>\n"
-                     + "        <TD>$").print(request.getAttribute("monthlyRate")).print("</TD>\n"
-                     + "    </TR>\n");
+        emailOut.print("        </td>\n"
+                     + "    </tr>\n"
+                     + "    <tr>\n"
+                     + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupCustomizeServerConfirmation.monthlyRate.prompt")).print("</td>\n"
+                     + "        <td>$").print(request.getAttribute("monthlyRate")).print("</td>\n"
+                     + "    </tr>\n");
     }
     
     /**

@@ -8,7 +8,8 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
-<html:html lang="true">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html:html lang="true" xhtml="true">
     <skin:path>/clientarea/ticket/index.do</skin:path>
     <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
     <skin:title><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.title"/></skin:title>
@@ -26,7 +27,7 @@
                     <html:link action="/create"><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.link.create"/></html:link>
                 </div>
                 <skin:lightArea>
-                    <table border="0" cellspacing="0" cellpadding="5">
+                    <table cellspacing="0" cellpadding="5">
                         <tr>
                             <th><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.header.pkey"/></th>
                             <th><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.header.clientPriority"/></th>
@@ -48,8 +49,8 @@
                         <logic:notEmpty name="tickets">
                             <logic:iterate name="tickets" id="ticket">
                                 <skin:lightDarkTableRow pageAttributeId="isDark">
-                                    <td nowrap><html:link action="/edit" paramId="pkey" paramName="ticket" paramProperty="pkey"><bean:write name="ticket" property="pkey"/></html:link></td>
-                                    <td nowrap>
+                                    <td style="white-space:nowrap"><html:link action="/edit" paramId="pkey" paramName="ticket" paramProperty="pkey"><bean:write name="ticket" property="pkey"/></html:link></td>
+                                    <td style="white-space:nowrap">
                                         <logic:equal name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
                                             <logic:equal name="isDark" value="true">
                                                 <img align="absmiddle" height="25" width="25" src="p_dark_black.gif">&nbsp;
@@ -94,17 +95,17 @@
                                         </logic:notEqual>
                                         <bean:write name="ticket" property="clientPriority"/>
                                     </td>
-                                    <td nowrap><bean:write name="ticket" property="status"/></td>
-                                    <td nowrap><aoweb:dateTime><bean:write name="ticket" property="openDate"/></aoweb:dateTime></td>
-                                    <td nowrap>
+                                    <td style="white-space:nowrap"><bean:write name="ticket" property="status"/></td>
+                                    <td style="white-space:nowrap"><aoweb:dateTime><bean:write name="ticket" property="openDate"/></aoweb:dateTime></td>
+                                    <td style="white-space:nowrap">
                                         <logic:notEmpty name="ticket" property="createdBy">
                                             <bean:write name="ticket" property="createdBy.name"/>
                                         </logic:notEmpty>
                                     </td>
                                     <logic:notEqual name="aoConn" property="businesses.size" value="1">
-                                        <td nowrap><bean:write name="ticket" property="business"/></td>
+                                        <td style="white-space:nowrap"><bean:write name="ticket" property="business"/></td>
                                     </logic:notEqual>
-                                    <td nowrap><bean:write name="ticket" property="summary"/></td>
+                                    <td style="white-space:nowrap"><bean:write name="ticket" property="summary"/></td>
                                 </skin:lightDarkTableRow>
                             </logic:iterate>
                         </logic:notEmpty>

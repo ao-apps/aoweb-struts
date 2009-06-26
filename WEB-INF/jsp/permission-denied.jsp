@@ -13,7 +13,7 @@
 <bean:define scope="request" name="locale" id="locale" type="java.util.Locale"/>
 <skin:lightArea>
     <b><bean:message bundle="/ApplicationResources" key="permissionDenied.permissionDenied"/></b>
-    <hr>
+    <hr />
     <logic:present scope="request" name="permissionDenied">
         <logic:empty scope="request" name="permissionDenied">
             <bean:message bundle="/ApplicationResources" key="permissionDenied.noPermissionInformation"/>
@@ -31,14 +31,14 @@
                     <bean:define id="permissionDisplay" type="java.lang.String"><%= andPermission.getDisplay(locale) %></bean:define>
                     <bean:define id="permissionDescription" type="java.lang.String"><%= andPermission.getDescription(locale) %></bean:define>
                     <p>
-                        <table border='0' cellspacing='0' cellpadding='2'>
+                        <table cellspacing='0' cellpadding='2'>
                             <tr>
-                                <td nowrap><b><bean:message bundle="/ApplicationResources" key="permissionDenied.permission.display"/></b></td>
-                                <td nowrap><bean:write name="permissionDisplay"/></td>
+                                <td style="white-space:nowrap"><b><bean:message bundle="/ApplicationResources" key="permissionDenied.permission.display"/></b></td>
+                                <td style="white-space:nowrap"><bean:write name="permissionDisplay"/></td>
                             </tr>
                             <tr>
-                                <td nowrap><b><bean:message bundle="/ApplicationResources" key="permissionDenied.permission.description"/></b></td>
-                                <td nowrap><bean:write name="permissionDescription"/></td>
+                                <td style="white-space:nowrap"><b><bean:message bundle="/ApplicationResources" key="permissionDenied.permission.description"/></b></td>
+                                <td style="white-space:nowrap"><bean:write name="permissionDescription"/></td>
                             </tr>
                         </table>
                     </p>
@@ -47,20 +47,20 @@
             <logic:notEqual name="permissionDeniedSize" value="1">
                 <bean:message bundle="/ApplicationResources" key="permissionDenied.allOfTheFollowingPermissionsRequired"/>
                 <p>
-                    <table border='0' cellspacing='0' cellpadding='2'>
+                    <table cellspacing='0' cellpadding='2'>
                         <tr>
-                            <th nowrap><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.display"/></th>
-                            <th nowrap><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.description"/></th>
-                            <th nowrap><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.hasPermission"/></th>
+                            <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.display"/></th>
+                            <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.description"/></th>
+                            <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.hasPermission"/></th>
                         </tr>
                         <bean:define scope="request" name="aoConn" property="thisBusinessAdministrator" id="thisBusinessAdministrator" type="com.aoindustries.aoserv.client.BusinessAdministrator"/>
                         <logic:iterate scope="request" name="permissionDenied" id="andPermission" type="com.aoindustries.aoserv.client.AOServPermission">
                             <bean:define id="permissionDisplay" type="java.lang.String"><%= andPermission.getDisplay(locale) %></bean:define>
                             <bean:define id="permissionDescription" type="java.lang.String"><%= andPermission.getDescription(locale) %></bean:define>
                             <tr>
-                                <td nowrap><bean:write name="permissionDisplay"/></td>
-                                <td nowrap><bean:write name="permissionDescription"/></td>
-                                <td nowrap>
+                                <td style="white-space:nowrap"><bean:write name="permissionDisplay"/></td>
+                                <td style="white-space:nowrap"><bean:write name="permissionDescription"/></td>
+                                <td style="white-space:nowrap">
                                     <% if(thisBusinessAdministrator.hasPermission(andPermission)) { %>
                                         <bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.hasPermission.yes"/>
                                     <% } else { %>

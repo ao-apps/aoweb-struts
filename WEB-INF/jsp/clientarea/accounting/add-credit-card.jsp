@@ -8,7 +8,8 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
-<html:html lang="true">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html:html lang="true" xhtml="true">
     <skin:path>/clientarea/accounting/add-credit-card.do?accounting=<bean:write scope="request" name="addCreditCardForm" property="accounting"/></skin:path>
     <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
     <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="addCreditCard.title"/></skin:title>
@@ -34,11 +35,11 @@
                         <html:form action="/add-credit-card-completed">
                             <skin:lightArea>
                                 <bean:message bundle="/clientarea/accounting/ApplicationResources" key="addCreditCard.form.title"/>
-                                <hr>
-                                <table border="0" cellspacing="0" cellpadding="2">
+                                <hr />
+                                <table cellspacing="0" cellpadding="2">
                                     <bean:define name="addCreditCardForm" id="creditCardForm"/>
                                     <%@ include file="credit-card-form.jsp" %>
-                                    <tr><td nowrap colspan="4" align="center"><html:submit><bean:message bundle="/clientarea/accounting/ApplicationResources" key="addCreditCard.field.submit.label"/></html:submit></td></tr>
+                                    <tr><td style='white-space:nowrap' colspan="4" align="center"><html:submit><bean:message bundle="/clientarea/accounting/ApplicationResources" key="addCreditCard.field.submit.label"/></html:submit></td></tr>
                                 </table>
                             </skin:lightArea>
                         </html:form>

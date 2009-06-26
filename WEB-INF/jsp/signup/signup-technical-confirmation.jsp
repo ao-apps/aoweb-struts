@@ -7,80 +7,80 @@
 <%@ page language="java" buffer="256kb" autoFlush="true" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baName.prompt"/></TD>
-    <TD><bean:write scope="session" name="signupTechnicalForm" property="baName"/></TD>
-</TR>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baTitle.prompt"/></TD>
-    <TD><bean:write scope="session" name="signupTechnicalForm" property="baTitle"/></TD>
-</TR>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baWorkPhone.prompt"/></TD>
-    <TD><bean:write scope="session" name="signupTechnicalForm" property="baWorkPhone"/></TD>
-</TR>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baCellPhone.prompt"/></TD>
-    <TD><bean:write scope="session" name="signupTechnicalForm" property="baCellPhone"/></TD>
-</TR>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baHomePhone.prompt"/></TD>
-    <TD><bean:write scope="session" name="signupTechnicalForm" property="baHomePhone"/></TD>
-</TR>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baFax.prompt"/></TD>
-    <TD><bean:write scope="session" name="signupTechnicalForm" property="baFax"/></TD>
-</TR>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baEmail.prompt"/></TD>
-    <TD><bean:write scope="session" name="signupTechnicalForm" property="baEmail"/></TD>
-</TR>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baAddress1.prompt"/></TD>
-    <TD><bean:write scope="session" name="signupTechnicalForm" property="baAddress1"/></TD>
-</TR>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baName.prompt"/></td>
+    <td><bean:write scope="session" name="signupTechnicalForm" property="baName"/></td>
+</tr>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baTitle.prompt"/></td>
+    <td><bean:write scope="session" name="signupTechnicalForm" property="baTitle"/></td>
+</tr>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baWorkPhone.prompt"/></td>
+    <td><bean:write scope="session" name="signupTechnicalForm" property="baWorkPhone"/></td>
+</tr>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baCellPhone.prompt"/></td>
+    <td><bean:write scope="session" name="signupTechnicalForm" property="baCellPhone"/></td>
+</tr>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baHomePhone.prompt"/></td>
+    <td><bean:write scope="session" name="signupTechnicalForm" property="baHomePhone"/></td>
+</tr>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baFax.prompt"/></td>
+    <td><bean:write scope="session" name="signupTechnicalForm" property="baFax"/></td>
+</tr>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baEmail.prompt"/></td>
+    <td><bean:write scope="session" name="signupTechnicalForm" property="baEmail"/></td>
+</tr>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baAddress1.prompt"/></td>
+    <td><bean:write scope="session" name="signupTechnicalForm" property="baAddress1"/></td>
+</tr>
 <logic:notEmpty scope="session" name="signupTechnicalForm" property="baAddress2">
-    <TR>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baAddress2.prompt"/></TD>
-        <TD><bean:write scope="session" name="signupTechnicalForm" property="baAddress2"/></TD>
-    </TR>
+    <tr>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baAddress2.prompt"/></td>
+        <td><bean:write scope="session" name="signupTechnicalForm" property="baAddress2"/></td>
+    </tr>
 </logic:notEmpty>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baCity.prompt"/></TD>
-    <TD><bean:write scope="session" name="signupTechnicalForm" property="baCity"/></TD>
-</TR>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baState.prompt"/></TD>
-    <TD><bean:write scope="session" name="signupTechnicalForm" property="baState"/></TD>
-</TR>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baCountry.prompt"/></TD>
-    <TD><bean:write scope="request" name="baCountry"/></TD>
-</TR>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baZip.prompt"/></TD>
-    <TD><bean:write scope="session" name="signupTechnicalForm" property="baZip"/></TD>
-</TR>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baUsername.prompt"/></TD>
-    <TD><bean:write scope="session" name="signupTechnicalForm" property="baUsername"/></TD>
-</TR>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baPassword.prompt"/></TD>
-    <TD><bean:write scope="session" name="signupTechnicalForm" property="baPassword"/></TD>
-</TR>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baCity.prompt"/></td>
+    <td><bean:write scope="session" name="signupTechnicalForm" property="baCity"/></td>
+</tr>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baState.prompt"/></td>
+    <td><bean:write scope="session" name="signupTechnicalForm" property="baState"/></td>
+</tr>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baCountry.prompt"/></td>
+    <td><bean:write scope="request" name="baCountry"/></td>
+</tr>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baZip.prompt"/></td>
+    <td><bean:write scope="session" name="signupTechnicalForm" property="baZip"/></td>
+</tr>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baUsername.prompt"/></td>
+    <td><bean:write scope="session" name="signupTechnicalForm" property="baUsername"/></td>
+</tr>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baPassword.prompt"/></td>
+    <td><bean:write scope="session" name="signupTechnicalForm" property="baPassword"/></td>
+</tr>

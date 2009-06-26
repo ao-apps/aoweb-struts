@@ -5,14 +5,14 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.website.Constants;
+import com.aoindustries.website.Skin;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.BodyTagSupport;
-import com.aoindustries.website.*;
 import org.apache.struts.Globals;
 import org.apache.struts.util.MessageResources;
 
@@ -37,18 +37,19 @@ public class SkinTag extends PageAttributesTag {
         return skin;
     }
 
-    private String onLoad;
+    private String onload;
 
     public SkinTag() {
         init();
     }
 
     private void init() {
-        onLoad = null;
+        onload = null;
     }
 
+    @Override
     public int doStartTag(PageAttributes pageAttributes) throws JspException {
-        pageAttributes.setOnLoad(onLoad);
+        pageAttributes.setOnload(onload);
 
         Skin skin = SkinTag.getSkin(pageContext);
 
@@ -59,6 +60,7 @@ public class SkinTag extends PageAttributesTag {
         return EVAL_BODY_INCLUDE;
     }
 
+    @Override
     public int doEndTag(PageAttributes pageAttributes) throws JspException {
         try {
             Skin skin = SkinTag.getSkin(pageContext);
@@ -72,11 +74,11 @@ public class SkinTag extends PageAttributesTag {
         }
     }
 
-    public String getOnLoad() {
-        return onLoad;
+    public String getOnload() {
+        return onload;
     }
     
-    public void setOnLoad(String onLoad) {
-        this.onLoad = onLoad;
+    public void setOnload(String onload) {
+        this.onload = onload;
     }
 }

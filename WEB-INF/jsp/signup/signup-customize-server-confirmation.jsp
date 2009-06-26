@@ -8,71 +8,71 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <logic:notEmpty scope="request" name="powerOption">
-    <TR>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.power.prompt"/></TD>
-        <TD><bean:write name="powerOption"/></TD>
-    </TR>
+    <tr>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.power.prompt"/></td>
+        <td><bean:write name="powerOption"/></td>
+    </tr>
 </logic:notEmpty>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.cpu.prompt"/></TD>
-    <TD><bean:write name="cpuOption" filter="false"/></TD>
-</TR>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.ram.prompt"/></TD>
-    <TD><bean:write name="ramOption"/></TD>
-</TR>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.cpu.prompt"/></td>
+    <td><bean:write name="cpuOption" filter="false"/></td>
+</tr>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.ram.prompt"/></td>
+    <td><bean:write name="ramOption"/></td>
+</tr>
 <logic:notEmpty scope="request" name="sataControllerOption">
-    <TR>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.sataController.prompt"/></TD>
-        <TD><bean:write name="sataControllerOption"/></TD>
-    </TR>
+    <tr>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.sataController.prompt"/></td>
+        <td><bean:write name="sataControllerOption"/></td>
+    </tr>
 </logic:notEmpty>
 <logic:notEmpty scope="request" name="scsiControllerOption">
-    <TR>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.scsiController.prompt"/></TD>
-        <TD><bean:write name="scsiControllerOption"/></TD>
-    </TR>
+    <tr>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.scsiController.prompt"/></td>
+        <td><bean:write name="scsiControllerOption"/></td>
+    </tr>
 </logic:notEmpty>
 <logic:iterate name="ideOptions" id="ideOption">
-    <TR>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.ide.prompt"/></TD>
-        <TD><bean:write name="ideOption"/></TD>
-    </TR>
+    <tr>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.ide.prompt"/></td>
+        <td><bean:write name="ideOption"/></td>
+    </tr>
 </logic:iterate>
 <logic:iterate name="sataOptions" id="sataOption">
-    <TR>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.sata.prompt"/></TD>
-        <TD><bean:write name="sataOption"/></TD>
-    </TR>
+    <tr>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.sata.prompt"/></td>
+        <td><bean:write name="sataOption"/></td>
+    </tr>
 </logic:iterate>
 <logic:iterate name="scsiOptions" id="scsiOption">
-    <TR>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-        <TD><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.scsi.prompt"/></TD>
-        <TD><bean:write name="scsiOption"/></TD>
-    </TR>
+    <tr>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+        <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.scsi.prompt"/></td>
+        <td><bean:write name="scsiOption"/></td>
+    </tr>
 </logic:iterate>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.setup.prompt"/></TD>
-    <TD>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.setup.prompt"/></td>
+    <td>
         <logic:notPresent name="setup">
             <bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.setup.none"/>
         </logic:notPresent>
         <logic:present name="setup">
             $<bean:write name="setup"/>
         </logic:present>
-    </TD>
-</TR>
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.monthlyRate.prompt"/></TD>
-    <TD>$<bean:write name="monthlyRate"/></TD>
-</TR>
+    </td>
+</tr>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerConfirmation.monthlyRate.prompt"/></td>
+    <td>$<bean:write name="monthlyRate"/></td>
+</tr>

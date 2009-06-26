@@ -8,7 +8,8 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
-<html:html lang="true">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html:html lang="true" xhtml="true">
     <skin:path>/signup/virtual-managed-server-2.do</skin:path>
     <skin:title><bean:message bundle="/signup/ApplicationResources" key="virtualManaged.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/signup/ApplicationResources" key="virtualManaged.navImageAlt"/></skin:navImageAlt>
@@ -16,23 +17,23 @@
     <skin:description><bean:message bundle="/signup/ApplicationResources" key="virtualManaged.description"/></skin:description>
     <%@ include file="add-parents.jsp" %>
     <%@ include file="add-siblings.jsp" %>
-    <skin:skin onLoad="recalcMonthly();">
+    <skin:skin onload="recalcMonthly();">
         <skin:content width="600">
             <skin:contentTitle><bean:message bundle="/signup/ApplicationResources" key="virtualManaged.title"/></skin:contentTitle>
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
-                <script language="JavaScript1.2"><!--
+                <script type='text/javascript'>
                     var signupCustomizeServerFormName = 'virtualManagedSignupCustomizeServerForm';
                     function selectStep(step) {
                         var form = document.forms['virtualManagedSignupCustomizeServerForm'];
                         form.selectedStep.value=step;
                         form.submit();
                     }
-                // --></script>
+                </script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="2"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="virtual-managed-server"/>
                 <%@ include file="managed-server-steps.jsp" %>
-                <br>
+                <br />
                 <html:form action="/virtual-managed-server-2-completed.do">
                     <%@ include file="signup-customize-server-form.jsp" %>
                 </html:form>

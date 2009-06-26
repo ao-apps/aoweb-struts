@@ -57,7 +57,7 @@ public class PageAttributes {
     private String navImageAlt;
     private List<Page> parents;
     private List<Page> siblings;
-    private String onLoad;
+    private String onload;
     
     public PageAttributes() {
     }
@@ -157,11 +157,11 @@ public class PageAttributes {
         siblings.add(sibling);
     }
 
-    public String getOnLoad() {
-        return onLoad;
+    public String getOnload() {
+        return onload;
     }
     
-    public void setOnLoad(String onLoad) {
-        this.onLoad = onLoad;
+    public void setOnload(String onload) {
+        this.onload = onload;
     }
 }

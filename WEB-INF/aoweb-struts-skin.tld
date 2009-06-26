@@ -118,11 +118,11 @@
     <body-content>JSP</body-content>
     <description>Writes the skin between the HTML tags and the page content.</description>
     <attribute>
-      <name>onLoad</name>
+      <name>onload</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
       <type>String</type>
-      <description>The JavaScript that will be placed in the onLoad attribute of the body tag</description>
+      <description>The JavaScript that will be placed in the onload attribute of the body tag</description>
     </attribute>
     <example/>
   </tag>
@@ -341,7 +341,7 @@
     <tag-class>com.aoindustries.website.skintags.LightDarkTableRowTag</tag-class>
     <body-content>JSP</body-content>
     <description>
-        Alternates between ao_light_row and ao_dark_row classes.
+        Alternates between aoLightRow and aoDarkRow classes.
     </description>
     <example/>
     <attribute>

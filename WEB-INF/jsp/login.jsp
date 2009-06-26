@@ -8,7 +8,8 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
-<html:html lang="true">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html:html lang="true" xhtml="true">
     <skin:path>/login.do</skin:path>
     <skin:meta name="ROBOTS">NOINDEX</skin:meta>
     <skin:title><bean:message bundle="/ApplicationResources" key="login.title"/></skin:title>
@@ -21,25 +22,25 @@
     <aoweb:exists path="/WEB-INF/jsp/add-siblings.jsp">
         <jsp:include page="/WEB-INF/jsp/add-siblings.jsp"/>
     </aoweb:exists>
-    <skin:skin onLoad="document.forms['loginForm'].username.focus(); document.forms['loginForm'].username.select();">
+    <skin:skin onload="document.forms['loginForm'].username.focus(); document.forms['loginForm'].username.select();">
         <skin:content width="600">
             <skin:contentTitle><bean:message bundle="/ApplicationResources" key="login.title"/></skin:contentTitle>
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
-                <html:javascript staticJavascript='false' bundle="/ApplicationResources" formName="loginForm"/>
+                <html:javascript staticJavascript='false' bundle="/ApplicationResources" formName="loginForm"/><noscript><!-- Do nothing --></noscript>
                 <skin:lightArea>
-                    <B>
+                    <b>
                         <logic:present scope="request" name="authenticationMessage"><bean:write scope="request" name="authenticationMessage" filter="false"/></logic:present>
                         <logic:notPresent scope="request" name="authenticationMessage"><bean:message bundle="/ApplicationResources" key="login.pleaseLogin"/></logic:notPresent>
-                    </B>
-                    <HR>
-                    <html:form action="/login-completed" onsubmit="return validateLoginForm(this);">
+                    </b>
+                    <hr />
+                    <html:form action="/login-completed" onsubmit="return validateLoginForm(this);"><div>
                         <%-- Add the authenticationTarget to the form because the new session could expire before they login and lost their target --%>
                         <logic:present scope="session" name="authenticationTarget">
                             <bean:define scope="session" name="authenticationTarget" type="java.lang.String" id="authenticationTarget"/>
-                            <input type="hidden" name="authenticationTarget" value="<% com.aoindustries.io.ChainWriter.writeHtmlAttribute(authenticationTarget, out); %>">
+                            <input type="hidden" name="authenticationTarget" value="<% com.aoindustries.io.ChainWriter.writeHtmlAttribute(authenticationTarget, out); %>" />
                         </logic:present>
-                        <table border='0' cellspacing='2' cellpadding='0'>
+                        <table cellspacing='2' cellpadding='0'>
                             <tr>
                                 <td><bean:message bundle="/ApplicationResources" key="login.field.username.prompt"/></td>
                                 <td><html:text size="16" property="username" /></td>
@@ -54,7 +55,7 @@
                                 <td colspan='3' align='center'><html:submit><bean:message bundle="/ApplicationResources" key="login.field.submit.label"/></html:submit></td>
                             </tr>
                         </table>
-                    </html:form>
+                    </div></html:form>
                 </skin:lightArea>
             </skin:contentLine>
         </skin:content>

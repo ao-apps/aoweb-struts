@@ -119,10 +119,10 @@ final public class SignupSelectServerActionHelper {
     }
     
     public static void printConfirmation(ChainWriter emailOut, Locale contentLocale, PackageDefinition packageDefinition, MessageResources signupApplicationResources) {
-        emailOut.print("    <TR>\n"
-                     + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</TD>\n"
-                     + "        <TD>").print(signupApplicationResources.getMessage(contentLocale, "signupSelectServerForm.packageDefinition.prompt")).print("</TD>\n"
-                     + "        <TD>").writeHtml(packageDefinition.getDisplay()).print("</TD>\n"
-                     + "    </TR>\n");
+        emailOut.print("    <tr>\n"
+                     + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupSelectServerForm.packageDefinition.prompt")).print("</td>\n"
+                     + "        <td>").writeHtml(packageDefinition.getDisplay()).print("</td>\n"
+                     + "    </tr>\n");
     }
 }

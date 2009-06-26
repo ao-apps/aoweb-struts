@@ -8,7 +8,8 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
-<html:html lang="true">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html:html lang="true" xhtml="true">
     <skin:path>/clientarea/control/business/cancel.do</skin:path>
     <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
     <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.title"/></skin:title>
@@ -26,26 +27,26 @@
                     <%@ include file="../../../permission-denied.jsp" %>
                 </logic:present>
                 <logic:notPresent scope="request" name="permissionDenied">
-                    <table border='0' cellpadding='0' cellspacing='0'>
+                    <table cellpadding='0' cellspacing='0'>
                         <tr>
-                            <TD><%@ include file="cancel-message.jsp" %></TD>
+                            <td><%@ include file="cancel-message.jsp" %></td>
                         </tr>
                         <tr>
-                            <TD align='center'>
+                            <td align='center'>
                                 <skin:lightArea>
-                                    <TABLE border='0' cellspacing='0' cellpadding='2'>
-                                        <TR>
-                                            <TH><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.header.businessName"/></TH>
-                                            <TH><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.header.parent"/></TH>
-                                            <TH><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.header.totalMonthlyCharges"/></TH>
-                                            <TH><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.header.accountBalance"/></TH>
-                                            <TH><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.header.created"/></TH>
-                                            <TH><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.header.canceled"/></TH>
-                                            <TH><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.header.actions"/></TH>
-                                        </TR>
+                                    <table cellspacing='0' cellpadding='2'>
+                                        <tr>
+                                            <th><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.header.businessName"/></th>
+                                            <th><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.header.parent"/></th>
+                                            <th><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.header.totalMonthlyCharges"/></th>
+                                            <th><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.header.accountBalance"/></th>
+                                            <th><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.header.created"/></th>
+                                            <th><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.header.canceled"/></th>
+                                            <th><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.header.actions"/></th>
+                                        </tr>
                                         <logic:iterate scope="request" name="businesses" id="bu" type="com.aoindustries.aoserv.client.Business">
                                             <skin:lightDarkTableRow>
-                                                <TD>
+                                                <td>
                                                     <logic:notEmpty name="bu" property="businessProfile">
                                                         <bean:define name="bu" property="businessProfile" id="bp" type="com.aoindustries.aoserv.client.BusinessProfile"/>
                                                         <bean:message
@@ -62,8 +63,8 @@
                                                             arg0="<%= bu.getAccounting() %>"
                                                         />
                                                     </logic:empty>
-                                                </TD>
-                                                <TD>
+                                                </td>
+                                                <td>
                                                     <logic:empty name="bu" property="parentBusiness">
                                                         &nbsp;
                                                     </logic:empty>
@@ -86,8 +87,8 @@
                                                             />
                                                         </logic:empty>
                                                     </logic:notEmpty>
-                                                </TD>
-                                                <TD align='right'>
+                                                </td>
+                                                <td align='right'>
                                                     <logic:empty name="bu" property="totalMonthlyRateString">&nbsp;</logic:empty>
                                                     <logic:notEmpty name="bu" property="totalMonthlyRateString">
                                                         <bean:message
@@ -96,8 +97,8 @@
                                                             arg0="<%= bu.getTotalMonthlyRateString() %>"
                                                         />
                                                     </logic:notEmpty>
-                                                </TD>
-                                                <TD align='right'>
+                                                </td>
+                                                <td align='right'>
                                                     <% int balance=bu.getAccountBalance(); %>
                                                     <% if(balance<0) { %>
                                                         <bean:message
@@ -114,17 +115,17 @@
                                                     <% } else { %>
                                                         <bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.field.balance.zero" />
                                                     <% } %>
-                                                </TD>
-                                                <TD><aoweb:date><bean:write name="bu" property="created"/></aoweb:date></TD>
-                                                <TD>
+                                                </td>
+                                                <td><aoweb:date><bean:write name="bu" property="created"/></aoweb:date></td>
+                                                <td>
                                                     <% long canceled=bu.getCanceled(); %>
                                                     <% if(canceled==-1) { %>
                                                         &nbsp;
                                                     <% } else { %>
                                                         <%= com.aoindustries.sql.SQLUtility.getDate(canceled) %>
                                                     <% } %>
-                                                </TD>
-                                                <TD>
+                                                </td>
+                                                <td>
                                                     <% if(!bu.canCancel()) { %>
                                                         &nbsp;
                                                     <% } else { %>
@@ -132,12 +133,12 @@
                                                             <bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.field.link.cancel" />
                                                         </html:link>
                                                     <% } %>
-                                                </TD>
+                                                </td>
                                             </skin:lightDarkTableRow>
                                         </logic:iterate>
-                                    </TABLE>
+                                    </table>
                                 </skin:lightArea>
-                            </TD>
+                            </td>
                         </tr>
                     </table>
                 </logic:notPresent>

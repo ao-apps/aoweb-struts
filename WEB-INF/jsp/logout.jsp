@@ -8,7 +8,8 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
-<html:html lang="true">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html:html lang="true" xhtml="true">
     <skin:path>/logout.do</skin:path>
     <skin:meta name="ROBOTS">NOINDEX</skin:meta>
     <skin:title><bean:message bundle="/ApplicationResources" key="logout.title"/></skin:title>

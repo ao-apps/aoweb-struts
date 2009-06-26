@@ -11,7 +11,8 @@
 
 <bean:define scope="request" name="business" id="business" type="com.aoindustries.aoserv.client.Business"/>
 
-<html:html lang="true">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html:html lang="true" xhtml="true">
     <skin:path>/clientarea/control/business/cancel-feedback.do?business=<%= business.getAccounting() %></skin:path>
     <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
     <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.title"/></skin:title>
@@ -33,9 +34,9 @@
                         <bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel-feedback.prompt" arg0="<%= business.getAccounting() %>"/>
                         <html:form action="/business/cancel-feedback-completed">
                             <html:hidden property="business"/>
-                            <html:textarea property="reason" rows="16" cols="80"/><BR>
-                            <BR>
-                            <CENTER><html:submit><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel-feedback.submit.label"/></html:submit></CENTER>
+                            <html:textarea property="reason" rows="16" cols="80"/><br />
+                            <br />
+                            <center><html:submit><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel-feedback.submit.label"/></html:submit></center>
                         </html:form>
                     </skin:lightArea>
                 </logic:notPresent>

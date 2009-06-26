@@ -8,7 +8,8 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
-<html:html lang="true">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html:html lang="true" xhtml="true">
     <skin:path>/clientarea/ticket/create.do</skin:path>
     <skin:title><bean:message bundle="/clientarea/ticket/ApplicationResources" key="create.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/ticket/ApplicationResources" key="create.navImageAlt"/></skin:navImageAlt>
@@ -16,7 +17,7 @@
     <skin:description><bean:message bundle="/clientarea/ticket/ApplicationResources" key="create.description"/></skin:description>
     <jsp:include page="add-parents.jsp"/>
     <jsp:include page="add-siblings.jsp"/>
-    <skin:skin onLoad="document.forms['ticketForm'].summary.select(); document.forms['ticketForm'].summary.focus();">
+    <skin:skin onload="document.forms['ticketForm'].summary.select(); document.forms['ticketForm'].summary.focus();">
         <skin:content>
             <skin:contentTitle><bean:message bundle="/clientarea/ticket/ApplicationResources" key="create.title"/></skin:contentTitle>
             <skin:contentHorizontalDivider/>
@@ -25,12 +26,12 @@
                     <%@ include file="../../permission-denied.jsp" %>
                 </logic:present>
                 <logic:notPresent scope="request" name="permissionDenied">
-                    <html:javascript staticJavascript='false' bundle="/clientarea/ticket/ApplicationResources" formName="ticketForm"/>
+                    <html:javascript staticJavascript='false' bundle="/clientarea/ticket/ApplicationResources" formName="ticketForm"/><noscript><!-- Do nothing --></noscript>
                     <html:form action="/create-completed" onsubmit="return validateTicketForm(this);">
                         <skin:lightArea>
-                            <table border="0" cellspacing="0" cellpadding="4">
+                            <table cellspacing="0" cellpadding="4">
                                 <tr>
-                                    <td nowrap><bean:message bundle="/clientarea/ticket/ApplicationResources" key="TicketForm.field.accounting.prompt"/></td>
+                                    <td style="white-space:nowrap"><bean:message bundle="/clientarea/ticket/ApplicationResources" key="TicketForm.field.accounting.prompt"/></td>
                                     <td>
                                         <logic:notEqual name="aoConn" property="businesses.size" value="1">
                                             <html:select property="accounting">
@@ -47,17 +48,17 @@
                                     <td><html:errors bundle="/clientarea/ticket/ApplicationResources" property="accounting"/></td>
                                 </tr>
                                 <tr>
-                                    <td nowrap><bean:message bundle="/clientarea/ticket/ApplicationResources" key="TicketForm.field.contactEmails.prompt"/></td>
+                                    <td style="white-space:nowrap"><bean:message bundle="/clientarea/ticket/ApplicationResources" key="TicketForm.field.contactEmails.prompt"/></td>
                                     <td><html:textarea property="contactEmails" cols="40" rows="3"/></td>
                                     <td><html:errors bundle="/clientarea/ticket/ApplicationResources" property="contactEmails"/></td>
                                 </tr>
                                 <tr>
-                                    <td nowrap><bean:message bundle="/clientarea/ticket/ApplicationResources" key="TicketForm.field.contactPhoneNumbers.prompt"/></td>
+                                    <td style="white-space:nowrap"><bean:message bundle="/clientarea/ticket/ApplicationResources" key="TicketForm.field.contactPhoneNumbers.prompt"/></td>
                                     <td><html:textarea property="contactPhoneNumbers" cols="40" rows="3"/></td>
                                     <td><html:errors bundle="/clientarea/ticket/ApplicationResources" property="contactPhoneNumbers"/></td>
                                 </tr>
                                 <tr>
-                                    <td nowrap><bean:message bundle="/clientarea/ticket/ApplicationResources" key="TicketForm.field.clientPriority.prompt"/></td>
+                                    <td style="white-space:nowrap"><bean:message bundle="/clientarea/ticket/ApplicationResources" key="TicketForm.field.clientPriority.prompt"/></td>
                                     <td>
                                         <html:select property="clientPriority">
                                             <html:optionsCollection name="aoConn" property="ticketPriorities.rows" label="priority" value="priority"/>
@@ -66,21 +67,21 @@
                                     <td><html:errors bundle="/clientarea/ticket/ApplicationResources" property="clientPriority"/></td>
                                 </tr>
                                 <tr>
-                                    <td nowrap><bean:message bundle="/clientarea/ticket/ApplicationResources" key="TicketForm.field.summary.prompt"/></td>
+                                    <td style="white-space:nowrap"><bean:message bundle="/clientarea/ticket/ApplicationResources" key="TicketForm.field.summary.prompt"/></td>
                                     <td><html:text property="summary" size="60"/></td>
                                     <td><html:errors bundle="/clientarea/ticket/ApplicationResources" property="summary"/></td>
                                 </tr>
                                 <tr>
-                                    <td nowrap colspan="3">
-                                        <br>
-                                        <bean:message bundle="/clientarea/ticket/ApplicationResources" key="TicketForm.field.details.prompt"/><br>
-                                        <textarea name="details" cols="80" rows="20" wrap="hard"><bean:write scope="request" name="ticketForm" property="details"/></textarea><br>
+                                    <td style='white-space:nowrap' colspan="3">
+                                        <br />
+                                        <bean:message bundle="/clientarea/ticket/ApplicationResources" key="TicketForm.field.details.prompt"/><br />
+                                        <html:textarea property="details" cols="80" rows="20"/><br />
                                         <html:errors bundle="/clientarea/ticket/ApplicationResources" property="details"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="3" align="center">
-                                        <br>
+                                        <br />
                                         <html:submit><bean:message bundle="/clientarea/ticket/ApplicationResources" key="create.field.submit.label"/></html:submit>
                                     </td>
                                 </tr>

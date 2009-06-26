@@ -7,65 +7,65 @@
 <%@ page language="java" buffer="256kb" autoFlush="true" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
-<input type="hidden" name="selectedStep" value="">
-<script language="JavaScript1.2"><!--
+<input type="hidden" name="selectedStep" value="" />
+<script type='text/javascript'>
     function selectStep(step) {
         var form = document.forms['signupBusinessForm'];
         form.selectedStep.value=step;
         form.submit();
     }
-// --></script>
+</script>
 <skin:lightArea>
-     <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
-        <TR><TD COLSPAN="4"><B><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.stepLabel"/></B><BR><HR></TD></TR>
-        <TR><TD COLSPAN="4"><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.stepHelp"/><BR><BR></TD></TR>
-        <TR>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></TD>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessName.prompt"/></TD>
-            <TD NOWRAP><html:text size="32" property="businessName" maxlength="255"/></TD>
-            <TD NOWRAP><html:errors bundle="/signup/ApplicationResources" property="businessName"/></TD>
-        </TR>
-        <TR>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></TD>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessPhone.prompt"/></TD>
-            <TD NOWRAP><html:text size="18" property="businessPhone" maxlength="255"/></TD>
-            <TD NOWRAP><html:errors bundle="/signup/ApplicationResources" property="businessPhone"/></TD>
-        </TR>
-        <TR>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessFax.prompt"/></TD>
-            <TD NOWRAP><html:text size="18" property="businessFax" maxlength="255"/></TD>
-            <TD NOWRAP><html:errors bundle="/signup/ApplicationResources" property="businessFax"/></TD>
-        </TR>
-        <TR><TD colspan="4">&nbsp;</TD></TR>
-        <TR>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></TD>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessAddress1.prompt"/></TD>
-            <TD NOWRAP><html:text size="32" property="businessAddress1" maxlength="255"/></TD>
-            <TD NOWRAP><html:errors bundle="/signup/ApplicationResources" property="businessAddress1"/></TD>
-        </TR>
-        <TR>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessAddress2.prompt"/></TD>
-            <TD NOWRAP><html:text size="32" property="businessAddress2" maxlength="255"/></TD>
-            <TD NOWRAP><html:errors bundle="/signup/ApplicationResources" property="businessAddress2"/></TD>
-        </TR>
-        <TR>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></TD>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessCity.prompt"/></TD>
-            <TD NOWRAP><html:text size="16" property="businessCity" maxlength="255"/></TD>
-            <TD NOWRAP><html:errors bundle="/signup/ApplicationResources" property="businessCity"/></TD>
-        </TR>
-        <TR>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessState.prompt"/></TD>
-            <TD NOWRAP><html:text size="5" property="businessState" maxlength="255"/></TD>
-            <TD NOWRAP><html:errors bundle="/signup/ApplicationResources" property="businessState"/></TD>
-        </TR>
-        <TR>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></TD>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessCountry.prompt"/></TD>
-            <TD NOWRAP>
+     <table cellpadding="0" cellspacing="0">
+        <tr><td COLSPAN="4"><b><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.stepLabel"/></b><br /><hr /></td></tr>
+        <tr><td COLSPAN="4"><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.stepHelp"/><br /><br /></td></tr>
+        <tr>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></td>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessName.prompt"/></td>
+            <td style="white-space:nowrap"><html:text size="32" property="businessName" maxlength="255"/></td>
+            <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="businessName"/></td>
+        </tr>
+        <tr>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></td>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessPhone.prompt"/></td>
+            <td style="white-space:nowrap"><html:text size="18" property="businessPhone" maxlength="255"/></td>
+            <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="businessPhone"/></td>
+        </tr>
+        <tr>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessFax.prompt"/></td>
+            <td style="white-space:nowrap"><html:text size="18" property="businessFax" maxlength="255"/></td>
+            <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="businessFax"/></td>
+        </tr>
+        <tr><td colspan="4">&nbsp;</td></tr>
+        <tr>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></td>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessAddress1.prompt"/></td>
+            <td style="white-space:nowrap"><html:text size="32" property="businessAddress1" maxlength="255"/></td>
+            <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="businessAddress1"/></td>
+        </tr>
+        <tr>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessAddress2.prompt"/></td>
+            <td style="white-space:nowrap"><html:text size="32" property="businessAddress2" maxlength="255"/></td>
+            <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="businessAddress2"/></td>
+        </tr>
+        <tr>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></td>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessCity.prompt"/></td>
+            <td style="white-space:nowrap"><html:text size="16" property="businessCity" maxlength="255"/></td>
+            <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="businessCity"/></td>
+        </tr>
+        <tr>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessState.prompt"/></td>
+            <td style="white-space:nowrap"><html:text size="5" property="businessState" maxlength="255"/></td>
+            <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="businessState"/></td>
+        </tr>
+        <tr>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></td>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessCountry.prompt"/></td>
+            <td style="white-space:nowrap">
                 <html:select property="businessCountry">
                     <bean:define id="didOne" type="java.lang.String" value="false"/>
                     <bean:define name="signupBusinessForm" property="businessCountry" id="businessCountry" type="java.lang.String"/>
@@ -83,15 +83,15 @@
                         </logic:notEqual>
                     </logic:iterate>
                 </html:select>
-            </TD>
-            <TD NOWRAP><html:errors bundle="/signup/ApplicationResources" property="businessCountry"/></TD>
-        </TR>
-        <TR>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-            <TD NOWRAP><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessZip.prompt"/></TD>
-            <TD NOWRAP><html:text size="10" property="businessZip" maxlength="255"/></TD>
-            <TD NOWRAP><html:errors bundle="/signup/ApplicationResources" property="businessZip"/></TD>
-        </TR>
-        <TR><TD colspan="4" align="center"><br><html:submit><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.submit.label"/></html:submit><br><br></TD></TR>
-     </TABLE>
+            </td>
+            <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="businessCountry"/></td>
+        </tr>
+        <tr>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+            <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.businessZip.prompt"/></td>
+            <td style="white-space:nowrap"><html:text size="10" property="businessZip" maxlength="255"/></td>
+            <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="businessZip"/></td>
+        </tr>
+        <tr><td colspan="4" align="center"><br /><html:submit><bean:message bundle="/signup/ApplicationResources" key="signupBusinessForm.submit.label"/></html:submit><br /><br /></td></tr>
+     </table>
 </skin:lightArea>

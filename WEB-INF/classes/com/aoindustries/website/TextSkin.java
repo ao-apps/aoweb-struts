@@ -115,45 +115,48 @@ public class TextSkin extends Skin {
             SiteSettings settings = SiteSettings.getInstance(servletContext);
             List<Skin> skins = settings.getSkins();
 
-            out.print("  <HEAD>\n");
+            out.print("  <head>\n");
             // If this is not the default skin, then robots noindex
             boolean robotsMetaUsed = false;
             if(!getName().equals(skins.get(0).getName())) {
-                out.print("    <META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\" />\n");
+                out.print("    <meta name=\"ROBOTS\" content=\"NOINDEX, NOFOLLOW\" />\n");
                 robotsMetaUsed = true;
             }
+            // Default style language
+            out.print("    <meta http-equiv=\"Content-Style-Type\" content=\"text/css\" />\n"
+                    + "    <meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\" />\n");
             // If this is an authenticated page, redirect to session timeout after one hour
             AOServConnector aoConn = AuthenticatedAction.getAoConn(req, resp);
             if(aoConn!=null) {
-                out.print("    <META HTTP-EQUIV=\"Refresh\" CONTENT=\"");
+                out.print("    <meta http-equiv=\"Refresh\" content=\"");
                 out.print(Math.max(60, session.getMaxInactiveInterval()-60));
                 out.print(";URL=");
                 out.print(resp.encodeRedirectURL(getHttpsUrlBase(req) + "session-timeout.do?target="));
                 out.print(URLEncoder.encode(fullPath, "UTF-8"));
-                out.print("\">\n");
+                out.print("\" />\n");
             }
             for(PageAttributes.Meta meta : pageAttributes.getMetas()) {
                 // Skip ROBOTS if not on default skin
                 boolean isRobots = meta.getName().equalsIgnoreCase("ROBOTS");
                 if(!robotsMetaUsed || !isRobots) {
-                    out.print("    <META NAME=\"");
+                    out.print("    <meta name=\"");
                     ChainWriter.writeHtmlAttribute(meta.getName(), out);
-                    out.print("\" CONTENT=\"");
+                    out.print("\" content=\"");
                     ChainWriter.writeHtmlAttribute(meta.getContent(), out);
                     out.print("\" />\n");
                     if(isRobots) robotsMetaUsed = true;
                 }
             }
-            out.print("    <TITLE>");
+            out.print("    <title>");
             List<Page> parents = pageAttributes.getParents();
             for(Page parent : parents) {
                 ChainWriter.writeHtml(parent.getTitle(), out);
                 out.print(" - ");
             }
             ChainWriter.writeHtml(pageAttributes.getTitle(), out);
-            out.print("</TITLE>\n"
-                    + "    <META http-equiv='Content-Type' content='text/html; charset=");
-            out.print(getCharacterSet(locale)); out.print("'>\n");
+            out.print("</title>\n"
+                    + "    <meta http-equiv='Content-Type' content='text/html; charset=");
+            out.print(getCharacterSet(locale)); out.print("' />\n");
             Brand brand = settings.getBrand();
             String googleVerify = brand.getAowebStrutsGoogleVerifyContent();
             if(googleVerify!=null) {
@@ -161,66 +164,67 @@ public class TextSkin extends Skin {
             }
             String keywords = pageAttributes.getKeywords();
             if(keywords!=null && keywords.length()>0) {
-                out.print("    <META name='keywords' content='"); ChainWriter.writeHtmlAttribute(keywords, out); out.print("'>\n");
+                out.print("    <meta name='keywords' content='"); ChainWriter.writeHtmlAttribute(keywords, out); out.print("' />\n");
             }
             String description = pageAttributes.getDescription();
             if(description!=null && description.length()>0) {
-                out.print("    <META name='description' content='"); ChainWriter.writeHtmlAttribute(description, out); out.print("'>\n");
+                out.print("    <meta name='description' content='"); ChainWriter.writeHtmlAttribute(description, out); out.print("' />\n"
+                        + "    <meta name='abstract' content='"); ChainWriter.writeHtmlAttribute(description, out); out.print("' />\n");
             }
             String author = pageAttributes.getAuthor();
             if(author!=null && author.length()>0) {
-                out.print("    <META name='author' content='"); ChainWriter.writeHtmlAttribute(author, out); out.print("'>\n");
+                out.print("    <meta name='author' content='"); ChainWriter.writeHtmlAttribute(author, out); out.print("' />\n");
             }
-            out.print("    <LINK rel='stylesheet' href='"); out.print(resp.encodeURL(urlBase+"textskin/global.css")); out.print("' type='text/css'>\n");
+            out.print("    <link rel='stylesheet' href='"); out.print(resp.encodeURL(urlBase+"textskin/global.css")); out.print("' type='text/css' />\n");
             printCssIncludes(resp, out, urlBase);
             printJavaScriptSources(resp, out, urlBase);
-            out.print("    <SCRIPT type='text/javascript' language='Javascript1.1' src='");
+            out.print("    <script type='text/javascript' src='");
             out.print(resp.encodeURL(urlBase + "commons-validator-1.3.1-compress.js"));
-            out.print("'></SCRIPT>\n");
+            out.print("'></script>\n");
             printFavIcon(resp, out, urlBase);
-            out.print("  </HEAD>\n"
-                    + "  <BODY");
-            String onLoad = pageAttributes.getOnLoad();
-            if(onLoad!=null && onLoad.length()>0) {
-                out.print(" onLoad=\""); out.print(onLoad); out.print('"');
+            out.print("  </head>\n"
+                    + "  <body");
+            String onload = pageAttributes.getOnload();
+            if(onload!=null && onload.length()>0) {
+                out.print(" onload=\""); out.print(onload); out.print('"');
             }
             out.print(">\n"
-                    + "    <TABLE border=0 cellspacing=10 cellpadding=0>\n"
-                    + "      <TR>\n"
-                    + "        <TD valign='top'>\n");
+                    + "    <table cellspacing='10' cellpadding='0'>\n"
+                    + "      <tr>\n"
+                    + "        <td valign='top'>\n");
             printLogo(req, resp, out, urlBase);
             if(aoConn!=null) {
-                out.print("          <HR>\n"
+                out.print("          <hr />\n"
                         + "          ");
                 out.print(applicationResources.getMessage(locale, "TextSkin.logoutPrompt"));
-                out.print("<FORM style='display:inline;' name='logout_form' method='post' action='");
+                out.print("<form style='display:inline;' id='logout_form' method='post' action='");
                 out.print(resp.encodeURL(urlBase+"logout.do"));
-                out.print("'><INPUT type='hidden' name='target' value='");
+                out.print("'><div style='display:inline;'><input type='hidden' name='target' value='");
                 ChainWriter.writeHtmlAttribute(fullPath, out);
-                out.print("'><INPUT type='submit' value='");
+                out.print("' /><input type='submit' value='");
                 out.print(applicationResources.getMessage(locale, "TextSkin.logoutButtonLabel"));
-                out.print("'></FORM>\n");
+                out.print("' /></div></form>\n");
             } else {
-                out.print("          <HR>\n"
+                out.print("          <hr />\n"
                         + "          ");
                 out.print(applicationResources.getMessage(locale, "TextSkin.loginPrompt"));
-                out.print("<FORM style='display:inline;' name='login_form' method='post' action='");
+                out.print("<form style='display:inline;' id='login_form' method='post' action='");
                 out.print(resp.encodeURL(httpsUrlBase+"login.do"));
-                out.print("'>");
+                out.print("'><div style='display:inline;'>");
                 // Only include the target when they are not in the /clientarea/ part of the site
                 if(path.startsWith("clientarea/")) {
-                    out.print("<INPUT type='hidden' name='target' value='");
+                    out.print("<input type='hidden' name='target' value='");
                     ChainWriter.writeHtmlAttribute(fullPath, out);
-                    out.print("'>");
+                    out.print("' />");
                 }
-                out.print("<INPUT type='submit' value='");
+                out.print("<input type='submit' value='");
                 out.print(applicationResources.getMessage(locale, "TextSkin.loginButtonLabel"));
-                out.print("'></FORM>\n");
+                out.print("' /></div></form>\n");
             }
-            out.print("          <HR>\n"
-                    + "          <SPAN style='white-space: nowrap'>\n");
+            out.print("          <hr />\n"
+                    + "          <div style='white-space: nowrap'>\n");
             if(skins.size()>1) {
-                out.print("<SCRIPT language='JavaScript1.2'><!--\n"
+                out.print("<script type='text/javascript'>\n"
                         + "  function selectLayout(layout) {\n");
                 for(Skin skin : skins) {
                     out.print("    if(layout=='");
@@ -230,22 +234,22 @@ public class TextSkin extends Skin {
                     out.print("';\n");
                 }
                 out.print("  }\n"
-                        + "// --></SCRIPT>\n"
-                        + "            <FORM style='display:inline;'>\n"
+                        + "</script><noscript><!-- Do nothing --></noscript>\n"
+                        + "            <form style='display:inline;'>\n"
                         + "              ");
                 out.print(applicationResources.getMessage(locale, "TextSkin.layoutPrompt"));
-                out.print("<SELECT name='layout_selector' onChange='selectLayout(this.form.layout_selector.options[this.form.layout_selector.selectedIndex].value);'>\n");
+                out.print("<select name='layout_selector' onChange='selectLayout(this.form.layout_selector.options[this.form.layout_selector.selectedIndex].value);'>\n");
                 for(Skin skin : skins) {
-                    out.print("                <OPTION value='");
+                    out.print("                <option value='");
                     out.print(skin.getName());
                     out.print('\'');
                     if(getName().equals(skin.getName())) out.print(" selected");
                     out.print('>');
                     out.print(skin.getDisplay(req));
-                    out.print("</OPTION>\n");
+                    out.print("</option>\n");
                 }
-                out.print("              </SELECT>\n"
-                        + "            </FORM><BR>\n");
+                out.print("              </select>\n"
+                        + "            </form><br />\n");
             }
             List<Language> languages = settings.getLanguages(req);
             if(languages.size()>1) {
@@ -253,7 +257,7 @@ public class TextSkin extends Skin {
                 for(Language language : languages) {
                     String url = language.getUrl();
                     if(language.getCode().equalsIgnoreCase(locale.getLanguage())) {
-                        out.print("&nbsp;<A href='");
+                        out.print("&nbsp;<a href='");
                         ChainWriter.writeHtmlAttribute(
                             resp.encodeURL(
                                 url==null
@@ -261,17 +265,17 @@ public class TextSkin extends Skin {
                                 : url
                             ), out
                         );
-                        out.print("'><IMG src='");
+                        out.print("'><img src='");
                         out.print(resp.encodeURL(urlBase + language.getFlagOnSrc(req, locale)));
-                        out.print("' border='1' width='");
+                        out.print("' style='border:1px solid' width='");
                         out.print(language.getFlagWidth(req, locale));
                         out.print("' height='");
                         out.print(language.getFlagHeight(req, locale));
                         out.print("' alt='");
                         out.print(language.getDisplay(req, locale));
-                        out.print("'></A>");
+                        out.print("' /></a>");
                     } else {
-                        out.print("&nbsp;<A href='");
+                        out.print("&nbsp;<a href='");
                         ChainWriter.writeHtmlAttribute(
                             resp.encodeURL(
                                 url==null
@@ -279,79 +283,79 @@ public class TextSkin extends Skin {
                                 : url
                             ), out
                         );
-                        out.print("' onMouseOver='document.images[\"flagSelector_");
+                        out.print("' onmouseover='document.images[\"flagSelector_");
                         out.print(language.getCode());
                         out.print("\"].src=\"");
                         out.print(resp.encodeURL(urlBase + language.getFlagOnSrc(req, locale)));
-                        out.print("\";' onMouseOut='document.images[\"flagSelector_");
+                        out.print("\";' onmouseout='document.images[\"flagSelector_");
                         out.print(language.getCode());
                         out.print("\"].src=\"");
                         out.print(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)));
-                        out.print("\";'><IMG src='");
+                        out.print("\";'><img src='");
                         out.print(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)));
-                        out.print("' name='flagSelector_");
+                        out.print("' id='flagSelector_");
                         out.print(language.getCode());
-                        out.print("' border='1' width='");
+                        out.print("' style='border:1px solid' width='");
                         out.print(language.getFlagWidth(req, locale));
                         out.print("' height='");
                         out.print(language.getFlagHeight(req, locale));
                         out.print("' alt='");
                         out.print(language.getDisplay(req, locale));
-                        out.print("'></A>");
+                        out.print("' /></a>");
                         ChainWriter.writeHtmlImagePreloadJavaScript(resp.encodeURL(urlBase + language.getFlagOnSrc(req, locale)), out);
                     }
                 }
-                out.print("<BR>\n");
+                out.print("<br />\n");
             }
             printSearch(req, resp, out);
-            out.print("          </SPAN>\n"
-                    + "          <HR>\n"
+            out.print("          </div>\n"
+                    + "          <hr />\n"
             // Display the parents
-                    + "          <B>");
+                    + "          <b>");
             out.print(applicationResources.getMessage(locale, "TextSkin.currentLocation"));
-            out.print("</B><BR>\n"
-                    + "          <SPAN style='white-space: nowrap'>\n");
+            out.print("</b><br />\n"
+                    + "          <span style='white-space: nowrap'>\n");
             for(Page parent : parents) {
                 String navAlt = parent.getNavImageAlt();
                 boolean useEncryption = parent.getUseEncryption();
                 String parentPath = parent.getPath();
                 if(parentPath.startsWith("/")) parentPath=parentPath.substring(1);
-                out.print("            <A href='");
+                out.print("            <a href='");
                 ChainWriter.writeHtmlAttribute(resp.encodeURL((useEncryption ? httpsUrlBase : httpUrlBase) + parentPath), out);
                 out.print("'>");
                 ChainWriter.writeHtml(navAlt, out);
-                out.print("</A><BR>\n");
+                out.print("</a><br />\n");
             }
             // Always include the current page in the current location area
-            out.print("            <A href='");
+            out.print("            <a href='");
             ChainWriter.writeHtmlAttribute(encodedFullPath, out);
             out.print("'>");
             ChainWriter.writeHtml(pageAttributes.getNavImageAlt(), out);
-            out.print("</A><BR>\n"
-                    + "          </SPAN>\n"
-                    + "          <HR>\n"
-                    + "          <B>");
+            out.print("</a><br />\n"
+                    + "          </span>\n"
+                    + "          <hr />\n"
+                    + "          <b>");
             out.print(applicationResources.getMessage(locale, "TextSkin.relatedPages"));
-            out.print("</B><BR>\n"
+            out.print("</b><br />\n"
             // Display the siblings
-                    + "          <SPAN style='white-space: nowrap'>\n");
+                    + "          <span style='white-space: nowrap'>\n");
             List<Page> siblings = pageAttributes.getSiblings();
             for(Page sibling : siblings) {
                 String navAlt=sibling.getNavImageAlt();
                 boolean useEncryption = sibling.getUseEncryption();
                 String siblingPath = sibling.getPath();
                 if(siblingPath.startsWith("/")) siblingPath=siblingPath.substring(1);
-                out.print("          <A href='");
+                out.print("          <a href='");
                 ChainWriter.writeHtmlAttribute(resp.encodeURL((useEncryption ? httpsUrlBase : httpUrlBase) + siblingPath), out);
                 out.print("'>");
                 ChainWriter.writeHtml(navAlt, out);
-                out.print("</A><BR>\n");
+                out.print("</a><br />\n");
             }
-            out.print("          </SPAN>\n"
-                    + "          <HR>\n");
+            out.print("          </span>\n"
+                    + "          <hr />\n");
             printBelowRelatedPages(req, out);
-            out.print("        </TD>\n"
-                    + "        <TD valign='top'>\n");
+            out.print("        </td>\n"
+                    + "        <td valign='top'>\n");
             printCommonPages(req, resp, out);
         } catch(IOException err) {
             throw new JspException(err);
@@ -362,27 +366,27 @@ public class TextSkin extends Skin {
 
     public void startContent(HttpServletRequest req, HttpServletResponse resp, JspWriter out, PageAttributes pageAttributes, int[] colspans, String width) throws JspException {
         try {
-            out.print("          <TABLE cellpadding='0' cellspacing='0' border='0'");
+            out.print("          <table cellpadding='0' cellspacing='0'");
             if(width!=null && (width=width.trim()).length()>0) {
                 out.print(" width='");
                 out.print(width);
                 out.print('\'');
             }
-            out.print(" align='left' valign='top'>\n"
-                    + "            <TR>\n");
+            out.print(">\n"
+                    + "            <tr>\n");
             int totalColumns=0;
             for(int c=0;c<colspans.length;c++) {
                 if(c>0) totalColumns++;
                 totalColumns+=colspans[c];
             }
-            out.print("              <TD");
+            out.print("              <td");
             if(totalColumns!=1) {
                 out.print(" colspan='");
                 out.print(totalColumns);
                 out.print('\'');
             }
-            out.print("><HR></TD>\n"
-                    + "            </TR>\n");
+            out.print("><hr /></td>\n"
+                    + "            </tr>\n");
         } catch(IOException err) {
             throw new JspException(err);
         }
@@ -391,9 +395,9 @@ public class TextSkin extends Skin {
     public void printContentTitle(HttpServletRequest req, HttpServletResponse resp, JspWriter out, String title, int colspan) throws JspException {
         try {
             startContentLine(req, resp, out, colspan, "center");
-            out.print("<H1>");
+            out.print("<h1>");
             out.print(title);
-            out.print("</H1>\n");
+            out.print("</h1>\n");
             endContentLine(req, resp, out, 1, false);
         } catch(IOException err) {
             throw new JspException(err);
@@ -402,8 +406,8 @@ public class TextSkin extends Skin {
 
     public void startContentLine(HttpServletRequest req, HttpServletResponse resp, JspWriter out, int colspan, String align) throws JspException {
         try {
-            out.print("            <TR>\n"
-                    + "              <TD valign='top'");
+            out.print("            <tr>\n"
+                    + "              <td valign='top'");
             if(colspan!=1) {
                 out.print(" colspan='");
                 out.print(colspan);
@@ -422,9 +426,9 @@ public class TextSkin extends Skin {
 
     public void printContentVerticalDivider(HttpServletRequest req, HttpServletResponse resp, JspWriter out, boolean visible, int colspan, int rowspan, String align) throws JspException {
         try {
-            out.print("              </TD>\n");
-            if(visible) out.print("              <TD>&nbsp;</TD>\n");
-            out.print("              <TD valign='top'");
+            out.print("              </td>\n");
+            if(visible) out.print("              <td>&nbsp;</td>\n");
+            out.print("              <td valign='top'");
             if(colspan!=1) {
                 out.print(" colspan='");
                 out.print(colspan);
@@ -448,8 +452,8 @@ public class TextSkin extends Skin {
 
     public void endContentLine(HttpServletRequest req, HttpServletResponse resp, JspWriter out, int rowspan, boolean endsInternal) throws JspException {
         try {
-            out.print("              </TD>\n"
-                    + "            </TR>\n");
+            out.print("              </td>\n"
+                    + "            </tr>\n");
         } catch(IOException err) {
             throw new JspException(err);
         }
@@ -457,34 +461,34 @@ public class TextSkin extends Skin {
 
     public void printContentHorizontalDivider(HttpServletRequest req, HttpServletResponse resp, JspWriter out, int[] colspansAndDirections, boolean endsInternal) throws JspException {
         try {
-            out.print("            <TR>\n");
+            out.print("            <tr>\n");
             for(int c=0;c<colspansAndDirections.length;c+=2) {
                 if(c>0) {
                     int direction=colspansAndDirections[c-1];
                     switch(direction) {
                         case UP:
-                            out.print("              <TD>&nbsp;</TD>\n");
+                            out.print("              <td>&nbsp;</td>\n");
                             break;
                         case DOWN:
-                            out.print("              <TD>&nbsp;</TD>\n");
+                            out.print("              <td>&nbsp;</td>\n");
                             break;
                         case UP_AND_DOWN:
-                            out.print("              <TD>&nbsp;</TD>\n");
+                            out.print("              <td>&nbsp;</td>\n");
                             break;
                         default: throw new IllegalArgumentException("Unknown direction: "+direction);
                     }
                 }
 
                 int colspan=colspansAndDirections[c];
-                out.print("              <TD");
+                out.print("              <td");
                 if(colspan!=1) {
                     out.print(" colspan='");
                     out.print(colspan);
                     out.print('\'');
                 }
-                out.print("><HR></TD>\n");
+                out.print("><hr /></td>\n");
             }
-            out.print("            </TR>\n");
+            out.print("            </tr>\n");
         } catch(IOException err) {
             throw new JspException(err);
         }
@@ -497,26 +501,26 @@ public class TextSkin extends Skin {
                 if(c>0) totalColumns+=1;
                 totalColumns+=colspans[c];
             }
-            out.print("            <TR><TD");
+            out.print("            <tr><td");
             if(totalColumns!=1) {
                 out.print(" colspan='");
                 out.print(totalColumns);
                 out.print('\'');
             }
-            out.print("><HR></TD></TR>\n");
+            out.print("><hr /></td></tr>\n");
             String copyright = pageAttributes.getCopyright();
             if(copyright!=null && copyright.length()>0) {
-                out.print("            <TR><TD");
+                out.print("            <tr><td");
                 if(totalColumns!=1) {
                     out.print(" colspan='");
                     out.print(totalColumns);
                     out.print('\'');
                 }
-                out.print(" align='center'><FONT size=-2>");
+                out.print(" align='center'><font size=-2>");
                 out.print(copyright);
-                out.print("</FONT></TD></TR>\n");
+                out.print("</font></td></tr>\n");
             }
-            out.print("          </TABLE>\n");
+            out.print("          </table>\n");
         } catch(IOException err) {
             throw new JspException(err);
         }
@@ -524,22 +528,24 @@ public class TextSkin extends Skin {
 
     public void endSkin(HttpServletRequest req, JspWriter out, PageAttributes pageAttributes) throws JspException {
         try {
-            out.print("        </TD>\n"
-                    + "      </TR>\n"
-                    + "    </TABLE>\n");
+            out.print("        </td>\n"
+                    + "      </tr>\n"
+                    + "    </table>\n");
             String googleAnalyticsNewTrackingCode = SiteSettings.getInstance(req.getSession().getServletContext()).getBrand().getAowebStrutsGoogleAnalyticsNewTrackingCode();
             if(googleAnalyticsNewTrackingCode!=null) {
                 out.print("<script type=\"text/javascript\">\n"
                         + "var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");\n"
                         + "document.write(unescape(\"%3Cscript src='\" + gaJsHost + \"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E\"));\n"
                         + "</script>\n"
+                        + "<noscript><!-- Do nothing --></noscript>\n"
                         + "<script type=\"text/javascript\">\n"
                         + "try {\n"
                         + "var pageTracker = _gat._getTracker(\""); out.print(googleAnalyticsNewTrackingCode); out.print("\");\n"
                         + "pageTracker._trackPageview();\n"
-                        + "} catch(err) {}</script>\n");
+                        + "} catch(err) {}</script><noscript>\n"
+                        + "<!-- Do nothing --></noscript>\n");
             }
-            out.print("  </BODY>\n");
+            out.print("  </body>\n");
         } catch(IOException err) {
             throw new JspException(err);
         } catch(SQLException err) {
@@ -549,9 +555,9 @@ public class TextSkin extends Skin {
 
     public void beginLightArea(HttpServletRequest req, HttpServletResponse resp, JspWriter out, String width, boolean nowrap) throws JspException {
         try {
-            out.print("<TABLE border='5' cellpadding='0' cellspacing='0'>\n"
-                    + "  <TR>\n"
-                    + "    <TD class='ao_light_row' style='padding:4px;'");
+            out.print("<table border='5' cellpadding='0' cellspacing='0'>\n"
+                    + "  <tr>\n"
+                    + "    <td class='aoLightRow' style='padding:4px;'");
             if(width!=null && (width=width.trim()).length()>0) {
                 out.print(" width='");
                 out.print(width);
@@ -566,9 +572,9 @@ public class TextSkin extends Skin {
 
     public void endLightArea(HttpServletRequest req, HttpServletResponse resp, JspWriter out) throws JspException {
         try {
-            out.print("</TD>\n"
-                    + "  </TR>\n"
-                    + "</TABLE>\n");
+            out.print("</td>\n"
+                    + "  </tr>\n"
+                    + "</table>\n");
         } catch(IOException err) {
             throw new JspException(err);
         }
@@ -576,9 +582,9 @@ public class TextSkin extends Skin {
     
     public void beginWhiteArea(HttpServletRequest req, HttpServletResponse resp, JspWriter out, String width, boolean nowrap) throws JspException {
         try {
-            out.print("<TABLE border='5' cellpadding='0' cellspacing='0'>\n"
-                    + "  <TR>\n"
-                    + "    <TD class='ao_white_row' style='padding:4px;'");
+            out.print("<table border='5' cellpadding='0' cellspacing='0'>\n"
+                    + "  <tr>\n"
+                    + "    <td class='aoWhiteRow' style='padding:4px;'");
             if(width!=null && (width=width.trim()).length()>0) {
                 out.print(" width='");
                 out.print(width);
@@ -593,9 +599,9 @@ public class TextSkin extends Skin {
 
     public void endWhiteArea(HttpServletRequest req, HttpServletResponse resp, JspWriter out) throws JspException {
         try {
-            out.print("</TD>\n"
-                    + "  </TR>\n"
-                    + "</TABLE>\n");
+            out.print("</td>\n"
+                    + "  </tr>\n"
+                    + "</table>\n");
         } catch(IOException err) {
             throw new JspException(err);
         }
@@ -606,7 +612,7 @@ public class TextSkin extends Skin {
             String httpsUrlBase = getHttpsUrlBase(req);
             String httpUrlBase = getHttpUrlBase(req);
 
-            out.print("<table cellpadding='0' cellspacing='10' border='0'>\n");
+            out.print("<table cellpadding='0' cellspacing='10'>\n");
             List<Page> siblings = pageAttributes.getSiblings();
             for(Page sibling : siblings) {
                 String navAlt=sibling.getNavImageAlt();
@@ -614,14 +620,14 @@ public class TextSkin extends Skin {
                 String siblingPath = sibling.getPath();
                 if(siblingPath.startsWith("/")) siblingPath=siblingPath.substring(1);
 
-                out.print("  <TR>\n"
-                        + "    <TD nowrap><A class='ao_light_link' href='");
+                out.print("  <tr>\n"
+                        + "    <td style=\"white-space:nowrap\"><a class='aoLightLink' href='");
                 ChainWriter.writeHtmlAttribute(resp.encodeURL((useEncryption ? httpsUrlBase : httpUrlBase) + siblingPath), out);
                 out.print("'>");
                 ChainWriter.writeHtml(navAlt, out);
-                out.print("</A></TD>\n"
-                        + "    <TD width='12' nowrap>&nbsp;</TD>\n"
-                        + "    <TD nowrap>");
+                out.print("</a></td>\n"
+                        + "    <td width='12' nowrap>&nbsp;</td>\n"
+                        + "    <td style=\"white-space:nowrap\">");
                 String description = sibling.getDescription();
                 if(description!=null && (description=description.trim()).length()>0) {
                     out.print(description);
@@ -633,8 +639,8 @@ public class TextSkin extends Skin {
                         out.print("&nbsp;");
                     }
                 }
-                out.print("</TD>\n"
-                        + "  </TR>\n")
+                out.print("</td>\n"
+                        + "  </tr>\n")
                 ;
             }
             out.print("</table>\n");
@@ -654,7 +660,7 @@ public class TextSkin extends Skin {
      */
     public void beginPopupGroup(HttpServletRequest req, JspWriter out, long groupId) throws JspException {
         try {
-            out.print("<SCRIPT language=\"JavaScript1.2\"><!--\n"
+            out.print("<script type='text/javascript'>\n"
                     + "    var popupGroupTimer"); out.print(groupId); out.print("=null;\n"
                     + "    var popupGroupAuto"); out.print(groupId); out.print("=null;\n"
                     + "    function popupGroupHideAllDetails"); out.print(groupId); out.print("() {\n"
@@ -683,7 +689,7 @@ public class TextSkin extends Skin {
                     + "            elemStyle.visibility=\"visible\";\n"
                     + "        }\n"
                     + "    }\n"
-                    + "// --></SCRIPT>\n");
+                    + "</script>\n");
         } catch(IOException err) {
             throw new JspException(err);
         }
@@ -706,7 +712,7 @@ public class TextSkin extends Skin {
             MessageResources applicationResources = getMessageResources(req);
             String urlBase = req.isSecure() ? getHttpsUrlBase(req) : getHttpUrlBase(req);
 
-            out.print("<SPAN id=\"groupedPopupAnchor_");
+            out.print("<span id=\"groupedPopupAnchor_");
             out.print(groupId);
             out.print('_');
             out.print(popupId);
@@ -718,7 +724,7 @@ public class TextSkin extends Skin {
             out.print(applicationResources.getMessage(locale, "TextSkin.popup.width"));
             out.print("\" height=\"");
             out.print(applicationResources.getMessage(locale, "TextSkin.popup.height"));
-            out.print("\" align=\"absmiddle\" style=\"cursor:pointer; cursor:hand;\" onMouseOver=\"popupGroupTimer");
+            out.print("\" align=\"absmiddle\" style=\"cursor:pointer; cursor:hand;\" onmouseover=\"popupGroupTimer");
             out.print(groupId);
             out.print("=setTimeout('popupGroupAuto");
             out.print(groupId);
@@ -726,7 +732,7 @@ public class TextSkin extends Skin {
             out.print(groupId);
             out.print('(');
             out.print(popupId);
-            out.print(")', 1000);\" onMouseOut=\"if(popupGroupAuto");
+            out.print(")', 1000);\" onmouseout=\"if(popupGroupAuto");
             out.print(groupId);
             out.print(") popupGroupHideAllDetails");
             out.print(groupId);
@@ -734,45 +740,45 @@ public class TextSkin extends Skin {
             out.print(groupId);
             out.print("!=null) clearTimeout(popupGroupTimer");
             out.print(groupId);
-            out.print(");\" onClick=\"popupGroupAuto");
+            out.print(");\" onclick=\"popupGroupAuto");
             out.print(groupId);
             out.print("=false; popupGroupToggleDetails");
             out.print(groupId);
             out.print('(');
             out.print(popupId);
             out.print(");\">\n"
-                    + "    <SPAN width=\"100%\" id=\"groupedPopup_");
+                    + "    <span id=\"groupedPopup_"); // Used to be span width=\"100%\"
             out.print(groupId);
             out.print('_');
             out.print(popupId);
             out.print("\" style=\"white-space:nowrap; position:absolute; bottom:30px; left:30px; visibility: hidden; z-index:1\">\n"
-                    + "        <TABLE border=\"0\" cellpadding=\"0\" cellspacing=\"0\"");
+                    + "        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"");
             if(width!=null && width.length()>0) {
                 out.print(" width=\"");
                 out.print(width);
                 out.print('"');
             }
             out.print(">\n"
-                    + "            <TR>\n"
-                    + "                <TD nowrap width=\"12\"><IMG src=\"");
+                    + "            <tr>\n"
+                    + "                <td style='white-space:nowrap' width=\"12\"><img src=\"");
             out.print(resp.encodeURL(urlBase + "textskin/popup_topleft.gif"));
-            out.print("\" width=\"12\" height=\"12\"></TD>\n"
-                    + "                <TD nowrap height=\"12\" style=\"background-image:url(");
+            out.print("\" width=\"12\" height=\"12\" alt=\"\" /></td>\n"
+                    + "                <td style=\"white-space:nowrap; height:12px; background-image:url(");
             out.print(resp.encodeURL(urlBase + "textskin/popup_top.gif"));
-            out.print(");\"><IMG src=\"");
+            out.print(");\"><img src=\"");
             out.print(resp.encodeURL(urlBase + "textskin/popup_top.gif"));
-            out.print("\" width=\"1\" height=\"12\"></TD>\n"
-                    + "                <TD nowrap width=\"12\"><IMG src=\"");
+            out.print("\" width=\"1\" height=\"12\" alt=\"\" /></td>\n"
+                    + "                <td style='white-space:nowrap' width=\"12\"><img src=\"");
             out.print(resp.encodeURL(urlBase + "textskin/popup_topright.gif"));
-            out.print("\" width=\"12\" height=\"12\"></TD>\n"
-                    + "            </TR>\n"
-                    + "            <TR>\n"
-                    + "                <TD style=\"background-image:url(");
+            out.print("\" width=\"12\" height=\"12\" alt=\"\" /></td>\n"
+                    + "            </tr>\n"
+                    + "            <tr>\n"
+                    + "                <td style=\"background-image:url(");
             out.print(resp.encodeURL(urlBase + "textskin/popup_left.gif"));
-            out.print(");\"><IMG src=\"");
+            out.print(");\"><img src=\"");
             out.print(resp.encodeURL(urlBase + "textskin/popup_left.gif"));
-            out.print("\" width=\"12\" height=\"12\"></TD>\n"
-                    + "                <TD class=\"ao_popup_light_row\">");
+            out.print("\" width=\"12\" height=\"12\" alt=\"\" /></td>\n"
+                    + "                <td class=\"aoPopupLightRow\">");
         } catch(IOException err) {
             throw new JspException(err);
         }
@@ -796,7 +802,7 @@ public class TextSkin extends Skin {
             out.print(applicationResources.getMessage(locale, "TextSkin.popupClose.width"));
             out.print("\" height=\"");
             out.print(applicationResources.getMessage(locale, "TextSkin.popupClose.height"));
-            out.print("\" align=\"absmiddle\" style=\"cursor:pointer; cursor:hand;\" onClick=\"popupGroupHideAllDetails");
+            out.print("\" align=\"absmiddle\" style=\"cursor:pointer; cursor:hand;\" onclick=\"popupGroupHideAllDetails");
             out.print(groupId);
             out.print("();\">");
         } catch(IOException err) {
@@ -810,30 +816,30 @@ public class TextSkin extends Skin {
     public void endPopup(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId, String width) throws JspException {
         try {
             String urlBase = req.isSecure() ? getHttpsUrlBase(req) : getHttpUrlBase(req);
-            out.print("</TD>\n"
-                    + "                <TD style=\"background-image:url(");
+            out.print("</td>\n"
+                    + "                <td style=\"background-image:url(");
             out.print(resp.encodeURL(urlBase + "textskin/popup_right.gif"));
-            out.print(");\"><IMG src=\"");
+            out.print(");\"><img src=\"");
             out.print(resp.encodeURL(urlBase + "textskin/popup_right.gif"));
-            out.print("\" width=\"12\" height=\"1\"></TD>\n"
-                    + "            </TR>\n"
-                    + "            <TR>\n" 
-                    + "                <TD nowrap width=\"12\"><IMG src=\"");
+            out.print("\" width=\"12\" height=\"1\" alt=\"\" /></td>\n"
+                    + "            </tr>\n"
+                    + "            <tr>\n" 
+                    + "                <td style='white-space:nowrap' width=\"12\"><img src=\"");
             out.print(resp.encodeURL(urlBase + "textskin/popup_bottomleft.gif"));
-            out.print("\" width=\"12\" height=\"12\"></TD>\n"
-                    + "                <TD nowrap height=\"12\" style=\"background-image:url(");
+            out.print("\" width=\"12\" height=\"12\" alt=\"\" /></td>\n"
+                    + "                <td style=\"white-space:nowrap; height:12px; background-image:url(");
             out.print(resp.encodeURL(urlBase + "textskin/popup_bottom.gif"));
-            out.print(");\"><IMG src=\"");
+            out.print(");\"><img src=\"");
             out.print(resp.encodeURL(urlBase + "textskin/popup_bottom.gif"));
-            out.print("\" width=\"1\" height=\"12\"></TD>\n"
-                    + "                <TD nowrap width=\"12\"><IMG src=\"");
+            out.print("\" width=\"1\" height=\"12\" alt=\"\" /></td>\n"
+                    + "                <td style='white-space:nowrap' width=\"12\"><img src=\"");
             out.print(resp.encodeURL(urlBase + "textskin/popup_bottomright.gif"));
-            out.print("\" width=\"12\" height=\"12\"></TD>\n"
-                    + "            </TR>\n"
-                    + "        </TABLE>\n"
-                    + "    </SPAN>\n"
-                    + "</SPAN>\n"
-                    + "<SCRIPT language='JavaScript1.2'><!--\n"
+            out.print("\" width=\"12\" height=\"12\" alt=\"\" /></td>\n"
+                    + "            </tr>\n"
+                    + "        </table>\n"
+                    + "    </span>\n"
+                    + "</span>\n"
+                    + "<script type='text/javascript'>\n"
                     + "    // Override onload\n"
                     + "    var groupedPopupOldOnload_");
             out.print(groupId);
@@ -950,7 +956,7 @@ public class TextSkin extends Skin {
             out.print('_');
             out.print(popupId);
             out.print("();\n"
-                    + "// --></SCRIPT>");
+                    + "</script>");
         } catch(IOException err) {
             throw new JspException(err);
         }

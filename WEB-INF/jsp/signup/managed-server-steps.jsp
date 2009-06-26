@@ -8,8 +8,8 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:lightArea>
-    <B><bean:message bundle="/signup/ApplicationResources" key="steps.title"/></B>
-    <HR>
+    <b><bean:message bundle="/signup/ApplicationResources" key="steps.title"/></b>
+    <hr />
     <bean:define scope="request" name="signupSelectServerFormComplete" id="signupSelectServerFormComplete" type="java.lang.String"/>
     <bean:define scope="request" name="signupCustomizeServerFormComplete" id="signupCustomizeServerFormComplete" type="java.lang.String"/>
     <bean:define scope="request" name="signupCustomizeManagementFormComplete" id="signupCustomizeManagementFormComplete" type="java.lang.String"/>
@@ -17,58 +17,58 @@
     <bean:define scope="request" name="signupTechnicalFormComplete" id="signupTechnicalFormComplete" type="java.lang.String"/>
     <bean:define scope="request" name="signupBillingInformationFormComplete" id="signupBillingInformationFormComplete" type="java.lang.String"/>
     <bean:define name="stepNumber" id="myStepNumber" type="java.lang.String"/>
-    <TABLE border=0 cellspacing=2 cellpadding=0>
-        <TR>
-            <TD>
+    <table cellspacing='2' cellpadding='0'>
+        <tr>
+            <td>
                 <logic:equal name="myStepNumber" value="1"><bean:message bundle="/signup/ApplicationResources" key="steps.arrow"/></logic:equal>
                 <logic:notEqual name="myStepNumber" value="1">&nbsp;</logic:notEqual>
-            </TD>
-            <TD><bean:message bundle="/signup/ApplicationResources" key="steps.1"/></TD>
-            <TD>
+            </td>
+            <td><bean:message bundle="/signup/ApplicationResources" key="steps.1"/></td>
+            <td>
                 <% if(myStepNumber.equals("8")) { %>
                     <bean:message bundle="/signup/ApplicationResources" key="steps.selectServer.label"/>
                 <% } else { %>
-                    <A class="ao_dark_link" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix"/>');"><bean:message bundle="/signup/ApplicationResources" key="steps.selectServer.label"/></A>
+                    <a class="aoDarkLink" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix"/>');"><bean:message bundle="/signup/ApplicationResources" key="steps.selectServer.label"/></a>
                 <% } %>
-            </TD>
-            <TD>
+            </td>
+            <td>
                 <logic:equal scope="request" name="signupSelectServerFormComplete" value="true">
                     <bean:message bundle="/signup/ApplicationResources" key="steps.completed"/>
                 </logic:equal>
                 <logic:notEqual scope="request" name="signupSelectServerFormComplete" value="true">
                     <bean:message bundle="/signup/ApplicationResources" key="steps.incomplete"/>
                 </logic:notEqual>
-            </TD>
-        </TR>
-        <TR>
-            <TD>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <logic:equal name="myStepNumber" value="2"><bean:message bundle="/signup/ApplicationResources" key="steps.arrow"/></logic:equal>
                 <logic:notEqual name="myStepNumber" value="2">&nbsp;</logic:notEqual>
-            </TD>
-            <TD><bean:message bundle="/signup/ApplicationResources" key="steps.2"/></TD>
-            <TD>
+            </td>
+            <td><bean:message bundle="/signup/ApplicationResources" key="steps.2"/></td>
+            <td>
                 <% if(myStepNumber.equals("8") || !signupSelectServerFormComplete.equals("true")) { %>
                     <bean:message bundle="/signup/ApplicationResources" key="steps.customizeServer.label"/>
                 <% } else { %>
-                    <A class="ao_dark_link" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix"/>-2');"><bean:message bundle="/signup/ApplicationResources" key="steps.customizeServer.label"/></A>
+                    <a class="aoDarkLink" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix"/>-2');"><bean:message bundle="/signup/ApplicationResources" key="steps.customizeServer.label"/></a>
                 <% } %>
-            </TD>
-            <TD>
+            </td>
+            <td>
                 <logic:equal scope="request" name="signupCustomizeServerFormComplete" value="true">
                     <bean:message bundle="/signup/ApplicationResources" key="steps.completed"/>
                 </logic:equal>
                 <logic:notEqual scope="request" name="signupCustomizeServerFormComplete" value="true">
                     <bean:message bundle="/signup/ApplicationResources" key="steps.incomplete"/>
                 </logic:notEqual>
-            </TD>
-        </TR>
-        <TR>
-            <TD>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <logic:equal name="myStepNumber" value="3"><bean:message bundle="/signup/ApplicationResources" key="steps.arrow"/></logic:equal>
                 <logic:notEqual name="myStepNumber" value="3">&nbsp;</logic:notEqual>
-            </TD>
-            <TD><bean:message bundle="/signup/ApplicationResources" key="steps.3"/></TD>
-            <TD>
+            </td>
+            <td><bean:message bundle="/signup/ApplicationResources" key="steps.3"/></td>
+            <td>
                 <% if(
                         myStepNumber.equals("8")
                         || !signupSelectServerFormComplete.equals("true")
@@ -76,25 +76,25 @@
                    ) { %>
                     <bean:message bundle="/signup/ApplicationResources" key="steps.customizeManagement.label"/>
                 <% } else { %>
-                    <A class="ao_dark_link" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix"/>-3');"><bean:message bundle="/signup/ApplicationResources" key="steps.customizeManagement.label"/></A>
+                    <a class="aoDarkLink" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix"/>-3');"><bean:message bundle="/signup/ApplicationResources" key="steps.customizeManagement.label"/></a>
                 <% } %>
-            </TD>
-            <TD>
+            </td>
+            <td>
                 <logic:equal scope="request" name="signupCustomizeManagementFormComplete" value="true">
                     <bean:message bundle="/signup/ApplicationResources" key="steps.completed"/>
                 </logic:equal>
                 <logic:notEqual scope="request" name="signupCustomizeManagementFormComplete" value="true">
                     <bean:message bundle="/signup/ApplicationResources" key="steps.incomplete"/>
                 </logic:notEqual>
-            </TD>
-        </TR>
-        <TR>
-            <TD>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <logic:equal name="myStepNumber" value="4"><bean:message bundle="/signup/ApplicationResources" key="steps.arrow"/></logic:equal>
                 <logic:notEqual name="myStepNumber" value="4">&nbsp;</logic:notEqual>
-            </TD>
-            <TD><bean:message bundle="/signup/ApplicationResources" key="steps.4"/></TD>
-            <TD>
+            </td>
+            <td><bean:message bundle="/signup/ApplicationResources" key="steps.4"/></td>
+            <td>
                 <% if(
                         myStepNumber.equals("8")
                         || !signupSelectServerFormComplete.equals("true")
@@ -103,25 +103,25 @@
                    ) { %>
                     <bean:message bundle="/signup/ApplicationResources" key="steps.businessInfo.label"/>
                 <% } else { %>
-                    <A class="ao_dark_link" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix"/>-4');"><bean:message bundle="/signup/ApplicationResources" key="steps.businessInfo.label"/></A>
+                    <a class="aoDarkLink" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix"/>-4');"><bean:message bundle="/signup/ApplicationResources" key="steps.businessInfo.label"/></a>
                 <% } %>
-            </TD>
-            <TD>
+            </td>
+            <td>
                 <logic:equal scope="request" name="signupBusinessFormComplete" value="true">
                     <bean:message bundle="/signup/ApplicationResources" key="steps.completed"/>
                 </logic:equal>
                 <logic:notEqual scope="request" name="signupBusinessFormComplete" value="true">
                     <bean:message bundle="/signup/ApplicationResources" key="steps.incomplete"/>
                 </logic:notEqual>
-            </TD>
-        </TR>
-        <TR>
-            <TD>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <logic:equal name="myStepNumber" value="5"><bean:message bundle="/signup/ApplicationResources" key="steps.arrow"/></logic:equal>
                 <logic:notEqual name="myStepNumber" value="5">&nbsp;</logic:notEqual>
-            </TD>
-            <TD><bean:message bundle="/signup/ApplicationResources" key="steps.5"/></TD>
-            <TD>
+            </td>
+            <td><bean:message bundle="/signup/ApplicationResources" key="steps.5"/></td>
+            <td>
                 <% if(
                         myStepNumber.equals("8")
                         || !signupSelectServerFormComplete.equals("true")
@@ -131,25 +131,25 @@
                    ) { %>
                     <bean:message bundle="/signup/ApplicationResources" key="steps.technicalInfo.label"/>
                 <% } else { %>
-                    <A class="ao_dark_link" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix"/>-5');"><bean:message bundle="/signup/ApplicationResources" key="steps.technicalInfo.label"/></A>
+                    <a class="aoDarkLink" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix"/>-5');"><bean:message bundle="/signup/ApplicationResources" key="steps.technicalInfo.label"/></a>
                 <% } %>
-            </TD>
-            <TD>
+            </td>
+            <td>
                 <logic:equal scope="request" name="signupTechnicalFormComplete" value="true">
                     <bean:message bundle="/signup/ApplicationResources" key="steps.completed"/>
                 </logic:equal>
                 <logic:notEqual scope="request" name="signupTechnicalFormComplete" value="true">
                     <bean:message bundle="/signup/ApplicationResources" key="steps.incomplete"/>
                 </logic:notEqual>
-            </TD>
-        </TR>
-        <TR>
-            <TD>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <logic:equal name="myStepNumber" value="6"><bean:message bundle="/signup/ApplicationResources" key="steps.arrow"/></logic:equal>
                 <logic:notEqual name="myStepNumber" value="6">&nbsp;</logic:notEqual>
-            </TD>
-            <TD><bean:message bundle="/signup/ApplicationResources" key="steps.6"/></TD>
-            <TD>
+            </td>
+            <td><bean:message bundle="/signup/ApplicationResources" key="steps.6"/></td>
+            <td>
                 <% if(
                         myStepNumber.equals("8")
                         || !signupSelectServerFormComplete.equals("true")
@@ -160,25 +160,25 @@
                    ) { %>
                     <bean:message bundle="/signup/ApplicationResources" key="steps.billingInformation.label"/>
                 <% } else { %>
-                    <A class="ao_dark_link" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix"/>-6');"><bean:message bundle="/signup/ApplicationResources" key="steps.billingInformation.label"/></A>
+                    <a class="aoDarkLink" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix"/>-6');"><bean:message bundle="/signup/ApplicationResources" key="steps.billingInformation.label"/></a>
                 <% } %>
-            </TD>
-            <TD>
+            </td>
+            <td>
                 <logic:equal scope="request" name="signupBillingInformationFormComplete" value="true">
                     <bean:message bundle="/signup/ApplicationResources" key="steps.completed"/>
                 </logic:equal>
                 <logic:notEqual scope="request" name="signupBillingInformationFormComplete" value="true">
                     <bean:message bundle="/signup/ApplicationResources" key="steps.incomplete"/>
                 </logic:notEqual>
-            </TD>
-        </TR>
-        <TR>
-            <TD>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <logic:equal name="myStepNumber" value="7"><bean:message bundle="/signup/ApplicationResources" key="steps.arrow"/></logic:equal>
                 <logic:notEqual name="myStepNumber" value="7">&nbsp;</logic:notEqual>
-            </TD>
-            <TD><bean:message bundle="/signup/ApplicationResources" key="steps.7"/></TD>
-            <TD>
+            </td>
+            <td><bean:message bundle="/signup/ApplicationResources" key="steps.7"/></td>
+            <td>
                 <% if(
                         myStepNumber.equals("8")
                         || !signupSelectServerFormComplete.equals("true")
@@ -190,26 +190,26 @@
                    ) { %>
                     <bean:message bundle="/signup/ApplicationResources" key="steps.confirmation.label"/>
                 <% } else { %>
-                    <A class="ao_dark_link" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix"/>-7');"><bean:message bundle="/signup/ApplicationResources" key="steps.confirmation.label"/></A>
+                    <a class="aoDarkLink" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix"/>-7');"><bean:message bundle="/signup/ApplicationResources" key="steps.confirmation.label"/></a>
                 <% } %>
-            </TD>
-            <TD>
+            </td>
+            <td>
                 <logic:equal name="myStepNumber" value="8">
                     <bean:message bundle="/signup/ApplicationResources" key="steps.completed"/>
                 </logic:equal>
                 <logic:notEqual name="myStepNumber" value="8">
                     <bean:message bundle="/signup/ApplicationResources" key="steps.incomplete"/>
                 </logic:notEqual>
-            </TD>
-        </TR>
-        <TR>
-            <TD>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <logic:equal name="myStepNumber" value="8"><bean:message bundle="/signup/ApplicationResources" key="steps.arrow"/></logic:equal>
                 <logic:notEqual name="myStepNumber" value="8">&nbsp;</logic:notEqual>
-            </TD>
-            <TD><bean:message bundle="/signup/ApplicationResources" key="steps.8"/></TD>
-            <TD><bean:message bundle="/signup/ApplicationResources" key="steps.finished.label"/></TD>
-            <TD>&nbsp;</TD>
-        </TR>
-    </TABLE>
+            </td>
+            <td><bean:message bundle="/signup/ApplicationResources" key="steps.8"/></td>
+            <td><bean:message bundle="/signup/ApplicationResources" key="steps.finished.label"/></td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
 </skin:lightArea>

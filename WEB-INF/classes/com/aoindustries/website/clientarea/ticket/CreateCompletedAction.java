@@ -69,6 +69,7 @@ public class CreateCompletedAction extends PermissionAction {
             language,
             null,
             ticketType,
+            null,
             ticketForm.getSummary(),
             ticketForm.getDetails(),
             clientPriority,

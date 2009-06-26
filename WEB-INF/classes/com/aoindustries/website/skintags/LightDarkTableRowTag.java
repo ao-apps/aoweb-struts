@@ -42,7 +42,7 @@ public class LightDarkTableRowTag extends BodyTagSupport {
             out.write("<tr class=\"");
             Boolean isDark = (Boolean)pageContext.getAttribute(pageAttributeId, PageContext.PAGE_SCOPE);
             if(isDark==null) pageContext.setAttribute(pageAttributeId, isDark = Boolean.FALSE, PageContext.PAGE_SCOPE);
-            out.write(isDark.booleanValue() ? "ao_dark_row" : "ao_light_row");
+            out.write(isDark.booleanValue() ? "aoDarkRow" : "aoLightRow");
             out.write("\">");
             return EVAL_BODY_INCLUDE;
         } catch(IOException err) {

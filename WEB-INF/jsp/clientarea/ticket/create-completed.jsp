@@ -8,7 +8,8 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
-<html:html lang="true">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html:html lang="true" xhtml="true">
     <skin:path>/clientarea/ticket/create.do</skin:path>
     <skin:title><bean:message bundle="/clientarea/ticket/ApplicationResources" key="create.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/ticket/ApplicationResources" key="create.navImageAlt"/></skin:navImageAlt>

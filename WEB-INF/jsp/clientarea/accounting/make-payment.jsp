@@ -8,7 +8,8 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
-<html:html lang="true">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html:html lang="true" xhtml="true">
     <skin:path>/clientarea/accounting/make-payment.do</skin:path>
     <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
     <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.title"/></skin:title>
@@ -24,19 +25,19 @@
             <skin:contentLine>
                 <skin:lightArea>
                     <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.selectBusiness.list.title"/>
-                    <hr>
-                    <table border="0" cellspacing="0" cellpadding="2">
+                    <hr />
+                    <table cellspacing="0" cellpadding="2">
                         <tr>
-                            <th nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.business.header"/></th>
-                            <th nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.monthlyRate.header"/></th>
-                            <th nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.balance.header"/></th>
-                            <th nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.makePayment.header"/></th>
+                            <th style='white-space:nowrap'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.business.header"/></th>
+                            <th style='white-space:nowrap'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.monthlyRate.header"/></th>
+                            <th style='white-space:nowrap'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.balance.header"/></th>
+                            <th style='white-space:nowrap'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.makePayment.header"/></th>
                         </tr>
                         <logic:iterate scope="request" name="businesses" id="business" type="com.aoindustries.aoserv.client.Business">
                             <skin:lightDarkTableRow>
-                                <td nowrap><bean:write name="business" property="accounting"/></td>
-                                <td nowrap align='right'><bean:write name="business" property="monthlyRateString"/></td>
-                                <td nowrap align='right'>
+                                <td style="white-space:nowrap"><bean:write name="business" property="accounting"/></td>
+                                <td style='white-space:nowrap' align='right'><bean:write name="business" property="monthlyRateString"/></td>
+                                <td style='white-space:nowrap' align='right'>
                                     <% int balance = business.getAccountBalance(); %>
                                     <% if(balance==0) { %>
                                         <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.balance.value.zero"/>
@@ -52,7 +53,7 @@
                                         />
                                     <% } %>
                                 </td>
-                                <td nowrap>
+                                <td style="white-space:nowrap">
                                     <html:link action="/make-payment-select-card" paramId="accounting" paramName="business" paramProperty="accounting">
                                         <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.makePayment.link"/>
                                     </html:link>

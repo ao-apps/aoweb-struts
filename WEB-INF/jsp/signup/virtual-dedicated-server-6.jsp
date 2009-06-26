@@ -8,7 +8,8 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
-<html:html lang="true">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html:html lang="true" xhtml="true">
     <skin:path>/signup/virtual-dedicated-server-6.do</skin:path>
     <skin:title><bean:message bundle="/signup/ApplicationResources" key="virtualDedicated.title"/></skin:title>
     <skin:navImageAlt><bean:message bundle="/signup/ApplicationResources" key="virtualDedicated.navImageAlt"/></skin:navImageAlt>
@@ -21,7 +22,7 @@
             <skin:contentTitle><bean:message bundle="/signup/ApplicationResources" key="virtualDedicated.title"/></skin:contentTitle>
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
-                <script language="JavaScript1.2"><!--
+                <script type='text/javascript'>
                     function selectStep(step) {
                         if(step=="virtual-dedicated-server") window.location.href="<%= response.encodeURL("virtual-dedicated-server.do") %>";
                         else if(step=="virtual-dedicated-server-2") window.location.href="<%= response.encodeURL("virtual-dedicated-server-2.do") %>";
@@ -29,11 +30,11 @@
                         else if(step=="virtual-dedicated-server-4") window.location.href="<%= response.encodeURL("virtual-dedicated-server-4.do") %>";
                         else if(step=="virtual-dedicated-server-5") window.location.href="<%= response.encodeURL("virtual-dedicated-server-5.do") %>";
                     }
-                // --></script>
+                </script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="6"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="virtual-dedicated-server"/>
                 <%@ include file="dedicated-server-steps.jsp" %>
-                <br>
+                <br />
                 <form action="<%= response.encodeURL("virtual-dedicated-server-6-completed.do") %>" method="POST">
                     <%@ include file="dedicated-server-confirmation.jsp" %>
                 </form>

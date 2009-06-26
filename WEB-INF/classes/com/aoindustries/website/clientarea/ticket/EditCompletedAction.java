@@ -76,10 +76,11 @@ public class EditCompletedAction extends PermissionAction {
         boolean annotationAdded = false;
 
         // Update anything that changed
-        Business business = aoConn.getBusinesses().get(ticketForm.getAccounting());
-        if(business==null) throw new SQLException("Unable to find Business: "+ticketForm.getAccounting());
-        if(!business.equals(ticket.getBusiness())) {
-            ticket.setBusiness(business);
+        Business newBusiness = aoConn.getBusinesses().get(ticketForm.getAccounting());
+        if(newBusiness==null) throw new SQLException("Unable to find Business: "+ticketForm.getAccounting());
+        Business oldBusiness = ticket.getBusiness();
+        if(!newBusiness.equals(oldBusiness)) {
+            ticket.setBusiness(oldBusiness, newBusiness);
             businessUpdated = true;
         }
         if(!ticketForm.getContactEmails().equals(ticket.getContactEmails())) {

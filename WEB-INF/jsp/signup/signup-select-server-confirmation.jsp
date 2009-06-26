@@ -7,8 +7,8 @@
 <%@ page language="java" buffer="256kb" autoFlush="true" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
-<TR>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></TD>
-    <TD><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.packageDefinition.prompt"/></TD>
-    <TD><bean:write scope="request" name="packageDefinition" property="display"/></TD>
-</TR>
+<tr>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.packageDefinition.prompt"/></td>
+    <td><bean:write scope="request" name="packageDefinition" property="display"/></td>
+</tr>
