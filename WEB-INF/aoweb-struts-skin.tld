@@ -143,8 +143,32 @@
   <tag>
     <name>skin</name>
     <tag-class>com.aoindustries.website.skintags.SkinTag</tag-class>
+    <tei-class>com.aoindustries.website.skintags.SkinTagTEI</tei-class>
     <body-content>JSP</body-content>
     <description>Writes the skin between the HTML tags and the page content.</description>
+    <attribute>
+      <name>layout</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>String</type>
+      <description>
+        <![CDATA[
+          Each page may request a specific layout from the skin implementation.  The currently
+          support values are:
+          <ul>
+            <li>
+                <code>normal</code> - This provides headers, footers, and full navigation.
+                This is the default layout if no layout is specified.
+            </li>
+            <li>
+                <code>minimal</code> - This provides a minimal layout without any page navigation
+                except headers and footers.  This provides maximum area for the page content
+                while still maintaining a consistent look and feel.
+            </li>
+          </ul>
+        ]]>
+      </description>
+    </attribute>
     <attribute>
       <name>onload</name>
       <required>false</required>
@@ -371,7 +395,6 @@
     <description>
         Alternates between aoLightRow and aoDarkRow classes.
     </description>
-    <example/>
     <attribute>
       <name>pageAttributeId</name>
       <required>false</required>
@@ -382,5 +405,6 @@
         Defaults to "LightDarkTableRowTag.isDark"
       </description>
     </attribute>
+    <example/>
   </tag>
 </taglib>

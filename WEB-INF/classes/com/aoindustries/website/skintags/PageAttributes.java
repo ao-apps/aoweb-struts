@@ -5,9 +5,11 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.website.ApplicationResourcesAccessor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.jsp.PageContext;
 
 /**
@@ -17,6 +19,14 @@ import javax.servlet.jsp.PageContext;
  */
 public class PageAttributes {
     
+    /**
+     * The possible values for layout.
+     */
+    public static final String
+        LAYOUT_NORMAL = "normal",
+        LAYOUT_MINIMAL = "minimal"
+    ;
+
     /**
      * The following key is used to store the objects in the page attributes.
      */
@@ -84,6 +94,7 @@ public class PageAttributes {
     private String navImageAlt;
     private List<Page> parents;
     private List<Page> siblings;
+    private String layout;
     private String onload;
     
     public PageAttributes() {
@@ -193,6 +204,15 @@ public class PageAttributes {
     public void addSibling(Page sibling) {
         if(siblings==null) siblings = new ArrayList<Page>();
         siblings.add(sibling);
+    }
+
+    public String getLayout() {
+        return layout;
+    }
+
+    public void setLayout(String layout) {
+        if(layout.equals(LAYOUT_NORMAL) || layout.equals(LAYOUT_MINIMAL)) this.layout = layout;
+        else throw new IllegalArgumentException(ApplicationResourcesAccessor.getMessage(Locale.getDefault(), "skintags.PageAttributes.setLayout.invalid"));
     }
 
     public String getOnload() {

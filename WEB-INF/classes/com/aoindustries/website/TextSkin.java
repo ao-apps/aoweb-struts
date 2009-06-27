@@ -100,6 +100,8 @@ public class TextSkin extends Skin {
 
     public void startSkin(HttpServletRequest req, HttpServletResponse resp, JspWriter out, PageAttributes pageAttributes) throws JspException {
         try {
+            String layout = pageAttributes.getLayout();
+            if(!layout.equals(PageAttributes.LAYOUT_NORMAL)) throw new JspException("TODO: Implement layout: "+layout);
             boolean isSecure = req.isSecure();
             HttpSession session = req.getSession();
             Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);

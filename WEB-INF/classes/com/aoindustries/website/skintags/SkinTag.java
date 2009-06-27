@@ -37,6 +37,7 @@ public class SkinTag extends PageAttributesBodyTag {
         return skin;
     }
 
+    private String layout;
     private String onload;
 
     public SkinTag() {
@@ -44,11 +45,13 @@ public class SkinTag extends PageAttributesBodyTag {
     }
 
     private void init() {
+        layout = "normal";
         onload = null;
     }
 
     @Override
     public int doStartTag(PageAttributes pageAttributes) throws JspException {
+        pageAttributes.setLayout(layout);
         pageAttributes.setOnload(onload);
 
         Skin skin = SkinTag.getSkin(pageContext);
@@ -73,6 +76,14 @@ public class SkinTag extends PageAttributesBodyTag {
         } finally {
             init();
         }
+    }
+
+    public String getLayout() {
+        return layout;
+    }
+
+    public void setLayout(String layout) {
+        this.layout = layout;
     }
 
     public String getOnload() {
