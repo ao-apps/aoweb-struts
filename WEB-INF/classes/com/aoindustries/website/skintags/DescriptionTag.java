@@ -32,7 +32,7 @@ public class DescriptionTag extends BodyTagSupport {
             if(addSiblingTag!=null) {
                 addSiblingTag.setDescription(description);
             } else {
-                PageAttributesTag.getPageAttributes(pageContext).setDescription(description);
+                PageAttributesBodyTag.getPageAttributes(pageContext).setDescription(description);
             }
         }
         return EVAL_PAGE;

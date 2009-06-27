@@ -12,7 +12,7 @@ import javax.servlet.jsp.tagext.BodyContent;
  *
  * @author  AO Industries, Inc.
  */
-public class AuthorTag extends PageAttributesTag {
+public class AuthorTag extends PageAttributesBodyTag {
 
     public AuthorTag() {
     }

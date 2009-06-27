@@ -32,7 +32,7 @@ public class TitleTag extends BodyTagSupport {
             if(addSiblingTag!=null) {
                 addSiblingTag.setTitle(title);
             } else {
-                PageAttributesTag.getPageAttributes(pageContext).setTitle(title);
+                PageAttributesBodyTag.getPageAttributes(pageContext).setTitle(title);
             }
         }
         return EVAL_PAGE;

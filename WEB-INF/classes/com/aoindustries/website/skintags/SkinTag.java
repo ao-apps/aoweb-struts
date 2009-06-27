@@ -21,7 +21,7 @@ import org.apache.struts.util.MessageResources;
  *
  * @author  AO Industries, Inc.
  */
-public class SkinTag extends PageAttributesTag {
+public class SkinTag extends PageAttributesBodyTag {
 
     /**
      * Gets the current skin from the session.  It is assumed the skin is already set.  Will throw an exception if not available.
@@ -66,7 +66,8 @@ public class SkinTag extends PageAttributesTag {
             Skin skin = SkinTag.getSkin(pageContext);
 
             HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-            skin.endSkin(req, pageContext.getOut(), pageAttributes);
+            HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+            skin.endSkin(req, resp, pageContext.getOut(), pageAttributes);
 
             return EVAL_PAGE;
         } finally {

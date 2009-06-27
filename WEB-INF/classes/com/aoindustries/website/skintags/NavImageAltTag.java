@@ -36,7 +36,7 @@ public class NavImageAltTag extends BodyTagSupport {
             if(addSiblingTag!=null) {
                 addSiblingTag.setNavImageAlt(navImageAlt);
             } else {
-                PageAttributesTag.getPageAttributes(pageContext).setNavImageAlt(navImageAlt);
+                PageAttributesBodyTag.getPageAttributes(pageContext).setNavImageAlt(navImageAlt);
             }
         }
         return EVAL_PAGE;

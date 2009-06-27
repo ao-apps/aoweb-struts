@@ -17,7 +17,7 @@ import org.apache.struts.util.MessageResources;
  *
  * @author  AO Industries, Inc.
  */
-public class AddSiblingTag extends PageAttributesTag {
+public class AddSiblingTag extends PageAttributesBodyTag {
 
     private String title;
     private String navImageAlt;

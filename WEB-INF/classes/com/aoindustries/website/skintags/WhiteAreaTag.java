@@ -20,7 +20,7 @@ import org.apache.struts.Globals;
  *
  * @author  AO Industries, Inc.
  */
-public class WhiteAreaTag extends PageAttributesTag {
+public class WhiteAreaTag extends PageAttributesBodyTag {
 
     private String width;
     private boolean nowrap;

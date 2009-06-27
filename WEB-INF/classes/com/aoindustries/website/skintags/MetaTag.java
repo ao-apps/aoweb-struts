@@ -33,7 +33,7 @@ public class MetaTag extends BodyTagSupport {
     public int doEndTag() {
         try {
             String content = getBodyContent().getString().trim();
-            PageAttributesTag.getPageAttributes(pageContext).addMeta(name, content);
+            PageAttributesBodyTag.getPageAttributes(pageContext).addMeta(name, content);
             return EVAL_PAGE;
         } finally {
             init();

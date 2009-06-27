@@ -20,7 +20,7 @@ import org.apache.struts.Globals;
 /**
  * @author  AO Industries, Inc.
  */
-public class ContentTag extends PageAttributesTag {
+public class ContentTag extends PageAttributesBodyTag {
 
     /**
      * Parses a String of comma-separated integers into an <code>int[]</code>.

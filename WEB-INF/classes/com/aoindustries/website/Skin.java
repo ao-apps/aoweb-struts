@@ -124,7 +124,7 @@ abstract public class Skin {
     /**
      * Writes the contents between the page content and the HTML tag (not including the HTML tag itself).
      */
-    abstract public void endSkin(HttpServletRequest req, JspWriter out, PageAttributes pageAttributes) throws JspException;
+    abstract public void endSkin(HttpServletRequest req, HttpServletResponse resp, JspWriter out, PageAttributes pageAttributes) throws JspException;
 
     /**
      * Begins a light area.

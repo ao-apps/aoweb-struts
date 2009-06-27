@@ -46,6 +46,31 @@ public class PageAttributes {
         }
     }
 
+    public static class Link {
+
+        private final String rel;
+        private final String href;
+        private final String type;
+
+        Link(String rel, String href, String type) {
+            this.rel = rel;
+            this.href = href;
+            this.type = type;
+        }
+
+        public String getRel() {
+            return rel;
+        }
+
+        public String getHref() {
+            return href;
+        }
+
+        public String getType() {
+            return type;
+        }
+    }
+
     private String path;
     private String keywords;
     private String description;
@@ -53,6 +78,8 @@ public class PageAttributes {
     private String copyright;
     private List<Meta> metas;
     private List<Meta> unmodifiableMetas;
+    private List<Link> links;
+    private List<Link> unmodifiableLinks;
     private String title;
     private String navImageAlt;
     private List<Page> parents;
@@ -111,6 +138,17 @@ public class PageAttributes {
     public void addMeta(String name, String content) {
         if(metas==null) metas = new ArrayList<Meta>();
         metas.add(new Meta(name, content));
+    }
+
+    public List<Link> getLinks() {
+        if(links==null) return Collections.emptyList();
+        if(unmodifiableLinks==null) unmodifiableLinks = Collections.unmodifiableList(links);
+        return unmodifiableLinks;
+    }
+
+    public void addLink(String rel, String href, String type) {
+        if(links==null) links = new ArrayList<Link>();
+        links.add(new Link(rel, href, type));
     }
 
     public String getTitle() {

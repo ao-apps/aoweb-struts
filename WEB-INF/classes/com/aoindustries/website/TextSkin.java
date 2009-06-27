@@ -177,6 +177,15 @@ public class TextSkin extends Skin {
             }
             out.print("    <link rel='stylesheet' href='"); out.print(resp.encodeURL(urlBase+"textskin/global.css")); out.print("' type='text/css' />\n");
             printCssIncludes(resp, out, urlBase);
+            for(PageAttributes.Link link : pageAttributes.getLinks()) {
+                out.print("    <link rel=\"");
+                ChainWriter.writeHtmlAttribute(link.getRel(), out);
+                out.print("\" href=\"");
+                ChainWriter.writeHtmlAttribute(link.getHref(), out);
+                out.print("\" type=\"");
+                ChainWriter.writeHtmlAttribute(link.getType(), out);
+                out.print("\" />\n");
+            }
             printJavaScriptSources(resp, out, urlBase);
             out.print("    <script type='text/javascript' src='");
             out.print(resp.encodeURL(urlBase + "commons-validator-1.3.1-compress.js"));
@@ -526,7 +535,7 @@ public class TextSkin extends Skin {
         }
     }
 
-    public void endSkin(HttpServletRequest req, JspWriter out, PageAttributes pageAttributes) throws JspException {
+    public void endSkin(HttpServletRequest req, HttpServletResponse resp, JspWriter out, PageAttributes pageAttributes) throws JspException {
         try {
             out.print("        </td>\n"
                     + "      </tr>\n"

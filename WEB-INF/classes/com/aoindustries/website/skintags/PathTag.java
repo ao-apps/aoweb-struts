@@ -12,7 +12,7 @@ import javax.servlet.jsp.tagext.BodyContent;
  *
  * @author  AO Industries, Inc.
  */
-public class PathTag extends PageAttributesTag {
+public class PathTag extends PageAttributesBodyTag {
 
     public PathTag() {
     }

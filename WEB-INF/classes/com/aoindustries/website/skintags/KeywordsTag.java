@@ -12,7 +12,7 @@ import javax.servlet.jsp.tagext.BodyContent;
  *
  * @author  AO Industries, Inc.
  */
-public class KeywordsTag extends PageAttributesTag {
+public class KeywordsTag extends PageAttributesBodyTag {
 
     public KeywordsTag() {
     }

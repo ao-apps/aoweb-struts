@@ -21,7 +21,7 @@ public class AutoIndexTag extends TagSupport {
 
     public int doStartTag() throws JspException {
         Skin skin = SkinTag.getSkin(pageContext);
-        PageAttributes pageAttributes = PageAttributesTag.getPageAttributes(pageContext);
+        PageAttributes pageAttributes = PageAttributesBodyTag.getPageAttributes(pageContext);
         skin.printAutoIndex((HttpServletRequest)pageContext.getRequest(), (HttpServletResponse)pageContext.getResponse(), pageContext.getOut(), pageAttributes);
         return SKIP_BODY;
     }

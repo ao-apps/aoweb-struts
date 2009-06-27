@@ -20,7 +20,7 @@ import org.apache.struts.Globals;
  *
  * @author  AO Industries, Inc.
  */
-public class LightAreaTag extends PageAttributesTag {
+public class LightAreaTag extends PageAttributesBodyTag {
 
     private String width;
     private boolean nowrap;
