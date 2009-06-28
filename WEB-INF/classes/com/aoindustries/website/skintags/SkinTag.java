@@ -26,7 +26,7 @@ public class SkinTag extends PageAttributesBodyTag {
     /**
      * Gets the current skin from the session.  It is assumed the skin is already set.  Will throw an exception if not available.
      */
-    static Skin getSkin(PageContext pageContext) throws JspException {
+    public static Skin getSkin(PageContext pageContext) throws JspException {
         Skin skin = (Skin)pageContext.getAttribute(Constants.SKIN, PageContext.REQUEST_SCOPE);
         if(skin==null) {
             HttpSession session = pageContext.getSession();

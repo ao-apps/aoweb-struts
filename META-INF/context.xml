@@ -2,8 +2,8 @@
 <Context path="/aoweb-struts">
   <!-- Configuration for root AOServConnector -->
   <Parameter name="root.aoserv.client.username" value="aoweb_app"/>
-  <Parameter name="root.aoserv.client.password" value="changeme"/>
-  <!--<Parameter name="root.aoserv.client.password" value="Kuz39Istrul"/-->
+  <!--Parameter name="root.aoserv.client.password" value="changeme"/>-->
+  <Parameter name="root.aoserv.client.password" value="Kuz39Istrul"/>
   <!--
     Configuration for auto-redirect between HTTP and HTTPS.  It is
     recommended to not perform the redirect in development to make links as

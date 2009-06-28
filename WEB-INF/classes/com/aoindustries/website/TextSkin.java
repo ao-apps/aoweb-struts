@@ -254,7 +254,7 @@ public class TextSkin extends Skin {
                     out.print("                <option value='");
                     out.print(skin.getName());
                     out.print('\'');
-                    if(getName().equals(skin.getName())) out.print(" selected");
+                    if(getName().equals(skin.getName())) out.print(" selected='selected'");
                     out.print('>');
                     out.print(skin.getDisplay(req));
                     out.print("</option>\n");
@@ -668,8 +668,17 @@ public class TextSkin extends Skin {
 
     /**
      * Begins a popup group.
+     *
+     * @see  #defaultBeginPopupGroup(javax.servlet.http.HttpServletRequest, javax.servlet.jsp.JspWriter, long)
      */
     public void beginPopupGroup(HttpServletRequest req, JspWriter out, long groupId) throws JspException {
+        defaultBeginPopupGroup(req, out, groupId);
+    }
+
+    /**
+     * Default implementation of beginPopupGroup.
+     */
+    public static void defaultBeginPopupGroup(HttpServletRequest req, JspWriter out, long groupId) throws JspException {
         try {
             out.print("<script type='text/javascript'>\n"
                     + "    var popupGroupTimer"); out.print(groupId); out.print("=null;\n"
@@ -708,20 +717,38 @@ public class TextSkin extends Skin {
 
     /**
      * Ends a popup group.
+     *
+     * @see  #defaultEndPopupGroup(javax.servlet.http.HttpServletRequest, javax.servlet.jsp.JspWriter, long)
      */
-    public void endPopupGroup(HttpServletRequest req, JspWriter out, long groupId) {
+    public void endPopupGroup(HttpServletRequest req, JspWriter out, long groupId) throws JspException {
+        defaultEndPopupGroup(req, out, groupId);
+    }
+
+    /**
+     * Default implementation of endPopupGroup.
+     */
+    public static void defaultEndPopupGroup(HttpServletRequest req, JspWriter out, long groupId) throws JspException {
         // Nothing at the popup group end
     }
 
     /**
      * Begins a popup that is in a popup group.
+     *
+     * @see  #defaultBeginPopup(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, javax.servlet.jsp.JspWriter, long, long, java.lang.String, java.lang.String)
      */
     public void beginPopup(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId, String width) throws JspException {
+        String urlBase = req.isSecure() ? getHttpsUrlBase(req) : getHttpUrlBase(req);
+        defaultBeginPopup(req, resp, out, groupId, popupId, width, urlBase);
+    }
+
+    /**
+     * Default implementation of beginPopup.
+     */
+    public static void defaultBeginPopup(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId, String width, String urlBase) throws JspException {
         try {
             HttpSession session = req.getSession();
             Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
             MessageResources applicationResources = getMessageResources(req);
-            String urlBase = req.isSecure() ? getHttpsUrlBase(req) : getHttpUrlBase(req);
 
             out.print("<span id=\"groupedPopupAnchor_");
             out.print(groupId);
@@ -797,13 +824,22 @@ public class TextSkin extends Skin {
 
     /**
      * Prints a popup close link/image/button for a popup that is part of a popup group.
+     *
+     * @see  #defaultPrintPopupClose(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, javax.servlet.jsp.JspWriter, long, long, java.lang.String)
      */
     public void printPopupClose(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId) throws JspException {
+        String urlBase = req.isSecure() ? getHttpsUrlBase(req) : getHttpUrlBase(req);
+        defaultPrintPopupClose(req, resp, out, groupId, popupId, urlBase);
+    }
+
+    /**
+     * Default implementation of printPopupClose.
+     */
+    public static void defaultPrintPopupClose(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId, String urlBase) throws JspException {
         try {
             HttpSession session = req.getSession();
             Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
             MessageResources applicationResources = getMessageResources(req);
-            String urlBase = req.isSecure() ? getHttpsUrlBase(req) : getHttpUrlBase(req);
 
             out.print("<img src=\"");
             out.print(resp.encodeURL(urlBase + applicationResources.getMessage(locale, "TextSkin.popupClose.src")));
@@ -823,10 +859,19 @@ public class TextSkin extends Skin {
 
     /**
      * Ends a popup that is in a popup group.
+     *
+     * @see  #defaultEndPopup(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, javax.servlet.jsp.JspWriter, long, long, java.lang.String, java.lang.String)
      */
     public void endPopup(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId, String width) throws JspException {
+        String urlBase = req.isSecure() ? getHttpsUrlBase(req) : getHttpUrlBase(req);
+        TextSkin.defaultEndPopup(req, resp, out, groupId, popupId, width, urlBase);
+    }
+
+    /**
+     * Default implementation of endPopup.
+     */
+    public static void defaultEndPopup(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId, String width, String urlBase) throws JspException {
         try {
-            String urlBase = req.isSecure() ? getHttpsUrlBase(req) : getHttpUrlBase(req);
             out.print("</td>\n"
                     + "                <td style=\"background-image:url(");
             out.print(resp.encodeURL(urlBase + "textskin/popup_right.gif"));

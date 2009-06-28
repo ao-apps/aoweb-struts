@@ -96,7 +96,7 @@
                     <logic:iterate scope="request" name="countryOptions" id="countryOption">
                         <logic:equal name="countryOption" property="code" value="<%= baCountry %>">
                             <% if(!didOne.equals("true")) { %>
-                                <option value='<bean:write name="countryOption" property="code"/>' selected><bean:write name="countryOption" property="name"/></option>
+                                <option value='<bean:write name="countryOption" property="code"/>'selected="selected"><bean:write name="countryOption" property="name"/></option>
                                 <% didOne = "true"; %>
                             <% } else { %>
                                 <option value='<bean:write name="countryOption" property="code"/>'><bean:write name="countryOption" property="name"/></option>

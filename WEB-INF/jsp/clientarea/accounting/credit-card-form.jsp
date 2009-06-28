@@ -9,10 +9,10 @@
 
 <tr>
     <td style='white-space:nowrap' colspan="4" align="center">
-        <html:img src="amex.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.amex.alt" align="absmiddle" style="border:1px solid" width="64" height="40"/>
-        &nbsp;&nbsp;<html:img src="discv.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.discv.alt" align="absmiddle" style="border:1px solid" width="63" height="40"/>
-        &nbsp;&nbsp;<html:img src="mcard.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.mcard.alt" align="absmiddle" style="border:1px solid" width="64" height="40"/>
-        &nbsp;&nbsp;<html:img src="visa.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.visa.alt" align="absmiddle" style="border:1px solid" width="64" height="40"/>
+        <html:img src="amex.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.amex.alt" style="border:1px solid" width="64" height="40"/>
+        &nbsp;&nbsp;<html:img src="discv.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.discv.alt" style="border:1px solid" width="63" height="40"/>
+        &nbsp;&nbsp;<html:img src="mcard.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.mcard.alt" style="border:1px solid" width="64" height="40"/>
+        &nbsp;&nbsp;<html:img src="visa.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.visa.alt" style="border:1px solid" width="64" height="40"/>
     </td>
 </tr>
 <tr>
@@ -128,7 +128,7 @@
             <logic:iterate scope="request" name="countryOptions" id="countryOption">
                 <logic:equal name="countryOption" property="code" value="<%= country %>">
                     <% if(!didOne.equals("true")) { %>
-                        <option value='<bean:write name="countryOption" property="code"/>' selected><bean:write name="countryOption" property="name"/></option>
+                        <option value='<bean:write name="countryOption" property="code"/>' selected="selected"><bean:write name="countryOption" property="name"/></option>
                         <% didOne = "true"; %>
                     <% } else { %>
                         <option value='<bean:write name="countryOption" property="code"/>'><bean:write name="countryOption" property="name"/></option>

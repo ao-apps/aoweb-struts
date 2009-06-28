@@ -33,10 +33,10 @@
         </tr>
         <tr><td colspan="4">&nbsp;</td></tr>
         <tr><td colspan="4" align='center'>
-            <html:img src="amex.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.amex.alt" align="absmiddle" style="border:1px solid" width="64" height="40"/>
-            &nbsp;&nbsp;<html:img src="discv.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.discv.alt" align="absmiddle" style="border:1px solid" width="63" height="40"/>
-            &nbsp;&nbsp;<html:img src="mcard.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.mcard.alt" align="absmiddle" style="border:1px solid" width="64" height="40"/>
-            &nbsp;&nbsp;<html:img src="visa.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.visa.alt" align="absmiddle" style="border:1px solid" width="64" height="40"/>
+            <html:img src="amex.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.amex.alt" style="border:1px solid" width="64" height="40"/>
+            &nbsp;&nbsp;<html:img src="discv.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.discv.alt" style="border:1px solid" width="63" height="40"/>
+            &nbsp;&nbsp;<html:img src="mcard.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.mcard.alt" style="border:1px solid" width="64" height="40"/>
+            &nbsp;&nbsp;<html:img src="visa.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.visa.alt" style="border:1px solid" width="64" height="40"/>
         </td></tr>
         <tr><td colspan="4">&nbsp;</td></tr>
         <tr>
