@@ -789,7 +789,7 @@ public class TextSkin extends Skin {
             out.print(groupId);
             out.print('_');
             out.print(popupId);
-            out.print("\" style=\"white-space:nowrap; position:absolute; bottom:30px; left:30px; visibility: hidden; z-index:1\">\n"
+            out.print("\" style=\"white-space:nowrap; position:absolute; bottom:30px; left:30px; visibility: hidden; z-index:1\">\n" // TODO: Avoid z-index because IE 6 doesn't handle properly
                     + "        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"");
             if(width!=null && width.length()>0) {
                 out.print(" width=\"");

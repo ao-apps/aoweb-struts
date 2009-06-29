@@ -21,7 +21,7 @@
     <aoweb:exists path="/WEB-INF/jsp/add-siblings.jsp">
         <jsp:include page="/WEB-INF/jsp/add-siblings.jsp"/>
     </aoweb:exists>
-    <skin:skin onload="document.forms['contactForm'].from.select(); document.forms['contactForm'].form.focus();">
+    <skin:skin onload="document.forms['contactForm'].from.select(); document.forms['contactForm'].from.focus();">
         <skin:content colspans="3" width="600">
             <skin:contentTitle><bean:message bundle="/ApplicationResources" key="contact.title"/></skin:contentTitle>
             <skin:contentHorizontalDivider colspansAndDirections="1,down,1"/>
