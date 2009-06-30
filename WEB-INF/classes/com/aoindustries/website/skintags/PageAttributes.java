@@ -58,26 +58,54 @@ public class PageAttributes {
 
     public static class Link {
 
+        /**
+         * This matches the list documented in aoweb-struts-skin.tld
+         */
+        public static boolean isValidConditionalCommentExpression(String conditionalCommentExpression) {
+            return
+                "IE 6".equals(conditionalCommentExpression)
+                || "IE 7".equals(conditionalCommentExpression)
+                || "IE 8".equals(conditionalCommentExpression)
+            ;
+        }
+
         private final String rel;
         private final String href;
         private final String type;
+        private final String conditionalCommentExpression;
 
-        Link(String rel, String href, String type) {
+        Link(String rel, String href, String type, String conditionalCommentExpression) {
             this.rel = rel;
             this.href = href;
             this.type = type;
+            if(conditionalCommentExpression==null || isValidConditionalCommentExpression(conditionalCommentExpression)) {
+                this.conditionalCommentExpression = conditionalCommentExpression;
+            } else {
+                throw new IllegalArgumentException(ApplicationResourcesAccessor.getMessage(
+                    "Invalid value for conditional comment expression.  Please refer to aoweb-struts-skin.tld for the valid values.",
+                    Locale.getDefault(),
+                    "skintags.PageAttributes.Link.conditionalCommentExpression.invalid")
+                );
+            }
         }
 
         public String getRel() {
             return rel;
         }
 
+        /**
+         * Gets the already URL-encoded href.
+         */
         public String getHref() {
             return href;
         }
 
         public String getType() {
             return type;
+        }
+
+        public String getConditionalCommentExpression() {
+            return conditionalCommentExpression;
         }
     }
 
@@ -157,9 +185,9 @@ public class PageAttributes {
         return unmodifiableLinks;
     }
 
-    public void addLink(String rel, String href, String type) {
+    public void addLink(String rel, String href, String type, String conditionalCommentExpression) {
         if(links==null) links = new ArrayList<Link>();
-        links.add(new Link(rel, href, type));
+        links.add(new Link(rel, href, type, conditionalCommentExpression));
     }
 
     public String getTitle() {

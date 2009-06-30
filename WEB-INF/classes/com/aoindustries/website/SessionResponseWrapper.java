@@ -240,7 +240,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             url.indexOf("?"+encodedName+'=')==-1
             && url.indexOf("&"+encodedName+'=')==-1
         ) {
-            return url+'&'+encodedName+'='+URLEncoder.encode(value, "UTF-8");
+            return url+"&amp;"+encodedName+'='+URLEncoder.encode(value, "UTF-8");
         }
         return url;
     }

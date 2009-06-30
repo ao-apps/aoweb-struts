@@ -39,7 +39,11 @@
     <name>path</name>
     <tag-class>com.aoindustries.website.skintags.PathTag</tag-class>
     <body-content>JSP</body-content>
-    <description>Sets the path for this page, relative to the root of the application.</description>
+    <description>
+        Sets the path for this page, relative to the root of the application.
+        This value must be properly encoded for direct output to XHTML.  For
+        example, parameters should be separated by &amp;amp; and URL encoded.
+    </description>
     <example/>
   </tag>
   <tag>
@@ -59,6 +63,7 @@
   <tag>
     <name>link</name>
     <tag-class>com.aoindustries.website.skintags.LinkTag</tag-class>
+    <tei-class>com.aoindustries.website.skintags.LinkTagTEI</tei-class>
     <body-content>empty</body-content>
     <description>Adds a link tag to this page.</description>
     <attribute>
@@ -73,7 +78,11 @@
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
       <type>String</type>
-      <description>The href of the link tag.</description>
+      <description>
+        The href of the link tag.
+        This value must be properly encoded for direct output to XHTML.  For
+        example, parameters should be separated by &amp;amp; and URL encoded.
+      </description>
     </attribute>
     <attribute>
       <name>type</name>
@@ -81,6 +90,24 @@
       <rtexprvalue>true</rtexprvalue>
       <type>String</type>
       <description>The type of the link tag.</description>
+    </attribute>
+    <attribute>
+      <name>conditionalCommentExpression</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>String</type>
+      <description>
+        <![CDATA[
+          If provided, will enclose the link in an IE conditional comment.  This
+          is useful to include specific stylesheets for specific versions of IE.
+          The accepted values are:
+          <table>
+            <tr><th>IE 6</th><td>Uses the link for IE 6 only.</td></tr>
+            <tr><th>IE 7</th><td>Uses the link for IE 7 or IE 8 in compatibility mode.</td></tr>
+            <tr><th>IE 8</th><td>Uses the link for IE 8 only.</td></tr>
+          </table>
+        ]]>
+      </description>
     </attribute>
     <example/>
   </tag>
@@ -115,7 +142,11 @@
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
       <type>boolean</type>
-      <description>The application relative path to the page.</description>
+      <description>
+        The application relative path to the page.
+        This value must be properly encoded for direct output to XHTML.  For
+        example, parameters should be separated by &amp;amp; and URL encoded.
+      </description>
     </attribute>
     <example/>
   </tag>
@@ -136,7 +167,11 @@
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
       <type>boolean</type>
-      <description>The application relative path to the page.</description>
+      <description>
+        The application relative path to the page.
+        This value must be properly encoded for direct output to XHTML.  For
+        example, parameters should be separated by &amp;amp; and URL encoded.
+      </description>
     </attribute>
     <example/>
   </tag>

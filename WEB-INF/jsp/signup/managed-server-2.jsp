@@ -23,12 +23,14 @@
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
                 <script type='text/javascript'>
+                    // <![CDATA[
                     var signupCustomizeServerFormName = 'managedSignupCustomizeServerForm';
                     function selectStep(step) {
                         var form = document.forms['managedSignupCustomizeServerForm'];
                         form.selectedStep.value=step;
                         form.submit();
                     }
+                    // ]]>
                 </script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="2"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="managed-server"/>

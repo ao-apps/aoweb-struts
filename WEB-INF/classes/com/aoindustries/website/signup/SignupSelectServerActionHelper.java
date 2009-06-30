@@ -118,7 +118,7 @@ final public class SignupSelectServerActionHelper {
         request.setAttribute("setup", getSetup(packageDefinition));
     }
     
-    public static void printConfirmation(ChainWriter emailOut, Locale contentLocale, PackageDefinition packageDefinition, MessageResources signupApplicationResources) {
+    public static void printConfirmation(ChainWriter emailOut, Locale contentLocale, PackageDefinition packageDefinition, MessageResources signupApplicationResources) throws IOException {
         emailOut.print("    <tr>\n"
                      + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
                      + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupSelectServerForm.packageDefinition.prompt")).print("</td>\n"

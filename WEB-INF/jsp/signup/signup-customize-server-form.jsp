@@ -8,6 +8,7 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <script type='text/javascript'>
+    // <![CDATA[
     function formatDecimal(pennies) {
         var penniesOnly=pennies%100;
         var dollars=(pennies-penniesOnly)/100;
@@ -130,12 +131,13 @@
 
         form.totalMonthly.value="$"+formatDecimal(totalMonthly);
     }
+    // ]]>
 </script>
 <input type="hidden" name="selectedStep" value="" />
 <skin:lightArea>
     <table cellspacing="0" cellpadding="2">
         <tr><th colspan="2" class='aoLightRow'>
-            <font size="+1"><bean:write scope="request" name="packageDefinition" property="display"/></font>
+            <span style="font-size:large;"><bean:write scope="request" name="packageDefinition" property="display"/></span>
         </th></tr>
         <logic:notEmpty scope="request" name="powerOptions">
             <tr>

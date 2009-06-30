@@ -5,6 +5,8 @@
   All rights reserved.
 --%>
 <%@ page language="java" buffer="256kb" autoFlush="true" %>
+<%@ page import="com.aoindustries.io.ChainWriter" %>
+<%@ page import="com.aoindustries.util.StringUtility" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
@@ -23,14 +25,16 @@
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
                 <script type='text/javascript'>
+                    // <![CDATA[
                     function selectStep(step) {
-                        if(step=="managed-server") window.location.href="<%= response.encodeURL("managed-server.do") %>";
-                        else if(step=="managed-server-2") window.location.href="<%= response.encodeURL("managed-server-2.do") %>";
-                        else if(step=="managed-server-3") window.location.href="<%= response.encodeURL("managed-server-3.do") %>";
-                        else if(step=="managed-server-4") window.location.href="<%= response.encodeURL("managed-server-4.do") %>";
-                        else if(step=="managed-server-5") window.location.href="<%= response.encodeURL("managed-server-5.do") %>";
-                        else if(step=="managed-server-6") window.location.href="<%= response.encodeURL("managed-server-6.do") %>";
+                        if(step=="managed-server") window.location.href="<% ChainWriter.writeJavaScriptString(StringUtility.replace(response.encodeURL("managed-server.do"), "&amp;", "&"), out); %>";
+                        else if(step=="managed-server-2") window.location.href="<% ChainWriter.writeJavaScriptString(StringUtility.replace(response.encodeURL("managed-server-2.do"), "&amp;", "&"), out); %>";
+                        else if(step=="managed-server-3") window.location.href="<% ChainWriter.writeJavaScriptString(StringUtility.replace(response.encodeURL("managed-server-3.do"), "&amp;", "&"), out); %>";
+                        else if(step=="managed-server-4") window.location.href="<% ChainWriter.writeJavaScriptString(StringUtility.replace(response.encodeURL("managed-server-4.do"), "&amp;", "&"), out); %>";
+                        else if(step=="managed-server-5") window.location.href="<% ChainWriter.writeJavaScriptString(StringUtility.replace(response.encodeURL("managed-server-5.do"), "&amp;", "&"), out); %>";
+                        else if(step=="managed-server-6") window.location.href="<% ChainWriter.writeJavaScriptString(StringUtility.replace(response.encodeURL("managed-server-6.do"), "&amp;", "&"), out); %>";
                     }
+                    // ]]>
                 </script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="7"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="managed-server"/>

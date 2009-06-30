@@ -5,6 +5,8 @@
   All rights reserved.
 --%>
 <%@ page language="java" buffer="256kb" autoFlush="true" %>
+<%@ page import="com.aoindustries.io.ChainWriter" %>
+<%@ page import="com.aoindustries.util.StringUtility" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
@@ -23,13 +25,15 @@
             <skin:contentHorizontalDivider/>
             <skin:contentLine>
                 <script type='text/javascript'>
+                    // <![CDATA[
                     function selectStep(step) {
-                        if(step=="virtual-dedicated-server") window.location.href="<%= response.encodeURL("virtual-dedicated-server.do") %>";
-                        else if(step=="virtual-dedicated-server-2") window.location.href="<%= response.encodeURL("virtual-dedicated-server-2.do") %>";
-                        else if(step=="virtual-dedicated-server-3") window.location.href="<%= response.encodeURL("virtual-dedicated-server-3.do") %>";
-                        else if(step=="virtual-dedicated-server-4") window.location.href="<%= response.encodeURL("virtual-dedicated-server-4.do") %>";
-                        else if(step=="virtual-dedicated-server-5") window.location.href="<%= response.encodeURL("virtual-dedicated-server-5.do") %>";
+                        if(step=="virtual-dedicated-server") window.location.href="<% ChainWriter.writeJavaScriptString(StringUtility.replace(response.encodeURL("virtual-dedicated-server.do"), "&amp;", "&"), out); %>";
+                        else if(step=="virtual-dedicated-server-2") window.location.href="<% ChainWriter.writeJavaScriptString(StringUtility.replace(response.encodeURL("virtual-dedicated-server-2.do"), "&amp;", "&"), out); %>";
+                        else if(step=="virtual-dedicated-server-3") window.location.href="<% ChainWriter.writeJavaScriptString(StringUtility.replace(response.encodeURL("virtual-dedicated-server-3.do"), "&amp;", "&"), out); %>";
+                        else if(step=="virtual-dedicated-server-4") window.location.href="<% ChainWriter.writeJavaScriptString(StringUtility.replace(response.encodeURL("virtual-dedicated-server-4.do"), "&amp;", "&"), out); %>";
+                        else if(step=="virtual-dedicated-server-5") window.location.href="<% ChainWriter.writeJavaScriptString(StringUtility.replace(response.encodeURL("virtual-dedicated-server-5.do"), "&amp;", "&"), out); %>";
                     }
+                    // ]]>
                 </script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="6"/>
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="virtual-dedicated-server"/>

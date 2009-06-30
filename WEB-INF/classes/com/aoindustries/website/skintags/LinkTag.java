@@ -15,6 +15,7 @@ public class LinkTag extends PageAttributesTag {
     private String rel;
     private String href;
     private String type;
+    private String conditionalCommentExpression;
 
     public LinkTag() {
         init();
@@ -24,12 +25,13 @@ public class LinkTag extends PageAttributesTag {
         rel = null;
         href = null;
         type = null;
+        conditionalCommentExpression = null;
     }
 
     @Override
     public int doStartTag(PageAttributes pageAttributes) throws JspException {
         try {
-            pageAttributes.addLink(rel, href, type);
+            pageAttributes.addLink(rel, href, type, conditionalCommentExpression);
             return SKIP_BODY;
         } finally {
             init();
@@ -76,5 +78,19 @@ public class LinkTag extends PageAttributesTag {
      */
     public void setType(String type) {
         this.type = type;
+    }
+
+    /**
+     * @return the conditionalCommentExpression
+     */
+    public String getConditionalCommentExpression() {
+        return conditionalCommentExpression;
+    }
+
+    /**
+     * @param conditionalCommentExpression the conditionalCommentExpression to set
+     */
+    public void setConditionalCommentExpression(String conditionalCommentExpression) {
+        this.conditionalCommentExpression = conditionalCommentExpression;
     }
 }

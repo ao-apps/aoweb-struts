@@ -14,24 +14,24 @@ import javax.servlet.jsp.tagext.ValidationMessage;
 /**
  * @author  AO Industries, Inc.
  */
-public class SkinTagTEI extends TagExtraInfo {
+public class LinkTagTEI extends TagExtraInfo {
 
     @Override
     public ValidationMessage[] validate(TagData data) {
-        Object o = data.getAttribute("layout");
+        Object o = data.getAttribute("conditionalCommentExpression");
         if(
             o != null
             && o != TagData.REQUEST_TIME_VALUE
         ) {
-            if(PageAttributes.LAYOUT_NORMAL.equals(o) || PageAttributes.LAYOUT_MINIMAL.equals(o)) return null;
+            if(PageAttributes.Link.isValidConditionalCommentExpression((String)o)) return null;
             else {
                 return new ValidationMessage[] {
                     new ValidationMessage(
                         data.getId(),
                         ApplicationResourcesAccessor.getMessage(
-                            "Invalid value for layout, must be either \"normal\" or \"minimal\"",
+                            "Invalid value for conditional comment expression.  Please refer to aoweb-struts-skin.tld for the valid values.",
                             Locale.getDefault(),
-                            "skintags.SkinTagTEI.validate.layout.invalid"
+                            "skintags.LinkTagTEI.validate.layout.invalid"
                         )
                     )
                 };

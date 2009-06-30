@@ -9,11 +9,13 @@
 
 <input type="hidden" name="selectedStep" value="" />
 <script type='text/javascript'>
+    // <![CDATA[
     function selectStep(step) {
         var form = document.forms['signupBusinessForm'];
         form.selectedStep.value=step;
         form.submit();
     }
+    // ]]>
 </script>
 <skin:lightArea>
      <table cellpadding="0" cellspacing="0">

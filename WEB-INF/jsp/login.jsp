@@ -38,7 +38,7 @@
                         <%-- Add the authenticationTarget to the form because the new session could expire before they login and lost their target --%>
                         <logic:present scope="session" name="authenticationTarget">
                             <bean:define scope="session" name="authenticationTarget" type="java.lang.String" id="authenticationTarget"/>
-                            <input type="hidden" name="authenticationTarget" value="<% com.aoindustries.io.ChainWriter.writeHtmlAttribute(authenticationTarget, out); %>" />
+                            <input type="hidden" name="authenticationTarget" value="<%= authenticationTarget %>" />
                         </logic:present>
                         <table cellspacing='2' cellpadding='0'>
                             <tr>

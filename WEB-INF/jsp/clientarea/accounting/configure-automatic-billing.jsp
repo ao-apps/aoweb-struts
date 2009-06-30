@@ -54,7 +54,7 @@
                                                     type="radio"
                                                     name="pkey"
                                                     value="<%= creditCard.getPkey() %>"
-                                                    onChange='this.form.submitButton.disabled=false;'
+                                                    onchange='this.form.submitButton.disabled=false;'
                                                 />
                                             </logic:notPresent>
                                             <logic:present scope="request" name="automaticCard">
@@ -64,7 +64,7 @@
                                                         name="pkey"
                                                         value="<%= creditCard.getPkey() %>"
                                                         checked
-                                                        onChange='this.form.submitButton.disabled=true;'
+                                                        onchange='this.form.submitButton.disabled=true;'
                                                     />
                                                 </logic:equal>
                                                 <logic:notEqual scope="request" name="automaticCard" property="pkey" value="<%= Integer.toString(creditCard.getPkey()) %>">
@@ -72,7 +72,7 @@
                                                         type="radio"
                                                         name="pkey"
                                                         value="<%= creditCard.getPkey() %>"
-                                                        onChange='this.form.submitButton.disabled=false;'
+                                                        onchange='this.form.submitButton.disabled=false;'
                                                     />
                                                 </logic:notEqual>
                                             </logic:present>
@@ -105,10 +105,10 @@
                                 <skin:lightDarkTableRow>
                                     <td style="white-space:nowrap">
                                         <logic:notPresent scope="request" name="automaticCard">
-                                            <input type="radio" name="pkey" value="" checked onChange='this.form.submitButton.disabled=true;' />
+                                            <input type="radio" name="pkey" value="" checked onchange='this.form.submitButton.disabled=true;' />
                                         </logic:notPresent>
                                         <logic:present scope="request" name="automaticCard">
-                                            <input type="radio" name="pkey" value="" onChange='this.form.submitButton.disabled=false;' />
+                                            <input type="radio" name="pkey" value="" onchange='this.form.submitButton.disabled=false;' />
                                         </logic:present>
                                     </td>
                                     <td style='white-space:nowrap' colspan="3"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBilling.noAutomaticBilling"/></td>

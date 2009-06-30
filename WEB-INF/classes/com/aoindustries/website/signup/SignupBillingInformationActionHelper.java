@@ -5,7 +5,6 @@ package com.aoindustries.website.signup;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.io.ChainWriter;
 import java.io.IOException;
@@ -66,7 +65,7 @@ final public class SignupBillingInformationActionHelper {
         request.setAttribute("billingCardNumber", getBillingCardNumber(signupBillingInformationForm));
     }
 
-    public static void printConfirmation(ChainWriter emailOut, Locale contentLocale, MessageResources signupApplicationResources, SignupBillingInformationForm signupBillingInformationForm) {
+    public static void printConfirmation(ChainWriter emailOut, Locale contentLocale, MessageResources signupApplicationResources, SignupBillingInformationForm signupBillingInformationForm) throws IOException {
         emailOut.print("    <tr>\n"
                      + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.required")).print("</td>\n"
                      + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupBillingInformationForm.billingContact.prompt")).print("</td>\n"
