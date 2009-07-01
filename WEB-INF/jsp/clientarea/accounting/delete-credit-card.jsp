@@ -34,7 +34,7 @@
                 </logic:present>
                 <logic:notPresent scope="request" name="permissionDenied">
                     <bean:define scope="request" name="creditCard" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard"/>
-                    <form method="POST" action="<%= response.encodeURL("delete-credit-card-completed.do") %>">
+                    <form method="post" action="<%= response.encodeURL("delete-credit-card-completed.do") %>">
                         <input type="hidden" name="pkey" value="<bean:write name="creditCard" property="pkey"/>" />
                         <skin:lightArea>
                             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.confirmation.title"/>

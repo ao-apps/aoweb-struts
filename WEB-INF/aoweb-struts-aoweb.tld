@@ -36,12 +36,40 @@
     <example/>
   </tag>
   <tag>
+    <name>scriptGroup</name>
+    <tag-class>com.aoindustries.website.aowebtags.ScriptGroupTag</tag-class>
+    <tei-class>com.aoindustries.website.aowebtags.ScriptGroupTagTEI</tei-class>
+    <body-content>JSP</body-content>
+    <description>
+        Some scripts may benefit by delaying or batching their execution.  This
+        is especially true when making many changes to the DOM.  By nesting
+        related script-generating tags inside a scriptGroup, the execution
+        will be batched into a single script.
+    </description>
+    <attribute>
+      <name>onloadMode</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>String</type>
+      <description>
+        Supports three options:
+            none (the default) - executes the script directly in the body
+            before - executes the script before any existing onload script
+            after - executes the script after any existing onload script
+        TODO: Consider renaming to something more generic and including option for ondomready event.
+      </description>
+    </attribute>
+    <example/>
+  </tag>
+  <tag>
     <name>date</name>
     <tag-class>com.aoindustries.website.aowebtags.DateTag</tag-class>
     <body-content>JSP</body-content>
     <description>
         Prints a browser-local date.  The body should evaluate to the number of milliseconds since the Epoch.
-        If the body is empty, will print &amp;nbsp; as a placeholder.
+        If the body is empty, will print &amp;#160; as a placeholder.
+        This may optionally be placed into a scriptGroup tag to create a single large
+        script instead of many small scripts.
     </description>
     <example/>
   </tag>
@@ -51,7 +79,9 @@
     <body-content>JSP</body-content>
     <description>
         Prints a browser-local date and time.  The body should evaluate to the number of milliseconds since the Epoch.
-        If the body is empty, will print &amp;nbsp; as a placeholder.
+        If the body is empty, will print &amp;#160; as a placeholder.
+        This may optionally be placed into a scriptGroup tag to create a single large
+        script instead of many small scripts.
     </description>
     <example/>
   </tag>
@@ -61,7 +91,9 @@
     <body-content>JSP</body-content>
     <description>
         Prints a browser-local time.  The body should evaluate to the number of milliseconds since the Epoch.
-        If the body is empty, will print &amp;nbsp; as a placeholder.
+        If the body is empty, will print &amp;#160; as a placeholder.
+        This may optionally be placed into a scriptGroup tag to create a single large
+        script instead of many small scripts.
     </description>
     <example/>
   </tag>

@@ -31,11 +31,11 @@
                     <bean:define scope="request" name="business" id="business" type="com.aoindustries.aoserv.client.Business"/>
                     <table cellspacing='0' cellpadding='2'>
                         <tr>
-                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.business.prompt"/></th>
+                            <th style="text-align:left; white-space:nowrap;"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.business.prompt"/></th>
                             <td style="white-space:nowrap"><bean:write scope="request" name="business"/></td>
                         </tr>
                         <tr>
-                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.card.prompt"/></th>
+                            <th style="text-align:left; white-space:nowrap;"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.card.prompt"/></th>
                             <td style="white-space:nowrap">
                                 <% String cardInfo = creditCard.getCardInfo(); %>
                                 <% if(cardInfo.startsWith("34") || cardInfo.startsWith("37")) { %>
@@ -64,15 +64,15 @@
                             </td>
                         </tr>
                         <tr>
-                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.paymentAmount.prompt"/></th>
+                            <th style="text-align:left; white-space:nowrap;"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.paymentAmount.prompt"/></th>
                             <td style="white-space:nowrap">$<bean:write scope="request" name="transaction" property="transactionRequest.amount"/></td>
                         </tr>
                         <tr>
-                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.transid.prompt"/></th>
+                            <th style="text-align:left; white-space:nowrap;"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.transid.prompt"/></th>
                             <td style="white-space:nowrap"><bean:write scope="request" name="aoTransaction" property="transID"/></td>
                         </tr>
                         <tr>
-                            <th align='left' nowrap><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.approvalCode.prompt"/></th>
+                            <th style="text-align:left; white-space:nowrap;"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.approvalCode.prompt"/></th>
                             <td style="white-space:nowrap"><bean:write scope="request" name="transaction" property="authorizationResult.approvalCode"/></td>
                         </tr>
                         <tr>

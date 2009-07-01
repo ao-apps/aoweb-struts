@@ -39,7 +39,7 @@
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="virtual-dedicated-server"/>
                 <%@ include file="dedicated-server-steps.jsp" %>
                 <br />
-                <form action="<%= response.encodeURL("virtual-dedicated-server-6-completed.do") %>" method="POST">
+                <form action="<%= response.encodeURL("virtual-dedicated-server-6-completed.do") %>" method="post">
                     <%@ include file="dedicated-server-confirmation.jsp" %>
                 </form>
             </skin:contentLine>

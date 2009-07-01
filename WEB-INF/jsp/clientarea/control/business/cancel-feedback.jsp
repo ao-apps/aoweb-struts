@@ -33,10 +33,13 @@
                     <skin:lightArea>
                         <bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel-feedback.prompt" arg0="<%= business.getAccounting() %>"/>
                         <html:form action="/business/cancel-feedback-completed">
-                            <html:hidden property="business"/>
-                            <html:textarea property="reason" rows="16" cols="80"/><br />
-                            <br />
-                            <center><html:submit><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel-feedback.submit.label"/></html:submit></center>
+                            <div>
+                                <html:hidden property="business"/>
+                                <html:textarea property="reason" rows="16" cols="80"/>
+                            </div>
+                            <div style="text-align:center; margin-top:1em;">
+                                <html:submit><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel-feedback.submit.label"/></html:submit>
+                            </div>
                         </html:form>
                     </skin:lightArea>
                 </logic:notPresent>

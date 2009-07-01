@@ -48,7 +48,7 @@ public class PopupCloseTag extends TagSupport {
             throw new JspException(applicationResources.getMessage(locale, "skintags.PopupTag.mustNestInPopupGroupTag"));
         } else {
             HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-            skin.printPopupClose((HttpServletRequest)pageContext.getRequest(), resp, pageContext.getOut(), popupGroupTag.id, popupTag.id);
+            skin.printPopupClose((HttpServletRequest)pageContext.getRequest(), resp, pageContext.getOut(), popupGroupTag.sequenceId, popupTag.sequenceId);
         }
         return SKIP_BODY;
     }

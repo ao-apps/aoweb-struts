@@ -184,13 +184,22 @@ public class TextSkin extends Skin {
             if(author!=null && author.length()>0) {
                 out.print("    <meta name='author' content='"); EncodingUtils.encodeXmlAttribute(author, out); out.print("' />\n");
             }
-            out.print("    <link rel='stylesheet' href='"); out.print(resp.encodeURL(urlBase+"textskin/global.css")); out.print("' type='text/css' />\n");
+            out.print("    <link rel='stylesheet' href='"); out.print(resp.encodeURL(urlBase+"textskin/global.css")); out.print("' type='text/css' />\n"
+                    + "    <!--[if IE 6]>\n"
+                    + "      <link rel='stylesheet' href='"); out.print(resp.encodeURL(urlBase+"textskin/global-ie6.css")); out.print("' type='text/css' />\n"
+                    + "    <![endif]-->\n");
             printCssIncludes(resp, out, urlBase);
             defaultPrintLinks(out, pageAttributes);
             printJavaScriptSources(resp, out, urlBase);
             out.print("    <script type='text/javascript' src='");
             out.print(resp.encodeURL(urlBase + "commons-validator-1.3.1-compress.js"));
             out.print("'></script>\n");
+            String googleAnalyticsNewTrackingCode = brand.getAowebStrutsGoogleAnalyticsNewTrackingCode();
+            if(googleAnalyticsNewTrackingCode!=null) {
+                out.print("    <script type='text/javascript' src='");
+                out.print(req.isSecure() ? "https://ssl.google-analytics.com/ga.js" : "http://www.google-analytics.com/ga.js");
+                out.print("'></script>\n");
+            }
             printFavIcon(resp, out, urlBase);
             out.print("  </head>\n"
                     + "  <body");
@@ -576,16 +585,13 @@ public class TextSkin extends Skin {
                     + "    </table>\n");
             String googleAnalyticsNewTrackingCode = SiteSettings.getInstance(req.getSession().getServletContext()).getBrand().getAowebStrutsGoogleAnalyticsNewTrackingCode();
             if(googleAnalyticsNewTrackingCode!=null) {
-                out.print("<script src='");
-                out.print(req.isSecure() ? "https://ssl.google-analytics.com/ga.js" : "http://www.google-analytics.com/ga.js");
-                out.print("' type='text/javascript'></script>\n"
-                        + "<script type=\"text/javascript\">\n"
-                        + "  try {\n"
-                        + "    var pageTracker = _gat._getTracker(\""); out.print(googleAnalyticsNewTrackingCode); out.print("\");\n"
-                        + "    pageTracker._trackPageview();\n"
-                        + "  } catch(err) {\n"
-                        + "  }\n"
-                        + "</script>\n");
+                out.print("    <script type=\"text/javascript\">\n"
+                        + "      try {\n"
+                        + "        var pageTracker = _gat._getTracker(\""); out.print(googleAnalyticsNewTrackingCode); out.print("\");\n"
+                        + "        pageTracker._trackPageview();\n"
+                        + "      } catch(err) {\n"
+                        + "      }\n"
+                        + "    </script>\n");
             }
             out.print("  </body>\n");
         } catch(IOException err) {
@@ -599,14 +605,19 @@ public class TextSkin extends Skin {
         try {
             out.print("<table style='border:5px outset #a0a0a0;' cellpadding='0' cellspacing='0'>\n"
                     + "  <tr>\n"
-                    + "    <td class='aoLightRow' style='padding:4px;'");
+                    + "    <td class='aoLightRow' style='padding:4px;");
             if(width!=null && (width=width.trim()).length()>0) {
-                out.print(" width='");
-                out.print(width);
-                out.print('\'');
+                out.print(" width:");
+                try {
+                    int intWidth = Integer.parseInt(width);
+                    out.print(intWidth);
+                    out.print("px;");
+                } catch(NumberFormatException err) {
+                    out.print(width);
+                }
             }
-            if(nowrap) out.print(" nowrap");
-            out.print('>');
+            if(nowrap) out.print(" white-space:nowrap;");
+            out.print("'>");
         } catch(IOException err) {
             throw new JspException(err);
         }
@@ -626,14 +637,19 @@ public class TextSkin extends Skin {
         try {
             out.print("<table style='border:5px' cellpadding='0' cellspacing='0'>\n"
                     + "  <tr>\n"
-                    + "    <td class='aoWhiteRow' style='padding:4px;'");
+                    + "    <td class='aoWhiteRow' style='padding:4px;");
             if(width!=null && (width=width.trim()).length()>0) {
-                out.print(" width='");
-                out.print(width);
-                out.print('\'');
+                out.print(" width:");
+                try {
+                    int intWidth = Integer.parseInt(width);
+                    out.print(intWidth);
+                    out.print("px;");
+                } catch(NumberFormatException err) {
+                    out.print(width);
+                }
             }
-            if(nowrap) out.print(" nowrap");
-            out.print('>');
+            if(nowrap) out.print(" white-space:nowrap;");
+            out.print("'>");
         } catch(IOException err) {
             throw new JspException(err);
         }
@@ -716,16 +732,16 @@ public class TextSkin extends Skin {
                     + "    var popupGroupTimer"); out.print(groupId); out.print("=null;\n"
                     + "    var popupGroupAuto"); out.print(groupId); out.print("=null;\n"
                     + "    function popupGroupHideAllDetails"); out.print(groupId); out.print("() {\n"
-                    + "        var spanElements = document.getElementsByTagName ? document.getElementsByTagName(\"span\") : document.all.tags(\"span\");\n"
+                    + "        var spanElements = document.getElementsByTagName ? document.getElementsByTagName(\"div\") : document.all.tags(\"div\");\n"
                     + "        for (var c=0; c < spanElements.length; c++) {\n"
-                    + "            if(spanElements[c].id.indexOf(\"groupedPopup_"); out.print(groupId); out.print("_\")==0) {\n"
+                    + "            if(spanElements[c].id.indexOf(\"aoPopup_"); out.print(groupId); out.print("_\")==0) {\n"
                     + "                spanElements[c].style.visibility=\"hidden\";\n"
                     + "            }\n"
                     + "        }\n"
                     + "    }\n"
                     + "    function popupGroupToggleDetails"); out.print(groupId); out.print("(popupId) {\n"
                     + "        if(popupGroupTimer"); out.print(groupId); out.print("!=null) clearTimeout(popupGroupTimer"); out.print(groupId); out.print(");\n"
-                    + "        var elemStyle = document.getElementById(\"groupedPopup_"); out.print(groupId); out.print("_\"+popupId).style;\n"
+                    + "        var elemStyle = document.getElementById(\"aoPopup_"); out.print(groupId); out.print("_\"+popupId).style;\n"
                     + "        if(elemStyle.visibility==\"visible\") {\n"
                     + "            elemStyle.visibility=\"hidden\";\n"
                     + "        } else {\n"
@@ -735,7 +751,7 @@ public class TextSkin extends Skin {
                     + "    }\n"
                     + "    function popupGroupShowDetails"); out.print(groupId); out.print("(popupId) {\n"
                     + "        if(popupGroupTimer"); out.print(groupId); out.print("!=null) clearTimeout(popupGroupTimer"); out.print(groupId); out.print(");\n"
-                    + "        var elemStyle = document.getElementById(\"groupedPopup_"); out.print(groupId); out.print("_\"+popupId).style;\n"
+                    + "        var elemStyle = document.getElementById(\"aoPopup_"); out.print(groupId); out.print("_\"+popupId).style;\n"
                     + "        if(elemStyle.visibility!=\"visible\") {\n"
                     + "            popupGroupHideAllDetails"); out.print(groupId); out.print("();\n"
                     + "            elemStyle.visibility=\"visible\";\n"
@@ -783,19 +799,19 @@ public class TextSkin extends Skin {
             Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
             MessageResources applicationResources = getMessageResources(req);
 
-            out.print("<span id=\"groupedPopupAnchor_");
+            out.print("<div id=\"aoPopupAnchor_");
             out.print(groupId);
             out.print('_');
             out.print(popupId);
-            out.print("\" style=\"position:relative;\"><img src=\"");
+            out.print("\" class=\"aoPopupAnchor\"><img class=\"aoPopupAnchorImg\" src=\"");
             out.print(resp.encodeURL(urlBase + applicationResources.getMessage(locale, "TextSkin.popup.src")));
             out.print("\" alt=\"");
             out.print(applicationResources.getMessage(locale, "TextSkin.popup.alt"));
-            out.print("\" border=\"0\" width=\"");
+            out.print("\" width=\"");
             out.print(applicationResources.getMessage(locale, "TextSkin.popup.width"));
             out.print("\" height=\"");
             out.print(applicationResources.getMessage(locale, "TextSkin.popup.height"));
-            out.print("\" align=\"absmiddle\" style=\"cursor:pointer; cursor:hand;\" onmouseover=\"popupGroupTimer");
+            out.print("\" onmouseover=\"popupGroupTimer");
             out.print(groupId);
             out.print("=setTimeout('popupGroupAuto");
             out.print(groupId);
@@ -817,38 +833,40 @@ public class TextSkin extends Skin {
             out.print(groupId);
             out.print('(');
             out.print(popupId);
-            out.print(");\">\n"
-                    + "    <span id=\"groupedPopup_"); // Used to be span width=\"100%\"
+            out.print(");\" />\n"
+                    + "    <div id=\"aoPopup_"); // Used to be span width=\"100%\"
             out.print(groupId);
             out.print('_');
             out.print(popupId);
-            out.print("\" style=\"white-space:nowrap; position:absolute; bottom:30px; left:30px; visibility: hidden; z-index:1\">\n" // TODO: Avoid z-index because IE 6 doesn't handle properly
-                    + "        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"");
+            out.print("\" class=\"aoPopupMain\" style=\"");
             if(width!=null && width.length()>0) {
-                out.print(" width=\"");
-                out.print(width);
-                out.print('"');
+                out.print("width:");
+                try {
+                    int widthInt = Integer.parseInt(width);
+                    out.print(widthInt);
+                    out.print("px");
+                } catch(NumberFormatException err) {
+                    out.print(width);
+                }
+                out.print(';');
             }
-            out.print(">\n"
+            out.print("\">\n"
+                    + "        <table class=\"aoPopupTable\" cellpadding=\"0\" cellspacing=\"0\">\n"
                     + "            <tr>\n"
-                    + "                <td style='white-space:nowrap' width=\"12\"><img src=\"");
+                    + "                <td class=\"aoPopupTL\"><img src=\"");
             out.print(resp.encodeURL(urlBase + "textskin/popup_topleft.gif"));
             out.print("\" width=\"12\" height=\"12\" alt=\"\" /></td>\n"
-                    + "                <td style=\"white-space:nowrap; height:12px; background-image:url(");
+                    + "                <td class=\"aoPopupTop\" style=\"background-image:url(");
             out.print(resp.encodeURL(urlBase + "textskin/popup_top.gif"));
-            out.print(");\"><img src=\"");
-            out.print(resp.encodeURL(urlBase + "textskin/popup_top.gif"));
-            out.print("\" width=\"1\" height=\"12\" alt=\"\" /></td>\n"
-                    + "                <td style='white-space:nowrap' width=\"12\"><img src=\"");
+            out.print(");\"></td>\n"
+                    + "                <td class=\"aoPopupTR\"><img src=\"");
             out.print(resp.encodeURL(urlBase + "textskin/popup_topright.gif"));
             out.print("\" width=\"12\" height=\"12\" alt=\"\" /></td>\n"
                     + "            </tr>\n"
                     + "            <tr>\n"
-                    + "                <td style=\"background-image:url(");
+                    + "                <td class=\"aoPopupLeft\" style=\"background-image:url(");
             out.print(resp.encodeURL(urlBase + "textskin/popup_left.gif"));
-            out.print(");\"><img src=\"");
-            out.print(resp.encodeURL(urlBase + "textskin/popup_left.gif"));
-            out.print("\" width=\"12\" height=\"12\" alt=\"\" /></td>\n"
+            out.print(");\"></td>\n"
                     + "                <td class=\"aoPopupLightRow\">");
         } catch(IOException err) {
             throw new JspException(err);
@@ -874,17 +892,17 @@ public class TextSkin extends Skin {
             Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
             MessageResources applicationResources = getMessageResources(req);
 
-            out.print("<img src=\"");
+            out.print("<img class=\"aoPopupClose\" src=\"");
             out.print(resp.encodeURL(urlBase + applicationResources.getMessage(locale, "TextSkin.popupClose.src")));
             out.print("\" alt=\"");
             out.print(applicationResources.getMessage(locale, "TextSkin.popupClose.alt"));
-            out.print("\" border=\"0\" width=\"");
+            out.print("\" width=\"");
             out.print(applicationResources.getMessage(locale, "TextSkin.popupClose.width"));
             out.print("\" height=\"");
             out.print(applicationResources.getMessage(locale, "TextSkin.popupClose.height"));
-            out.print("\" align=\"absmiddle\" style=\"cursor:pointer; cursor:hand;\" onclick=\"popupGroupHideAllDetails");
+            out.print("\" onclick=\"popupGroupHideAllDetails");
             out.print(groupId);
-            out.print("();\">");
+            out.print("();\" />");
         } catch(IOException err) {
             throw new JspException(err);
         }
@@ -906,32 +924,28 @@ public class TextSkin extends Skin {
     public static void defaultEndPopup(HttpServletRequest req, HttpServletResponse resp, JspWriter out, long groupId, long popupId, String width, String urlBase) throws JspException {
         try {
             out.print("</td>\n"
-                    + "                <td style=\"background-image:url(");
+                    + "                <td class=\"aoPopupRight\" style=\"background-image:url(");
             out.print(resp.encodeURL(urlBase + "textskin/popup_right.gif"));
-            out.print(");\"><img src=\"");
-            out.print(resp.encodeURL(urlBase + "textskin/popup_right.gif"));
-            out.print("\" width=\"12\" height=\"1\" alt=\"\" /></td>\n"
+            out.print(");\"></td>\n"
                     + "            </tr>\n"
                     + "            <tr>\n" 
-                    + "                <td style='white-space:nowrap' width=\"12\"><img src=\"");
+                    + "                <td class=\"aoPopupBL\"><img src=\"");
             out.print(resp.encodeURL(urlBase + "textskin/popup_bottomleft.gif"));
             out.print("\" width=\"12\" height=\"12\" alt=\"\" /></td>\n"
-                    + "                <td style=\"white-space:nowrap; height:12px; background-image:url(");
+                    + "                <td class=\"aoPopupBottom\" style=\"background-image:url(");
             out.print(resp.encodeURL(urlBase + "textskin/popup_bottom.gif"));
-            out.print(");\"><img src=\"");
-            out.print(resp.encodeURL(urlBase + "textskin/popup_bottom.gif"));
-            out.print("\" width=\"1\" height=\"12\" alt=\"\" /></td>\n"
-                    + "                <td style='white-space:nowrap' width=\"12\"><img src=\"");
+            out.print(");\"></td>\n"
+                    + "                <td class=\"aoPopupBR\"><img src=\"");
             out.print(resp.encodeURL(urlBase + "textskin/popup_bottomright.gif"));
             out.print("\" width=\"12\" height=\"12\" alt=\"\" /></td>\n"
                     + "            </tr>\n"
                     + "        </table>\n"
-                    + "    </span>\n"
-                    + "</span>\n"
+                    + "    </div>\n"
+                    + "</div>\n"
                     + "<script type='text/javascript'>\n"
                     + "    // <![CDATA[\n"
                     + "    // Override onload\n"
-                    + "    var groupedPopupOldOnload_");
+                    + "    var aoPopupOldOnload_");
             out.print(groupId);
             out.print('_');
             out.print(popupId);
@@ -946,17 +960,17 @@ public class TextSkin extends Skin {
             out.print('_');
             out.print(popupId);
             out.print("();\n"
-                    + "        if(groupedPopupOldOnload_");
+                    + "        if(aoPopupOldOnload_");
             out.print(groupId);
             out.print('_');
             out.print(popupId);
             out.print(") {\n"
-                    + "            groupedPopupOldOnload_");
+                    + "            aoPopupOldOnload_");
             out.print(groupId);
             out.print('_');
             out.print(popupId);
             out.print("();\n"
-                    + "            groupedPopupOldOnload_");
+                    + "            aoPopupOldOnload_");
             out.print(groupId);
             out.print('_');
             out.print(popupId);
@@ -969,7 +983,7 @@ public class TextSkin extends Skin {
             out.print(popupId);
             out.print(";\n"
                     + "    // Override onresize\n"
-                    + "    var groupedPopupOldOnresize_");
+                    + "    var aoPopupOldOnresize_");
             out.print(groupId);
             out.print('_');
             out.print(popupId);
@@ -984,12 +998,12 @@ public class TextSkin extends Skin {
             out.print('_');
             out.print(popupId);
             out.print("();\n"
-                    + "        if(groupedPopupOldOnresize_");
+                    + "        if(aoPopupOldOnresize_");
             out.print(groupId);
             out.print('_');
             out.print(popupId);
             out.print(") {\n"
-                    + "            groupedPopupOldOnresize_");
+                    + "            aoPopupOldOnresize_");
             out.print(groupId);
             out.print('_');
             out.print(popupId);
@@ -1006,12 +1020,12 @@ public class TextSkin extends Skin {
             out.print('_');
             out.print(popupId);
             out.print("() {\n"
-                    + "        var popupAnchor = document.getElementById(\"groupedPopupAnchor_");
+                    + "        var popupAnchor = document.getElementById(\"aoPopupAnchor_");
             out.print(groupId);
             out.print('_');
             out.print(popupId);
             out.print("\");\n"
-                    + "        var popup = document.getElementById(\"groupedPopup_");
+                    + "        var popup = document.getElementById(\"aoPopup_");
             out.print(groupId);
             out.print('_');
             out.print(popupId);

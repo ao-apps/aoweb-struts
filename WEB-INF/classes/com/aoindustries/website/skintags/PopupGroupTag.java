@@ -5,6 +5,8 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.util.Sequence;
+import com.aoindustries.util.UnsynchronizedSequence;
 import com.aoindustries.website.Skin;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
@@ -19,32 +21,31 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class PopupGroupTag extends BodyTagSupport {
 
-    private static long nextId=1;
-
     /**
-     * Each use of the tag will use a new unique identifier to avoid any page element name conflicts.
+     * The request attribute name used to store the sequence.
      */
-    synchronized private static long getNextId() {
-        long next = nextId++;
-        if(nextId==Long.MAX_VALUE) nextId = 1;
-        return next;
-    }
+    private static final String SEQUENCE_REQUEST_ATTRIBUTE_NAME = PopupGroupTag.class.getName()+".sequence";
 
-    long id;
+    long sequenceId;
 
     public PopupGroupTag() {
     }
 
+    @Override
     public int doStartTag() throws JspException {
-        id = getNextId();
+        HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+        Sequence sequence = (Sequence)req.getAttribute(SEQUENCE_REQUEST_ATTRIBUTE_NAME);
+        if(sequence==null) req.setAttribute(SEQUENCE_REQUEST_ATTRIBUTE_NAME, sequence = new UnsynchronizedSequence());
+        sequenceId = sequence.getNextSequenceValue();
         Skin skin = SkinTag.getSkin(pageContext);
-        skin.beginPopupGroup((HttpServletRequest)pageContext.getRequest(), pageContext.getOut(), id);
+        skin.beginPopupGroup(req, pageContext.getOut(), sequenceId);
         return EVAL_BODY_INCLUDE;
     }
 
+    @Override
     public int doEndTag() throws JspException {
         Skin skin = SkinTag.getSkin(pageContext);
-        skin.endPopupGroup((HttpServletRequest)pageContext.getRequest(), pageContext.getOut(), id);
+        skin.endPopupGroup((HttpServletRequest)pageContext.getRequest(), pageContext.getOut(), sequenceId);
         return EVAL_PAGE;
     }
 }

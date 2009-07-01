@@ -31,7 +31,7 @@
                     <%@ include file="../../permission-denied.jsp" %>
                 </logic:present>
                 <logic:notPresent scope="request" name="permissionDenied">
-                    <form method="POST" action="<%= response.encodeURL("configure-automatic-billing-completed.do") %>">
+                    <form method="post" action="<%= response.encodeURL("configure-automatic-billing-completed.do") %>">
                         <input name="accounting" type="hidden" value="<%= request.getParameter("accounting") %>" />
                         <skin:lightArea>
                             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBilling.cardList.title"/>
@@ -63,7 +63,7 @@
                                                         type="radio"
                                                         name="pkey"
                                                         value="<%= creditCard.getPkey() %>"
-                                                        checked
+                                                        checked="checked"
                                                         onchange='this.form.submitButton.disabled=true;'
                                                     />
                                                 </logic:equal>
@@ -105,7 +105,7 @@
                                 <skin:lightDarkTableRow>
                                     <td style="white-space:nowrap">
                                         <logic:notPresent scope="request" name="automaticCard">
-                                            <input type="radio" name="pkey" value="" checked onchange='this.form.submitButton.disabled=true;' />
+                                            <input type="radio" name="pkey" value="" checked="checked" onchange='this.form.submitButton.disabled=true;' />
                                         </logic:notPresent>
                                         <logic:present scope="request" name="automaticCard">
                                             <input type="radio" name="pkey" value="" onchange='this.form.submitButton.disabled=false;' />

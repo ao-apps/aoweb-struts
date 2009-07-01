@@ -54,16 +54,18 @@
                                     </tr>
                                     <logic:iterate scope="request" name="postgreSQLPasswordSetterForm" property="packages" id="pack" indexId="index">
                                         <tr>
-                                            <html:hidden property='<%= "packages[" + index + "]" %>'/>
                                             <logic:greaterThan name="packagesSize" value="1">
                                                 <td><bean:write name="pack" filter="true"/></td>
                                             </logic:greaterThan>
-                                            <td><code><html:hidden property='<%= "usernames[" + index + "]" %>' write="true" /></code></td>
-                                            <html:hidden property='<%= "postgreSQLServers[" + index + "]" %>'/>
+                                            <td>
+                                                <html:hidden property='<%= "packages[" + index + "]" %>'/>
+                                                <code><html:hidden property='<%= "usernames[" + index + "]" %>' write="true" /></code>
+                                                <html:hidden property='<%= "postgreSQLServers[" + index + "]" %>'/>
+                                                <html:hidden property='<%= "aoServers[" + index + "]" %>'/>
+                                            </td>
                                             <logic:greaterThan name="postgresServersSize" value="1">
                                                 <td><code><bean:write name="postgreSQLPasswordSetterForm" property='<%= "postgreSQLServers[" + index + "]" %>' filter="true"/></code></td>
                                             </logic:greaterThan>
-                                            <html:hidden property='<%= "aoServers[" + index + "]" %>'/>
                                             <logic:greaterThan name="aoServersSize" value="1">
                                                 <td><code><bean:write name="postgreSQLPasswordSetterForm" property='<%= "aoServers[" + index + "]" %>' filter="true"/></code></td>
                                             </logic:greaterThan>

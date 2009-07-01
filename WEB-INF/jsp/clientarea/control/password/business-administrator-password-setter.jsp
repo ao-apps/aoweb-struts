@@ -45,7 +45,10 @@
                                         <logic:greaterThan name="packagesSize" value="1">
                                             <td><bean:write name="pack" filter="true"/></td>
                                         </logic:greaterThan>
-                                        <td><html:hidden property='<%= "packages[" + index + "]" %>'/><code><html:hidden property='<%= "usernames[" + index + "]" %>' write="true" /></code></td>
+                                        <td>
+                                            <html:hidden property='<%= "packages[" + index + "]" %>'/>
+                                            <code><html:hidden property='<%= "usernames[" + index + "]" %>' write="true" /></code>
+                                        </td>
                                         <td><html:password size="20" property='<%= "newPasswords[" + index + "]" %>' /></td>
                                         <td style="white-space:nowrap">
                                             <html:errors bundle="/clientarea/control/ApplicationResources" property='<%= "newPasswords[" + index + "].newPasswords" %>'/>

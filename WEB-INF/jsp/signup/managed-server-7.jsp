@@ -40,7 +40,7 @@
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="managed-server"/>
                 <%@ include file="managed-server-steps.jsp" %>
                 <br />
-                <form action="<%= response.encodeURL("managed-server-7-completed.do") %>" method="POST">
+                <form action="<%= response.encodeURL("managed-server-7-completed.do") %>" method="post">
                     <%@ include file="managed-server-confirmation.jsp" %>
                 </form>
             </skin:contentLine>
