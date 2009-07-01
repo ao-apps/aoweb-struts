@@ -4,7 +4,7 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" buffer="256kb" autoFlush="true" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
@@ -38,15 +38,14 @@
                                     <th><bean:message bundle="/clientarea/control/ApplicationResources" key="password.businessAdministratorPasswordSetter.header.username"/></th>
                                     <th colspan='2'><bean:message bundle="/clientarea/control/ApplicationResources" key="password.businessAdministratorPasswordSetter.header.newPassword"/></th>
                                     <th><bean:message bundle="/clientarea/control/ApplicationResources" key="password.businessAdministratorPasswordSetter.header.confirmPassword"/></th>
-                                    <th>&nbsp;</th>
+                                    <th>&#160;</th>
                                 </tr>
                                 <logic:iterate scope="request" name="businessAdministratorPasswordSetterForm" property="packages" id="pack" indexId="index">
                                     <tr>
-                                        <html:hidden property='<%= "packages[" + index + "]" %>'/>
                                         <logic:greaterThan name="packagesSize" value="1">
                                             <td><bean:write name="pack" filter="true"/></td>
                                         </logic:greaterThan>
-                                        <td><code><html:hidden property='<%= "usernames[" + index + "]" %>' write="true" /></code></td>
+                                        <td><html:hidden property='<%= "packages[" + index + "]" %>'/><code><html:hidden property='<%= "usernames[" + index + "]" %>' write="true" /></code></td>
                                         <td><html:password size="20" property='<%= "newPasswords[" + index + "]" %>' /></td>
                                         <td style="white-space:nowrap">
                                             <html:errors bundle="/clientarea/control/ApplicationResources" property='<%= "newPasswords[" + index + "].newPasswords" %>'/>

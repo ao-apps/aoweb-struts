@@ -4,7 +4,7 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" buffer="256kb" autoFlush="true" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
@@ -131,7 +131,7 @@
                                             </td>
                                             <td style="white-space:nowrap">
                                                 <logic:equal name="replicationRow" property="error" value="true"><span class="error"></logic:equal>
-                                                <logic:empty name="replicationRow" property="lastError">&nbsp;</logic:empty>
+                                                <logic:empty name="replicationRow" property="lastError">&#160;</logic:empty>
                                                 <logic:notEmpty name="replicationRow" property="lastError"><bean:write name="replicationRow" property="lastError"/></logic:notEmpty>
                                                 <logic:equal name="replicationRow" property="error" value="true"></span></logic:equal>
                                             </td>

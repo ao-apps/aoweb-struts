@@ -4,7 +4,7 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" buffer="256kb" autoFlush="true" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:lightArea>
@@ -20,7 +20,7 @@
         <tr>
             <td>
                 <logic:equal name="myStepNumber" value="1"><bean:message bundle="/signup/ApplicationResources" key="steps.arrow"/></logic:equal>
-                <logic:notEqual name="myStepNumber" value="1">&nbsp;</logic:notEqual>
+                <logic:notEqual name="myStepNumber" value="1">&#160;</logic:notEqual>
             </td>
             <td><bean:message bundle="/signup/ApplicationResources" key="steps.1"/></td>
             <td>
@@ -42,7 +42,7 @@
         <tr>
             <td>
                 <logic:equal name="myStepNumber" value="2"><bean:message bundle="/signup/ApplicationResources" key="steps.arrow"/></logic:equal>
-                <logic:notEqual name="myStepNumber" value="2">&nbsp;</logic:notEqual>
+                <logic:notEqual name="myStepNumber" value="2">&#160;</logic:notEqual>
             </td>
             <td><bean:message bundle="/signup/ApplicationResources" key="steps.2"/></td>
             <td>
@@ -64,7 +64,7 @@
         <tr>
             <td>
                 <logic:equal name="myStepNumber" value="3"><bean:message bundle="/signup/ApplicationResources" key="steps.arrow"/></logic:equal>
-                <logic:notEqual name="myStepNumber" value="3">&nbsp;</logic:notEqual>
+                <logic:notEqual name="myStepNumber" value="3">&#160;</logic:notEqual>
             </td>
             <td><bean:message bundle="/signup/ApplicationResources" key="steps.3"/></td>
             <td>
@@ -90,7 +90,7 @@
         <tr>
             <td>
                 <logic:equal name="myStepNumber" value="4"><bean:message bundle="/signup/ApplicationResources" key="steps.arrow"/></logic:equal>
-                <logic:notEqual name="myStepNumber" value="4">&nbsp;</logic:notEqual>
+                <logic:notEqual name="myStepNumber" value="4">&#160;</logic:notEqual>
             </td>
             <td><bean:message bundle="/signup/ApplicationResources" key="steps.4"/></td>
             <td>
@@ -117,7 +117,7 @@
         <tr>
             <td>
                 <logic:equal name="myStepNumber" value="5"><bean:message bundle="/signup/ApplicationResources" key="steps.arrow"/></logic:equal>
-                <logic:notEqual name="myStepNumber" value="5">&nbsp;</logic:notEqual>
+                <logic:notEqual name="myStepNumber" value="5">&#160;</logic:notEqual>
             </td>
             <td><bean:message bundle="/signup/ApplicationResources" key="steps.5"/></td>
             <td>
@@ -145,7 +145,7 @@
         <tr>
             <td>
                 <logic:equal name="myStepNumber" value="6"><bean:message bundle="/signup/ApplicationResources" key="steps.arrow"/></logic:equal>
-                <logic:notEqual name="myStepNumber" value="6">&nbsp;</logic:notEqual>
+                <logic:notEqual name="myStepNumber" value="6">&#160;</logic:notEqual>
             </td>
             <td><bean:message bundle="/signup/ApplicationResources" key="steps.6"/></td>
             <td>
@@ -174,11 +174,11 @@
         <tr>
             <td>
                 <logic:equal name="myStepNumber" value="7"><bean:message bundle="/signup/ApplicationResources" key="steps.arrow"/></logic:equal>
-                <logic:notEqual name="myStepNumber" value="7">&nbsp;</logic:notEqual>
+                <logic:notEqual name="myStepNumber" value="7">&#160;</logic:notEqual>
             </td>
             <td><bean:message bundle="/signup/ApplicationResources" key="steps.7"/></td>
             <td><bean:message bundle="/signup/ApplicationResources" key="steps.finished.label"/></td>
-            <td>&nbsp;</td>
+            <td>&#160;</td>
         </tr>
     </table>
 </skin:lightArea>

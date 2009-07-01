@@ -4,8 +4,8 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" buffer="256kb" autoFlush="true" %>
-<%@ page import="com.aoindustries.io.ChainWriter" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
+<%@ page import="com.aoindustries.util.EncodingUtils" %>
 <%@ page import="com.aoindustries.util.StringUtility" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
@@ -27,11 +27,11 @@
                 <script type='text/javascript'>
                     // <![CDATA[
                     function selectStep(step) {
-                        if(step=="dedicated-server") window.location.href="<% ChainWriter.writeJavaScriptString(StringUtility.replace(response.encodeURL("dedicated-server.do"), "&amp;", "&"), out); %>";
-                        else if(step=="dedicated-server-2") window.location.href="<% ChainWriter.writeJavaScriptString(StringUtility.replace(response.encodeURL("dedicated-server-2.do"), "&amp;", "&"), out); %>";
-                        else if(step=="dedicated-server-3") window.location.href="<% ChainWriter.writeJavaScriptString(StringUtility.replace(response.encodeURL("dedicated-server-3.do"), "&amp;", "&"), out); %>";
-                        else if(step=="dedicated-server-4") window.location.href="<% ChainWriter.writeJavaScriptString(StringUtility.replace(response.encodeURL("dedicated-server-4.do"), "&amp;", "&"), out); %>";
-                        else if(step=="dedicated-server-5") window.location.href="<% ChainWriter.writeJavaScriptString(StringUtility.replace(response.encodeURL("dedicated-server-5.do"), "&amp;", "&"), out); %>";
+                        if(step=="dedicated-server") window.location.href="<% EncodingUtils.encodeJavaScriptString(StringUtility.replace(response.encodeURL("dedicated-server.do"), "&amp;", "&"), out); %>";
+                        else if(step=="dedicated-server-2") window.location.href="<% EncodingUtils.encodeJavaScriptString(StringUtility.replace(response.encodeURL("dedicated-server-2.do"), "&amp;", "&"), out); %>";
+                        else if(step=="dedicated-server-3") window.location.href="<% EncodingUtils.encodeJavaScriptString(StringUtility.replace(response.encodeURL("dedicated-server-3.do"), "&amp;", "&"), out); %>";
+                        else if(step=="dedicated-server-4") window.location.href="<% EncodingUtils.encodeJavaScriptString(StringUtility.replace(response.encodeURL("dedicated-server-4.do"), "&amp;", "&"), out); %>";
+                        else if(step=="dedicated-server-5") window.location.href="<% EncodingUtils.encodeJavaScriptString(StringUtility.replace(response.encodeURL("dedicated-server-5.do"), "&amp;", "&"), out); %>";
                     }
                     // ]]>
                 </script>

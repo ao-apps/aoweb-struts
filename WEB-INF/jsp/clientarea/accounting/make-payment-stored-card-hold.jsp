@@ -4,7 +4,7 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" buffer="256kb" autoFlush="true" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
@@ -61,7 +61,7 @@
                                     <bean:write name="creditCard" property="description"/>
                                 </logic:notEmpty>
                                 <logic:empty name="creditCard" property="description">
-                                    &nbsp;
+                                    &#160;
                                 </logic:empty>
                             </td>
                         </tr>

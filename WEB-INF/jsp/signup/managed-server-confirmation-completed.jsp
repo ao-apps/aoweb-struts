@@ -4,7 +4,7 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" buffer="256kb" autoFlush="true" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:lightArea>
@@ -26,19 +26,19 @@
         </td></tr>
         <tr><th colspan="3"><bean:message bundle="/signup/ApplicationResources" key="steps.selectServer.label"/></th></tr>
         <%@ include file="signup-select-server-confirmation.jsp" %>
-        <tr><td colspan="3">&nbsp;</td></tr>
+        <tr><td colspan="3">&#160;</td></tr>
         <tr><th colspan="3"><bean:message bundle="/signup/ApplicationResources" key="steps.customizeServer.label"/></th></tr>
         <%@ include file="signup-customize-server-confirmation.jsp" %>
-        <tr><td colspan="3">&nbsp;</td></tr>
+        <tr><td colspan="3">&#160;</td></tr>
         <tr><th colspan="3"><bean:message bundle="/signup/ApplicationResources" key="steps.customizeManagement.label"/></th></tr>
         <%@ include file="signup-customize-management-confirmation.jsp" %>
-        <tr><td colspan="3">&nbsp;</td></tr>
+        <tr><td colspan="3">&#160;</td></tr>
         <tr><th colspan="3"><bean:message bundle="/signup/ApplicationResources" key="steps.businessInfo.label"/></th></tr>
         <%@ include file="signup-business-confirmation.jsp" %>
-        <tr><td colspan="3">&nbsp;</td></tr>
+        <tr><td colspan="3">&#160;</td></tr>
         <tr><th colspan="3"><bean:message bundle="/signup/ApplicationResources" key="steps.technicalInfo.label"/></th></tr>
         <%@ include file="signup-technical-confirmation.jsp" %>
-        <tr><td colspan="3">&nbsp;</td></tr>
+        <tr><td colspan="3">&#160;</td></tr>
         <tr><th colspan="3"><bean:message bundle="/signup/ApplicationResources" key="steps.billingInformation.label"/></th></tr>
         <%@ include file="signup-billing-information-confirmation.jsp" %>
     </table>

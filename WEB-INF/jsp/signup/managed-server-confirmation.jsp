@@ -4,7 +4,7 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" buffer="256kb" autoFlush="true" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:lightArea>
@@ -12,7 +12,7 @@
     <table cellpadding="0" cellspacing="0">
         <tr><td COLSPAN="3"><b><bean:message bundle="/signup/ApplicationResources" key="serverConfirmation.stepLabel"/></b><br /><hr /></td></tr>
         <tr><td COLSPAN="3"><bean:message bundle="/signup/ApplicationResources" key="serverConfirmation.stepHelp"/></td></tr>
-        <tr><td colspan="3">&nbsp;</td></tr>
+        <tr><td colspan="3">&#160;</td></tr>
         <tr>
             <th colspan="3">
                 <table width="100%" cellspacing="0" cellpadding="0">
@@ -24,7 +24,7 @@
             </th>
         </tr>
         <%@ include file="signup-select-server-confirmation.jsp" %>
-        <tr><td colspan="3">&nbsp;</td></tr>
+        <tr><td colspan="3">&#160;</td></tr>
         <tr>
             <th colspan="3">
                 <table width="100%" cellspacing="0" cellpadding="0">
@@ -36,7 +36,7 @@
             </th>
         </tr>
         <%@ include file="signup-customize-server-confirmation.jsp" %>
-        <tr><td colspan="3">&nbsp;</td></tr>
+        <tr><td colspan="3">&#160;</td></tr>
         <tr>
             <th colspan="3">
                 <table width="100%" cellspacing="0" cellpadding="0">
@@ -48,7 +48,7 @@
             </th>
         </tr>
         <%@ include file="signup-customize-management-confirmation.jsp" %>
-        <tr><td colspan="3">&nbsp;</td></tr>
+        <tr><td colspan="3">&#160;</td></tr>
         <tr>
             <th colspan="3">
                 <table width="100%" cellspacing="0" cellpadding="0">
@@ -60,7 +60,7 @@
             </th>
         </tr>
         <%@ include file="signup-business-confirmation.jsp" %>
-        <tr><td colspan="3">&nbsp;</td></tr>
+        <tr><td colspan="3">&#160;</td></tr>
         <tr>
             <th colspan="3">
                 <table width="100%" cellspacing="0" cellpadding="0">
@@ -72,7 +72,7 @@
             </th>
         </tr>
         <%@ include file="signup-technical-confirmation.jsp" %>
-        <tr><td colspan="3">&nbsp;</td></tr>
+        <tr><td colspan="3">&#160;</td></tr>
         <tr>
             <th colspan="3">
                 <table width="100%" cellspacing="0" cellpadding="0">

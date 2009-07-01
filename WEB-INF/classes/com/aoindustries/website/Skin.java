@@ -34,13 +34,13 @@ abstract public class Skin {
      * Provides the correct character set for the given locale.
      */
     static public String getCharacterSet(Locale locale) {
-        if(locale!=null && locale.getLanguage().equals(Locale.JAPANESE.getLanguage())) {
+        /*if(locale!=null && locale.getLanguage().equals(Locale.JAPANESE.getLanguage())) {
             //return "euc-jp";
             return "Shift_JIS";
-        } else {
+        } else {*/
             // return "iso-8859-1";
             return "UTF-8";
-        }
+        //}
     }
 
     /**

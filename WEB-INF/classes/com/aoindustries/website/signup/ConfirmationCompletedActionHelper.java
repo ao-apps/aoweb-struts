@@ -270,7 +270,8 @@ final public class ConfirmationCompletedActionHelper {
             InputStream cssIn = servlet.getServletContext().getResourceAsStream("/textskin/global.css");
             if(cssIn!=null) {
                 try {
-                    emailOut.print("    <style type=\"text/css\">\n");
+                    emailOut.print("    <style type=\"text/css\">\n"
+                                 + "      /* <![CDATA[ */\n");
                     Reader cssReader = new InputStreamReader(cssIn);
                     try {
                         char[] buff = new char[4096];
@@ -279,7 +280,8 @@ final public class ConfirmationCompletedActionHelper {
                     } finally {
                         cssIn.close();
                     }
-                    emailOut.print("    </style>\n");
+                    emailOut.print("      /* ]]> */\n"
+                                 + "    </style>\n");
                 } finally {
                     cssIn.close();
                 }
@@ -297,12 +299,12 @@ final public class ConfirmationCompletedActionHelper {
                          + "    </td></tr>\n"
                          + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(contentLocale, "steps.selectServer.label")).print("</th></tr>\n");
             SignupSelectServerActionHelper.printConfirmation(emailOut, contentLocale, packageDefinition, signupApplicationResources);
-            emailOut.print("    <tr><td colspan=\"3\">&nbsp;</td></tr>\n"
+            emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
                          + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(contentLocale, "steps.customizeServer.label")).print("</th></tr>\n");
             AOServConnector rootConn = siteSettings.getRootAOServConnector();
             SignupCustomizeServerActionHelper.printConfirmation(request, emailOut, contentLocale, rootConn, packageDefinition, signupCustomizeServerForm, signupApplicationResources);
             if(signupCustomizeManagementForm!=null) {
-                emailOut.print("    <tr><td colspan=\"3\">&nbsp;</td></tr>\n"
+                emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
                              + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(contentLocale, "steps.customizeManagement.label")).print("</th></tr>\n");
                 SignupCustomizeManagementActionHelper.printConfirmation(
                     request,
@@ -313,13 +315,13 @@ final public class ConfirmationCompletedActionHelper {
                     signupApplicationResources
                 );
             }
-            emailOut.print("    <tr><td colspan=\"3\">&nbsp;</td></tr>\n"
+            emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
                          + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(contentLocale, "steps.businessInfo.label")).print("</th></tr>\n");
             SignupBusinessActionHelper.printConfirmation(emailOut, contentLocale, signupApplicationResources, rootConn, signupBusinessForm);
-            emailOut.print("    <tr><td colspan=\"3\">&nbsp;</td></tr>\n"
+            emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
                          + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(contentLocale, "steps.technicalInfo.label")).print("</th></tr>\n");
             SignupTechnicalActionHelper.printConfirmation(emailOut, contentLocale, signupApplicationResources, rootConn, signupTechnicalForm);
-            emailOut.print("    <tr><td colspan=\"3\">&nbsp;</td></tr>\n"
+            emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
                          + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(contentLocale, "steps.billingInformation.label")).print("</th></tr>\n");
             SignupBillingInformationActionHelper.printConfirmation(emailOut, contentLocale, signupApplicationResources, signupBillingInformationForm);
             emailOut.print("</table>\n"

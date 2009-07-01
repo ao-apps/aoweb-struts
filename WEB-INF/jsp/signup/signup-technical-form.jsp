@@ -4,7 +4,7 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" buffer="256kb" autoFlush="true" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <input type="hidden" name="selectedStep" value="" />
@@ -118,7 +118,7 @@
             <td style="white-space:nowrap"><html:text size="10" property="baZip" maxlength="255"/></td>
             <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="baZip"/></td>
         </tr>
-        <tr><td colspan="4">&nbsp;</td><td></td></tr>
+        <tr><td colspan="4">&#160;</td><td></td></tr>
         <tr>
             <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></td>
             <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baUsername.prompt"/></td>

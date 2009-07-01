@@ -4,7 +4,7 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" buffer="256kb" autoFlush="true" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <input type="hidden" name="selectedStep" value="" />
@@ -33,14 +33,14 @@
             <td style="white-space:nowrap"><html:text size="32" property="billingEmail" maxlength="255"/></td>
             <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="billingEmail"/></td>
         </tr>
-        <tr><td colspan="4">&nbsp;</td></tr>
+        <tr><td colspan="4">&#160;</td></tr>
         <tr><td colspan="4" align='center'>
             <html:img src="amex.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.amex.alt" style="border:1px solid" width="64" height="40"/>
-            &nbsp;&nbsp;<html:img src="discv.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.discv.alt" style="border:1px solid" width="63" height="40"/>
-            &nbsp;&nbsp;<html:img src="mcard.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.mcard.alt" style="border:1px solid" width="64" height="40"/>
-            &nbsp;&nbsp;<html:img src="visa.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.visa.alt" style="border:1px solid" width="64" height="40"/>
+            &#160;&#160;<html:img src="discv.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.discv.alt" style="border:1px solid" width="63" height="40"/>
+            &#160;&#160;<html:img src="mcard.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.mcard.alt" style="border:1px solid" width="64" height="40"/>
+            &#160;&#160;<html:img src="visa.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.visa.alt" style="border:1px solid" width="64" height="40"/>
         </td></tr>
-        <tr><td colspan="4">&nbsp;</td></tr>
+        <tr><td colspan="4">&#160;</td></tr>
         <tr>
             <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></td>
             <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signupBillingInformationForm.billingCardholderName.prompt"/></td>
@@ -71,16 +71,16 @@
                     <html:option bundle="/signup/ApplicationResources" key="signupBillingInformationForm.billingExpirationMonth.oct.display" value="10"/>
                     <html:option bundle="/signup/ApplicationResources" key="signupBillingInformationForm.billingExpirationMonth.nov.display" value="11"/>
                     <html:option bundle="/signup/ApplicationResources" key="signupBillingInformationForm.billingExpirationMonth.dec.display" value="12"/>
-                </html:select>&nbsp;/&nbsp;<html:select property="billingExpirationYear">
+                </html:select>&#160;/&#160;<html:select property="billingExpirationYear">
                     <html:option bundle="/signup/ApplicationResources" key="signupBillingInformationForm.billingExpirationYear.none.display" value=""/>
                     <html:options name="billingExpirationYears"/>
                 </html:select>
             </td>
             <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="billingExpirationDate"/></td>
         </tr>
-        <tr><td colspan="4">&nbsp;</td></tr>
+        <tr><td colspan="4">&#160;</td></tr>
         <tr><td colspan="4"><bean:message bundle="/signup/ApplicationResources" key="dedicated5.cardAddressHelp"/></td></tr>
-        <tr><td colspan="4">&nbsp;</td></tr>
+        <tr><td colspan="4">&#160;</td></tr>
         <tr>
             <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signup.required"/></td>
             <td style="white-space:nowrap"><bean:message bundle="/signup/ApplicationResources" key="signupBillingInformationForm.billingStreetAddress.prompt"/></td>
@@ -105,14 +105,14 @@
             <td style="white-space:nowrap"><html:text size="10" property="billingZip" maxlength="255"/></td>
             <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="billingZip"/></td>
         </tr>
-        <tr><td colspan="4">&nbsp;</td></tr>
+        <tr><td colspan="4">&#160;</td></tr>
         <tr VALIGN='top'>
-            <td NOWRAP colspan="2">&nbsp;</td>
+            <td NOWRAP colspan="2">&#160;</td>
             <td style="white-space:nowrap"><html:checkbox property="billingUseMonthly"/><bean:message bundle="/signup/ApplicationResources" key="signupBillingInformationForm.billingUseMonthly.value"/><br /><br />
             <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="billingUseMonthly"/></td>
         </td><tr>
         <tr VALIGN='top'>
-            <td NOWRAP colspan="2">&nbsp;</td>
+            <td NOWRAP colspan="2">&#160;</td>
             <td style="white-space:nowrap"><html:checkbox property="billingPayOneYear"/><bean:message bundle="/signup/ApplicationResources" key="signupBillingInformationForm.billingPayOneYear.value"/></td>
             <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="billingPayOneYear"/></td>
         </tr>

@@ -4,7 +4,7 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" buffer="256kb" autoFlush="true" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
@@ -42,7 +42,7 @@
                                         <th><bean:message bundle="/clientarea/control/ApplicationResources" key="password.globalPasswordSetter.header.username"/></th>
                                         <th colspan='2'><bean:message bundle="/clientarea/control/ApplicationResources" key="password.globalPasswordSetter.header.newPassword"/></th>
                                         <th><bean:message bundle="/clientarea/control/ApplicationResources" key="password.globalPasswordSetter.header.confirmPassword"/></th>
-                                        <th>&nbsp;</th>
+                                        <th>&#160;</th>
                                     </tr>
                                     <logic:iterate scope="request" name="globalPasswordSetterForm" property="packages" id="pack" indexId="index">
                                         <tr>

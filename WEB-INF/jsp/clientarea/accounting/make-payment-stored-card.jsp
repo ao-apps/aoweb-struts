@@ -4,7 +4,7 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" buffer="256kb" autoFlush="true" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
@@ -62,7 +62,7 @@
                                         <bean:write name="creditCard" property="description"/>
                                     </logic:notEmpty>
                                     <logic:empty name="creditCard" property="description">
-                                        &nbsp;
+                                        &#160;
                                     </logic:empty>
                                 </td>
                                 <td style="white-space:nowrap"><html:errors bundle="/clientarea/accounting/ApplicationResources" property="cardComment"/></td>
@@ -93,7 +93,7 @@
                                 <td style="white-space:nowrap"><html:errors bundle="/clientarea/accounting/ApplicationResources" property="paymentAmount"/></td>
                             </tr>
                             <tr>
-                                <td style="white-space:nowrap">&nbsp;</td>
+                                <td style="white-space:nowrap">&#160;</td>
                                 <td style='white-space:nowrap' colspan="2"><html:submit onclick="this.disabled='true'; this.form.submit(); return false;"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCard.submit.label"/></html:submit></td>
                             </tr>
                         </table>

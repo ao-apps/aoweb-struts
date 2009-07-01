@@ -122,7 +122,7 @@ final public class SignupSelectServerActionHelper {
         emailOut.print("    <tr>\n"
                      + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
                      + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupSelectServerForm.packageDefinition.prompt")).print("</td>\n"
-                     + "        <td>").writeHtml(packageDefinition.getDisplay()).print("</td>\n"
+                     + "        <td>").encodeHtml(packageDefinition.getDisplay()).print("</td>\n"
                      + "    </tr>\n");
     }
 }

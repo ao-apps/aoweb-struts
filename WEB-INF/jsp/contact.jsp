@@ -4,7 +4,7 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" buffer="256kb" autoFlush="true" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
@@ -122,7 +122,7 @@
                                 <td><html:text size="45" property="subject" /></td>
                                 <td><html:errors bundle="/ApplicationResources" property="subject"/></td>
                             </tr>
-                            <tr><td colspan='2'>&nbsp;</td></tr>
+                            <tr><td colspan='2'>&#160;</td></tr>
                             <tr><td colspan='2'><bean:message bundle="/ApplicationResources" key="contact.field.message.prompt"/></td></tr>
                             <tr><td colspan='2'><html:textarea property="message" cols="60" rows="12"/></td></tr>
                             <tr>

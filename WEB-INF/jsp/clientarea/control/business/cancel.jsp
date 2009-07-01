@@ -4,7 +4,8 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" buffer="256kb" autoFlush="true" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
+<%@ page import="com.aoindustries.util.EncodingUtils" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
@@ -52,21 +53,21 @@
                                                         <bean:message
                                                             bundle="/clientarea/control/ApplicationResources"
                                                             key="business.cancel.field.businessNameAndAccounting"
-                                                            arg0="<%= bp.getName() %>"
-                                                            arg1="<%= bu.getAccounting() %>"
+                                                            arg0="<%= EncodingUtils.encodeHtml(bp.getName()) %>"
+                                                            arg1="<%= EncodingUtils.encodeHtml(bu.getAccounting()) %>"
                                                         />
                                                     </logic:notEmpty>
                                                     <logic:empty name="bu" property="businessProfile">
                                                         <bean:message
                                                             bundle="/clientarea/control/ApplicationResources"
                                                             key="business.cancel.field.businessAccounting"
-                                                            arg0="<%= bu.getAccounting() %>"
+                                                            arg0="<%= EncodingUtils.encodeHtml(bu.getAccounting()) %>"
                                                         />
                                                     </logic:empty>
                                                 </td>
                                                 <td>
                                                     <logic:empty name="bu" property="parentBusiness">
-                                                        &nbsp;
+                                                        &#160;
                                                     </logic:empty>
                                                     <logic:notEmpty name="bu" property="parentBusiness">
                                                         <bean:define name="bu" property="parentBusiness" id="parent" type="com.aoindustries.aoserv.client.Business"/>
@@ -75,21 +76,21 @@
                                                             <bean:message
                                                                 bundle="/clientarea/control/ApplicationResources"
                                                                 key="business.cancel.field.businessNameAndAccounting"
-                                                                arg0="<%= parentBP.getName() %>"
-                                                                arg1="<%= parent.getAccounting() %>"
+                                                                arg0="<%= EncodingUtils.encodeHtml(parentBP.getName()) %>"
+                                                                arg1="<%= EncodingUtils.encodeHtml(parent.getAccounting()) %>"
                                                             />
                                                         </logic:notEmpty>
                                                         <logic:empty name="parent" property="businessProfile">
                                                             <bean:message
                                                                 bundle="/clientarea/control/ApplicationResources"
                                                                 key="business.cancel.field.businessAccounting"
-                                                                arg0="<%= parent.getAccounting() %>"
+                                                                arg0="<%= EncodingUtils.encodeHtml(parent.getAccounting()) %>"
                                                             />
                                                         </logic:empty>
                                                     </logic:notEmpty>
                                                 </td>
                                                 <td align='right'>
-                                                    <logic:empty name="bu" property="totalMonthlyRateString">&nbsp;</logic:empty>
+                                                    <logic:empty name="bu" property="totalMonthlyRateString">&#160;</logic:empty>
                                                     <logic:notEmpty name="bu" property="totalMonthlyRateString">
                                                         <bean:message
                                                             bundle="/clientarea/control/ApplicationResources"
@@ -120,14 +121,14 @@
                                                 <td>
                                                     <% long canceled=bu.getCanceled(); %>
                                                     <% if(canceled==-1) { %>
-                                                        &nbsp;
+                                                        &#160;
                                                     <% } else { %>
-                                                        <%= com.aoindustries.sql.SQLUtility.getDate(canceled) %>
+                                                        <aoweb:date><%= canceled %></aoweb:date>
                                                     <% } %>
                                                 </td>
                                                 <td>
                                                     <% if(!bu.canCancel()) { %>
-                                                        &nbsp;
+                                                        &#160;
                                                     <% } else { %>
                                                         <html:link action="/business/cancel-feedback" paramId="business" paramName="bu" paramProperty="accounting">
                                                             <bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.field.link.cancel" />

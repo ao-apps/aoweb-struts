@@ -4,7 +4,7 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" buffer="256kb" autoFlush="true" isErrorPage="true" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" isErrorPage="true" %>
 <% response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 <%
@@ -82,7 +82,7 @@
                                         <% if(throwable!=null) { %>
 <pre><%= org.apache.commons.lang.StringEscapeUtils.escapeHtml(com.aoindustries.util.ErrorPrinter.getStackTraces(throwable)) %></pre>
                                         <% } else { %>
-                                            &nbsp;
+                                            &#160;
                                         <% } %>
                                     </td>
                                 </tr>

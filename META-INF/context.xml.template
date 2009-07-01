@@ -13,7 +13,16 @@
     false: a 403 error will be sent to the client on unexpected protocol
   -->
   <Parameter name="com.aoindustries.website.ProtocolAction.redirectOnMismatch" value="true"/>
+
   <!-- Configuration for Error Handlers -->
   <!-- Recommend using true for development and false for production -->
   <Parameter name="exception.showError" value="false"/>
+
+  <!--
+    Enables the use of xhtml content type for compatbile browser.
+    Recommend using true for development and false for production until sites
+    fully validated and debugged.  This defaults to false if missing or not
+    precisely equal to "true".
+  -->
+  <Parameter name="com.aoindustries.website.skintags.SetContentTypeTag.allowApplicationXhtmlXml" value="false"/>
 </Context>

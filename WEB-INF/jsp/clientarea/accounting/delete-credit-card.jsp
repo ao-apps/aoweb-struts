@@ -4,7 +4,9 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" buffer="256kb" autoFlush="true" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
+<%@ page import="com.aoindustries.util.EncodingUtils" %>
+<%@ page import="com.aoindustries.util.StringUtility" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
@@ -89,11 +91,11 @@
                                             type="submit"
                                             value="<bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.field.submit.label"/>"
                                         />
-                                        &nbsp;&nbsp;&nbsp;
+                                        &#160;&#160;&#160;
                                         <input
                                             type="button"
                                             value="<bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.field.cancel.label"/>"
-                                            onclick="window.location.href='<%= response.encodeURL("credit-card-manager.do") %>'"
+                                            onclick="window.location.href='<% EncodingUtils.encodeJavaScriptStringInXmlAttribute(StringUtility.replace(response.encodeURL("credit-card-manager.do"), "&amp;", "&"), out); %>'"
                                         />
                                     </td>
                                 </tr>

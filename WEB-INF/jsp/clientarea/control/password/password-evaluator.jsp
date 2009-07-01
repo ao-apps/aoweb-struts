@@ -4,7 +4,7 @@
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
-<%@ page language="java" buffer="256kb" autoFlush="true" %>
+<%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType/>
@@ -22,11 +22,11 @@
         <skin:content width="600">
             <skin:contentTitle><bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordEvaluator.title"/></skin:contentTitle>
             <skin:contentHorizontalDivider/>
-            <skin:contentLine>
+            <skin:contentLine align="center">
                 <html:javascript staticJavascript='false' bundle="/clientarea/control/ApplicationResources" formName="passwordEvaluatorForm"/><noscript><!-- Do nothing --></noscript>
-                <center>
-                    <skin:lightArea>
-                        <html:form action="/password/password-evaluator-completed" onsubmit="return validatePasswordEvaluatorForm(this);">
+                <skin:lightArea>
+                    <html:form action="/password/password-evaluator-completed" onsubmit="return validatePasswordEvaluatorForm(this);">
+                        <div>
                             <b><bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordEvaluator.prompt"/></b>
                             <hr />
                             <bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordEvaluator.field.password.prompt"/><html:password size="16" property="password" /> <html:errors bundle="/clientarea/control/ApplicationResources" property="password"/>
@@ -42,10 +42,10 @@
                                 </table>
                             </logic:present><br />
                             <br />
-                            <center><html:submit><bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordEvaluator.field.submit.label"/></html:submit></center>
-                        </html:form>
-                    </skin:lightArea>
-                </center>
+                            <div style="text-align:center"><html:submit><bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordEvaluator.field.submit.label"/></html:submit></div>
+                        </div>
+                    </html:form>
+                </skin:lightArea>
             </skin:contentLine>
         </skin:content>
     </skin:skin>
