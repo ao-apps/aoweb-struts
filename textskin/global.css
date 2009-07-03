@@ -56,6 +56,7 @@ img {
 }
 .aoPopupTL img {
   vertical-align: bottom;
+  display:block;
 }
 .aoPopupTop {
   height:12px;
@@ -72,6 +73,7 @@ img {
 }
 .aoPopupTR img {
   vertical-align: bottom;
+  display:block;
 }
 .aoPopupLeft {
   width:12px;
@@ -99,6 +101,7 @@ img {
 }
 .aoPopupBL img {
   vertical-align: top;
+  display:block;
 }
 .aoPopupBottom {
   height:12px;
@@ -115,4 +118,5 @@ img {
 }
 .aoPopupBR img {
   vertical-align: top;
+  display:block;
 }

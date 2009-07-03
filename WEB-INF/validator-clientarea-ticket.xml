@@ -8,10 +8,10 @@
     <formset>
         <form name="ticketForm">
             <field property="accounting" depends="required">
-                <msg name="required" key="TicketForm.field.accounting.required"/>
+                <msg name="required" key="TicketForm.field.accounting.required" />
             </field>
             <field property="summary" depends="required">
-                <msg name="required" key="TicketForm.field.summary.required"/>
+                <msg name="required" key="TicketForm.field.summary.required" />
             </field>
         </form>
     </formset>

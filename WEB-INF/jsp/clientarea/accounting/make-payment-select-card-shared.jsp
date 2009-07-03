@@ -11,14 +11,14 @@
     <div>
         <input name="accounting" type="hidden" value="<%= request.getParameter("accounting") %>" />
         <skin:lightArea>
-            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.selectCard.list.title"/>
+            <bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.selectCard.list.title" />
             <hr />
             <table cellspacing="0" cellpadding="2">
                 <tr>
-                    <th style='white-space:nowrap'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.select.header"/></th>
-                    <th style='white-space:nowrap'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.cardType.header"/></th>
-                    <th style='white-space:nowrap'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.cardNumber.header"/></th>
-                    <th style='white-space:nowrap'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.comments.header"/></th>
+                    <th style='white-space:nowrap'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.select.header" /></th>
+                    <th style='white-space:nowrap'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.cardType.header" /></th>
+                    <th style='white-space:nowrap'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.cardNumber.header" /></th>
+                    <th style='white-space:nowrap'><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.comments.header" /></th>
                 </tr>
                 <logic:iterate scope="request" name="creditCards" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard">
                     <skin:lightDarkTableRow>
@@ -33,21 +33,21 @@
                         <td style="white-space:nowrap">
                             <% String cardInfo = creditCard.getCardInfo(); %>
                             <% if(cardInfo.startsWith("34") || cardInfo.startsWith("37")) { %>
-                                <html:img src="amex.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.amex.alt" style="border:1px solid" width="64" height="40"/>
+                                <html:img src="amex.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.amex.alt" style="border:1px solid" width="64" height="40" />
                             <% } else if(cardInfo.startsWith("60")) { %>
-                                <html:img src="discv.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.discv.alt" style="border:1px solid" width="63" height="40"/>
+                                <html:img src="discv.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.discv.alt" style="border:1px solid" width="63" height="40" />
                             <% } else if(cardInfo.startsWith("51") || cardInfo.startsWith("52") || cardInfo.startsWith("53") || cardInfo.startsWith("54") || cardInfo.startsWith("55")) { %>
-                                <html:img src="mcard.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.mcard.alt" style="border:1px solid" width="64" height="40"/>
+                                <html:img src="mcard.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.mcard.alt" style="border:1px solid" width="64" height="40" />
                             <% } else if(cardInfo.startsWith("4")) { %>
-                                <html:img src="visa.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.visa.alt" style="border:1px solid" width="64" height="40"/>
+                                <html:img src="visa.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.visa.alt" style="border:1px solid" width="64" height="40" />
                             <% } else { %>
-                                <bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.creditCard.cardType.unknown"/>
+                                <bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.creditCard.cardType.unknown" />
                             <% } %>
                         </td>
                         <td style="white-space:nowrap"><%= creditCard.getCardInfo().replace('X', 'x') %></td>
                         <td style="white-space:nowrap">
                             <logic:notEmpty name="creditCard" property="description">
-                                <bean:write name="creditCard" property="description"/>
+                                <bean:write name="creditCard" property="description" />
                             </logic:notEmpty>
                             <logic:empty name="creditCard" property="description">
                                 &#160;
@@ -64,14 +64,14 @@
                             <input type="radio" name="pkey" value="" />
                         </logic:notEqual>
                     </td>
-                    <td style='white-space:nowrap' colspan="3"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.newCard.link"/></td>
+                    <td style='white-space:nowrap' colspan="3"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.newCard.link" /></td>
                 </skin:lightDarkTableRow>
                 <tr>
                     <td style='white-space:nowrap' colspan="4" align="center">
                         <input
                             type="submit"
                             name="submitButton"
-                            value="<bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.field.submit.label"/>"
+                            value="<bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePaymentSelectCard.field.submit.label" />"
                         />
                     </td>
                 </tr>

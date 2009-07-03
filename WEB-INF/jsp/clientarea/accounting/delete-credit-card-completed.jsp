@@ -7,37 +7,37 @@
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
-<skin:setContentType/>
+<skin:setContentType />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html lang="true" xhtml="true">
     <skin:path>/clientarea/accounting/delete-credit-card-completed.do?pkey=<%= request.getParameter("pkey") %></skin:path>
     <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
-    <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.title"/></skin:title>
-    <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.navImageAlt"/></skin:navImageAlt>
-    <skin:keywords><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.keywords"/></skin:keywords>
-    <skin:description><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.description"/></skin:description>
+    <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.title" /></skin:title>
+    <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.navImageAlt" /></skin:navImageAlt>
+    <skin:keywords><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.keywords" /></skin:keywords>
+    <skin:description><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.description" /></skin:description>
     <%@ include file="add-parents.jsp" %>
     <skin:addParent useEncryption="true" path="/clientarea/accounting/credit-card-manager.do">
-        <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.title"/></skin:title>
-        <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.navImageAlt"/></skin:navImageAlt>
+        <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.title" /></skin:title>
+        <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.navImageAlt" /></skin:navImageAlt>
     </skin:addParent>
     <%@ include file="add-siblings.jsp" %>
     <skin:skin>
         <skin:content width="600">
-            <skin:contentTitle><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.title"/></skin:contentTitle>
-            <skin:contentHorizontalDivider/>
+            <skin:contentTitle><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.title" /></skin:contentTitle>
+            <skin:contentHorizontalDivider />
             <skin:contentLine>
                 <logic:present scope="request" name="permissionDenied">
                     <%@ include file="../../permission-denied.jsp" %>
                 </logic:present>
                 <logic:notPresent scope="request" name="permissionDenied">
                     <skin:lightArea>
-                        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.successMessage.title"/>
+                        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.successMessage.title" />
                         <hr />
-                        <bean:define scope="request" name="cardNumber" id="cardNumber" type="java.lang.String"/>
-                        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.successMessage.text" arg0="<%= cardNumber.replace('X', 'x') %>"/><br />
+                        <bean:define scope="request" name="cardNumber" id="cardNumber" type="java.lang.String" />
+                        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.successMessage.text" arg0="<%= cardNumber.replace('X', 'x') %>" /><br />
                         <br />
-                        <html:link action="/credit-card-manager"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.creditCardManager.link"/></html:link>
+                        <html:link action="/credit-card-manager"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCardCompleted.creditCardManager.link" /></html:link>
                     </skin:lightArea>
                 </logic:notPresent>
             </skin:contentLine>

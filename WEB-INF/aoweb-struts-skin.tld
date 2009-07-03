@@ -12,28 +12,28 @@
     <tag-class>com.aoindustries.website.skintags.KeywordsTag</tag-class>
     <body-content>JSP</body-content>
     <description>Sets the keywords for this page.</description>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>description</name>
     <tag-class>com.aoindustries.website.skintags.DescriptionTag</tag-class>
     <body-content>JSP</body-content>
     <description>Sets the description for this page, an addParent tag, or an addSibling tag.</description>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>author</name>
     <tag-class>com.aoindustries.website.skintags.AuthorTag</tag-class>
     <body-content>JSP</body-content>
     <description>Sets the author for this page.</description>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>copyright</name>
     <tag-class>com.aoindustries.website.skintags.CopyrightTag</tag-class>
     <body-content>JSP</body-content>
     <description>Sets the copyright for this page.</description>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>path</name>
@@ -44,7 +44,7 @@
         This value must be properly encoded for direct output to XHTML.  For
         example, parameters should be separated by &amp;amp; and URL encoded.
     </description>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>meta</name>
@@ -58,7 +58,7 @@
       <type>String</type>
       <description>The name of the META tag.</description>
     </attribute>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>link</name>
@@ -109,21 +109,21 @@
         ]]>
       </description>
     </attribute>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>title</name>
     <tag-class>com.aoindustries.website.skintags.TitleTag</tag-class>
     <body-content>JSP</body-content>
     <description>Sets the title for this page, an addParent tag, or an addSibling tag.</description>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>navImageAlt</name>
     <tag-class>com.aoindustries.website.skintags.NavImageAltTag</tag-class>
     <body-content>JSP</body-content>
     <description>Sets the navImageAlt for this page, an addParent tag, or an addSibling tag.</description>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>addParent</name>
@@ -148,7 +148,7 @@
         example, parameters should be separated by &amp;amp; and URL encoded.
       </description>
     </attribute>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>addSibling</name>
@@ -173,7 +173,7 @@
         example, parameters should be separated by &amp;amp; and URL encoded.
       </description>
     </attribute>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>skin</name>
@@ -211,7 +211,7 @@
       <type>String</type>
       <description>The JavaScript that will be placed in the onload attribute of the body tag</description>
     </attribute>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>lightArea</name>
@@ -232,7 +232,7 @@
       <type>boolean</type>
       <description>If true, will cause the contents of the area to not wrap, defaults to false.</description>
     </attribute>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>whiteArea</name>
@@ -253,14 +253,14 @@
       <type>boolean</type>
       <description>If true, will cause the contents of the area to not wrap, defaults to false.</description>
     </attribute>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>setContentType</name>
     <tag-class>com.aoindustries.website.skintags.SetContentTypeTag</tag-class>
     <body-content>empty</body-content>
     <description>Sets the content type appropriately for the current locale.</description>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>content</name>
@@ -281,14 +281,14 @@
       <type>String</type>
       <description>An optional width for the content area</description>
     </attribute>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>contentTitle</name>
     <tag-class>com.aoindustries.website.skintags.ContentTitleTag</tag-class>
     <body-content>JSP</body-content>
     <description>Prints the content title line, must be nested in a content tag.</description>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>contentLine</name>
@@ -316,7 +316,7 @@
       <type>boolean</type>
       <description>Indicates the line of content ends internal to the overall content area, this may be the case when a rowspan from a higher line is causing overlap.  Defaults to false.</description>
     </attribute>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>contentVerticalDivider</name>
@@ -351,7 +351,7 @@
       <type>String</type>
       <description>The alignment for this part of the line.</description>
     </attribute>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>contentHorizontalDivider</name>
@@ -375,14 +375,14 @@
       <type>boolean</type>
       <description>Indicates the line of content ends internal to the overall content area, this may be the case when a rowspan from a higher line is causing overlap.  Defaults to false.</description>
     </attribute>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>autoIndex</name>
     <tag-class>com.aoindustries.website.skintags.AutoIndexTag</tag-class>
     <body-content>empty</body-content>
     <description>Creates an auto index on a per-skin formatted basis.</description>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>popupGroup</name>
@@ -392,7 +392,7 @@
         A popup group will only have one popup within the group visible at a
         time.  Opening a second popup will close the one that was first opened.
     </description>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>popup</name>
@@ -411,7 +411,7 @@
       <type>String</type>
       <description>An optional width for the popup</description>
     </attribute>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>popupClose</name>
@@ -421,7 +421,7 @@
         Renders a close button/link/image for a popup.  Must be nested inside a
         popup tag.
     </description>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>lightDarkTableRow</name>
@@ -440,6 +440,6 @@
         Defaults to "LightDarkTableRowTag.isDark"
       </description>
     </attribute>
-    <example/>
+    <example />
   </tag>
 </taglib>

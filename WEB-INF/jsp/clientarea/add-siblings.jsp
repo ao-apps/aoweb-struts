@@ -8,22 +8,22 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <aoweb:exists path="/WEB-INF/jsp/clientarea/add-siblings.override.jsp">
-    <jsp:include page="/WEB-INF/jsp/clientarea/add-siblings.override.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/clientarea/add-siblings.override.jsp" />
 </aoweb:exists>
 <aoweb:notExists path="/WEB-INF/jsp/clientarea/add-siblings.override.jsp">
     <skin:addSibling useEncryption="false" path="/clientarea/control/index.do">
-        <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="index.title"/></skin:title>
-        <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="index.navImageAlt"/></skin:navImageAlt>
-        <skin:description><bean:message bundle="/clientarea/control/ApplicationResources" key="index.description"/></skin:description>
+        <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="index.title" /></skin:title>
+        <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="index.navImageAlt" /></skin:navImageAlt>
+        <skin:description><bean:message bundle="/clientarea/control/ApplicationResources" key="index.description" /></skin:description>
     </skin:addSibling>
     <skin:addSibling useEncryption="false" path="/clientarea/accounting/index.do">
-        <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="index.title"/></skin:title>
-        <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="index.navImageAlt"/></skin:navImageAlt>
-        <skin:description><bean:message bundle="/clientarea/accounting/ApplicationResources" key="index.description"/></skin:description>
+        <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="index.title" /></skin:title>
+        <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="index.navImageAlt" /></skin:navImageAlt>
+        <skin:description><bean:message bundle="/clientarea/accounting/ApplicationResources" key="index.description" /></skin:description>
     </skin:addSibling>
     <skin:addSibling useEncryption="true" path="/clientarea/ticket/index.do">
-        <skin:title><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.title"/></skin:title>
-        <skin:navImageAlt><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.navImageAlt"/></skin:navImageAlt>
-        <skin:description><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.description"/></skin:description>
+        <skin:title><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.title" /></skin:title>
+        <skin:navImageAlt><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.navImageAlt" /></skin:navImageAlt>
+        <skin:description><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.description" /></skin:description>
     </skin:addSibling>
 </aoweb:notExists>

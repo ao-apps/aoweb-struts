@@ -7,31 +7,31 @@
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
-<skin:setContentType/>
+<skin:setContentType />
 
-<bean:define scope="request" name="business" id="business" type="com.aoindustries.aoserv.client.Business"/>
+<bean:define scope="request" name="business" id="business" type="com.aoindustries.aoserv.client.Business" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html lang="true" xhtml="true">
     <skin:path>/clientarea/control/business/cancel-feedback-completed.do?business=<%= business.getAccounting() %></skin:path>
     <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
-    <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.title"/></skin:title>
-    <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.navImageAlt"/></skin:navImageAlt>
-    <skin:keywords><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.keywords"/></skin:keywords>
-    <skin:description><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.description"/></skin:description>
+    <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.title" /></skin:title>
+    <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.navImageAlt" /></skin:navImageAlt>
+    <skin:keywords><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.keywords" /></skin:keywords>
+    <skin:description><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.description" /></skin:description>
     <%@ include file="add-parents.jsp" %>
     <%@ include file="add-siblings.jsp" %>
     <skin:skin>
         <skin:content width="600">
-            <skin:contentTitle><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.title"/></skin:contentTitle>
-            <skin:contentHorizontalDivider/>
+            <skin:contentTitle><bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.title" /></skin:contentTitle>
+            <skin:contentHorizontalDivider />
             <skin:contentLine>
                 <logic:present scope="request" name="permissionDenied">
                     <%@ include file="../../../permission-denied.jsp" %>
                 </logic:present>
                 <logic:notPresent scope="request" name="permissionDenied">
                     <skin:lightArea>
-                        <bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel-feedback-completed.title" arg0="<%= business.getAccounting() %>"/>
+                        <bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel-feedback-completed.title" arg0="<%= business.getAccounting() %>" />
                     </skin:lightArea>
                 </logic:notPresent>
             </skin:contentLine>

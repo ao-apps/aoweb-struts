@@ -342,7 +342,7 @@ public class TextSkin extends Skin {
                     + "          <b>");
             out.print(applicationResources.getMessage(locale, "TextSkin.currentLocation"));
             out.print("</b><br />\n"
-                    + "          <span style='white-space: nowrap'>\n");
+                    + "          <div style='white-space:nowrap'>\n");
             for(Page parent : parents) {
                 String navAlt = parent.getNavImageAlt();
                 boolean useEncryption = parent.getUseEncryption();
@@ -360,13 +360,13 @@ public class TextSkin extends Skin {
             out.print("'>");
             EncodingUtils.encodeHtml(pageAttributes.getNavImageAlt(), out);
             out.print("</a><br />\n"
-                    + "          </span>\n"
+                    + "          </div>\n"
                     + "          <hr />\n"
                     + "          <b>");
             out.print(applicationResources.getMessage(locale, "TextSkin.relatedPages"));
             out.print("</b><br />\n"
             // Display the siblings
-                    + "          <span style='white-space: nowrap'>\n");
+                    + "          <div style='white-space:nowrap'>\n");
             List<Page> siblings = pageAttributes.getSiblings();
             for(Page sibling : siblings) {
                 String navAlt=sibling.getNavImageAlt();
@@ -379,7 +379,7 @@ public class TextSkin extends Skin {
                 EncodingUtils.encodeHtml(navAlt, out);
                 out.print("</a><br />\n");
             }
-            out.print("          </span>\n"
+            out.print("          </div>\n"
                     + "          <hr />\n");
             printBelowRelatedPages(req, out);
             out.print("        </td>\n"

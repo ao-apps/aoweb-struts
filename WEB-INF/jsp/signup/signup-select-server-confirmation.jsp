@@ -8,7 +8,7 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired"/></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.packageDefinition.prompt"/></td>
-    <td><bean:write scope="request" name="packageDefinition" property="display"/></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
+    <td><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.packageDefinition.prompt" /></td>
+    <td><bean:write scope="request" name="packageDefinition" property="display" /></td>
 </tr>

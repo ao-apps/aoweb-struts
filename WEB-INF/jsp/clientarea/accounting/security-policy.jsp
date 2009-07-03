@@ -8,14 +8,14 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <aoweb:exists path="/WEB-INF/jsp/clientarea/accounting/security-policy.override.jsp">
-    <jsp:include page="/WEB-INF/jsp/clientarea/accounting/security-policy.override.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/clientarea/accounting/security-policy.override.jsp" />
 </aoweb:exists>
 <aoweb:notExists path="/WEB-INF/jsp/clientarea/accounting/security-policy.override.jsp">
     <br />
     <skin:lightArea width="500">
-        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="securityPolicy.securityNotice.title"/>
+        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="securityPolicy.securityNotice.title" />
         <hr />
         <%-- Should make a per-provider notice based on root-level business --%>
-        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="securityPolicy.securityNotice.body"/>
+        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="securityPolicy.securityNotice.body" />
     </skin:lightArea>
 </aoweb:notExists>

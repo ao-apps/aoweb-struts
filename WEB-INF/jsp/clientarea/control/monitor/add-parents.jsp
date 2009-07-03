@@ -9,6 +9,6 @@
 
 <%@ include file="../add-parents.jsp" %>
 <skin:addParent useEncryption="false" path="/clientarea/control/monitor/MonitorIndex.ao">
-    <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="monitor.index.title"/></skin:title>
-    <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="monitor.index.navImageAlt"/></skin:title>
+    <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="monitor.index.title" /></skin:title>
+    <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="monitor.index.navImageAlt" /></skin:title>
 </skin:addParent>

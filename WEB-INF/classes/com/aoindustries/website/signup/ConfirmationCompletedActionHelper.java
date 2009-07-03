@@ -290,7 +290,7 @@ final public class ConfirmationCompletedActionHelper {
             }
             emailOut.print("</head>\n"
                          + "<body>\n"
-                         + "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"
+                         + "<table style='border:0px' cellpadding=\"0\" cellspacing=\"0\">\n"
                          + "    <tr><td style='white-space:nowrap' colspan=\"3\">\n"
                          + "        ").print(signupApplicationResources.getMessage(contentLocale, statusKey, pkey)).print("<br />\n"
                          + "        <br />\n"

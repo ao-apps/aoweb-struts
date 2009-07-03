@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="">
   <!-- Configuration for root AOServConnector -->
-  <Parameter name="root.aoserv.client.username" value="$AOSERV_USERNAME"/>
-  <Parameter name="root.aoserv.client.password" value="$AOSERV_PASSWORD"/>
+  <Parameter name="root.aoserv.client.username" value="$AOSERV_USERNAME" />
+  <Parameter name="root.aoserv.client.password" value="$AOSERV_PASSWORD" />
   <!--
     Configuration for auto-redirect between HTTP and HTTPS.  It is
     recommended to not perform the redirect in development to make links as
@@ -12,11 +12,11 @@
     true:  a redirect will be sent to the client on unexpected protocol
     false: a 403 error will be sent to the client on unexpected protocol
   -->
-  <Parameter name="com.aoindustries.website.ProtocolAction.redirectOnMismatch" value="true"/>
+  <Parameter name="com.aoindustries.website.ProtocolAction.redirectOnMismatch" value="true" />
 
   <!-- Configuration for Error Handlers -->
   <!-- Recommend using true for development and false for production -->
-  <Parameter name="exception.showError" value="false"/>
+  <Parameter name="exception.showError" value="false" />
 
   <!--
     Enables the use of xhtml content type for compatbile browser.
@@ -24,5 +24,5 @@
     fully validated and debugged.  This defaults to false if missing or not
     precisely equal to "true".
   -->
-  <Parameter name="com.aoindustries.website.skintags.SetContentTypeTag.allowApplicationXhtmlXml" value="false"/>
+  <Parameter name="com.aoindustries.website.skintags.SetContentTypeTag.allowApplicationXhtmlXml" value="false" />
 </Context>

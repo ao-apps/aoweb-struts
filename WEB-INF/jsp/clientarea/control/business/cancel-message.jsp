@@ -8,8 +8,8 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <aoweb:exists path="/WEB-INF/jsp/clientarea/control/business/cancel-message.override.jsp">
-    <jsp:include page="/WEB-INF/jsp/clientarea/control/business/cancel-message.override.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/clientarea/control/business/cancel-message.override.jsp" />
 </aoweb:exists>
 <aoweb:notExists path="/WEB-INF/jsp/clientarea/control/business/cancel-message.override.jsp">
-    <bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.message"/>
+    <bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.message" />
 </aoweb:notExists>

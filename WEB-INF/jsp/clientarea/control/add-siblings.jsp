@@ -8,12 +8,12 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <aoweb:exists path="/WEB-INF/jsp/clientarea/control/add-siblings.override.jsp">
-    <jsp:include page="/WEB-INF/jsp/clientarea/control/add-siblings.override.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/clientarea/control/add-siblings.override.jsp" />
 </aoweb:exists>
 <aoweb:notExists path="/WEB-INF/jsp/clientarea/control/add-siblings.override.jsp">
     <skin:addSibling useEncryption="false" path="/clientarea/control/password/index.do">
-        <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="password.index.title"/></skin:title>
-        <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="password.index.navImageAlt"/></skin:navImageAlt>
-        <skin:description><bean:message bundle="/clientarea/control/ApplicationResources" key="password.index.description"/></skin:description>
+        <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="password.index.title" /></skin:title>
+        <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="password.index.navImageAlt" /></skin:navImageAlt>
+        <skin:description><bean:message bundle="/clientarea/control/ApplicationResources" key="password.index.description" /></skin:description>
     </skin:addSibling>
 </aoweb:notExists>

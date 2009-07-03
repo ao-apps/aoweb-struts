@@ -10,22 +10,22 @@
   This is intended to be used by other JSP pages, not to be used directly.
   It only provides the content of the page.
 --%>
-<bean:define scope="request" name="locale" id="locale" type="java.util.Locale"/>
+<bean:define scope="request" name="locale" id="locale" type="java.util.Locale" />
 <skin:lightArea>
-    <b><bean:message bundle="/ApplicationResources" key="permissionDenied.permissionDenied"/></b>
+    <b><bean:message bundle="/ApplicationResources" key="permissionDenied.permissionDenied" /></b>
     <hr />
     <logic:present scope="request" name="permissionDenied">
         <logic:empty scope="request" name="permissionDenied">
-            <bean:message bundle="/ApplicationResources" key="permissionDenied.noPermissionInformation"/>
+            <bean:message bundle="/ApplicationResources" key="permissionDenied.noPermissionInformation" />
         </logic:empty>
         <logic:notEmpty scope="request" name="permissionDenied">
-            <bean:size scope="request" name="permissionDenied" id="permissionDeniedSize"/>
+            <bean:size scope="request" name="permissionDenied" id="permissionDeniedSize" />
             <logic:equal name="permissionDeniedSize" value="1">
-                <bean:message bundle="/ApplicationResources" key="permissionDenied.theFollowingPermissionRequired"/>
+                <bean:message bundle="/ApplicationResources" key="permissionDenied.theFollowingPermissionRequired" />
                 <%-- We are only grabbing the first item from the list.  I can't find a more efficient way so I'm just doing an interate
                      which will result in the first item being pulled out as desired.  I was trying something like this:
-                    <bean:define name="permissionDenied" property="[0].displayKey" id="permissionDisplayKey" type="java.lang.String"/>
-                    <bean:define name="permissionDenied" property="[0].descriptionKey" id="permissionDescriptionKey" type="java.lang.String"/>
+                    <bean:define name="permissionDenied" property="[0].displayKey" id="permissionDisplayKey" type="java.lang.String" />
+                    <bean:define name="permissionDenied" property="[0].descriptionKey" id="permissionDescriptionKey" type="java.lang.String" />
                 --%>
                 <logic:iterate scope="request" name="permissionDenied" id="andPermission" type="com.aoindustries.aoserv.client.AOServPermission">
                     <bean:define id="permissionDisplay" type="java.lang.String"><%= andPermission.getDisplay(locale) %></bean:define>
@@ -33,38 +33,38 @@
                     <p>
                         <table cellspacing='0' cellpadding='2'>
                             <tr>
-                                <td style="white-space:nowrap"><b><bean:message bundle="/ApplicationResources" key="permissionDenied.permission.display"/></b></td>
-                                <td style="white-space:nowrap"><bean:write name="permissionDisplay"/></td>
+                                <td style="white-space:nowrap"><b><bean:message bundle="/ApplicationResources" key="permissionDenied.permission.display" /></b></td>
+                                <td style="white-space:nowrap"><bean:write name="permissionDisplay" /></td>
                             </tr>
                             <tr>
-                                <td style="white-space:nowrap"><b><bean:message bundle="/ApplicationResources" key="permissionDenied.permission.description"/></b></td>
-                                <td style="white-space:nowrap"><bean:write name="permissionDescription"/></td>
+                                <td style="white-space:nowrap"><b><bean:message bundle="/ApplicationResources" key="permissionDenied.permission.description" /></b></td>
+                                <td style="white-space:nowrap"><bean:write name="permissionDescription" /></td>
                             </tr>
                         </table>
                     </p>
                 </logic:iterate>
             </logic:equal>
             <logic:notEqual name="permissionDeniedSize" value="1">
-                <bean:message bundle="/ApplicationResources" key="permissionDenied.allOfTheFollowingPermissionsRequired"/>
+                <bean:message bundle="/ApplicationResources" key="permissionDenied.allOfTheFollowingPermissionsRequired" />
                 <p>
                     <table cellspacing='0' cellpadding='2'>
                         <tr>
-                            <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.display"/></th>
-                            <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.description"/></th>
-                            <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.hasPermission"/></th>
+                            <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.display" /></th>
+                            <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.description" /></th>
+                            <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.hasPermission" /></th>
                         </tr>
-                        <bean:define scope="request" name="aoConn" property="thisBusinessAdministrator" id="thisBusinessAdministrator" type="com.aoindustries.aoserv.client.BusinessAdministrator"/>
+                        <bean:define scope="request" name="aoConn" property="thisBusinessAdministrator" id="thisBusinessAdministrator" type="com.aoindustries.aoserv.client.BusinessAdministrator" />
                         <logic:iterate scope="request" name="permissionDenied" id="andPermission" type="com.aoindustries.aoserv.client.AOServPermission">
                             <bean:define id="permissionDisplay" type="java.lang.String"><%= andPermission.getDisplay(locale) %></bean:define>
                             <bean:define id="permissionDescription" type="java.lang.String"><%= andPermission.getDescription(locale) %></bean:define>
                             <tr>
-                                <td style="white-space:nowrap"><bean:write name="permissionDisplay"/></td>
-                                <td style="white-space:nowrap"><bean:write name="permissionDescription"/></td>
+                                <td style="white-space:nowrap"><bean:write name="permissionDisplay" /></td>
+                                <td style="white-space:nowrap"><bean:write name="permissionDescription" /></td>
                                 <td style="white-space:nowrap">
                                     <% if(thisBusinessAdministrator.hasPermission(andPermission)) { %>
-                                        <bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.hasPermission.yes"/>
+                                        <bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.hasPermission.yes" />
                                     <% } else { %>
-                                        <bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.hasPermission.no"/>
+                                        <bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.hasPermission.no" />
                                     <% } %>
                                 </td>
                             </tr>
@@ -75,6 +75,6 @@
         </logic:notEmpty>
     </logic:present>
     <logic:notPresent scope="request" name="permissionDenied">
-        <bean:message bundle="/ApplicationResources" key="permissionDenied.noPermissionInformation"/>
+        <bean:message bundle="/ApplicationResources" key="permissionDenied.noPermissionInformation" />
     </logic:notPresent>
 </skin:lightArea>

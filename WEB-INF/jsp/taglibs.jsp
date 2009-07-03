@@ -10,4 +10,4 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
 <%@ taglib uri="/WEB-INF/aoweb-struts-aoweb.tld" prefix="aoweb" %>
 <%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
-<html:xhtml/>
+<html:xhtml />

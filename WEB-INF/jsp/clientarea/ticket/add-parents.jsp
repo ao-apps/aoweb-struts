@@ -8,12 +8,12 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <aoweb:exists path="/WEB-INF/jsp/clientarea/ticket/add-parents.override.jsp">
-    <jsp:include page="/WEB-INF/jsp/clientarea/ticket/add-parents.override.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/clientarea/ticket/add-parents.override.jsp" />
 </aoweb:exists>
 <aoweb:notExists path="/WEB-INF/jsp/clientarea/ticket/add-parents.override.jsp">
     <%@ include file="../add-parents.jsp" %>
     <skin:addParent useEncryption="true" path="/clientarea/ticket/index.do">
-        <skin:title><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.title"/></skin:title>
-        <skin:title><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.navImageAlt"/></skin:title>
+        <skin:title><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.title" /></skin:title>
+        <skin:title><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.navImageAlt" /></skin:title>
     </skin:addParent>
 </aoweb:notExists>

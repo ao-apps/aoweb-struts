@@ -19,7 +19,7 @@
       <type>String</type>
       <description>The context-relative path to test existence.  This does not support relative paths.</description>
     </attribute>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>notExists</name>
@@ -33,7 +33,7 @@
       <type>String</type>
       <description>The context-relative path to test existence.  This does not support relative paths.</description>
     </attribute>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>scriptGroup</name>
@@ -59,7 +59,7 @@
         TODO: Consider renaming to something more generic and including option for ondomready event.
       </description>
     </attribute>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>date</name>
@@ -71,7 +71,7 @@
         This may optionally be placed into a scriptGroup tag to create a single large
         script instead of many small scripts.
     </description>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>dateTime</name>
@@ -83,7 +83,7 @@
         This may optionally be placed into a scriptGroup tag to create a single large
         script instead of many small scripts.
     </description>
-    <example/>
+    <example />
   </tag>
   <tag>
     <name>time</name>
@@ -95,6 +95,6 @@
         This may optionally be placed into a scriptGroup tag to create a single large
         script instead of many small scripts.
     </description>
-    <example/>
+    <example />
   </tag>
 </taglib>
