@@ -22,7 +22,6 @@
         <jsp:include page="/WEB-INF/jsp/add-siblings.jsp" />
     </aoweb:exists>
     <skin:skin onload="document.forms['contactForm'].from.select(); document.forms['contactForm'].from.focus();">
-        <% if(true) throw new Exception("TODO: Test exception only, remove me <test> & &amp; \t\tTest"); %>
         <skin:content colspans="3" width="600">
             <skin:contentTitle><bean:message bundle="/ApplicationResources" key="contact.title" /></skin:contentTitle>
             <skin:contentHorizontalDivider colspansAndDirections="1,down,1" />
@@ -66,10 +65,9 @@
                         </tr>
                         <tr>
                             <td style='white-space:nowrap' colspan='2'>
-                                <bean:define id="supportEmail" type="com.aoindustries.aoserv.client.EmailAddress" name="siteSettings" property="brand.supportEmailAddress" />
-                                <html:link styleClass="aoDarkLink" href='<%= "mailto:"+supportEmail %>'>
+                                <a class="aoDarkLink" href="mailto:<bean:write name="siteSettings" property="brand.supportEmailAddress" />">
                                     <code><bean:write name="siteSettings" property="brand.supportEmailAddress" /></code>
-                                </html:link>
+                                </a>
                             </td>
                         </tr>
                         <logic:notEmpty name="siteSettings" property="brand.supportFax">
