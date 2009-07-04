@@ -255,9 +255,9 @@ public class TextSkin extends Skin {
                         + "  function selectLayout(layout) {\n");
                 for(Skin skin : skins) {
                     out.print("    if(layout=='");
-                    EncodingUtils.encodeJavaScriptString(skin.getName(), out);
+                    EncodingUtils.encodeJavaScriptStringInXml(skin.getName(), out);
                     out.print("') window.top.location.href='");
-                    EncodingUtils.encodeJavaScriptString(                          // Escape for JavaScript
+                    EncodingUtils.encodeJavaScriptStringInXml(                          // Escape for JavaScript
                         StringUtility.replace(                                  // Convert XML &amp; to &
                             resp.encodeURL(fullPath+"?layout="+skin.getName()),
                             "&amp;",
@@ -319,13 +319,13 @@ public class TextSkin extends Skin {
                             )
                         );
                         out.print("' onmouseover='document.images[\"flagSelector_");
-                        EncodingUtils.encodeJavaScriptStringInXmlAttribute(language.getCode(), out);
+                        EncodingUtils.encodeJavaScriptStringInXml(language.getCode(), out);
                         out.print("\"].src=\"");
-                        EncodingUtils.encodeJavaScriptStringInXmlAttribute(StringUtility.replace(resp.encodeURL(urlBase + language.getFlagOnSrc(req, locale)), "&amp;", "&"), out);
+                        EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(resp.encodeURL(urlBase + language.getFlagOnSrc(req, locale)), "&amp;", "&"), out);
                         out.print("\";' onmouseout='document.images[\"flagSelector_");
                         out.print(language.getCode());
                         out.print("\"].src=\"");
-                        EncodingUtils.encodeJavaScriptStringInXmlAttribute(StringUtility.replace(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)), "&amp;", "&"), out);
+                        EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)), "&amp;", "&"), out);
                         out.print("\";'><img src='");
                         out.print(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)));
                         out.print("' id='flagSelector_");

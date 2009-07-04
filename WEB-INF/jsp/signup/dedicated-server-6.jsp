@@ -27,11 +27,11 @@
                 <script type='text/javascript'>
                     // <![CDATA[
                     function selectStep(step) {
-                        if(step=="dedicated-server") window.location.href="<% EncodingUtils.encodeJavaScriptString(StringUtility.replace(response.encodeURL("dedicated-server.do"), "&amp;", "&"), out); %>";
-                        else if(step=="dedicated-server-2") window.location.href="<% EncodingUtils.encodeJavaScriptString(StringUtility.replace(response.encodeURL("dedicated-server-2.do"), "&amp;", "&"), out); %>";
-                        else if(step=="dedicated-server-3") window.location.href="<% EncodingUtils.encodeJavaScriptString(StringUtility.replace(response.encodeURL("dedicated-server-3.do"), "&amp;", "&"), out); %>";
-                        else if(step=="dedicated-server-4") window.location.href="<% EncodingUtils.encodeJavaScriptString(StringUtility.replace(response.encodeURL("dedicated-server-4.do"), "&amp;", "&"), out); %>";
-                        else if(step=="dedicated-server-5") window.location.href="<% EncodingUtils.encodeJavaScriptString(StringUtility.replace(response.encodeURL("dedicated-server-5.do"), "&amp;", "&"), out); %>";
+                        if(step=="dedicated-server") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("dedicated-server.do"), "&amp;", "&"), out); %>";
+                        else if(step=="dedicated-server-2") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("dedicated-server-2.do"), "&amp;", "&"), out); %>";
+                        else if(step=="dedicated-server-3") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("dedicated-server-3.do"), "&amp;", "&"), out); %>";
+                        else if(step=="dedicated-server-4") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("dedicated-server-4.do"), "&amp;", "&"), out); %>";
+                        else if(step=="dedicated-server-5") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("dedicated-server-5.do"), "&amp;", "&"), out); %>";
                     }
                     // ]]>
                 </script>

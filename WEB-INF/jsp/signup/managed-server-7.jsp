@@ -27,12 +27,12 @@
                 <script type='text/javascript'>
                     // <![CDATA[
                     function selectStep(step) {
-                        if(step=="managed-server") window.location.href="<% EncodingUtils.encodeJavaScriptString(StringUtility.replace(response.encodeURL("managed-server.do"), "&amp;", "&"), out); %>";
-                        else if(step=="managed-server-2") window.location.href="<% EncodingUtils.encodeJavaScriptString(StringUtility.replace(response.encodeURL("managed-server-2.do"), "&amp;", "&"), out); %>";
-                        else if(step=="managed-server-3") window.location.href="<% EncodingUtils.encodeJavaScriptString(StringUtility.replace(response.encodeURL("managed-server-3.do"), "&amp;", "&"), out); %>";
-                        else if(step=="managed-server-4") window.location.href="<% EncodingUtils.encodeJavaScriptString(StringUtility.replace(response.encodeURL("managed-server-4.do"), "&amp;", "&"), out); %>";
-                        else if(step=="managed-server-5") window.location.href="<% EncodingUtils.encodeJavaScriptString(StringUtility.replace(response.encodeURL("managed-server-5.do"), "&amp;", "&"), out); %>";
-                        else if(step=="managed-server-6") window.location.href="<% EncodingUtils.encodeJavaScriptString(StringUtility.replace(response.encodeURL("managed-server-6.do"), "&amp;", "&"), out); %>";
+                        if(step=="managed-server") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("managed-server.do"), "&amp;", "&"), out); %>";
+                        else if(step=="managed-server-2") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("managed-server-2.do"), "&amp;", "&"), out); %>";
+                        else if(step=="managed-server-3") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("managed-server-3.do"), "&amp;", "&"), out); %>";
+                        else if(step=="managed-server-4") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("managed-server-4.do"), "&amp;", "&"), out); %>";
+                        else if(step=="managed-server-5") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("managed-server-5.do"), "&amp;", "&"), out); %>";
+                        else if(step=="managed-server-6") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("managed-server-6.do"), "&amp;", "&"), out); %>";
                     }
                     // ]]>
                 </script>

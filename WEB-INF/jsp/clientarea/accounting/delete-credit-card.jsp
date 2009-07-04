@@ -95,7 +95,7 @@
                                         <input
                                             type="button"
                                             value="<bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.field.cancel.label" />"
-                                            onclick="window.location.href='<% EncodingUtils.encodeJavaScriptStringInXmlAttribute(StringUtility.replace(response.encodeURL("credit-card-manager.do"), "&amp;", "&"), out); %>'"
+                                            onclick="window.location.href='<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("credit-card-manager.do"), "&amp;", "&"), out); %>'"
                                         />
                                     </td>
                                 </tr>
