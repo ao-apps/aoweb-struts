@@ -116,7 +116,7 @@
                                                             <bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.field.balance.zero" />
                                                         <% } %>
                                                     </td>
-                                                    <td><aoweb:date><bean:write name="bu" property="created" /></aoweb:date></td>
+                                                    <td><aoweb:date><ao:write name="bu" property="created" /></aoweb:date></td>
                                                     <td>
                                                         <% long canceled=bu.getCanceled(); %>
                                                         <% if(canceled==-1) { %>

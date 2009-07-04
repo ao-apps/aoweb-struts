@@ -27,7 +27,7 @@
                 <% if(myStepNumber.equals("7")) { %>
                     <bean:message bundle="/signup/ApplicationResources" key="steps.selectServer.label" />
                 <% } else { %>
-                    <a class="aoDarkLink" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix" />');"><bean:message bundle="/signup/ApplicationResources" key="steps.selectServer.label" /></a>
+                    <a class="aoDarkLink" href="javascript:selectStep('<ao:write scope="request" name="actionPrefix" />');"><bean:message bundle="/signup/ApplicationResources" key="steps.selectServer.label" /></a>
                 <% } %>
             </td>
             <td>
@@ -49,7 +49,7 @@
                 <% if(myStepNumber.equals("7") || !signupSelectServerFormComplete.equals("true")) { %>
                     <bean:message bundle="/signup/ApplicationResources" key="steps.customizeServer.label" />
                 <% } else { %>
-                    <a class="aoDarkLink" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix" />-2');"><bean:message bundle="/signup/ApplicationResources" key="steps.customizeServer.label" /></a>
+                    <a class="aoDarkLink" href="javascript:selectStep('<ao:write scope="request" name="actionPrefix" />-2');"><bean:message bundle="/signup/ApplicationResources" key="steps.customizeServer.label" /></a>
                 <% } %>
             </td>
             <td>
@@ -75,7 +75,7 @@
                    ) { %>
                     <bean:message bundle="/signup/ApplicationResources" key="steps.businessInfo.label" />
                 <% } else { %>
-                    <a class="aoDarkLink" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix" />-3');"><bean:message bundle="/signup/ApplicationResources" key="steps.businessInfo.label" /></a>
+                    <a class="aoDarkLink" href="javascript:selectStep('<ao:write scope="request" name="actionPrefix" />-3');"><bean:message bundle="/signup/ApplicationResources" key="steps.businessInfo.label" /></a>
                 <% } %>
             </td>
             <td>
@@ -102,7 +102,7 @@
                    ) { %>
                     <bean:message bundle="/signup/ApplicationResources" key="steps.technicalInfo.label" />
                 <% } else { %>
-                    <a class="aoDarkLink" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix" />-4');"><bean:message bundle="/signup/ApplicationResources" key="steps.technicalInfo.label" /></a>
+                    <a class="aoDarkLink" href="javascript:selectStep('<ao:write scope="request" name="actionPrefix" />-4');"><bean:message bundle="/signup/ApplicationResources" key="steps.technicalInfo.label" /></a>
                 <% } %>
             </td>
             <td>
@@ -130,7 +130,7 @@
                    ) { %>
                     <bean:message bundle="/signup/ApplicationResources" key="steps.billingInformation.label" />
                 <% } else { %>
-                    <a class="aoDarkLink" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix" />-5');"><bean:message bundle="/signup/ApplicationResources" key="steps.billingInformation.label" /></a>
+                    <a class="aoDarkLink" href="javascript:selectStep('<ao:write scope="request" name="actionPrefix" />-5');"><bean:message bundle="/signup/ApplicationResources" key="steps.billingInformation.label" /></a>
                 <% } %>
             </td>
             <td>
@@ -159,7 +159,7 @@
                    ) { %>
                     <bean:message bundle="/signup/ApplicationResources" key="steps.confirmation.label" />
                 <% } else { %>
-                    <a class="aoDarkLink" href="javascript:selectStep('<bean:write scope="request" name="actionPrefix" />-6');"><bean:message bundle="/signup/ApplicationResources" key="steps.confirmation.label" /></a>
+                    <a class="aoDarkLink" href="javascript:selectStep('<ao:write scope="request" name="actionPrefix" />-6');"><bean:message bundle="/signup/ApplicationResources" key="steps.confirmation.label" /></a>
                 <% } %>
             </td>
             <td>

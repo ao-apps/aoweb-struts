@@ -23,7 +23,7 @@
             <skin:contentTitle><bean:message bundle="/clientarea/control/ApplicationResources" key="password.passwordEvaluator.title" /></skin:contentTitle>
             <skin:contentHorizontalDivider />
             <skin:contentLine align="center">
-                <html:javascript staticJavascript='false' bundle="/clientarea/control/ApplicationResources" formName="passwordEvaluatorForm" /><noscript><!-- Do nothing --></noscript>
+                <html:javascript staticJavascript='false' bundle="/clientarea/control/ApplicationResources" formName="passwordEvaluatorForm" />
                 <skin:lightArea>
                     <html:form action="/password/password-evaluator-completed" onsubmit="return validatePasswordEvaluatorForm(this);">
                         <div>
@@ -35,8 +35,8 @@
                                 <table cellspacing="0" cellpadding="4">
                                     <logic:iterate scope="request" name="results" id="result" type="com.aoindustries.aoserv.client.PasswordChecker.Result">
                                         <tr>
-                                            <td><bean:write name="result" property="category" />:</td>
-                                            <td><bean:write name="result" property="result" /></td>
+                                            <td><ao:write name="result" property="category" />:</td>
+                                            <td><ao:write name="result" property="result" /></td>
                                         </tr>
                                     </logic:iterate>
                                 </table>

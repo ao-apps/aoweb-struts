@@ -39,7 +39,7 @@ public class LocaleAction extends SiteSettingsAction {
         SiteSettings siteSettings
     ) throws Exception {
         // Resolve the locale
-        Locale locale = getEffectiveLocale(siteSettings, request);
+        Locale locale = getEffectiveLocale(siteSettings, request, response);
         request.setAttribute(Constants.LOCALE, locale);
 
         return execute(mapping, form, request, response, siteSettings, locale);
@@ -51,7 +51,7 @@ public class LocaleAction extends SiteSettingsAction {
      * (the first in the language list).  Also allows the parameter "language" to
      * override the current settings.
      */
-    public static Locale getEffectiveLocale(SiteSettings siteSettings, HttpServletRequest request) throws JspException, IOException, SQLException {
+    public static Locale getEffectiveLocale(SiteSettings siteSettings, HttpServletRequest request, HttpServletResponse response) throws JspException, IOException, SQLException {
         HttpSession session = request.getSession();
         List<Skin.Language> languages = siteSettings.getLanguages(request);
         Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
@@ -63,6 +63,7 @@ public class LocaleAction extends SiteSettingsAction {
                 if(code.equals(language)) {
                     locale = locale==null ? new Locale(code) : new Locale(code, locale.getCountry(), locale.getVariant());
                     session.setAttribute(Globals.LOCALE_KEY, locale);
+                    response.setLocale(locale);
                     return locale;
                 }
             }
@@ -73,6 +74,7 @@ public class LocaleAction extends SiteSettingsAction {
             for(Skin.Language possLanguage : languages) {
                 if(possLanguage.getCode().equals(localeLanguage)) {
                     // Current value is from session and is OK
+                    response.setLocale(locale);
                     return locale;
                 }
             }
@@ -80,6 +82,7 @@ public class LocaleAction extends SiteSettingsAction {
         // Return the default
         locale = getDefaultLocale(languages);
         session.setAttribute(Globals.LOCALE_KEY, locale);
+        response.setLocale(locale);
         return locale;
     }
 

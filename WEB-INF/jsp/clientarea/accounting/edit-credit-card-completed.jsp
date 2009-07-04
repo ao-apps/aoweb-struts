@@ -69,17 +69,24 @@
                         </logic:equal>
                         <ul>
                             <logic:equal scope="request" name="updatedCardNumber" value="true">
+                                <bean:define id="somethingChanged" value="true"/>
                                 <li><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.updatedCardNumber" /></li>
                             </logic:equal>
                             <logic:equal scope="request" name="updatedExpirationDate" value="true">
+                                <bean:define id="somethingChanged" value="true"/>
                                 <li><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.updatedExpirationDate" /></li>
                             </logic:equal>
                             <logic:equal scope="request" name="updatedCardDetails" value="true">
+                                <bean:define id="somethingChanged" value="true"/>
                                 <li><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.updatedCardDetails" /></li>
                             </logic:equal>
                             <logic:equal scope="request" name="reactivatedCard" value="true">
+                                <bean:define id="somethingChanged" value="true"/>
                                 <li><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.reactivatedCard" /></li>
                             </logic:equal>
+                            <logic:notPresent name="somethingChanged">
+                                <li><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.successMessage.nothingChanged" /></li>
+                            </logic:notPresent>
                         </ul>
                         <html:link action="/credit-card-manager"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="editCreditCardCompleted.creditCardManager.link" /></html:link>
                     </skin:lightArea>

@@ -47,7 +47,7 @@
                         <td style="white-space:nowrap"><%= creditCard.getCardInfo().replace('X', 'x') %></td>
                         <td style="white-space:nowrap">
                             <logic:notEmpty name="creditCard" property="description">
-                                <bean:write name="creditCard" property="description" />
+                                <ao:write name="creditCard" property="description" />
                             </logic:notEmpty>
                             <logic:empty name="creditCard" property="description">
                                 &#160;

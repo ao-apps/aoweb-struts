@@ -10,7 +10,7 @@
 <skin:setContentType />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html lang="true" xhtml="true">
-    <skin:path>/clientarea/accounting/edit-credit-card.do?persistenceId=<bean:write scope="request" name="editCreditCardForm" property="persistenceId" /></skin:path>
+    <skin:path>/clientarea/accounting/edit-credit-card.do?persistenceId=<ao:write scope="request" name="editCreditCardForm" property="persistenceId" /></skin:path>
     <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
     <skin:title>
         <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
@@ -193,14 +193,14 @@
                                                 <logic:iterate scope="request" name="countryOptions" id="countryOption">
                                                     <logic:equal name="countryOption" property="code" value="<%= country %>">
                                                         <% if(!didOne.equals("true")) { %>
-                                                            <option value='<bean:write name="countryOption" property="code" />' selected="selected"><bean:write name="countryOption" property="name" /></option>
+                                                            <option value='<ao:write name="countryOption" property="code" />' selected="selected"><ao:write name="countryOption" property="name" /></option>
                                                             <% didOne = "true"; %>
                                                         <% } else { %>
-                                                            <option value='<bean:write name="countryOption" property="code" />'><bean:write name="countryOption" property="name" /></option>
+                                                            <option value='<ao:write name="countryOption" property="code" />'><ao:write name="countryOption" property="name" /></option>
                                                         <% } %>
                                                     </logic:equal>
                                                     <logic:notEqual name="countryOption" property="code" value="<%= country %>">
-                                                        <option value='<bean:write name="countryOption" property="code" />'><bean:write name="countryOption" property="name" /></option>
+                                                        <option value='<ao:write name="countryOption" property="code" />'><ao:write name="countryOption" property="name" /></option>
                                                     </logic:notEqual>
                                                 </logic:iterate>
                                             </html:select>

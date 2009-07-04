@@ -18,7 +18,7 @@
 
     // Set locale request attribute if not yet done
     if(request.getAttribute(com.aoindustries.website.Constants.LOCALE)==null) {
-        java.util.Locale locale = com.aoindustries.website.LocaleAction.getEffectiveLocale(siteSettings, request);
+        java.util.Locale locale = com.aoindustries.website.LocaleAction.getEffectiveLocale(siteSettings, request, response);
         request.setAttribute(com.aoindustries.website.Constants.LOCALE, locale);
     }
 
@@ -51,39 +51,30 @@
                 <br />
                 <logic:equal scope="request" name="siteSettings" property="exceptionShowError" value="true">
                     <%-- Error Data --%>
-                    <% {
-                        javax.servlet.jsp.ErrorData errorData;
-                        try {
-                            errorData = pageContext==null ? null : pageContext.getErrorData();
-                            if(errorData!=null) pageContext.setAttribute("errorData", errorData);
-                        } catch(NullPointerException err) {
-                            errorData = null;
-                        }
-                    } %>
-                    <logic:present scope="page" name="errorData">
+                    <logic:notEmpty name="javax.servlet.jsp.jspPageContext" property="errorData">
                         <skin:lightArea>
                             <bean:message bundle="/ApplicationResources" key="exception.jspException.title" />
                             <hr />
                             <table style='border:1px' cellspacing="0" cellpadding="2">
                                 <tr>
-                                    <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="exception.servletName.header" /></th>
-                                    <td style="white-space:nowrap"><bean:write scope="page" name="errorData" property="servletName" /></td>
+                                    <th style='white-space:nowrap; text-align:left'><bean:message bundle="/ApplicationResources" key="exception.servletName.header" /></th>
+                                    <td style="white-space:nowrap"><ao:write name="javax.servlet.jsp.jspPageContext" property="errorData.servletName" /></td>
                                 </tr>
                                 <tr>
-                                    <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="exception.requestURI.header" /></th>
-                                    <td style="white-space:nowrap"><bean:write scope="page" name="errorData" property="requestURI" /></td>
+                                    <th style='white-space:nowrap; text-align:left'><bean:message bundle="/ApplicationResources" key="exception.requestURI.header" /></th>
+                                    <td style="white-space:nowrap"><ao:write name="javax.servlet.jsp.jspPageContext" property="errorData.requestURI" /></td>
                                 </tr>
                                 <tr>
-                                    <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="exception.statusCode.header" /></th>
-                                    <td style="white-space:nowrap"><bean:write scope="page" name="errorData" property="statusCode" /></td>
+                                    <th style='white-space:nowrap; text-align:left'><bean:message bundle="/ApplicationResources" key="exception.statusCode.header" /></th>
+                                    <td style="white-space:nowrap"><ao:write name="javax.servlet.jsp.jspPageContext" property="errorData.statusCode" /></td>
                                 </tr>
                                 <tr>
-                                    <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="exception.throwable.header" /></th>
+                                    <th style='white-space:nowrap; text-align:left'><bean:message bundle="/ApplicationResources" key="exception.throwable.header" /></th>
                                     <td style="white-space:nowrap">
-                                        <logic:notEmpty scope="page" name="errorData" property="throwable">
-                                            <ao:pre><ao:getStackTraces scope="page" name="errorData" property="throwable" /></ao:pre>
+                                        <logic:notEmpty name="javax.servlet.jsp.jspPageContext" property="errorData.throwable">
+                                            <ao:pre><ao:getStackTraces name="javax.servlet.jsp.jspPageContext" property="errorData.throwable" /></ao:pre>
                                         </logic:notEmpty>
-                                        <logic:empty scope="page" name="errorData" property="throwable">
+                                        <logic:empty name="javax.servlet.jsp.jspPageContext" property="errorData.throwable">
                                             &#160;
                                         </logic:empty>
                                     </td>
@@ -91,7 +82,7 @@
                             </table>
                         </skin:lightArea><br />
                         <br />
-                    </logic:present>
+                    </logic:notEmpty>
                     <%-- Struts Exception --%>
                     <logic:present scope="request" name="exception">
                         <skin:lightArea>
@@ -102,19 +93,13 @@
                         <br />
                     </logic:present>
                     <%-- Servlet Exception --%>
-                    <%
-                        if(pageContext!=null) {
-                            Exception servletException = pageContext.getException();
-                            if(servletException!=null) pageContext.setAttribute("servletException", servletException);
-                        }
-                    %>
-                    <logic:present scope="page" name="servletException">
+                    <logic:notEmpty name="javax.servlet.jsp.jspPageContext" property="exception">
                         <skin:lightArea>
                             <bean:message bundle="/ApplicationResources" key="exception.servletException.title" />
                             <hr />
-                            <ao:pre><ao:getStackTraces scope="page" name="servletException" /></ao:pre>
+                            <ao:pre><ao:getStackTraces name="javax.servlet.jsp.jspPageContext" property="exception" /></ao:pre>
                         </skin:lightArea>
-                    </logic:present>
+                    </logic:notEmpty>
                 </logic:equal>
             </skin:contentLine>
         </skin:content>

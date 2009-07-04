@@ -29,6 +29,7 @@ public class AddCreditCardForm extends CreditCardForm implements Serializable {
     public AddCreditCardForm() {
     }
 
+    @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         super.reset(mapping, request);
         setCardNumber("");
@@ -60,6 +61,7 @@ public class AddCreditCardForm extends CreditCardForm implements Serializable {
         this.expirationYear = expirationYear;
     }
 
+    @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = super.validate(mapping, request);
         if(errors==null) errors = new ActionErrors();
@@ -74,6 +76,7 @@ public class AddCreditCardForm extends CreditCardForm implements Serializable {
         return errors;
     }
 
+    @Override
     public ActionErrors mapTransactionError(TransactionResult.ErrorCode errorCode, Locale userLocale) {
         String errorString = errorCode.toString(userLocale);
         ActionErrors errors = new ActionErrors();

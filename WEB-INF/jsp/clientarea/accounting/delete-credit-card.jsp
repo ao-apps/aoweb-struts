@@ -35,7 +35,7 @@
                 <logic:notPresent scope="request" name="permissionDenied">
                     <bean:define scope="request" name="creditCard" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard" />
                     <form method="post" action="<%= response.encodeURL("delete-credit-card-completed.do") %>">
-                        <input type="hidden" name="pkey" value="<bean:write name="creditCard" property="pkey" />" />
+                        <input type="hidden" name="pkey" value="<ao:write name="creditCard" property="pkey" />" />
                         <skin:lightArea>
                             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.confirmation.title" />
                             <hr />
@@ -45,19 +45,19 @@
                                 </tr>
                                 <tr>
                                     <th style='white-space:nowrap' class="aoLightRow" align="left"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.accounting.header" /></th>
-                                    <td style="white-space:nowrap"><bean:write name="creditCard" property="business.accounting" /></td>
+                                    <td style="white-space:nowrap"><ao:write name="creditCard" property="business.accounting" /></td>
                                 </tr>
                                 <tr>
                                     <th style='white-space:nowrap' class="aoLightRow" align="left"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.firstName.header" /></th>
-                                    <td style="white-space:nowrap"><bean:write name="creditCard" property="firstName" /></td>
+                                    <td style="white-space:nowrap"><ao:write name="creditCard" property="firstName" /></td>
                                 </tr>
                                 <tr>
                                     <th style='white-space:nowrap' class="aoLightRow" align="left"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.lastName.header" /></th>
-                                    <td style="white-space:nowrap"><bean:write name="creditCard" property="lastName" /></td>
+                                    <td style="white-space:nowrap"><ao:write name="creditCard" property="lastName" /></td>
                                 </tr>
                                 <tr>
                                     <th style='white-space:nowrap' class="aoLightRow" align="left"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.companyName.header" /></th>
-                                    <td style="white-space:nowrap"><bean:write name="creditCard" property="companyName" /></td>
+                                    <td style="white-space:nowrap"><ao:write name="creditCard" property="companyName" /></td>
                                 </tr>
                                 <tr>
                                     <th style='white-space:nowrap' class="aoLightRow" align="left"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.cardType.header" /></th>
@@ -82,7 +82,7 @@
                                 </tr>
                                 <tr>
                                     <th style='white-space:nowrap' class="aoLightRow" align="left"><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.description.header" /></th>
-                                    <td style="white-space:nowrap"><bean:write name="creditCard" property="description" /></td>
+                                    <td style="white-space:nowrap"><ao:write name="creditCard" property="description" /></td>
                                 </tr>
                                 <tr>
                                     <td style='white-space:nowrap' colspan="2" align="center">

@@ -51,7 +51,7 @@
                                     <logic:iterate scope="request" name="linuxAccountPasswordSetterForm" property="packages" id="pack" indexId="index">
                                         <tr>
                                             <logic:greaterThan name="packagesSize" value="1">
-                                                <td><bean:write name="pack" filter="true" /></td>
+                                                <td><ao:write name="pack" /></td>
                                             </logic:greaterThan>
                                             <td>
                                                 <html:hidden property='<%= "packages[" + index + "]" %>' />
@@ -59,20 +59,20 @@
                                                 <html:hidden property='<%= "aoServers[" + index + "]" %>' />
                                             </td>
                                             <logic:greaterThan name="aoServersSize" value="1">
-                                                <td><code><bean:write name="linuxAccountPasswordSetterForm" property='<%= "aoServers[" + index + "]" %>' filter="true" /></code></td>
+                                                <td><code><ao:write name="linuxAccountPasswordSetterForm" property='<%= "aoServers[" + index + "]" %>' /></code></td>
                                             </logic:greaterThan>
                                             <td><html:password size="20" property='<%= "newPasswords[" + index + "]" %>' /></td>
                                             <td style="white-space:nowrap">
                                                 <html:errors bundle="/clientarea/control/ApplicationResources" property='<%= "newPasswords[" + index + "].newPasswords" %>' />
                                                 <html:messages id="message" message="true" bundle="/clientarea/control/ApplicationResources" property='<%= "newPasswords[" + index + "].newPasswords" %>'>
-                                                    <bean:write name="message" /><br />
+                                                    <ao:write name="message" /><br />
                                                 </html:messages>
                                             </td>
                                             <td><html:password size="20" property='<%= "confirmPasswords[" + index + "]" %>' /></td>
                                             <td style="white-space:nowrap">
                                                 <html:errors bundle="/clientarea/control/ApplicationResources" property='<%= "confirmPasswords[" + index + "].confirmPasswords" %>' />
                                                 <html:messages id="message" message="true" bundle="/clientarea/control/ApplicationResources" property='<%= "confirmPasswords[" + index + "].confirmPasswords" %>'>
-                                                    <bean:write name="message" /><br />
+                                                    <ao:write name="message" /><br />
                                                 </html:messages>
                                             </td>
                                         </tr>

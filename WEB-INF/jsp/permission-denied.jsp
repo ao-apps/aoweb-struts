@@ -28,17 +28,16 @@
                     <bean:define name="permissionDenied" property="[0].descriptionKey" id="permissionDescriptionKey" type="java.lang.String" />
                 --%>
                 <logic:iterate scope="request" name="permissionDenied" id="andPermission" type="com.aoindustries.aoserv.client.AOServPermission">
-                    <bean:define id="permissionDisplay" type="java.lang.String"><%= andPermission.getDisplay(locale) %></bean:define>
                     <bean:define id="permissionDescription" type="java.lang.String"><%= andPermission.getDescription(locale) %></bean:define>
                     <p>
                         <table cellspacing='0' cellpadding='2'>
                             <tr>
                                 <td style="white-space:nowrap"><b><bean:message bundle="/ApplicationResources" key="permissionDenied.permission.display" /></b></td>
-                                <td style="white-space:nowrap"><bean:write name="permissionDisplay" /></td>
+                                <td style="white-space:nowrap"><ao:write name="andPermission" /></td>
                             </tr>
                             <tr>
                                 <td style="white-space:nowrap"><b><bean:message bundle="/ApplicationResources" key="permissionDenied.permission.description" /></b></td>
-                                <td style="white-space:nowrap"><bean:write name="permissionDescription" /></td>
+                                <td style="white-space:nowrap"><ao:write name="permissionDescription" /></td>
                             </tr>
                         </table>
                     </p>
@@ -55,11 +54,10 @@
                         </tr>
                         <bean:define scope="request" name="aoConn" property="thisBusinessAdministrator" id="thisBusinessAdministrator" type="com.aoindustries.aoserv.client.BusinessAdministrator" />
                         <logic:iterate scope="request" name="permissionDenied" id="andPermission" type="com.aoindustries.aoserv.client.AOServPermission">
-                            <bean:define id="permissionDisplay" type="java.lang.String"><%= andPermission.getDisplay(locale) %></bean:define>
                             <bean:define id="permissionDescription" type="java.lang.String"><%= andPermission.getDescription(locale) %></bean:define>
                             <tr>
-                                <td style="white-space:nowrap"><bean:write name="permissionDisplay" /></td>
-                                <td style="white-space:nowrap"><bean:write name="permissionDescription" /></td>
+                                <td style="white-space:nowrap"><ao:write name="andPermission" /></td>
+                                <td style="white-space:nowrap"><ao:write name="permissionDescription" /></td>
                                 <td style="white-space:nowrap">
                                     <% if(thisBusinessAdministrator.hasPermission(andPermission)) { %>
                                         <bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.hasPermission.yes" />

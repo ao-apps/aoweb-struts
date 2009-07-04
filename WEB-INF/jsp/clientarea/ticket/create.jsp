@@ -26,7 +26,7 @@
                     <%@ include file="../../permission-denied.jsp" %>
                 </logic:present>
                 <logic:notPresent scope="request" name="permissionDenied">
-                    <html:javascript staticJavascript='false' bundle="/clientarea/ticket/ApplicationResources" formName="ticketForm" /><noscript><!-- Do nothing --></noscript>
+                    <html:javascript staticJavascript='false' bundle="/clientarea/ticket/ApplicationResources" formName="ticketForm" />
                     <html:form action="/create-completed" onsubmit="return validateTicketForm(this);">
                         <skin:lightArea>
                             <table cellspacing="0" cellpadding="4">

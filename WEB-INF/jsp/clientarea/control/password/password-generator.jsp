@@ -27,7 +27,7 @@
                 <br />
                 <code>
                     <logic:iterate name="generatedPasswords" id="generatedPassword">
-                        <bean:write name="generatedPassword" /><br />
+                        <ao:write name="generatedPassword" /><br />
                     </logic:iterate>
                 </code>
             </skin:contentLine>

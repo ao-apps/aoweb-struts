@@ -10,7 +10,7 @@
 <skin:setContentType />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html lang="true" xhtml="true">
-    <skin:path>/clientarea/ticket/edit.do?pkey=<bean:write scope="request" name="ticket" property="pkey" /></skin:path>
+    <skin:path>/clientarea/ticket/edit.do?pkey=<ao:write scope="request" name="ticket" property="pkey" /></skin:path>
     <skin:title><bean:message bundle="/clientarea/ticket/ApplicationResources" key="edit.title" /></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/ticket/ApplicationResources" key="edit.navImageAlt" /></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/ticket/ApplicationResources" key="edit.keywords" /></skin:keywords>
@@ -40,7 +40,7 @@
                     <%@ include file="../../permission-denied.jsp" %>
                 </logic:present>
                 <logic:notPresent scope="request" name="permissionDenied">
-                    <html:javascript staticJavascript='false' bundle="/clientarea/ticket/ApplicationResources" formName="ticketForm" /><noscript><!-- Do nothing --></noscript>
+                    <html:javascript staticJavascript='false' bundle="/clientarea/ticket/ApplicationResources" formName="ticketForm" />
                     <html:form action="/edit-completed" onsubmit="return validateTicketForm(this);">
                         <skin:lightArea>
                             <table cellspacing="0" cellpadding="4">
@@ -54,17 +54,17 @@
                                         <bean:define scope="request" name="ticket" type="com.aoindustries.aoserv.client.Ticket" id="ticket" />
                                         <bean:define scope="request" name="locale" type="java.util.Locale" id="locale" />
                                         <bean:define id="statusDescription"><%= ticket.getStatus().getDescription(locale) %></bean:define>
-                                        <bean:write name="statusDescription" />
+                                        <ao:write name="statusDescription" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="white-space:nowrap"><bean:message bundle="/clientarea/ticket/ApplicationResources" key="edit.label.openDate" /></td>
-                                    <td><aoweb:dateTime><bean:write scope="request" name="ticket" property="openDate" /></aoweb:dateTime></td>
+                                    <td><aoweb:dateTime><ao:write scope="request" name="ticket" property="openDate" /></aoweb:dateTime></td>
                                 </tr>
                                 <logic:notEmpty scope="request" name="ticket" property="createdBy">
                                     <tr>
                                         <td style="white-space:nowrap"><bean:message bundle="/clientarea/ticket/ApplicationResources" key="edit.label.createdBy" /></td>
-                                        <td><bean:write scope="request" name="ticket" property="createdBy.name" /></td>
+                                        <td><ao:write scope="request" name="ticket" property="createdBy.name" /></td>
                                     </tr>
                                 </logic:notEmpty>
                                 <tr>
@@ -178,28 +178,28 @@
                                     </tr>
                                     <logic:iterate name="actions" type="com.aoindustries.aoserv.client.TicketAction" id="action">
                                         <skin:lightDarkTableRow pageAttributeId="isDark">
-                                            <td style="white-space:nowrap"><aoweb:dateTime><bean:write name="action" property="time" /></aoweb:dateTime></td>
+                                            <td style="white-space:nowrap"><aoweb:dateTime><ao:write name="action" property="time" /></aoweb:dateTime></td>
                                             <td style="white-space:nowrap">
                                                 <logic:present name="action" property="administrator">
-                                                    <bean:write name="action" property="administrator.name" />
+                                                    <ao:write name="action" property="administrator.name" />
                                                 </logic:present>
                                             </td>
-                                            <td style="white-space:nowrap"><bean:write name="action" property="ticketActionType" /></td>
+                                            <td style="white-space:nowrap"><ao:write name="action" property="ticketActionType" /></td>
                                             <td style="white-space:nowrap">
                                                 <bean:define scope="request" name="locale" type="java.util.Locale" id="locale" />
                                                 <bean:define id="summary"><%= action.getSummary(locale) %></bean:define>
-                                                <bean:write name="summary" />
+                                                <ao:write name="summary" />
                                             </td>
                                         </skin:lightDarkTableRow>
                                         <logic:notEmpty name="action" property="details">
                                             <logic:equal name="isDark" value="true">
                                                 <tr class="aoLightRow">
-                                                    <td colspan="4" style="width:100%;"><div style="border:1px inset; padding: 4px"><pre><bean:write name="action" property="details" /></pre></div></td>
+                                                    <td colspan="4" style="width:100%;"><div style="border:1px inset; padding: 4px"><pre><ao:write name="action" property="details" /></pre></div></td>
                                                 </tr>
                                             </logic:equal>
                                             <logic:equal name="isDark" value="false">
                                                 <tr class="aoDarkRow">
-                                                    <td colspan="4" style="width:100%;"><div style="border:1px inset; padding: 4px"><pre><bean:write name="action" property="details" /></pre></div></td>
+                                                    <td colspan="4" style="width:100%;"><div style="border:1px inset; padding: 4px"><pre><ao:write name="action" property="details" /></pre></div></td>
                                                 </tr>
                                             </logic:equal>
                                         </logic:notEmpty>

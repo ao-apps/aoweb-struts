@@ -31,17 +31,17 @@
                     <%@ include file="../../permission-denied.jsp" %>
                 </logic:present>
                 <logic:notPresent scope="request" name="permissionDenied">
-                    <form method="post" action="<%= response.encodeURL("configure-automatic-billing-completed.do") %>">
+                    <form method="post" action="<%= response.encodeURL("configure-automatic-billing-completed.do") %>"><div>
                         <input name="accounting" type="hidden" value="<%= request.getParameter("accounting") %>" />
                         <skin:lightArea>
                             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBilling.cardList.title" />
                             <hr />
                             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBilling.business.label" />
-                            <bean:write scope="request" name="business" property="accounting" /><br />
+                            <ao:write scope="request" name="business" property="accounting" /><br />
                             <br />
                             <table cellspacing="0" cellpadding="2">
                                 <tr>
-                                    <th><bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBilling.header.select" />
+                                    <th><bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBilling.header.select" /></th>
                                     <th><bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBilling.header.cardType" /></th>
                                     <th><bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBilling.header.maskedCardNumber" /></th>
                                     <th><bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBilling.header.description" /></th>
@@ -94,7 +94,7 @@
                                         <td style="white-space:nowrap"><%= creditCard.getCardInfo().replace('X', 'x') %></td>
                                         <td style="white-space:nowrap">
                                             <logic:notEmpty name="creditCard" property="description">
-                                                <bean:write name="creditCard" property="description" />
+                                                <ao:write name="creditCard" property="description" />
                                             </logic:notEmpty>
                                             <logic:empty name="creditCard" property="description">
                                                 &#160;
@@ -119,13 +119,13 @@
                                             type="submit"
                                             name="submitButton"
                                             value="<bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBilling.field.submit.label" />"
-                                            disabled
+                                            disabled="disabled"
                                         />
                                     </td>
                                 </tr>
                             </table>
                         </skin:lightArea>
-                    </form>
+                    </div></form>
                 </logic:notPresent>
             </skin:contentLine>
         </skin:content>

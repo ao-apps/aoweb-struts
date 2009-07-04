@@ -25,14 +25,14 @@
                 <skin:lightDarkTableRow>
                     <td style="white-space:nowrap"><html:radio property="packageDefinition" idName="server" value="minimumConfiguration.packageDefinition" /></td>
                     <td style="white-space:nowrap">
-                        <b><bean:write name="server" property="minimumConfiguration.name" /></b>
+                        <b><ao:write name="server" property="minimumConfiguration.name" /></b>
                         <skin:popup>
                             <table cellspacing="0" cellpadding="2" style='font-size:80%;'>
                                 <tr>
                                     <td colspan="3" class='aoPopupLightRow' style='font-size:100%;'>
                                         <table style="width:100%" cellspacing="0" cellpadding="0">
                                             <tr>
-                                                <th class='aoPopupLightRow'><bean:write name="server" property="minimumConfiguration.name" /></th>
+                                                <th class='aoPopupLightRow'><ao:write name="server" property="minimumConfiguration.name" /></th>
                                                 <td class='aoPopupLightRow' align="right"><skin:popupClose /></td>
                                             </tr>
                                         </table>
@@ -46,22 +46,22 @@
                                 <% int row2 = 0; %>
                                 <tr class='<%= ((row2++)&1)==0 ? "aoPopupLightRow" : "aoPopupDarkRow" %>'>
                                     <td style="white-space:nowrap"><b><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.cpu.header" /></b></td>
-                                    <td style="white-space:nowrap"><bean:write name="server" property="minimumConfiguration.cpu" filter="false" /></td>
-                                    <td style="white-space:nowrap"><bean:write name="server" property="maximumConfiguration.cpu" filter="false" /></td>
+                                    <td style="white-space:nowrap"><ao:write name="server" property="minimumConfiguration.cpu" type="application/xhtml+xml" /></td>
+                                    <td style="white-space:nowrap"><ao:write name="server" property="maximumConfiguration.cpu" type="application/xhtml+xml" /></td>
                                 </tr>
                                 <tr class='<%= ((row2++)&1)==0 ? "aoPopupLightRow" : "aoPopupDarkRow" %>'>
                                     <td style="white-space:nowrap"><b><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.ram.header" /></b></td>
-                                    <td style="white-space:nowrap"><bean:write name="server" property="minimumConfiguration.ram" /></td>
-                                    <td style="white-space:nowrap"><bean:write name="server" property="maximumConfiguration.ram" /></td>
+                                    <td style="white-space:nowrap"><ao:write name="server" property="minimumConfiguration.ram" /></td>
+                                    <td style="white-space:nowrap"><ao:write name="server" property="maximumConfiguration.ram" /></td>
                                 </tr>
                                 <logic:notEmpty name="server" property="maximumConfiguration.ide">
                                     <tr class='<%= ((row2++)&1)==0 ? "aoPopupLightRow" : "aoPopupDarkRow" %>'>
                                         <td style="white-space:nowrap"><b><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.ide.header" /></b></td>
                                         <td style="white-space:nowrap">
                                             <logic:empty name="server" property="minimumConfiguration.ide">&#160;</logic:empty>
-                                            <logic:notEmpty name="server" property="minimumConfiguration.ide"><bean:write name="server" property="minimumConfiguration.ide" /></logic:notEmpty>
+                                            <logic:notEmpty name="server" property="minimumConfiguration.ide"><ao:write name="server" property="minimumConfiguration.ide" /></logic:notEmpty>
                                             </td>
-                                        <td style="white-space:nowrap"><bean:write name="server" property="maximumConfiguration.ide" /></td>
+                                        <td style="white-space:nowrap"><ao:write name="server" property="maximumConfiguration.ide" /></td>
                                     </tr>
                                 </logic:notEmpty>
                                 <logic:notEmpty name="server" property="maximumConfiguration.sata">
@@ -69,9 +69,9 @@
                                         <td style="white-space:nowrap"><b><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.sata.header" /></b></td>
                                         <td style="white-space:nowrap">
                                             <logic:empty name="server" property="minimumConfiguration.sata">&#160;</logic:empty>
-                                            <logic:notEmpty name="server" property="minimumConfiguration.sata"><bean:write name="server" property="minimumConfiguration.sata" /></logic:notEmpty>
+                                            <logic:notEmpty name="server" property="minimumConfiguration.sata"><ao:write name="server" property="minimumConfiguration.sata" /></logic:notEmpty>
                                             </td>
-                                        <td style="white-space:nowrap"><bean:write name="server" property="maximumConfiguration.sata" /></td>
+                                        <td style="white-space:nowrap"><ao:write name="server" property="maximumConfiguration.sata" /></td>
                                     </tr>
                                 </logic:notEmpty>
                                 <logic:notEmpty name="server" property="maximumConfiguration.scsi">
@@ -79,9 +79,9 @@
                                         <td style="white-space:nowrap"><b><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.scsi.header" /></b></td>
                                         <td style="white-space:nowrap">
                                             <logic:empty name="server" property="minimumConfiguration.scsi">&#160;</logic:empty>
-                                            <logic:notEmpty name="server" property="minimumConfiguration.scsi"><bean:write name="server" property="minimumConfiguration.scsi" /></logic:notEmpty>
+                                            <logic:notEmpty name="server" property="minimumConfiguration.scsi"><ao:write name="server" property="minimumConfiguration.scsi" /></logic:notEmpty>
                                             </td>
-                                        <td style="white-space:nowrap"><bean:write name="server" property="maximumConfiguration.scsi" /></td>
+                                        <td style="white-space:nowrap"><ao:write name="server" property="maximumConfiguration.scsi" /></td>
                                     </tr>
                                 </logic:notEmpty>
                             </table>
@@ -89,10 +89,10 @@
                     </td>
                     <td style="white-space:nowrap">
                         <logic:empty name="server" property="minimumConfiguration.setup"><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.setup.none" /></logic:empty>
-                        <logic:notEmpty name="server" property="minimumConfiguration.setup">$<bean:write name="server" property="minimumConfiguration.setup" /></logic:notEmpty>
+                        <logic:notEmpty name="server" property="minimumConfiguration.setup">$<ao:write name="server" property="minimumConfiguration.setup" /></logic:notEmpty>
                         </td>
-                    <td style="white-space:nowrap">$<bean:write name="server" property="minimumConfiguration.monthly" /></td>
-                    <td style="white-space:nowrap">$<bean:write name="server" property="maximumConfiguration.monthly" /></td>
+                    <td style="white-space:nowrap">$<ao:write name="server" property="minimumConfiguration.monthly" /></td>
+                    <td style="white-space:nowrap">$<ao:write name="server" property="maximumConfiguration.monthly" /></td>
                     <logic:equal name="serverIndex" value="0">
                         <bean:size scope="request" name="servers" id="serversSize" />
                         <td rowspan="<%= serversSize %>" style="white-space:nowrap">

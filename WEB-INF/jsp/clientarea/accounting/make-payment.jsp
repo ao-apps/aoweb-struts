@@ -35,8 +35,8 @@
                         </tr>
                         <logic:iterate scope="request" name="businesses" id="business" type="com.aoindustries.aoserv.client.Business">
                             <skin:lightDarkTableRow>
-                                <td style="white-space:nowrap"><bean:write name="business" property="accounting" /></td>
-                                <td style='white-space:nowrap' align='right'><bean:write name="business" property="monthlyRateString" /></td>
+                                <td style="white-space:nowrap"><ao:write name="business" property="accounting" /></td>
+                                <td style='white-space:nowrap' align='right'><ao:write name="business" property="monthlyRateString" /></td>
                                 <td style='white-space:nowrap' align='right'>
                                     <% int balance = business.getAccountBalance(); %>
                                     <% if(balance==0) { %>

@@ -51,88 +51,88 @@
                                 <logic:iterate name="mysqlServerRow" property="replications" id="replicationRow" indexId="row">
                                     <tr>
                                         <logic:equal name="row" value="0">
-                                            <td style='white-space:nowrap' rowspan='<bean:write name="replicationsSize" />'>
+                                            <td style='white-space:nowrap' rowspan='<ao:write name="replicationsSize" />'>
                                                 <logic:equal name="mysqlServerRow" property="error" value="true"><span class="error"></logic:equal>
-                                                <bean:write name="mysqlServerRow" property="version" />
+                                                <ao:write name="mysqlServerRow" property="version" />
                                                 <logic:equal name="mysqlServerRow" property="error" value="true"></span></logic:equal>
                                             </td>
-                                            <td style='white-space:nowrap' rowspan='<bean:write name="replicationsSize" />'>
+                                            <td style='white-space:nowrap' rowspan='<ao:write name="replicationsSize" />'>
                                                 <logic:equal name="mysqlServerRow" property="error" value="true"><span class="error"></logic:equal>
-                                                <bean:write name="mysqlServerRow" property="master" />
+                                                <ao:write name="mysqlServerRow" property="master" />
                                                 <logic:equal name="mysqlServerRow" property="error" value="true"></span></logic:equal>
                                             </td>
                                             <logic:notEmpty name="mysqlServerRow" property="lineError">
-                                                <td style='white-space:nowrap' colspan="2" rowspan='<bean:write name="replicationsSize" />'>
+                                                <td style='white-space:nowrap' colspan="2" rowspan='<ao:write name="replicationsSize" />'>
                                                     <logic:equal name="mysqlServerRow" property="error" value="true"><span class="error"></logic:equal>
-                                                    <bean:write name="mysqlServerRow" property="lineError" />
+                                                    <ao:write name="mysqlServerRow" property="lineError" />
                                                     <logic:equal name="mysqlServerRow" property="error" value="true"></span></logic:equal>
                                                 </td>
                                             </logic:notEmpty>
                                             <logic:empty name="mysqlServerRow" property="lineError">
-                                                <td style='white-space:nowrap' rowspan='<bean:write name="replicationsSize" />'>
+                                                <td style='white-space:nowrap' rowspan='<ao:write name="replicationsSize" />'>
                                                     <logic:equal name="mysqlServerRow" property="error" value="true"><span class="error"></logic:equal>
-                                                    <bean:write name="mysqlServerRow" property="masterLogFile" />
+                                                    <ao:write name="mysqlServerRow" property="masterLogFile" />
                                                     <logic:equal name="mysqlServerRow" property="error" value="true"></span></logic:equal>
                                                 </td>
-                                                <td style='white-space:nowrap' rowspan='<bean:write name="replicationsSize" />'>
+                                                <td style='white-space:nowrap' rowspan='<ao:write name="replicationsSize" />'>
                                                     <logic:equal name="mysqlServerRow" property="error" value="true"><span class="error"></logic:equal>
-                                                    <bean:write name="mysqlServerRow" property="masterLogPos" />
+                                                    <ao:write name="mysqlServerRow" property="masterLogPos" />
                                                     <logic:equal name="mysqlServerRow" property="error" value="true"></span></logic:equal>
                                                 </td>
                                             </logic:empty>
                                         </logic:equal>
                                         <td style="white-space:nowrap">
                                             <logic:equal name="replicationRow" property="error" value="true"><span class="error"></logic:equal>
-                                            <bean:write name="replicationRow" property="slave" />
+                                            <ao:write name="replicationRow" property="slave" />
                                             <logic:equal name="replicationRow" property="error" value="true"></span></logic:equal>
                                         </td>
                                         <logic:notEmpty name="replicationRow" property="lineError">
                                             <td style='white-space:nowrap' colspan="8">
                                                 <logic:equal name="replicationRow" property="error" value="true"><span class="error"></logic:equal>
-                                                <bean:write name="replicationRow" property="lineError" />
+                                                <ao:write name="replicationRow" property="lineError" />
                                                 <logic:equal name="replicationRow" property="error" value="true"></span></logic:equal>
                                             </td>
                                         </logic:notEmpty>
                                         <logic:empty name="replicationRow" property="lineError">
                                             <td style='white-space:nowrap' align='right'>
                                                 <logic:equal name="replicationRow" property="error" value="true"><span class="error"></logic:equal>
-                                                <bean:write name="replicationRow" property="secondsBehindMaster" />
+                                                <ao:write name="replicationRow" property="secondsBehindMaster" />
                                                 <logic:equal name="replicationRow" property="error" value="true"></span></logic:equal>
                                             </td>
                                             <td style="white-space:nowrap">
                                                 <logic:equal name="replicationRow" property="error" value="true"><span class="error"></logic:equal>
-                                                <bean:write name="replicationRow" property="slaveIOState" />
+                                                <ao:write name="replicationRow" property="slaveIOState" />
                                                 <logic:equal name="replicationRow" property="error" value="true"></span></logic:equal>
                                             </td>
                                             <td style="white-space:nowrap">
                                                 <logic:equal name="replicationRow" property="error" value="true"><span class="error"></logic:equal>
-                                                <bean:write name="replicationRow" property="slaveLogFile" />
+                                                <ao:write name="replicationRow" property="slaveLogFile" />
                                                 <logic:equal name="replicationRow" property="error" value="true"></span></logic:equal>
                                             </td>
                                             <td style='white-space:nowrap' align='right'>
                                                 <logic:equal name="replicationRow" property="error" value="true"><span class="error"></logic:equal>
-                                                <bean:write name="replicationRow" property="slaveLogPos" />
+                                                <ao:write name="replicationRow" property="slaveLogPos" />
                                                 <logic:equal name="replicationRow" property="error" value="true"></span></logic:equal>
                                             </td>
                                             <td style="white-space:nowrap">
                                                 <logic:equal name="replicationRow" property="error" value="true"><span class="error"></logic:equal>
-                                                <bean:write name="replicationRow" property="slaveIORunning" />
+                                                <ao:write name="replicationRow" property="slaveIORunning" />
                                                 <logic:equal name="replicationRow" property="error" value="true"></span></logic:equal>
                                             </td>
                                             <td style="white-space:nowrap">
                                                 <logic:equal name="replicationRow" property="error" value="true"><span class="error"></logic:equal>
-                                                <bean:write name="replicationRow" property="slaveSQLRunning" />
+                                                <ao:write name="replicationRow" property="slaveSQLRunning" />
                                                 <logic:equal name="replicationRow" property="error" value="true"></span></logic:equal>
                                             </td>
                                             <td style='white-space:nowrap' align='right'>
                                                 <logic:equal name="replicationRow" property="error" value="true"><span class="error"></logic:equal>
-                                                <bean:write name="replicationRow" property="lastErrno" />
+                                                <ao:write name="replicationRow" property="lastErrno" />
                                                 <logic:equal name="replicationRow" property="error" value="true"></span></logic:equal>
                                             </td>
                                             <td style="white-space:nowrap">
                                                 <logic:equal name="replicationRow" property="error" value="true"><span class="error"></logic:equal>
                                                 <logic:empty name="replicationRow" property="lastError">&#160;</logic:empty>
-                                                <logic:notEmpty name="replicationRow" property="lastError"><bean:write name="replicationRow" property="lastError" /></logic:notEmpty>
+                                                <logic:notEmpty name="replicationRow" property="lastError"><ao:write name="replicationRow" property="lastError" /></logic:notEmpty>
                                                 <logic:equal name="replicationRow" property="error" value="true"></span></logic:equal>
                                             </td>
                                         </logic:empty>

@@ -27,10 +27,10 @@
             <skin:contentTitle><bean:message bundle="/ApplicationResources" key="login.title" /></skin:contentTitle>
             <skin:contentHorizontalDivider />
             <skin:contentLine>
-                <html:javascript staticJavascript='false' bundle="/ApplicationResources" formName="loginForm" /><noscript><!-- Do nothing --></noscript>
+                <html:javascript staticJavascript='false' bundle="/ApplicationResources" formName="loginForm" />
                 <skin:lightArea>
                     <b>
-                        <logic:present scope="request" name="authenticationMessage"><bean:write scope="request" name="authenticationMessage" filter="false" /></logic:present>
+                        <logic:present scope="request" name="authenticationMessage"><ao:write scope="request" name="authenticationMessage" type="application/xhtml+xml" /></logic:present>
                         <logic:notPresent scope="request" name="authenticationMessage"><bean:message bundle="/ApplicationResources" key="login.pleaseLogin" /></logic:notPresent>
                     </b>
                     <hr />

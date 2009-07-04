@@ -269,7 +269,7 @@ public class TextSkin extends Skin {
                 }
                 out.print("  }\n"
                         + "  // ]]>\n"
-                        + "</script><noscript><!-- Do nothing --></noscript>\n"
+                        + "</script>\n"
                         + "            <form action='' style='display:inline;'><div style='display:inline;'>\n"
                         + "              ");
                 out.print(applicationResources.getMessage(locale, "TextSkin.layoutPrompt"));

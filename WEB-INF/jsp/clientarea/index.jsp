@@ -26,6 +26,9 @@
             <skin:contentHorizontalDivider />
             <skin:contentLine>
                 <skin:autoIndex />
+                <ao:script>
+                    window.alert("<Yes>!");
+                </ao:script>
             </skin:contentLine>
         </skin:content>
     </skin:skin>

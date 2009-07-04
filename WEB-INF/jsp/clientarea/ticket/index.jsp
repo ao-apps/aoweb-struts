@@ -49,7 +49,7 @@
                         <logic:notEmpty name="tickets">
                             <logic:iterate name="tickets" id="ticket">
                                 <skin:lightDarkTableRow pageAttributeId="isDark">
-                                    <td style="white-space:nowrap"><html:link action="/edit" paramId="pkey" paramName="ticket" paramProperty="pkey"><bean:write name="ticket" property="pkey" /></html:link></td>
+                                    <td style="white-space:nowrap"><html:link action="/edit" paramId="pkey" paramName="ticket" paramProperty="pkey"><ao:write name="ticket" property="pkey" /></html:link></td>
                                     <td style="white-space:nowrap">
                                         <logic:equal name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
                                             <logic:equal name="isDark" value="true">
@@ -93,19 +93,19 @@
                                                 </logic:equal>
                                             </logic:equal>
                                         </logic:notEqual>
-                                        <bean:write name="ticket" property="clientPriority" />
+                                        <ao:write name="ticket" property="clientPriority" />
                                     </td>
-                                    <td style="white-space:nowrap"><bean:write name="ticket" property="status" /></td>
-                                    <td style="white-space:nowrap"><aoweb:dateTime><bean:write name="ticket" property="openDate" /></aoweb:dateTime></td>
+                                    <td style="white-space:nowrap"><ao:write name="ticket" property="status" /></td>
+                                    <td style="white-space:nowrap"><aoweb:dateTime><ao:write name="ticket" property="openDate" /></aoweb:dateTime></td>
                                     <td style="white-space:nowrap">
                                         <logic:notEmpty name="ticket" property="createdBy">
-                                            <bean:write name="ticket" property="createdBy.name" />
+                                            <ao:write name="ticket" property="createdBy.name" />
                                         </logic:notEmpty>
                                     </td>
                                     <logic:notEqual name="aoConn" property="businesses.size" value="1">
-                                        <td style="white-space:nowrap"><bean:write name="ticket" property="business" /></td>
+                                        <td style="white-space:nowrap"><ao:write name="ticket" property="business" /></td>
                                     </logic:notEqual>
-                                    <td style="white-space:nowrap"><bean:write name="ticket" property="summary" /></td>
+                                    <td style="white-space:nowrap"><ao:write name="ticket" property="summary" /></td>
                                 </skin:lightDarkTableRow>
                             </logic:iterate>
                         </logic:notEmpty>

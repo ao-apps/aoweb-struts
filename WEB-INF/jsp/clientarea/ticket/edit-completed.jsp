@@ -10,7 +10,7 @@
 <skin:setContentType />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html lang="true" xhtml="true">
-    <skin:path>/clientarea/ticket/edit.do?pkey=<bean:write scope="request" name="ticket" property="pkey" /></skin:path>
+    <skin:path>/clientarea/ticket/edit.do?pkey=<ao:write scope="request" name="ticket" property="pkey" /></skin:path>
     <skin:title><bean:message bundle="/clientarea/ticket/ApplicationResources" key="edit.title" /></skin:title>
     <skin:navImageAlt><bean:message bundle="/clientarea/ticket/ApplicationResources" key="edit.navImageAlt" /></skin:navImageAlt>
     <skin:keywords><bean:message bundle="/clientarea/ticket/ApplicationResources" key="edit.keywords" /></skin:keywords>

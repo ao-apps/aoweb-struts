@@ -36,13 +36,13 @@
                         <logic:notEmpty name="siteSettings" property="brand.supportTollFree">
                             <tr>
                                 <td style="white-space:nowrap"><bean:message bundle="/ApplicationResources" key="contact.label.tollfree" /></td>
-                                <td style='white-space:nowrap' align="right"><code><bean:write name="siteSettings" property="brand.supportTollFree" /></code></td>
+                                <td style='white-space:nowrap' align="right"><code><ao:write name="siteSettings" property="brand.supportTollFree" /></code></td>
                             </tr>
                         </logic:notEmpty>
                         <logic:notEmpty name="siteSettings" property="brand.supportDayPhone">
                             <tr>
                                 <td style="white-space:nowrap"><bean:message bundle="/ApplicationResources" key="contact.label.direct" /></td>
-                                <td style='white-space:nowrap' align="right"><code><bean:write name="siteSettings" property="brand.supportDayPhone" /></code></td>
+                                <td style='white-space:nowrap' align="right"><code><ao:write name="siteSettings" property="brand.supportDayPhone" /></code></td>
                             </tr>
                         </logic:notEmpty>
                         <tr>
@@ -51,13 +51,13 @@
                         <logic:notEmpty name="siteSettings" property="brand.supportEmergencyPhone1">
                             <tr>
                                 <td style="white-space:nowrap"><bean:message bundle="/ApplicationResources" key="contact.label.primary" /></td>
-                                <td style='white-space:nowrap' align="right"><code><bean:write name="siteSettings" property="brand.supportEmergencyPhone1" /></code></td>
+                                <td style='white-space:nowrap' align="right"><code><ao:write name="siteSettings" property="brand.supportEmergencyPhone1" /></code></td>
                             </tr>
                         </logic:notEmpty>
                         <logic:notEmpty name="siteSettings" property="brand.supportEmergencyPhone2">
                             <tr>
                                 <td style="white-space:nowrap"><bean:message bundle="/ApplicationResources" key="contact.label.secondary" /></td>
-                                <td style='white-space:nowrap' align="right"><code><bean:write name="siteSettings" property="brand.supportEmergencyPhone2" /></code></td>
+                                <td style='white-space:nowrap' align="right"><code><ao:write name="siteSettings" property="brand.supportEmergencyPhone2" /></code></td>
                             </tr>
                         </logic:notEmpty>
                         <tr>
@@ -65,8 +65,8 @@
                         </tr>
                         <tr>
                             <td style='white-space:nowrap' colspan='2'>
-                                <a class="aoDarkLink" href="mailto:<bean:write name="siteSettings" property="brand.supportEmailAddress" />">
-                                    <code><bean:write name="siteSettings" property="brand.supportEmailAddress" /></code>
+                                <a class="aoDarkLink" href="mailto:<ao:write name="siteSettings" property="brand.supportEmailAddress" />">
+                                    <code><ao:write name="siteSettings" property="brand.supportEmailAddress" /></code>
                                 </a>
                             </td>
                         </tr>
@@ -75,7 +75,7 @@
                                 <th style='white-space:nowrap' colspan='2'><bean:message bundle="/ApplicationResources" key="contact.header.fax" /></th>
                             </tr>
                             <tr>
-                                <td style='white-space:nowrap' colspan='2'><code><bean:write name="siteSettings" property="brand.supportFax" /></code></td>
+                                <td style='white-space:nowrap' colspan='2'><code><ao:write name="siteSettings" property="brand.supportFax" /></code></td>
                             </tr>
                         </logic:notEmpty>
                         <tr>
@@ -83,22 +83,22 @@
                         </tr>
                         <logic:notEmpty name="siteSettings" property="brand.supportMailingAddress1">
                             <tr>
-                                <td style='white-space:nowrap' colspan='2'><code><bean:write name="siteSettings" property="brand.supportMailingAddress1" /></code></td>
+                                <td style='white-space:nowrap' colspan='2'><code><ao:write name="siteSettings" property="brand.supportMailingAddress1" /></code></td>
                             </tr>
                         </logic:notEmpty>
                         <logic:notEmpty name="siteSettings" property="brand.supportMailingAddress2">
                             <tr>
-                                <td style='white-space:nowrap' colspan='2'><code><bean:write name="siteSettings" property="brand.supportMailingAddress2" /></code></td>
+                                <td style='white-space:nowrap' colspan='2'><code><ao:write name="siteSettings" property="brand.supportMailingAddress2" /></code></td>
                             </tr>
                         </logic:notEmpty>
                         <logic:notEmpty name="siteSettings" property="brand.supportMailingAddress3">
                             <tr>
-                                <td style='white-space:nowrap' colspan='2'><code><bean:write name="siteSettings" property="brand.supportMailingAddress3" /></code></td>
+                                <td style='white-space:nowrap' colspan='2'><code><ao:write name="siteSettings" property="brand.supportMailingAddress3" /></code></td>
                             </tr>
                         </logic:notEmpty>
                         <logic:notEmpty name="siteSettings" property="brand.supportMailingAddress4">
                             <tr>
-                                <td style='white-space:nowrap' colspan='2'><code><bean:write name="siteSettings" property="brand.supportMailingAddress4" /></code></td>
+                                <td style='white-space:nowrap' colspan='2'><code><ao:write name="siteSettings" property="brand.supportMailingAddress4" /></code></td>
                             </tr>
                         </logic:notEmpty>
                     </table>
@@ -108,7 +108,7 @@
             <skin:contentLine colspan="3">
                 <bean:message bundle="/ApplicationResources" key="contact.text.formWelcome" />
                 <skin:lightArea>
-                    <html:javascript staticJavascript='false' bundle="/ApplicationResources" formName="contactForm" /><noscript><!-- Do nothing --></noscript>
+                    <html:javascript staticJavascript='false' bundle="/ApplicationResources" formName="contactForm" />
                     <html:form action="/contact-completed" onsubmit="return validateContactForm(this);">
                         <table cellspacing='0' cellpadding='0'>
                             <tr>

@@ -39,7 +39,7 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
         // Resolve the Locale, to be compatible with LocaleAction
         Locale locale;
         try {
-            locale = LocaleAction.getEffectiveLocale(siteSettings, request);
+            locale = LocaleAction.getEffectiveLocale(siteSettings, request, response);
         } catch(Exception err) {
             ErrorPrinter.printStackTraces(err);
             // Use default locale

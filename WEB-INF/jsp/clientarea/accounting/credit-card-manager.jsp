@@ -54,7 +54,7 @@
                                     <logic:notEqual name="creditCardsSize" value="0">
                                         <tr class="<%= (businessesIndex&1)==0 ? "aoLightRow" : "aoDarkRow" %>">
                                             <logic:equal scope="request" name="showAccounting" value="true">
-                                                <td style='white-space:nowrap' rowspan="<%= creditCardsSize+1 %>"><bean:write name="businessAndCreditCards" property="business.accounting" /></td>
+                                                <td style='white-space:nowrap' rowspan="<%= creditCardsSize+1 %>"><ao:write name="businessAndCreditCards" property="business.accounting" /></td>
                                             </logic:equal>
                                             <logic:iterate name="creditCards" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard" indexId="creditCardsIndex">
                                                 <logic:notEqual name="creditCardsIndex" value="0">
@@ -123,7 +123,7 @@
                                                 </td>
                                                 <td style="white-space:nowrap">
                                                     <logic:notEmpty name="creditCard" property="description">
-                                                        <bean:write name="creditCard" property="description" />
+                                                        <ao:write name="creditCard" property="description" />
                                                     </logic:notEmpty>
                                                     <logic:empty name="creditCard" property="description">
                                                         &#160;
@@ -135,7 +135,7 @@
                                     <tr class="<%= (businessesIndex&1)==0 ? "aoLightRow" : "aoDarkRow" %>">
                                         <logic:equal name="creditCardsSize" value="0">
                                             <logic:equal scope="request" name="showAccounting" value="true">
-                                                <td rowspan="<%= creditCardsSize+1 %>"><bean:write name="businessAndCreditCards" property="business.accounting" /></td>
+                                                <td rowspan="<%= creditCardsSize+1 %>"><ao:write name="businessAndCreditCards" property="business.accounting" /></td>
                                             </logic:equal>
                                         </logic:equal>
                                         <td style='white-space:nowrap' colspan="7">

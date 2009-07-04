@@ -99,14 +99,14 @@
                         <logic:iterate scope="request" name="countryOptions" id="countryOption">
                             <logic:equal name="countryOption" property="code" value="<%= baCountry %>">
                                 <% if(!didOne.equals("true")) { %>
-                                    <option value='<bean:write name="countryOption" property="code" />' selected="selected"><bean:write name="countryOption" property="name" /></option>
+                                    <option value='<ao:write name="countryOption" property="code" />' selected="selected"><ao:write name="countryOption" property="name" /></option>
                                     <% didOne = "true"; %>
                                 <% } else { %>
-                                    <option value='<bean:write name="countryOption" property="code" />'><bean:write name="countryOption" property="name" /></option>
+                                    <option value='<ao:write name="countryOption" property="code" />'><ao:write name="countryOption" property="name" /></option>
                                 <% } %>
                             </logic:equal>
                             <logic:notEqual name="countryOption" property="code" value="<%= baCountry %>">
-                                <option value='<bean:write name="countryOption" property="code" />'><bean:write name="countryOption" property="name" /></option>
+                                <option value='<ao:write name="countryOption" property="code" />'><ao:write name="countryOption" property="name" /></option>
                             </logic:notEqual>
                         </logic:iterate>
                     </html:select>

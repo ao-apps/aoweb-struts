@@ -28,7 +28,7 @@
                 <logic:notPresent scope="request" name="permissionDenied">
                     <skin:lightArea>
                         <bean:message bundle="/clientarea/ticket/ApplicationResources" key="create-completed.message" />
-                        <html:link action="/edit" paramId="pkey" paramScope="request" paramName="pkey"><bean:write scope="request" name="pkey" /></html:link>
+                        <html:link action="/edit" paramId="pkey" paramScope="request" paramName="pkey"><ao:write scope="request" name="pkey" /></html:link>
                     </skin:lightArea>
                 </logic:notPresent>
             </skin:contentLine>

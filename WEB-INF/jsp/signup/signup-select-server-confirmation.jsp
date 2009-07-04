@@ -10,5 +10,5 @@
 <tr>
     <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
     <td><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.packageDefinition.prompt" /></td>
-    <td><bean:write scope="request" name="packageDefinition" property="display" /></td>
+    <td><ao:write scope="request" name="packageDefinition" property="display" /></td>
 </tr>

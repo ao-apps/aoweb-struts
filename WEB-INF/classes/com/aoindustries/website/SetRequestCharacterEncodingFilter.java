@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -39,7 +40,8 @@ public class SetRequestCharacterEncodingFilter implements Filter {
         if(session!=null) {
             try {
                 SiteSettings siteSettings = SiteSettings.getInstance(session.getServletContext());
-                Locale locale = SkinAction.getEffectiveLocale(siteSettings, httpRequest); //(Locale)session.getAttribute(Globals.LOCALE_KEY);
+                HttpServletResponse httpResponse = (HttpServletResponse)response;
+                Locale locale = SkinAction.getEffectiveLocale(siteSettings, httpRequest, httpResponse);
                 if(locale!=null) {
                     request.setCharacterEncoding(Skin.getCharacterSet(locale));
                 }
