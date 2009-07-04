@@ -6,11 +6,8 @@ package com.aoindustries.website;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.util.ErrorPrinter;
 import java.io.IOException;
-import java.util.Locale;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,7 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 abstract public class AuthenticatedServlet extends HttpServlet {
 
-    public void doGet(
+    @Override
+    final public void doGet(
         HttpServletRequest request,
         HttpServletResponse response
     ) throws IOException {
@@ -38,7 +36,6 @@ abstract public class AuthenticatedServlet extends HttpServlet {
             } else {
                 request.getSession().removeAttribute(Constants.AUTHENTICATION_TARGET);
             }
-            //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
 
             int port = request.getServerPort();
             String url;
@@ -49,10 +46,9 @@ abstract public class AuthenticatedServlet extends HttpServlet {
                 url = "https://"+request.getServerName()+request.getContextPath()+"/login.do";
             }
             response.sendRedirect(response.encodeRedirectURL(url));
-            return;
+        } else {
+            doGet(request, response, aoConn);
         }
-
-        doGet(request, response, aoConn);
     }
 
     abstract public void doGet(

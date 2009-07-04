@@ -22,6 +22,7 @@
         <jsp:include page="/WEB-INF/jsp/add-siblings.jsp" />
     </aoweb:exists>
     <skin:skin onload="document.forms['contactForm'].from.select(); document.forms['contactForm'].from.focus();">
+        <% if(true) throw new Exception("TODO: Test exception only, remove me <test> & &amp; \t\tTest"); %>
         <skin:content colspans="3" width="600">
             <skin:contentTitle><bean:message bundle="/ApplicationResources" key="contact.title" /></skin:contentTitle>
             <skin:contentHorizontalDivider colspansAndDirections="1,down,1" />

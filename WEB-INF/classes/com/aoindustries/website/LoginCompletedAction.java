@@ -54,7 +54,6 @@ public class LoginCompletedAction extends HttpsAction {
             HttpSession session = request.getSession();
             session.setAttribute(Constants.AUTHENTICATED_AO_CONN, aoConn);
             session.setAttribute(Constants.AO_CONN, aoConn);
-            //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
 
             // Try redirect
             String target = (String)session.getAttribute(Constants.AUTHENTICATION_TARGET);   // Get from session

@@ -8,6 +8,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://www.aoindustries.com/aocode-public-taglib" prefix="ao" %>
 <%@ taglib uri="/WEB-INF/aoweb-struts-aoweb.tld" prefix="aoweb" %>
 <%@ taglib uri="/WEB-INF/aoweb-struts-skin.tld" prefix="skin" %>
 <html:xhtml />

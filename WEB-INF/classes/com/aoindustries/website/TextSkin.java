@@ -118,11 +118,16 @@ public class TextSkin extends Skin {
             ServletContext servletContext = session.getServletContext();
             SiteSettings settings = SiteSettings.getInstance(servletContext);
             List<Skin> skins = settings.getSkins();
+            boolean isOkResponseStatus;
+            {
+                Integer responseStatus = (Integer)req.getAttribute(Constants.HTTP_SERVLET_RESPONSE_STATUS);
+                isOkResponseStatus = responseStatus==null || responseStatus.intValue()==HttpServletResponse.SC_OK;
+            }
 
             out.print("  <head>\n");
             // If this is not the default skin, then robots noindex
             boolean robotsMetaUsed = false;
-            if(!getName().equals(skins.get(0).getName())) {
+            if(!isOkResponseStatus || !getName().equals(skins.get(0).getName())) {
                 out.print("    <meta name=\"ROBOTS\" content=\"NOINDEX, NOFOLLOW\" />\n");
                 robotsMetaUsed = true;
             }
@@ -131,7 +136,7 @@ public class TextSkin extends Skin {
                     + "    <meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\" />\n");
             // If this is an authenticated page, redirect to session timeout after one hour
             AOServConnector aoConn = AuthenticatedAction.getAoConn(req, resp);
-            if(aoConn!=null) {
+            if(isOkResponseStatus && aoConn!=null) {
                 out.print("    <meta http-equiv=\"Refresh\" content=\"");
                 out.print(Math.max(60, session.getMaxInactiveInterval()-60));
                 out.print(";URL=");
@@ -163,9 +168,11 @@ public class TextSkin extends Skin {
             out.print(resp.getContentType());
             out.print("' />\n");
             Brand brand = settings.getBrand();
-            String googleVerify = brand.getAowebStrutsGoogleVerifyContent();
-            if(googleVerify!=null) {
-                out.print("    <meta name=\"verify-v1\" content=\""); EncodingUtils.encodeXmlAttribute(googleVerify, out); out.print("\" />\n");
+            if(isOkResponseStatus) {
+                String googleVerify = brand.getAowebStrutsGoogleVerifyContent();
+                if(googleVerify!=null) {
+                    out.print("    <meta name=\"verify-v1\" content=\""); EncodingUtils.encodeXmlAttribute(googleVerify, out); out.print("\" />\n");
+                }
             }
             String keywords = pageAttributes.getKeywords();
             if(keywords!=null && keywords.length()>0) {
@@ -583,22 +590,39 @@ public class TextSkin extends Skin {
             out.print("        </td>\n"
                     + "      </tr>\n"
                     + "    </table>\n");
-            String googleAnalyticsNewTrackingCode = SiteSettings.getInstance(req.getSession().getServletContext()).getBrand().getAowebStrutsGoogleAnalyticsNewTrackingCode();
-            if(googleAnalyticsNewTrackingCode!=null) {
-                out.print("    <script type=\"text/javascript\">\n"
-                        + "      try {\n"
-                        + "        var pageTracker = _gat._getTracker(\""); out.print(googleAnalyticsNewTrackingCode); out.print("\");\n"
-                        + "        pageTracker._trackPageview();\n"
-                        + "      } catch(err) {\n"
-                        + "      }\n"
-                        + "    </script>\n");
-            }
+            printGoogleAnalyticsTrackPageViewScript(req, out, SiteSettings.getInstance(req.getSession().getServletContext()).getBrand().getAowebStrutsGoogleAnalyticsNewTrackingCode());
             out.print("  </body>\n");
         } catch(IOException err) {
             throw new JspException(err);
         } catch(SQLException err) {
             throw new JspException(err);
         }
+    }
+
+    /**
+     * Reusable implemention of Google analytics pageview tracking script.
+     *
+     * @param googleAnalyticsNewTrackingCode if <code>null</code> will not print anything
+     */
+    public static void printGoogleAnalyticsTrackPageViewScript(HttpServletRequest req, Appendable out, String googleAnalyticsNewTrackingCode) throws IOException {
+            if(googleAnalyticsNewTrackingCode!=null) {
+                out.append("    <script type=\"text/javascript\">\n"
+                        + "      // <![CDATA[\n"
+                        + "      try {\n"
+                        + "        var pageTracker = _gat._getTracker(\""); out.append(googleAnalyticsNewTrackingCode); out.append("\");\n");
+                Integer responseStatus = (Integer)req.getAttribute(Constants.HTTP_SERVLET_RESPONSE_STATUS);
+                if(responseStatus==null || responseStatus.intValue()==HttpServletResponse.SC_OK) {
+                    out.append("        pageTracker._trackPageview();\n");
+                } else {
+                    out.append("        pageTracker._trackPageview(\"/");
+                    out.append(responseStatus.toString());
+                    out.append(".html?page=\"+document.location.pathname+document.location.search+\"&from=\"+document.referrer);\n");
+                }
+                out.append("      } catch(err) {\n"
+                        + "      }\n"
+                        + "      // ]]>\n"
+                        + "    </script>\n");
+            }
     }
 
     public void beginLightArea(HttpServletRequest req, HttpServletResponse resp, JspWriter out, String width, boolean nowrap) throws JspException {

@@ -13,6 +13,9 @@ package com.aoindustries.website;
  */
 public class Constants {
 
+    private Constants() {
+    }
+
     /**
      * The session key that stores when a "su" has been requested.
      */
@@ -63,4 +66,11 @@ public class Constants {
      * The request key used to store the <code>List&lt;AOServPermission&gt;</code> that ALL must be allowed for the specified task.
      */
     public static final String PERMISSION_DENIED = "permissionDenied";
+
+    /**
+     * Until version 3.0 there will not be a getStatus method on the HttpServletResponse class.
+     * To allow code to detect the current status, anytime the status is set one should
+     * also set the request attribute of this name to a java.lang.Integer of the status.
+     */
+    public static final String HTTP_SERVLET_RESPONSE_STATUS = "httpServletResponseStatus";
 }

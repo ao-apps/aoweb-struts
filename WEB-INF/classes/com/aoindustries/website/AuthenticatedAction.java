@@ -51,7 +51,6 @@ abstract public class AuthenticatedAction extends HttpsAction {
             } else {
                 request.getSession().removeAttribute(Constants.AUTHENTICATION_TARGET);
             }
-            //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
             return mapping.findForward("login");
         }
         
@@ -83,7 +82,6 @@ abstract public class AuthenticatedAction extends HttpsAction {
         String su=(String)session.getAttribute(Constants.SU_REQUESTED);
         if(su!=null) {
             session.removeAttribute(Constants.SU_REQUESTED);
-            //if(response!=null) AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
             try {
                 AOServConnector aoConn = su.length()==0 ? authenticatedAoConn : authenticatedAoConn.switchUsers(su);
                 session.setAttribute(Constants.AO_CONN, aoConn);
@@ -99,7 +97,6 @@ abstract public class AuthenticatedAction extends HttpsAction {
 
         // Default effective user to authenticated user
         session.setAttribute(Constants.AO_CONN, authenticatedAoConn);
-        //if(response!=null) AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
         return authenticatedAoConn;
     }
 
@@ -119,18 +116,4 @@ abstract public class AuthenticatedAction extends HttpsAction {
     ) throws Exception {
         return mapping.findForward("success");
     }
-    
-    /**
-     * Makes sure the JSESSIONID cookie is not set to secure, resends it if necessary.
-     */
-    /*
-    public static void makeTomcatNonSecureCookie(HttpServletRequest req, HttpServletResponse resp) {
-        if(req==null) throw new NullPointerException("req is null");
-        Cookie newCookie = new Cookie("JSESSIONID", req.getSession().getId());
-        //newCookie.setMaxAge(60 * 60);
-        newCookie.setPath("/");
-        newCookie.setSecure(false);
-        //System.err.println("DEBUG: AuthenticatedAction: makeTomcatNonSecureCookie: resetting JSESSIONID cookie");
-        resp.addCookie(newCookie);
-    }*/
 }

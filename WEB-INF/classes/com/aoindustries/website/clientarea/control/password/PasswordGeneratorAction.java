@@ -27,6 +27,7 @@ public class PasswordGeneratorAction extends HttpsAction {
 
     private static final int NUM_PASSWORDS = 10;
 
+    @Override
     public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,

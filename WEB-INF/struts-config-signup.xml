@@ -542,6 +542,12 @@
         >
             <forward name="success" module="" path="/WEB-INF/jsp/signup/managed-server-7-completed.jsp" redirect="false" />
         </action>
+        <action
+            path="/**"
+            type="com.aoindustries.website.SkinAction"
+        >
+            <forward name="success" module="" path="/WEB-INF/jsp/not-found.jsp" redirect="false" />
+        </action>
     </action-mappings>
 
     <!-- ========== Controller ============================================== -->

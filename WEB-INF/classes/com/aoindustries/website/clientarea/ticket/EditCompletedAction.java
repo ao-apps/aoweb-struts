@@ -55,6 +55,7 @@ public class EditCompletedAction extends PermissionAction {
         }
         Ticket ticket = aoConn.getTickets().get(pkey);
         if(ticket==null) {
+            request.setAttribute(com.aoindustries.website.Constants.HTTP_SERVLET_RESPONSE_STATUS, Integer.valueOf(HttpServletResponse.SC_NOT_FOUND));
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Ticket not found");
             return null;
         }

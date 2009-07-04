@@ -5,6 +5,7 @@
   All rights reserved.
 --%>
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" isErrorPage="true" %>
+<% request.setAttribute(com.aoindustries.website.Constants.HTTP_SERVLET_RESPONSE_STATUS, Integer.valueOf(HttpServletResponse.SC_NOT_FOUND)); %>
 <% response.setStatus(HttpServletResponse.SC_NOT_FOUND); %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 <%
@@ -15,7 +16,7 @@
         request.setAttribute(com.aoindustries.website.Constants.SITE_SETTINGS, siteSettings);
     }
 
-       // Set locale request attribute if not yet done
+    // Set locale request attribute if not yet done
     if(request.getAttribute(com.aoindustries.website.Constants.LOCALE)==null) {
         java.util.Locale locale = com.aoindustries.website.LocaleAction.getEffectiveLocale(siteSettings, request);
         request.setAttribute(com.aoindustries.website.Constants.LOCALE, locale);
@@ -50,55 +51,61 @@
                 <br />
                 <logic:equal scope="request" name="siteSettings" property="exceptionShowError" value="true">
                     <%-- Error Data --%>
-                    <%
+                    <% {
                         javax.servlet.jsp.ErrorData errorData;
                         try {
                             errorData = pageContext==null ? null : pageContext.getErrorData();
+                            if(errorData!=null) pageContext.setAttribute("errorData", errorData);
                         } catch(NullPointerException err) {
                             errorData = null;
                         }
-                    %>
-                    <% if(errorData!=null) {%>
+                    } %>
+                    <logic:present scope="page" name="errorData">
                         <skin:lightArea>
                             <bean:message bundle="/ApplicationResources" key="notFound.jspException.title" />
                             <hr />
                             <table style='border:1px' cellspacing="0" cellpadding="2">
                                 <tr>
                                     <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="notFound.servletName.header" /></th>
-                                    <td style="white-space:nowrap"><%= errorData.getServletName() %></td>
+                                    <td style="white-space:nowrap"><bean:write scope="page" name="errorData" property="servletName" /></td>
                                 </tr>
                                 <tr>
                                     <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="notFound.requestURI.header" /></th>
-                                    <td style="white-space:nowrap"><%= errorData.getRequestURI() %></td>
+                                    <td style="white-space:nowrap"><bean:write scope="page" name="errorData" property="requestURI" /></td>
                                 </tr>
                                 <tr>
                                     <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="notFound.statusCode.header" /></th>
-                                    <td style="white-space:nowrap"><%= errorData.getStatusCode() %></td>
+                                    <td style="white-space:nowrap"><bean:write scope="page" name="errorData" property="statusCode" /></td>
                                 </tr>
                                 <tr>
                                     <th style='white-space:nowrap'><bean:message bundle="/ApplicationResources" key="notFound.throwable.header" /></th>
                                     <td style="white-space:nowrap">
-                                        <% Throwable throwable = errorData.getThrowable(); %>
-                                        <% if(throwable!=null) { %>
-<pre><%= org.apache.commons.lang.StringEscapeUtils.escapeHtml(com.aoindustries.util.ErrorPrinter.getStackTraces(throwable)) %></pre>
-                                        <% } else { %>
+                                        <logic:notEmpty scope="page" name="errorData" property="throwable">
+                                            <ao:pre><ao:getStackTraces scope="page" name="errorData" property="throwable" /></ao:pre>
+                                        </logic:notEmpty>
+                                        <logic:empty scope="page" name="errorData" property="throwable">
                                             &#160;
-                                        <% } %>
+                                        </logic:empty>
                                     </td>
                                 </tr>
                             </table>
                         </skin:lightArea><br />
                         <br />
-                    <% } %>
+                    </logic:present>
                     <%-- Servlet Exception --%>
-                    <% Exception myException = pageContext==null ? null : pageContext.getException(); %>
-                    <% if(myException!=null) { %>
+                    <%
+                        if(pageContext!=null) {
+                            Exception servletException = pageContext.getException();
+                            if(servletException!=null) pageContext.setAttribute("servletException", servletException);
+                        }
+                    %>
+                    <logic:present scope="page" name="servletException">
                         <skin:lightArea>
                             <bean:message bundle="/ApplicationResources" key="notFound.servletException.title" />
                             <hr />
-<pre><%= org.apache.commons.lang.StringEscapeUtils.escapeHtml(com.aoindustries.util.ErrorPrinter.getStackTraces(myException)) %></pre>
+                            <ao:pre><ao:getStackTraces scope="page" name="servletException" /></ao:pre>
                         </skin:lightArea>
-                    <% } %>
+                    </logic:present>
                 </logic:equal>
             </skin:contentLine>
         </skin:content>

@@ -63,7 +63,6 @@ public class LocaleAction extends SiteSettingsAction {
                 if(code.equals(language)) {
                     locale = locale==null ? new Locale(code) : new Locale(code, locale.getCountry(), locale.getVariant());
                     session.setAttribute(Globals.LOCALE_KEY, locale);
-                    //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
                     return locale;
                 }
             }
@@ -81,7 +80,6 @@ public class LocaleAction extends SiteSettingsAction {
         // Return the default
         locale = getDefaultLocale(languages);
         session.setAttribute(Globals.LOCALE_KEY, locale);
-        //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
         return locale;
     }
 

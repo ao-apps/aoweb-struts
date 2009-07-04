@@ -103,7 +103,6 @@ public class SkinAction extends LocaleAction {
             for(Skin skin : skins) {
                 if(skin.getName().equals(layout)) {
                     session.setAttribute(Constants.LAYOUT, layout);
-                    //AuthenticatedAction.makeTomcatNonSecureCookie(req, resp);
                     return skin;
                 }
             }
@@ -116,14 +115,12 @@ public class SkinAction extends LocaleAction {
             for(Skin skin : skins) {
                 if(skin.getName().equals(layout)) {
                     session.setAttribute(Constants.LAYOUT, layout);
-                    //AuthenticatedAction.makeTomcatNonSecureCookie(req, resp);
                     return skin;
                 }
             }
         }
         Skin skin = getDefaultSkin(skins, req);
         session.setAttribute(Constants.LAYOUT, skin.getName());
-        //AuthenticatedAction.makeTomcatNonSecureCookie(req, resp);
         return skin;
     }
 
@@ -150,7 +147,6 @@ public class SkinAction extends LocaleAction {
         String su=request.getParameter("su");
         if(su!=null) {
             request.getSession().setAttribute(Constants.SU_REQUESTED, su.trim());
-            //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
         }
 
         return execute(mapping, form, request, response, siteSettings, locale, skin);

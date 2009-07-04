@@ -34,7 +34,6 @@ public class LogoutAction extends SkinAction {
         session.removeAttribute(Constants.AUTHENTICATED_AO_CONN);
         session.removeAttribute(Constants.AUTHENTICATION_TARGET);
         session.removeAttribute(Constants.SU_REQUESTED);
-        //AuthenticatedAction.makeTomcatNonSecureCookie(request, response);
 
         // Try redirect
         String target = request.getParameter("target");

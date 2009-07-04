@@ -44,6 +44,7 @@ public class EditAction extends PermissionAction {
         // Look for the existing ticket
         String pkeyS = request.getParameter("pkey");
         if(pkeyS==null) {
+            request.setAttribute(com.aoindustries.website.Constants.HTTP_SERVLET_RESPONSE_STATUS, Integer.valueOf(HttpServletResponse.SC_BAD_REQUEST));
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "pkey required");
             return null;
         }
@@ -51,11 +52,13 @@ public class EditAction extends PermissionAction {
         try {
             pkey = Integer.parseInt(pkeyS);
         } catch(NumberFormatException err) {
+            request.setAttribute(com.aoindustries.website.Constants.HTTP_SERVLET_RESPONSE_STATUS, Integer.valueOf(HttpServletResponse.SC_BAD_REQUEST));
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid pkey");
             return null;
         }
         Ticket ticket = aoConn.getTickets().get(pkey);
         if(ticket==null) {
+            request.setAttribute(com.aoindustries.website.Constants.HTTP_SERVLET_RESPONSE_STATUS, Integer.valueOf(HttpServletResponse.SC_NOT_FOUND));
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Ticket not found");
             return null;
         }

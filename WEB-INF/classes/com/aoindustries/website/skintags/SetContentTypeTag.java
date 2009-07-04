@@ -136,9 +136,11 @@ public class SetContentTypeTag extends TagSupport {
             if(isApplicationXhtmlXml) {
                 // Also write the xml declaration
                 JspWriter out = pageContext.getOut();
+                out.clear();
+                response.resetBuffer(); // Cannot have even whitespace before the xml declaration
                 out.print("<?xml version=\"1.0\" encoding=\"");
                 out.print(charset);
-                out.println("\"?>");
+                out.print("\"?>");
             }
 
             return SKIP_BODY;

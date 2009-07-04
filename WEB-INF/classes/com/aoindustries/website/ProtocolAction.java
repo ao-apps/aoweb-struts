@@ -54,9 +54,11 @@ abstract public class ProtocolAction extends SkinAction {
                     if(path.startsWith("/")) path=path.substring(1);
                     // Send permanent redirect
                     response.setHeader("Location", response.encodeRedirectURL(skin.getHttpUrlBase(request) + path));
+                    request.setAttribute(com.aoindustries.website.Constants.HTTP_SERVLET_RESPONSE_STATUS, Integer.valueOf(HttpServletResponse.SC_MOVED_PERMANENTLY));
                     response.sendError(HttpServletResponse.SC_MOVED_PERMANENTLY);
                 } else {
                     MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
+                    request.setAttribute(com.aoindustries.website.Constants.HTTP_SERVLET_RESPONSE_STATUS, Integer.valueOf(HttpServletResponse.SC_FORBIDDEN));
                     response.sendError(HttpServletResponse.SC_FORBIDDEN, applicationResources.getMessage(locale, "ProtocolAction.httpsNotAllowed"));
                 }
                 return null;
