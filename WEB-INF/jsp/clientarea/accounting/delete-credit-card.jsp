@@ -32,7 +32,7 @@
                 </logic:present>
                 <logic:notPresent scope="request" name="permissionDenied">
                     <bean:define scope="request" name="creditCard" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard" />
-                    <form method="post" action="<ao:url>delete-credit-card-completed.do</ao:url>">
+                    <form method="post" action="<ao:url>delete-credit-card-completed.do</ao:url>"><div>
                         <input type="hidden" name="pkey" value="<ao:write name="creditCard" property="pkey" />" />
                         <skin:lightArea>
                             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.confirmation.title" />
@@ -92,13 +92,13 @@
                                         &#160;&#160;&#160;
                                         <ao:input type="button">
                                             <ao:value><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.field.cancel.label" /></ao:value>
-                                            <ao:onclick>window.location.href=<ao:url>credit-card-manager.do</ao:url></ao:onclick>
+                                            <ao:onclick>window.location.href=<ao:url>credit-card-manager.do</ao:url>;</ao:onclick>
                                         </ao:input>
                                     </td>
                                 </tr>
                             </table>
                         </skin:lightArea>
-                    </form>
+                    </div></form>
                 </logic:notPresent>
             </skin:contentLine>
         </skin:content>

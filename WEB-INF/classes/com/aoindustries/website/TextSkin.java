@@ -7,6 +7,9 @@ package com.aoindustries.website;
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Brand;
+import com.aoindustries.encoding.JavaScriptInXhtmlAttributeEncoder;
+import com.aoindustries.encoding.JavaScriptInXhtmlEncoder;
+import com.aoindustries.encoding.TextInJavaScriptEncoder;
 import com.aoindustries.encoding.TextInXhtmlEncoder;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.util.EncodingUtils;
@@ -252,14 +255,13 @@ public class TextSkin extends Skin {
                     + "          <div style='white-space: nowrap'>\n");
             if(skins.size()>1) {
                 out.print("<script type='text/javascript'>\n"
-                        + "  // <![CDATA[\n"
                         + "  function selectLayout(layout) {\n");
                 for(Skin skin : skins) {
                     out.print("    if(layout=='");
-                    EncodingUtils.encodeJavaScriptStringInXml(skin.getName(), out);
+                    encodeTextInJavaScriptInXhtml(skin.getName(), out);
                     out.print("') window.top.location.href='");
-                    EncodingUtils.encodeJavaScriptStringInXml(                          // Escape for JavaScript
-                        StringUtility.replace(                                  // Convert XML &amp; to &
+                    encodeTextInJavaScriptInXhtml(
+                        StringUtility.replace(
                             resp.encodeURL(fullPath+"?layout="+skin.getName()),
                             "&amp;",
                             "&"
@@ -269,7 +271,6 @@ public class TextSkin extends Skin {
                     out.print("';\n");
                 }
                 out.print("  }\n"
-                        + "  // ]]>\n"
                         + "</script>\n"
                         + "            <form action='' style='display:inline;'><div style='display:inline;'>\n"
                         + "              ");
@@ -320,13 +321,13 @@ public class TextSkin extends Skin {
                             )
                         );
                         out.print("' onmouseover='document.images[\"flagSelector_");
-                        EncodingUtils.encodeJavaScriptStringInXml(language.getCode(), out);
+                        encodeTextInJavaScriptInXhtmlAttribute(language.getCode(), out);
                         out.print("\"].src=\"");
-                        EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(resp.encodeURL(urlBase + language.getFlagOnSrc(req, locale)), "&amp;", "&"), out);
+                        encodeTextInJavaScriptInXhtmlAttribute(StringUtility.replace(resp.encodeURL(urlBase + language.getFlagOnSrc(req, locale)), "&amp;", "&"), out);
                         out.print("\";' onmouseout='document.images[\"flagSelector_");
                         out.print(language.getCode());
                         out.print("\"].src=\"");
-                        EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)), "&amp;", "&"), out);
+                        encodeTextInJavaScriptInXhtmlAttribute(StringUtility.replace(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)), "&amp;", "&"), out);
                         out.print("\";'><img src='");
                         out.print(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)));
                         out.print("' id='flagSelector_");
@@ -606,24 +607,25 @@ public class TextSkin extends Skin {
      * @param googleAnalyticsNewTrackingCode if <code>null</code> will not print anything
      */
     public static void printGoogleAnalyticsTrackPageViewScript(HttpServletRequest req, Appendable out, String googleAnalyticsNewTrackingCode) throws IOException {
-            if(googleAnalyticsNewTrackingCode!=null) {
-                out.append("    <script type=\"text/javascript\">\n"
-                        + "      // <![CDATA[\n"
-                        + "      try {\n"
-                        + "        var pageTracker = _gat._getTracker(\""); out.append(googleAnalyticsNewTrackingCode); out.append("\");\n");
-                Integer responseStatus = (Integer)req.getAttribute(Constants.HTTP_SERVLET_RESPONSE_STATUS);
-                if(responseStatus==null || responseStatus.intValue()==HttpServletResponse.SC_OK) {
-                    out.append("        pageTracker._trackPageview();\n");
-                } else {
-                    out.append("        pageTracker._trackPageview(\"/");
-                    out.append(responseStatus.toString());
-                    out.append(".html?page=\"+document.location.pathname+document.location.search+\"&from=\"+document.referrer);\n");
-                }
-                out.append("      } catch(err) {\n"
-                        + "      }\n"
-                        + "      // ]]>\n"
-                        + "    </script>\n");
+        if(googleAnalyticsNewTrackingCode!=null) {
+            Integer responseStatus = (Integer)req.getAttribute(Constants.HTTP_SERVLET_RESPONSE_STATUS);
+            boolean isOk = responseStatus==null || responseStatus.intValue()==HttpServletResponse.SC_OK;
+            out.append("    <script type=\"text/javascript\">\n");
+            if(!isOk) out.append("      // <![CDATA[\n");
+            out.append("      try {\n"
+                    + "        var pageTracker = _gat._getTracker(\""); out.append(googleAnalyticsNewTrackingCode); out.append("\");\n");
+            if(isOk) {
+                out.append("        pageTracker._trackPageview();\n");
+            } else {
+                out.append("        pageTracker._trackPageview(\"/");
+                out.append(responseStatus.toString());
+                out.append(".html?page=\"+document.location.pathname+document.location.search+\"&from=\"+document.referrer);\n");
             }
+            out.append("      } catch(err) {\n"
+                    + "      }\n");
+            if(!isOk) out.append("      // ]]>\n");
+            out.append("    </script>\n");
+        }
     }
 
     public void beginLightArea(HttpServletRequest req, HttpServletResponse resp, JspWriter out, String width, boolean nowrap) throws JspException {
@@ -1090,5 +1092,17 @@ public class TextSkin extends Skin {
         } catch(IOException err) {
             throw new JspException(err);
         }
+    }
+
+    private static void encodeTextInJavaScriptInXhtml(String text, Appendable out) throws IOException {
+        StringBuilder javascript = new StringBuilder(text.length());
+        TextInJavaScriptEncoder.encodeTextInJavaScript(text, javascript);
+        JavaScriptInXhtmlEncoder.encodeJavaScriptInXhtml(javascript, out);
+    }
+
+    private static void encodeTextInJavaScriptInXhtmlAttribute(String text, Appendable out) throws IOException {
+        StringBuilder javascript = new StringBuilder(text.length());
+        TextInJavaScriptEncoder.encodeTextInJavaScript(text, javascript);
+        JavaScriptInXhtmlAttributeEncoder.encodeJavaScriptInXhtmlAttribute(javascript, out);
     }
 }
