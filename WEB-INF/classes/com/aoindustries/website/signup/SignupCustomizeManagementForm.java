@@ -5,13 +5,14 @@ package com.aoindustries.website.signup;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.website.SessionActionForm;
 import java.io.Serializable;
 import org.apache.struts.action.ActionForm;
 
 /**
  * @author  AO Industries, Inc.
  */
-public class SignupCustomizeManagementForm extends ActionForm implements Serializable {
+public class SignupCustomizeManagementForm extends ActionForm implements Serializable, SessionActionForm {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,6 +30,17 @@ public class SignupCustomizeManagementForm extends ActionForm implements Seriali
         setDistributionScanOption(-1);
         setFailoverOption(-1);
         setFormCompleted("false");
+    }
+
+    public boolean isEmpty() {
+        return
+            backupOnsiteOption==-1
+            && backupOffsiteOption==-1
+            && "".equals(backupDvdOption)
+            && distributionScanOption==-1
+            && failoverOption==-1
+            && "false".equals(formCompleted)
+        ;
     }
 
     public int getBackupOnsiteOption() {

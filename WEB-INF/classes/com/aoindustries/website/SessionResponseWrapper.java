@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -173,10 +174,45 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                 && !lowerPath.endsWith(".png")
                 && !lowerPath.endsWith(".txt")
             ) {
-                // Use the default servlet container jsessionid when the user is authenticated
-                if(session.getAttribute(Constants.AUTHENTICATED_AO_CONN)!=null) {
+                // Use the default servlet container jsessionid when any session object exists besides
+                // the three values that will be encoded into the URL as parameters below.
+                Enumeration attributeNames = session.getAttributeNames();
+                String whyNeedsJsessionid = null;
+                while(attributeNames.hasMoreElements()) {
+                    String name = (String)attributeNames.nextElement();
+                    if(
+                        !Constants.AUTHENTICATION_TARGET.equals(name)
+                        && !Globals.LOCALE_KEY.equals(name)
+                        && !Constants.LAYOUT.equals(name)
+                        && !Constants.SU_REQUESTED.equals(name)
+                    ) {
+                        // These will always trigger jsessionid
+                        if(
+                            Constants.AO_CONN.equals(name)
+                            || Constants.AUTHENTICATED_AO_CONN.equals(name)
+                        ) {
+                            whyNeedsJsessionid = name;
+                            break;
+                        }
+                        // Must be an SessionActionForm
+                        Object sessionObject = session.getAttribute(name);
+                        if(sessionObject instanceof SessionActionForm) {
+                            SessionActionForm sessionActionForm = (SessionActionForm)sessionObject;
+                            if(!sessionActionForm.isEmpty()) {
+                                whyNeedsJsessionid = name;
+                                break;
+                            }
+                        } else {
+                            throw new AssertionError("Session object is neither an expected value nor a SessionActionForm.  name="+name+", sessionObject.class="+sessionObject.getClass().getName());
+                        }
+                    }
+                }
+                // TODO: Log warning (create ticket with aggregate counts by agent over time period?) and refuse to send jsessionid to googlebot agent
+                if(whyNeedsJsessionid!=null) {
+                    System.out.println("DEBUG: Why needs jsessionid: "+whyNeedsJsessionid);
                     return isRedirect ? response.encodeRedirectURL(url) : response.encodeURL(url);
                 }
+
                 // Add the Constants.AUTHENTICATION_TARGET if needed
                 String authenticationTarget = (String)session.getAttribute(Constants.AUTHENTICATION_TARGET);
                 if(authenticationTarget==null) authenticationTarget = request.getParameter(Constants.AUTHENTICATION_TARGET);
@@ -220,6 +256,9 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                         }
                     }
                 }
+                // Add any "su"
+                String su = (String)session.getAttribute(Constants.SU_REQUESTED);
+                if(su!=null) url = addParamIfMissing(url, "su", su);
             } else {
                 //System.err.println("DEBUG: encodeRedirectURL: Not adding parameters to skipped type: "+url);
             }

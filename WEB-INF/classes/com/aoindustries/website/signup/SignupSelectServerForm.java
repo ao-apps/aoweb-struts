@@ -10,6 +10,7 @@ import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.PackageCategory;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.util.WrappedException;
+import com.aoindustries.website.SessionActionForm;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.io.Serializable;
@@ -24,7 +25,7 @@ import org.apache.struts.action.ActionServlet;
 /**
  * @author  AO Industries, Inc.
  */
-abstract public class SignupSelectServerForm extends ActionForm implements Serializable {
+abstract public class SignupSelectServerForm extends ActionForm implements Serializable, SessionActionForm {
 
     private static final long serialVersionUID = 1L;
 
@@ -32,6 +33,10 @@ abstract public class SignupSelectServerForm extends ActionForm implements Seria
 
     public SignupSelectServerForm() {
         setPackageDefinition(-1);
+    }
+
+    public boolean isEmpty() {
+        return packageDefinition == -1;
     }
 
     public int getPackageDefinition() {

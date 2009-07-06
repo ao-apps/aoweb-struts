@@ -6,6 +6,7 @@ package com.aoindustries.website.signup;
  * All rights reserved.
  */
 import com.aoindustries.creditcards.CreditCard;
+import com.aoindustries.website.SessionActionForm;
 import java.io.Serializable;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
@@ -17,7 +18,7 @@ import org.apache.struts.action.ActionMessage;
 /**
  * @author  AO Industries, Inc.
  */
-public class SignupBillingInformationForm extends ActionForm implements Serializable {
+public class SignupBillingInformationForm extends ActionForm implements Serializable, SessionActionForm {
 
     private static final long serialVersionUID = 1L;
 
@@ -47,6 +48,23 @@ public class SignupBillingInformationForm extends ActionForm implements Serializ
         setBillingCity("");
         setBillingState("");
         setBillingZip("");
+    }
+
+    public boolean isEmpty() {
+        return
+            "".equals(billingContact)
+            && "".equals(billingEmail)
+            && !billingUseMonthly
+            && !billingPayOneYear
+            && "".equals(billingCardholderName)
+            && "".equals(billingCardNumber)
+            && "".equals(billingExpirationMonth)
+            && "".equals(billingExpirationYear)
+            && "".equals(billingStreetAddress)
+            && "".equals(billingCity)
+            && "".equals(billingState)
+            && "".equals(billingZip)
+        ;
     }
 
     /*
@@ -154,6 +172,7 @@ public class SignupBillingInformationForm extends ActionForm implements Serializ
         this.billingZip = billingZip.trim();
     }
 
+    @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = super.validate(mapping, request);
         if(errors==null) errors = new ActionErrors();

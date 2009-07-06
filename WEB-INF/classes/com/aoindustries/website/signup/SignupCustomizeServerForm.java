@@ -10,6 +10,7 @@ import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.aoserv.client.PackageDefinitionLimit;
 import com.aoindustries.util.AutoGrowArrayList;
 import com.aoindustries.util.WrappedException;
+import com.aoindustries.website.SessionActionForm;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.io.Serializable;
@@ -25,7 +26,7 @@ import org.apache.struts.action.ActionServlet;
 /**
  * @author  AO Industries, Inc.
  */
-abstract public class SignupCustomizeServerForm extends ActionForm implements Serializable {
+abstract public class SignupCustomizeServerForm extends ActionForm implements Serializable, SessionActionForm {
 
     private static final long serialVersionUID = 1L;
 
@@ -47,6 +48,19 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
         setIdeOptions(new AutoGrowArrayList<String>());
         setSataOptions(new AutoGrowArrayList<String>());
         setScsiOptions(new AutoGrowArrayList<String>());
+    }
+
+    public boolean isEmpty() {
+        return
+            powerOption==-1
+            && cpuOption==-1
+            && ramOption==-1
+            && sataControllerOption==-1
+            && scsiControllerOption==-1
+            && ideOptions.isEmpty()
+            && sataOptions.isEmpty()
+            && scsiOptions.isEmpty()
+        ;
     }
 
     public int getPowerOption() {

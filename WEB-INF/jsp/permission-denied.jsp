@@ -22,13 +22,7 @@
             <bean:size scope="request" name="permissionDenied" id="permissionDeniedSize" />
             <logic:equal name="permissionDeniedSize" value="1">
                 <bean:message bundle="/ApplicationResources" key="permissionDenied.theFollowingPermissionRequired" />
-                <%-- We are only grabbing the first item from the list.  I can't find a more efficient way so I'm just doing an interate
-                     which will result in the first item being pulled out as desired.  I was trying something like this:
-                    <bean:define name="permissionDenied" property="[0].displayKey" id="permissionDisplayKey" type="java.lang.String" />
-                    <bean:define name="permissionDenied" property="[0].descriptionKey" id="permissionDescriptionKey" type="java.lang.String" />
-                --%>
                 <logic:iterate scope="request" name="permissionDenied" id="andPermission" type="com.aoindustries.aoserv.client.AOServPermission">
-                    <bean:define id="permissionDescription" type="java.lang.String"><%= andPermission.getDescription(locale) %></bean:define>
                     <p>
                         <table cellspacing='0' cellpadding='2'>
                             <tr>
@@ -37,7 +31,7 @@
                             </tr>
                             <tr>
                                 <td style="white-space:nowrap"><b><bean:message bundle="/ApplicationResources" key="permissionDenied.permission.description" /></b></td>
-                                <td style="white-space:nowrap"><ao:write name="permissionDescription" /></td>
+                                <td style="white-space:nowrap"><ao:write name="andPermission" method="getDescription" /></td>
                             </tr>
                         </table>
                     </p>
@@ -54,10 +48,9 @@
                         </tr>
                         <bean:define scope="request" name="aoConn" property="thisBusinessAdministrator" id="thisBusinessAdministrator" type="com.aoindustries.aoserv.client.BusinessAdministrator" />
                         <logic:iterate scope="request" name="permissionDenied" id="andPermission" type="com.aoindustries.aoserv.client.AOServPermission">
-                            <bean:define id="permissionDescription" type="java.lang.String"><%= andPermission.getDescription(locale) %></bean:define>
                             <tr>
                                 <td style="white-space:nowrap"><ao:write name="andPermission" /></td>
-                                <td style="white-space:nowrap"><ao:write name="permissionDescription" /></td>
+                                <td style="white-space:nowrap"><ao:write name="andPermission" method="getDescription" /></td>
                                 <td style="white-space:nowrap">
                                     <% if(thisBusinessAdministrator.hasPermission(andPermission)) { %>
                                         <bean:message bundle="/ApplicationResources" key="permissionDenied.andPermissions.header.hasPermission.yes" />

@@ -24,23 +24,27 @@
             <skin:contentTitle><bean:message bundle="/signup/ApplicationResources" key="virtualManaged.title" /></skin:contentTitle>
             <skin:contentHorizontalDivider />
             <skin:contentLine>
-                <script type='text/javascript'>
-                    // <![CDATA[
+                <%-- TODO: All ao:text here should be ao:url --%>
+                <ao:script>
                     function selectStep(step) {
-                        if(step=="virtual-managed-server") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("virtual-managed-server.do"), "&amp;", "&"), out); %>";
-                        else if(step=="virtual-managed-server-2") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("virtual-managed-server-2.do"), "&amp;", "&"), out); %>";
-                        else if(step=="virtual-managed-server-3") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("virtual-managed-server-3.do"), "&amp;", "&"), out); %>";
-                        else if(step=="virtual-managed-server-4") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("virtual-managed-server-4.do"), "&amp;", "&"), out); %>";
-                        else if(step=="virtual-managed-server-5") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("virtual-managed-server-5.do"), "&amp;", "&"), out); %>";
-                        else if(step=="virtual-managed-server-6") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("virtual-managed-server-6.do"), "&amp;", "&"), out); %>";
+                        if(step=="virtual-managed-server") window.location.href=<ao:text>virtual-managed-server.do</ao:text>;
+                        else if(step=="virtual-managed-server-2")
+                            window.location.href=<ao:text>virtual-managed-server-2.do</ao:text>;
+                        else if(step=="virtual-managed-server-3")
+                            window.location.href=<ao:text>virtual-managed-server-3.do</ao:text>;
+                        else if(step=="virtual-managed-server-4")
+                            window.location.href=<ao:text>virtual-managed-server-4.do</ao:text>;
+                        else if(step=="virtual-managed-server-5")
+                            window.location.href=<ao:text>virtual-managed-server-5.do</ao:text>;
+                        else if(step=="virtual-managed-server-6")
+                            window.location.href=<ao:text>virtual-managed-server-6.do</ao:text>;
                     }
-                    // ]]>
-                </script>
+                </ao:script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="7" />
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="virtual-managed-server" />
                 <%@ include file="managed-server-steps.jsp" %>
                 <br />
-                <form action="<%= response.encodeURL("virtual-managed-server-7-completed.do") %>" method="post">
+                <form action="<ao:text>virtual-managed-server-7-completed.do</ao:text>" method="post">
                     <%@ include file="managed-server-confirmation.jsp" %>
                 </form>
             </skin:contentLine>

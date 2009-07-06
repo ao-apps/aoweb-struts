@@ -5,6 +5,7 @@ package com.aoindustries.website.signup;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.website.SessionActionForm;
 import java.io.Serializable;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
@@ -16,7 +17,7 @@ import org.apache.struts.action.ActionMessage;
 /**
  * @author  AO Industries, Inc.
  */
-public class SignupBusinessForm extends ActionForm implements Serializable {
+public class SignupBusinessForm extends ActionForm implements Serializable, SessionActionForm {
 
     private static final long serialVersionUID = 1L;
 
@@ -40,6 +41,20 @@ public class SignupBusinessForm extends ActionForm implements Serializable {
         setBusinessState("");
         setBusinessCountry("");
         setBusinessZip("");
+    }
+
+    public boolean isEmpty() {
+        return
+            "".equals(businessName)
+            && "".equals(businessPhone)
+            && "".equals(businessFax)
+            && "".equals(businessAddress1)
+            && "".equals(businessAddress2)
+            && "".equals(businessCity)
+            && "".equals(businessState)
+            && "".equals(businessCountry)
+            && "".equals(businessZip)
+        ;
     }
 
     public String getBusinessName() {
@@ -114,6 +129,7 @@ public class SignupBusinessForm extends ActionForm implements Serializable {
         this.businessZip = businessZip.trim();
     }
     
+    @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = super.validate(mapping, request);
         if(errors==null) errors = new ActionErrors();

@@ -8,6 +8,7 @@ package com.aoindustries.website.signup;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Username;
 import com.aoindustries.util.WrappedException;
+import com.aoindustries.website.SessionActionForm;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.io.Serializable;
@@ -25,7 +26,7 @@ import org.apache.struts.action.ActionServlet;
 /**
  * @author  AO Industries, Inc.
  */
-public class SignupTechnicalForm extends ActionForm implements Serializable {
+public class SignupTechnicalForm extends ActionForm implements Serializable, SessionActionForm {
 
     private static final long serialVersionUID = 1L;
 
@@ -61,6 +62,26 @@ public class SignupTechnicalForm extends ActionForm implements Serializable {
         setBaZip("");
         setBaUsername("");
         setBaPassword("");
+    }
+
+    public boolean isEmpty() {
+        return
+            "".equals(baName)
+            && "".equals(baTitle)
+            && "".equals(baWorkPhone)
+            && "".equals(baCellPhone)
+            && "".equals(baHomePhone)
+            && "".equals(baFax)
+            && "".equals(baEmail)
+            && "".equals(baAddress1)
+            && "".equals(baAddress2)
+            && "".equals(baCity)
+            && "".equals(baState)
+            && "".equals(baCountry)
+            && "".equals(baZip)
+            && "".equals(baUsername)
+            && "".equals(baPassword)
+        ;
     }
 
     public String getBaName() {
