@@ -5,8 +5,6 @@
   All rights reserved.
 --%>
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
-<%@ page import="com.aoindustries.util.EncodingUtils" %>
-<%@ page import="com.aoindustries.util.StringUtility" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType />
@@ -34,7 +32,7 @@
                 </logic:present>
                 <logic:notPresent scope="request" name="permissionDenied">
                     <bean:define scope="request" name="creditCard" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard" />
-                    <form method="post" action="<%= response.encodeURL("delete-credit-card-completed.do") %>">
+                    <form method="post" action="<ao:url>delete-credit-card-completed.do</ao:url>">
                         <input type="hidden" name="pkey" value="<ao:write name="creditCard" property="pkey" />" />
                         <skin:lightArea>
                             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.confirmation.title" />
@@ -92,11 +90,10 @@
                                             value="<bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.field.submit.label" />"
                                         />
                                         &#160;&#160;&#160;
-                                        <input
-                                            type="button"
-                                            value="<bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.field.cancel.label" />"
-                                            onclick="window.location.href='<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("credit-card-manager.do"), "&amp;", "&"), out); %>'"
-                                        />
+                                        <ao:input type="button">
+                                            <ao:value><bean:message bundle="/clientarea/accounting/ApplicationResources" key="deleteCreditCard.field.cancel.label" /></ao:value>
+                                            <ao:onclick>window.location.href=<ao:url>credit-card-manager.do</ao:url></ao:onclick>
+                                        </ao:input>
                                     </td>
                                 </tr>
                             </table>

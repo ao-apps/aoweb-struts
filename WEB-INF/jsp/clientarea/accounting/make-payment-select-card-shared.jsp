@@ -7,7 +7,7 @@
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
-<form method="post" action="<%= response.encodeURL("make-payment-stored-card.do") %>">
+<form method="post" action="<ao:url>make-payment-stored-card.do</ao:url>">
     <div>
         <input name="accounting" type="hidden" value="<%= request.getParameter("accounting") %>" />
         <skin:lightArea>

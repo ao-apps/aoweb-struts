@@ -194,7 +194,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                             whyNeedsJsessionid = name;
                             break;
                         }
-                        // Must be an SessionActionForm
+                        // Must be an SessionActionForm if none of the above
                         Object sessionObject = session.getAttribute(name);
                         if(sessionObject instanceof SessionActionForm) {
                             SessionActionForm sessionActionForm = (SessionActionForm)sessionObject;
@@ -209,7 +209,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                 }
                 // TODO: Log warning (create ticket with aggregate counts by agent over time period?) and refuse to send jsessionid to googlebot agent
                 if(whyNeedsJsessionid!=null) {
-                    System.out.println("DEBUG: Why needs jsessionid: "+whyNeedsJsessionid);
+                    // System.out.println("DEBUG: Why needs jsessionid: "+whyNeedsJsessionid);
                     return isRedirect ? response.encodeRedirectURL(url) : response.encodeURL(url);
                 }
 

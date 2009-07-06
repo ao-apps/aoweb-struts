@@ -22,15 +22,13 @@
             <skin:contentTitle><bean:message bundle="/signup/ApplicationResources" key="dedicated.title" /></skin:contentTitle>
             <skin:contentHorizontalDivider />
             <skin:contentLine>
-                <script type='text/javascript'>
-                    // <![CDATA[
+                <ao:script>
                     function selectStep(step) {
                         var form = document.forms['dedicatedSignupSelectServerForm'];
                         form.selectedStep.value=step;
                         form.submit();
                     }
-                    // ]]>
-                </script>
+                </ao:script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="1" />
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="dedicated-server" />
                 <%@ include file="dedicated-server-steps.jsp" %>

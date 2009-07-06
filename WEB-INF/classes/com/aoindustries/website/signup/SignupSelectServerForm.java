@@ -52,8 +52,6 @@ abstract public class SignupSelectServerForm extends ActionForm implements Seria
         ActionErrors errors = super.validate(mapping, request);
         if(errors==null) errors = new ActionErrors();
         try {
-            boolean found = false;
-
             // Must be one of the active package_definitions
             ActionServlet myServlet = getServlet();
             if(myServlet!=null) {

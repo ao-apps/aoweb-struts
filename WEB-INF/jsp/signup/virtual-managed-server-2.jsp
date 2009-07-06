@@ -22,16 +22,14 @@
             <skin:contentTitle><bean:message bundle="/signup/ApplicationResources" key="virtualManaged.title" /></skin:contentTitle>
             <skin:contentHorizontalDivider />
             <skin:contentLine>
-                <script type='text/javascript'>
-                    // <![CDATA[
+                <ao:script>
                     var signupCustomizeServerFormName = 'virtualManagedSignupCustomizeServerForm';
                     function selectStep(step) {
                         var form = document.forms['virtualManagedSignupCustomizeServerForm'];
                         form.selectedStep.value=step;
                         form.submit();
                     }
-                    // ]]>
-                </script>
+                </ao:script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="2" />
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="virtual-managed-server" />
                 <%@ include file="managed-server-steps.jsp" %>

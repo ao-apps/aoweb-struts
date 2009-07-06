@@ -7,6 +7,7 @@ package com.aoindustries.website;
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Brand;
+import com.aoindustries.encoding.TextInXhtmlEncoder;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.util.EncodingUtils;
 import com.aoindustries.util.StringUtility;
@@ -159,10 +160,10 @@ public class TextSkin extends Skin {
             out.print("    <title>");
             List<Page> parents = pageAttributes.getParents();
             for(Page parent : parents) {
-                EncodingUtils.encodeHtml(parent.getTitle(), out);
+                TextInXhtmlEncoder.encodeTextInXhtml(locale, parent.getTitle(), out);
                 out.print(" - ");
             }
-            EncodingUtils.encodeHtml(pageAttributes.getTitle(), out);
+            TextInXhtmlEncoder.encodeTextInXhtml(locale, pageAttributes.getTitle(), out);
             out.print("</title>\n"
                     + "    <meta http-equiv='Content-Type' content='");
             out.print(resp.getContentType());
@@ -302,7 +303,7 @@ public class TextSkin extends Skin {
                         );
                         out.print("'><img src='");
                         out.print(resp.encodeURL(urlBase + language.getFlagOnSrc(req, locale)));
-                        out.print("' style='border:1px solid' width='");
+                        out.print("' style='border:1px solid; vertical-align:bottom' width='");
                         out.print(language.getFlagWidth(req, locale));
                         out.print("' height='");
                         out.print(language.getFlagHeight(req, locale));
@@ -330,7 +331,7 @@ public class TextSkin extends Skin {
                         out.print(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)));
                         out.print("' id='flagSelector_");
                         out.print(language.getCode());
-                        out.print("' style='border:1px solid' width='");
+                        out.print("' style='border:1px solid; vertical-align:bottom' width='");
                         out.print(language.getFlagWidth(req, locale));
                         out.print("' height='");
                         out.print(language.getFlagHeight(req, locale));

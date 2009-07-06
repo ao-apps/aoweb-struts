@@ -9,15 +9,13 @@
 
 <div>
     <input type="hidden" name="selectedStep" value="" />
-    <script type='text/javascript'>
-        // <![CDATA[
+    <ao:script>
         function selectStep(step) {
             var form = document.forms['signupBillingInformationForm'];
             form.selectedStep.value=step;
             form.submit();
         }
-        // ]]>
-    </script>
+    </ao:script>
     <skin:lightArea>
          <table cellpadding="0" cellspacing="0">
             <tr><td colspan="4"><b><bean:message bundle="/signup/ApplicationResources" key="dedicated5.stepLabel" /></b><br /><hr /></td></tr>

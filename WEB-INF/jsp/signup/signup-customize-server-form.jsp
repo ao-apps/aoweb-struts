@@ -8,8 +8,7 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <div>
-    <script type='text/javascript'>
-        // <![CDATA[
+    <ao:script>
         function formatDecimal(pennies) {
             var penniesOnly=pennies%100;
             var dollars=(pennies-penniesOnly)/100;
@@ -24,12 +23,12 @@
             <bean:size scope="request" name="powerOptions" id="powerOptionsSize" />
             <logic:equal name="powerOptionsSize" value="1">
                 <logic:iterate scope="request" name="powerOptions" id="option">
-                    if(form.powerOption.checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.powerOption.checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:equal>
             <logic:notEqual name="powerOptionsSize" value="1">
                 <logic:iterate scope="request" name="powerOptions" id="option" indexId="index">
-                    if(form.powerOption[<ao:write name="index" />].checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.powerOption[parseInt(<ao:write name="index" />)].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:notEqual>
 
@@ -37,12 +36,12 @@
             <bean:size scope="request" name="cpuOptions" id="cpuOptionsSize" />
             <logic:equal name="cpuOptionsSize" value="1">
                 <logic:iterate scope="request" name="cpuOptions" id="option">
-                    if(form.cpuOption.checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.cpuOption.checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:equal>
             <logic:notEqual name="cpuOptionsSize" value="1">
                 <logic:iterate scope="request" name="cpuOptions" id="option" indexId="index">
-                    if(form.cpuOption[<ao:write name="index" />].checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.cpuOption[parseInt(<ao:write name="index" />)].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:notEqual>
 
@@ -50,12 +49,12 @@
             <bean:size scope="request" name="ramOptions" id="ramOptionsSize" />
             <logic:equal name="ramOptionsSize" value="1">
                 <logic:iterate scope="request" name="ramOptions" id="option">
-                    if(form.ramOption.checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.ramOption.checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:equal>
             <logic:notEqual name="ramOptionsSize" value="1">
                 <logic:iterate scope="request" name="ramOptions" id="option" indexId="index">
-                    if(form.ramOption[<ao:write name="index" />].checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.ramOption[parseInt(<ao:write name="index" />)].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:notEqual>
 
@@ -63,12 +62,12 @@
             <bean:size scope="request" name="sataControllerOptions" id="sataControllerOptionsSize" />
             <logic:equal name="sataControllerOptionsSize" value="1">
                 <logic:iterate scope="request" name="sataControllerOptions" id="option">
-                    if(form.sataControllerOption.checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.sataControllerOption.checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:equal>
             <logic:notEqual name="sataControllerOptionsSize" value="1">
                 <logic:iterate scope="request" name="sataControllerOptions" id="option" indexId="index">
-                    if(form.sataControllerOption[<ao:write name="index" />].checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.sataControllerOption[parseInt(<ao:write name="index" />)].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:notEqual>
 
@@ -76,12 +75,12 @@
             <bean:size scope="request" name="scsiControllerOptions" id="scsiControllerOptionsSize" />
             <logic:equal name="scsiControllerOptionsSize" value="1">
                 <logic:iterate scope="request" name="scsiControllerOptions" id="option">
-                    if(form.scsiControllerOption.checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.scsiControllerOption.checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:equal>
             <logic:notEqual name="scsiControllerOptionsSize" value="1">
                 <logic:iterate scope="request" name="scsiControllerOptions" id="option" indexId="index">
-                    if(form.scsiControllerOption[<ao:write name="index" />].checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.scsiControllerOption[parseInt(<ao:write name="index" />)].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:notEqual>
 
@@ -90,12 +89,12 @@
                 <bean:size name="ideOptionList" id="ideOptionListSize" />
                 <logic:equal name="ideOptionListSize" value="1">
                     <logic:iterate name="ideOptionList" id="option">
-                        if(form.elements['ideOptions[<ao:write name="index" />]'].checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                        if(form.elements["ideOptions["+<ao:write name="index" />+"]"].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                     </logic:iterate>
                 </logic:equal>
                 <logic:notEqual name="ideOptionListSize" value="1">
                     <logic:iterate name="ideOptionList" id="option" indexId="index2">
-                        if(form.elements['ideOptions[<ao:write name="index" />]'][<ao:write name="index2" />].checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                        if(form.elements["ideOptions["+<ao:write name="index" />+"]"][parseInt(<ao:write name="index2" />)].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                     </logic:iterate>
                 </logic:notEqual>
             </logic:iterate>
@@ -105,12 +104,12 @@
                 <bean:size name="sataOptionList" id="sataOptionListSize" />
                 <logic:equal name="sataOptionListSize" value="1">
                     <logic:iterate name="sataOptionList" id="option">
-                        if(form.elements['sataOptions[<ao:write name="index" />]'].checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                        if(form.elements["sataOptions["+<ao:write name="index" />+"]"].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                     </logic:iterate>
                 </logic:equal>
                 <logic:notEqual name="sataOptionListSize" value="1">
                     <logic:iterate name="sataOptionList" id="option" indexId="index2">
-                        if(form.elements['sataOptions[<ao:write name="index" />]'][<ao:write name="index2" />].checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                        if(form.elements["sataOptions["+<ao:write name="index" />+"]"][parseInt(<ao:write name="index2" />)].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                     </logic:iterate>
                 </logic:notEqual>
             </logic:iterate>
@@ -120,20 +119,19 @@
                 <bean:size name="scsiOptionList" id="scsiOptionListSize" />
                 <logic:equal name="scsiOptionListSize" value="1">
                     <logic:iterate name="scsiOptionList" id="option">
-                        if(form.elements['scsiOptions[<ao:write name="index" />]'].checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                        if(form.elements["scsiOptions["+<ao:write name="index" />+"]"].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                     </logic:iterate>
                 </logic:equal>
                 <logic:notEqual name="scsiOptionListSize" value="1">
                     <logic:iterate name="scsiOptionList" id="option" indexId="index2">
-                        if(form.elements['scsiOptions[<ao:write name="index" />]'][<ao:write name="index2" />].checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                        if(form.elements["scsiOptions["+<ao:write name="index" />+"]"][parseInt(<ao:write name="index2" />)].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                     </logic:iterate>
                 </logic:notEqual>
             </logic:iterate>
 
             form.totalMonthly.value="$"+formatDecimal(totalMonthly);
         }
-        // ]]>
-    </script>
+    </ao:script>
     <input type="hidden" name="selectedStep" value="" />
     <logic:empty scope="request" name="sataControllerOptions">
         <input type="hidden" name="sataControllerOption" value="-1" />

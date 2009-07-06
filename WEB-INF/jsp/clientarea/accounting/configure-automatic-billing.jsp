@@ -31,7 +31,7 @@
                     <%@ include file="../../permission-denied.jsp" %>
                 </logic:present>
                 <logic:notPresent scope="request" name="permissionDenied">
-                    <form method="post" action="<%= response.encodeURL("configure-automatic-billing-completed.do") %>"><div>
+                    <form method="post" action="<ao:url>configure-automatic-billing-completed.do</ao:url>"><div>
                         <input name="accounting" type="hidden" value="<%= request.getParameter("accounting") %>" />
                         <skin:lightArea>
                             <bean:message bundle="/clientarea/accounting/ApplicationResources" key="configureAutomaticBilling.cardList.title" />

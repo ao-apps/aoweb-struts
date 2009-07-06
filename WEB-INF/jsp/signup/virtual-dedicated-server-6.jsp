@@ -5,8 +5,6 @@
   All rights reserved.
 --%>
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
-<%@ page import="com.aoindustries.util.EncodingUtils" %>
-<%@ page import="com.aoindustries.util.StringUtility" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType />
@@ -24,22 +22,20 @@
             <skin:contentTitle><bean:message bundle="/signup/ApplicationResources" key="virtualDedicated.title" /></skin:contentTitle>
             <skin:contentHorizontalDivider />
             <skin:contentLine>
-                <script type='text/javascript'>
-                    // <![CDATA[
+                <ao:script>
                     function selectStep(step) {
-                        if(step=="virtual-dedicated-server") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("virtual-dedicated-server.do"), "&amp;", "&"), out); %>";
-                        else if(step=="virtual-dedicated-server-2") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("virtual-dedicated-server-2.do"), "&amp;", "&"), out); %>";
-                        else if(step=="virtual-dedicated-server-3") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("virtual-dedicated-server-3.do"), "&amp;", "&"), out); %>";
-                        else if(step=="virtual-dedicated-server-4") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("virtual-dedicated-server-4.do"), "&amp;", "&"), out); %>";
-                        else if(step=="virtual-dedicated-server-5") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("virtual-dedicated-server-5.do"), "&amp;", "&"), out); %>";
+                             if(step=="virtual-dedicated-server")   window.location.href=<ao:url>virtual-dedicated-server.do</ao:url>;
+                        else if(step=="virtual-dedicated-server-2") window.location.href=<ao:url>virtual-dedicated-server-2.do</ao:url>;
+                        else if(step=="virtual-dedicated-server-3") window.location.href=<ao:url>virtual-dedicated-server-3.do</ao:url>;
+                        else if(step=="virtual-dedicated-server-4") window.location.href=<ao:url>virtual-dedicated-server-4.do</ao:url>;
+                        else if(step=="virtual-dedicated-server-5") window.location.href=<ao:url>virtual-dedicated-server-5.do</ao:url>;
                     }
-                    // ]]>
-                </script>
+                </ao:script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="6" />
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="virtual-dedicated-server" />
                 <%@ include file="dedicated-server-steps.jsp" %>
                 <br />
-                <form action="<%= response.encodeURL("virtual-dedicated-server-6-completed.do") %>" method="post">
+                <form action="<ao:url>virtual-dedicated-server-6-completed.do</ao:url>" method="post">
                     <%@ include file="dedicated-server-confirmation.jsp" %>
                 </form>
             </skin:contentLine>

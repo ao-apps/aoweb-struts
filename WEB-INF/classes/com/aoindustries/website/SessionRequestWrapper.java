@@ -25,20 +25,26 @@ public class SessionRequestWrapper extends HttpServletRequestWrapper {
     @Override
     public HttpSession getSession() {
         HttpSession session = super.getSession();
-        processSessionCookie(session);
+        if(session!=null) {
+            processSessionCookie(session);
+            if(!(session instanceof FilteredHttpSession)) session = new FilteredHttpSession(session);
+        }
         return session;
     }
 
     @Override
     public HttpSession getSession(boolean create) {
         HttpSession session = super.getSession(create);
-        processSessionCookie(session);
+        if(session!=null) {
+            processSessionCookie(session);
+            if(!(session instanceof FilteredHttpSession)) session = new FilteredHttpSession(session);
+        }
         return session;
     }
 
     private void processSessionCookie(HttpSession session) {
-        if (null == response || null == session) {
-            // No response or session object attached, skip the pre processing
+        if (null == response) {
+            // No response object attached, skip the pre processing
             return;
         }
         // cookieOverWritten - Flag to filter multiple "Set-Cookie" headers
@@ -72,25 +78,5 @@ public class SessionRequestWrapper extends HttpServletRequestWrapper {
             response.addCookie(cookie); // Adding an "Set-Cookie" header to the response
             setAttribute("COOKIE_OVERWRITTEN_FLAG", "true");// To avoid multiple "Set-Cookie" header
         }
-    }
-    
-    /**
-     * @deprecated  Added this comment to avoid deprecated warnings during compilation.
-     *
-     * @see  HttpServletRequestWrapper#getRealPath(String)
-     */
-    @Override
-    public String getRealPath(String path) {
-        return super.getRealPath(path);
-    }
-
-    /**
-     * @deprecated  Added this comment to avoid deprecated warnings during compilation.
-     *
-     * @see  HttpServletRequestWrapper#isRequestedSessionIdFromUrl()
-     */
-    @Override
-    public boolean isRequestedSessionIdFromUrl() {
-        return super.isRequestedSessionIdFromUrl();
     }
 }

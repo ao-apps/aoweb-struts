@@ -8,8 +8,7 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <div>
-    <script type='text/javascript'>
-        // <![CDATA[
+    <ao:script>
         function formatDecimal(pennies) {
             var penniesOnly=pennies%100;
             var dollars=(pennies-penniesOnly)/100;
@@ -24,12 +23,12 @@
             <bean:size scope="request" name="backupOnsiteOptions" id="backupOnsiteOptionsSize" />
             <logic:equal name="backupOnsiteOptionsSize" value="1">
                 <logic:iterate scope="request" name="backupOnsiteOptions" id="option">
-                    if(form.backupOnsiteOption.checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.backupOnsiteOption.checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:equal>
             <logic:notEqual name="backupOnsiteOptionsSize" value="1">
                 <logic:iterate scope="request" name="backupOnsiteOptions" id="option" indexId="index">
-                    if(form.backupOnsiteOption[<ao:write name="index" />].checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.backupOnsiteOption[parseInt(<ao:write name="index" />)].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:notEqual>
 
@@ -37,12 +36,12 @@
             <bean:size scope="request" name="backupOffsiteOptions" id="backupOffsiteOptionsSize" />
             <logic:equal name="backupOffsiteOptionsSize" value="1">
                 <logic:iterate scope="request" name="backupOffsiteOptions" id="option">
-                    if(form.backupOffsiteOption.checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.backupOffsiteOption.checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:equal>
             <logic:notEqual name="backupOffsiteOptionsSize" value="1">
                 <logic:iterate scope="request" name="backupOffsiteOptions" id="option" indexId="index">
-                    if(form.backupOffsiteOption[<ao:write name="index" />].checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.backupOffsiteOption[parseInt(<ao:write name="index" />)].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:notEqual>
 
@@ -50,12 +49,12 @@
             <bean:size scope="request" name="distributionScanOptions" id="distributionScanOptionsSize" />
             <logic:equal name="distributionScanOptionsSize" value="1">
                 <logic:iterate scope="request" name="distributionScanOptions" id="option">
-                    if(form.distributionScanOption.checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.distributionScanOption.checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:equal>
             <logic:notEqual name="distributionScanOptionsSize" value="1">
                 <logic:iterate scope="request" name="distributionScanOptions" id="option" indexId="index">
-                    if(form.distributionScanOption[<ao:write name="index" />].checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.distributionScanOption[parseInt(<ao:write name="index" />)].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:notEqual>
 
@@ -63,19 +62,18 @@
             <bean:size scope="request" name="failoverOptions" id="failoverOptionsSize" />
             <logic:equal name="failoverOptionsSize" value="1">
                 <logic:iterate scope="request" name="failoverOptions" id="option">
-                    if(form.failoverOption.checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.failoverOption.checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:equal>
             <logic:notEqual name="failoverOptionsSize" value="1">
                 <logic:iterate scope="request" name="failoverOptions" id="option" indexId="index">
-                    if(form.failoverOption[<ao:write name="index" />].checked) totalMonthly = totalMonthly + Math.round(<ao:write name="option" property="priceDifference" />*100);
+                    if(form.failoverOption[parseInt(<ao:write name="index" />)].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                 </logic:iterate>
             </logic:notEqual>
 
             form.totalMonthly.value="$"+formatDecimal(totalMonthly);
         }
-        // ]]>
-    </script>
+    </ao:script>
     <input type="hidden" name="selectedStep" value="" />
     <skin:lightArea>
         <table cellspacing="0" cellpadding="2">

@@ -80,7 +80,7 @@
         <forward name="dedicated-server-5-completed" path="/dedicated-server-5-completed.do" redirect="true" />
         <forward name="dedicated-server-6" path="/dedicated-server-6.do" redirect="true" />
         <forward name="dedicated-server-6-completed" path="/dedicated-server-6-completed.do" redirect="true" />
-        <forward name="managed-server" path="/managed-server-.do" redirect="true" />
+        <forward name="managed-server" path="/managed-server.do" redirect="true" />
         <forward name="managed-server-completed" path="/managed-server-completed.do" redirect="true" />
         <forward name="managed-server-2" path="/managed-server-2.do" redirect="true" />
         <forward name="managed-server-2-completed" path="/managed-server-2-completed.do" redirect="true" />

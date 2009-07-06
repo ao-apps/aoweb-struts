@@ -26,6 +26,7 @@ import org.apache.struts.action.ActionServlet;
  */
 public class Managed7CompletedAction extends Managed7Action {
 
+    @Override
     public ActionForward executeManagedStep(
         ActionMapping mapping,
         HttpServletRequest request,
@@ -33,9 +34,9 @@ public class Managed7CompletedAction extends Managed7Action {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        SignupSelectServerForm signupSelectServerForm,
+        ManagedSignupSelectServerForm signupSelectServerForm,
         boolean signupSelectServerFormComplete,
-        SignupCustomizeServerForm signupCustomizeServerForm,
+        ManagedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
         boolean signupCustomizeManagementFormComplete,

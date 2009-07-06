@@ -25,6 +25,7 @@ abstract public class VirtualManagedStepAction extends HttpsAction {
     /**
      * Initializes the step details.
      */
+    @Override
     final public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,
@@ -55,33 +56,29 @@ abstract public class VirtualManagedStepAction extends HttpsAction {
 
         HttpSession session = request.getSession();
 
-        SignupSelectServerForm signupSelectServerForm = (SignupSelectServerForm)session.getAttribute("virtualManagedSignupSelectServerForm");
-        SignupCustomizeServerForm signupCustomizeServerForm = (SignupCustomizeServerForm)session.getAttribute("virtualManagedSignupCustomizeServerForm");
-        SignupCustomizeManagementForm signupCustomizeManagementForm = (SignupCustomizeManagementForm)session.getAttribute("virtualManagedSignupCustomizeManagementForm");
-        SignupBusinessForm signupBusinessForm = (SignupBusinessForm)session.getAttribute("signupBusinessForm");
-        SignupTechnicalForm signupTechnicalForm = (SignupTechnicalForm)session.getAttribute("signupTechnicalForm");
-        SignupBillingInformationForm signupBillingInformationForm = (SignupBillingInformationForm)session.getAttribute("signupBillingInformationForm");
+        VirtualManagedSignupSelectServerForm signupSelectServerForm = SignupHelper.getSessionActionForm(servlet, session, VirtualManagedSignupSelectServerForm.class, "virtualManagedSignupSelectServerForm");
+        VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm = SignupHelper.getSessionActionForm(servlet, session, VirtualManagedSignupCustomizeServerForm.class, "virtualManagedSignupCustomizeServerForm");
+        SignupCustomizeManagementForm signupCustomizeManagementForm = SignupHelper.getSessionActionForm(servlet, session, SignupCustomizeManagementForm.class, "virtualManagedSignupCustomizeManagementForm");
+        SignupBusinessForm signupBusinessForm = SignupHelper.getSessionActionForm(servlet, session, SignupBusinessForm.class, "signupBusinessForm");
+        SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.class, "signupTechnicalForm");
+        SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.class, "signupBillingInformationForm");
 
-        ActionMessages signupSelectServerFormErrors = signupSelectServerForm==null ? null : signupSelectServerForm.validate(mapping, request);
-        ActionMessages signupCustomizeServerFormErrors = signupCustomizeServerForm==null ? null : signupCustomizeServerForm.validate(mapping, request);
-        ActionMessages signupCustomizeManagementFormErrors = signupCustomizeManagementForm==null ? null : signupCustomizeManagementForm.validate(mapping, request);
-        ActionMessages signupBusinessFormErrors = signupBusinessForm==null ? null : signupBusinessForm.validate(mapping, request);
-        ActionMessages signupTechnicalFormErrors = signupTechnicalForm==null ? null : signupTechnicalForm.validate(mapping, request);
-        ActionMessages signupBillingInformationFormErrors = signupBillingInformationForm==null ? null : signupBillingInformationForm.validate(mapping, request);
+        ActionMessages signupSelectServerFormErrors = signupSelectServerForm.validate(mapping, request);
+        ActionMessages signupCustomizeServerFormErrors = signupCustomizeServerForm.validate(mapping, request);
+        ActionMessages signupCustomizeManagementFormErrors = signupCustomizeManagementForm.validate(mapping, request);
+        ActionMessages signupBusinessFormErrors = signupBusinessForm.validate(mapping, request);
+        ActionMessages signupTechnicalFormErrors = signupTechnicalForm.validate(mapping, request);
+        ActionMessages signupBillingInformationFormErrors = signupBillingInformationForm.validate(mapping, request);
 
-        boolean signupSelectServerFormComplete = signupSelectServerForm==null ? false : !doAddErrors(request, signupSelectServerFormErrors);
-        boolean signupCustomizeServerFormComplete = signupCustomizeServerForm==null ? false : !doAddErrors(request, signupCustomizeServerFormErrors);
+        boolean signupSelectServerFormComplete = !doAddErrors(request, signupSelectServerFormErrors);
+        boolean signupCustomizeServerFormComplete = !doAddErrors(request, signupCustomizeServerFormErrors);
         boolean signupCustomizeManagementFormComplete;
-        if(signupCustomizeManagementForm==null) {
-            signupCustomizeManagementFormComplete = false;
-        } else {
-            if(doAddErrors(request, signupCustomizeManagementFormErrors)) signupCustomizeManagementFormComplete = false;
-            else if(!"true".equals(signupCustomizeManagementForm.getFormCompleted())) signupCustomizeManagementFormComplete = false;
-            else signupCustomizeManagementFormComplete = true;
-        }
-        boolean signupBusinessFormComplete = signupBusinessForm==null ? false : !doAddErrors(request, signupBusinessFormErrors);
-        boolean signupTechnicalFormComplete = signupTechnicalForm==null ? false : !doAddErrors(request, signupTechnicalFormErrors);
-        boolean signupBillingInformationFormComplete = signupBillingInformationForm==null ? false : !doAddErrors(request, signupBillingInformationFormErrors);
+        if(doAddErrors(request, signupCustomizeManagementFormErrors)) signupCustomizeManagementFormComplete = false;
+        else if(!"true".equals(signupCustomizeManagementForm.getFormCompleted())) signupCustomizeManagementFormComplete = false;
+        else signupCustomizeManagementFormComplete = true;
+        boolean signupBusinessFormComplete = !doAddErrors(request, signupBusinessFormErrors);
+        boolean signupTechnicalFormComplete = !doAddErrors(request, signupTechnicalFormErrors);
+        boolean signupBillingInformationFormComplete = !doAddErrors(request, signupBillingInformationFormErrors);
 
         request.setAttribute("signupSelectServerFormComplete", signupSelectServerFormComplete ? "true" : "false");
         request.setAttribute("signupCustomizeServerFormComplete", signupCustomizeServerFormComplete ? "true" : "false");
@@ -137,9 +134,9 @@ abstract public class VirtualManagedStepAction extends HttpsAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        SignupSelectServerForm signupSelectServerForm,
+        VirtualManagedSignupSelectServerForm signupSelectServerForm,
         boolean signupSelectServerFormComplete,
-        SignupCustomizeServerForm signupCustomizeServerForm,
+        VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
         boolean signupCustomizeManagementFormComplete,

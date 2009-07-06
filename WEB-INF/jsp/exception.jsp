@@ -51,7 +51,7 @@
                 <br />
                 <logic:equal scope="request" name="siteSettings" property="exceptionShowError" value="true">
                     <%-- Error Data --%>
-                    <logic:notEmpty name="javax.servlet.jsp.jspPageContext" property="errorData">
+                    <logic:present name="javax.servlet.jsp.jspPageContext" property="errorData">
                         <skin:lightArea>
                             <bean:message bundle="/ApplicationResources" key="exception.jspException.title" />
                             <hr />
@@ -82,7 +82,7 @@
                             </table>
                         </skin:lightArea><br />
                         <br />
-                    </logic:notEmpty>
+                    </logic:present>
                     <%-- Struts Exception --%>
                     <logic:present scope="request" name="exception">
                         <skin:lightArea>

@@ -5,7 +5,6 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
@@ -15,13 +14,17 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class TitleTag extends BodyTagSupport {
 
+    private static final long serialVersionUID = 1L;
+
     public TitleTag() {
     }
 
+    @Override
     public int doStartTag() {
         return EVAL_BODY_BUFFERED;
     }
 
+    @Override
     public int doEndTag() {
         String title = getBodyContent().getString().trim();
         AddParentTag addParentTag = (AddParentTag)findAncestorWithClass(this, AddParentTag.class);

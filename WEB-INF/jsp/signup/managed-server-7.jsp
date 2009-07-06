@@ -5,8 +5,6 @@
   All rights reserved.
 --%>
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
-<%@ page import="com.aoindustries.util.EncodingUtils" %>
-<%@ page import="com.aoindustries.util.StringUtility" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
 <skin:setContentType />
@@ -24,23 +22,21 @@
             <skin:contentTitle><bean:message bundle="/signup/ApplicationResources" key="managed.title" /></skin:contentTitle>
             <skin:contentHorizontalDivider />
             <skin:contentLine>
-                <script type='text/javascript'>
-                    // <![CDATA[
+                <ao:script>
                     function selectStep(step) {
-                        if(step=="managed-server") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("managed-server.do"), "&amp;", "&"), out); %>";
-                        else if(step=="managed-server-2") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("managed-server-2.do"), "&amp;", "&"), out); %>";
-                        else if(step=="managed-server-3") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("managed-server-3.do"), "&amp;", "&"), out); %>";
-                        else if(step=="managed-server-4") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("managed-server-4.do"), "&amp;", "&"), out); %>";
-                        else if(step=="managed-server-5") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("managed-server-5.do"), "&amp;", "&"), out); %>";
-                        else if(step=="managed-server-6") window.location.href="<% EncodingUtils.encodeJavaScriptStringInXml(StringUtility.replace(response.encodeURL("managed-server-6.do"), "&amp;", "&"), out); %>";
+                             if(step=="managed-server")   window.location.href=<ao:url>managed-server.do</ao:url>;
+                        else if(step=="managed-server-2") window.location.href=<ao:url>managed-server-2.do</ao:url>;
+                        else if(step=="managed-server-3") window.location.href=<ao:url>managed-server-3.do</ao:url>;
+                        else if(step=="managed-server-4") window.location.href=<ao:url>managed-server-4.do</ao:url>;
+                        else if(step=="managed-server-5") window.location.href=<ao:url>managed-server-5.do</ao:url>;
+                        else if(step=="managed-server-6") window.location.href=<ao:url>managed-server-6.do</ao:url>;
                     }
-                    // ]]>
-                </script>
+                </ao:script>
                 <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="7" />
                 <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="managed-server" />
                 <%@ include file="managed-server-steps.jsp" %>
                 <br />
-                <form action="<%= response.encodeURL("managed-server-7-completed.do") %>" method="post">
+                <form action="<ao:url>managed-server-7-completed.do</ao:url>" method="post">
                     <%@ include file="managed-server-confirmation.jsp" %>
                 </form>
             </skin:contentLine>
