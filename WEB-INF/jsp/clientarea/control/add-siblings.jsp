@@ -11,9 +11,11 @@
     <jsp:include page="/WEB-INF/jsp/clientarea/control/add-siblings.override.jsp" />
 </aoweb:exists>
 <aoweb:notExists path="/WEB-INF/jsp/clientarea/control/add-siblings.override.jsp">
-    <skin:addSibling useEncryption="false" path="/clientarea/control/password/index.do">
-        <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="password.index.title" /></skin:title>
-        <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="password.index.navImageAlt" /></skin:navImageAlt>
-        <skin:description><bean:message bundle="/clientarea/control/ApplicationResources" key="password.index.description" /></skin:description>
-    </skin:addSibling>
+    <fmt:bundle basename="com.aoindustries.website.clientarea.control.ApplicationResources">
+        <skin:addSibling useEncryption="false" path="/clientarea/control/password/index.do">
+            <skin:title><fmt:message key="password.index.title" /></skin:title>
+            <skin:navImageAlt><fmt:message key="password.index.navImageAlt" /></skin:navImageAlt>
+            <skin:description><fmt:message key="password.index.description" /></skin:description>
+        </skin:addSibling>
+    </fmt:bundle>
 </aoweb:notExists>

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.jstl.core.Config;
 import org.apache.struts.Globals;
 
 /**
@@ -185,6 +186,9 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                         && !Globals.LOCALE_KEY.equals(name)
                         && !Constants.LAYOUT.equals(name)
                         && !Constants.SU_REQUESTED.equals(name)
+                        // JSTL 1.1
+                        && !"javax.servlet.jsp.jstl.fmt.request.charset".equals(name)
+                        && !"javax.servlet.jsp.jstl.fmt.locale.session".equals(name)
                     ) {
                         // These will always trigger jsessionid
                         if(

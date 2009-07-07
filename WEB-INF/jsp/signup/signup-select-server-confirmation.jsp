@@ -7,8 +7,10 @@
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
-<tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupSelectServerForm.packageDefinition.prompt" /></td>
-    <td><ao:write scope="request" name="packageDefinition" property="display" /></td>
-</tr>
+<fmt:bundle basename="com.aoindustries.website.signup.ApplicationResources">
+    <tr>
+        <td><fmt:message key="signup.notRequired" /></td>
+        <td><fmt:message key="signupSelectServerForm.packageDefinition.prompt" /></td>
+        <td><ao:write scope="request" name="packageDefinition" property="display" /></td>
+    </tr>
+</fmt:bundle>

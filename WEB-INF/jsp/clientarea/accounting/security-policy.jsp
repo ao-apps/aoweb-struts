@@ -13,9 +13,11 @@
 <aoweb:notExists path="/WEB-INF/jsp/clientarea/accounting/security-policy.override.jsp">
     <br />
     <skin:lightArea width="500">
-        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="securityPolicy.securityNotice.title" />
-        <hr />
-        <%-- Should make a per-provider notice based on root-level business --%>
-        <bean:message bundle="/clientarea/accounting/ApplicationResources" key="securityPolicy.securityNotice.body" />
+        <fmt:bundle basename="com.aoindustries.website.clientarea.accounting.ApplicationResources">
+            <fmt:message key="securityPolicy.securityNotice.title" />
+            <hr />
+            <%-- Should make a per-provider notice based on root-level business --%>
+            <fmt:message key="securityPolicy.securityNotice.body" />
+        </fmt:bundle>
     </skin:lightArea>
 </aoweb:notExists>

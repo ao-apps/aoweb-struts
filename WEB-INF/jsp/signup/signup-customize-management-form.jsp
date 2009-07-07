@@ -76,97 +76,99 @@
     </ao:script>
     <input type="hidden" name="selectedStep" value="" />
     <skin:lightArea>
-        <table cellspacing="0" cellpadding="2">
-            <tr><th colspan="2" class='aoLightRow'>
-                <span style="font-size:large;"><ao:write scope="request" name="packageDefinition" property="display" /></span>
-            </th></tr>
-            <logic:notEmpty scope="request" name="backupOnsiteOptions">
-                <tr>
-                    <th>
-                        <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.selectBackupOnsite" /><br />
-                        <html:errors bundle="/signup/ApplicationResources" property="backupOnsiteOption" />
-                    </th>
-                    <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.backupOnsiteMonthly" /></th>
-                </tr>
-                <logic:iterate scope="request" name="backupOnsiteOptions" id="option">
+        <fmt:bundle basename="com.aoindustries.website.signup.ApplicationResources">
+            <table cellspacing="0" cellpadding="2">
+                <tr><th colspan="2" class='aoLightRow'>
+                    <span style="font-size:large;"><ao:write scope="request" name="packageDefinition" property="display" /></span>
+                </th></tr>
+                <logic:notEmpty scope="request" name="backupOnsiteOptions">
                     <tr>
-                        <td style="white-space:nowrap">
-                            <html:radio onclick="recalcMonthly();" property="backupOnsiteOption" idName="option" value="packageDefinitionLimit" />
-                            <ao:write name="option" property="display" />
-                        </td>
-                        <td>$<ao:write name="option" property="priceDifference" /></td>
+                        <th>
+                            <fmt:message key="signupCustomizeManagementForm.selectBackupOnsite" /><br />
+                            <html:errors bundle="/signup/ApplicationResources" property="backupOnsiteOption" />
+                        </th>
+                        <th><fmt:message key="signupCustomizeManagementForm.backupOnsiteMonthly" /></th>
                     </tr>
-                </logic:iterate>
-            </logic:notEmpty>
-            <logic:notEmpty scope="request" name="backupOffsiteOptions">
-                <tr>
-                    <th>
-                        <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.selectBackupOffsite" /><br />
-                        <html:errors bundle="/signup/ApplicationResources" property="backupOffsiteOption" />
-                    </th>
-                    <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.backupOffsiteMonthly" /></th>
-                </tr>
-                <logic:iterate scope="request" name="backupOffsiteOptions" id="option">
+                    <logic:iterate scope="request" name="backupOnsiteOptions" id="option">
+                        <tr>
+                            <td style="white-space:nowrap">
+                                <html:radio onclick="recalcMonthly();" property="backupOnsiteOption" idName="option" value="packageDefinitionLimit" />
+                                <ao:write name="option" property="display" />
+                            </td>
+                            <td>$<ao:write name="option" property="priceDifference" /></td>
+                        </tr>
+                    </logic:iterate>
+                </logic:notEmpty>
+                <logic:notEmpty scope="request" name="backupOffsiteOptions">
                     <tr>
-                        <td style="white-space:nowrap">
-                            <html:radio onclick="recalcMonthly();" property="backupOffsiteOption" idName="option" value="packageDefinitionLimit" />
-                            <ao:write name="option" property="display" />
-                        </td>
-                        <td>$<ao:write name="option" property="priceDifference" /></td>
+                        <th>
+                            <fmt:message key="signupCustomizeManagementForm.selectBackupOffsite" /><br />
+                            <html:errors bundle="/signup/ApplicationResources" property="backupOffsiteOption" />
+                        </th>
+                        <th><fmt:message key="signupCustomizeManagementForm.backupOffsiteMonthly" /></th>
                     </tr>
-                </logic:iterate>
-            </logic:notEmpty>
-            <logic:notEmpty scope="request" name="distributionScanOptions">
-                <tr>
-                    <th>
-                        <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.selectDistributionScan" /><br />
-                        <html:errors bundle="/signup/ApplicationResources" property="distributionScanOption" />
-                    </th>
-                    <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.distributionScanMonthly" /></th>
-                </tr>
-                <logic:iterate scope="request" name="distributionScanOptions" id="option">
+                    <logic:iterate scope="request" name="backupOffsiteOptions" id="option">
+                        <tr>
+                            <td style="white-space:nowrap">
+                                <html:radio onclick="recalcMonthly();" property="backupOffsiteOption" idName="option" value="packageDefinitionLimit" />
+                                <ao:write name="option" property="display" />
+                            </td>
+                            <td>$<ao:write name="option" property="priceDifference" /></td>
+                        </tr>
+                    </logic:iterate>
+                </logic:notEmpty>
+                <logic:notEmpty scope="request" name="distributionScanOptions">
                     <tr>
-                        <td style="white-space:nowrap">
-                            <html:radio onclick="recalcMonthly();" property="distributionScanOption" idName="option" value="packageDefinitionLimit" />
-                            <ao:write name="option" property="display" />
-                        </td>
-                        <td>$<ao:write name="option" property="priceDifference" /></td>
+                        <th>
+                            <fmt:message key="signupCustomizeManagementForm.selectDistributionScan" /><br />
+                            <html:errors bundle="/signup/ApplicationResources" property="distributionScanOption" />
+                        </th>
+                        <th><fmt:message key="signupCustomizeManagementForm.distributionScanMonthly" /></th>
                     </tr>
-                </logic:iterate>
-            </logic:notEmpty>
-            <logic:notEmpty scope="request" name="failoverOptions">
-                <tr>
-                    <th>
-                        <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.selectFailover" /><br />
-                        <html:errors bundle="/signup/ApplicationResources" property="failoverOption" />
-                    </th>
-                    <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.failoverMonthly" /></th>
-                </tr>
-                <logic:iterate scope="request" name="failoverOptions" id="option">
+                    <logic:iterate scope="request" name="distributionScanOptions" id="option">
+                        <tr>
+                            <td style="white-space:nowrap">
+                                <html:radio onclick="recalcMonthly();" property="distributionScanOption" idName="option" value="packageDefinitionLimit" />
+                                <ao:write name="option" property="display" />
+                            </td>
+                            <td>$<ao:write name="option" property="priceDifference" /></td>
+                        </tr>
+                    </logic:iterate>
+                </logic:notEmpty>
+                <logic:notEmpty scope="request" name="failoverOptions">
                     <tr>
-                        <td style="white-space:nowrap">
-                            <html:radio onclick="recalcMonthly();" property="failoverOption" idName="option" value="packageDefinitionLimit" />
-                            <ao:write name="option" property="display" />
-                        </td>
-                        <td>$<ao:write name="option" property="priceDifference" /></td>
+                        <th>
+                            <fmt:message key="signupCustomizeManagementForm.selectFailover" /><br />
+                            <html:errors bundle="/signup/ApplicationResources" property="failoverOption" />
+                        </th>
+                        <th><fmt:message key="signupCustomizeManagementForm.failoverMonthly" /></th>
                     </tr>
-                </logic:iterate>
-            </logic:notEmpty>
-            <tr>
-                <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.hardwareRate.title" /></th>
-                <th align='left'>
-                    <input type="hidden" name="formCompleted" value="true" />
-                    <input type="hidden" name="hardwareRate" value='<ao:write scope="request" name="hardwareRate" />' />
-                    <input type="text" name="hardwareRateDisplay" readonly='readonly' size="10" value='$<ao:write scope="request" name="hardwareRate" />' />
-                </th>
-            </tr>
-            <tr>
-                <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.total" /></th>
-                <th align='left'>
-                    <input type="text" name="totalMonthly" readonly='readonly' size="10" value='$<ao:write scope="request" name="hardwareRate" />' />
-                </th>
-            </tr>
-            <tr><td colspan="2" align="center"><br /><html:submit><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementForm.submit.label" /></html:submit><br /><br /></td></tr>
-        </table>
+                    <logic:iterate scope="request" name="failoverOptions" id="option">
+                        <tr>
+                            <td style="white-space:nowrap">
+                                <html:radio onclick="recalcMonthly();" property="failoverOption" idName="option" value="packageDefinitionLimit" />
+                                <ao:write name="option" property="display" />
+                            </td>
+                            <td>$<ao:write name="option" property="priceDifference" /></td>
+                        </tr>
+                    </logic:iterate>
+                </logic:notEmpty>
+                <tr>
+                    <th><fmt:message key="signupCustomizeManagementForm.hardwareRate.title" /></th>
+                    <th align='left'>
+                        <input type="hidden" name="formCompleted" value="true" />
+                        <input type="hidden" name="hardwareRate" value='<ao:write scope="request" name="hardwareRate" />' />
+                        <input type="text" name="hardwareRateDisplay" readonly='readonly' size="10" value='$<ao:write scope="request" name="hardwareRate" />' />
+                    </th>
+                </tr>
+                <tr>
+                    <th><fmt:message key="signupCustomizeManagementForm.total" /></th>
+                    <th align='left'>
+                        <input type="text" name="totalMonthly" readonly='readonly' size="10" value='$<ao:write scope="request" name="hardwareRate" />' />
+                    </th>
+                </tr>
+                <tr><td colspan="2" align="center"><br /><html:submit><fmt:message key="signupCustomizeManagementForm.submit.label" /></html:submit><br /><br /></td></tr>
+            </table>
+        </fmt:bundle>
     </skin:lightArea>
 </div>

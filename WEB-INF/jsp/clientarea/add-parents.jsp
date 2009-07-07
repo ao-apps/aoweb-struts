@@ -14,8 +14,10 @@
     <aoweb:exists path="/WEB-INF/jsp/add-parents.jsp">
         <jsp:include page="/WEB-INF/jsp/add-parents.jsp" />
     </aoweb:exists>
-    <skin:addParent useEncryption="false" path="/clientarea/index.do">
-        <skin:title><bean:message bundle="/clientarea/ApplicationResources" key="index.title" /></skin:title>
-        <skin:navImageAlt><bean:message bundle="/clientarea/ApplicationResources" key="index.navImageAlt" /></skin:navImageAlt>
-    </skin:addParent>
+    <fmt:bundle basename="com.aoindustries.website.clientarea.ApplicationResources">
+        <skin:addParent useEncryption="false" path="/clientarea/index.do">
+            <skin:title><fmt:message key="index.title" /></skin:title>
+            <skin:navImageAlt><fmt:message key="index.navImageAlt" /></skin:navImageAlt>
+        </skin:addParent>
+    </fmt:bundle>
 </aoweb:notExists>

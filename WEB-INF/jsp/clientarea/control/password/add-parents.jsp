@@ -12,8 +12,10 @@
 </aoweb:exists>
 <aoweb:notExists path="/WEB-INF/jsp/clientarea/control/password/add-parents.override.jsp">
     <%@ include file="../add-parents.jsp" %>
-    <skin:addParent useEncryption="false" path="/clientarea/control/password/index.do">
-        <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="password.index.title" /></skin:title>
-        <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="password.index.navImageAlt" /></skin:title>
-    </skin:addParent>
+    <fmt:bundle basename="com.aoindustries.website.clientarea.control.ApplicationResources">
+        <skin:addParent useEncryption="false" path="/clientarea/control/password/index.do">
+            <skin:title><fmt:message key="password.index.title" /></skin:title>
+            <skin:title><fmt:message key="password.index.navImageAlt" /></skin:title>
+        </skin:addParent>
+    </fmt:bundle>
 </aoweb:notExists>

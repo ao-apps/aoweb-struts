@@ -11,19 +11,21 @@
     <jsp:include page="/WEB-INF/jsp/clientarea/accounting/add-siblings.override.jsp" />
 </aoweb:exists>
 <aoweb:notExists path="/WEB-INF/jsp/clientarea/accounting/add-siblings.override.jsp">
-    <%--skin:addSibling useEncryption="true" path="/clientarea/accounting/AccountHistory.ao">
-        <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="accountHistory.title" /></skin:title>
-        <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="accountHistory.navImageAlt" /></skin:navImageAlt>
-        <skin:description><bean:message bundle="/clientarea/accounting/ApplicationResources" key="accountHistory.description" /></skin:description>
-    </skin:addSibling--%>
-    <skin:addSibling useEncryption="true" path="/clientarea/accounting/credit-card-manager.do">
-        <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.title" /></skin:title>
-        <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.navImageAlt" /></skin:navImageAlt>
-        <skin:description><bean:message bundle="/clientarea/accounting/ApplicationResources" key="creditCardManager.description" /></skin:description>
-    </skin:addSibling>
-    <skin:addSibling useEncryption="true" path="/clientarea/accounting/make-payment.do">
-        <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.title" /></skin:title>
-        <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.navImageAlt" /></skin:navImageAlt>
-        <skin:description><bean:message bundle="/clientarea/accounting/ApplicationResources" key="makePayment.description" /></skin:description>
-    </skin:addSibling>
+    <fmt:bundle basename="com.aoindustries.website.clientarea.accounting.ApplicationResources">
+        <%--skin:addSibling useEncryption="true" path="/clientarea/accounting/AccountHistory.ao">
+            <skin:title><fmt:message key="accountHistory.title" /></skin:title>
+            <skin:navImageAlt><fmt:message key="accountHistory.navImageAlt" /></skin:navImageAlt>
+            <skin:description><fmt:message key="accountHistory.description" /></skin:description>
+        </skin:addSibling--%>
+        <skin:addSibling useEncryption="true" path="/clientarea/accounting/credit-card-manager.do">
+            <skin:title><fmt:message key="creditCardManager.title" /></skin:title>
+            <skin:navImageAlt><fmt:message key="creditCardManager.navImageAlt" /></skin:navImageAlt>
+            <skin:description><fmt:message key="creditCardManager.description" /></skin:description>
+        </skin:addSibling>
+        <skin:addSibling useEncryption="true" path="/clientarea/accounting/make-payment.do">
+            <skin:title><fmt:message key="makePayment.title" /></skin:title>
+            <skin:navImageAlt><fmt:message key="makePayment.navImageAlt" /></skin:navImageAlt>
+            <skin:description><fmt:message key="makePayment.description" /></skin:description>
+        </skin:addSibling>
+    </fmt:bundle>
 </aoweb:notExists>

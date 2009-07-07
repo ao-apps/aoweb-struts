@@ -10,67 +10,69 @@
 <skin:setContentType />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html lang="true" xhtml="true">
-    <skin:path>/clientarea/control/password/business-administrator-password-setter.do</skin:path>
-    <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
-    <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="password.businessAdministratorPasswordSetter.title" /></skin:title>
-    <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="password.businessAdministratorPasswordSetter.navImageAlt" /></skin:navImageAlt>
-    <skin:keywords><bean:message bundle="/clientarea/control/ApplicationResources" key="password.businessAdministratorPasswordSetter.keywords" /></skin:keywords>
-    <skin:description><bean:message bundle="/clientarea/control/ApplicationResources" key="password.businessAdministratorPasswordSetter.description" /></skin:description>
-    <%@ include file="add-parents.jsp" %>
-    <%@ include file="add-siblings.jsp" %>
-    <skin:skin>
-        <skin:content width="600">
-            <skin:contentTitle><bean:message bundle="/clientarea/control/ApplicationResources" key="password.businessAdministratorPasswordSetter.title" /></skin:contentTitle>
-            <skin:contentHorizontalDivider />
-            <skin:contentLine>
-                <logic:empty scope="request" name="businessAdministratorPasswordSetterForm" property="packages">
-                    <b><bean:message bundle="/clientarea/control/ApplicationResources" key="password.businessAdministratorPasswordSetter.noAccounts" /></b>
-                </logic:empty>
-                <logic:notEmpty scope="request" name="businessAdministratorPasswordSetterForm" property="packages">
-                    <html:form action="/password/business-administrator-password-setter-completed">
-                        <skin:lightArea>
-                            <table cellspacing='0' cellpadding='2'>
-                                <tr>
-                                    <bean:size scope="request" name="aoConn" property="packages.map" id="packagesSize" />
-                                    <logic:greaterThan name="packagesSize" value="1">
-                                        <th><bean:message bundle="/clientarea/control/ApplicationResources" key="password.businessAdministratorPasswordSetter.header.package" /></th>
-                                    </logic:greaterThan>
-                                    <th><bean:message bundle="/clientarea/control/ApplicationResources" key="password.businessAdministratorPasswordSetter.header.username" /></th>
-                                    <th colspan='2'><bean:message bundle="/clientarea/control/ApplicationResources" key="password.businessAdministratorPasswordSetter.header.newPassword" /></th>
-                                    <th><bean:message bundle="/clientarea/control/ApplicationResources" key="password.businessAdministratorPasswordSetter.header.confirmPassword" /></th>
-                                    <th>&#160;</th>
-                                </tr>
-                                <logic:iterate scope="request" name="businessAdministratorPasswordSetterForm" property="packages" id="pack" indexId="index">
+    <fmt:bundle basename="com.aoindustries.website.clientarea.control.ApplicationResources">
+        <skin:path>/clientarea/control/password/business-administrator-password-setter.do</skin:path>
+        <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
+        <skin:title><fmt:message key="password.businessAdministratorPasswordSetter.title" /></skin:title>
+        <skin:navImageAlt><fmt:message key="password.businessAdministratorPasswordSetter.navImageAlt" /></skin:navImageAlt>
+        <skin:keywords><fmt:message key="password.businessAdministratorPasswordSetter.keywords" /></skin:keywords>
+        <skin:description><fmt:message key="password.businessAdministratorPasswordSetter.description" /></skin:description>
+        <%@ include file="add-parents.jsp" %>
+        <%@ include file="add-siblings.jsp" %>
+        <skin:skin>
+            <skin:content width="600">
+                <skin:contentTitle><fmt:message key="password.businessAdministratorPasswordSetter.title" /></skin:contentTitle>
+                <skin:contentHorizontalDivider />
+                <skin:contentLine>
+                    <logic:empty scope="request" name="businessAdministratorPasswordSetterForm" property="packages">
+                        <b><fmt:message key="password.businessAdministratorPasswordSetter.noAccounts" /></b>
+                    </logic:empty>
+                    <logic:notEmpty scope="request" name="businessAdministratorPasswordSetterForm" property="packages">
+                        <html:form action="/password/business-administrator-password-setter-completed">
+                            <skin:lightArea>
+                                <table cellspacing='0' cellpadding='2'>
                                     <tr>
+                                        <bean:size scope="request" name="aoConn" property="packages.map" id="packagesSize" />
                                         <logic:greaterThan name="packagesSize" value="1">
-                                            <td><ao:write name="pack" /></td>
+                                            <th><fmt:message key="password.businessAdministratorPasswordSetter.header.package" /></th>
                                         </logic:greaterThan>
-                                        <td>
-                                            <html:hidden property='<%= "packages[" + index + "]" %>' />
-                                            <code><html:hidden property='<%= "usernames[" + index + "]" %>' write="true" /></code>
-                                        </td>
-                                        <td><html:password size="20" property='<%= "newPasswords[" + index + "]" %>' /></td>
-                                        <td style="white-space:nowrap">
-                                            <html:errors bundle="/clientarea/control/ApplicationResources" property='<%= "newPasswords[" + index + "].newPasswords" %>' />
-                                            <html:messages id="message" message="true" bundle="/clientarea/control/ApplicationResources" property='<%= "newPasswords[" + index + "].newPasswords" %>'>
-                                                <ao:write name="message" /><br />
-                                            </html:messages>
-                                        </td>
-                                        <td><html:password size="20" property='<%= "confirmPasswords[" + index + "]" %>' /></td>
-                                        <td style="white-space:nowrap">
-                                            <html:errors bundle="/clientarea/control/ApplicationResources" property='<%= "confirmPasswords[" + index + "].confirmPasswords" %>' />
-                                            <html:messages id="message" message="true" bundle="/clientarea/control/ApplicationResources" property='<%= "confirmPasswords[" + index + "].confirmPasswords" %>'>
-                                                <ao:write name="message" /><br />
-                                            </html:messages>
-                                        </td>
+                                        <th><fmt:message key="password.businessAdministratorPasswordSetter.header.username" /></th>
+                                        <th colspan='2'><fmt:message key="password.businessAdministratorPasswordSetter.header.newPassword" /></th>
+                                        <th><fmt:message key="password.businessAdministratorPasswordSetter.header.confirmPassword" /></th>
+                                        <th>&#160;</th>
                                     </tr>
-                                </logic:iterate>
-                                <tr><td colspan='6' align='center'><html:submit><bean:message bundle="/clientarea/control/ApplicationResources" key="password.businessAdministratorPasswordSetter.field.submit.label" /></html:submit></td></tr>
-                            </table>
-                        </skin:lightArea>
-                    </html:form>
-                </logic:notEmpty>
-            </skin:contentLine>
-        </skin:content>
-    </skin:skin>
+                                    <logic:iterate scope="request" name="businessAdministratorPasswordSetterForm" property="packages" id="pack" indexId="index">
+                                        <tr>
+                                            <logic:greaterThan name="packagesSize" value="1">
+                                                <td><ao:write name="pack" /></td>
+                                            </logic:greaterThan>
+                                            <td>
+                                                <html:hidden property='<%= "packages[" + index + "]" %>' />
+                                                <code><html:hidden property='<%= "usernames[" + index + "]" %>' write="true" /></code>
+                                            </td>
+                                            <td><html:password size="20" property='<%= "newPasswords[" + index + "]" %>' /></td>
+                                            <td style="white-space:nowrap">
+                                                <html:errors bundle="/clientarea/control/ApplicationResources" property='<%= "newPasswords[" + index + "].newPasswords" %>' />
+                                                <html:messages id="message" message="true" bundle="/clientarea/control/ApplicationResources" property='<%= "newPasswords[" + index + "].newPasswords" %>'>
+                                                    <ao:write name="message" /><br />
+                                                </html:messages>
+                                            </td>
+                                            <td><html:password size="20" property='<%= "confirmPasswords[" + index + "]" %>' /></td>
+                                            <td style="white-space:nowrap">
+                                                <html:errors bundle="/clientarea/control/ApplicationResources" property='<%= "confirmPasswords[" + index + "].confirmPasswords" %>' />
+                                                <html:messages id="message" message="true" bundle="/clientarea/control/ApplicationResources" property='<%= "confirmPasswords[" + index + "].confirmPasswords" %>'>
+                                                    <ao:write name="message" /><br />
+                                                </html:messages>
+                                            </td>
+                                        </tr>
+                                    </logic:iterate>
+                                    <tr><td colspan='6' align='center'><html:submit><fmt:message key="password.businessAdministratorPasswordSetter.field.submit.label" /></html:submit></td></tr>
+                                </table>
+                            </skin:lightArea>
+                        </html:form>
+                    </logic:notEmpty>
+                </skin:contentLine>
+            </skin:content>
+        </skin:skin>
+    </fmt:bundle>
 </html:html>

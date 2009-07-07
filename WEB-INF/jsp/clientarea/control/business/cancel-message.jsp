@@ -11,5 +11,7 @@
     <jsp:include page="/WEB-INF/jsp/clientarea/control/business/cancel-message.override.jsp" />
 </aoweb:exists>
 <aoweb:notExists path="/WEB-INF/jsp/clientarea/control/business/cancel-message.override.jsp">
-    <bean:message bundle="/clientarea/control/ApplicationResources" key="business.cancel.message" />
+    <fmt:bundle basename="com.aoindustries.website.clientarea.control.ApplicationResources">
+        <fmt:message key="business.cancel.message" />
+    </fmt:bundle>
 </aoweb:notExists>

@@ -11,9 +11,11 @@
     <jsp:include page="/WEB-INF/jsp/clientarea/ticket/add-siblings.override.jsp" />
 </aoweb:exists>
 <aoweb:notExists path="/WEB-INF/jsp/clientarea/ticket/add-siblings.override.jsp">
-    <skin:addSibling useEncryption="true" path="/clientarea/ticket/create.do">
-        <skin:title><bean:message bundle="/clientarea/ticket/ApplicationResources" key="create.title" /></skin:title>
-        <skin:navImageAlt><bean:message bundle="/clientarea/ticket/ApplicationResources" key="create.navImageAlt" /></skin:navImageAlt>
-        <skin:description><bean:message bundle="/clientarea/ticket/ApplicationResources" key="create.description" /></skin:description>
-    </skin:addSibling>
+    <fmt:bundle basename="com.aoindustries.website.clientarea.ticket.ApplicationResources">
+        <skin:addSibling useEncryption="true" path="/clientarea/ticket/create.do">
+            <skin:title><fmt:message key="create.title" /></skin:title>
+            <skin:navImageAlt><fmt:message key="create.navImageAlt" /></skin:navImageAlt>
+            <skin:description><fmt:message key="create.description" /></skin:description>
+        </skin:addSibling>
+    </fmt:bundle>
 </aoweb:notExists>

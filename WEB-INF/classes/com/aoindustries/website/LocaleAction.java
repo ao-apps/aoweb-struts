@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.jstl.core.Config;
 import org.apache.struts.Globals;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -46,10 +47,13 @@ public class LocaleAction extends SiteSettingsAction {
     }
 
     /**
+     * <p>
      * Gets the effective locale for the request.  If the requested language is not
      * one of the enabled languages for this site, will set to the default language
-     * (the first in the language list).  Also allows the parameter "language" to
-     * override the current settings.
+     * (the first in the language list).
+     * </p>
+     * <p>Also allows the parameter "language" to override the current settings.</p>
+     * <p>This also sets the struts, JSTL, and response locales to the same value.</p>
      */
     public static Locale getEffectiveLocale(SiteSettings siteSettings, HttpServletRequest request, HttpServletResponse response) throws JspException, IOException, SQLException {
         HttpSession session = request.getSession();
@@ -63,6 +67,7 @@ public class LocaleAction extends SiteSettingsAction {
                 if(code.equals(language)) {
                     locale = locale==null ? new Locale(code) : new Locale(code, locale.getCountry(), locale.getVariant());
                     session.setAttribute(Globals.LOCALE_KEY, locale);
+                    Config.set(session, Config.FMT_LOCALE, locale);
                     response.setLocale(locale);
                     return locale;
                 }
@@ -75,6 +80,8 @@ public class LocaleAction extends SiteSettingsAction {
                 if(possLanguage.getCode().equals(localeLanguage)) {
                     // Current value is from session and is OK
                     response.setLocale(locale);
+                    // Make sure the JSTL value matches
+                    if(!locale.equals(Config.get(session, Config.FMT_LOCALE))) Config.set(session, Config.FMT_LOCALE, locale);
                     return locale;
                 }
             }
@@ -82,6 +89,7 @@ public class LocaleAction extends SiteSettingsAction {
         // Return the default
         locale = getDefaultLocale(languages);
         session.setAttribute(Globals.LOCALE_KEY, locale);
+        Config.set(session, Config.FMT_LOCALE, locale);
         response.setLocale(locale);
         return locale;
     }

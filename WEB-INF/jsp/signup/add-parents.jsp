@@ -10,7 +10,9 @@
 <aoweb:exists path="/WEB-INF/jsp/add-parents.jsp">
     <jsp:include page="/WEB-INF/jsp/add-parents.jsp" />
 </aoweb:exists>
-<skin:addParent useEncryption="false" path="/signup/SignUpIndex.ao">
-    <skin:title><bean:message bundle="/signup/ApplicationResources" key="index.title" /></skin:title>
-    <skin:navImageAlt><bean:message bundle="/signup/ApplicationResources" key="index.navImageAlt" /></skin:navImageAlt>
-</skin:addParent>
+<fmt:bundle basename="com.aoindustries.website.signup.ApplicationResources">
+    <skin:addParent useEncryption="false" path="/signup/SignUpIndex.ao">
+        <skin:title><fmt:message key="index.title" /></skin:title>
+        <skin:navImageAlt><fmt:message key="index.navImageAlt" /></skin:navImageAlt>
+    </skin:addParent>
+</fmt:bundle>

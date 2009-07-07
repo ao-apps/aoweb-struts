@@ -7,43 +7,45 @@
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
-<logic:notEmpty scope="request" name="backupOnsiteOption">
+<fmt:bundle basename="com.aoindustries.website.signup.ApplicationResources">
+    <logic:notEmpty scope="request" name="backupOnsiteOption">
+        <tr>
+            <td><fmt:message key="signup.notRequired" /></td>
+            <td><fmt:message key="signupCustomizeManagementConfirmation.backupOnsite.prompt" /></td>
+            <td><ao:write name="backupOnsiteOption" /></td>
+        </tr>
+    </logic:notEmpty>
+    <logic:notEmpty scope="request" name="backupOffsiteOption">
+        <tr>
+            <td><fmt:message key="signup.notRequired" /></td>
+            <td><fmt:message key="signupCustomizeManagementConfirmation.backupOffsite.prompt" /></td>
+            <td><ao:write name="backupOffsiteOption" /></td>
+        </tr>
+    </logic:notEmpty>
+    <logic:notEmpty scope="request" name="backupDvdOption">
+        <tr>
+            <td><fmt:message key="signup.notRequired" /></td>
+            <td><fmt:message key="signupCustomizeManagementConfirmation.backupDvd.prompt" /></td>
+            <td><ao:write name="backupDvdOption" /></td>
+        </tr>
+    </logic:notEmpty>
+    <logic:notEmpty scope="request" name="distributionScanOption">
+        <tr>
+            <td><fmt:message key="signup.notRequired" /></td>
+            <td><fmt:message key="signupCustomizeManagementConfirmation.distributionScan.prompt" /></td>
+            <td><ao:write name="distributionScanOption" /></td>
+        </tr>
+    </logic:notEmpty>
+    <logic:notEmpty scope="request" name="failoverOption">
+        <tr>
+            <td><fmt:message key="signup.notRequired" /></td>
+            <td><fmt:message key="signupCustomizeManagementConfirmation.failover.prompt" /></td>
+            <td><ao:write name="failoverOption" /></td>
+        </tr>
+    </logic:notEmpty>
     <tr>
-        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-        <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.backupOnsite.prompt" /></td>
-        <td><ao:write name="backupOnsiteOption" /></td>
+        <td><fmt:message key="signup.notRequired" /></td>
+        <td><fmt:message key="signupCustomizeManagementConfirmation.totalMonthlyRate.prompt" /></td>
+        <td>$<ao:write name="totalMonthlyRate" /></td>
     </tr>
-</logic:notEmpty>
-<logic:notEmpty scope="request" name="backupOffsiteOption">
-    <tr>
-        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-        <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.backupOffsite.prompt" /></td>
-        <td><ao:write name="backupOffsiteOption" /></td>
-    </tr>
-</logic:notEmpty>
-<logic:notEmpty scope="request" name="backupDvdOption">
-    <tr>
-        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-        <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.backupDvd.prompt" /></td>
-        <td><ao:write name="backupDvdOption" /></td>
-    </tr>
-</logic:notEmpty>
-<logic:notEmpty scope="request" name="distributionScanOption">
-    <tr>
-        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-        <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.distributionScan.prompt" /></td>
-        <td><ao:write name="distributionScanOption" /></td>
-    </tr>
-</logic:notEmpty>
-<logic:notEmpty scope="request" name="failoverOption">
-    <tr>
-        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-        <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.failover.prompt" /></td>
-        <td><ao:write name="failoverOption" /></td>
-    </tr>
-</logic:notEmpty>
-<tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeManagementConfirmation.totalMonthlyRate.prompt" /></td>
-    <td>$<ao:write name="totalMonthlyRate" /></td>
-</tr>
+</fmt:bundle>

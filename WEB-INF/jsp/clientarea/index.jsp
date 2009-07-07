@@ -10,23 +10,25 @@
 <skin:setContentType />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html lang="true" xhtml="true">
-    <skin:path>/clientarea/index.do</skin:path>
-    <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
-    <skin:title><bean:message bundle="/clientarea/ApplicationResources" key="index.title" /></skin:title>
-    <skin:navImageAlt><bean:message bundle="/clientarea/ApplicationResources" key="index.navImageAlt" /></skin:navImageAlt>
-    <skin:keywords><bean:message bundle="/clientarea/ApplicationResources" key="index.keywords" /></skin:keywords>
-    <skin:description><bean:message bundle="/clientarea/ApplicationResources" key="index.description" /></skin:description>
-    <aoweb:exists path="/WEB-INF/jsp/add-parents.jsp">
-        <jsp:include page="/WEB-INF/jsp/add-parents.jsp" />
-    </aoweb:exists>
-    <%@ include file="add-siblings.jsp" %>
-    <skin:skin>
-        <skin:content width="600">
-            <skin:contentTitle><bean:message bundle="/clientarea/ApplicationResources" key="index.title" /></skin:contentTitle>
-            <skin:contentHorizontalDivider />
-            <skin:contentLine>
-                <skin:autoIndex />
-            </skin:contentLine>
-        </skin:content>
-    </skin:skin>
+    <fmt:bundle basename="com.aoindustries.website.clientarea.ApplicationResources">
+        <skin:path>/clientarea/index.do</skin:path>
+        <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
+        <skin:title><fmt:message key="index.title" /></skin:title>
+        <skin:navImageAlt><fmt:message key="index.navImageAlt" /></skin:navImageAlt>
+        <skin:keywords><fmt:message key="index.keywords" /></skin:keywords>
+        <skin:description><fmt:message key="index.description" /></skin:description>
+        <aoweb:exists path="/WEB-INF/jsp/add-parents.jsp">
+            <jsp:include page="/WEB-INF/jsp/add-parents.jsp" />
+        </aoweb:exists>
+        <%@ include file="add-siblings.jsp" %>
+        <skin:skin>
+            <skin:content width="600">
+                <skin:contentTitle><fmt:message key="index.title" /></skin:contentTitle>
+                <skin:contentHorizontalDivider />
+                <skin:contentLine>
+                    <skin:autoIndex />
+                </skin:contentLine>
+            </skin:content>
+        </skin:skin>
+    </fmt:bundle>
 </html:html>

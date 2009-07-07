@@ -143,164 +143,172 @@
         <input type="hidden" name="scsiControllerOption" value="-1" />
     </logic:empty>
     <skin:lightArea>
-        <table cellspacing="0" cellpadding="2">
-            <tr><th colspan="2" class='aoLightRow'>
-                <span style="font-size:large;"><ao:write scope="request" name="packageDefinition" property="display" /></span>
-            </th></tr>
-            <logic:notEmpty scope="request" name="powerOptions">
+        <fmt:bundle basename="com.aoindustries.website.signup.ApplicationResources">
+            <table cellspacing="0" cellpadding="2">
+                <tr><th colspan="2" class='aoLightRow'>
+                    <span style="font-size:large;"><ao:write scope="request" name="packageDefinition" property="display" /></span>
+                </th></tr>
+                <logic:notEmpty scope="request" name="powerOptions">
+                    <tr>
+                        <th>
+                            <fmt:message key="signupCustomizeServerForm.selectPower" /><br />
+                            <html:errors bundle="/signup/ApplicationResources" property="powerOption" />
+                        </th>
+                        <th><fmt:message key="signupCustomizeServerForm.powerMonthly" /></th>
+                    </tr>
+                    <logic:iterate scope="request" name="powerOptions" id="option">
+                        <tr>
+                            <td style="white-space:nowrap">
+                                <html:radio onclick="recalcMonthly();" property="powerOption" idName="option" value="packageDefinitionLimit" />
+                                <ao:write name="option" property="display" />
+                            </td>
+                            <td>$<ao:write name="option" property="priceDifference" /></td>
+                        </tr>
+                    </logic:iterate>
+                </logic:notEmpty>
                 <tr>
                     <th>
-                        <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectPower" /><br />
-                        <html:errors bundle="/signup/ApplicationResources" property="powerOption" />
+                        <fmt:message key="signupCustomizeServerForm.selectCPU" /><br />
+                        <html:errors bundle="/signup/ApplicationResources" property="cpuOption" />
                     </th>
-                    <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.powerMonthly" /></th>
+                    <th><fmt:message key="signupCustomizeServerForm.cpuMonthly" /></th>
                 </tr>
-                <logic:iterate scope="request" name="powerOptions" id="option">
+                <logic:iterate scope="request" name="cpuOptions" id="option">
                     <tr>
                         <td style="white-space:nowrap">
-                            <html:radio onclick="recalcMonthly();" property="powerOption" idName="option" value="packageDefinitionLimit" />
+                            <html:radio onclick="recalcMonthly();" property="cpuOption" idName="option" value="packageDefinitionLimit" />
                             <ao:write name="option" property="display" />
                         </td>
                         <td>$<ao:write name="option" property="priceDifference" /></td>
                     </tr>
                 </logic:iterate>
-            </logic:notEmpty>
-            <tr>
-                <th>
-                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectCPU" /><br />
-                    <html:errors bundle="/signup/ApplicationResources" property="cpuOption" />
-                </th>
-                <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.cpuMonthly" /></th>
-            </tr>
-            <logic:iterate scope="request" name="cpuOptions" id="option">
-                <tr>
-                    <td style="white-space:nowrap">
-                        <html:radio onclick="recalcMonthly();" property="cpuOption" idName="option" value="packageDefinitionLimit" />
-                        <ao:write name="option" property="display" />
-                    </td>
-                    <td>$<ao:write name="option" property="priceDifference" /></td>
-                </tr>
-            </logic:iterate>
-            <tr>
-                <th>
-                    <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectRAM" /><br />
-                    <html:errors bundle="/signup/ApplicationResources" property="ramOption" />
-                </th>
-                <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.ramMonthly" /></th>
-            </tr>
-            <logic:iterate scope="request" name="ramOptions" id="option">
-                <tr>
-                    <td style="white-space:nowrap">
-                        <html:radio onclick="recalcMonthly();" property="ramOption" idName="option" value="packageDefinitionLimit" />
-                        <ao:write name="option" property="display" />
-                    </td>
-                    <td>$<ao:write name="option" property="priceDifference" /></td>
-                </tr>
-            </logic:iterate>
-            <logic:notEmpty scope="request" name="sataControllerOptions">
                 <tr>
                     <th>
-                        <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectSataController" /><br />
-                        <html:errors bundle="/signup/ApplicationResources" property="sataControllerOption" />
+                        <fmt:message key="signupCustomizeServerForm.selectRAM" /><br />
+                        <html:errors bundle="/signup/ApplicationResources" property="ramOption" />
                     </th>
-                    <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.sataControllerMonthly" /></th>
+                    <th><fmt:message key="signupCustomizeServerForm.ramMonthly" /></th>
                 </tr>
-                <logic:iterate scope="request" name="sataControllerOptions" id="option">
+                <logic:iterate scope="request" name="ramOptions" id="option">
                     <tr>
                         <td style="white-space:nowrap">
-                            <html:radio onclick="recalcMonthly();" property="sataControllerOption" idName="option" value="packageDefinitionLimit" />
+                            <html:radio onclick="recalcMonthly();" property="ramOption" idName="option" value="packageDefinitionLimit" />
                             <ao:write name="option" property="display" />
                         </td>
                         <td>$<ao:write name="option" property="priceDifference" /></td>
                     </tr>
                 </logic:iterate>
-            </logic:notEmpty>
-            <logic:notEmpty scope="request" name="scsiControllerOptions">
-                <tr>
-                    <th>
-                        <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectScsiController" /><br />
-                        <html:errors bundle="/signup/ApplicationResources" property="scsiControllerOption" />
-                    </th>
-                    <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.scsiControllerMonthly" /></th>
-                </tr>
-                <logic:iterate scope="request" name="scsiControllerOptions" id="option">
+                <logic:notEmpty scope="request" name="sataControllerOptions">
                     <tr>
-                        <td style="white-space:nowrap">
-                            <html:radio onclick="recalcMonthly();" property="scsiControllerOption" idName="option" value="packageDefinitionLimit" />
-                            <ao:write name="option" property="display" />
-                        </td>
-                        <td>$<ao:write name="option" property="priceDifference" /></td>
+                        <th>
+                            <fmt:message key="signupCustomizeServerForm.selectSataController" /><br />
+                            <html:errors bundle="/signup/ApplicationResources" property="sataControllerOption" />
+                        </th>
+                        <th><fmt:message key="signupCustomizeServerForm.sataControllerMonthly" /></th>
                     </tr>
-                </logic:iterate>
-            </logic:notEmpty>
-            <logic:iterate name="ideOptions" id="ideOptionList" indexId="index">
-                <tr>
-                    <th>
-                        <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectIDE" arg0="<%= Integer.toString(index.intValue()+1) %>" /><br />
-                        <logic:equal name="index" value="0"><html:errors bundle="/signup/ApplicationResources" property="ideOptions" /></logic:equal>
-                    </th>
-                    <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.ideMonthly" /></th>
-                </tr>
-                <logic:iterate name="ideOptionList" id="option">
+                    <logic:iterate scope="request" name="sataControllerOptions" id="option">
+                        <tr>
+                            <td style="white-space:nowrap">
+                                <html:radio onclick="recalcMonthly();" property="sataControllerOption" idName="option" value="packageDefinitionLimit" />
+                                <ao:write name="option" property="display" />
+                            </td>
+                            <td>$<ao:write name="option" property="priceDifference" /></td>
+                        </tr>
+                    </logic:iterate>
+                </logic:notEmpty>
+                <logic:notEmpty scope="request" name="scsiControllerOptions">
                     <tr>
-                        <td style="white-space:nowrap">
-                            <html:radio onclick="recalcMonthly();" property='<%= "ideOptions[" + index + "]" %>' idName="option" value="packageDefinitionLimit" />
-                            <ao:write name="option" property="display" />
-                        </td>
-                        <td>$<ao:write name="option" property="priceDifference" /></td>
+                        <th>
+                            <fmt:message key="signupCustomizeServerForm.selectScsiController" /><br />
+                            <html:errors bundle="/signup/ApplicationResources" property="scsiControllerOption" />
+                        </th>
+                        <th><fmt:message key="signupCustomizeServerForm.scsiControllerMonthly" /></th>
                     </tr>
-                </logic:iterate>
-            </logic:iterate>
-            <logic:iterate name="sataOptions" id="sataOptionList" indexId="index">
-                <tr>
-                    <th>
-                        <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectSATA" arg0="<%= Integer.toString(index.intValue()+1) %>" /><br />
-                        <logic:equal name="index" value="0"><html:errors bundle="/signup/ApplicationResources" property="sataOptions" /></logic:equal>
-                    </th>
-                    <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.sataMonthly" /></th>
-                </tr>
-                <logic:iterate name="sataOptionList" id="option">
+                    <logic:iterate scope="request" name="scsiControllerOptions" id="option">
+                        <tr>
+                            <td style="white-space:nowrap">
+                                <html:radio onclick="recalcMonthly();" property="scsiControllerOption" idName="option" value="packageDefinitionLimit" />
+                                <ao:write name="option" property="display" />
+                            </td>
+                            <td>$<ao:write name="option" property="priceDifference" /></td>
+                        </tr>
+                    </logic:iterate>
+                </logic:notEmpty>
+                <logic:iterate name="ideOptions" id="ideOptionList" indexId="index">
                     <tr>
-                        <td style="white-space:nowrap">
-                            <html:radio onclick="recalcMonthly();" property='<%= "sataOptions[" + index + "]" %>' idName="option" value="packageDefinitionLimit" />
-                            <ao:write name="option" property="display" />
-                        </td>
-                        <td>$<ao:write name="option" property="priceDifference" /></td>
+                        <th>
+                            <fmt:message key="signupCustomizeServerForm.selectIDE">
+                                <fmt:param><c:out value="${index+1}" /></fmt:param>
+                            </fmt:message><br />
+                            <logic:equal name="index" value="0"><html:errors bundle="/signup/ApplicationResources" property="ideOptions" /></logic:equal>
+                        </th>
+                        <th><fmt:message key="signupCustomizeServerForm.ideMonthly" /></th>
                     </tr>
+                    <logic:iterate name="ideOptionList" id="option">
+                        <tr>
+                            <td style="white-space:nowrap">
+                                <html:radio onclick="recalcMonthly();" property='<%= "ideOptions[" + index + "]" %>' idName="option" value="packageDefinitionLimit" />
+                                <ao:write name="option" property="display" />
+                            </td>
+                            <td>$<ao:write name="option" property="priceDifference" /></td>
+                        </tr>
+                    </logic:iterate>
                 </logic:iterate>
-            </logic:iterate>
-            <logic:iterate name="scsiOptions" id="scsiOptionList" indexId="index">
-                <tr>
-                    <th>
-                        <bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.selectSCSI" arg0="<%= Integer.toString(index.intValue()+1) %>" /><br />
-                        <logic:equal name="index" value="0"><html:errors bundle="/signup/ApplicationResources" property="scsiOptions" /></logic:equal>
-                    </th>
-                    <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.scsiMonthly" /></th>
-                </tr>
-                <logic:iterate name="scsiOptionList" id="option">
+                <logic:iterate name="sataOptions" id="sataOptionList" indexId="index">
                     <tr>
-                        <td style="white-space:nowrap">
-                            <html:radio onclick="recalcMonthly();" property='<%= "scsiOptions[" + index + "]" %>' idName="option" value="packageDefinitionLimit" />
-                            <ao:write name="option" property="display" />
-                        </td>
-                        <td>$<ao:write name="option" property="priceDifference" /></td>
+                        <th>
+                            <fmt:message key="signupCustomizeServerForm.selectSATA">
+                                <fmt:param><c:out value="${index+1}" /></fmt:param>
+                            </fmt:message><br />
+                            <logic:equal name="index" value="0"><html:errors bundle="/signup/ApplicationResources" property="sataOptions" /></logic:equal>
+                        </th>
+                        <th><fmt:message key="signupCustomizeServerForm.sataMonthly" /></th>
                     </tr>
+                    <logic:iterate name="sataOptionList" id="option">
+                        <tr>
+                            <td style="white-space:nowrap">
+                                <html:radio onclick="recalcMonthly();" property='<%= "sataOptions[" + index + "]" %>' idName="option" value="packageDefinitionLimit" />
+                                <ao:write name="option" property="display" />
+                            </td>
+                            <td>$<ao:write name="option" property="priceDifference" /></td>
+                        </tr>
+                    </logic:iterate>
                 </logic:iterate>
-            </logic:iterate>
-            <tr>
-                <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.basePrice.title" /></th>
-                <th align='left'>
-                    <input type="hidden" name="basePrice" value='<ao:write scope="request" name="basePrice" />' />
-                    <input type="text" name="basePriceDisplay" readonly='readonly' size="10" value='$<ao:write scope="request" name="basePrice" />' />
-                </th>
-            </tr>
-            <tr>
-                <th><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.total" /></th>
-                <th align='left'>
-                    <input type="text" name="totalMonthly" readonly='readonly' size="10" value='$<ao:write scope="request" name="basePrice" />' />
-                </th>
-            </tr>
-            <tr><td colspan="2" align="center"><br /><html:submit><bean:message bundle="/signup/ApplicationResources" key="signupCustomizeServerForm.submit.label" /></html:submit><br /><br /></td></tr>
-        </table>
+                <logic:iterate name="scsiOptions" id="scsiOptionList" indexId="index">
+                    <tr>
+                        <th>
+                            <fmt:message key="signupCustomizeServerForm.selectSCSI">
+                                <fmt:param><c:out value="${index+1}" /></fmt:param>
+                            </fmt:message><br />
+                            <logic:equal name="index" value="0"><html:errors bundle="/signup/ApplicationResources" property="scsiOptions" /></logic:equal>
+                        </th>
+                        <th><fmt:message key="signupCustomizeServerForm.scsiMonthly" /></th>
+                    </tr>
+                    <logic:iterate name="scsiOptionList" id="option">
+                        <tr>
+                            <td style="white-space:nowrap">
+                                <html:radio onclick="recalcMonthly();" property='<%= "scsiOptions[" + index + "]" %>' idName="option" value="packageDefinitionLimit" />
+                                <ao:write name="option" property="display" />
+                            </td>
+                            <td>$<ao:write name="option" property="priceDifference" /></td>
+                        </tr>
+                    </logic:iterate>
+                </logic:iterate>
+                <tr>
+                    <th><fmt:message key="signupCustomizeServerForm.basePrice.title" /></th>
+                    <th align='left'>
+                        <input type="hidden" name="basePrice" value='<ao:write scope="request" name="basePrice" />' />
+                        <input type="text" name="basePriceDisplay" readonly='readonly' size="10" value='$<ao:write scope="request" name="basePrice" />' />
+                    </th>
+                </tr>
+                <tr>
+                    <th><fmt:message key="signupCustomizeServerForm.total" /></th>
+                    <th align='left'>
+                        <input type="text" name="totalMonthly" readonly='readonly' size="10" value='$<ao:write scope="request" name="basePrice" />' />
+                    </th>
+                </tr>
+                <tr><td colspan="2" align="center"><br /><html:submit><fmt:message key="signupCustomizeServerForm.submit.label" /></html:submit><br /><br /></td></tr>
+            </table>
+        </fmt:bundle>
     </skin:lightArea>
 </div>

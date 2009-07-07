@@ -7,80 +7,82 @@
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
-<tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.required" /></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baName.prompt" /></td>
-    <td><ao:write scope="session" name="signupTechnicalForm" property="baName" /></td>
-</tr>
-<tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baTitle.prompt" /></td>
-    <td><ao:write scope="session" name="signupTechnicalForm" property="baTitle" /></td>
-</tr>
-<tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.required" /></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baWorkPhone.prompt" /></td>
-    <td><ao:write scope="session" name="signupTechnicalForm" property="baWorkPhone" /></td>
-</tr>
-<tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baCellPhone.prompt" /></td>
-    <td><ao:write scope="session" name="signupTechnicalForm" property="baCellPhone" /></td>
-</tr>
-<tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baHomePhone.prompt" /></td>
-    <td><ao:write scope="session" name="signupTechnicalForm" property="baHomePhone" /></td>
-</tr>
-<tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baFax.prompt" /></td>
-    <td><ao:write scope="session" name="signupTechnicalForm" property="baFax" /></td>
-</tr>
-<tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.required" /></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baEmail.prompt" /></td>
-    <td><ao:write scope="session" name="signupTechnicalForm" property="baEmail" /></td>
-</tr>
-<tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baAddress1.prompt" /></td>
-    <td><ao:write scope="session" name="signupTechnicalForm" property="baAddress1" /></td>
-</tr>
-<logic:notEmpty scope="session" name="signupTechnicalForm" property="baAddress2">
+<fmt:bundle basename="com.aoindustries.website.signup.ApplicationResources">
     <tr>
-        <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-        <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baAddress2.prompt" /></td>
-        <td><ao:write scope="session" name="signupTechnicalForm" property="baAddress2" /></td>
+        <td><fmt:message key="signup.required" /></td>
+        <td><fmt:message key="signupTechnicalForm.baName.prompt" /></td>
+        <td><ao:write scope="session" name="signupTechnicalForm" property="baName" /></td>
     </tr>
-</logic:notEmpty>
-<tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baCity.prompt" /></td>
-    <td><ao:write scope="session" name="signupTechnicalForm" property="baCity" /></td>
-</tr>
-<tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baState.prompt" /></td>
-    <td><ao:write scope="session" name="signupTechnicalForm" property="baState" /></td>
-</tr>
-<tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baCountry.prompt" /></td>
-    <td><ao:write scope="request" name="baCountry" /></td>
-</tr>
-<tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baZip.prompt" /></td>
-    <td><ao:write scope="session" name="signupTechnicalForm" property="baZip" /></td>
-</tr>
-<tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.required" /></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baUsername.prompt" /></td>
-    <td><ao:write scope="session" name="signupTechnicalForm" property="baUsername" /></td>
-</tr>
-<tr>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signup.notRequired" /></td>
-    <td><bean:message bundle="/signup/ApplicationResources" key="signupTechnicalForm.baPassword.prompt" /></td>
-    <td><ao:write scope="session" name="signupTechnicalForm" property="baPassword" /></td>
-</tr>
+    <tr>
+        <td><fmt:message key="signup.notRequired" /></td>
+        <td><fmt:message key="signupTechnicalForm.baTitle.prompt" /></td>
+        <td><ao:write scope="session" name="signupTechnicalForm" property="baTitle" /></td>
+    </tr>
+    <tr>
+        <td><fmt:message key="signup.required" /></td>
+        <td><fmt:message key="signupTechnicalForm.baWorkPhone.prompt" /></td>
+        <td><ao:write scope="session" name="signupTechnicalForm" property="baWorkPhone" /></td>
+    </tr>
+    <tr>
+        <td><fmt:message key="signup.notRequired" /></td>
+        <td><fmt:message key="signupTechnicalForm.baCellPhone.prompt" /></td>
+        <td><ao:write scope="session" name="signupTechnicalForm" property="baCellPhone" /></td>
+    </tr>
+    <tr>
+        <td><fmt:message key="signup.notRequired" /></td>
+        <td><fmt:message key="signupTechnicalForm.baHomePhone.prompt" /></td>
+        <td><ao:write scope="session" name="signupTechnicalForm" property="baHomePhone" /></td>
+    </tr>
+    <tr>
+        <td><fmt:message key="signup.notRequired" /></td>
+        <td><fmt:message key="signupTechnicalForm.baFax.prompt" /></td>
+        <td><ao:write scope="session" name="signupTechnicalForm" property="baFax" /></td>
+    </tr>
+    <tr>
+        <td><fmt:message key="signup.required" /></td>
+        <td><fmt:message key="signupTechnicalForm.baEmail.prompt" /></td>
+        <td><ao:write scope="session" name="signupTechnicalForm" property="baEmail" /></td>
+    </tr>
+    <tr>
+        <td><fmt:message key="signup.notRequired" /></td>
+        <td><fmt:message key="signupTechnicalForm.baAddress1.prompt" /></td>
+        <td><ao:write scope="session" name="signupTechnicalForm" property="baAddress1" /></td>
+    </tr>
+    <logic:notEmpty scope="session" name="signupTechnicalForm" property="baAddress2">
+        <tr>
+            <td><fmt:message key="signup.notRequired" /></td>
+            <td><fmt:message key="signupTechnicalForm.baAddress2.prompt" /></td>
+            <td><ao:write scope="session" name="signupTechnicalForm" property="baAddress2" /></td>
+        </tr>
+    </logic:notEmpty>
+    <tr>
+        <td><fmt:message key="signup.notRequired" /></td>
+        <td><fmt:message key="signupTechnicalForm.baCity.prompt" /></td>
+        <td><ao:write scope="session" name="signupTechnicalForm" property="baCity" /></td>
+    </tr>
+    <tr>
+        <td><fmt:message key="signup.notRequired" /></td>
+        <td><fmt:message key="signupTechnicalForm.baState.prompt" /></td>
+        <td><ao:write scope="session" name="signupTechnicalForm" property="baState" /></td>
+    </tr>
+    <tr>
+        <td><fmt:message key="signup.notRequired" /></td>
+        <td><fmt:message key="signupTechnicalForm.baCountry.prompt" /></td>
+        <td><ao:write scope="request" name="baCountry" /></td>
+    </tr>
+    <tr>
+        <td><fmt:message key="signup.notRequired" /></td>
+        <td><fmt:message key="signupTechnicalForm.baZip.prompt" /></td>
+        <td><ao:write scope="session" name="signupTechnicalForm" property="baZip" /></td>
+    </tr>
+    <tr>
+        <td><fmt:message key="signup.required" /></td>
+        <td><fmt:message key="signupTechnicalForm.baUsername.prompt" /></td>
+        <td><ao:write scope="session" name="signupTechnicalForm" property="baUsername" /></td>
+    </tr>
+    <tr>
+        <td><fmt:message key="signup.notRequired" /></td>
+        <td><fmt:message key="signupTechnicalForm.baPassword.prompt" /></td>
+        <td><ao:write scope="session" name="signupTechnicalForm" property="baPassword" /></td>
+    </tr>
+</fmt:bundle>

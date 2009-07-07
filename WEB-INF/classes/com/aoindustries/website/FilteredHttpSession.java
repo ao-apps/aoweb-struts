@@ -9,6 +9,7 @@ import java.util.Enumeration;
 import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.jstl.core.Config;
 import org.apache.struts.Globals;
 
 /**
@@ -97,6 +98,9 @@ public class FilteredHttpSession implements HttpSession {
                 && !Constants.SU_REQUESTED.equals(name)
                 && !Constants.AO_CONN.equals(name)
                 && !Constants.AUTHENTICATED_AO_CONN.equals(name)
+                // JSTL 1.1
+                && !"javax.servlet.jsp.jstl.fmt.request.charset".equals(name)
+                && !"javax.servlet.jsp.jstl.fmt.locale.session".equals(name)
                 // Must be an SessionActionForm if none of the above
                 && !(value instanceof SessionActionForm)
             ) {
