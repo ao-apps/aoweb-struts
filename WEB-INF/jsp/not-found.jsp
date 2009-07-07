@@ -31,68 +31,70 @@
 <skin:setContentType />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html lang="true" xhtml="true">
-    <skin:path>/not-found.do</skin:path>
-    <skin:title><bean:message bundle="/ApplicationResources" key="notFound.title" /></skin:title>
-    <skin:navImageAlt><bean:message bundle="/ApplicationResources" key="notFound.navImageAlt" /></skin:navImageAlt>
-    <skin:keywords><bean:message bundle="/ApplicationResources" key="notFound.keywords" /></skin:keywords>
-    <skin:description><bean:message bundle="/ApplicationResources" key="notFound.description" /></skin:description>
-    <aoweb:exists path="/WEB-INF/jsp/add-parents.jsp">
-        <jsp:include page="/WEB-INF/jsp/add-parents.jsp" />
-    </aoweb:exists>
-    <aoweb:exists path="/WEB-INF/jsp/add-siblings.jsp">
-        <jsp:include page="/WEB-INF/jsp/add-siblings.jsp" />
-    </aoweb:exists>
-    <skin:skin>
-        <skin:content width="600">
-            <skin:contentTitle><bean:message bundle="/ApplicationResources" key="notFound.title" /></skin:contentTitle>
-            <skin:contentHorizontalDivider />
-            <skin:contentLine>
-                <bean:message bundle="/ApplicationResources" key="notFound.message" /><br />
-                <br />
-                <logic:equal scope="request" name="siteSettings" property="exceptionShowError" value="true">
-                    <%-- Error Data --%>
-                    <logic:present name="javax.servlet.jsp.jspPageContext" property="errorData">
-                        <skin:lightArea>
-                            <bean:message bundle="/ApplicationResources" key="exception.jspException.title" />
-                            <hr />
-                            <table style='border:1px' cellspacing="0" cellpadding="2">
-                                <tr>
-                                    <th style='white-space:nowrap; text-align:left'><bean:message bundle="/ApplicationResources" key="exception.servletName.header" /></th>
-                                    <td style="white-space:nowrap"><ao:write name="javax.servlet.jsp.jspPageContext" property="errorData.servletName" /></td>
-                                </tr>
-                                <tr>
-                                    <th style='white-space:nowrap; text-align:left'><bean:message bundle="/ApplicationResources" key="exception.requestURI.header" /></th>
-                                    <td style="white-space:nowrap"><ao:write name="javax.servlet.jsp.jspPageContext" property="errorData.requestURI" /></td>
-                                </tr>
-                                <tr>
-                                    <th style='white-space:nowrap; text-align:left'><bean:message bundle="/ApplicationResources" key="exception.statusCode.header" /></th>
-                                    <td style="white-space:nowrap"><ao:write name="javax.servlet.jsp.jspPageContext" property="errorData.statusCode" /></td>
-                                </tr>
-                                <tr>
-                                    <th style='white-space:nowrap; text-align:left'><bean:message bundle="/ApplicationResources" key="exception.throwable.header" /></th>
-                                    <td style="white-space:nowrap">
-                                        <logic:notEmpty name="javax.servlet.jsp.jspPageContext" property="errorData.throwable">
-                                            <ao:pre><ao:getStackTraces name="javax.servlet.jsp.jspPageContext" property="errorData.throwable" /></ao:pre>
-                                        </logic:notEmpty>
-                                        <logic:empty name="javax.servlet.jsp.jspPageContext" property="errorData.throwable">
-                                            &#160;
-                                        </logic:empty>
-                                    </td>
-                                </tr>
-                            </table>
-                        </skin:lightArea><br />
-                        <br />
-                    </logic:present>
-                    <%-- Servlet Exception --%>
-                    <logic:notEmpty name="javax.servlet.jsp.jspPageContext" property="exception">
-                        <skin:lightArea>
-                            <bean:message bundle="/ApplicationResources" key="exception.servletException.title" />
-                            <hr />
-                            <ao:pre><ao:getStackTraces name="javax.servlet.jsp.jspPageContext" property="exception" /></ao:pre>
-                        </skin:lightArea>
-                    </logic:notEmpty>
-                </logic:equal>
-            </skin:contentLine>
-        </skin:content>
-    </skin:skin>
+    <fmt:bundle basename="com.aoindustries.website.ApplicationResources">
+        <skin:path>/not-found.do</skin:path>
+        <skin:title><fmt:message key="notFound.title" /></skin:title>
+        <skin:navImageAlt><fmt:message key="notFound.navImageAlt" /></skin:navImageAlt>
+        <skin:keywords><fmt:message key="notFound.keywords" /></skin:keywords>
+        <skin:description><fmt:message key="notFound.description" /></skin:description>
+        <aoweb:exists path="/WEB-INF/jsp/add-parents.jsp">
+            <jsp:include page="/WEB-INF/jsp/add-parents.jsp" />
+        </aoweb:exists>
+        <aoweb:exists path="/WEB-INF/jsp/add-siblings.jsp">
+            <jsp:include page="/WEB-INF/jsp/add-siblings.jsp" />
+        </aoweb:exists>
+        <skin:skin>
+            <skin:content width="600">
+                <skin:contentTitle><fmt:message key="notFound.title" /></skin:contentTitle>
+                <skin:contentHorizontalDivider />
+                <skin:contentLine>
+                    <fmt:message key="notFound.message" /><br />
+                    <br />
+                    <logic:equal scope="request" name="siteSettings" property="exceptionShowError" value="true">
+                        <%-- Error Data --%>
+                        <logic:present name="javax.servlet.jsp.jspPageContext" property="errorData">
+                            <skin:lightArea>
+                                <fmt:message key="exception.jspException.title" />
+                                <hr />
+                                <table style='border:1px' cellspacing="0" cellpadding="2">
+                                    <tr>
+                                        <th style='white-space:nowrap; text-align:left'><fmt:message key="exception.servletName.header" /></th>
+                                        <td style="white-space:nowrap"><ao:write name="javax.servlet.jsp.jspPageContext" property="errorData.servletName" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th style='white-space:nowrap; text-align:left'><fmt:message key="exception.requestURI.header" /></th>
+                                        <td style="white-space:nowrap"><ao:write name="javax.servlet.jsp.jspPageContext" property="errorData.requestURI" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th style='white-space:nowrap; text-align:left'><fmt:message key="exception.statusCode.header" /></th>
+                                        <td style="white-space:nowrap"><ao:write name="javax.servlet.jsp.jspPageContext" property="errorData.statusCode" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th style='white-space:nowrap; text-align:left'><fmt:message key="exception.throwable.header" /></th>
+                                        <td style="white-space:nowrap">
+                                            <logic:notEmpty name="javax.servlet.jsp.jspPageContext" property="errorData.throwable">
+                                                <ao:pre><ao:getStackTraces name="javax.servlet.jsp.jspPageContext" property="errorData.throwable" /></ao:pre>
+                                            </logic:notEmpty>
+                                            <logic:empty name="javax.servlet.jsp.jspPageContext" property="errorData.throwable">
+                                                &#160;
+                                            </logic:empty>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </skin:lightArea><br />
+                            <br />
+                        </logic:present>
+                        <%-- Servlet Exception --%>
+                        <logic:notEmpty name="javax.servlet.jsp.jspPageContext" property="exception">
+                            <skin:lightArea>
+                                <fmt:message key="exception.servletException.title" />
+                                <hr />
+                                <ao:pre><ao:getStackTraces name="javax.servlet.jsp.jspPageContext" property="exception" /></ao:pre>
+                            </skin:lightArea>
+                        </logic:notEmpty>
+                    </logic:equal>
+                </skin:contentLine>
+            </skin:content>
+        </skin:skin>
+    </fmt:bundle>
 </html:html>

@@ -5,12 +5,13 @@ package com.aoindustries.website;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.util.ErrorPrinter;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.logging.Level;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -38,19 +39,19 @@ public class SetRequestCharacterEncodingFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest)request;
         HttpSession session = httpRequest.getSession(false);
         if(session!=null) {
+            ServletContext servletContext = session.getServletContext();
             try {
-                SiteSettings siteSettings = SiteSettings.getInstance(session.getServletContext());
+                SiteSettings siteSettings = SiteSettings.getInstance(servletContext);
                 HttpServletResponse httpResponse = (HttpServletResponse)response;
                 Locale locale = SkinAction.getEffectiveLocale(siteSettings, httpRequest, httpResponse);
                 if(locale!=null) {
                     request.setCharacterEncoding(Skin.getCharacterSet(locale));
                 }
             } catch(Exception err) {
-                //throw new ServletException(err);
-                ErrorPrinter.printStackTraces(err);
+                LogFactory.getLogger(servletContext, SetRequestCharacterEncodingFilter.class).log(Level.WARNING, null, err);
             }
         }
-        
+
         chain.doFilter(request, response);
     }
     

@@ -11,19 +11,25 @@
     <jsp:include page="/WEB-INF/jsp/clientarea/add-siblings.override.jsp" />
 </aoweb:exists>
 <aoweb:notExists path="/WEB-INF/jsp/clientarea/add-siblings.override.jsp">
-    <skin:addSibling useEncryption="false" path="/clientarea/control/index.do">
-        <skin:title><bean:message bundle="/clientarea/control/ApplicationResources" key="index.title" /></skin:title>
-        <skin:navImageAlt><bean:message bundle="/clientarea/control/ApplicationResources" key="index.navImageAlt" /></skin:navImageAlt>
-        <skin:description><bean:message bundle="/clientarea/control/ApplicationResources" key="index.description" /></skin:description>
-    </skin:addSibling>
-    <skin:addSibling useEncryption="false" path="/clientarea/accounting/index.do">
-        <skin:title><bean:message bundle="/clientarea/accounting/ApplicationResources" key="index.title" /></skin:title>
-        <skin:navImageAlt><bean:message bundle="/clientarea/accounting/ApplicationResources" key="index.navImageAlt" /></skin:navImageAlt>
-        <skin:description><bean:message bundle="/clientarea/accounting/ApplicationResources" key="index.description" /></skin:description>
-    </skin:addSibling>
-    <skin:addSibling useEncryption="true" path="/clientarea/ticket/index.do">
-        <skin:title><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.title" /></skin:title>
-        <skin:navImageAlt><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.navImageAlt" /></skin:navImageAlt>
-        <skin:description><bean:message bundle="/clientarea/ticket/ApplicationResources" key="index.description" /></skin:description>
-    </skin:addSibling>
+    <fmt:bundle basename="com.aoindustries.website.clientarea.control.ApplicationResources">
+        <skin:addSibling useEncryption="false" path="/clientarea/control/index.do">
+            <skin:title><fmt:message key="index.title" /></skin:title>
+            <skin:navImageAlt><fmt:message key="index.navImageAlt" /></skin:navImageAlt>
+            <skin:description><fmt:message key="index.description" /></skin:description>
+        </skin:addSibling>
+    </fmt:bundle>
+    <fmt:bundle basename="com.aoindustries.website.clientarea.accounting.ApplicationResources">
+        <skin:addSibling useEncryption="false" path="/clientarea/accounting/index.do">
+            <skin:title><fmt:message key="index.title" /></skin:title>
+            <skin:navImageAlt><fmt:message key="index.navImageAlt" /></skin:navImageAlt>
+            <skin:description><fmt:message key="index.description" /></skin:description>
+        </skin:addSibling>
+    </fmt:bundle>
+    <fmt:bundle basename="com.aoindustries.website.clientarea.ticket.ApplicationResources">
+        <skin:addSibling useEncryption="true" path="/clientarea/ticket/index.do">
+            <skin:title><fmt:message key="index.title" /></skin:title>
+            <skin:navImageAlt><fmt:message key="index.navImageAlt" /></skin:navImageAlt>
+            <skin:description><fmt:message key="index.description" /></skin:description>
+        </skin:addSibling>
+    </fmt:bundle>
 </aoweb:notExists>

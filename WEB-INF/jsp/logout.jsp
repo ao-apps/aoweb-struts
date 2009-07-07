@@ -10,25 +10,27 @@
 <skin:setContentType />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html lang="true" xhtml="true">
-    <skin:path>/logout.do</skin:path>
-    <skin:meta name="ROBOTS">NOINDEX</skin:meta>
-    <skin:title><bean:message bundle="/ApplicationResources" key="logout.title" /></skin:title>
-    <skin:navImageAlt><bean:message bundle="/ApplicationResources" key="logout.navImageAlt" /></skin:navImageAlt>
-    <skin:keywords><bean:message bundle="/ApplicationResources" key="logout.keywords" /></skin:keywords>
-    <skin:description><bean:message bundle="/ApplicationResources" key="logout.description" /></skin:description>
-    <aoweb:exists path="/WEB-INF/jsp/add-parents.jsp">
-        <jsp:include page="/WEB-INF/jsp/add-parents.jsp" />
-    </aoweb:exists>
-    <aoweb:exists path="/WEB-INF/jsp/add-siblings.jsp">
-        <jsp:include page="/WEB-INF/jsp/add-siblings.jsp" />
-    </aoweb:exists>
-    <skin:skin>
-        <skin:content width="600">
-            <skin:contentTitle><bean:message bundle="/ApplicationResources" key="logout.title" /></skin:contentTitle>
-            <skin:contentHorizontalDivider />
-            <skin:contentLine>
-                <bean:message bundle="/ApplicationResources" key="logout.text" />
-            </skin:contentLine>
-        </skin:content>
-    </skin:skin>
+    <fmt:bundle basename="com.aoindustries.website.ApplicationResources">
+        <skin:path>/logout.do</skin:path>
+        <skin:meta name="ROBOTS">NOINDEX</skin:meta>
+        <skin:title><fmt:message key="logout.title" /></skin:title>
+        <skin:navImageAlt><fmt:message key="logout.navImageAlt" /></skin:navImageAlt>
+        <skin:keywords><fmt:message key="logout.keywords" /></skin:keywords>
+        <skin:description><fmt:message key="logout.description" /></skin:description>
+        <aoweb:exists path="/WEB-INF/jsp/add-parents.jsp">
+            <jsp:include page="/WEB-INF/jsp/add-parents.jsp" />
+        </aoweb:exists>
+        <aoweb:exists path="/WEB-INF/jsp/add-siblings.jsp">
+            <jsp:include page="/WEB-INF/jsp/add-siblings.jsp" />
+        </aoweb:exists>
+        <skin:skin>
+            <skin:content width="600">
+                <skin:contentTitle><fmt:message key="logout.title" /></skin:contentTitle>
+                <skin:contentHorizontalDivider />
+                <skin:contentLine>
+                    <fmt:message key="logout.text" />
+                </skin:contentLine>
+            </skin:content>
+        </skin:skin>
+    </fmt:bundle>
 </html:html>

@@ -5,7 +5,9 @@ package com.aoindustries.website;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.servlet.http.ServletUtil;
 import com.aoindustries.util.ErrorPrinter;
+import com.aoindustries.util.WrappedException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -13,18 +15,24 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.jstl.core.Config;
 import org.apache.struts.Globals;
 
 /**
  * @author  AO Industries, Inc.
  */
 public class SessionResponseWrapper extends HttpServletResponseWrapper {
+
+    private static Logger getLogger(ServletContext servletContext) {
+        return LogFactory.getLogger(servletContext, SessionResponseWrapper.class);
+    }
 
     final private HttpServletRequest request;
     final private HttpServletResponse response;
@@ -80,14 +88,11 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             }
             return encoded;
         } catch(JspException err) {
-            ErrorPrinter.printStackTraces(err);
-            return url;
+            throw new WrappedException(err);
         } catch(IOException err) {
-            ErrorPrinter.printStackTraces(err);
-            return url;
+            throw new WrappedException(err);
         } catch(SQLException err) {
-            ErrorPrinter.printStackTraces(err);
-            return url;
+            throw new WrappedException(err);
         }
     }
 
@@ -136,14 +141,11 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             }
             return encoded;
         } catch(JspException err) {
-            ErrorPrinter.printStackTraces(err);
-            return url;
+            throw new WrappedException(err);
         } catch(IOException err) {
-            ErrorPrinter.printStackTraces(err);
-            return url;
+            throw new WrappedException(err);
         } catch(SQLException err) {
-            ErrorPrinter.printStackTraces(err);
-            return url;
+            throw new WrappedException(err);
         }
     }
 
@@ -211,10 +213,20 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                         }
                     }
                 }
-                // TODO: Log warning (create ticket with aggregate counts by agent over time period?) and refuse to send jsessionid to googlebot agent
+                ServletContext servletContext = session.getServletContext();
                 if(whyNeedsJsessionid!=null) {
-                    // System.out.println("DEBUG: Why needs jsessionid: "+whyNeedsJsessionid);
-                    return isRedirect ? response.encodeRedirectURL(url) : response.encodeURL(url);
+                    if(ServletUtil.isGooglebot(request)) {
+                        // Create or update a ticket about the problem
+                        getLogger(servletContext).logp(
+                            Level.WARNING,
+                            SessionResponseWrapper.class.getName(),
+                            "addNoCookieParameters",
+                            "Refusing to send jsessionid to Googlebot eventhough request would normally need jsessionid.  Other search engines may be affected.  Reason: "+whyNeedsJsessionid
+                        );
+                    } else {
+                        // System.out.println("DEBUG: Why needs jsessionid: "+whyNeedsJsessionid);
+                        return isRedirect ? response.encodeRedirectURL(url) : response.encodeURL(url);
+                    }
                 }
 
                 // Add the Constants.AUTHENTICATION_TARGET if needed
@@ -224,7 +236,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                 if(authenticationTarget!=null) url = addParamIfMissing(url, Constants.AUTHENTICATION_TARGET, authenticationTarget);
 
                 // Only add the language if there is more than one possibility
-                SiteSettings siteSettings = SiteSettings.getInstance(session.getServletContext());
+                SiteSettings siteSettings = SiteSettings.getInstance(servletContext);
                 List<Skin.Language> languages = siteSettings.getLanguages(request);
                 if(languages.size()>1) {
                     Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);

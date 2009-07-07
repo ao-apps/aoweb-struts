@@ -33,26 +33,21 @@
                     </logic:present>
                     <logic:notPresent scope="request" name="permissionDenied">
                         <skin:lightArea>
-                            <bean:define scope="request" name="business" id="business" type="com.aoindustries.aoserv.client.Business" />
                             <logic:present scope="request" name="creditCard">
                                 <bean:define scope="request" name="creditCard" id="creditCard" type="com.aoindustries.aoserv.client.CreditCard" />
                                 <fmt:message key="configureAutomaticBillingCompleted.setUseMonthly.title" />
                                 <hr />
-                                <bean:message
-                                    bundle="/clientarea/accounting/ApplicationResources"
-                                    key="configureAutomaticBillingCompleted.setUseMonthly.text"
-                                    arg0="<%= business.getAccounting() %>"
-                                    arg1="<%= creditCard.getCardInfo().replace('X', 'x') %>"
-                                />
+                                <fmt:message key="configureAutomaticBillingCompleted.setUseMonthly.text">
+                                    <fmt:param><c:out value="${business.accounting}" /></fmt:param>
+                                    <fmt:param><c:out value="${fn:toLowerCase(creditCard.cardInfo)}" /></fmt:param>
+                                </fmt:message>
                             </logic:present>
                             <logic:notPresent scope="request" name="creditCard">
                                 <fmt:message key="configureAutomaticBillingCompleted.clearUseMonthly.title" />
                                 <hr />
-                                <bean:message
-                                    bundle="/clientarea/accounting/ApplicationResources"
-                                    key="configureAutomaticBillingCompleted.clearUseMonthly.text"
-                                    arg0="<%= business.getAccounting() %>"
-                                />
+                                <fmt:message key="configureAutomaticBillingCompleted.clearUseMonthly.text">
+                                    <fmt:param><c:out value="${business.accounting}" /></fmt:param>
+                                </fmt:message>
                             </logic:notPresent>
                             <br />
                             <br />

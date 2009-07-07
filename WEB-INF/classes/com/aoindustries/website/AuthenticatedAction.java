@@ -6,9 +6,9 @@ package com.aoindustries.website;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.util.ErrorPrinter;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.logging.Level;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -87,7 +87,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
                 session.setAttribute(Constants.AO_CONN, aoConn);
                 return aoConn;
             } catch(IOException err) {
-                ErrorPrinter.printStackTraces(err);
+                LogFactory.getLogger(session.getServletContext(), AuthenticatedAction.class).log(Level.SEVERE, null, err);
             }
         }
 

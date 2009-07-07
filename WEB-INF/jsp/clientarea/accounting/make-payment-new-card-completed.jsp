@@ -103,15 +103,13 @@
                                     <% if(balance==0) { %>
                                         <fmt:message key="makePaymentStoredCardCompleted.newBalance.value.zero" />
                                     <% } else if(balance<0) { %>
-                                        <bean:message
-                                            bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.newBalance.value.credit"
-                                            arg0="<%= com.aoindustries.sql.SQLUtility.getDecimal(-balance) %>"
-                                        />
+                                        <fmt:message key="makePaymentStoredCardCompleted.newBalance.value.credit">
+                                            <fmt:param><c:out value="<%= com.aoindustries.sql.SQLUtility.getDecimal(-balance) %>" /></fmt:param>
+                                        </fmt:message>
                                     <% } else { %>
-                                        <bean:message
-                                            bundle="/clientarea/accounting/ApplicationResources" key="makePaymentStoredCardCompleted.newBalance.value.debt"
-                                            arg0="<%= com.aoindustries.sql.SQLUtility.getDecimal(balance) %>"
-                                        />
+                                        <fmt:message key="makePaymentStoredCardCompleted.newBalance.value.debt">
+                                            <fmt:param><c:out value="<%= com.aoindustries.sql.SQLUtility.getDecimal(balance) %>" /></fmt:param>
+                                        </fmt:message>
                                     <% } %>
                                 </td>
                             </tr>

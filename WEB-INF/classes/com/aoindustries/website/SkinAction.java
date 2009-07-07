@@ -23,41 +23,6 @@ import org.apache.struts.action.ActionMapping;
 public class SkinAction extends LocaleAction {
 
     /**
-     * The skins are loaded once per classname for efficiency.
-     */
-    //private static final Map<String,Skin> nameToSkinMap = new HashMap<String,Skin>();
-
-    /**
-     * Gets a skin given its class name or <code>null</code> if unable to load, only one instance per unique classname.
-     */
-    /*
-    private static Skin getSkin(String classname) {
-        synchronized(nameToSkinMap) {
-            Skin skin = nameToSkinMap.get(classname);
-            if(skin==null) {
-                try {
-                    Class clazz = Class.forName(classname);
-                    skin = (Skin)clazz.newInstance();
-                    nameToSkinMap.put(classname, skin);
-                } catch(ClassNotFoundException err) {
-                    ErrorPrinter.printStackTraces(err);
-                    skin = null;
-                } catch(InstantiationException err) {
-                    ErrorPrinter.printStackTraces(err);
-                    skin = null;
-                } catch(IllegalAccessException err) {
-                    ErrorPrinter.printStackTraces(err);
-                    skin = null;
-                } catch(ClassCastException err) {
-                    ErrorPrinter.printStackTraces(err);
-                    skin = null;
-                }
-            }
-            return skin;
-        }
-    }*/
-
-    /**
      * Gets the default skin from the provided list for the provided request.
      * Blackberry and Lynx will default to "Text" if in the list, otherwise
      * the first skin is selected.

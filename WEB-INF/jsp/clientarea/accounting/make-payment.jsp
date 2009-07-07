@@ -43,15 +43,13 @@
                                         <% if(balance==0) { %>
                                             <fmt:message key="makePayment.balance.value.zero" />
                                         <% } else if(balance<0) { %>
-                                            <bean:message
-                                                bundle="/clientarea/accounting/ApplicationResources" key="makePayment.balance.value.credit"
-                                                arg0="<%= com.aoindustries.sql.SQLUtility.getDecimal(-balance) %>"
-                                            />
+                                            <fmt:message key="makePayment.balance.value.credit">
+                                                <fmt:param><c:out value="<%= com.aoindustries.sql.SQLUtility.getDecimal(-balance) %>" /></fmt:param>
+                                            </fmt:message>
                                         <% } else { %>
-                                            <bean:message
-                                                bundle="/clientarea/accounting/ApplicationResources" key="makePayment.balance.value.debt"
-                                                arg0="<%= com.aoindustries.sql.SQLUtility.getDecimal(balance) %>"
-                                            />
+                                            <fmt:message key="makePayment.balance.value.debt">
+                                                <fmt:param><c:out value="<%= com.aoindustries.sql.SQLUtility.getDecimal(balance) %>" /></fmt:param>
+                                            </fmt:message>
                                         <% } %>
                                     </td>
                                     <td style="white-space:nowrap">

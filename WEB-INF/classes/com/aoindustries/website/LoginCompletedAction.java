@@ -6,10 +6,10 @@ package com.aoindustries.website;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.util.ErrorPrinter;
 import com.aoindustries.util.StandardErrorHandler;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.logging.Level;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -69,16 +69,16 @@ public class LoginCompletedAction extends HttpsAction {
             // Return success
             //return mapping.findForward("success");
         } catch(IOException err) {
-            ErrorPrinter.printStackTraces(err);
-	    String message=err.getMessage();
-	    if(message!=null) {
+            String message=err.getMessage();
+            if(message!=null) {
                 MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-		if(message.indexOf("Unable to find BusinessAdministrator")!=-1) message=applicationResources.getMessage(locale, "login.accountNotFound");
+        		if(message.indexOf("Unable to find BusinessAdministrator")!=-1) message=applicationResources.getMessage(locale, "login.accountNotFound");
                 else if(message.indexOf("Connection attempted with invalid password")!=-1) message=applicationResources.getMessage(locale, "login.badPassword");
                 else if(message.indexOf("BusinessAdministrator disabled")!=-1) message=applicationResources.getMessage(locale, "accountDisabled");
                 else message=null;
-	    }
-            request.setAttribute(Constants.AUTHENTICATION_MESSAGE, message);
+    	    }
+            if(message!=null) request.setAttribute(Constants.AUTHENTICATION_MESSAGE, message);
+            else LogFactory.getLogger(getServlet().getServletContext(), LoginCompletedAction.class).log(Level.SEVERE, null, err);
             return mapping.findForward("failure");
         }
     }

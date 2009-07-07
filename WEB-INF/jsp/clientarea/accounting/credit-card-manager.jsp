@@ -96,12 +96,10 @@
                                                             <logic:notEmpty name="creditCard" property="deactivatedOnString">
                                                                 <logic:notEmpty name="creditCard" property="deactivateReason">
                                                                     <skin:popup width="280">
-                                                                        <bean:message
-                                                                            bundle="/clientarea/accounting/ApplicationResources"
-                                                                            key="creditCardManager.header.status.deactivated.popup"
-                                                                            arg0="<%= creditCard.getDeactivatedOnString() %>"
-                                                                            arg1="<%= creditCard.getDeactivateReason() %>"
-                                                                        />
+                                                                        <fmt:message key="creditCardManager.header.status.deactivated.popup">
+                                                                            <fmt:param><c:out value="${creditCard.deactivatedOnString}" /></fmt:param>
+                                                                            <fmt:param><c:out value="${creditCard.deactivateReason}" /></fmt:param>
+                                                                        </fmt:message>
                                                                     </skin:popup>
                                                                 </logic:notEmpty>
                                                             </logic:notEmpty>

@@ -5,8 +5,9 @@ package com.aoindustries.website;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.util.ErrorPrinter;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,15 +23,16 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
 
     @Override
     public ActionForward execute(Exception exception, ExceptionConfig config, ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
-        ErrorPrinter.printStackTraces(exception);
+        ServletContext servletContext = request.getSession().getServletContext();
+        Logger logger = LogFactory.getLogger(servletContext, ExceptionHandler.class);
+        logger.log(Level.SEVERE, null, exception);
 
         // Resolve the SiteSettings, to be compatible with SiteSettingsAction
-        ServletContext servletContext = request.getSession().getServletContext();
         SiteSettings siteSettings;
         try {
             siteSettings = SiteSettings.getInstance(servletContext);
         } catch(Exception err) {
-            ErrorPrinter.printStackTraces(err);
+            logger.log(Level.SEVERE, null, err);
             // Use default settings
             siteSettings = new SiteSettings(servletContext);
         }
@@ -41,7 +43,7 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
         try {
             locale = LocaleAction.getEffectiveLocale(siteSettings, request, response);
         } catch(Exception err) {
-            ErrorPrinter.printStackTraces(err);
+            logger.log(Level.SEVERE, null, err);
             // Use default locale
             locale = Locale.getDefault();
         }
@@ -52,7 +54,7 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
         try {
             skin = SkinAction.getSkin(siteSettings, request, response);
         } catch(Exception err) {
-            ErrorPrinter.printStackTraces(err);
+            logger.log(Level.SEVERE, null, err);
             // Use text skin
             skin = TextSkin.getInstance();
         }
