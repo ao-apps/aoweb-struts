@@ -9,8 +9,6 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.TicketCategory;
 import com.aoindustries.aoserv.client.TicketLoggingHandler;
 import com.aoindustries.util.ErrorPrinter;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.logging.Handler;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
@@ -71,13 +69,15 @@ public class LogFactory {
             }
             logger = Logger.getLogger(name);
             if(handler!=null) {
-                boolean foundHandler = false;
-                for(Handler oldHandler : logger.getHandlers()) {
-                    if(oldHandler==handler) foundHandler = true;
-                    else logger.removeHandler(oldHandler);
+                synchronized(logger) {
+                    boolean foundHandler = false;
+                    for(Handler oldHandler : logger.getHandlers()) {
+                        if(oldHandler==handler) foundHandler = true;
+                        else logger.removeHandler(oldHandler);
+                    }
+                    if(!foundHandler) logger.addHandler(handler);
+                    logger.setUseParentHandlers(false);
                 }
-                if(!foundHandler) logger.addHandler(handler);
-                logger.setUseParentHandlers(false);
                 servletContext.setAttribute(contextKey, logger);
             }
         }

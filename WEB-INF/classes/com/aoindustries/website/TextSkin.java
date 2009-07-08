@@ -7,9 +7,7 @@ package com.aoindustries.website;
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Brand;
-import com.aoindustries.encoding.JavaScriptInXhtmlAttributeEncoder;
-import com.aoindustries.encoding.JavaScriptInXhtmlEncoder;
-import com.aoindustries.encoding.TextInJavaScriptEncoder;
+import com.aoindustries.encoding.NewEncodingUtils;
 import com.aoindustries.encoding.TextInXhtmlEncoder;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.util.EncodingUtils;
@@ -258,9 +256,9 @@ public class TextSkin extends Skin {
                         + "  function selectLayout(layout) {\n");
                 for(Skin skin : skins) {
                     out.print("    if(layout=='");
-                    encodeTextInJavaScriptInXhtml(skin.getName(), out);
+                    NewEncodingUtils.encodeTextInJavaScriptInXhtml(skin.getName(), out);
                     out.print("') window.top.location.href='");
-                    encodeTextInJavaScriptInXhtml(
+                    NewEncodingUtils.encodeTextInJavaScriptInXhtml(
                         StringUtility.replace(
                             resp.encodeURL(fullPath+"?layout="+skin.getName()),
                             "&amp;",
@@ -321,13 +319,13 @@ public class TextSkin extends Skin {
                             )
                         );
                         out.print("' onmouseover='document.images[\"flagSelector_");
-                        encodeTextInJavaScriptInXhtmlAttribute(language.getCode(), out);
+                        NewEncodingUtils.encodeTextInJavaScriptInXhtmlAttribute(language.getCode(), out);
                         out.print("\"].src=\"");
-                        encodeTextInJavaScriptInXhtmlAttribute(StringUtility.replace(resp.encodeURL(urlBase + language.getFlagOnSrc(req, locale)), "&amp;", "&"), out);
+                        NewEncodingUtils.encodeTextInJavaScriptInXhtmlAttribute(StringUtility.replace(resp.encodeURL(urlBase + language.getFlagOnSrc(req, locale)), "&amp;", "&"), out);
                         out.print("\";' onmouseout='document.images[\"flagSelector_");
                         out.print(language.getCode());
                         out.print("\"].src=\"");
-                        encodeTextInJavaScriptInXhtmlAttribute(StringUtility.replace(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)), "&amp;", "&"), out);
+                        NewEncodingUtils.encodeTextInJavaScriptInXhtmlAttribute(StringUtility.replace(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)), "&amp;", "&"), out);
                         out.print("\";'><img src='");
                         out.print(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)));
                         out.print("' id='flagSelector_");
@@ -1092,17 +1090,5 @@ public class TextSkin extends Skin {
         } catch(IOException err) {
             throw new JspException(err);
         }
-    }
-
-    private static void encodeTextInJavaScriptInXhtml(String text, Appendable out) throws IOException {
-        StringBuilder javascript = new StringBuilder(text.length());
-        TextInJavaScriptEncoder.encodeTextInJavaScript(text, javascript);
-        JavaScriptInXhtmlEncoder.encodeJavaScriptInXhtml(javascript, out);
-    }
-
-    private static void encodeTextInJavaScriptInXhtmlAttribute(String text, Appendable out) throws IOException {
-        StringBuilder javascript = new StringBuilder(text.length());
-        TextInJavaScriptEncoder.encodeTextInJavaScript(text, javascript);
-        JavaScriptInXhtmlAttributeEncoder.encodeJavaScriptInXhtmlAttribute(javascript, out);
     }
 }

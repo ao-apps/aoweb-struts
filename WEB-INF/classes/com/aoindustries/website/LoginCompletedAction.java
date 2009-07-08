@@ -6,10 +6,10 @@ package com.aoindustries.website;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.util.StandardErrorHandler;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.logging.Level;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -45,9 +45,10 @@ public class LoginCompletedAction extends HttpsAction {
         String username = loginForm.getUsername();
         String password = loginForm.getPassword();
 
+        ServletContext servletContext = getServlet().getServletContext();
         try {
             // Get connector
-            AOServConnector aoConn = AOServConnector.getConnector(username, password, new StandardErrorHandler());
+            AOServConnector aoConn = AOServConnector.getConnector(username, password, LogFactory.getLogger(servletContext, LoginCompletedAction.class));
             aoConn.ping();
 
             // Store in session
@@ -78,7 +79,7 @@ public class LoginCompletedAction extends HttpsAction {
                 else message=null;
     	    }
             if(message!=null) request.setAttribute(Constants.AUTHENTICATION_MESSAGE, message);
-            else LogFactory.getLogger(getServlet().getServletContext(), LoginCompletedAction.class).log(Level.SEVERE, null, err);
+            else LogFactory.getLogger(servletContext, LoginCompletedAction.class).log(Level.SEVERE, null, err);
             return mapping.findForward("failure");
         }
     }

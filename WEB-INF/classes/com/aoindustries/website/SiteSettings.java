@@ -7,8 +7,6 @@ package com.aoindustries.website;
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Brand;
-import com.aoindustries.util.ErrorHandler;
-import com.aoindustries.util.StandardErrorHandler;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -19,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,6 +30,11 @@ import org.apache.struts.Globals;
  */
 public class SiteSettings {
 
+    /**
+     * This logger doesn't use the ticket handler to avoid logging loops
+     * due to RootAOServConnector being used as part of the logging process.
+     */
+    private static final Logger logger = Logger.getLogger(SiteSettings.class.getName());
     // <editor-fold desc="Instance Selection">
     /**
      * Only one instance is created per unique classname.
@@ -108,8 +112,6 @@ public class SiteSettings {
         return servletContext.getInitParameter("root.aoserv.client.password");
     }
 
-    private static final ErrorHandler standardErrorHandler = new StandardErrorHandler();
-
     private AOServConnector rootAOServConnector = null;
     private final Object rootAOServConnectorLock = new Object();
 
@@ -123,7 +125,7 @@ public class SiteSettings {
                 rootAOServConnector = AOServConnector.getConnector(
                     getRootAOServConnectorUsername(),
                     getRootAOServConnectorPassword(),
-                    standardErrorHandler
+                    logger
                 );
             }
             return rootAOServConnector;
