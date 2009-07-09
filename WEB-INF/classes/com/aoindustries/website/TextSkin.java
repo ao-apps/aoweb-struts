@@ -260,7 +260,7 @@ public class TextSkin extends Skin {
                     out.print("') window.top.location.href='");
                     NewEncodingUtils.encodeTextInJavaScriptInXhtml(
                         StringUtility.replace(
-                            resp.encodeURL(fullPath+"?layout="+skin.getName()),
+                            resp.encodeURL(fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&amp;")+"layout="+skin.getName()),
                             "&amp;",
                             "&"
                         ),

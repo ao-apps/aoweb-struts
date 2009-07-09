@@ -49,7 +49,7 @@ public class CreateAction extends PermissionAction {
         ticketForm.setClientPriority(TicketPriority.NORMAL);
 
         // Default contact emails
-        ticketForm.setContactEmails(thisBusinessAdministrator.getEmail());
+        // ticketForm.setContactEmails(thisBusinessAdministrator.getEmail());
 
         return mapping.findForward("success");
     }
