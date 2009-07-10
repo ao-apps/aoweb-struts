@@ -38,8 +38,7 @@
                         <html:form action="/login-completed" onsubmit="return validateLoginForm(this);" style="display:inline;"><div><%-- display:inline for IE6 only --%>
                             <%-- Add the authenticationTarget to the form because the new session could expire before they login and lost their target --%>
                             <logic:present scope="session" name="authenticationTarget">
-                                <bean:define scope="session" name="authenticationTarget" type="java.lang.String" id="authenticationTarget" />
-                                <input type="hidden" name="authenticationTarget" value="<%= authenticationTarget %>" />
+                                <ao:input type="hidden" name="authenticationTarget"><ao:write type="text/url" scope="session" name="authenticationTarget" /></ao:input>
                             </logic:present>
                             <table cellspacing='2' cellpadding='0'>
                                 <tr>

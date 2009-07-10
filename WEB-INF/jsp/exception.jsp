@@ -84,12 +84,20 @@
                             </skin:lightArea><br />
                             <br />
                         </logic:present>
-                        <%-- Struts Exception --%>
+                        <%-- Struts Exceptions --%>
                         <logic:present scope="request" name="exception">
                             <skin:lightArea>
                                 <fmt:message key="exception.strutsException.title" />
                                 <hr />
                                 <ao:pre><ao:getStackTraces scope="request" name="exception" /></ao:pre>
+                            </skin:lightArea><br />
+                            <br />
+                        </logic:present>
+                        <logic:present scope="request" name="org.apache.struts.action.EXCEPTION">
+                            <skin:lightArea>
+                                <fmt:message key="exception.strutsException.title" />
+                                <hr />
+                                <ao:pre><ao:getStackTraces scope="request" name="org.apache.struts.action.EXCEPTION" /></ao:pre>
                             </skin:lightArea><br />
                             <br />
                         </logic:present>
