@@ -640,9 +640,7 @@ public class TextSkin extends Skin {
 
     public void beginLightArea(HttpServletRequest req, HttpServletResponse resp, JspWriter out, String width, boolean nowrap) throws JspException {
         try {
-            out.print("<table style='border:5px outset #a0a0a0;' cellpadding='0' cellspacing='0'>\n"
-                    + "  <tr>\n"
-                    + "    <td class='aoLightRow' style='padding:4px;");
+            out.print("<table style='border:5px outset #a0a0a0;");
             if(width!=null && (width=width.trim()).length()>0) {
                 out.print(" width:");
                 try {
@@ -654,6 +652,9 @@ public class TextSkin extends Skin {
                 }
                 out.print(';');
             }
+            out.print("' cellpadding='0' cellspacing='0'>\n"
+                    + "  <tr>\n"
+                    + "    <td class='aoLightRow' style='padding:4px;");
             if(nowrap) out.print(" white-space:nowrap;");
             out.print("'>");
         } catch(IOException err) {
@@ -673,9 +674,7 @@ public class TextSkin extends Skin {
     
     public void beginWhiteArea(HttpServletRequest req, HttpServletResponse resp, JspWriter out, String width, boolean nowrap) throws JspException {
         try {
-            out.print("<table style='border:5px outset #a0a0a0;' cellpadding='0' cellspacing='0'>\n"
-                    + "  <tr>\n"
-                    + "    <td class='aoWhiteRow' style='padding:4px;");
+            out.print("<table style='border:5px outset #a0a0a0;");
             if(width!=null && (width=width.trim()).length()>0) {
                 out.print(" width:");
                 try {
@@ -687,6 +686,9 @@ public class TextSkin extends Skin {
                 }
                 out.print(';');
             }
+            out.print("' cellpadding='0' cellspacing='0'>\n"
+                    + "  <tr>\n"
+                    + "    <td class='aoWhiteRow' style='padding:4px;");
             if(nowrap) out.print(" white-space:nowrap;");
             out.print("'>");
         } catch(IOException err) {
