@@ -648,10 +648,11 @@ public class TextSkin extends Skin {
                 try {
                     int intWidth = Integer.parseInt(width);
                     out.print(intWidth);
-                    out.print("px;");
+                    out.print("px");
                 } catch(NumberFormatException err) {
                     out.print(width);
                 }
+                out.print(';');
             }
             if(nowrap) out.print(" white-space:nowrap;");
             out.print("'>");
@@ -672,7 +673,7 @@ public class TextSkin extends Skin {
     
     public void beginWhiteArea(HttpServletRequest req, HttpServletResponse resp, JspWriter out, String width, boolean nowrap) throws JspException {
         try {
-            out.print("<table style='border:5px' cellpadding='0' cellspacing='0'>\n"
+            out.print("<table style='border:5px outset #a0a0a0;' cellpadding='0' cellspacing='0'>\n"
                     + "  <tr>\n"
                     + "    <td class='aoWhiteRow' style='padding:4px;");
             if(width!=null && (width=width.trim()).length()>0) {
@@ -680,10 +681,11 @@ public class TextSkin extends Skin {
                 try {
                     int intWidth = Integer.parseInt(width);
                     out.print(intWidth);
-                    out.print("px;");
+                    out.print("px");
                 } catch(NumberFormatException err) {
                     out.print(width);
                 }
+                out.print(';');
             }
             if(nowrap) out.print(" white-space:nowrap;");
             out.print("'>");
