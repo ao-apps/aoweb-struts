@@ -99,12 +99,12 @@ abstract public class Skin {
     /**
      * Starts one line of content with the initial colspan set to the provided colspan.
      */
-    abstract public void startContentLine(HttpServletRequest req, HttpServletResponse resp, JspWriter out, int colspan, String align) throws JspException;
+    abstract public void startContentLine(HttpServletRequest req, HttpServletResponse resp, JspWriter out, int colspan, String align, String width) throws JspException;
 
     /**
      * Starts one line of content with the initial colspan set to the provided colspan.
      */
-    abstract public void printContentVerticalDivider(HttpServletRequest req, HttpServletResponse resp, JspWriter out, boolean visible, int colspan, int rowspan, String align) throws JspException;
+    abstract public void printContentVerticalDivider(HttpServletRequest req, HttpServletResponse resp, JspWriter out, boolean visible, int colspan, int rowspan, String align, String width) throws JspException;
 
     /**
      * Ends one line of content.

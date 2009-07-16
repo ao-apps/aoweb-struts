@@ -310,6 +310,16 @@
       <description>The starting alignment, other alignments may be applied using contentVerticalDivider.</description>
     </attribute>
     <attribute>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>String</type>
+      <description>
+        The width for the content starting this line.  This should be formatted for use
+        in a style width: attribute, such as 100px or 33%.
+      </description>
+    </attribute>
+    <attribute>
       <name>endsInternal</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -350,6 +360,16 @@
       <rtexprvalue>true</rtexprvalue>
       <type>String</type>
       <description>The alignment for this part of the line.</description>
+    </attribute>
+    <attribute>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>String</type>
+      <description>
+        The width for the content following the divider.  This should be formatted for use
+        in a style width: attribute, such as 100px or 33%.
+      </description>
     </attribute>
     <example />
   </tag>

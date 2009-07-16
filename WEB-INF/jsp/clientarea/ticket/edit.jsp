@@ -100,38 +100,44 @@
                                             </td>
                                             <td><html:errors bundle="/clientarea/ticket/ApplicationResources" property="accounting" /></td>
                                         </tr>
-                                        <logic:notEmpty name="ticketForm" property="contactEmails">
-                                            <tr>
-                                                <td style="white-space:nowrap"><fmt:message key="TicketForm.field.contactEmails.prompt" /></td>
-                                                <td>
-                                                    <logic:notEqual name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
-                                                        <bean:define scope="request" name="ticketForm" property="contactEmails" type="java.lang.String" id="contactEmails" />
-                                                        <% int numContactEmails = com.aoindustries.util.StringUtility.splitLines(contactEmails).size(); %>
-                                                        <html:textarea property="contactEmails" cols="40" rows="<%= Integer.toString(Math.max(numContactEmails, 1)) %>" />
-                                                    </logic:notEqual>
-                                                    <logic:equal name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
+                                        <tr>
+                                            <td style="white-space:nowrap"><fmt:message key="TicketForm.field.contactEmails.prompt" /></td>
+                                            <td>
+                                                <logic:notEqual name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
+                                                    <bean:define scope="request" name="ticketForm" property="contactEmails" type="java.lang.String" id="contactEmails" />
+                                                    <% int numContactEmails = com.aoindustries.util.StringUtility.splitLines(contactEmails).size(); %>
+                                                    <html:textarea property="contactEmails" cols="40" rows="<%= Integer.toString(Math.max(numContactEmails, 1)) %>" />
+                                                </logic:notEqual>
+                                                <logic:equal name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
+                                                    <logic:notEmpty name="ticketForm" property="contactEmails">
                                                         <div style="border:1px inset; padding: 4px"><pre style="display:inline"><html:hidden property="contactEmails" write="true" /></pre></div>
-                                                    </logic:equal>
-                                                </td>
-                                                <td><html:errors bundle="/clientarea/ticket/ApplicationResources" property="contactEmails" /></td>
-                                            </tr>
-                                        </logic:notEmpty>
-                                        <logic:notEmpty name="ticketForm" property="contactPhoneNumbers">
-                                            <tr>
-                                                <td style="white-space:nowrap"><fmt:message key="TicketForm.field.contactPhoneNumbers.prompt" /></td>
-                                                <td>
-                                                    <logic:notEqual name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
-                                                        <bean:define scope="request" name="ticketForm" property="contactPhoneNumbers" type="java.lang.String" id="contactPhoneNumbers" />
-                                                        <% int numContactPhoneNumbers = com.aoindustries.util.StringUtility.splitLines(contactPhoneNumbers).size(); %>
-                                                        <html:textarea property="contactPhoneNumbers" cols="40" rows="<%= Integer.toString(Math.max(numContactPhoneNumbers, 1)) %>" />
-                                                    </logic:notEqual>
-                                                    <logic:equal name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
+                                                    </logic:notEmpty>
+                                                    <logic:empty name="ticketForm" property="contactEmails">
+                                                        <html:hidden property="contactEmails" write="true" />
+                                                    </logic:empty>
+                                                </logic:equal>
+                                            </td>
+                                            <td><html:errors bundle="/clientarea/ticket/ApplicationResources" property="contactEmails" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="white-space:nowrap"><fmt:message key="TicketForm.field.contactPhoneNumbers.prompt" /></td>
+                                            <td>
+                                                <logic:notEqual name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
+                                                    <bean:define scope="request" name="ticketForm" property="contactPhoneNumbers" type="java.lang.String" id="contactPhoneNumbers" />
+                                                    <% int numContactPhoneNumbers = com.aoindustries.util.StringUtility.splitLines(contactPhoneNumbers).size(); %>
+                                                    <html:textarea property="contactPhoneNumbers" cols="40" rows="<%= Integer.toString(Math.max(numContactPhoneNumbers, 1)) %>" />
+                                                </logic:notEqual>
+                                                <logic:equal name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
+                                                    <logic:notEmpty name="ticketForm" property="contactPhoneNumbers">
                                                         <div style="border:1px inset; padding: 4px"><pre style="display:inline"><html:hidden property="contactPhoneNumbers" write="true" /></pre></div>
-                                                    </logic:equal>
-                                                </td>
-                                                <td><html:errors bundle="/clientarea/ticket/ApplicationResources" property="contactPhoneNumbers" /></td>
-                                            </tr>
-                                        </logic:notEmpty>
+                                                    </logic:notEmpty>
+                                                    <logic:empty name="ticketForm" property="contactPhoneNumbers">
+                                                        <html:hidden property="contactPhoneNumbers" write="true" />
+                                                    </logic:empty>
+                                                </logic:equal>
+                                            </td>
+                                            <td><html:errors bundle="/clientarea/ticket/ApplicationResources" property="contactPhoneNumbers" /></td>
+                                        </tr>
                                         <tr>
                                             <td style="white-space:nowrap"><fmt:message key="TicketForm.field.clientPriority.prompt" /></td>
                                             <td>

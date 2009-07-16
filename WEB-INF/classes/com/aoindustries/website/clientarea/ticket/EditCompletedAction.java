@@ -14,6 +14,7 @@ import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -129,7 +130,13 @@ public class EditCompletedAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
+    private static final List<AOServPermission.Permission> permissions = new ArrayList<AOServPermission.Permission>(2);
+    private static final List<AOServPermission.Permission> unmodifiablePermissions = Collections.unmodifiableList(permissions);
+    static {
+        permissions.add(AOServPermission.Permission.add_ticket);
+        permissions.add(AOServPermission.Permission.edit_ticket);
+    }
     public List<AOServPermission.Permission> getPermissions() {
-        return Collections.singletonList(AOServPermission.Permission.edit_ticket);
+        return unmodifiablePermissions;
     }
 }

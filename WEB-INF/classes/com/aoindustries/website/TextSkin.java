@@ -453,7 +453,7 @@ public class TextSkin extends Skin {
 
     public void printContentTitle(HttpServletRequest req, HttpServletResponse resp, JspWriter out, String title, int colspan) throws JspException {
         try {
-            startContentLine(req, resp, out, colspan, "center");
+            startContentLine(req, resp, out, colspan, "center", null);
             out.print("<h1>");
             out.print(title);
             out.print("</h1>\n");
@@ -463,10 +463,16 @@ public class TextSkin extends Skin {
         }
     }
 
-    public void startContentLine(HttpServletRequest req, HttpServletResponse resp, JspWriter out, int colspan, String align) throws JspException {
+    public void startContentLine(HttpServletRequest req, HttpServletResponse resp, JspWriter out, int colspan, String align, String width) throws JspException {
         try {
             out.print("            <tr>\n"
-                    + "              <td valign='top'");
+                    + "              <td");
+            if(width!=null && width.length()>0) {
+                out.append(" style='width:");
+                out.append(width);
+                out.append('\'');
+            }
+            out.print(" valign='top'");
             if(colspan!=1) {
                 out.print(" colspan='");
                 out.print(colspan);
@@ -483,11 +489,17 @@ public class TextSkin extends Skin {
         }
     }
 
-    public void printContentVerticalDivider(HttpServletRequest req, HttpServletResponse resp, JspWriter out, boolean visible, int colspan, int rowspan, String align) throws JspException {
+    public void printContentVerticalDivider(HttpServletRequest req, HttpServletResponse resp, JspWriter out, boolean visible, int colspan, int rowspan, String align, String width) throws JspException {
         try {
             out.print("              </td>\n");
             if(visible) out.print("              <td>&#160;</td>\n");
-            out.print("              <td valign='top'");
+            out.print("              <td");
+            if(width!=null && width.length()>0) {
+                out.append(" style='width:");
+                out.append(width);
+                out.append('\'');
+            }
+            out.print(" valign='top'");
             if(colspan!=1) {
                 out.print(" colspan='");
                 out.print(colspan);
