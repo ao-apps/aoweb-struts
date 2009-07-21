@@ -134,5 +134,6 @@ public class VncConsoleProxySocketHandler {
         );
         thread.setDaemon(true); // Don't prevent JVM shutdown
         thread.setPriority(Thread.NORM_PRIORITY+2); // Higher priority for higher performance
+        thread.start();
     }
 }

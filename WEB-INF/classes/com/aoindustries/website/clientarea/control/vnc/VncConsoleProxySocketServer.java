@@ -11,10 +11,10 @@ import com.aoindustries.aoserv.client.NetBind;
 import com.aoindustries.website.LogFactory;
 import com.aoindustries.website.SiteSettings;
 import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
-import java.security.Security;
 import java.util.logging.Level;
-import javax.net.ssl.SSLServerSocket;
+import javax.net.ServerSocketFactory;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.servlet.ServletContext;
 
@@ -56,12 +56,16 @@ public class VncConsoleProxySocketServer implements Runnable {
                 System.setProperty("javax.net.ssl.keyStore", myServletContext.getRealPath("/WEB-INF/keystore"));
                 System.setProperty("javax.net.ssl.keyStoreType", myServletContext.getInitParameter("javax.net.ssl.keyStoreType"));
                 System.setProperty("javax.net.ssl.keyStorePassword", myServletContext.getInitParameter("javax.net.ssl.keyStorePassword"));
-                SSLServerSocketFactory factory = (SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
-                SSLServerSocket SS=(SSLServerSocket)factory.createServerSocket(vncBind.getPort().getPort(), 50, inetAddress);
-                while(currentThread==this.thread) {
-                    Socket socket = SS.accept();
-                    socket.setKeepAlive(true);
-                    new VncConsoleProxySocketHandler(servletContext, rootConn, socket);
+                ServerSocketFactory factory = SSLServerSocketFactory.getDefault();
+                ServerSocket SS=factory.createServerSocket(vncBind.getPort().getPort(), 50, inetAddress);
+                try {
+                    while(currentThread==this.thread) {
+                        Socket socket = SS.accept();
+                        socket.setKeepAlive(true);
+                        new VncConsoleProxySocketHandler(servletContext, rootConn, socket);
+                    }
+                } finally {
+                    SS.close();
                 }
             } catch(ThreadDeath TD) {
                 throw TD;
