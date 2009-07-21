@@ -3,6 +3,9 @@
   <!-- Configuration for root AOServConnector -->
   <Parameter name="root.aoserv.client.username" value="$AOSERV_USERNAME" />
   <Parameter name="root.aoserv.client.password" value="$AOSERV_PASSWORD" />
+  <!-- SSL server configuration -->
+  <Parameter name="javax.net.ssl.keyStoreType" value="$KEYSTORE_TYPE" />
+  <Parameter name="javax.net.ssl.keyStorePassword" value="$KEYSTORE_PASSWORD" />
   <!--
     Configuration for auto-redirect between HTTP and HTTPS.  It is
     recommended to not perform the redirect in development to make links as

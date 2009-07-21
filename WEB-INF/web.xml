@@ -81,12 +81,21 @@
 <!-- Include "web.xml.strutsInitParams" -->
     <load-on-startup>2</load-on-startup>
   </servlet>
+  <servlet>
+    <servlet-name>com.aoindustries.website.clientarea.control.vnc.VncConsoleProxyServlet</servlet-name>
+    <servlet-class>com.aoindustries.website.clientarea.control.vnc.VncConsoleProxyServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
 
 <!-- Include "web.xml.servlets" -->
 
 <!-- Include "web.xml.servletMappingsPre" -->
 
   <!-- Action Servlet Mapping -->
+  <servlet-mapping>
+    <servlet-name>com.aoindustries.website.clientarea.control.vnc.VncConsoleProxyServlet</servlet-name>
+    <url-pattern>/clientarea/control/vnc/vnc-console-proxy</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>action</servlet-name>
     <url-pattern>*.do</url-pattern>
