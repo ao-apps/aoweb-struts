@@ -31,6 +31,7 @@
         <!-- / -->
         <forward name="exception" module="" path="/WEB-INF/jsp/exception.jsp" redirect="false" />
         <forward name="login" module="" path="/login.do" redirect="false" />
+        <forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
     </global-forwards>
 
     <!-- ========== Action Mapping Definitions ============================== -->
@@ -87,6 +88,10 @@
             <!-- Redirect done directly from Action now: forward name="success" module="" path="/clientarea/index.do" redirect="true" /-->
             <forward name="failure" module="" path="/WEB-INF/jsp/login.jsp" redirect="false" />
         </action>
+        <action
+            path="/permission-denied"
+            type="com.aoindustries.website.PermissionDeniedAction"
+        />
         <action
             path="/session-timeout"
             name="loginForm"

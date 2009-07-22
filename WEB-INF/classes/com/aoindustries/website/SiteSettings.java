@@ -205,10 +205,16 @@ public class SiteSettings {
     }
     // </editor-fold>
     // <editor-fold desc="Development vs Production">
+    /**
+     * Defaults to <code>true</code>.
+     */
     public boolean getProtocolActionRedirectOnMismatch() {
         return !"false".equals(servletContext.getInitParameter("com.aoindustries.website.ProtocolAction.redirectOnMismatch"));
     }
 
+    /**
+     * Defaults to <code>false</code>.
+     */
     public boolean getExceptionShowError() {
         return "true".equals(servletContext.getInitParameter("exception.showError"));
     }

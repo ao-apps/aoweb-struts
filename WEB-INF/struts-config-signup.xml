@@ -41,6 +41,7 @@
         <!-- / -->
         <forward name="exception" module="" path="/WEB-INF/jsp/exception.jsp" redirect="false" />
         <forward name="login" module="" path="/login.do" redirect="false" />
+        <forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
         <!-- /signup -->
         <forward name="virtual-dedicated-server" path="/virtual-dedicated-server.do" redirect="true" />
         <forward name="virtual-dedicated-server-completed" path="/virtual-dedicated-server-completed.do" redirect="true" />

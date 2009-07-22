@@ -17,5 +17,10 @@
             <skin:navImageAlt><fmt:message key="password.index.navImageAlt" /></skin:navImageAlt>
             <skin:description><fmt:message key="password.index.description" /></skin:description>
         </skin:addSibling>
+        <skin:addSibling useEncryption="true" path="/clientarea/control/vnc/vnc-console.do">
+            <skin:title><fmt:message key="vnc.vncConsole.title" /></skin:title>
+            <skin:navImageAlt><fmt:message key="vnc.vncConsole.navImageAlt" /></skin:navImageAlt>
+            <skin:description><fmt:message key="vnc.vncConsole.description" /></skin:description>
+        </skin:addSibling>
     </fmt:bundle>
 </aoweb:notExists>

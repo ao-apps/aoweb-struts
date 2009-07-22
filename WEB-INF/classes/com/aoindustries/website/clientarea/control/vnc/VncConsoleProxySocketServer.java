@@ -58,32 +58,13 @@ public class VncConsoleProxySocketServer implements Runnable {
                 NetBind vncBind = brand.getAowebStrutsVncBind();
                 InetAddress inetAddress = InetAddress.getByName(vncBind.getIPAddress().getIPAddress());
                 AOServConnector rootConn = siteSettings.getRootAOServConnector();
-                // Init SSL
-                //System.setProperty("javax.net.ssl.keyStore", myServletContext.getRealPath("/WEB-INF/keystore"));
-                //System.setProperty("javax.net.ssl.keyStoreType", myServletContext.getInitParameter("javax.net.ssl.keyStoreType"));
-                //System.setProperty("javax.net.ssl.keyStorePassword", myServletContext.getInitParameter("javax.net.ssl.keyStorePassword"));
-
-                // Load the keystore
-                /*KeyStore keystore = KeyStore.getInstance(myServletContext.getInitParameter("javax.net.ssl.keyStoreType"));
-                InputStream keystoreIn = myServletContext.getResourceAsStream("/WEB-INF/keystore");
-                try {
-                    keystore.load(
-                        keystoreIn,
-                        myServletContext.getInitParameter("javax.net.ssl.keyStorePassword").toCharArray()
-                    );
-                } finally {
-                    keystoreIn.close();
-                }
-                Certificate mycert = keystore.getCertificate("mykey");
-                 */
-
                 // Init SSL without using system properties because default SSLContext may be already set
                 // From: http://java.sun.com/j2se/1.5.0/docs/guide/security/jsse/JSSERefGuide.html  "Multiple and Dynamic Keystores"
                 KeyStore.Builder fsBuilder = KeyStore.Builder.newInstance(
-                    myServletContext.getInitParameter("javax.net.ssl.keyStoreType"),
+                    brand.getAowebStrutsKeystoreType(),
                     null,
                     new File(myServletContext.getRealPath("/WEB-INF/keystore")),
-                    new KeyStore.PasswordProtection(myServletContext.getInitParameter("javax.net.ssl.keyStorePassword").toCharArray())
+                    new KeyStore.PasswordProtection(brand.getAowebStrutsKeystorePassword().toCharArray())
                 );
                 ManagerFactoryParameters ksParams = new KeyStoreBuilderParameters(Collections.singletonList(fsBuilder));
                 KeyManagerFactory factory = KeyManagerFactory.getInstance("NewSunX509");

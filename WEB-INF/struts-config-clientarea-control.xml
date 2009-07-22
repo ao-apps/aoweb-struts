@@ -34,6 +34,7 @@
         <!-- / -->
         <forward name="exception" module="" path="/WEB-INF/jsp/exception.jsp" redirect="false" />
         <forward name="login" module="" path="/login.do" redirect="false" />
+        <forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
     </global-forwards>
 
     <!-- ========== Action Mapping Definitions ============================== -->
@@ -213,6 +214,19 @@
             <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/control/password/global-password-setter.jsp" redirect="false" />
             <forward name="input" module="" path="/WEB-INF/jsp/clientarea/control/password/global-password-setter.jsp" redirect="false" />
             <forward name="success" module="" path="/WEB-INF/jsp/clientarea/control/password/global-password-setter.jsp" redirect="false" />
+        </action>
+        <action
+            path="/vnc/vnc-console"
+            type="com.aoindustries.website.clientarea.control.vnc.VncConsoleAction"
+        >
+            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/control/vnc/vnc-console.jsp" redirect="false" />
+            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/control/vnc/vnc-console.jsp" redirect="false" />
+        </action>
+        <action
+            path="/vnc/vnc-viewer"
+            type="com.aoindustries.website.clientarea.control.vnc.VncViewerAction"
+        >
+            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/control/vnc/vnc-viewer.jsp" redirect="false" />
         </action>
         <action
             path="/**"
