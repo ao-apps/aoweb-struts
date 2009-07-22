@@ -5,15 +5,14 @@
   All rights reserved.
 --%>
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
-<%-- Vertical applet resize doesn't work in Firefox 2, Java 1.6, Linux, XHTML 1.0 Strict/Transitional and HTML 4.01 --%>
-<%-- Maybe fixed in JDK 1.7: http://forums.java.net/jive/thread.jspa?threadID=57236&tstart=30 --%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
-<html>
+<skin:setContentType />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html:html lang="true" xhtml="true">
     <head>
         <title><c:out value="${virtualServer.server.name}" /></title>
-        <script type="text/javascript">
+        <ao:script>
             // From http://www.hypergeneric.com/corpus/javascript-inner-viewport-resize/
             function GetInnerSize() {
                 // all except Explorer
@@ -48,23 +47,30 @@
                     window.moveTo(x,y);
                 }
             }
-        </script>
+        </ao:script>
         <style type='text/css'>
-          body {
+          html, body {
             margin:0px;
             padding:0px;
+          }
+          #container {
+              position:absolute;
+              width:100%;
+              height:100%;
           }
         </style>
     </head>
     <body>
-        <applet code="VncViewer.class" archive="<c:out value="${siteSettings.brand.aowebStrutsHttpsUrlBase}clientarea/control/vnc/VncViewer.jar" />" width="100%" height="100%">
-            <param name="HOST" value="<c:out value="${siteSettings.brand.aowebStrutsHttpsURL.host}" />" />
-            <param name="PORT" value="<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port}" />" />
-            <param name="PASSWORD" value="<c:out value="${virtualServer.vncPassword}" />" />
-            <param name="trustUrlVncCert" value="yes" />
-            <param name="showDotCursor" value="yes" />
-            <param name="resizeAppletWindow" value="yes" />
-            <param name="centerControls" value="yes" />
-        </applet>
+        <div id="container">
+            <applet code="VncViewer.class" archive="<c:out value="${siteSettings.brand.aowebStrutsHttpsUrlBase}clientarea/control/vnc/VncViewer.jar" />" width="100%" height="100%">
+                <param name="HOST" value="<c:out value="${siteSettings.brand.aowebStrutsHttpsURL.host}" />" />
+                <param name="PORT" value="<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port}" />" />
+                <param name="PASSWORD" value="<c:out value="${virtualServer.vncPassword}" />" />
+                <param name="trustUrlVncCert" value="yes" />
+                <param name="showDotCursor" value="yes" />
+                <param name="resizeAppletWindow" value="yes" />
+                <param name="centerControls" value="yes" />
+            </applet>
+        </div>
     </body>
-</html>
+</html:html>
