@@ -45,12 +45,14 @@
                                         <skin:lightDarkTableRow>
                                             <td><bean:write name="vncVirtualServer" property="server.name" /></td>
                                             <td>
-                                                <c:if test="${siteSettings.brand.aowebStrutsVncBind.port.port < 5900}">
-                                                    <c:out value="${siteSettings.brand.aowebStrutsHttpsURL.host}" />::<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port}" />
-                                                </c:if>
-                                                <c:if test="${siteSettings.brand.aowebStrutsVncBind.port.port >= 5900}">
-                                                    <c:out value="${siteSettings.brand.aowebStrutsHttpsURL.host}" />:<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port - 5900}" />
-                                                </c:if>
+                                                <c:choose>
+                                                    <c:when test="${siteSettings.brand.aowebStrutsVncBind.port.port < 5900}">
+                                                        <c:out value="${siteSettings.brand.aowebStrutsHttpsURL.host}" />::<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port}" />
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:out value="${siteSettings.brand.aowebStrutsHttpsURL.host}" />:<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port - 5900}" />
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </td>
                                             <td><fmt:message key="vnc.vncConsole.sslRequired.yes" /></td>
                                             <td><c:out value="${vncVirtualServer.vncPassword}" /></td>
