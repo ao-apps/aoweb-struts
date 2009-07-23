@@ -28,36 +28,27 @@
                     var inner = getInnerSize();
                     var ox = w-inner[0];
                     var oy = h-inner[1];
-                    if(ox!=0 && oy!=0) {
-                        if(ox>0 || oy>0) {
-                            // Move first since resizeBy larger may not result in desired size
-                            if(window.moveBy) {
-                                window.moveBy(-Math.round(ox/2), -Math.round(oy/2));
-                            } else {
-                                var x = window.screenLeft || window.screenX;
-                                var y = window.screenTop || window.screenY;
-                                window.moveTo(x-Math.round(ox/2), y-Math.round(oy/2));
-                            }
+                    if(ox!=0 || oy!=0) {
+                        // Move by half to keep centered
+                        if(window.moveBy) {
+                            window.moveBy(-Math.round(ox/2), -Math.round(oy/2));
+                        } else {
+                            var x = window.screenLeft || window.screenX;
+                            var y = window.screenTop || window.screenY;
+                            window.moveTo(x-Math.round(ox/2), y-Math.round(oy/2));
                         }
-                        window.resizeBy(ox, oy);
-                        if(ox<=0 && oy<=0) {
-                            // Move after since resizeBy smaller
-                            if(window.moveBy) {
-                                window.moveBy(-Math.round(ox/2), -Math.round(oy/2));
-                            } else {
-                                var x = window.screenLeft || window.screenX;
-                                var y = window.screenTop || window.screenY;
-                                window.moveTo(x-Math.round(ox/2), y-Math.round(oy/2));
-                            }
-                        }
-                        // If the above didn't result in the desired size, do one last resizeBy/moveBy set.
-                        // This occurs when window is not resized enough due to right side ending up offscreen.
                         inner = getInnerSize();
                         ox = w-inner[0];
                         oy = h-inner[1];
                         if(ox!=0 || oy!=0) {
-                            if(ox>0 || oy>0) {
-                                // Move first since resizeBy larger may not result in desired size
+                            window.resizeBy(ox, oy);
+                            inner = getInnerSize();
+                            ox = w-inner[0];
+                            oy = h-inner[1];
+                            var didSecondResize = false;
+                            if(ox!=0 || oy!=0) {
+                                // Move and resize again since resizeBy smaller than requested.
+                                // This occurs when window is not resized enough due to right side ending up offscreen.
                                 if(window.moveBy) {
                                     window.moveBy(-ox, -oy);
                                 } else {
@@ -65,16 +56,24 @@
                                     var y = window.screenTop || window.screenY;
                                     window.moveTo(x-ox, y-oy);
                                 }
+                                inner = getInnerSize();
+                                ox = w-inner[0];
+                                oy = h-inner[1];
+                                if(ox!=0 || oy!=0) {
+                                    window.resizeBy(ox, oy);
+                                    didSecondResize = true;
+                                }
                             }
-                            window.resizeBy(ox, oy);
-                            if(ox<=0 && oy<=0) {
-                                // Move after since resizeBy smaller
-                                if(window.moveBy) {
-                                    window.moveBy(-ox, -oy);
-                                } else {
-                                    var x = window.screenLeft || window.screenX;
-                                    var y = window.screenTop || window.screenY;
-                                    window.moveTo(x-ox, y-oy);
+                            if(!didSecondResize) {
+                                // IE8 applet resize bug workaround.
+                                // The applet is not resized when window.resizeBy is followed by getInnerSize().
+                                // Browser detect from http://www.javascriptkit.com/javatutors/navigator.shtml
+                                if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)){ //test for MSIE x.x;
+                                    var ieversion=new Number(RegExp.$1) // capture x.x portion and store as a number
+                                    if(ieversion>=8) {
+                                        window.resizeBy(-10, -10);
+                                        window.resizeBy(10, 10);
+                                    }
                                 }
                             }
                         }
