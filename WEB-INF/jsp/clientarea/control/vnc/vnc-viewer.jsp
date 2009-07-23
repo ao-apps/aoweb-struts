@@ -30,18 +30,24 @@
                     var oy = h-inner[1];
                     if(ox!=0 || oy!=0) {
                         // Move by half to keep centered
-                        if(window.moveBy) {
-                            window.moveBy(-Math.round(ox/2), -Math.round(oy/2));
-                        } else {
-                            var x = window.screenLeft || window.screenX;
-                            var y = window.screenTop || window.screenY;
-                            window.moveTo(x-Math.round(ox/2), y-Math.round(oy/2));
-                        }
+                        var oldX = window.screenLeft || window.screenX;
+                        var oldY = window.screenTop || window.screenY;
+                        var newX = oldX-Math.round(ox/2);
+                        var newY = oldY-Math.round(oy/2);
+                        if(window.moveBy) window.moveBy(-Math.round(ox/2), -Math.round(oy/2));
+                        else window.moveTo(newX, newY);
+                        var actualX = window.screenLeft || window.screenX;
+                        var actualY = window.screenTop || window.screenY;
                         inner = getInnerSize();
                         ox = w-inner[0];
                         oy = h-inner[1];
                         if(ox!=0 || oy!=0) {
                             window.resizeBy(ox, oy);
+                            // Move again since didn't move far enough before resize
+                            if(actualX!=newX || actualY!=newY) {
+                                if(window.moveBy) window.moveBy(newX-actualX, newY-actualY);
+                                else window.moveTo(newX, newy);
+                            }
                             inner = getInnerSize();
                             ox = w-inner[0];
                             oy = h-inner[1];
