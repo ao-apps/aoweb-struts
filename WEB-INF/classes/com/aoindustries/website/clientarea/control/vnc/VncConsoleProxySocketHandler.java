@@ -7,9 +7,9 @@ package com.aoindustries.website.clientarea.control.vnc;
  */
 import com.aoindustries.aoserv.client.AOServClientConfiguration;
 import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AOServProtocol;
 import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.IPAddress;
-import com.aoindustries.aoserv.client.Server;
 import com.aoindustries.aoserv.client.VirtualServer;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonConnection;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonConnector;
@@ -23,7 +23,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import javax.servlet.ServletContext;
 
@@ -34,91 +36,194 @@ import javax.servlet.ServletContext;
  */
 public class VncConsoleProxySocketHandler {
 
+    private static final byte[] protocolVersion_3_3 = {
+        // "RFB 003.003\n"
+        (byte)'R',
+        (byte)'F',
+        (byte)'B',
+        (byte)' ',
+        (byte)'0',
+        (byte)'0',
+        (byte)'3',
+        (byte)'.',
+        (byte)'0',
+        (byte)'0',
+        (byte)'3',
+        (byte)'\n'
+    };
+    private static final byte[] protocolVersion_3_5 = {
+        // "RFB 003.005\n"
+        (byte)'R',
+        (byte)'F',
+        (byte)'B',
+        (byte)' ',
+        (byte)'0',
+        (byte)'0',
+        (byte)'3',
+        (byte)'.',
+        (byte)'0',
+        (byte)'0',
+        (byte)'5',
+        (byte)'\n'
+    };
     public VncConsoleProxySocketHandler(final ServletContext servletContext, final AOServConnector rootConn, final Socket socket) {
         // This thread will read from socket
         Thread thread = new Thread(
             new Runnable() {
                 public void run() {
                     try {
-                        // TODO: Find which server is being connected to based on the authentication information
-                        // TODO: This is just a hard-coded default for now
-                        Server server = rootConn.getServers().get("AOINDUSTRIES/noc.hotairnetwork.net");
-                        if(server==null) throw new SQLException("Unable to find Server: AOINDUSTRIES/noc.hotairnetwork.net");
-                        VirtualServer virtualServer = server.getVirtualServer();
-                        if(virtualServer==null) throw new SQLException("Unable to find VirtualServer: AOINDUSTRIES/noc.hotairnetwork.net");
-                        // Connect through AOServ system
-                        AOServer.DaemonAccess daemonAccess = virtualServer.requestVncConsoleAccess();
-                        AOServDaemonConnector daemonConnector=AOServDaemonConnector.getConnector(
-                            daemonAccess.getHost(),
-                            IPAddress.WILDCARD_IP,
-                            daemonAccess.getPort(),
-                            daemonAccess.getProtocol(),
-                            null,
-                            100,
-                            AOPool.DEFAULT_MAX_CONNECTION_AGE,
-                            AOServClientConfiguration.getSslTruststorePath(),
-                            AOServClientConfiguration.getSslTruststorePassword(),
-                            LogFactory.getLogger(servletContext, getClass())
-                        );
-                        final AOServDaemonConnection daemonConn=daemonConnector.getConnection();
-                        try {
-                            final CompressedDataOutputStream daemonOut = daemonConn.getOutputStream();
-                            daemonOut.writeCompressedInt(AOServDaemonProtocol.VNC_CONSOLE);
-                            daemonOut.writeLong(daemonAccess.getKey());
-                            daemonOut.flush();
+                        final OutputStream socketOut = socket.getOutputStream();
+                        final InputStream socketIn = socket.getInputStream();
 
-                            final CompressedDataInputStream daemonIn = daemonConn.getInputStream();
-                            int result=daemonIn.read();
-                            if(result==AOServDaemonProtocol.NEXT) {
-                                final OutputStream socketOut = socket.getOutputStream();
-                                final InputStream socketIn = socket.getInputStream();
-                                // socketIn -> daemonOut in another thread
-                                Thread inThread = new Thread(
-                                    new Runnable() {
-                                        public void run() {
-                                            try {
-                                                try {
-                                                    byte[] buff = new byte[4096];
-                                                    int ret;
-                                                    while((ret=socketIn.read(buff, 0, 4096))!=-1) {
-                                                        daemonOut.write(buff, 0, ret);
-                                                        daemonOut.flush();
-                                                    }
-                                                } finally {
-                                                    daemonConn.close();
-                                                }
-                                            } catch(ThreadDeath TD) {
-                                                throw TD;
-                                            } catch(Throwable T) {
-                                                LogFactory.getLogger(servletContext, getClass()).log(Level.SEVERE, null, T);
-                                            }
-                                        }
-                                    },
-                                    "VncConsoleProxySocketHandler socketIn->daemonOut"
-                                );
-                                inThread.setDaemon(true); // Don't prevent JVM shutdown
-                                inThread.setPriority(Thread.NORM_PRIORITY+2); // Higher priority for higher performance
-                                inThread.start();
-
-                                // daemonIn -> socketOut in this thread
-                                byte[] buff = new byte[4096];
-                                int ret;
-                                while((ret=daemonIn.read(buff, 0, 4096))!=-1) {
-                                    socketOut.write(buff, 0, ret);
-                                    socketOut.flush();
+                        // Find which server is being connected to based on the authentication information
+                        // Protocol Version handshake
+                        socketOut.write(protocolVersion_3_3);
+                        socketOut.flush();
+                        for(int c=0; c<protocolVersion_3_3.length; c++) {
+                            int b = socketIn.read();
+                            System.err.println("DEBUG: b="+b+" (char)b="+((char)b));
+                            if(
+                                protocolVersion_3_3[c]!=b
+                                && protocolVersion_3_5[c]!=b // Accept 3.5 but treat as 3.3
+                            ) throw new IOException("Mismatched protocolVersion from VNC client through socket");
+                        }
+                        // Security type
+                        socketOut.write(0);
+                        socketOut.write(0);
+                        socketOut.write(0);
+                        socketOut.write(2);
+                        // VNC Authentication
+                        byte[] challenge = new byte[16];
+                        AOServConnector.getRandom().nextBytes(challenge);
+                        socketOut.write(challenge);
+                        socketOut.flush();
+                        byte[] response = new byte[16];
+                        for(int c=0;c<16;c++) if((response[c] = (byte)socketIn.read())==-1) throw new EOFException();
+                        VirtualServer virtualServer = null;
+                        for(VirtualServer vs : rootConn.getVirtualServers().getRows()) {
+                            String vncPassword = vs.getVncPassword();
+                            if(vncPassword!=null && !vncPassword.equals(AOServProtocol.FILTERED)) {
+                                byte[] expectedResponse = desCipher(challenge, vncPassword);
+                                if(Arrays.equals(response, expectedResponse)) {
+                                    virtualServer = vs;
+                                    break;
                                 }
-                            } else {
-                                if (result == AOServDaemonProtocol.IO_EXCEPTION) throw new IOException(daemonIn.readUTF());
-                                else if (result == AOServDaemonProtocol.SQL_EXCEPTION) throw new SQLException(daemonIn.readUTF());
-                                else if (result==-1) throw new EOFException();
-                                else throw new IOException("Unknown result: " + result);
                             }
-                        } finally {
-                            daemonConn.close(); // Always close after VNC tunnel
-                            daemonConnector.releaseConnection(daemonConn);
+                        }
+                        if(virtualServer==null) {
+                            // Virtual Server not found
+                            socketOut.write(0);
+                            socketOut.write(0);
+                            socketOut.write(0);
+                            socketOut.write(1);
+                            socketOut.flush();
+                        } else {
+                            // Connect and authenticate to the real VNC server before sending security result
+
+                            // Connect through AOServ system
+                            AOServer.DaemonAccess daemonAccess = virtualServer.requestVncConsoleAccess();
+                            AOServDaemonConnector daemonConnector=AOServDaemonConnector.getConnector(
+                                daemonAccess.getHost(),
+                                IPAddress.WILDCARD_IP,
+                                daemonAccess.getPort(),
+                                daemonAccess.getProtocol(),
+                                null,
+                                100,
+                                AOPool.DEFAULT_MAX_CONNECTION_AGE,
+                                AOServClientConfiguration.getSslTruststorePath(),
+                                AOServClientConfiguration.getSslTruststorePassword(),
+                                LogFactory.getLogger(servletContext, getClass())
+                            );
+                            final AOServDaemonConnection daemonConn=daemonConnector.getConnection();
+                            try {
+                                final CompressedDataOutputStream daemonOut = daemonConn.getOutputStream();
+                                daemonOut.writeCompressedInt(AOServDaemonProtocol.VNC_CONSOLE);
+                                daemonOut.writeLong(daemonAccess.getKey());
+                                daemonOut.flush();
+
+                                final CompressedDataInputStream daemonIn = daemonConn.getInputStream();
+                                int result=daemonIn.read();
+                                if(result==AOServDaemonProtocol.NEXT) {
+                                    // Authenticate to actual VNC
+                                    // Protocol Version handshake
+                                    for(int c=0; c<protocolVersion_3_3.length; c++) {
+                                        if(protocolVersion_3_3[c]!=daemonIn.read()) throw new IOException("Mismatched protocolVersion from VNC server through daemon");
+                                    }
+                                    daemonOut.write(protocolVersion_3_3);
+                                    daemonOut.flush();
+                                    // Security Type
+                                    if(
+                                        daemonIn.read()!=0
+                                        || daemonIn.read()!=0
+                                        || daemonIn.read()!=0
+                                        || daemonIn.read()!=2
+                                    ) throw new IOException("Mismatched security type from VNC server through daemon");
+                                    // VNC Authentication
+                                    for(int c=0;c<16;c++) if((challenge[c] = (byte)daemonIn.read())==-1) throw new EOFException();
+                                    response = desCipher(challenge, virtualServer.getVncPassword());
+                                    daemonOut.write(response);
+                                    daemonOut.flush();
+                                    if(
+                                        daemonIn.read()!=0
+                                        || daemonIn.read()!=0
+                                        || daemonIn.read()!=0
+                                        || daemonIn.read()!=0
+                                    ) throw new IOException("Authentication to real VNC server failed");
+                                    socketOut.write(0);
+                                    socketOut.write(0);
+                                    socketOut.write(0);
+                                    socketOut.write(0);
+
+                                    // socketIn -> daemonOut in another thread
+                                    Thread inThread = new Thread(
+                                        new Runnable() {
+                                            public void run() {
+                                                try {
+                                                    try {
+                                                        byte[] buff = new byte[4096];
+                                                        int ret;
+                                                        while((ret=socketIn.read(buff, 0, 4096))!=-1) {
+                                                            daemonOut.write(buff, 0, ret);
+                                                            daemonOut.flush();
+                                                        }
+                                                    } finally {
+                                                        daemonConn.close();
+                                                    }
+                                                } catch(ThreadDeath TD) {
+                                                    throw TD;
+                                                } catch(Throwable T) {
+                                                    LogFactory.getLogger(servletContext, getClass()).log(Level.SEVERE, null, T);
+                                                }
+                                            }
+                                        },
+                                        "VncConsoleProxySocketHandler socketIn->daemonOut"
+                                    );
+                                    inThread.setDaemon(true); // Don't prevent JVM shutdown
+                                    inThread.setPriority(Thread.NORM_PRIORITY+2); // Higher priority for higher performance
+                                    inThread.start();
+
+                                    // daemonIn -> socketOut in this thread
+                                    byte[] buff = new byte[4096];
+                                    int ret;
+                                    while((ret=daemonIn.read(buff, 0, 4096))!=-1) {
+                                        socketOut.write(buff, 0, ret);
+                                        socketOut.flush();
+                                    }
+                                } else {
+                                    if (result == AOServDaemonProtocol.IO_EXCEPTION) throw new IOException(daemonIn.readUTF());
+                                    else if (result == AOServDaemonProtocol.SQL_EXCEPTION) throw new SQLException(daemonIn.readUTF());
+                                    else if (result==-1) throw new EOFException();
+                                    else throw new IOException("Unknown result: " + result);
+                                }
+                            } finally {
+                                daemonConn.close(); // Always close after VNC tunnel
+                                daemonConnector.releaseConnection(daemonConn);
+                            }
                         }
                     } catch(ThreadDeath TD) {
                         throw TD;
+                    } catch(SocketException err) {
+                        // Do not log any socket exceptions
                     } catch(Throwable T) {
                         LogFactory.getLogger(servletContext, getClass()).log(Level.SEVERE, null, T);
                     } finally {
@@ -135,5 +240,24 @@ public class VncConsoleProxySocketHandler {
         thread.setDaemon(true); // Don't prevent JVM shutdown
         thread.setPriority(Thread.NORM_PRIORITY+2); // Higher priority for higher performance
         thread.start();
+    }
+
+    /**
+     * This is the same as AuthPanel.java
+     */
+    public static byte[] desCipher(byte[] challenge, String password) {
+        if(password.length() > 8) password = password.substring(0, 8);	// Truncate to 8 chars
+        // vncEncryptBytes in the UNIX libvncauth truncates password
+        // after the first zero byte. We do to.
+        int firstZero = password.indexOf(0);
+        if (firstZero != -1) password = password.substring(0, firstZero);
+        byte[] key = {0, 0, 0, 0, 0, 0, 0, 0};
+        System.arraycopy(password.getBytes(), 0, key, 0, password.length());
+        byte[] response = new byte[16];
+        System.arraycopy(challenge, 0, response, 0, 16);
+        DesCipher des = new DesCipher(key);
+        des.encrypt(response, 0, response, 0);
+        des.encrypt(response, 8, response, 8);
+        return response;
     }
 }

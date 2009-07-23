@@ -138,7 +138,7 @@
                 vspace="0"
                 style="padding:0px; margin:0px; border:0px; display:block;"
             >
-                <param name="HOST" value="<c:out value="${siteSettings.brand.aowebStrutsHttpsURL.host}" />" />
+                <param name="HOST" value="<c:out value="${siteSettings.brand.aowebStrutsHttpsURL.host}" />"
                 <param name="PORT" value="<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port}" />" />
                 <param name="PASSWORD" value="<c:out value="${virtualServer.vncPassword}" />" />
                 <param name="trustUrlVncCert" value="yes" />
