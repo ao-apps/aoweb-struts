@@ -57,7 +57,7 @@
                                             <td><fmt:message key="vnc.vncConsole.sslRequired.yes" /></td>
                                             <td><c:out value="${vncVirtualServer.vncPassword}" /></td>
                                             <td style="white-space:nowrap">
-                                                <html:link action="/vnc/vnc-viewer.do" onclick="window.open(this.href, 'vnc-viewer-${vncVirtualServer.server.pkey}-'+(new Date()).getTime(), 'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0,width=380,height=200,left='+((screen.width-380)/2-6)+',top='+((screen.height-75)/2-32)); return false;">
+                                                <html:link action="/vnc/vnc-viewer.do" onclick="window.open(this.href, 'vnc'+(new Date()).getTime(), 'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=1,width=380,height=200,left='+((screen.availWidth-380)/2-64)+',top='+((screen.availHeight-200)/2-48)); return false;">
                                                     <html:param name="virtualServer">${vncVirtualServer.server.pkey}</html:param>
                                                     <fmt:message key="vnc.vncConsole.connectNow.link" />
                                                 </html:link>
