@@ -66,6 +66,21 @@ public class VncConsoleProxySocketHandler {
         (byte)'5',
         (byte)'\n'
     };
+    private static final byte[] protocolVersion_3_8 = {
+        // "RFB 003.008\n"
+        (byte)'R',
+        (byte)'F',
+        (byte)'B',
+        (byte)' ',
+        (byte)'0',
+        (byte)'0',
+        (byte)'3',
+        (byte)'.',
+        (byte)'0',
+        (byte)'0',
+        (byte)'8',
+        (byte)'\n'
+    };
     public VncConsoleProxySocketHandler(final ServletContext servletContext, final AOServConnector rootConn, final Socket socket) {
         // This thread will read from socket
         Thread thread = new Thread(
@@ -81,7 +96,7 @@ public class VncConsoleProxySocketHandler {
                         socketOut.flush();
                         for(int c=0; c<protocolVersion_3_3.length; c++) {
                             int b = socketIn.read();
-                            System.err.println("DEBUG: b="+b+" (char)b="+((char)b));
+                            if(b==-1) throw new EOFException();
                             if(
                                 protocolVersion_3_3[c]!=b
                                 && protocolVersion_3_5[c]!=b // Accept 3.5 but treat as 3.3
@@ -112,6 +127,7 @@ public class VncConsoleProxySocketHandler {
                         }
                         if(virtualServer==null) {
                             // Virtual Server not found
+                            Thread.sleep(5000);
                             socketOut.write(0);
                             socketOut.write(0);
                             socketOut.write(0);
@@ -147,7 +163,12 @@ public class VncConsoleProxySocketHandler {
                                     // Authenticate to actual VNC
                                     // Protocol Version handshake
                                     for(int c=0; c<protocolVersion_3_3.length; c++) {
-                                        if(protocolVersion_3_3[c]!=daemonIn.read()) throw new IOException("Mismatched protocolVersion from VNC server through daemon");
+                                        int b = daemonIn.read();
+                                        if(b==-1) throw new EOFException();
+                                        if(
+                                            protocolVersion_3_3[c]!=b // Hardware virtualized
+                                            && protocolVersion_3_8[c]!=b // Paravirtualized
+                                        ) throw new IOException("Mismatched protocolVersion from VNC server through daemon");
                                     }
                                     daemonOut.write(protocolVersion_3_3);
                                     daemonOut.flush();
@@ -168,7 +189,15 @@ public class VncConsoleProxySocketHandler {
                                         || daemonIn.read()!=0
                                         || daemonIn.read()!=0
                                         || daemonIn.read()!=0
-                                    ) throw new IOException("Authentication to real VNC server failed");
+                                    ) {
+                                        Thread.sleep(5000);
+                                        socketOut.write(0);
+                                        socketOut.write(0);
+                                        socketOut.write(0);
+                                        socketOut.write(1);
+                                        socketOut.flush();
+                                        throw new IOException("Authentication to real VNC server failed");
+                                    }
                                     socketOut.write(0);
                                     socketOut.write(0);
                                     socketOut.write(0);
