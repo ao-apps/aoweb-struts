@@ -96,7 +96,7 @@ public class VncConsoleProxySocketHandler {
                         socketOut.flush();
                         for(int c=0; c<protocolVersion_3_3.length; c++) {
                             int b = socketIn.read();
-                            if(b==-1) throw new EOFException();
+                            if(b==-1) throw new EOFException("EOF from socketIn");
                             if(
                                 protocolVersion_3_3[c]!=b
                                 && protocolVersion_3_5[c]!=b // Accept 3.5 but treat as 3.3
@@ -113,7 +113,7 @@ public class VncConsoleProxySocketHandler {
                         socketOut.write(challenge);
                         socketOut.flush();
                         byte[] response = new byte[16];
-                        for(int c=0;c<16;c++) if((response[c] = (byte)socketIn.read())==-1) throw new EOFException();
+                        for(int c=0;c<16;c++) if((response[c] = (byte)socketIn.read())==-1) throw new EOFException("EOF from socketIn");
                         VirtualServer virtualServer = null;
                         for(VirtualServer vs : rootConn.getVirtualServers().getRows()) {
                             String vncPassword = vs.getVncPassword();
@@ -164,7 +164,7 @@ public class VncConsoleProxySocketHandler {
                                     // Protocol Version handshake
                                     for(int c=0; c<protocolVersion_3_3.length; c++) {
                                         int b = daemonIn.read();
-                                        if(b==-1) throw new EOFException();
+                                        if(b==-1) throw new EOFException("EOF from daemonIn");
                                         if(
                                             protocolVersion_3_3[c]!=b // Hardware virtualized
                                             && protocolVersion_3_8[c]!=b // Paravirtualized
@@ -180,7 +180,7 @@ public class VncConsoleProxySocketHandler {
                                         || daemonIn.read()!=2
                                     ) throw new IOException("Mismatched security type from VNC server through daemon");
                                     // VNC Authentication
-                                    for(int c=0;c<16;c++) if((challenge[c] = (byte)daemonIn.read())==-1) throw new EOFException();
+                                    for(int c=0;c<16;c++) if((challenge[c] = (byte)daemonIn.read())==-1) throw new EOFException("EOF from daemonIn");
                                     response = desCipher(challenge, virtualServer.getVncPassword());
                                     daemonOut.write(response);
                                     daemonOut.flush();
@@ -241,7 +241,7 @@ public class VncConsoleProxySocketHandler {
                                 } else {
                                     if (result == AOServDaemonProtocol.IO_EXCEPTION) throw new IOException(daemonIn.readUTF());
                                     else if (result == AOServDaemonProtocol.SQL_EXCEPTION) throw new SQLException(daemonIn.readUTF());
-                                    else if (result==-1) throw new EOFException();
+                                    else if (result==-1) throw new EOFException("EOF from daemonIn");
                                     else throw new IOException("Unknown result: " + result);
                                 }
                             } finally {
