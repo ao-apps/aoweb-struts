@@ -179,7 +179,9 @@
                                     <skin:lightArea>
                                         <fmt:message key="TicketForm.field.details.header" />
                                         <hr />
-                                        <div style="border:1px inset; padding:4px"><pre><html:hidden property="details" write="true" /></pre></div>
+                                        <div style="border:1px inset; padding:4px">
+                                            <code><ao:text makeBr="true" makeNbsp="true"><html:hidden property="details" write="true" /></ao:text></code>
+                                        </div>
                                         <%--<html:textarea readonly="<%= Boolean.TRUE %>" property="details" cols="80" rows="20" /><br />--%>
                                         <html:errors bundle="/clientarea/ticket/ApplicationResources" property="details" />
                                     </skin:lightArea>
@@ -218,12 +220,16 @@
                                                 <logic:notEmpty name="action" property="details">
                                                     <logic:equal name="isDark" value="true">
                                                         <tr class="aoLightRow">
-                                                            <td colspan="4" style="width:100%;"><div style="border:1px inset; padding: 4px"><pre><ao:write name="action" property="details" /></pre></div></td>
+                                                            <td colspan="4" style="width:100%;"><div style="border:1px inset; padding: 4px">
+                                                                <code><ao:text makeBr="true" makeNbsp="true"><ao:write name="action" property="details" /></ao:text></code>
+                                                            </div></td>
                                                         </tr>
                                                     </logic:equal>
                                                     <logic:equal name="isDark" value="false">
                                                         <tr class="aoDarkRow">
-                                                            <td colspan="4" style="width:100%;"><div style="border:1px inset; padding: 4px"><pre><ao:write name="action" property="details" /></pre></div></td>
+                                                            <td colspan="4" style="width:100%;"><div style="border:1px inset; padding: 4px">
+                                                                <code><ao:text makeBr="true" makeNbsp="true"><ao:write name="action" property="details" /></ao:text></code>
+                                                            </div></td>
                                                         </tr>
                                                     </logic:equal>
                                                 </logic:notEmpty>
@@ -256,6 +262,7 @@
                                                 <br />
                                                 <fmt:message key="TicketForm.field.annotationDetails.prompt" /><br />
                                                 <html:textarea property="annotationDetails" cols="80" rows="20" /><br />
+                                                <%--<textarea name="annotationDetails" cols="80" rows="20" wrap="hard"><bean:write scope="request" name="ticketForm" property="annotationDetails"/></textarea><br />--%>
                                                 <html:errors bundle="/clientarea/ticket/ApplicationResources" property="annotationDetails" />
                                             </td>
                                         </tr>

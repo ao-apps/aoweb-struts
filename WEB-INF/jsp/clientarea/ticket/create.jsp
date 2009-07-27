@@ -77,6 +77,7 @@
                                             <br />
                                             <fmt:message key="TicketForm.field.details.prompt" /><br />
                                             <html:textarea property="details" cols="80" rows="20" /><br />
+                                            <%--<textarea name="details" cols="80" rows="20" wrap="hard"><bean:write scope="request" name="ticketForm" property="details"/></textarea><br />--%>
                                             <html:errors bundle="/clientarea/ticket/ApplicationResources" property="details" />
                                         </td>
                                     </tr>
