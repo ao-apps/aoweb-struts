@@ -46,6 +46,7 @@ public class ContentTag extends PageAttributesBodyTag {
         width = null;
     }
 
+    @Override
     public int doStartTag(PageAttributes pageAttributes) throws JspException {
         Skin skin = SkinTag.getSkin(pageContext);
 
@@ -56,6 +57,7 @@ public class ContentTag extends PageAttributesBodyTag {
         return EVAL_BODY_INCLUDE;
     }
 
+    @Override
     public int doEndTag(PageAttributes pageAttributes) throws JspException {
         try {
             Skin skin = SkinTag.getSkin(pageContext);

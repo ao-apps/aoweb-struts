@@ -180,7 +180,8 @@
                                         <fmt:message key="TicketForm.field.details.header" />
                                         <hr />
                                         <div style="border:1px inset; padding:4px">
-                                            <code><ao:text makeBr="true" makeNbsp="true"><html:hidden property="details" write="true" /></ao:text></code>
+                                            <html:hidden property="details" />
+                                            <code><ao:text makeBr="true" makeNbsp="true"><ao:write name="ticketForm" property="details" /></ao:text></code>
                                         </div>
                                         <%--<html:textarea readonly="<%= Boolean.TRUE %>" property="details" cols="80" rows="20" /><br />--%>
                                         <html:errors bundle="/clientarea/ticket/ApplicationResources" property="details" />

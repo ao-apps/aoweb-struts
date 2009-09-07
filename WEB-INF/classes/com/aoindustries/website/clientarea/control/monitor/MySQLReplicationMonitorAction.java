@@ -29,14 +29,11 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.util.MessageResources;
 
 /**
- * Retrives the mysql slave statuses.
+ * Retrieves the mysql slave statuses.
  *
  * @author  AO Industries, Inc.
  */
 public class MySQLReplicationMonitorAction extends PermissionAction {
-
-    private static final int ERROR_SECONDS_BEHIND = 10;
-    private static final long ERROR_BYTES_BEHIND = 1024*1024;
 
     @Override
     public ActionForward executePermissionGranted(
@@ -57,7 +54,6 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
         List<MySQLServerRow> mysqlServerRows = new ArrayList<MySQLServerRow>();
         List<MySQLServer> mysqlServers = aoConn.getMysqlServers().getRows();
         for(MySQLServer mysqlServer : mysqlServers) {
-            StringBuilder name = new StringBuilder();
             AOServer aoServer = mysqlServer.getAOServer();
             AOServer failoverServer;
             try {
@@ -102,7 +98,8 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                             else {
                                 try {
                                     int secondsBehind = Integer.parseInt(secondsBehindMaster);
-                                    error = secondsBehind > ERROR_SECONDS_BEHIND;
+                                    int lowSecondsBehind = fmr.getMonitoringSecondsBehindLow();
+                                    error = lowSecondsBehind!=-1 && secondsBehind >= lowSecondsBehind;
                                 } catch(NumberFormatException err) {
                                     error = true;
                                 }
@@ -178,6 +175,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                         replications
                     );
                 }
+                /*
                 // Also an individual replication row error if too far behind in log file position or can't determine how far behind
                 if(masterStatus==null) {
                     mysqlServerRow.error = true;
@@ -213,7 +211,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                             for(ReplicationRow replication : replications) replication.error = true;
                         }
                     }
-                }
+                }*/
                 mysqlServerRows.add(mysqlServerRow);
             }
         }
