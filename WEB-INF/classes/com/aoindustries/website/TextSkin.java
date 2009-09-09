@@ -603,7 +603,7 @@ public class TextSkin extends Skin {
             out.print("        </td>\n"
                     + "      </tr>\n"
                     + "    </table>\n");
-            printEditableResourceBundleLookups(out);
+            EditableResourceBundle.printEditableResourceBundleLookups(out);
             printGoogleAnalyticsTrackPageViewScript(req, out, SiteSettings.getInstance(req.getSession().getServletContext()).getBrand().getAowebStrutsGoogleAnalyticsNewTrackingCode());
             out.print("  </body>\n");
         } catch(IOException err) {
@@ -637,38 +637,6 @@ public class TextSkin extends Skin {
                     + "      }\n");
             if(!isOk) out.append("      // ]]>\n");
             out.append("    </script>\n");
-        }
-    }
-
-    // TODO: Add language resources to properties files
-    public static void printEditableResourceBundleLookups(Appendable out) throws IOException {
-        List<EditableResourceBundle.Lookup> lookups = EditableResourceBundle.getAndResetRequestLookups();
-        if(!lookups.isEmpty()) {
-            out.append("    <div style='position:fixed; bottom:0px; left:0px; width:100%; text-align:center'>\n");
-            int invalidCount = 0;
-            for(EditableResourceBundle.Lookup lookup : lookups) {
-                if(!lookup.isValidated()) invalidCount++;
-            }
-            out.append("<span style='border:1px solid black; opacity:.7; background-color:white'>");
-            out.append(Integer.toString(lookups.size()));
-            out.append(lookups.size()==1 ? " Resource" : " Resources");
-            out.append(": ");
-            if(invalidCount>0) {
-                out.append("<span style='color:red; text-decoration:blink;'>Validate ");
-                out.append(Integer.toString(invalidCount));
-                out.append(invalidCount==1 ? " Resource" : " Resources");
-                out.append("</span>");
-            } else {
-                out.append("Edit Resources");
-            }
-            out.append("</span>\n"
-                    + "    </div>\n");
-                    /*
-                    + "      <table>\n"
-                    + "        <tr>\n"
-                    + "          <th>TODO</th>\n"
-                    + "        </tr>\n"
-                    + "      </table>\n"*/
         }
     }
 
