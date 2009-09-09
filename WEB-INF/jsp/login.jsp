@@ -52,7 +52,7 @@
                                     <td><html:errors bundle="/ApplicationResources" property="password" /></td>
                                 </tr>
                                 <tr>
-                                    <td colspan='3' align='center'><html:submit><fmt:message key="login.field.submit.label" /></html:submit></td>
+                                    <td colspan='3' align='center'><html:submit><ao:text><fmt:message key="login.field.submit.label" /></ao:text></html:submit></td>
                                 </tr>
                             </table>
                         </div></html:form>

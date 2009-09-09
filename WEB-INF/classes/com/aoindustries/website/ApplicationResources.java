@@ -5,21 +5,23 @@ package com.aoindustries.website;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.util.EditableResourceBundle;
+import java.io.File;
 import java.util.Locale;
 
 /**
  * Provides a simplified interface for obtaining localized values from the ApplicationResources.properties files.
- *
- * @version  1.0
+ * Is also an editable resource bundle.
  *
  * @author  AO Industries, Inc.
  */
-public final class ApplicationResourcesAccessor {
+public final class ApplicationResources extends EditableResourceBundle {
 
     /**
-     * Make no instances.
+     * Do not use directly.
      */
-    private ApplicationResourcesAccessor() {
+    public ApplicationResources() {
+        super(new File(System.getProperty("user.home")+"/common/ao/cvswork/aoweb-struts/WEB-INF/classes/com/aoindustries/website/ApplicationResources.properties"));
     }
 
     private static final com.aoindustries.util.ApplicationResourcesAccessor accessor = new com.aoindustries.util.ApplicationResourcesAccessor("com.aoindustries.website.ApplicationResources");

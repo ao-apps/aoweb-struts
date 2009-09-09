@@ -5,7 +5,7 @@ package com.aoindustries.website.aowebtags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.website.ApplicationResourcesAccessor;
+import com.aoindustries.website.ApplicationResources;
 import java.util.Locale;
 import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
@@ -29,7 +29,7 @@ public class ScriptGroupTagTEI extends TagExtraInfo {
             return new ValidationMessage[] {
                 new ValidationMessage(
                     data.getId(),
-                    ApplicationResourcesAccessor.getMessage(
+                    ApplicationResources.getMessage(
                         "Invalid value for onloadMode, should be one of \"none\", \"before\", or \"after\": {0}",
                         Locale.getDefault(),
                         "aowebtags.ScriptGroupTag.onloadMode.invalid",

@@ -5,7 +5,7 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.website.ApplicationResourcesAccessor;
+import com.aoindustries.website.ApplicationResources;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -81,10 +81,12 @@ public class PageAttributes {
             if(conditionalCommentExpression==null || isValidConditionalCommentExpression(conditionalCommentExpression)) {
                 this.conditionalCommentExpression = conditionalCommentExpression;
             } else {
-                throw new IllegalArgumentException(ApplicationResourcesAccessor.getMessage(
-                    "Invalid value for conditional comment expression.  Please refer to aoweb-struts-skin.tld for the valid values.",
-                    Locale.getDefault(),
-                    "skintags.PageAttributes.Link.conditionalCommentExpression.invalid")
+                throw new IllegalArgumentException(
+                    ApplicationResources.getMessage(
+                        "Invalid value for conditional comment expression.  Please refer to aoweb-struts-skin.tld for the valid values.",
+                        Locale.getDefault(),
+                        "skintags.PageAttributes.Link.conditionalCommentExpression.invalid"
+                    )
                 );
             }
         }
@@ -240,7 +242,7 @@ public class PageAttributes {
 
     public void setLayout(String layout) {
         if(layout.equals(LAYOUT_NORMAL) || layout.equals(LAYOUT_MINIMAL)) this.layout = layout;
-        else throw new IllegalArgumentException(ApplicationResourcesAccessor.getMessage(Locale.getDefault(), "skintags.PageAttributes.setLayout.invalid"));
+        else throw new IllegalArgumentException(ApplicationResources.getMessage(Locale.getDefault(), "skintags.PageAttributes.setLayout.invalid"));
     }
 
     public String getOnload() {

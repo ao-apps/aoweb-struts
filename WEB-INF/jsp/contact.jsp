@@ -128,7 +128,7 @@
                                 <tr>
                                     <td colspan='2' align="center">
                                         <br />
-                                        <html:submit><fmt:message key="contact.field.submit.label" /></html:submit>
+                                        <html:submit><ao:text><fmt:message key="contact.field.submit.label" /></ao:text></html:submit>
                                     </td>
                                 </tr>
                             </table>

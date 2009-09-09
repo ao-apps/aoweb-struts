@@ -7,7 +7,7 @@ package com.aoindustries.website.aowebtags;
  */
 import com.aoindustries.util.Sequence;
 import com.aoindustries.util.UnsynchronizedSequence;
-import com.aoindustries.website.ApplicationResourcesAccessor;
+import com.aoindustries.website.ApplicationResources;
 import java.io.IOException;
 import java.util.Locale;
 import javax.servlet.ServletRequest;
@@ -100,7 +100,7 @@ public class ScriptGroupTag extends BodyTagSupport {
                                 + "  // ]]>\n"
                                 + "</script>\n");
                     } else {
-                        throw new JspException(ApplicationResourcesAccessor.getMessage(Locale.getDefault(), "aowebtags.ScriptGroupTag.onloadMode.invalid", onloadMode));
+                        throw new JspException(ApplicationResources.getMessage(Locale.getDefault(), "aowebtags.ScriptGroupTag.onloadMode.invalid", onloadMode));
                     }
                 }
             }

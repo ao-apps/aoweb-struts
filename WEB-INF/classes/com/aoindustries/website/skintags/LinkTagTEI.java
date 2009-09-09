@@ -5,7 +5,7 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.website.ApplicationResourcesAccessor;
+import com.aoindustries.website.ApplicationResources;
 import java.util.Locale;
 import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
@@ -28,7 +28,7 @@ public class LinkTagTEI extends TagExtraInfo {
                 return new ValidationMessage[] {
                     new ValidationMessage(
                         data.getId(),
-                        ApplicationResourcesAccessor.getMessage(
+                        ApplicationResources.getMessage(
                             "Invalid value for conditional comment expression.  Please refer to aoweb-struts-skin.tld for the valid values.",
                             Locale.getDefault(),
                             "skintags.LinkTagTEI.validate.layout.invalid"

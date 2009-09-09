@@ -218,5 +218,12 @@ public class SiteSettings {
     public boolean getExceptionShowError() {
         return "true".equals(servletContext.getInitParameter("exception.showError"));
     }
+
+    /**
+     * Determines if this site allows direct editing of resource bundles.
+     */
+    public boolean getCanEditResources() {
+        return "true".equals(servletContext.getInitParameter("com.aoindustries.website.SiteSettings.canEditResources"));
+    }
     // </editor-fold>
 }

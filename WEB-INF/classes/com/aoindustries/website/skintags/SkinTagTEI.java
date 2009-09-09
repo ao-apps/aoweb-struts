@@ -5,7 +5,7 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.website.ApplicationResourcesAccessor;
+import com.aoindustries.website.ApplicationResources;
 import java.util.Locale;
 import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
@@ -28,7 +28,7 @@ public class SkinTagTEI extends TagExtraInfo {
                 return new ValidationMessage[] {
                     new ValidationMessage(
                         data.getId(),
-                        ApplicationResourcesAccessor.getMessage(
+                        ApplicationResources.getMessage(
                             "Invalid value for layout, must be either \"normal\" or \"minimal\"",
                             Locale.getDefault(),
                             "skintags.SkinTagTEI.validate.layout.invalid"

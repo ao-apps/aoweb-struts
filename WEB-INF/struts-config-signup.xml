@@ -558,21 +558,25 @@
 
     <!-- ========== Message Resources ======================================= -->
     <message-resources
+        factory="com.aoindustries.website.struts.ResourceBundleMessageResourcesFactory"
         parameter="com.aoindustries.website.SiteApplicationResources"
         null="false"
     />
     <message-resources
         key="/ApplicationResources"
+        factory="com.aoindustries.website.struts.ResourceBundleMessageResourcesFactory"
         parameter="com.aoindustries.website.ApplicationResources"
         null="false"
     />
     <message-resources
         key="/clientarea/ApplicationResources"
+        factory="com.aoindustries.website.struts.ResourceBundleMessageResourcesFactory"
         parameter="com.aoindustries.website.clientarea.ApplicationResources"
         null="false"
     />
     <message-resources
         key="/signup/ApplicationResources"
+        factory="com.aoindustries.website.struts.ResourceBundleMessageResourcesFactory"
         parameter="com.aoindustries.website.signup.ApplicationResources"
         null="false"
     />

@@ -25,4 +25,10 @@
     precisely equal to "true".
   -->
   <Parameter name="com.aoindustries.website.skintags.SetContentTypeTag.allowApplicationXhtmlXml" value="false" />
+
+  <!--
+    Enables the direct editing of resource bundles.
+    Use true for development and false for production.
+  -->
+  <Parameter name="com.aoindustries.website.SiteSettings.canEditResources" value="false" />
 </Context>

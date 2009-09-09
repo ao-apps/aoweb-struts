@@ -5,6 +5,9 @@ package com.aoindustries.website;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AOServPermission;
+import com.aoindustries.util.EditableResourceBundle;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.Action;
@@ -35,6 +38,8 @@ public class SiteSettingsAction extends Action {
         SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
         request.setAttribute(Constants.SITE_SETTINGS, siteSettings);
 
+        // Set the can edit resources flag
+        EditableResourceBundle.setCanEditResources(siteSettings.getCanEditResources());
         return execute(mapping, form, request, response, siteSettings);
     }
 

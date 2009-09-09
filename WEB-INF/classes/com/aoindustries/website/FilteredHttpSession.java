@@ -104,7 +104,7 @@ public class FilteredHttpSession implements HttpSession {
                 // Must be an SessionActionForm if none of the above
                 && !(value instanceof SessionActionForm)
             ) {
-                throw new AssertionError(ApplicationResourcesAccessor.getMessage(Locale.getDefault(), "FilteredHttpSession.unexpectedSessionAttribute", name, value.getClass().getName()));
+                throw new AssertionError(ApplicationResources.getMessage(Locale.getDefault(), "FilteredHttpSession.unexpectedSessionAttribute", name, value.getClass().getName()));
             }
         }
     }
