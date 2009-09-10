@@ -84,7 +84,7 @@
                                     <tr>
                                         <td colspan="3" align="center">
                                             <br />
-                                            <html:submit><fmt:message key="create.field.submit.label" /></html:submit>
+                                            <ao:input type="submit"><fmt:message key="create.field.submit.label" /></ao:input>
                                         </td>
                                     </tr>
                                 </table>

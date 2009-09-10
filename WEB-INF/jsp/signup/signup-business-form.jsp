@@ -94,7 +94,7 @@
                     <td style="white-space:nowrap"><html:text size="10" property="businessZip" maxlength="255" /></td>
                     <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="businessZip" /></td>
                 </tr>
-                <tr><td colspan="4" align="center"><br /><html:submit><fmt:message key="signupBusinessForm.submit.label" /></html:submit><br /><br /></td></tr>
+                <tr><td colspan="4" align="center"><br /><ao:input type="submit"><fmt:message key="signupBusinessForm.submit.label" /></ao:input><br /><br /></td></tr>
              </table>
          </fmt:bundle>
     </skin:lightArea>

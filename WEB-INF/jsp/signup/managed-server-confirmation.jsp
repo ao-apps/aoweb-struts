@@ -85,7 +85,7 @@
                 </th>
             </tr>
             <%@ include file="signup-billing-information-confirmation.jsp" %>
-            <tr><td colspan="3" align="center"><br /><html:submit><fmt:message key="serverConfirmation.submit.label" /></html:submit><br /><br /></td></tr>
+            <tr><td colspan="3" align="center"><br /><ao:input type="submit"><fmt:message key="serverConfirmation.submit.label" /></ao:input><br /><br /></td></tr>
         </table>
     </fmt:bundle>
 </skin:lightArea>

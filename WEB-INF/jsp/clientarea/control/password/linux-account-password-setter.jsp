@@ -78,7 +78,7 @@
                                                 </td>
                                             </tr>
                                         </logic:iterate>
-                                        <tr><td colspan='7' align='center'><html:submit><fmt:message key="password.linuxAccountPasswordSetter.field.submit.label" /></html:submit></td></tr>
+                                        <tr><td colspan='7' align='center'><ao:input type="submit"><fmt:message key="password.linuxAccountPasswordSetter.field.submit.label" /></ao:input></td></tr>
                                     </table>
                                 </skin:lightArea>
                             </html:form>

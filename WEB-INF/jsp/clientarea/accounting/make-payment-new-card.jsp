@@ -79,7 +79,16 @@
                                             <html:radio property="storeCard" value="automatic"><fmt:message key="makePaymentNewCard.storeCard.automatic" /></html:radio>
                                         </td>
                                     </tr>
-                                    <tr><td style='white-space:nowrap' colspan="4" align="center"><html:submit onclick="this.disabled='true'; this.form.submit(); return false;"><fmt:message key="makePaymentNewCard.field.submit.label" /></html:submit></td></tr>
+                                    <tr><td style='white-space:nowrap' colspan="4" align="center">
+                                        <ao:input type="submit">
+                                            <ao:onclick>
+                                                this.disabled='true';
+                                                this.form.submit();
+                                                return false;
+                                            </ao:onclick>
+                                            <fmt:message key="makePaymentNewCard.field.submit.label" />
+                                        </ao:input>
+                                    </td></tr>
                                 </table>
                             </skin:lightArea>
                         </html:form>

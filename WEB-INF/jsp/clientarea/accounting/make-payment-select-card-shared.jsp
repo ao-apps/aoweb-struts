@@ -69,11 +69,7 @@
                     </skin:lightDarkTableRow>
                     <tr>
                         <td style='white-space:nowrap' colspan="4" align="center">
-                            <input
-                                type="submit"
-                                name="submitButton"
-                                value="<fmt:message key="makePaymentSelectCard.field.submit.label" />"
-                            />
+                            <ao:input type="submit" name="submitButton"><fmt:message key="makePaymentSelectCard.field.submit.label" /></ao:input>
                         </td>
                     </tr>
                 </table>

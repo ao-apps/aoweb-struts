@@ -86,7 +86,7 @@
                                                 </td>
                                             </tr>
                                         </logic:iterate>
-                                        <tr><td colspan='8' align='center'><html:submit><fmt:message key="password.mySQLPasswordSetter.field.submit.label" /></html:submit></td></tr>
+                                        <tr><td colspan='8' align='center'><ao:input type="submit"><fmt:message key="password.mySQLPasswordSetter.field.submit.label" /></ao:input></td></tr>
                                     </table>
                                 </skin:lightArea>
                             </html:form>

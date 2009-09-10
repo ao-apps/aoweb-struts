@@ -94,7 +94,16 @@
                                     </tr>
                                     <tr>
                                         <td style="white-space:nowrap">&#160;</td>
-                                        <td style='white-space:nowrap' colspan="2"><html:submit onclick="this.disabled='true'; this.form.submit(); return false;"><fmt:message key="makePaymentStoredCard.submit.label" /></html:submit></td>
+                                        <td style='white-space:nowrap' colspan="2">
+                                            <ao:input type="submit">
+                                                <ao:onclick>
+                                                    this.disabled='true';
+                                                    this.form.submit();
+                                                    return false;
+                                                </ao:onclick>
+                                                <fmt:message key="makePaymentStoredCard.submit.label" />
+                                            </ao:input>
+                                        </td>
                                     </tr>
                                 </table>
                             </skin:lightArea>

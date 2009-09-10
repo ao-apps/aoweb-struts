@@ -43,7 +43,7 @@
                                     </table>
                                 </logic:present><br />
                                 <br />
-                                <div style="text-align:center"><html:submit><fmt:message key="password.passwordEvaluator.field.submit.label" /></html:submit></div>
+                                <div style="text-align:center"><ao:input type="submit"><fmt:message key="password.passwordEvaluator.field.submit.label" /></ao:input></div>
                             </div>
                         </html:form>
                     </skin:lightArea>

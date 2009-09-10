@@ -40,7 +40,7 @@
                                     <table cellspacing="0" cellpadding="2">
                                         <bean:define name="addCreditCardForm" id="creditCardForm" />
                                         <%@ include file="credit-card-form.jsp" %>
-                                        <tr><td style='white-space:nowrap' colspan="4" align="center"><html:submit><fmt:message key="addCreditCard.field.submit.label" /></html:submit></td></tr>
+                                        <tr><td style='white-space:nowrap' colspan="4" align="center"><ao:input type="submit"><fmt:message key="addCreditCard.field.submit.label" /></ao:input></td></tr>
                                     </table>
                                 </skin:lightArea>
                             </html:form>

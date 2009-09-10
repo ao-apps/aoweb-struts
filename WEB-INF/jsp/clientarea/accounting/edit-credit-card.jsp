@@ -222,14 +222,14 @@
                                         </tr>
                                         <tr>
                                             <td style='white-space:nowrap' colspan="4" align="center">
-                                                <html:submit>
+                                                <ao:input type="submit">
                                                     <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
                                                         <fmt:message key="editCreditCard.field.submit.label.edit" />
                                                     </logic:notEqual>
                                                     <logic:equal name="editCreditCardForm" property="isActive" value="false">
                                                         <fmt:message key="editCreditCard.field.submit.label.reactivate" />
                                                     </logic:equal>
-                                                </html:submit>
+                                                </ao:input>
                                             </td>
                                         </tr>
                                     </table>

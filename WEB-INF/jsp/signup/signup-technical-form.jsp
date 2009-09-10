@@ -135,7 +135,7 @@
                     </td>
                     <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="baPassword" /></td>
                 </tr>
-                <tr><td colspan="4" align="center"><br /><html:submit><fmt:message key="signupTechnicalForm.submit.label" /></html:submit><br /><br /></td></tr>
+                <tr><td colspan="4" align="center"><br /><ao:input type="submit"><fmt:message key="signupTechnicalForm.submit.label" /></ao:input><br /><br /></td></tr>
             </table>
         </fmt:bundle>
     </skin:lightArea>

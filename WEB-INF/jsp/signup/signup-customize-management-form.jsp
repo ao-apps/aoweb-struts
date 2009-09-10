@@ -167,7 +167,7 @@
                         <input type="text" name="totalMonthly" readonly='readonly' size="10" value='$<ao:write scope="request" name="hardwareRate" />' />
                     </th>
                 </tr>
-                <tr><td colspan="2" align="center"><br /><html:submit><fmt:message key="signupCustomizeManagementForm.submit.label" /></html:submit><br /><br /></td></tr>
+                <tr><td colspan="2" align="center"><br /><ao:input type="submit"><fmt:message key="signupCustomizeManagementForm.submit.label" /></ao:input><br /><br /></td></tr>
             </table>
         </fmt:bundle>
     </skin:lightArea>

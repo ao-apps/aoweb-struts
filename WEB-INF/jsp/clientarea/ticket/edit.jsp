@@ -168,7 +168,7 @@
                                             <tr>
                                                 <td colspan="3" align="center">
                                                     <br />
-                                                    <html:submit><fmt:message key="edit.field.submit.label" /></html:submit>
+                                                    <ao:input type="submit"><fmt:message key="edit.field.submit.label" /></ao:input>
                                                 </td>
                                             </tr>
                                         </logic:notEqual>
@@ -270,7 +270,7 @@
                                         <tr>
                                             <td colspan="3" align="center">
                                                 <br />
-                                                <html:submit>
+                                                <ao:input type="submit">
                                                     <logic:equal name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
                                                         <fmt:message key="edit.field.submitAnnotation.label.reopen" />
                                                     </logic:equal>
@@ -282,7 +282,7 @@
                                                             <fmt:message key="edit.field.submitAnnotation.label" />
                                                         </logic:notEqual>
                                                     </logic:notEqual>
-                                                </html:submit>
+                                                </ao:input>
                                             </td>
                                         </tr>
                                     </table>

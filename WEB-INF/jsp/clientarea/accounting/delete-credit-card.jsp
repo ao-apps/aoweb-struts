@@ -86,10 +86,7 @@
                                     <tr>
                                         <td style='white-space:nowrap' colspan="2" align="center">
                                             <br />
-                                            <input
-                                                type="submit"
-                                                value="<fmt:message key="deleteCreditCard.field.submit.label" />"
-                                            />
+                                            <ao:input type="submit"><fmt:message key="deleteCreditCard.field.submit.label" /></ao:input>
                                             &#160;&#160;&#160;
                                             <ao:input type="button">
                                                 <ao:value><fmt:message key="deleteCreditCard.field.cancel.label" /></ao:value>

@@ -102,7 +102,7 @@
                         </logic:equal>
                     </skin:lightDarkTableRow>
                 </logic:iterate>
-                <tr><td colspan="6" align="center"><br /><html:submit><fmt:message key="signupSelectServerForm.submit.label" /></html:submit><br /><br /></td></tr>
+                <tr><td colspan="6" align="center"><br /><ao:input type="submit"><fmt:message key="signupSelectServerForm.submit.label" /></ao:input><br /><br /></td></tr>
             </table>
         </fmt:bundle>
     </skin:popupGroup>

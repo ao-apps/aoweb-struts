@@ -116,7 +116,7 @@
                     <td style="white-space:nowrap"><html:checkbox property="billingPayOneYear" /><fmt:message key="signupBillingInformationForm.billingPayOneYear.value" /></td>
                     <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="billingPayOneYear" /></td>
                 </tr>
-                <tr><td colspan="4" align="center"><br /><html:submit><fmt:message key="dedicated5.submit.label" /></html:submit><br /><br /></td></tr>
+                <tr><td colspan="4" align="center"><br /><ao:input type="submit"><fmt:message key="dedicated5.submit.label" /></ao:input><br /><br /></td></tr>
             </table>
         </fmt:bundle>
     </skin:lightArea>

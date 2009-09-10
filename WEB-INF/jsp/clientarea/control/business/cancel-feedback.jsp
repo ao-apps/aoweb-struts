@@ -38,9 +38,7 @@
                                     <html:textarea property="reason" rows="16" cols="80" />
                                 </div>
                                 <div style="text-align:center; margin-top:1em;">
-                                    <html:submit>
-                                        <fmt:message key="business.cancel-feedback.submit.label" />
-                                    </html:submit>
+                                    <ao:input type="submit"><fmt:message key="business.cancel-feedback.submit.label" /></ao:input>
                                 </div>
                             </html:form>
                         </skin:lightArea>
