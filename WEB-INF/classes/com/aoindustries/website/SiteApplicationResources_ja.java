@@ -7,6 +7,7 @@ package com.aoindustries.website;
  */
 import com.aoindustries.util.EditableResourceBundle;
 import java.io.File;
+import java.util.Locale;
 
 /**
  * Provides a simplified interface for obtaining localized values from the ApplicationResources.properties files.
@@ -20,6 +21,10 @@ public final class SiteApplicationResources_ja extends EditableResourceBundle {
      * Do not use directly.
      */
     public SiteApplicationResources_ja() {
-        super(new File(System.getProperty("user.home")+"/common/ao/cvswork/aoweb-struts/WEB-INF/classes/com/aoindustries/website/SiteApplicationResources_ja.properties"));
+        super(
+            new File(System.getProperty("user.home")+"/common/ao/cvswork/aoweb-struts/WEB-INF/classes/com/aoindustries/website/SiteApplicationResources_ja.properties"),
+            Locale.JAPANESE,
+            SiteApplicationResources.bundleSet
+        );
     }
 }

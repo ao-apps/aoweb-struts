@@ -6,17 +6,32 @@ package com.aoindustries.website;
  * All rights reserved.
  */
 import com.aoindustries.util.EditableResourceBundle;
+import com.aoindustries.util.EditableResourceBundleSet;
 import java.io.File;
+import java.util.Arrays;
+import java.util.Locale;
 
 /**
  * @author  AO Industries, Inc.
  */
 public final class SiteApplicationResources extends EditableResourceBundle {
 
+    static final EditableResourceBundleSet bundleSet = new EditableResourceBundleSet(
+        SiteApplicationResources.class.getName(),
+        Arrays.asList(
+            new Locale(""), // Locale.ROOT in Java 1.6
+            Locale.JAPANESE
+        )
+    );
+
     /**
      * Do not use directly.
      */
     public SiteApplicationResources() {
-        super(new File(System.getProperty("user.home")+"/common/ao/cvswork/aoweb-struts/WEB-INF/classes/com/aoindustries/website/SiteApplicationResources.properties"));
+        super(
+            new File(System.getProperty("user.home")+"/common/ao/cvswork/aoweb-struts/WEB-INF/classes/com/aoindustries/website/SiteApplicationResources.properties"),
+            new Locale(""),
+            bundleSet
+        );
     }
 }
