@@ -456,7 +456,7 @@ public class TextSkin extends Skin {
         try {
             startContentLine(req, resp, out, colspan, "center", null);
             out.print("<h1>");
-            out.print(title);
+            EncodingUtils.encodeHtml(title, out);
             out.print("</h1>\n");
             endContentLine(req, resp, out, 1, false);
         } catch(IOException err) {

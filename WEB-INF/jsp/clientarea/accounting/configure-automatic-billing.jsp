@@ -32,7 +32,7 @@
                         <%@ include file="../../permission-denied.jsp" %>
                     </logic:present>
                     <logic:notPresent scope="request" name="permissionDenied">
-                        <form method="post" action="<ao:url>configure-automatic-billing-completed.do</ao:url>"><div>
+                        <form id="configurationAutomaticBillingForm" method="post" action="<ao:url>configure-automatic-billing-completed.do</ao:url>"><div>
                             <input name="accounting" type="hidden" value="<%= request.getParameter("accounting") %>" />
                             <skin:lightArea>
                                 <fmt:message key="configureAutomaticBilling.cardList.title" />
@@ -116,12 +116,9 @@
                                     </skin:lightDarkTableRow>
                                     <tr>
                                         <td style='white-space:nowrap' colspan="4" align="center">
-                                            <input
-                                                type="submit"
-                                                name="submitButton"
-                                                value="<fmt:message key="configureAutomaticBilling.field.submit.label" />"
-                                                disabled="disabled"
-                                            />
+                                            <ao:input type="submit" name="submitButton"><fmt:message key="configureAutomaticBilling.field.submit.label" /></ao:input>
+                                            <%-- Disable using JavaScript to avoid dependency on JavaScript --%>
+                                            <ao:script>document.forms["configurationAutomaticBillingForm"].submitButton.disabled = true;</ao:script>
                                         </td>
                                     </tr>
                                 </table>

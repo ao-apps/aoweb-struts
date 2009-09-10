@@ -56,7 +56,7 @@ abstract public class Skin {
     /**
      * Gets the prefix for URLs for the SSL server.  This should always end with a /.
      */
-    public String getHttpsUrlBase(HttpServletRequest req) throws JspException {
+    public static String getDefaultHttpsUrlBase(HttpServletRequest req) throws JspException {
         int port = req.getServerPort();
         String contextPath = req.getContextPath();
         if(port!=80 && port!=443) {
@@ -68,9 +68,16 @@ abstract public class Skin {
     }
 
     /**
+     * Gets the prefix for URLs for the SSL server.  This should always end with a /.
+     */
+    public String getHttpsUrlBase(HttpServletRequest req) throws JspException {
+        return getDefaultHttpsUrlBase(req);
+    }
+
+    /**
      * Gets the prefix for URLs for the non-SSL server.  This should always end with a /.
      */
-    public String getHttpUrlBase(HttpServletRequest req) throws JspException {
+    public static String getDefaultHttpUrlBase(HttpServletRequest req) throws JspException {
         int port = req.getServerPort();
         String contextPath = req.getContextPath();
         if(port!=80 && port!=443) {
@@ -79,6 +86,13 @@ abstract public class Skin {
         } else {
             return "http://"+req.getServerName()+contextPath+"/";
         }
+    }
+
+    /**
+     * Gets the prefix for URLs for the non-SSL server.  This should always end with a /.
+     */
+    public String getHttpUrlBase(HttpServletRequest req) throws JspException {
+        return getDefaultHttpUrlBase(req);
     }
 
     /**
