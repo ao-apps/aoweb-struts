@@ -97,7 +97,7 @@
                                             </logic:notEqual>
                                             <ao:write name="ticket" property="clientPriority" />
                                         </td>
-                                        <td style="white-space:nowrap"><ao:write name="ticket" property="status" /></td>
+                                        <td style="white-space:nowrap"><ao:write name="ticket" property="status" type="application/xhtml+xml" /></td>
                                         <td style="white-space:nowrap"><aoweb:dateTime><ao:write name="ticket" property="openDate" /></aoweb:dateTime></td>
                                         <td style="white-space:nowrap">
                                             <logic:notEmpty name="ticket" property="createdBy">
