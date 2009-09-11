@@ -6,6 +6,7 @@ package com.aoindustries.website;
  * All rights reserved.
  */
 import com.aoindustries.util.EditableResourceBundle;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.Action;
@@ -38,9 +39,27 @@ public class SiteSettingsAction extends Action {
 
         // Start the request tracking
         boolean canEditResources = siteSettings.getCanEditResources();
+        boolean modifyAllText = false;
+        if(canEditResources) {
+            // Check for cookie
+            Cookie[] cookies = request.getCookies();
+            if(cookies!=null) {
+                for(Cookie cookie : cookies) {
+                    if(
+                        "EditableResourceBundleEditorVisibility".equals(cookie.getName())
+                        && "visible".equals(cookie.getValue())
+                    ) {
+                        modifyAllText = true;
+                        break;
+                    }
+                }
+            }
+            
+        }
         EditableResourceBundle.resetRequest(
             canEditResources,
-            canEditResources ? Skin.getDefaultHttpsUrlBase(request)+"set-resource-bundle-value.do" : null
+            canEditResources ? (request.isSecure() ? Skin.getDefaultHttpsUrlBase(request) : Skin.getDefaultHttpUrlBase(request))+"set-resource-bundle-value.do" : null,
+            modifyAllText
         );
 
         return execute(mapping, form, request, response, siteSettings);

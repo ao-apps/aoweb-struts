@@ -18,7 +18,7 @@ import org.apache.struts.action.ActionMapping;
 /**
  * @author  AO Industries, Inc.
  */
-public class SetResourceBundleValueAction extends HttpsAction {
+public class SetResourceBundleValueAction extends SkinAction {
 
     /**
      * Having trouble with XMLHttpRequest in Firefox 3 and UTF-8 encoding.  This is a workaround.
@@ -30,7 +30,7 @@ public class SetResourceBundleValueAction extends HttpsAction {
     }
 
     @Override
-    public ActionForward executeProtocolAccepted(
+    public ActionForward execute(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
