@@ -102,6 +102,12 @@
             <forward name="success" module="" path="/WEB-INF/jsp/login.jsp" redirect="false" />
         </action>
         <action
+            path="/set-resource-bundle-value"
+            type="com.aoindustries.website.SetResourceBundleValueAction"
+        >
+            <forward name="success" module="" path="/WEB-INF/jsp/set-resource-bundle-value.jsp" redirect="false" />
+        </action>
+        <action
             path="/logout"
             type="com.aoindustries.website.LogoutAction"
         >
