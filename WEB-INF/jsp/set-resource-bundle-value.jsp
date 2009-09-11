@@ -31,12 +31,13 @@
                     <skin:lightArea>
                         <b><fmt:message key="setResourceBundleValue.header" /></b>
                         <hr />
-                        <fmt:message key="setResourceBundleValue.successfullySet" /><br />
-                        <fmt:message key="setResourceBundleValue.baseName.label" /><ao:write scope="request" name="baseName" /><br />
-                        <fmt:message key="setResourceBundleValue.locale.label" /><ao:write scope="request" name="locale" /><br />
-                        <fmt:message key="setResourceBundleValue.key.label" /><ao:write scope="request" name="key" /><br />
-                        <fmt:message key="setResourceBundleValue.value.label" /><ao:write scope="request" name="value" /><br />
-                        <fmt:message key="setResourceBundleValue.modified.label" /><ao:write scope="request" name="modified" />
+                        <table border="0" cellspacing="0" cellpadding="2">
+                            <tr><th style="text-align:left"><fmt:message key="setResourceBundleValue.baseName.label" /></th><td><ao:write scope="request" name="baseName" /></td></tr>
+                            <tr><th style="text-align:left"><fmt:message key="setResourceBundleValue.locale.label" /></th><td><ao:write scope="request" name="locale" /></td></tr>
+                            <tr><th style="text-align:left"><fmt:message key="setResourceBundleValue.key.label" /></th><td><ao:write scope="request" name="key" /></td></tr>
+                            <tr><th style="text-align:left"><fmt:message key="setResourceBundleValue.value.label" /></th><td><ao:write scope="request" name="value" /></td></tr>
+                            <tr><th style="text-align:left"><fmt:message key="setResourceBundleValue.modified.label" /></th><td><ao:write scope="request" name="modified" /></td></tr>
+                        </table>
                     </skin:lightArea>
                 </skin:contentLine>
             </skin:content>
