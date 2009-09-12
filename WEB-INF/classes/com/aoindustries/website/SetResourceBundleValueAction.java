@@ -23,7 +23,7 @@ public class SetResourceBundleValueAction extends SkinAction {
     /**
      * Having trouble with XMLHttpRequest in Firefox 3 and UTF-8 encoding.  This is a workaround.
      */
-    private static String getUTF8Parameter(HttpServletRequest request, String name) throws UnsupportedEncodingException {
+    static String getUTF8Parameter(HttpServletRequest request, String name) throws UnsupportedEncodingException {
         String value = request.getParameter(name);
         if(value==null) return null;
         return new String(value.getBytes("iso-8859-1"), "UTF-8");

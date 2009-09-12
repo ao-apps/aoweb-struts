@@ -108,6 +108,12 @@
             <forward name="success" module="" path="/WEB-INF/jsp/set-resource-bundle-value.jsp" redirect="false" />
         </action>
         <action
+            path="/set-resource-bundle-media-type"
+            type="com.aoindustries.website.SetResourceBundleMediaTypeAction"
+        >
+            <forward name="success" module="" path="/WEB-INF/jsp/set-resource-bundle-media-type.jsp" redirect="false" />
+        </action>
+        <action
             path="/logout"
             type="com.aoindustries.website.LogoutAction"
         >

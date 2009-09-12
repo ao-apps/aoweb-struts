@@ -59,6 +59,7 @@ public class SiteSettingsAction extends Action {
         EditableResourceBundle.resetRequest(
             canEditResources,
             canEditResources ? (request.isSecure() ? Skin.getDefaultHttpsUrlBase(request) : Skin.getDefaultHttpUrlBase(request))+"set-resource-bundle-value.do" : null,
+            canEditResources ? (request.isSecure() ? Skin.getDefaultHttpsUrlBase(request) : Skin.getDefaultHttpUrlBase(request))+"set-resource-bundle-media-type.do" : null,
             modifyAllText
         );
 
