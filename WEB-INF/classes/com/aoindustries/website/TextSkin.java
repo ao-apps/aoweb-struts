@@ -117,7 +117,7 @@ public class TextSkin extends Skin {
             String path = pageAttributes.getPath();
             if(path.startsWith("/")) path=path.substring(1);
             final String fullPath = (isSecure ? httpsUrlBase : httpUrlBase) + path;
-            final String encodedFullPath = resp.encodeURL(fullPath);
+            final String encodedFullPath = resp.encodeURL(EncodingUtils.encodeURL(fullPath));
             ServletContext servletContext = session.getServletContext();
             SiteSettings settings = SiteSettings.getInstance(servletContext);
             List<Skin> skins = settings.getSkins();
@@ -296,9 +296,11 @@ public class TextSkin extends Skin {
                         out.print("&#160;<a href='");
                         out.print(
                             resp.encodeURL(
-                                url==null
-                                ? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&amp;")+"language="+language.getCode())
-                                : url
+                                EncodingUtils.encodeURL(
+                                    url==null
+                                    ? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&amp;")+"language="+language.getCode())
+                                    : url
+                                )
                             )
                         );
                         out.print("'><img src='");
@@ -314,9 +316,11 @@ public class TextSkin extends Skin {
                         out.print("&#160;<a href='");
                         out.print(
                             resp.encodeURL(
-                                url==null
-                                ? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&amp;")+"language="+language.getCode())
-                                : url
+                                EncodingUtils.encodeURL(
+                                    url==null
+                                    ? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&amp;")+"language="+language.getCode())
+                                    : url
+                                )
                             )
                         );
                         out.print("' onmouseover='document.images[\"flagSelector_");
@@ -357,7 +361,7 @@ public class TextSkin extends Skin {
                 String parentPath = parent.getPath();
                 if(parentPath.startsWith("/")) parentPath=parentPath.substring(1);
                 out.print("            <a href='");
-                out.print(resp.encodeURL((useEncryption ? httpsUrlBase : httpUrlBase) + parentPath));
+                out.print(resp.encodeURL((useEncryption ? httpsUrlBase : httpUrlBase) + EncodingUtils.encodeURL(parentPath)));
                 out.print("'>");
                 EncodingUtils.encodeHtml(navAlt, out);
                 out.print("</a><br />\n");
@@ -382,7 +386,7 @@ public class TextSkin extends Skin {
                 String siblingPath = sibling.getPath();
                 if(siblingPath.startsWith("/")) siblingPath=siblingPath.substring(1);
                 out.print("          <a href='");
-                out.print(resp.encodeURL((useEncryption ? httpsUrlBase : httpUrlBase) + siblingPath));
+                out.print(resp.encodeURL((useEncryption ? httpsUrlBase : httpUrlBase) + EncodingUtils.encodeURL(siblingPath)));
                 out.print("'>");
                 EncodingUtils.encodeHtml(navAlt, out);
                 out.print("</a><br />\n");
@@ -413,7 +417,7 @@ public class TextSkin extends Skin {
                 out.print("    <link rel=\"");
                 EncodingUtils.encodeXmlAttribute(link.getRel(), out);
                 out.print("\" href=\"");
-                out.print(link.getHref());
+                EncodingUtils.encodeXmlAttribute(EncodingUtils.encodeURL(link.getHref()), out);
                 out.print("\" type=\"");
                 EncodingUtils.encodeXmlAttribute(link.getType(), out);
                 out.print("\" />\n");
@@ -723,7 +727,7 @@ public class TextSkin extends Skin {
 
                 out.print("  <tr>\n"
                         + "    <td style=\"white-space:nowrap\"><a class='aoLightLink' href='");
-                out.print(resp.encodeURL((useEncryption ? httpsUrlBase : httpUrlBase) + siblingPath));
+                out.print(resp.encodeURL((useEncryption ? httpsUrlBase : httpUrlBase) + EncodingUtils.encodeURL(siblingPath)));
                 out.print("'>");
                 EncodingUtils.encodeHtml(navAlt, out);
                 out.print("</a></td>\n"
