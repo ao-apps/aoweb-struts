@@ -55,43 +55,43 @@
                                         <td style="white-space:nowrap">
                                             <logic:equal name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
                                                 <logic:equal name="isDark" value="true">
-                                                    <img height="25" width="25" src="p_dark_black.gif" alt="" style="vertical-align:middle;" />&#160;
+                                                    <ao:img height="25" width="25" src="p_dark_black.gif" alt="" style="vertical-align:middle;" />&#160;
                                                 </logic:equal>
                                                 <logic:equal name="isDark" value="false">
-                                                    <img height="25" width="25" src="p_light_black.gif" alt=""  style="vertical-align:middle;" />&#160;
+                                                    <ao:img height="25" width="25" src="p_light_black.gif" alt=""  style="vertical-align:middle;" />&#160;
                                                 </logic:equal>
                                             </logic:equal>
                                             <logic:notEqual name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.TicketStatus.CLOSED %>">
                                                 <logic:equal name="ticket" property="clientPriority.priority" value="<%= com.aoindustries.aoserv.client.TicketPriority.LOW %>">
                                                     <logic:equal name="isDark" value="true">
-                                                        <img height="25" width="25" src="p_dark_green.gif" alt="" style="vertical-align:middle;" />&#160;
+                                                        <ao:img height="25" width="25" src="p_dark_green.gif" alt="" style="vertical-align:middle;" />&#160;
                                                     </logic:equal>
                                                     <logic:equal name="isDark" value="false">
-                                                        <img height="25" width="25" src="p_light_green.gif" alt="" style="vertical-align:middle;" />&#160;
+                                                        <ao:img height="25" width="25" src="p_light_green.gif" alt="" style="vertical-align:middle;" />&#160;
                                                     </logic:equal>
                                                 </logic:equal>
                                                 <logic:equal name="ticket" property="clientPriority.priority" value="<%= com.aoindustries.aoserv.client.TicketPriority.NORMAL %>">
                                                     <logic:equal name="isDark" value="true">
-                                                        <img height="25" width="25" src="p_dark_yellow.gif" alt="" style="vertical-align:middle;" />&#160;
+                                                        <ao:img height="25" width="25" src="p_dark_yellow.gif" alt="" style="vertical-align:middle;" />&#160;
                                                     </logic:equal>
                                                     <logic:equal name="isDark" value="false">
-                                                        <img height="25" width="25" src="p_light_yellow.gif" alt="" style="vertical-align:middle;" />&#160;
+                                                        <ao:img height="25" width="25" src="p_light_yellow.gif" alt="" style="vertical-align:middle;" />&#160;
                                                     </logic:equal>
                                                 </logic:equal>
                                                 <logic:equal name="ticket" property="clientPriority.priority" value="<%= com.aoindustries.aoserv.client.TicketPriority.HIGH %>">
                                                     <logic:equal name="isDark" value="true">
-                                                        <img height="25" width="25" src="p_dark_orange.gif" alt="" style="vertical-align:middle;" />&#160;
+                                                        <ao:img height="25" width="25" src="p_dark_orange.gif" alt="" style="vertical-align:middle;" />&#160;
                                                     </logic:equal>
                                                     <logic:equal name="isDark" value="false">
-                                                        <img height="25" width="25" src="p_light_orange.gif" alt="" style="vertical-align:middle;" />&#160;
+                                                        <ao:img height="25" width="25" src="p_light_orange.gif" alt="" style="vertical-align:middle;" />&#160;
                                                     </logic:equal>
                                                 </logic:equal>
                                                 <logic:equal name="ticket" property="clientPriority.priority" value="<%= com.aoindustries.aoserv.client.TicketPriority.URGENT %>">
                                                     <logic:equal name="isDark" value="true">
-                                                        <img height="25" width="25" src="p_dark_red.gif" alt="" style="vertical-align:middle;" />&#160;
+                                                        <ao:img height="25" width="25" src="p_dark_red.gif" alt="" style="vertical-align:middle;" />&#160;
                                                     </logic:equal>
                                                     <logic:equal name="isDark" value="false">
-                                                        <img height="25" width="25" src="p_light_red.gif" alt="" style="vertical-align:middle;" />&#160;
+                                                        <ao:img height="25" width="25" src="p_light_red.gif" alt="" style="vertical-align:middle;" />&#160;
                                                     </logic:equal>
                                                 </logic:equal>
                                             </logic:notEqual>
