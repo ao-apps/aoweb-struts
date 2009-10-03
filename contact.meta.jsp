@@ -9,6 +9,7 @@
 
 <fmt:bundle basename="com.aoindustries.website.ApplicationResources">
     <skin:path>/contact.do</skin:path>
+    <skin:encrypt>true</skin:encrypt>
     <skin:title><fmt:message key="contact.title" /></skin:title>
     <skin:navImageAlt><fmt:message key="contact.navImageAlt" /></skin:navImageAlt>
     <skin:keywords><fmt:message key="contact.keywords" /></skin:keywords>

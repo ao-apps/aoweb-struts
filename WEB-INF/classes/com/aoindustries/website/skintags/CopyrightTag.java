@@ -21,7 +21,7 @@ import javax.servlet.jsp.tagext.JspTag;
 public class CopyrightTag extends AutoEncodingBufferedTag {
 
     public MediaType getContentType() {
-        return MediaType.TEXT;
+        return MediaType.XHTML;
     }
 
     public MediaType getOutputType() {
