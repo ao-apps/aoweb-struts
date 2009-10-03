@@ -20,7 +20,7 @@
   </context-param>
 <!-- Include "web.xml.contextParams" -->
 
-  <!-- Filter to disallow direct JSP access except /index.jsp -->
+  <!-- Filter to disallow direct JSP access, redirects /index.jsp to /index.do -->
   <filter>
     <filter-name>NoDirectJspFilter</filter-name>
     <filter-class>com.aoindustries.website.NoDirectJspFilter</filter-class>
