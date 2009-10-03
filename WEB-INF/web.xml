@@ -20,6 +20,11 @@
   </context-param>
 <!-- Include "web.xml.contextParams" -->
 
+  <!-- Filter to disallow direct JSP access except /index.jsp -->
+  <filter>
+    <filter-name>NoDirectJspFilter</filter-name>
+    <filter-class>com.aoindustries.website.NoDirectJspFilter</filter-class>
+  </filter>
   <!-- Filter to make HTTPS sessions be carried over to HTTP -->
   <filter>
     <filter-name>SessionFilter</filter-name>
@@ -36,6 +41,11 @@
     <filter-class>com.aoindustries.website.SetRequestCharacterEncodingFilter</filter-class>
   </filter>
   <!-- Filter mappings -->
+  <filter-mapping>
+    <filter-name>NoDirectJspFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
   <filter-mapping>
     <filter-name>SessionFilter</filter-name>
     <url-pattern>/*</url-pattern>

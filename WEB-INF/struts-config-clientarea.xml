@@ -25,7 +25,7 @@
     <!-- ========== Global Forward Definitions ============================== -->
     <global-forwards>
         <!-- / -->
-        <forward name="exception" module="" path="/WEB-INF/jsp/exception.jsp" redirect="false" />
+        <forward name="exception" module="" path="/exception.jsp" redirect="false" />
         <forward name="login" module="" path="/login.do" redirect="false" />
         <forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
         <!-- /clientarea -->
@@ -37,13 +37,13 @@
             path="/index"
             type="com.aoindustries.website.HttpAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/index.jsp" redirect="false" />
+            <forward name="success" path="/index.jsp" redirect="false" />
         </action>
         <action
             path="/**"
             type="com.aoindustries.website.SkinAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/not-found.jsp" redirect="false" />
+            <forward name="success" module="" path="/not-found.jsp" redirect="false" />
         </action>
     </action-mappings>
 

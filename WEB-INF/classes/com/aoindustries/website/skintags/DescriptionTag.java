@@ -5,36 +5,34 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import javax.servlet.jsp.tagext.BodyContent;
-import javax.servlet.jsp.tagext.BodyTagSupport;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.io.StringBuilderWriter;
+import com.aoindustries.taglib.AutoEncodingBufferedTag;
+import java.io.Writer;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.JspTag;
 
 /**
- * Sets the description for the page.
- *
  * @author  AO Industries, Inc.
  */
-public class DescriptionTag extends BodyTagSupport {
+public class DescriptionTag extends AutoEncodingBufferedTag {
 
-    public DescriptionTag() {
+    public MediaType getContentType() {
+        return MediaType.TEXT;
     }
 
-    public int doStartTag() {
-        return EVAL_BODY_BUFFERED;
+    public MediaType getOutputType() {
+        return null;
     }
 
-    public int doEndTag() {
-        String description = getBodyContent().getString().trim();
-        AddParentTag addParentTag = (AddParentTag)findAncestorWithClass(this, AddParentTag.class);
-        if(addParentTag!=null) {
-            addParentTag.setDescription(description);
+    protected void doTag(StringBuilderWriter capturedBody, Writer out) {
+        String description = capturedBody.toString().trim();
+        JspTag parent = findAncestorWithClass(this, DescriptionAttribute.class);
+        if(parent==null) {
+            PageAttributesBodyTag.getPageAttributes((PageContext)getJspContext()).setDescription(description);
         } else {
-            AddSiblingTag addSiblingTag = (AddSiblingTag)findAncestorWithClass(this, AddSiblingTag.class);
-            if(addSiblingTag!=null) {
-                addSiblingTag.setDescription(description);
-            } else {
-                PageAttributesBodyTag.getPageAttributes(pageContext).setDescription(description);
-            }
+            DescriptionAttribute descriptionAttribute = (DescriptionAttribute)parent;
+            descriptionAttribute.setDescription(description);
         }
-        return EVAL_PAGE;
     }
 }

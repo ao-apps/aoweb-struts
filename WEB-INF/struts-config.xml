@@ -29,9 +29,9 @@
     <!-- ========== Global Forward Definitions ============================== -->
     <global-forwards>
         <!-- / -->
-        <forward name="exception" module="" path="/WEB-INF/jsp/exception.jsp" redirect="false" />
-        <forward name="login" module="" path="/login.do" redirect="false" />
-        <forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
+        <forward name="exception" path="/exception.jsp" redirect="false" />
+        <forward name="login" path="/login.do" redirect="false" />
+        <forward name="permission-denied" path="/permission-denied.do" redirect="false" />
     </global-forwards>
 
     <!-- ========== Action Mapping Definitions ============================== -->
@@ -41,13 +41,13 @@
             path="/exception"
             type="com.aoindustries.website.SkinAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/exception.jsp" redirect="false" />
+            <forward name="success" path="/exception.jsp" redirect="false" />
         </action>
         <action
             path="/not-found"
             type="com.aoindustries.website.SkinAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/not-found.jsp" redirect="false" />
+            <forward name="success" path="/not-found.jsp" redirect="false" />
         </action>
         <action
             path="/contact"
@@ -56,7 +56,7 @@
             validate="false"
             type="com.aoindustries.website.HttpsAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/contact.jsp" redirect="false" />
+            <forward name="success" path="/contact.jsp" redirect="false" />
         </action>
         <action
             path="/contact-completed"
@@ -65,8 +65,8 @@
             validate="false"
             type="com.aoindustries.website.ContactCompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/contact.jsp" redirect="false" />
-            <forward name="success" module="" path="/WEB-INF/jsp/contact-completed.jsp" redirect="false" />
+            <forward name="input" path="/contact.jsp" redirect="false" />
+            <forward name="success" path="/contact-completed.jsp" redirect="false" />
         </action>
         <action
             path="/login"
@@ -75,7 +75,7 @@
             validate="false"
             type="com.aoindustries.website.LoginAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/login.jsp" redirect="false" />
+            <forward name="success" path="/login.jsp" redirect="false" />
         </action>
         <action
             path="/login-completed"
@@ -84,9 +84,9 @@
             validate="false"
             type="com.aoindustries.website.LoginCompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/login.jsp" redirect="false" />
-            <!-- Redirect done directly from Action now: forward name="success" module="" path="/clientarea/index.do" redirect="true" /-->
-            <forward name="failure" module="" path="/WEB-INF/jsp/login.jsp" redirect="false" />
+            <forward name="input" path="/login.jsp" redirect="false" />
+            <!-- Redirect done directly from Action now: forward name="success" path="/clientarea/index.do" redirect="true" /-->
+            <forward name="failure" path="/login.jsp" redirect="false" />
         </action>
         <action
             path="/permission-denied"
@@ -99,32 +99,32 @@
             validate="false"
             type="com.aoindustries.website.SessionTimeoutAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/login.jsp" redirect="false" />
+            <forward name="success" path="/login.jsp" redirect="false" />
         </action>
         <action
             path="/set-resource-bundle-value"
             type="com.aoindustries.website.SetResourceBundleValueAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/set-resource-bundle-value.jsp" redirect="false" />
+            <forward name="success" path="/set-resource-bundle-value.jsp" redirect="false" />
         </action>
         <action
             path="/set-resource-bundle-media-type"
             type="com.aoindustries.website.SetResourceBundleMediaTypeAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/set-resource-bundle-media-type.jsp" redirect="false" />
+            <forward name="success" path="/set-resource-bundle-media-type.jsp" redirect="false" />
         </action>
         <action
             path="/logout"
             type="com.aoindustries.website.LogoutAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/logout.jsp" redirect="false" />
+            <forward name="success" path="/logout.jsp" redirect="false" />
         </action>
 <!-- Include "struts-config.xml.actions" -->
         <action
             path="/**"
             type="com.aoindustries.website.SkinAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/not-found.jsp" redirect="false" />
+            <forward name="success" path="/not-found.jsp" redirect="false" />
         </action>
     </action-mappings>
 

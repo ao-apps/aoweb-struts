@@ -5,39 +5,29 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import javax.servlet.jsp.tagext.BodyTagSupport;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.io.StringBuilderWriter;
+import com.aoindustries.taglib.AutoEncodingBufferedTag;
+import com.aoindustries.taglib.ContentAttribute;
+import com.aoindustries.taglib.NameAttribute;
+import java.io.Writer;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.JspTag;
 
 /**
- * Adds a META tag for a page.
- *
  * @author  AO Industries, Inc.
  */
-public class MetaTag extends BodyTagSupport {
+public class MetaTag extends AutoEncodingBufferedTag implements NameAttribute, ContentAttribute {
 
     private String name;
+    private String content;
 
-    public MetaTag() {
-        init();
+    public MediaType getContentType() {
+        return MediaType.TEXT;
     }
 
-    private void init() {
-        name = null;
-    }
-
-    @Override
-    public int doStartTag() {
-        return EVAL_BODY_BUFFERED;
-    }
-
-    @Override
-    public int doEndTag() {
-        try {
-            String content = getBodyContent().getString().trim();
-            PageAttributesBodyTag.getPageAttributes(pageContext).addMeta(name, content);
-            return EVAL_PAGE;
-        } finally {
-            init();
-        }
+    public MediaType getOutputType() {
+        return null;
     }
 
     public String getName() {
@@ -46,5 +36,26 @@ public class MetaTag extends BodyTagSupport {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    protected void doTag(StringBuilderWriter capturedBody, Writer out) {
+        String myContent = content;
+        if(myContent==null) myContent = capturedBody.toString().trim();
+        Meta meta = new Meta(name, myContent);
+        JspTag parent = findAncestorWithClass(this, MetasAttribute.class);
+        if(parent==null) {
+            PageAttributesBodyTag.getPageAttributes((PageContext)getJspContext()).addMeta(meta);
+        } else {
+            MetasAttribute metasAttribute = (MetasAttribute)parent;
+            metasAttribute.addMeta(meta);
+        }
     }
 }

@@ -13,13 +13,15 @@ import com.aoindustries.io.ChainWriter;
 import com.aoindustries.util.EditableResourceBundle;
 import com.aoindustries.util.EncodingUtils;
 import com.aoindustries.util.StringUtility;
-import com.aoindustries.website.skintags.Page;
+import com.aoindustries.website.skintags.Child;
+import com.aoindustries.website.skintags.Meta;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.aoindustries.website.skintags.PageAttributes;
+import com.aoindustries.website.skintags.Parent;
 import java.net.URLEncoder;
 import java.sql.SQLException;
 import javax.servlet.ServletContext;
@@ -147,7 +149,7 @@ public class TextSkin extends Skin {
                 out.print(URLEncoder.encode(fullPath, "UTF-8"));
                 out.print("\" />\n");
             }
-            for(PageAttributes.Meta meta : pageAttributes.getMetas()) {
+            for(Meta meta : pageAttributes.getMetas()) {
                 // Skip ROBOTS if not on default skin
                 boolean isRobots = meta.getName().equalsIgnoreCase("ROBOTS");
                 if(!robotsMetaUsed || !isRobots) {
@@ -160,8 +162,8 @@ public class TextSkin extends Skin {
                 }
             }
             out.print("    <title>");
-            List<Page> parents = pageAttributes.getParents();
-            for(Page parent : parents) {
+            List<Parent> parents = pageAttributes.getParents();
+            for(Parent parent : parents) {
                 TextInXhtmlEncoder.encodeTextInXhtml(locale, parent.getTitle(), out);
                 out.print(" - ");
             }
@@ -355,13 +357,13 @@ public class TextSkin extends Skin {
             out.print(applicationResources.getMessage(locale, "TextSkin.currentLocation"));
             out.print("</b><br />\n"
                     + "          <div style='white-space:nowrap'>\n");
-            for(Page parent : parents) {
+            for(Parent parent : parents) {
                 String navAlt = parent.getNavImageAlt();
-                boolean useEncryption = parent.getUseEncryption();
+                boolean encrypt = parent.getEncrypt();
                 String parentPath = parent.getPath();
                 if(parentPath.startsWith("/")) parentPath=parentPath.substring(1);
                 out.print("            <a href='");
-                out.print(resp.encodeURL((useEncryption ? httpsUrlBase : httpUrlBase) + EncodingUtils.encodeURL(parentPath)));
+                out.print(resp.encodeURL((encrypt ? httpsUrlBase : httpUrlBase) + EncodingUtils.encodeURL(parentPath)));
                 out.print("'>");
                 EncodingUtils.encodeHtml(navAlt, out);
                 out.print("</a><br />\n");
@@ -379,14 +381,17 @@ public class TextSkin extends Skin {
             out.print("</b><br />\n"
             // Display the siblings
                     + "          <div style='white-space:nowrap'>\n");
-            List<Page> siblings = pageAttributes.getSiblings();
-            for(Page sibling : siblings) {
+            List<Child> siblings = pageAttributes.getChildren();
+            if(siblings.isEmpty() && !parents.isEmpty()) {
+                siblings = parents.get(parents.size()-1).getChildren();
+            }
+            for(Child sibling : siblings) {
                 String navAlt=sibling.getNavImageAlt();
-                boolean useEncryption = sibling.getUseEncryption();
+                boolean encrypt = sibling.getEncrypt();
                 String siblingPath = sibling.getPath();
                 if(siblingPath.startsWith("/")) siblingPath=siblingPath.substring(1);
                 out.print("          <a href='");
-                out.print(resp.encodeURL((useEncryption ? httpsUrlBase : httpUrlBase) + EncodingUtils.encodeURL(siblingPath)));
+                out.print(resp.encodeURL((encrypt ? httpsUrlBase : httpUrlBase) + EncodingUtils.encodeURL(siblingPath)));
                 out.print("'>");
                 EncodingUtils.encodeHtml(navAlt, out);
                 out.print("</a><br />\n");
@@ -718,16 +723,16 @@ public class TextSkin extends Skin {
             String httpUrlBase = getHttpUrlBase(req);
 
             out.print("<table cellpadding='0' cellspacing='10'>\n");
-            List<Page> siblings = pageAttributes.getSiblings();
-            for(Page sibling : siblings) {
+            List<Child> siblings = pageAttributes.getChildren();
+            for(Child sibling : siblings) {
                 String navAlt=sibling.getNavImageAlt();
-                boolean useEncryption = sibling.getUseEncryption();
+                boolean encrypt = sibling.getEncrypt();
                 String siblingPath = sibling.getPath();
                 if(siblingPath.startsWith("/")) siblingPath=siblingPath.substring(1);
 
                 out.print("  <tr>\n"
                         + "    <td style=\"white-space:nowrap\"><a class='aoLightLink' href='");
-                out.print(resp.encodeURL((useEncryption ? httpsUrlBase : httpUrlBase) + EncodingUtils.encodeURL(siblingPath)));
+                out.print(resp.encodeURL((encrypt ? httpsUrlBase : httpUrlBase) + EncodingUtils.encodeURL(siblingPath)));
                 out.print("'>");
                 EncodingUtils.encodeHtml(navAlt, out);
                 out.print("</a></td>\n"

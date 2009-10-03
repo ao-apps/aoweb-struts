@@ -29,7 +29,7 @@
     <!-- ========== Global Forward Definitions ============================== -->
     <global-forwards>
         <!-- / -->
-        <forward name="exception" module="" path="/WEB-INF/jsp/exception.jsp" redirect="false" />
+        <forward name="exception" module="" path="/exception.jsp" redirect="false" />
         <forward name="login" module="" path="/login.do" redirect="false" />
         <forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
         <!-- /clientarea/accounting -->
@@ -43,14 +43,14 @@
             path="/index"
             type="com.aoindustries.website.HttpAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/accounting/index.jsp" redirect="false" />
+            <forward name="success" path="/index.jsp" redirect="false" />
         </action>
         <action
             path="/credit-card-manager"
             type="com.aoindustries.website.clientarea.accounting.CreditCardManagerAction"
         >
-            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/accounting/credit-card-manager.jsp" redirect="false" />
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/accounting/credit-card-manager.jsp" redirect="false" />
+            <forward name="permission-denied" path="/credit-card-manager.jsp" redirect="false" />
+            <forward name="success" path="/credit-card-manager.jsp" redirect="false" />
         </action>
         <action
             path="/add-credit-card"
@@ -59,8 +59,8 @@
             validate="false"
             type="com.aoindustries.website.clientarea.accounting.AddCreditCardAction"
         >
-            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/accounting/add-credit-card.jsp" redirect="false" />
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/accounting/add-credit-card.jsp" redirect="false" />
+            <forward name="permission-denied" path="/add-credit-card.jsp" redirect="false" />
+            <forward name="success" path="/add-credit-card.jsp" redirect="false" />
         </action>
         <action
             path="/add-credit-card-completed"
@@ -69,23 +69,23 @@
             validate="false"
             type="com.aoindustries.website.clientarea.accounting.AddCreditCardCompletedAction"
         >
-            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/accounting/add-credit-card.jsp" redirect="false" />
-            <forward name="input" module="" path="/WEB-INF/jsp/clientarea/accounting/add-credit-card.jsp" redirect="false" />
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/accounting/add-credit-card-completed.jsp" redirect="false" />
+            <forward name="permission-denied" path="/add-credit-card.jsp" redirect="false" />
+            <forward name="input" path="/add-credit-card.jsp" redirect="false" />
+            <forward name="success" path="/add-credit-card-completed.jsp" redirect="false" />
         </action>
         <action
             path="/delete-credit-card"
             type="com.aoindustries.website.clientarea.accounting.DeleteCreditCardAction"
         >
-            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/accounting/delete-credit-card.jsp" redirect="false" />
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/accounting/delete-credit-card.jsp" redirect="false" />
+            <forward name="permission-denied" path="/delete-credit-card.jsp" redirect="false" />
+            <forward name="success" path="/delete-credit-card.jsp" redirect="false" />
         </action>
         <action
             path="/delete-credit-card-completed"
             type="com.aoindustries.website.clientarea.accounting.DeleteCreditCardCompletedAction"
         >
-            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/accounting/delete-credit-card-completed.jsp" redirect="false" />
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/accounting/delete-credit-card-completed.jsp" redirect="false" />
+            <forward name="permission-denied" path="/delete-credit-card-completed.jsp" redirect="false" />
+            <forward name="success" path="/delete-credit-card-completed.jsp" redirect="false" />
         </action>
         <action
             path="/edit-credit-card"
@@ -94,8 +94,8 @@
             validate="false"
             type="com.aoindustries.website.clientarea.accounting.EditCreditCardAction"
         >
-            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
+            <forward name="permission-denied" path="/edit-credit-card.jsp" redirect="false" />
+            <forward name="success" path="/edit-credit-card.jsp" redirect="false" />
         </action>
         <action
             path="/edit-credit-card-completed"
@@ -104,35 +104,35 @@
             validate="false"
             type="com.aoindustries.website.clientarea.accounting.EditCreditCardCompletedAction"
         >
-            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
-            <forward name="input" module="" path="/WEB-INF/jsp/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/accounting/edit-credit-card-completed.jsp" redirect="false" />
+            <forward name="permission-denied" path="/edit-credit-card.jsp" redirect="false" />
+            <forward name="input" path="/edit-credit-card.jsp" redirect="false" />
+            <forward name="success" path="/edit-credit-card-completed.jsp" redirect="false" />
         </action>
         <action
             path="/configure-automatic-billing"
             type="com.aoindustries.website.clientarea.accounting.ConfigureAutomaticBillingAction"
         >
-            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/accounting/configure-automatic-billing.jsp" redirect="false" />
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/accounting/configure-automatic-billing.jsp" redirect="false" />
+            <forward name="permission-denied" path="/configure-automatic-billing.jsp" redirect="false" />
+            <forward name="success" path="/configure-automatic-billing.jsp" redirect="false" />
         </action>
         <action
             path="/configure-automatic-billing-completed"
             type="com.aoindustries.website.clientarea.accounting.ConfigureAutomaticBillingCompletedAction"
         >
-            <forward name="permission-denied" module="" path="/WEB-INF/jsp/clientarea/accounting/configure-automatic-billing-completed.jsp" redirect="false" />
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/accounting/configure-automatic-billing-completed.jsp" redirect="false" />
+            <forward name="permission-denied" path="/configure-automatic-billing-completed.jsp" redirect="false" />
+            <forward name="success" path="/configure-automatic-billing-completed.jsp" redirect="false" />
         </action>
         <action
             path="/make-payment"
             type="com.aoindustries.website.clientarea.accounting.MakePaymentAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/accounting/make-payment.jsp" redirect="false" />
+            <forward name="success" path="/make-payment.jsp" redirect="false" />
         </action>
         <action
             path="/make-payment-select-card"
             type="com.aoindustries.website.clientarea.accounting.MakePaymentSelectCardAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/accounting/make-payment-select-card.jsp" redirect="false" />
+            <forward name="success" path="/make-payment-select-card.jsp" redirect="false" />
         </action>
         <action
             path="/make-payment-stored-card"
@@ -141,7 +141,7 @@
             validate="false"
             type="com.aoindustries.website.clientarea.accounting.MakePaymentStoredCardAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/accounting/make-payment-stored-card.jsp" redirect="false" />
+            <forward name="success" path="/make-payment-stored-card.jsp" redirect="false" />
         </action>
         <action
             path="/make-payment-stored-card-completed"
@@ -150,11 +150,11 @@
             validate="false"
             type="com.aoindustries.website.clientarea.accounting.MakePaymentStoredCardCompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/clientarea/accounting/make-payment-stored-card.jsp" redirect="false" />
-            <forward name="error" module="" path="/WEB-INF/jsp/clientarea/accounting/make-payment-stored-card-error.jsp" redirect="false" />
-            <forward name="hold" module="" path="/WEB-INF/jsp/clientarea/accounting/make-payment-stored-card-hold.jsp" redirect="false" />
-            <forward name="declined" module="" path="/WEB-INF/jsp/clientarea/accounting/make-payment-stored-card-declined.jsp" redirect="false" />
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/accounting/make-payment-stored-card-completed.jsp" redirect="false" />
+            <forward name="input" path="/make-payment-stored-card.jsp" redirect="false" />
+            <forward name="error" path="/make-payment-stored-card-error.jsp" redirect="false" />
+            <forward name="hold" path="/make-payment-stored-card-hold.jsp" redirect="false" />
+            <forward name="declined" path="/make-payment-stored-card-declined.jsp" redirect="false" />
+            <forward name="success" path="/make-payment-stored-card-completed.jsp" redirect="false" />
         </action>
         <action
             path="/make-payment-new-card"
@@ -163,7 +163,7 @@
             validate="false"
             type="com.aoindustries.website.clientarea.accounting.MakePaymentNewCardAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
+            <forward name="success" path="/make-payment-new-card.jsp" redirect="false" />
         </action>
         <action
             path="/make-payment-new-card-completed"
@@ -172,17 +172,17 @@
             validate="false"
             type="com.aoindustries.website.clientarea.accounting.MakePaymentNewCardCompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
-            <forward name="error" module="" path="/WEB-INF/jsp/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
-            <forward name="hold" module="" path="/WEB-INF/jsp/clientarea/accounting/make-payment-new-card-hold.jsp" redirect="false" />
-            <forward name="declined" module="" path="/WEB-INF/jsp/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
-            <forward name="success" module="" path="/WEB-INF/jsp/clientarea/accounting/make-payment-new-card-completed.jsp" redirect="false" />
+            <forward name="input" path="/make-payment-new-card.jsp" redirect="false" />
+            <forward name="error" path="/make-payment-new-card.jsp" redirect="false" />
+            <forward name="hold" path="/make-payment-new-card-hold.jsp" redirect="false" />
+            <forward name="declined" path="/make-payment-new-card.jsp" redirect="false" />
+            <forward name="success" path="/make-payment-new-card-completed.jsp" redirect="false" />
         </action>
         <action
             path="/**"
             type="com.aoindustries.website.SkinAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/not-found.jsp" redirect="false" />
+            <forward name="success" module="" path="/not-found.jsp" redirect="false" />
         </action>
     </action-mappings>
 

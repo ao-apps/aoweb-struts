@@ -16,7 +16,7 @@
       <name>path</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>String</type>
+      <type>java.lang.String</type>
       <description>The context-relative path to test existence.  This does not support relative paths.</description>
     </attribute>
     <example />
@@ -30,7 +30,7 @@
       <name>path</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>String</type>
+      <type>java.lang.String</type>
       <description>The context-relative path to test existence.  This does not support relative paths.</description>
     </attribute>
     <example />
@@ -50,7 +50,7 @@
       <name>onloadMode</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>String</type>
+      <type>java.lang.String</type>
       <description>
         Supports three options:
             none (the default) - executes the script directly in the body

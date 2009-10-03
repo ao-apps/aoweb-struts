@@ -5,6 +5,7 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -22,7 +23,7 @@ abstract public class PageAttributesBodyTag extends BodyTagSupport {
     static PageAttributes getPageAttributes(PageContext pageContext) {
         PageAttributes pageAttributes = (PageAttributes)pageContext.getAttribute(PageAttributes.ATTRIBUTE_KEY, PageAttributes.ATTRIBUTE_SCOPE);
         if(pageAttributes==null) {
-            pageAttributes = new PageAttributes();
+            pageAttributes = new PageAttributes((HttpServletRequest)pageContext.getRequest());
             pageContext.setAttribute(PageAttributes.ATTRIBUTE_KEY, pageAttributes, PageAttributes.ATTRIBUTE_SCOPE);
         }
         return pageAttributes;

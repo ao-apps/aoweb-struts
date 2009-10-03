@@ -5,12 +5,28 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import javax.servlet.jsp.JspException;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.io.StringBuilderWriter;
+import com.aoindustries.taglib.AutoEncodingBufferedTag;
+import com.aoindustries.taglib.HrefAttribute;
+import com.aoindustries.taglib.RelAttribute;
+import com.aoindustries.taglib.TypeAttribute;
+import java.io.IOException;
+import java.io.Writer;
+import javax.servlet.jsp.PageContext;
 
 /**
  * @author  AO Industries, Inc.
  */
-public class LinkTag extends PageAttributesTag {
+public class LinkTag extends AutoEncodingBufferedTag implements RelAttribute, HrefAttribute, TypeAttribute {
+
+    public MediaType getContentType() {
+        return MediaType.URL;
+    }
+
+    public MediaType getOutputType() {
+        return MediaType.XHTML;
+    }
 
     private String rel;
     private String href;
@@ -28,69 +44,41 @@ public class LinkTag extends PageAttributesTag {
         conditionalCommentExpression = null;
     }
 
-    @Override
-    public int doStartTag(PageAttributes pageAttributes) throws JspException {
-        try {
-            pageAttributes.addLink(rel, href, type, conditionalCommentExpression);
-            return SKIP_BODY;
-        } finally {
-            init();
-        }
-    }
-
-    /**
-     * @return the rel
-     */
     public String getRel() {
         return rel;
     }
 
-    /**
-     * @param rel the rel to set
-     */
     public void setRel(String rel) {
         this.rel = rel;
     }
 
-    /**
-     * @return the href
-     */
     public String getHref() {
         return href;
     }
 
-    /**
-     * @param href the href to set
-     */
     public void setHref(String href) {
         this.href = href;
     }
 
-    /**
-     * @return the type
-     */
     public String getType() {
         return type;
     }
 
-    /**
-     * @param type the type to set
-     */
     public void setType(String type) {
         this.type = type;
     }
 
-    /**
-     * @return the conditionalCommentExpression
-     */
     public String getConditionalCommentExpression() {
         return conditionalCommentExpression;
     }
 
-    /**
-     * @param conditionalCommentExpression the conditionalCommentExpression to set
-     */
     public void setConditionalCommentExpression(String conditionalCommentExpression) {
         this.conditionalCommentExpression = conditionalCommentExpression;
+    }
+
+    protected void doTag(StringBuilderWriter capturedBody, Writer out) throws IOException {
+        String myHref = href;
+        if(myHref==null) myHref = capturedBody.toString().trim();
+        PageAttributesBodyTag.getPageAttributes((PageContext)getJspContext()).addLink(rel, href, type, conditionalCommentExpression);
     }
 }

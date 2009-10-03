@@ -39,7 +39,7 @@
     <!-- ========== Global Forward Definitions ============================== -->
     <global-forwards>
         <!-- / -->
-        <forward name="exception" module="" path="/WEB-INF/jsp/exception.jsp" redirect="false" />
+        <forward name="exception" module="" path="/exception.jsp" redirect="false" />
         <forward name="login" module="" path="/login.do" redirect="false" />
         <forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
         <!-- /signup -->
@@ -106,7 +106,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualDedicatedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-dedicated-server.jsp" redirect="false" />
+            <forward name="input" path="/virtual-dedicated-server.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-dedicated-server-completed"
@@ -115,7 +115,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualDedicatedCompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-dedicated-server.jsp" redirect="false" />
+            <forward name="input" path="/virtual-dedicated-server.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-dedicated-server-2"
@@ -124,7 +124,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualDedicated2Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-dedicated-server-2.jsp" redirect="false" />
+            <forward name="input" path="/virtual-dedicated-server-2.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-dedicated-server-2-completed"
@@ -133,7 +133,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualDedicated2CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-dedicated-server-2.jsp" redirect="false" />
+            <forward name="input" path="/virtual-dedicated-server-2.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-dedicated-server-3"
@@ -142,7 +142,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualDedicated3Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-dedicated-server-3.jsp" redirect="false" />
+            <forward name="input" path="/virtual-dedicated-server-3.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-dedicated-server-3-completed"
@@ -151,7 +151,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualDedicated3CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-dedicated-server-3.jsp" redirect="false" />
+            <forward name="input" path="/virtual-dedicated-server-3.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-dedicated-server-4"
@@ -160,7 +160,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualDedicated4Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-dedicated-server-4.jsp" redirect="false" />
+            <forward name="input" path="/virtual-dedicated-server-4.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-dedicated-server-4-completed"
@@ -169,7 +169,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualDedicated4CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-dedicated-server-4.jsp" redirect="false" />
+            <forward name="input" path="/virtual-dedicated-server-4.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-dedicated-server-5"
@@ -178,7 +178,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualDedicated5Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-dedicated-server-5.jsp" redirect="false" />
+            <forward name="input" path="/virtual-dedicated-server-5.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-dedicated-server-5-completed"
@@ -187,19 +187,19 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualDedicated5CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-dedicated-server-5.jsp" redirect="false" />
+            <forward name="input" path="/virtual-dedicated-server-5.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-dedicated-server-6"
             type="com.aoindustries.website.signup.VirtualDedicated6Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-dedicated-server-6.jsp" redirect="false" />
+            <forward name="input" path="/virtual-dedicated-server-6.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-dedicated-server-6-completed"
             type="com.aoindustries.website.signup.VirtualDedicated6CompletedAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/signup/virtual-dedicated-server-6-completed.jsp" redirect="false" />
+            <forward name="success" path="/virtual-dedicated-server-6-completed.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-managed-server"
@@ -208,7 +208,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualManagedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-managed-server.jsp" redirect="false" />
+            <forward name="input" path="/virtual-managed-server.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-managed-server-completed"
@@ -217,7 +217,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualManagedCompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-managed-server.jsp" redirect="false" />
+            <forward name="input" path="/virtual-managed-server.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-managed-server-2"
@@ -226,7 +226,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged2Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-managed-server-2.jsp" redirect="false" />
+            <forward name="input" path="/virtual-managed-server-2.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-managed-server-2-completed"
@@ -235,7 +235,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged2CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-managed-server-2.jsp" redirect="false" />
+            <forward name="input" path="/virtual-managed-server-2.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-managed-server-3"
@@ -244,7 +244,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged3Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-managed-server-3.jsp" redirect="false" />
+            <forward name="input" path="/virtual-managed-server-3.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-managed-server-3-completed"
@@ -253,7 +253,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged3CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-managed-server-3.jsp" redirect="false" />
+            <forward name="input" path="/virtual-managed-server-3.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-managed-server-4"
@@ -262,7 +262,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged4Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-managed-server-4.jsp" redirect="false" />
+            <forward name="input" path="/virtual-managed-server-4.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-managed-server-4-completed"
@@ -271,7 +271,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged4CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-managed-server-4.jsp" redirect="false" />
+            <forward name="input" path="/virtual-managed-server-4.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-managed-server-5"
@@ -280,7 +280,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged5Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-managed-server-5.jsp" redirect="false" />
+            <forward name="input" path="/virtual-managed-server-5.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-managed-server-5-completed"
@@ -289,7 +289,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged5CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-managed-server-5.jsp" redirect="false" />
+            <forward name="input" path="/virtual-managed-server-5.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-managed-server-6"
@@ -298,7 +298,7 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged6Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-managed-server-6.jsp" redirect="false" />
+            <forward name="input" path="/virtual-managed-server-6.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-managed-server-6-completed"
@@ -307,19 +307,19 @@
             validate="false"
             type="com.aoindustries.website.signup.VirtualManaged6CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-managed-server-6.jsp" redirect="false" />
+            <forward name="input" path="/virtual-managed-server-6.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-managed-server-7"
             type="com.aoindustries.website.signup.VirtualManaged7Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/virtual-managed-server-7.jsp" redirect="false" />
+            <forward name="input" path="/virtual-managed-server-7.jsp" redirect="false" />
         </action>
         <action
             path="/virtual-managed-server-7-completed"
             type="com.aoindustries.website.signup.VirtualManaged7CompletedAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/signup/virtual-managed-server-7-completed.jsp" redirect="false" />
+            <forward name="success" path="/virtual-managed-server-7-completed.jsp" redirect="false" />
         </action>
         <action
             path="/dedicated-server"
@@ -328,7 +328,7 @@
             validate="false"
             type="com.aoindustries.website.signup.DedicatedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/dedicated-server.jsp" redirect="false" />
+            <forward name="input" path="/dedicated-server.jsp" redirect="false" />
         </action>
         <action
             path="/dedicated-server-completed"
@@ -337,7 +337,7 @@
             validate="false"
             type="com.aoindustries.website.signup.DedicatedCompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/dedicated-server.jsp" redirect="false" />
+            <forward name="input" path="/dedicated-server.jsp" redirect="false" />
         </action>
         <action
             path="/dedicated-server-2"
@@ -346,7 +346,7 @@
             validate="false"
             type="com.aoindustries.website.signup.Dedicated2Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/dedicated-server-2.jsp" redirect="false" />
+            <forward name="input" path="/dedicated-server-2.jsp" redirect="false" />
         </action>
         <action
             path="/dedicated-server-2-completed"
@@ -355,7 +355,7 @@
             validate="false"
             type="com.aoindustries.website.signup.Dedicated2CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/dedicated-server-2.jsp" redirect="false" />
+            <forward name="input" path="/dedicated-server-2.jsp" redirect="false" />
         </action>
         <action
             path="/dedicated-server-3"
@@ -364,7 +364,7 @@
             validate="false"
             type="com.aoindustries.website.signup.Dedicated3Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/dedicated-server-3.jsp" redirect="false" />
+            <forward name="input" path="/dedicated-server-3.jsp" redirect="false" />
         </action>
         <action
             path="/dedicated-server-3-completed"
@@ -373,7 +373,7 @@
             validate="false"
             type="com.aoindustries.website.signup.Dedicated3CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/dedicated-server-3.jsp" redirect="false" />
+            <forward name="input" path="/dedicated-server-3.jsp" redirect="false" />
         </action>
         <action
             path="/dedicated-server-4"
@@ -382,7 +382,7 @@
             validate="false"
             type="com.aoindustries.website.signup.Dedicated4Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/dedicated-server-4.jsp" redirect="false" />
+            <forward name="input" path="/dedicated-server-4.jsp" redirect="false" />
         </action>
         <action
             path="/dedicated-server-4-completed"
@@ -391,7 +391,7 @@
             validate="false"
             type="com.aoindustries.website.signup.Dedicated4CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/dedicated-server-4.jsp" redirect="false" />
+            <forward name="input" path="/dedicated-server-4.jsp" redirect="false" />
         </action>
         <action
             path="/dedicated-server-5"
@@ -400,7 +400,7 @@
             validate="false"
             type="com.aoindustries.website.signup.Dedicated5Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/dedicated-server-5.jsp" redirect="false" />
+            <forward name="input" path="/dedicated-server-5.jsp" redirect="false" />
         </action>
         <action
             path="/dedicated-server-5-completed"
@@ -409,19 +409,19 @@
             validate="false"
             type="com.aoindustries.website.signup.Dedicated5CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/dedicated-server-5.jsp" redirect="false" />
+            <forward name="input" path="/dedicated-server-5.jsp" redirect="false" />
         </action>
         <action
             path="/dedicated-server-6"
             type="com.aoindustries.website.signup.Dedicated6Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/dedicated-server-6.jsp" redirect="false" />
+            <forward name="input" path="/dedicated-server-6.jsp" redirect="false" />
         </action>
         <action
             path="/dedicated-server-6-completed"
             type="com.aoindustries.website.signup.Dedicated6CompletedAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/signup/dedicated-server-6-completed.jsp" redirect="false" />
+            <forward name="success" path="/dedicated-server-6-completed.jsp" redirect="false" />
         </action>
         <action
             path="/managed-server"
@@ -430,7 +430,7 @@
             validate="false"
             type="com.aoindustries.website.signup.ManagedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/managed-server.jsp" redirect="false" />
+            <forward name="input" path="/managed-server.jsp" redirect="false" />
         </action>
         <action
             path="/managed-server-completed"
@@ -439,7 +439,7 @@
             validate="false"
             type="com.aoindustries.website.signup.ManagedCompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/managed-server.jsp" redirect="false" />
+            <forward name="input" path="/managed-server.jsp" redirect="false" />
         </action>
         <action
             path="/managed-server-2"
@@ -448,7 +448,7 @@
             validate="false"
             type="com.aoindustries.website.signup.Managed2Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/managed-server-2.jsp" redirect="false" />
+            <forward name="input" path="/managed-server-2.jsp" redirect="false" />
         </action>
         <action
             path="/managed-server-2-completed"
@@ -457,7 +457,7 @@
             validate="false"
             type="com.aoindustries.website.signup.Managed2CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/managed-server-2.jsp" redirect="false" />
+            <forward name="input" path="/managed-server-2.jsp" redirect="false" />
         </action>
         <action
             path="/managed-server-3"
@@ -466,7 +466,7 @@
             validate="false"
             type="com.aoindustries.website.signup.Managed3Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/managed-server-3.jsp" redirect="false" />
+            <forward name="input" path="/managed-server-3.jsp" redirect="false" />
         </action>
         <action
             path="/managed-server-3-completed"
@@ -475,7 +475,7 @@
             validate="false"
             type="com.aoindustries.website.signup.Managed3CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/managed-server-3.jsp" redirect="false" />
+            <forward name="input" path="/managed-server-3.jsp" redirect="false" />
         </action>
         <action
             path="/managed-server-4"
@@ -484,7 +484,7 @@
             validate="false"
             type="com.aoindustries.website.signup.Managed4Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/managed-server-4.jsp" redirect="false" />
+            <forward name="input" path="/managed-server-4.jsp" redirect="false" />
         </action>
         <action
             path="/managed-server-4-completed"
@@ -493,7 +493,7 @@
             validate="false"
             type="com.aoindustries.website.signup.Managed4CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/managed-server-4.jsp" redirect="false" />
+            <forward name="input" path="/managed-server-4.jsp" redirect="false" />
         </action>
         <action
             path="/managed-server-5"
@@ -502,7 +502,7 @@
             validate="false"
             type="com.aoindustries.website.signup.Managed5Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/managed-server-5.jsp" redirect="false" />
+            <forward name="input" path="/managed-server-5.jsp" redirect="false" />
         </action>
         <action
             path="/managed-server-5-completed"
@@ -511,7 +511,7 @@
             validate="false"
             type="com.aoindustries.website.signup.Managed5CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/managed-server-5.jsp" redirect="false" />
+            <forward name="input" path="/managed-server-5.jsp" redirect="false" />
         </action>
         <action
             path="/managed-server-6"
@@ -520,7 +520,7 @@
             validate="false"
             type="com.aoindustries.website.signup.Managed6Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/managed-server-6.jsp" redirect="false" />
+            <forward name="input" path="/managed-server-6.jsp" redirect="false" />
         </action>
         <action
             path="/managed-server-6-completed"
@@ -529,25 +529,25 @@
             validate="false"
             type="com.aoindustries.website.signup.Managed6CompletedAction"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/managed-server-6.jsp" redirect="false" />
+            <forward name="input" path="/managed-server-6.jsp" redirect="false" />
         </action>
         <action
             path="/managed-server-7"
             type="com.aoindustries.website.signup.Managed7Action"
         >
-            <forward name="input" module="" path="/WEB-INF/jsp/signup/managed-server-7.jsp" redirect="false" />
+            <forward name="input" path="/managed-server-7.jsp" redirect="false" />
         </action>
         <action
             path="/managed-server-7-completed"
             type="com.aoindustries.website.signup.Managed7CompletedAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/signup/managed-server-7-completed.jsp" redirect="false" />
+            <forward name="success" path="/managed-server-7-completed.jsp" redirect="false" />
         </action>
         <action
             path="/**"
             type="com.aoindustries.website.SkinAction"
         >
-            <forward name="success" module="" path="/WEB-INF/jsp/not-found.jsp" redirect="false" />
+            <forward name="success" module="" path="/not-found.jsp" redirect="false" />
         </action>
     </action-mappings>
 

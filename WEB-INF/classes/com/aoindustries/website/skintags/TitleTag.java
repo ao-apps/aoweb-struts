@@ -5,39 +5,34 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import javax.servlet.jsp.tagext.BodyTagSupport;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.io.StringBuilderWriter;
+import com.aoindustries.taglib.AutoEncodingBufferedTag;
+import java.io.Writer;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.JspTag;
 
 /**
- * Sets the title for a page.
- *
  * @author  AO Industries, Inc.
  */
-public class TitleTag extends BodyTagSupport {
+public class TitleTag extends AutoEncodingBufferedTag {
 
-    private static final long serialVersionUID = 1L;
-
-    public TitleTag() {
+    public MediaType getContentType() {
+        return MediaType.TEXT;
     }
 
-    @Override
-    public int doStartTag() {
-        return EVAL_BODY_BUFFERED;
+    public MediaType getOutputType() {
+        return null;
     }
 
-    @Override
-    public int doEndTag() {
-        String title = getBodyContent().getString().trim();
-        AddParentTag addParentTag = (AddParentTag)findAncestorWithClass(this, AddParentTag.class);
-        if(addParentTag!=null) {
-            addParentTag.setTitle(title);
+    protected void doTag(StringBuilderWriter capturedBody, Writer out) {
+        String title = capturedBody.toString().trim();
+        JspTag parent = findAncestorWithClass(this, TitleAttribute.class);
+        if(parent==null) {
+            PageAttributesBodyTag.getPageAttributes((PageContext)getJspContext()).setTitle(title);
         } else {
-            AddSiblingTag addSiblingTag = (AddSiblingTag)findAncestorWithClass(this, AddSiblingTag.class);
-            if(addSiblingTag!=null) {
-                addSiblingTag.setTitle(title);
-            } else {
-                PageAttributesBodyTag.getPageAttributes(pageContext).setTitle(title);
-            }
+            TitleAttribute titleAttribute = (TitleAttribute)parent;
+            titleAttribute.setTitle(title);
         }
-        return EVAL_PAGE;
     }
 }

@@ -5,24 +5,34 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import javax.servlet.jsp.tagext.BodyContent;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.io.StringBuilderWriter;
+import com.aoindustries.taglib.AutoEncodingBufferedTag;
+import java.io.Writer;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.JspTag;
 
 /**
- * Sets the author for the page.
- *
  * @author  AO Industries, Inc.
  */
-public class AuthorTag extends PageAttributesBodyTag {
+public class AuthorTag extends AutoEncodingBufferedTag {
 
-    public AuthorTag() {
+    public MediaType getContentType() {
+        return MediaType.TEXT;
     }
 
-    public int doStartTag(PageAttributes pageAttributes) {
-        return EVAL_BODY_BUFFERED;
+    public MediaType getOutputType() {
+        return null;
     }
 
-    public int doEndTag(PageAttributes pageAttributes) {
-        pageAttributes.setAuthor(getBodyContent().getString().trim());
-        return EVAL_PAGE;
+    protected void doTag(StringBuilderWriter capturedBody, Writer out) {
+        String author = capturedBody.toString().trim();
+        JspTag parent = findAncestorWithClass(this, AuthorAttribute.class);
+        if(parent==null) {
+            PageAttributesBodyTag.getPageAttributes((PageContext)getJspContext()).setAuthor(author);
+        } else {
+            AuthorAttribute authorAttribute = (AuthorAttribute)parent;
+            authorAttribute.setAuthor(author);
+        }
     }
 }

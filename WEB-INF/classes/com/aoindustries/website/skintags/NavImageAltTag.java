@@ -5,40 +5,34 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import java.util.Locale;
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyContent;
-import javax.servlet.jsp.tagext.BodyTagSupport;
-import org.apache.struts.Globals;
+import com.aoindustries.encoding.MediaType;
+import com.aoindustries.io.StringBuilderWriter;
+import com.aoindustries.taglib.AutoEncodingBufferedTag;
+import java.io.Writer;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.JspTag;
 
 /**
- * Sets the navImageAlt for a page.
- *
  * @author  AO Industries, Inc.
  */
-public class NavImageAltTag extends BodyTagSupport {
+public class NavImageAltTag extends AutoEncodingBufferedTag {
 
-    public NavImageAltTag() {
+    public MediaType getContentType() {
+        return MediaType.TEXT;
     }
 
-    public int doStartTag() {
-        return EVAL_BODY_BUFFERED;
+    public MediaType getOutputType() {
+        return null;
     }
 
-    public int doEndTag() throws JspException {
-        String navImageAlt = getBodyContent().getString().trim();
-        AddParentTag addParentTag = (AddParentTag)findAncestorWithClass(this, AddParentTag.class);
-        if(addParentTag!=null) {
-            addParentTag.setNavImageAlt(navImageAlt);
+    protected void doTag(StringBuilderWriter capturedBody, Writer out) {
+        String navImageAlt = capturedBody.toString().trim();
+        JspTag parent = findAncestorWithClass(this, NavImageAltAttribute.class);
+        if(parent==null) {
+            PageAttributesBodyTag.getPageAttributes((PageContext)getJspContext()).setNavImageAlt(navImageAlt);
         } else {
-            AddSiblingTag addSiblingTag = (AddSiblingTag)findAncestorWithClass(this, AddSiblingTag.class);
-            if(addSiblingTag!=null) {
-                addSiblingTag.setNavImageAlt(navImageAlt);
-            } else {
-                PageAttributesBodyTag.getPageAttributes(pageContext).setNavImageAlt(navImageAlt);
-            }
+            NavImageAltAttribute navImageAltAttribute = (NavImageAltAttribute)parent;
+            navImageAltAttribute.setNavImageAlt(navImageAlt);
         }
-        return EVAL_PAGE;
     }
 }

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
 /**
@@ -36,25 +38,6 @@ public class PageAttributes {
      * The following scope is used to store the objects in the page attributes.
      */
     public static final int ATTRIBUTE_SCOPE = PageContext.REQUEST_SCOPE;
-
-    public static class Meta {
-
-        private final String name;
-        private final String content;
-
-        Meta(String name, String content) {
-            this.name = name;
-            this.content = content;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getContent() {
-            return content;
-        }
-    }
 
     public static class Link {
 
@@ -111,6 +94,7 @@ public class PageAttributes {
         }
     }
 
+    private final HttpServletRequest request;
     private String path;
     private String keywords;
     private String description;
@@ -122,12 +106,13 @@ public class PageAttributes {
     private List<Link> unmodifiableLinks;
     private String title;
     private String navImageAlt;
-    private List<Page> parents;
-    private List<Page> siblings;
+    private List<Parent> parents;
+    private List<Child> children;
     private String layout;
     private String onload;
     
-    public PageAttributes() {
+    public PageAttributes(HttpServletRequest request) {
+        this.request = request;
     }
 
     public String getPath() {
@@ -176,9 +161,9 @@ public class PageAttributes {
         return unmodifiableMetas;
     }
 
-    public void addMeta(String name, String content) {
+    public void addMeta(Meta meta) {
         if(metas==null) metas = new ArrayList<Meta>();
-        metas.add(new Meta(name, content));
+        metas.add(meta);
     }
 
     public List<Link> getLinks() {
@@ -210,30 +195,33 @@ public class PageAttributes {
         this.navImageAlt = navImageAlt;
     }
 
-    public List<Page> getParents() {
+    public List<Parent> getParents() {
         if(parents==null) {
-            List<Page> emptyList = Collections.emptyList();
+            List<Parent> emptyList = Collections.emptyList();
             return emptyList;
         }
         return parents;
     }
 
-    public void addParent(Page parent) {
-        if(parents==null) parents = new ArrayList<Page>();
+    public void addParent(Parent parent) {
+        if(parents==null) parents = new ArrayList<Parent>();
         parents.add(parent);
     }
 
-    public List<Page> getSiblings() {
-        if(siblings==null) {
-            List<Page> emptyList = Collections.emptyList();
+    /**
+     * Gets the direct children of this page.
+     */
+    public List<Child> getChildren() {
+        if(children==null) {
+            List<Child> emptyList = Collections.emptyList();
             return emptyList;
         }
-        return siblings;
+        return children;
     }
 
-    public void addSibling(Page sibling) {
-        if(siblings==null) siblings = new ArrayList<Page>();
-        siblings.add(sibling);
+    public void addChild(Child child) {
+        if(children==null) children = new ArrayList<Child>();
+        children.add(child);
     }
 
     public String getLayout() {
@@ -251,5 +239,13 @@ public class PageAttributes {
     
     public void setOnload(String onload) {
         this.onload = onload;
+    }
+
+    /**
+     * Sets the encrypt flag.  Makes sure the current request secure flag matches the encryption flag.
+     * @throws javax.servlet.jsp.JspException if the secure flag and encrypt flag mismatch.
+     */
+    public void setEncrypt(boolean encrypt) throws JspException {
+        if(encrypt!=request.isSecure()) throw new JspException("encrypt!=request.isSecure()");
     }
 }
