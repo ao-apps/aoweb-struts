@@ -91,7 +91,7 @@ public class VncConsoleProxySocketServer implements Runnable {
                 LogFactory.getLogger(myServletContext, VncConsoleProxySocketServer.class).log(Level.SEVERE, null, T);
             }
             try {
-                Thread.sleep(10000);
+                Thread.sleep(60000);
             } catch(InterruptedException err) {
                 LogFactory.getLogger(myServletContext, VncConsoleProxySocketServer.class).log(Level.WARNING, null, err);
             }
