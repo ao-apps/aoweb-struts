@@ -9,12 +9,7 @@
 
 <fmt:bundle basename="com.aoindustries.website.clientarea.accounting.ApplicationResources">
     <tr>
-        <td style='white-space:nowrap' colspan="4" align="center">
-            <html:img src="amex.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.amex.alt" style="border:1px solid" width="64" height="40" />
-            &#160;&#160;<html:img src="discv.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.discv.alt" style="border:1px solid" width="63" height="40" />
-            &#160;&#160;<html:img src="mcard.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.mcard.alt" style="border:1px solid" width="64" height="40" />
-            &#160;&#160;<html:img src="visa.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.visa.alt" style="border:1px solid" width="64" height="40" />
-        </td>
+        <td style='white-space:nowrap' colspan="4" align="center"><%@include file="_credit-card-images.jsp" %></td>
     </tr>
     <tr>
         <td style="white-space:nowrap"><fmt:message key="creditCardForm.required.yes" /></td>

@@ -119,7 +119,7 @@ public class TextSkin extends Skin {
             String path = pageAttributes.getPath();
             if(path.startsWith("/")) path=path.substring(1);
             final String fullPath = (isSecure ? httpsUrlBase : httpUrlBase) + path;
-            final String encodedFullPath = resp.encodeURL(NewEncodingUtils.encodeURL(fullPath));
+            final String encodedFullPath = resp.encodeURL(EncodingUtils.encodeXmlAttribute(NewEncodingUtils.encodeURL(fullPath)));
             ServletContext servletContext = session.getServletContext();
             SiteSettings settings = SiteSettings.getInstance(servletContext);
             List<Skin> skins = settings.getSkins();
@@ -231,7 +231,7 @@ public class TextSkin extends Skin {
                 out.print("<form style='display:inline;' id='logout_form' method='post' action='");
                 out.print(resp.encodeURL(urlBase+"logout.do"));
                 out.print("'><div style='display:inline;'><input type='hidden' name='target' value='");
-                out.print(fullPath);
+                EncodingUtils.encodeXmlAttribute(fullPath, out);
                 out.print("' /><input type='submit' value='");
                 EncodingUtils.encodeXmlAttribute(applicationResources.getMessage(locale, "TextSkin.logoutButtonLabel"), out);
                 out.print("' /></div></form>\n");
@@ -245,7 +245,7 @@ public class TextSkin extends Skin {
                 // Only include the target when they are not in the /clientarea/ part of the site
                 if(path.startsWith("clientarea/")) {
                     out.print("<input type='hidden' name='target' value='");
-                    out.print(fullPath);
+                    EncodingUtils.encodeXmlAttribute(fullPath, out);
                     out.print("' />");
                 }
                 out.print("<input type='submit' value='");
@@ -298,10 +298,12 @@ public class TextSkin extends Skin {
                         out.print("&#160;<a href='");
                         out.print(
                             resp.encodeURL(
-                                NewEncodingUtils.encodeURL(
-                                    url==null
-                                    ? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&amp;")+"language="+language.getCode())
-                                    : url
+                                EncodingUtils.encodeXmlAttribute(
+                                    NewEncodingUtils.encodeURL(
+                                        url==null
+                                        ? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&")+"language="+language.getCode())
+                                        : url
+                                    )
                                 )
                             )
                         );
@@ -318,10 +320,12 @@ public class TextSkin extends Skin {
                         out.print("&#160;<a href='");
                         out.print(
                             resp.encodeURL(
-                                NewEncodingUtils.encodeURL(
-                                    url==null
-                                    ? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&amp;")+"language="+language.getCode())
-                                    : url
+                                EncodingUtils.encodeXmlAttribute(
+                                    NewEncodingUtils.encodeURL(
+                                        url==null
+                                        ? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&")+"language="+language.getCode())
+                                        : url
+                                    )
                                 )
                             )
                         );

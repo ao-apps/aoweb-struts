@@ -6,6 +6,7 @@ package com.aoindustries.website;
  * All rights reserved.
  */
 import com.aoindustries.util.EditableResourceBundle;
+import com.aoindustries.website.struts.ResourceBundleMessageResources;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,6 +57,7 @@ public class SiteSettingsAction extends Action {
             }
             
         }
+        ResourceBundleMessageResources.setCachedEnabled(!canEditResources);
         EditableResourceBundle.resetRequest(
             canEditResources,
             canEditResources ? (request.isSecure() ? Skin.getDefaultHttpsUrlBase(request) : Skin.getDefaultHttpUrlBase(request))+"set-resource-bundle-value.do" : null,

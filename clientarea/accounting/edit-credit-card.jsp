@@ -11,7 +11,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html lang="true" xhtml="true">
     <fmt:bundle basename="com.aoindustries.website.clientarea.accounting.ApplicationResources">
-        <skin:path>/clientarea/accounting/edit-credit-card.do?persistenceId=<ao:write scope="request" name="editCreditCardForm" property="persistenceId" /></skin:path>
+        <skin:path>
+            /clientarea/accounting/edit-credit-card.do
+            <ao:param name="persistenceId"><ao:write scope="request" name="editCreditCardForm" property="persistenceId" /></ao:param>
+        </skin:path>
         <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
         <skin:title>
             <logic:notEqual name="editCreditCardForm" property="isActive" value="false">
@@ -64,12 +67,7 @@
                                     <hr />
                                     <table cellspacing="0" cellpadding="2">
                                         <tr>
-                                            <td style='white-space:nowrap' colspan="4" align="center">
-                                                <html:img src="amex.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.amex.alt" style="border:1px solid" width="64" height="40" />
-                                                &#160;&#160;<html:img src="discv.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.discv.alt" style="border:1px solid" width="63" height="40" />
-                                                &#160;&#160;<html:img src="mcard.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.mcard.alt" style="border:1px solid" width="64" height="40" />
-                                                &#160;&#160;<html:img src="visa.gif" bundle="/clientarea/accounting/ApplicationResources" altKey="creditCardManager.image.visa.alt" style="border:1px solid" width="64" height="40" />
-                                            </td>
+                                            <td style='white-space:nowrap' colspan="4" align="center"><%@include file="_credit-card-images.jsp" %></td>
                                         </tr>
                                         <tr>
                                             <td style="white-space:nowrap"><fmt:message key="editCreditCard.required.yes" /></td>
@@ -98,7 +96,7 @@
                                         <tr>
                                             <td style="white-space:nowrap"><fmt:message key="editCreditCard.required.no" /></td>
                                             <td style="white-space:nowrap"><fmt:message key="editCreditCard.maskedCardNumber.prompt" /></td>
-                                            <td style="white-space:nowrap"><%= creditCard.getCardInfo().replace('X', 'x') %></td>
+                                            <td style="white-space:nowrap"><c:out value="${fn:replace(creditCard.cardInfo, 'X', '*')}"/></td>
                                             <td style="white-space:nowrap"><html:errors bundle="/clientarea/accounting/ApplicationResources" property="maskedCardNumber" /></td>
                                         </tr>
                                         <tr>

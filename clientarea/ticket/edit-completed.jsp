@@ -12,7 +12,10 @@
 <html:html lang="true" xhtml="true">
     <%@include file="add-parents.jsp" %>
     <fmt:bundle basename="com.aoindustries.website.clientarea.ticket.ApplicationResources">
-        <skin:path>/clientarea/ticket/edit.do?pkey=<ao:write scope="request" name="ticket" property="pkey" /></skin:path>
+        <skin:path>
+            /clientarea/ticket/edit.do
+            <ao:param name="pkey"><ao:write scope="request" name="ticket" property="pkey" /></ao:param>
+        </skin:path>
         <skin:title><fmt:message key="edit.title" /></skin:title>
         <skin:navImageAlt><fmt:message key="edit.navImageAlt" /></skin:navImageAlt>
         <skin:keywords><fmt:message key="edit.keywords" /></skin:keywords>

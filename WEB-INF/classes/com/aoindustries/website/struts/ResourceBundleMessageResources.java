@@ -20,6 +20,12 @@ public class ResourceBundleMessageResources extends MessageResources implements 
 
     private static final long serialVersionUID = 1L;
 
+    private static volatile boolean cachedEnabled = true;
+
+    public static void setCachedEnabled(boolean cachedEnabled) {
+        ResourceBundleMessageResources.cachedEnabled = cachedEnabled;
+    }
+
     public ResourceBundleMessageResources(ResourceBundleMessageResourcesFactory factory, String config) {
         this(factory, config, false);
     }
@@ -40,5 +46,16 @@ public class ResourceBundleMessageResources extends MessageResources implements 
         if(value!=null) return value;
         if(returnNull) return null;
         return "???"+locale.toString()+"."+key+"???";
+    }
+
+    @Override
+    public String getMessage(Locale locale, String key, Object args[]) {
+        String message = super.getMessage(locale, key, args);
+        if(!cachedEnabled) {
+            synchronized(formats) {
+                formats.clear();
+            }
+        }
+        return message;
     }
 }

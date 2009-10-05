@@ -34,12 +34,7 @@
                     <td style="white-space:nowrap"><html:errors bundle="/signup/ApplicationResources" property="billingEmail" /></td>
                 </tr>
                 <tr><td colspan="4">&#160;</td></tr>
-                <tr><td colspan="4" align='center'>
-                    <html:img src="amex.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.amex.alt" style="border:1px solid" width="64" height="40" />
-                    &#160;&#160;<html:img src="discv.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.discv.alt" style="border:1px solid" width="63" height="40" />
-                    &#160;&#160;<html:img src="mcard.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.mcard.alt" style="border:1px solid" width="64" height="40" />
-                    &#160;&#160;<html:img src="visa.gif" bundle="/signup/ApplicationResources" altKey="dedicated5.image.visa.alt" style="border:1px solid" width="64" height="40" />
-                </td></tr>
+                <tr><td colspan="4" align='center'><%@include file="/clientarea/accounting/_credit-card-images.jsp" %></td></tr>
                 <tr><td colspan="4">&#160;</td></tr>
                 <tr>
                     <td style="white-space:nowrap"><fmt:message key="signup.required" /></td>

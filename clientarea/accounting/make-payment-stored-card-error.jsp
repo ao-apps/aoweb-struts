@@ -11,7 +11,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html lang="true" xhtml="true">
     <fmt:bundle basename="com.aoindustries.website.clientarea.accounting.ApplicationResources">
-        <skin:path>/clientarea/accounting/make-payment-select-card.do?accounting=<ao:write scope="request" name="makePaymentStoredCardForm" property="accounting" /></skin:path>
+        <skin:path>
+            /clientarea/accounting/make-payment-select-card.do
+            <ao:param name="accounting"><ao:write scope="request" name="makePaymentStoredCardForm" property="accounting" /></ao:param>
+        </skin:path>
         <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
         <skin:title><fmt:message key="makePayment.title" /></skin:title>
         <skin:navImageAlt><fmt:message key="makePayment.navImageAlt" /></skin:navImageAlt>
