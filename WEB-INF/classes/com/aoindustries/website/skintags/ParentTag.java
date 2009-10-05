@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
+import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
 
 /**
@@ -20,12 +22,24 @@ public class ParentTag extends PageTag {
 
     private static final long serialVersionUID = 1L;
 
+    static final String STACK_ATTRIBUTE_NAME = ParentTag.class.getName()+".stack";
+
     private List<Child> children;
 
     @Override
     protected void init() {
         super.init();
         children = null;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public int doStartTag() {
+        ServletRequest request = pageContext.getRequest();
+        Stack<ParentTag> stack = (Stack)request.getAttribute(STACK_ATTRIBUTE_NAME);
+        if(stack==null) request.setAttribute(STACK_ATTRIBUTE_NAME, stack = new Stack<ParentTag>());
+        stack.push(this);
+        return super.doStartTag();
     }
 
     /**
@@ -44,6 +58,7 @@ public class ParentTag extends PageTag {
         children.add(child);
     }
 
+    @SuppressWarnings("unchecked")
     protected int doEndTag(
         String title,
         String navImageAlt,
@@ -55,6 +70,9 @@ public class ParentTag extends PageTag {
         String keywords,
         Collection<Meta> metas
     ) throws JspException {
+        Stack<ParentTag> stack = (Stack)pageContext.getRequest().getAttribute(STACK_ATTRIBUTE_NAME);
+        if(stack!=null && !stack.isEmpty() && stack.peek()==this) stack.pop();
+
         PageAttributesBodyTag.getPageAttributes(pageContext).addParent(
             new Parent(title, navImageAlt, description, author, copyright, useEncryption, path, keywords, metas, children)
         );

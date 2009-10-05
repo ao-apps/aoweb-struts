@@ -6,8 +6,8 @@ package com.aoindustries.website.skintags;
  * All rights reserved.
  */
 import java.util.Collection;
+import java.util.Stack;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.Tag;
 
 /**
  * Adds a child to the hierarchy at the same level as this page.
@@ -18,6 +18,7 @@ public class ChildTag extends PageTag {
 
     private static final long serialVersionUID = 1L;
 
+    @SuppressWarnings("unchecked")
     protected int doEndTag(
         String title,
         String navImageAlt,
@@ -30,11 +31,11 @@ public class ChildTag extends PageTag {
         Collection<Meta> metas
     ) throws JspException {
         Child child = new Child(title, navImageAlt, description, author, copyright, useEncryption, path, keywords, metas);
-        Tag parent = findAncestorWithClass(this, ParentTag.class);
-        if(parent==null) {
+        Stack<ParentTag> stack = (Stack)pageContext.getRequest().getAttribute(ParentTag.STACK_ATTRIBUTE_NAME);
+        if(stack==null || stack.isEmpty()) {
             PageAttributesBodyTag.getPageAttributes(pageContext).addChild(child);
         } else {
-            ((ParentTag)parent).addChild(child);
+            stack.peek().addChild(child);
         }
         return EVAL_PAGE;
     }
