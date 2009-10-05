@@ -725,6 +725,7 @@ public class TextSkin extends Skin {
         try {
             String httpsUrlBase = getHttpsUrlBase(req);
             String httpUrlBase = getHttpUrlBase(req);
+            Locale locale = resp.getLocale();
 
             out.print("<table cellpadding='0' cellspacing='10'>\n");
             List<Child> siblings = pageAttributes.getChildren();
@@ -742,17 +743,17 @@ public class TextSkin extends Skin {
                         + "    <td style=\"white-space:nowrap\"><a class='aoLightLink' href='");
                 out.print(resp.encodeURL((encrypt ? httpsUrlBase : httpUrlBase) + NewEncodingUtils.encodeURL(siblingPath)));
                 out.print("'>");
-                EncodingUtils.encodeHtml(navAlt, out);
+                TextInXhtmlEncoder.encodeTextInXhtml(locale, navAlt, out);
                 out.print("</a></td>\n"
                         + "    <td style=\"width:12px; white-space:nowrap\">&#160;</td>\n"
                         + "    <td style=\"white-space:nowrap\">");
                 String description = sibling.getDescription();
                 if(description!=null && (description=description.trim()).length()>0) {
-                    out.print(description);
+                    TextInXhtmlEncoder.encodeTextInXhtml(locale, description, out);
                 } else {
                     String title = sibling.getTitle();
                     if(title!=null && (title=title.trim()).length()>0) {
-                        out.print(title);
+                        TextInXhtmlEncoder.encodeTextInXhtml(locale, title, out);
                     } else {
                         out.print("&#160;");
                     }

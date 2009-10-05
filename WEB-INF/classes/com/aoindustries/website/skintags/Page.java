@@ -27,6 +27,10 @@ abstract public class Page {
     private final Collection<Meta> metas;
 
     public Page(String title, String navImageAlt, String description, String author, String copyright, boolean encrypt, String path, String keywords, Collection<Meta> metas) {
+        if(title==null) throw new IllegalArgumentException("title is null");
+        if(description==null) throw new IllegalArgumentException("description is null");
+        if(path==null) throw new IllegalArgumentException("path is null");
+        //if(keywords==null) throw new IllegalArgumentException("keywords is null");
         this.title = title;
         this.navImageAlt = navImageAlt;
         this.description = description;
