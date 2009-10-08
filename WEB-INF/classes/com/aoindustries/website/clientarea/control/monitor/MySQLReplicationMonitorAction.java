@@ -73,13 +73,19 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                 // since we can't query them both exactly at the same time.
                 List<ReplicationRow> replications = new ArrayList<ReplicationRow>();
                 for(FailoverMySQLReplication fmr : fmrs) {
-                    FailoverFileReplication ffr = fmr.getFailoverFileReplication();
                     String slave;
-                    try {
-                        slave = ffr.getBackupPartition().getAOServer().getHostname();
-                    } catch(SQLException err) {
-                        // May be filtered, need to use RootAOServConnector
-                        slave = rootConn.getFailoverFileReplications().get(ffr.getPkey()).getBackupPartition().getAOServer().getHostname();
+                    AOServer replicationAoServer = fmr.getAOServer();
+                    if(replicationAoServer!=null) {
+                        // ao_server-based
+                        slave = replicationAoServer.getHostname();
+                    } else {
+                        FailoverFileReplication ffr = fmr.getFailoverFileReplication();
+                        try {
+                            slave = ffr.getBackupPartition().getAOServer().getHostname();
+                        } catch(SQLException err) {
+                            // May be filtered, need to use RootAOServConnector
+                            slave = rootConn.getFailoverFileReplications().get(ffr.getPkey()).getBackupPartition().getAOServer().getHostname();
+                        }
                     }
                     try {
                         FailoverMySQLReplication.SlaveStatus slaveStatus = fmr.getSlaveStatus();

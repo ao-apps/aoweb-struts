@@ -27,6 +27,7 @@ import java.net.SocketException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.logging.Level;
+import javax.net.ssl.SSLHandshakeException;
 import javax.servlet.ServletContext;
 
 /**
@@ -253,6 +254,11 @@ public class VncConsoleProxySocketHandler {
                         throw TD;
                     } catch(SocketException err) {
                         // Do not log any socket exceptions
+                    } catch(SSLHandshakeException err) {
+                        String message = err.getMessage();
+                        if(!"Remote host closed connection during handshake".equals(message)) {
+                            LogFactory.getLogger(servletContext, getClass()).log(Level.INFO, null, err);
+                        }
                     } catch(Throwable T) {
                         LogFactory.getLogger(servletContext, getClass()).log(Level.SEVERE, null, T);
                     } finally {
