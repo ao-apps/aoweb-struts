@@ -38,7 +38,7 @@ public class VirtualDedicatedAction extends VirtualDedicatedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        SignupSelectServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, PackageCategory.VIRTUAL_DEDICATED);
+        SignupSelectServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, PackageCategory.VIRTUAL_DEDICATED);
 
         // Clear errors if they should not be displayed
         clearErrors(request);

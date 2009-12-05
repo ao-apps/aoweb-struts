@@ -38,7 +38,7 @@ public class DedicatedAction extends DedicatedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        SignupSelectServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, PackageCategory.DEDICATED);
+        SignupSelectServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, PackageCategory.DEDICATED);
 
         // Clear errors if they should not be displayed
         clearErrors(request);

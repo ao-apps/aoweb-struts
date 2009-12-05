@@ -180,7 +180,7 @@ final public class ConfirmationCompletedActionHelper {
         HttpServletRequest request,
         String pkey,
         String statusKey,
-        Locale contentLocale,
+        Locale userLocale,
         SiteSettings siteSettings,
         PackageDefinition packageDefinition,
         SignupCustomizeServerForm signupCustomizeServerForm,
@@ -190,7 +190,7 @@ final public class ConfirmationCompletedActionHelper {
         SignupBillingInformationForm signupBillingInformationForm
     ) {
         try {
-            sendSummaryEmail(servlet, request, pkey, statusKey, siteSettings.getBrand().getAowebStrutsSignupAdminAddress(), contentLocale, Locale.US, siteSettings, packageDefinition, signupCustomizeServerForm, signupCustomizeManagementForm, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
+            sendSummaryEmail(servlet, request, pkey, statusKey, siteSettings.getBrand().getAowebStrutsSignupAdminAddress(), userLocale, Locale.US, siteSettings, packageDefinition, signupCustomizeServerForm, signupCustomizeManagementForm, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
         } catch(Exception err) {
             servlet.log("Unable to send sign up details to support admin address", err);
         }
@@ -204,7 +204,7 @@ final public class ConfirmationCompletedActionHelper {
         HttpServletRequest request,
         String pkey,
         String statusKey,
-        Locale contentLocale,
+        Locale userLocale,
         SiteSettings siteSettings,
         PackageDefinition packageDefinition,
         SignupCustomizeServerForm signupCustomizeServerForm,
@@ -221,7 +221,7 @@ final public class ConfirmationCompletedActionHelper {
         Iterator<String> I=addresses.iterator();
         while(I.hasNext()) {
             String address=I.next();
-            boolean success = sendSummaryEmail(servlet, request, pkey, statusKey, address, contentLocale, contentLocale, siteSettings, packageDefinition, signupCustomizeServerForm, signupCustomizeManagementForm, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
+            boolean success = sendSummaryEmail(servlet, request, pkey, statusKey, address, userLocale, userLocale, siteSettings, packageDefinition, signupCustomizeServerForm, signupCustomizeManagementForm, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
             if(success) successAddresses.add(address);
             else failureAddresses.add(address);
         }
@@ -240,7 +240,7 @@ final public class ConfirmationCompletedActionHelper {
         String pkey,
         String statusKey,
         String recipient,
-        Locale contentLocale,
+        Locale userLocale,
         Locale subjectLocale,
         SiteSettings siteSettings,
         PackageDefinition packageDefinition,
@@ -252,14 +252,14 @@ final public class ConfirmationCompletedActionHelper {
     ) {
         try {
             // Find the locale and related resource bundles
-            String charset = Skin.getCharacterSet(contentLocale);
+            String charset = Skin.getCharacterSet(userLocale);
             MessageResources signupApplicationResources = (MessageResources)request.getAttribute("/signup/ApplicationResources");
             if(signupApplicationResources==null) throw new JspException("Unable to load resources: /signup/ApplicationResources");
 
             // Generate the email contents
             CharArrayWriter cout = new CharArrayWriter();
             ChainWriter emailOut = new ChainWriter(cout);
-            String htmlLang = getHtmlLang(contentLocale);
+            String htmlLang = getHtmlLang(userLocale);
             emailOut.print("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
                     + "<html xmlns=\"http://www.w3.org/1999/xhtml\"");
             if(htmlLang!=null) emailOut.print(" lang=\"").print(htmlLang).print("\" xml:lang=\"").print(htmlLang).print('"');
@@ -292,38 +292,38 @@ final public class ConfirmationCompletedActionHelper {
                          + "<body>\n"
                          + "<table style='border:0px' cellpadding=\"0\" cellspacing=\"0\">\n"
                          + "    <tr><td style='white-space:nowrap' colspan=\"3\">\n"
-                         + "        ").print(signupApplicationResources.getMessage(contentLocale, statusKey, pkey)).print("<br />\n"
+                         + "        ").print(signupApplicationResources.getMessage(userLocale, statusKey, pkey)).print("<br />\n"
                          + "        <br />\n"
-                         + "        ").print(signupApplicationResources.getMessage(contentLocale, "serverConfirmationCompleted.belowIsSummary")).print("<br />\n"
+                         + "        ").print(signupApplicationResources.getMessage(userLocale, "serverConfirmationCompleted.belowIsSummary")).print("<br />\n"
                          + "        <hr />\n"
                          + "    </td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(contentLocale, "steps.selectServer.label")).print("</th></tr>\n");
-            SignupSelectServerActionHelper.printConfirmation(emailOut, contentLocale, packageDefinition, signupApplicationResources);
+                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(userLocale, "steps.selectServer.label")).print("</th></tr>\n");
+            SignupSelectServerActionHelper.printConfirmation(emailOut, userLocale, packageDefinition, signupApplicationResources);
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(contentLocale, "steps.customizeServer.label")).print("</th></tr>\n");
+                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(userLocale, "steps.customizeServer.label")).print("</th></tr>\n");
             AOServConnector rootConn = siteSettings.getRootAOServConnector();
-            SignupCustomizeServerActionHelper.printConfirmation(request, emailOut, contentLocale, rootConn, packageDefinition, signupCustomizeServerForm, signupApplicationResources);
+            SignupCustomizeServerActionHelper.printConfirmation(request, emailOut, userLocale, rootConn, packageDefinition, signupCustomizeServerForm, signupApplicationResources);
             if(signupCustomizeManagementForm!=null) {
                 emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-                             + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(contentLocale, "steps.customizeManagement.label")).print("</th></tr>\n");
+                             + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(userLocale, "steps.customizeManagement.label")).print("</th></tr>\n");
                 SignupCustomizeManagementActionHelper.printConfirmation(
                     request,
                     emailOut,
-                    contentLocale,
+                    userLocale,
                     rootConn,
                     signupCustomizeManagementForm,
                     signupApplicationResources
                 );
             }
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(contentLocale, "steps.businessInfo.label")).print("</th></tr>\n");
-            SignupBusinessActionHelper.printConfirmation(emailOut, contentLocale, signupApplicationResources, rootConn, signupBusinessForm);
+                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(userLocale, "steps.businessInfo.label")).print("</th></tr>\n");
+            SignupBusinessActionHelper.printConfirmation(emailOut, userLocale, signupApplicationResources, rootConn, signupBusinessForm);
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(contentLocale, "steps.technicalInfo.label")).print("</th></tr>\n");
-            SignupTechnicalActionHelper.printConfirmation(emailOut, contentLocale, signupApplicationResources, rootConn, signupTechnicalForm);
+                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(userLocale, "steps.technicalInfo.label")).print("</th></tr>\n");
+            SignupTechnicalActionHelper.printConfirmation(emailOut, userLocale, signupApplicationResources, rootConn, signupTechnicalForm);
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(contentLocale, "steps.billingInformation.label")).print("</th></tr>\n");
-            SignupBillingInformationActionHelper.printConfirmation(emailOut, contentLocale, signupApplicationResources, signupBillingInformationForm);
+                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(userLocale, "steps.billingInformation.label")).print("</th></tr>\n");
+            SignupBillingInformationActionHelper.printConfirmation(emailOut, userLocale, signupApplicationResources, signupBillingInformationForm);
             emailOut.print("</table>\n"
                          + "</body>\n"
                          + "</html>\n");

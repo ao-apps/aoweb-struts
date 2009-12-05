@@ -371,7 +371,7 @@
     <tag-class>com.aoindustries.website.skintags.ContentTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
-      <description>The comma seperated list of colspan between each downward pointing connector, defaults to "1"</description>
+      <description>The comma separated list of colspan between each downward pointing connector, defaults to "1"</description>
       <name>colspans</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>

@@ -42,7 +42,7 @@ public class VirtualManaged3Action extends VirtualManagedStepAction {
         if(!signupSelectServerFormComplete) return mapping.findForward("virtual-managed-server-completed");
         if(!signupCustomizeServerFormComplete) return mapping.findForward("virtual-managed-server-2-completed");
 
-        SignupCustomizeManagementActionHelper.setRequestAttributes(getServlet().getServletContext(), request, signupSelectServerForm, signupCustomizeServerForm, signupCustomizeManagementForm);
+        SignupCustomizeManagementActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, signupSelectServerForm, signupCustomizeServerForm, signupCustomizeManagementForm);
 
         // Clear errors if they should not be displayed
         clearErrors(request);

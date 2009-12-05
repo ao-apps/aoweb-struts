@@ -40,7 +40,7 @@ public class VirtualManagedAction extends VirtualManagedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        SignupSelectServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, PackageCategory.VIRTUAL_MANAGED);
+        SignupSelectServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, PackageCategory.VIRTUAL_MANAGED);
 
         // Clear errors if they should not be displayed
         clearErrors(request);

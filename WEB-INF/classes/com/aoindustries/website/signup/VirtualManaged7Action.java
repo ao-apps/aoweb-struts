@@ -50,6 +50,7 @@ public class VirtualManaged7Action extends VirtualManagedStepAction {
 
         initRequestAttributes(
             request,
+            response,
             signupSelectServerForm,
             signupCustomizeServerForm,
             signupCustomizeManagementForm,
@@ -63,6 +64,7 @@ public class VirtualManaged7Action extends VirtualManagedStepAction {
 
     protected void initRequestAttributes(
         HttpServletRequest request,
+        HttpServletResponse response,
         SignupSelectServerForm signupSelectServerForm,
         SignupCustomizeServerForm signupCustomizeServerForm,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
@@ -73,8 +75,8 @@ public class VirtualManaged7Action extends VirtualManagedStepAction {
         ServletContext servletContext = getServlet().getServletContext();
 
         SignupSelectServerActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectServerForm);
-        SignupCustomizeServerActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectServerForm, signupCustomizeServerForm);
-        SignupCustomizeManagementActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectServerForm, signupCustomizeServerForm, signupCustomizeManagementForm);
+        SignupCustomizeServerActionHelper.setConfirmationRequestAttributes(servletContext, request, response, signupSelectServerForm, signupCustomizeServerForm);
+        SignupCustomizeManagementActionHelper.setConfirmationRequestAttributes(servletContext, request, response, signupSelectServerForm, signupCustomizeServerForm, signupCustomizeManagementForm);
         SignupBusinessActionHelper.setConfirmationRequestAttributes(servletContext, request, signupBusinessForm);
         SignupTechnicalActionHelper.setConfirmationRequestAttributes(servletContext, request, signupTechnicalForm);
         SignupBillingInformationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupBillingInformationForm);

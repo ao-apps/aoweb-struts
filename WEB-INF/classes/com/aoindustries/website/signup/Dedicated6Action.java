@@ -47,6 +47,7 @@ public class Dedicated6Action extends DedicatedStepAction {
 
         initRequestAttributes(
             request,
+            response,
             signupSelectServerForm,
             signupCustomizeServerForm,
             signupBusinessForm,
@@ -59,6 +60,7 @@ public class Dedicated6Action extends DedicatedStepAction {
 
     protected void initRequestAttributes(
         HttpServletRequest request,
+        HttpServletResponse response,
         SignupSelectServerForm signupSelectServerForm,
         SignupCustomizeServerForm signupCustomizeServerForm,
         SignupBusinessForm signupBusinessForm,
@@ -68,7 +70,7 @@ public class Dedicated6Action extends DedicatedStepAction {
         ServletContext servletContext = getServlet().getServletContext();
 
         SignupSelectServerActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectServerForm);
-        SignupCustomizeServerActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectServerForm, signupCustomizeServerForm);
+        SignupCustomizeServerActionHelper.setConfirmationRequestAttributes(servletContext, request, response, signupSelectServerForm, signupCustomizeServerForm);
         SignupBusinessActionHelper.setConfirmationRequestAttributes(servletContext, request, signupBusinessForm);
         SignupTechnicalActionHelper.setConfirmationRequestAttributes(servletContext, request, signupTechnicalForm);
         SignupBillingInformationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupBillingInformationForm);

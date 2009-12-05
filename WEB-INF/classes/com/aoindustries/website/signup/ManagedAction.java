@@ -40,7 +40,7 @@ public class ManagedAction extends ManagedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        SignupSelectServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, PackageCategory.MANAGED);
+        SignupSelectServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, PackageCategory.MANAGED);
 
         // Clear errors if they should not be displayed
         clearErrors(request);

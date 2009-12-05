@@ -58,6 +58,7 @@ public class Managed7CompletedAction extends Managed7Action {
         // Let the parent class do the initialization of the request attributes for both the emails and the final JSP
         initRequestAttributes(
             request,
+            response,
             signupSelectServerForm,
             signupCustomizeServerForm,
             signupCustomizeManagementForm,
@@ -83,7 +84,7 @@ public class Managed7CompletedAction extends Managed7Action {
         String pkey = (String)request.getAttribute("pkey");
         String statusKey = (String)request.getAttribute("statusKey");
 
-        Locale contentLocale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
+        Locale userLocale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
 
         // Send confirmation email to support
         ConfirmationCompletedActionHelper.sendSupportSummaryEmail(
@@ -91,7 +92,7 @@ public class Managed7CompletedAction extends Managed7Action {
             request,
             pkey,
             statusKey,
-            contentLocale,
+            userLocale,
             siteSettings,
             packageDefinition,
             signupCustomizeServerForm,
@@ -107,7 +108,7 @@ public class Managed7CompletedAction extends Managed7Action {
             request,
             pkey,
             statusKey,
-            contentLocale,
+            userLocale,
             siteSettings,
             packageDefinition,
             signupCustomizeServerForm,

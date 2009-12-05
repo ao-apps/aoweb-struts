@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Keeps track of one possible server configuration.  Also provides a set of static methods that create commonly-used configurations
@@ -21,9 +22,9 @@ import java.util.List;
  */
 public class ServerConfiguration {
 
-    private static String getDiskDescription(int numDrives, PackageDefinitionLimit pdl) throws SQLException, IOException {
+    private static String getDiskDescription(int numDrives, PackageDefinitionLimit pdl, Locale userLocale) throws SQLException, IOException {
         if(pdl==null || numDrives==0) return null;
-        String description = pdl.getResource().getDescription();
+        String description = pdl.getResource().toString(userLocale);
         if(numDrives==1) {
             if(description.startsWith("2x")) return description;
             else return "Single " + description;
@@ -32,7 +33,7 @@ public class ServerConfiguration {
         }
     }
 
-    public static ServerConfiguration getMinimumConfiguration(PackageDefinition packageDefinition) throws SQLException, IOException {
+    public static ServerConfiguration getMinimumConfiguration(PackageDefinition packageDefinition, Locale userLocale) throws SQLException, IOException {
         List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
 
         // Calculate the total minimum monthly
@@ -152,7 +153,7 @@ public class ServerConfiguration {
         StringBuilder minimumPower = new StringBuilder();
         if(cheapestPower!=null) {
             if(maxPowers!=1) minimumPower.append(maxPowers).append('x');
-            minimumPower.append(cheapestPower.getResource().getDescription());
+            minimumPower.append(cheapestPower.getResource().toString(userLocale));
         }
 
         // Add the Power costs
@@ -162,7 +163,7 @@ public class ServerConfiguration {
         if(cheapestCPU==null) throw new SQLException("Unable to find cheapestCPU");
         StringBuilder minimumCpu = new StringBuilder();
         if(maxCPUs!=1) minimumCpu.append(maxCPUs).append('x');
-        minimumCpu.append(cheapestCPU.getResource().getDescription());
+        minimumCpu.append(cheapestCPU.getResource().toString(userLocale));
 
         // Add the CPU costs
         minimumMonthly += cheapestCPU.getAdditionalRate()==-1 ? 0 : (cheapestCPU.getAdditionalRate() * maxCPUs);
@@ -170,29 +171,29 @@ public class ServerConfiguration {
         // Build the RAM description
         if(cheapestRAM==null) throw new SQLException("Unable to find cheapestRAM");
         StringBuilder minimumRam = new StringBuilder();
-        minimumRam.append(cheapestRAM.getResource().getDescription());
+        minimumRam.append(cheapestRAM.getResource().toString(userLocale));
 
         // Add the RAM cost
         minimumMonthly += cheapestRAM.getAdditionalRate()==-1 ? 0 : cheapestRAM.getAdditionalRate();
 
         // Build the SATA controller description
         StringBuilder minimumSataController = new StringBuilder();
-        if(cheapestSataController!=null) minimumSataController.append(cheapestSataController.getResource().getDescription());
+        if(cheapestSataController!=null) minimumSataController.append(cheapestSataController.getResource().toString(userLocale));
 
         // Add the SataController cost
         if(cheapestSataController!=null) minimumMonthly += cheapestSataController.getAdditionalRate()==-1 ? 0 : cheapestSataController.getAdditionalRate();
 
         // Build the SCSI controller description
         StringBuilder minimumScsiController = new StringBuilder();
-        if(cheapestScsiController!=null) minimumScsiController.append(cheapestScsiController.getResource().getDescription());
+        if(cheapestScsiController!=null) minimumScsiController.append(cheapestScsiController.getResource().toString(userLocale));
 
         // Add the ScsiController cost
         if(cheapestScsiController!=null) minimumMonthly += cheapestScsiController.getAdditionalRate()==-1 ? 0 : cheapestScsiController.getAdditionalRate();
 
         // Build the disk description
-        String minimumIDE = getDiskDescription(1, cheapestDisk.getResource().getName().startsWith("hardware_disk_ide_") ? cheapestDisk : null);
-        String minimumSATA = getDiskDescription(1, cheapestDisk.getResource().getName().startsWith("hardware_disk_sata_") ? cheapestDisk : null);
-        String minimumSCSI = getDiskDescription(1, cheapestDisk.getResource().getName().startsWith("hardware_disk_scsi_") ? cheapestDisk : null);
+        String minimumIDE = getDiskDescription(1, cheapestDisk.getResource().getName().startsWith("hardware_disk_ide_") ? cheapestDisk : null, userLocale);
+        String minimumSATA = getDiskDescription(1, cheapestDisk.getResource().getName().startsWith("hardware_disk_sata_") ? cheapestDisk : null, userLocale);
+        String minimumSCSI = getDiskDescription(1, cheapestDisk.getResource().getName().startsWith("hardware_disk_scsi_") ? cheapestDisk : null, userLocale);
 
         // Add the disk cost
         minimumMonthly += cheapestDisk.getAdditionalRate()==-1 ? 0 : cheapestDisk.getAdditionalRate();
@@ -213,7 +214,7 @@ public class ServerConfiguration {
         );
     }
     
-    public static ServerConfiguration getMaximumConfiguration(PackageDefinition packageDefinition) throws SQLException, IOException {
+    public static ServerConfiguration getMaximumConfiguration(PackageDefinition packageDefinition, Locale userLocale) throws SQLException, IOException {
         List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
 
         // Calculate the total maximum monthly
@@ -352,7 +353,7 @@ public class ServerConfiguration {
         StringBuilder maximumPower = new StringBuilder();
         if(expensivePower!=null) {
             if(maxPowers!=1) maximumPower.append(maxPowers).append('x');
-            maximumPower.append(expensivePower.getResource().getDescription());
+            maximumPower.append(expensivePower.getResource().toString(userLocale));
         }
 
         // Add the Power costs
@@ -362,7 +363,7 @@ public class ServerConfiguration {
         if(expensiveCPU==null) throw new SQLException("Unable to find expensiveCPU");
         StringBuilder maximumCpu = new StringBuilder();
         if(maxCPUs!=1) maximumCpu.append(maxCPUs).append('x');
-        maximumCpu.append(expensiveCPU.getResource().getDescription());
+        maximumCpu.append(expensiveCPU.getResource().toString(userLocale));
 
         // Add the CPU costs
         maximumMonthly += expensiveCPU.getAdditionalRate()==-1 ? 0 : (expensiveCPU.getAdditionalRate() * maxCPUs);
@@ -371,7 +372,7 @@ public class ServerConfiguration {
         if(expensiveRAM==null) throw new SQLException("Unable to find expensiveRAM");
         StringBuilder maximumRam = new StringBuilder();
         if(maxRAMs>1) maximumRam.append(maxRAMs).append('x');
-        maximumRam.append(expensiveRAM.getResource().getDescription());
+        maximumRam.append(expensiveRAM.getResource().toString(userLocale));
 
         // Add the RAM cost
         maximumMonthly += expensiveRAM.getAdditionalRate()==-1 ? 0 : (expensiveRAM.getAdditionalRate() * maxRAMs);
@@ -380,7 +381,7 @@ public class ServerConfiguration {
         StringBuilder maximumSataController = new StringBuilder();
         if(expensiveSataController!=null) {
             if(maxSataControllers>1) maximumSataController.append(maxSataControllers).append('x');
-            maximumSataController.append(expensiveSataController.getResource().getDescription());
+            maximumSataController.append(expensiveSataController.getResource().toString(userLocale));
         }
 
         // Add the SataController cost
@@ -390,16 +391,16 @@ public class ServerConfiguration {
         StringBuilder maximumScsiController = new StringBuilder();
         if(expensiveScsiController!=null) {
             if(maxScsiControllers>1) maximumScsiController.append(maxScsiControllers).append('x');
-            maximumScsiController.append(expensiveScsiController.getResource().getDescription());
+            maximumScsiController.append(expensiveScsiController.getResource().toString(userLocale));
         }
 
         // Add the ScsiController cost
         if(expensiveScsiController!=null) maximumMonthly += expensiveScsiController.getAdditionalRate()==-1 ? 0 : (expensiveScsiController.getAdditionalRate() * maxScsiControllers);
 
         // Build the disk description
-        String maximumIDE = getDiskDescription(maxIDEs, expensiveIDE);
-        String maximumSATA = getDiskDescription(maxSATAs, expensiveSATA);
-        String maximumSCSI = getDiskDescription(maxSCSIs, expensiveSCSI);
+        String maximumIDE = getDiskDescription(maxIDEs, expensiveIDE, userLocale);
+        String maximumSATA = getDiskDescription(maxSATAs, expensiveSATA, userLocale);
+        String maximumSCSI = getDiskDescription(maxSCSIs, expensiveSCSI, userLocale);
 
         // Add the disk cost
         if(expensiveIDE!=null) maximumMonthly += expensiveIDE.getAdditionalRate()==-1 ? 0 : (expensiveIDE.getAdditionalRate() * maxIDEs);

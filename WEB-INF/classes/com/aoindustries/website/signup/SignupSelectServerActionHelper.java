@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.util.MessageResources;
 
 /**
@@ -40,9 +41,10 @@ final public class SignupSelectServerActionHelper {
     public static void setRequestAttributes(
         ServletContext servletContext,
         HttpServletRequest request,
+        HttpServletResponse response,
         String packageCategoryName
     ) throws IOException, SQLException {
-        List<Server> servers = getServers(servletContext, packageCategoryName);
+        List<Server> servers = getServers(servletContext, packageCategoryName, response.getLocale());
         
         request.setAttribute("servers", servers);
     }
@@ -50,7 +52,7 @@ final public class SignupSelectServerActionHelper {
     /**
      * Gets the possible servers ordered by minimum monthly rate.
      */
-    public static List<Server> getServers(ServletContext servletContext, String packageCategoryName) throws IOException, SQLException {
+    public static List<Server> getServers(ServletContext servletContext, String packageCategoryName, Locale userLocale) throws IOException, SQLException {
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageCategory category = rootConn.getPackageCategories().get(packageCategoryName);
         Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
@@ -61,8 +63,8 @@ final public class SignupSelectServerActionHelper {
             if(packageDefinition.isActive()) {
                 servers.add(
                     new Server(
-                        ServerConfiguration.getMinimumConfiguration(packageDefinition),
-                        ServerConfiguration.getMaximumConfiguration(packageDefinition)
+                        ServerConfiguration.getMinimumConfiguration(packageDefinition, userLocale),
+                        ServerConfiguration.getMaximumConfiguration(packageDefinition, userLocale)
                     )
                 );
             }
@@ -118,10 +120,10 @@ final public class SignupSelectServerActionHelper {
         request.setAttribute("setup", getSetup(packageDefinition));
     }
     
-    public static void printConfirmation(ChainWriter emailOut, Locale contentLocale, PackageDefinition packageDefinition, MessageResources signupApplicationResources) throws IOException {
+    public static void printConfirmation(ChainWriter emailOut, Locale userLocale, PackageDefinition packageDefinition, MessageResources signupApplicationResources) throws IOException {
         emailOut.print("    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(contentLocale, "signupSelectServerForm.packageDefinition.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupSelectServerForm.packageDefinition.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(packageDefinition.getDisplay()).print("</td>\n"
                      + "    </tr>\n");
     }
