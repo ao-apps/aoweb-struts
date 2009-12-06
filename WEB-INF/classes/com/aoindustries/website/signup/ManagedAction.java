@@ -8,6 +8,7 @@ package com.aoindustries.website.signup;
 import com.aoindustries.aoserv.client.PackageCategory;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,8 +28,8 @@ public class ManagedAction extends ManagedStepAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        ManagedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        ManagedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         ManagedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
@@ -40,6 +41,17 @@ public class ManagedAction extends ManagedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
+        List<SignupSelectServerActionHelper.Server> servers = SignupSelectServerActionHelper.getServers(getServlet().getServletContext(), PackageCategory.MANAGED, response.getLocale());
+        if(servers.size()==1) {
+            response.sendRedirect(
+                response.encodeRedirectURL(
+                    skin.getHttpsUrlBase(request)
+                    +"signup/managed-server-completed.do?packageDefinition="
+                    +servers.get(0).getMinimumConfiguration().getPackageDefinition()
+                )
+            );
+            return null;
+        }
         SignupSelectServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, PackageCategory.MANAGED);
 
         // Clear errors if they should not be displayed

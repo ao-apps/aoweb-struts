@@ -34,8 +34,8 @@ public class Managed7CompletedAction extends Managed7Action {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        ManagedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        ManagedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         ManagedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
@@ -48,7 +48,7 @@ public class Managed7CompletedAction extends Managed7Action {
         boolean signupBillingInformationFormComplete
     ) throws Exception {
         // Forward to previous steps if they have not been completed
-        if(!signupSelectServerFormComplete) return mapping.findForward("managed-server-completed");
+        if(!signupSelectPackageFormComplete) return mapping.findForward("managed-server-completed");
         if(!signupCustomizeServerFormComplete) return mapping.findForward("managed-server-2-completed");
         if(!signupCustomizeManagementFormComplete) return mapping.findForward("managed-server-3-completed");
         if(!signupBusinessFormComplete) return mapping.findForward("managed-server-4-completed");
@@ -59,7 +59,7 @@ public class Managed7CompletedAction extends Managed7Action {
         initRequestAttributes(
             request,
             response,
-            signupSelectServerForm,
+            signupSelectPackageForm,
             signupCustomizeServerForm,
             signupCustomizeManagementForm,
             signupBusinessForm,
@@ -72,7 +72,7 @@ public class Managed7CompletedAction extends Managed7Action {
         ActionServlet myServlet = getServlet();
         ServletContext servletContext = myServlet.getServletContext();
         AOServConnector rootConn = siteSettings.getRootAOServConnector();
-        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectServerForm.getPackageDefinition());
+        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
 
         // Build the options map
         Map<String,String> options = new HashMap<String,String>();
@@ -119,7 +119,7 @@ public class Managed7CompletedAction extends Managed7Action {
         );
         
         // Clear managed signup-specific forms from the session
-        session.removeAttribute("managedSignupSelectServerForm");
+        session.removeAttribute("managedSignupSelectPackageForm");
         session.removeAttribute("managedSignupCustomizeServerForm");
         session.removeAttribute("managedSignupCustomizeManagementForm");
 

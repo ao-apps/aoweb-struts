@@ -27,8 +27,8 @@ public class Dedicated5CompletedAction extends Dedicated5Action {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        DedicatedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        DedicatedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
@@ -39,7 +39,7 @@ public class Dedicated5CompletedAction extends Dedicated5Action {
         boolean signupBillingInformationFormComplete
     ) throws Exception {
         // Forward to previous steps if they have not been completed
-        if(!signupSelectServerFormComplete) return mapping.findForward("dedicated-server-completed");
+        if(!signupSelectPackageFormComplete) return mapping.findForward("dedicated-server-completed");
         if(!signupCustomizeServerFormComplete)  return mapping.findForward("dedicated-server-2-completed");
         if(!signupBusinessFormComplete)  return mapping.findForward("dedicated-server-3-completed");
         if(!signupTechnicalFormComplete)  return mapping.findForward("dedicated-server-4-completed");
@@ -52,8 +52,8 @@ public class Dedicated5CompletedAction extends Dedicated5Action {
                 siteSettings,
                 locale,
                 skin,
-                signupSelectServerForm,
-                signupSelectServerFormComplete,
+                signupSelectPackageForm,
+                signupSelectPackageFormComplete,
                 signupCustomizeServerForm,
                 signupCustomizeServerFormComplete,
                 signupBusinessForm,

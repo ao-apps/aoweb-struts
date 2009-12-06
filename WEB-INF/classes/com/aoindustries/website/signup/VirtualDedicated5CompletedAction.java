@@ -27,8 +27,8 @@ public class VirtualDedicated5CompletedAction extends VirtualDedicated5Action {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        VirtualDedicatedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
@@ -39,7 +39,7 @@ public class VirtualDedicated5CompletedAction extends VirtualDedicated5Action {
         boolean signupBillingInformationFormComplete
     ) throws Exception {
         // Forward to previous steps if they have not been completed
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtual-dedicated-server-completed");
+        if(!signupSelectPackageFormComplete) return mapping.findForward("virtual-dedicated-server-completed");
         if(!signupCustomizeServerFormComplete)  return mapping.findForward("virtual-dedicated-server-2-completed");
         if(!signupBusinessFormComplete)  return mapping.findForward("virtual-dedicated-server-3-completed");
         if(!signupTechnicalFormComplete)  return mapping.findForward("virtual-dedicated-server-4-completed");
@@ -52,8 +52,8 @@ public class VirtualDedicated5CompletedAction extends VirtualDedicated5Action {
                 siteSettings,
                 locale,
                 skin,
-                signupSelectServerForm,
-                signupSelectServerFormComplete,
+                signupSelectPackageForm,
+                signupSelectPackageFormComplete,
                 signupCustomizeServerForm,
                 signupCustomizeServerFormComplete,
                 signupBusinessForm,

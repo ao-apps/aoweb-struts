@@ -26,8 +26,8 @@ public class DedicatedCompletedAction extends DedicatedAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        DedicatedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        DedicatedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
@@ -37,7 +37,7 @@ public class DedicatedCompletedAction extends DedicatedAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) {
+        if(!signupSelectPackageFormComplete) {
             return super.executeDedicatedStep(
                 mapping,
                 request,
@@ -45,8 +45,8 @@ public class DedicatedCompletedAction extends DedicatedAction {
                 siteSettings,
                 locale,
                 skin,
-                signupSelectServerForm,
-                signupSelectServerFormComplete,
+                signupSelectPackageForm,
+                signupSelectPackageFormComplete,
                 signupCustomizeServerForm,
                 signupCustomizeServerFormComplete,
                 signupBusinessForm,

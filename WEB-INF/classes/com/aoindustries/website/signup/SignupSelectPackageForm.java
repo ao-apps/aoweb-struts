@@ -25,13 +25,13 @@ import org.apache.struts.action.ActionServlet;
 /**
  * @author  AO Industries, Inc.
  */
-abstract public class SignupSelectServerForm extends ActionForm implements Serializable, SessionActionForm {
+abstract public class SignupSelectPackageForm extends ActionForm implements Serializable, SessionActionForm {
 
     private static final long serialVersionUID = 1L;
 
     private int packageDefinition;
 
-    public SignupSelectServerForm() {
+    public SignupSelectPackageForm() {
         setPackageDefinition(-1);
     }
 
@@ -61,7 +61,7 @@ abstract public class SignupSelectServerForm extends ActionForm implements Seria
 
                 PackageDefinition pd = rootConn.getPackageDefinitions().get(packageDefinition);
                 if(pd==null || !pd.getPackageCategory().equals(category) || !pd.getBusiness().equals(rootBusiness)) {
-                    errors.add("packageDefinition", new ActionMessage("signupSelectServerForm.packageDefinition.required"));
+                    errors.add("packageDefinition", new ActionMessage("signupSelectPackageForm.packageDefinition.required"));
                 }
             }
             return errors;

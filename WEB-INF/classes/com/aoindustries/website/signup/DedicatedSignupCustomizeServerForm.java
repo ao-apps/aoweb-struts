@@ -14,7 +14,7 @@ public class DedicatedSignupCustomizeServerForm extends SignupCustomizeServerFor
 
     private static final long serialVersionUID = 1L;
 
-    protected String getSignupSelectServerFromName() {
-        return "dedicatedSignupSelectServerForm";
+    protected String getSignupSelectPackageFormName() {
+        return "dedicatedSignupSelectPackageForm";
     }
 }

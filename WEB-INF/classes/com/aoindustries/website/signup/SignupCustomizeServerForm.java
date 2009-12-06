@@ -145,9 +145,9 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
             // Find the current package definition
             PackageDefinition pd = null;
             if(rootConn!=null) {
-                SignupSelectServerForm signupSelectServerForm = (SignupSelectServerForm)request.getSession().getAttribute(getSignupSelectServerFromName());
-                if(signupSelectServerForm!=null) {
-                    pd = rootConn.getPackageDefinitions().get(signupSelectServerForm.getPackageDefinition());
+                SignupSelectPackageForm signupSelectPackageForm = (SignupSelectPackageForm)request.getSession().getAttribute(getSignupSelectPackageFormName());
+                if(signupSelectPackageForm!=null) {
+                    pd = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
                 }
             }
 
@@ -223,5 +223,5 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
         return false;
     }
 
-    protected abstract String getSignupSelectServerFromName();
+    protected abstract String getSignupSelectPackageFormName();
 }

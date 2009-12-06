@@ -8,6 +8,7 @@ package com.aoindustries.website.signup;
 import com.aoindustries.aoserv.client.PackageCategory;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,8 +28,8 @@ public class VirtualDedicatedAction extends VirtualDedicatedStepAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        VirtualDedicatedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
@@ -38,6 +39,17 @@ public class VirtualDedicatedAction extends VirtualDedicatedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
+        List<SignupSelectServerActionHelper.Server> servers = SignupSelectServerActionHelper.getServers(getServlet().getServletContext(), PackageCategory.VIRTUAL_DEDICATED, response.getLocale());
+        if(servers.size()==1) {
+            response.sendRedirect(
+                response.encodeRedirectURL(
+                    skin.getHttpsUrlBase(request)
+                    +"signup/virtual-dedicated-server-completed.do?packageDefinition="
+                    +servers.get(0).getMinimumConfiguration().getPackageDefinition()
+                )
+            );
+            return null;
+        }
         SignupSelectServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, PackageCategory.VIRTUAL_DEDICATED);
 
         // Clear errors if they should not be displayed

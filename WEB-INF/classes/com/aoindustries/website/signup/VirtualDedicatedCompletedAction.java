@@ -26,8 +26,8 @@ public class VirtualDedicatedCompletedAction extends VirtualDedicatedAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        VirtualDedicatedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
@@ -37,7 +37,7 @@ public class VirtualDedicatedCompletedAction extends VirtualDedicatedAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) {
+        if(!signupSelectPackageFormComplete) {
             return super.executeVirtualDedicatedStep(
                 mapping,
                 request,
@@ -45,8 +45,8 @@ public class VirtualDedicatedCompletedAction extends VirtualDedicatedAction {
                 siteSettings,
                 locale,
                 skin,
-                signupSelectServerForm,
-                signupSelectServerFormComplete,
+                signupSelectPackageForm,
+                signupSelectPackageFormComplete,
                 signupCustomizeServerForm,
                 signupCustomizeServerFormComplete,
                 signupBusinessForm,

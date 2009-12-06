@@ -26,8 +26,8 @@ public class Managed2CompletedAction extends Managed2Action {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        ManagedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        ManagedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         ManagedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
@@ -39,7 +39,7 @@ public class Managed2CompletedAction extends Managed2Action {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("managed-server-completed");
+        if(!signupSelectPackageFormComplete) return mapping.findForward("managed-server-completed");
         if(!signupCustomizeServerFormComplete) {
             // Init values for the form
             return super.executeManagedStep(
@@ -49,8 +49,8 @@ public class Managed2CompletedAction extends Managed2Action {
                 siteSettings,
                 locale,
                 skin,
-                signupSelectServerForm,
-                signupSelectServerFormComplete,
+                signupSelectPackageForm,
+                signupSelectPackageFormComplete,
                 signupCustomizeServerForm,
                 signupCustomizeServerFormComplete,
                 signupCustomizeManagementForm,

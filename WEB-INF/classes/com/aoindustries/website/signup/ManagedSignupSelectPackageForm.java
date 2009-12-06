@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * @author  AO Industries, Inc.
  */
-public class ManagedSignupSelectServerForm extends SignupSelectServerForm implements Serializable {
+public class ManagedSignupSelectPackageForm extends SignupSelectPackageForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -55,25 +55,25 @@ abstract public class DedicatedStepAction extends HttpsAction {
 
         HttpSession session = request.getSession();
 
-        DedicatedSignupSelectServerForm signupSelectServerForm = SignupHelper.getSessionActionForm(servlet, session, DedicatedSignupSelectServerForm.class, "dedicatedSignupSelectServerForm");
+        DedicatedSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, DedicatedSignupSelectPackageForm.class, "dedicatedSignupSelectPackageForm");
         DedicatedSignupCustomizeServerForm signupCustomizeServerForm = SignupHelper.getSessionActionForm(servlet, session, DedicatedSignupCustomizeServerForm.class, "dedicatedSignupCustomizeServerForm");
         SignupBusinessForm signupBusinessForm = SignupHelper.getSessionActionForm(servlet, session, SignupBusinessForm.class, "signupBusinessForm");
         SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.class, "signupTechnicalForm");
         SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.class, "signupBillingInformationForm");
 
-        ActionMessages signupSelectServerFormErrors = signupSelectServerForm.validate(mapping, request);
+        ActionMessages signupSelectPackageFormErrors = signupSelectPackageForm.validate(mapping, request);
         ActionMessages signupCustomizeServerFormErrors = signupCustomizeServerForm.validate(mapping, request);
         ActionMessages signupBusinessFormErrors = signupBusinessForm.validate(mapping, request);
         ActionMessages signupTechnicalFormErrors = signupTechnicalForm.validate(mapping, request);
         ActionMessages signupBillingInformationFormErrors = signupBillingInformationForm.validate(mapping, request);
 
-        boolean signupSelectServerFormComplete = !doAddErrors(request, signupSelectServerFormErrors);
+        boolean signupSelectPackageFormComplete = !doAddErrors(request, signupSelectPackageFormErrors);
         boolean signupCustomizeServerFormComplete = !doAddErrors(request, signupCustomizeServerFormErrors);
         boolean signupBusinessFormComplete = !doAddErrors(request, signupBusinessFormErrors);
         boolean signupTechnicalFormComplete = !doAddErrors(request, signupTechnicalFormErrors);
         boolean signupBillingInformationFormComplete = !doAddErrors(request, signupBillingInformationFormErrors);
 
-        request.setAttribute("signupSelectServerFormComplete", signupSelectServerFormComplete ? "true" : "false");
+        request.setAttribute("signupSelectPackageFormComplete", signupSelectPackageFormComplete ? "true" : "false");
         request.setAttribute("signupCustomizeServerFormComplete", signupCustomizeServerFormComplete ? "true" : "false");
         request.setAttribute("signupBusinessFormComplete", signupBusinessFormComplete ? "true" : "false");
         request.setAttribute("signupTechnicalFormComplete", signupTechnicalFormComplete ? "true" : "false");
@@ -86,8 +86,8 @@ abstract public class DedicatedStepAction extends HttpsAction {
             siteSettings,
             locale,
             skin,
-            signupSelectServerForm,
-            signupSelectServerFormComplete,
+            signupSelectPackageForm,
+            signupSelectPackageFormComplete,
             signupCustomizeServerForm,
             signupCustomizeServerFormComplete,
             signupBusinessForm,
@@ -124,8 +124,8 @@ abstract public class DedicatedStepAction extends HttpsAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        DedicatedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        DedicatedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,

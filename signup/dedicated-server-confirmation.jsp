@@ -24,7 +24,7 @@
                     </table>
                 </th>
             </tr>
-            <%@include file="signup-select-server-confirmation.jsp" %>
+            <%@include file="signup-select-package-confirmation.jsp" %>
             <tr><td colspan="3">&#160;</td></tr>
             <tr>
                 <th colspan="3">

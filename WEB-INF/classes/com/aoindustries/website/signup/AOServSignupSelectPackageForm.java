@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -11,11 +11,11 @@ import java.io.Serializable;
 /**
  * @author  AO Industries, Inc.
  */
-public class VirtualManagedSignupSelectServerForm extends SignupSelectServerForm implements Serializable {
+public class AOServSignupSelectPackageForm extends SignupSelectPackageForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     protected String getPackageCategory() {
-        return PackageCategory.VIRTUAL_MANAGED;
+        return PackageCategory.AOSERV;
     }
 }

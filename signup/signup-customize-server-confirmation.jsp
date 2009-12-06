@@ -65,7 +65,7 @@
         <td><fmt:message key="signupCustomizeServerConfirmation.setup.prompt" /></td>
         <td>
             <logic:notPresent name="setup">
-                <fmt:message key="signupSelectServerForm.setup.none" />
+                <fmt:message key="signupSelectPackageForm.setup.none" />
             </logic:notPresent>
             <logic:present name="setup">
                 $<ao:write name="setup" />

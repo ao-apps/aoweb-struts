@@ -11,7 +11,7 @@
     <fmt:bundle basename="com.aoindustries.website.signup.ApplicationResources">
         <b><fmt:message key="steps.title" /></b>
         <hr />
-        <bean:define scope="request" name="signupSelectServerFormComplete" id="signupSelectServerFormComplete" type="java.lang.String" />
+        <bean:define scope="request" name="signupSelectPackageFormComplete" id="signupSelectPackageFormComplete" type="java.lang.String" />
         <bean:define scope="request" name="signupCustomizeServerFormComplete" id="signupCustomizeServerFormComplete" type="java.lang.String" />
         <bean:define scope="request" name="signupCustomizeManagementFormComplete" id="signupCustomizeManagementFormComplete" type="java.lang.String" />
         <bean:define scope="request" name="signupBusinessFormComplete" id="signupBusinessFormComplete" type="java.lang.String" />
@@ -33,10 +33,10 @@
                     <% } %>
                 </td>
                 <td>
-                    <logic:equal scope="request" name="signupSelectServerFormComplete" value="true">
+                    <logic:equal scope="request" name="signupSelectPackageFormComplete" value="true">
                         <fmt:message key="steps.completed" />
                     </logic:equal>
-                    <logic:notEqual scope="request" name="signupSelectServerFormComplete" value="true">
+                    <logic:notEqual scope="request" name="signupSelectPackageFormComplete" value="true">
                         <fmt:message key="steps.incomplete" />
                     </logic:notEqual>
                 </td>
@@ -48,7 +48,7 @@
                 </td>
                 <td><fmt:message key="steps.2" /></td>
                 <td>
-                    <% if(myStepNumber.equals("8") || !signupSelectServerFormComplete.equals("true")) { %>
+                    <% if(myStepNumber.equals("8") || !signupSelectPackageFormComplete.equals("true")) { %>
                         <fmt:message key="steps.customizeServer.label" />
                     <% } else { %>
                         <a class="aoDarkLink" href="javascript:selectStep('<ao:write scope="request" name="actionPrefix" />-2');"><fmt:message key="steps.customizeServer.label" /></a>
@@ -72,7 +72,7 @@
                 <td>
                     <% if(
                             myStepNumber.equals("8")
-                            || !signupSelectServerFormComplete.equals("true")
+                            || !signupSelectPackageFormComplete.equals("true")
                             || !signupCustomizeServerFormComplete.equals("true")
                        ) { %>
                         <fmt:message key="steps.customizeManagement.label" />
@@ -98,7 +98,7 @@
                 <td>
                     <% if(
                             myStepNumber.equals("8")
-                            || !signupSelectServerFormComplete.equals("true")
+                            || !signupSelectPackageFormComplete.equals("true")
                             || !signupCustomizeServerFormComplete.equals("true")
                             || !signupCustomizeManagementFormComplete.equals("true")
                        ) { %>
@@ -125,7 +125,7 @@
                 <td>
                     <% if(
                             myStepNumber.equals("8")
-                            || !signupSelectServerFormComplete.equals("true")
+                            || !signupSelectPackageFormComplete.equals("true")
                             || !signupCustomizeServerFormComplete.equals("true")
                             || !signupCustomizeManagementFormComplete.equals("true")
                             || !signupBusinessFormComplete.equals("true")
@@ -153,7 +153,7 @@
                 <td>
                     <% if(
                             myStepNumber.equals("8")
-                            || !signupSelectServerFormComplete.equals("true")
+                            || !signupSelectPackageFormComplete.equals("true")
                             || !signupCustomizeServerFormComplete.equals("true")
                             || !signupCustomizeManagementFormComplete.equals("true")
                             || !signupBusinessFormComplete.equals("true")
@@ -182,7 +182,7 @@
                 <td>
                     <% if(
                             myStepNumber.equals("8")
-                            || !signupSelectServerFormComplete.equals("true")
+                            || !signupSelectPackageFormComplete.equals("true")
                             || !signupCustomizeServerFormComplete.equals("true")
                             || !signupCustomizeManagementFormComplete.equals("true")
                             || !signupBusinessFormComplete.equals("true")

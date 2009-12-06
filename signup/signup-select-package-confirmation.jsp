@@ -10,7 +10,7 @@
 <fmt:bundle basename="com.aoindustries.website.signup.ApplicationResources">
     <tr>
         <td><fmt:message key="signup.notRequired" /></td>
-        <td><fmt:message key="signupSelectServerForm.packageDefinition.prompt" /></td>
+        <td><fmt:message key="signupSelectPackageForm.packageDefinition.prompt" /></td>
         <td><ao:write scope="request" name="packageDefinition" property="display" /></td>
     </tr>
 </fmt:bundle>

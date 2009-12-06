@@ -76,10 +76,10 @@
                                                             </logic:notEmpty>
                                                         </td>
                                                         <td align='right'>
-                                                            <logic:empty name="bu" property="totalMonthlyRateString">&#160;</logic:empty>
-                                                            <logic:notEmpty name="bu" property="totalMonthlyRateString">
+                                                            <logic:empty name="bu" property="totalMonthlyRate">&#160;</logic:empty>
+                                                            <logic:notEmpty name="bu" property="totalMonthlyRate">
                                                                 <fmt:message key="business.cancel.field.totalMonthlyRate">
-                                                                    <fmt:param><c:out value="${bu.totalMonthlyRateString}" /></fmt:param>
+                                                                    <fmt:param><c:out value="${bu.totalMonthlyRate}" /></fmt:param>
                                                                 </fmt:message>
                                                             </logic:notEmpty>
                                                         </td>

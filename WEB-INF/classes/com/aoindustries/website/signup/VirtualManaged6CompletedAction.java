@@ -27,8 +27,8 @@ public class VirtualManaged6CompletedAction extends VirtualManaged6Action {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        VirtualManagedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
@@ -41,7 +41,7 @@ public class VirtualManaged6CompletedAction extends VirtualManaged6Action {
         boolean signupBillingInformationFormComplete
     ) throws Exception {
         // Forward to previous steps if they have not been completed
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtual-managed-server-completed");
+        if(!signupSelectPackageFormComplete) return mapping.findForward("virtual-managed-server-completed");
         if(!signupCustomizeServerFormComplete) return mapping.findForward("virtual-managed-server-2-completed");
         if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtual-managed-server-3-completed");
         if(!signupBusinessFormComplete) return mapping.findForward("virtual-managed-server-4-completed");
@@ -55,8 +55,8 @@ public class VirtualManaged6CompletedAction extends VirtualManaged6Action {
                 siteSettings,
                 locale,
                 skin,
-                signupSelectServerForm,
-                signupSelectServerFormComplete,
+                signupSelectPackageForm,
+                signupSelectPackageFormComplete,
                 signupCustomizeServerForm,
                 signupCustomizeServerFormComplete,
                 signupCustomizeManagementForm,

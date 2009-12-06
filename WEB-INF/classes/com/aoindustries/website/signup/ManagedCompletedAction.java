@@ -26,8 +26,8 @@ public class ManagedCompletedAction extends ManagedAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        ManagedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        ManagedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         ManagedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
@@ -39,7 +39,7 @@ public class ManagedCompletedAction extends ManagedAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) {
+        if(!signupSelectPackageFormComplete) {
             return super.executeManagedStep(
                 mapping,
                 request,
@@ -47,8 +47,8 @@ public class ManagedCompletedAction extends ManagedAction {
                 siteSettings,
                 locale,
                 skin,
-                signupSelectServerForm,
-                signupSelectServerFormComplete,
+                signupSelectPackageForm,
+                signupSelectPackageFormComplete,
                 signupCustomizeServerForm,
                 signupCustomizeServerFormComplete,
                 signupCustomizeManagementForm,

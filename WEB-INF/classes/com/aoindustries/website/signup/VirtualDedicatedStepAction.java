@@ -55,25 +55,25 @@ abstract public class VirtualDedicatedStepAction extends HttpsAction {
 
         HttpSession session = request.getSession();
 
-        VirtualDedicatedSignupSelectServerForm signupSelectServerForm = SignupHelper.getSessionActionForm(servlet, session, VirtualDedicatedSignupSelectServerForm.class, "virtualDedicatedSignupSelectServerForm");
+        VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, VirtualDedicatedSignupSelectPackageForm.class, "virtualDedicatedSignupSelectPackageForm");
         VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm = SignupHelper.getSessionActionForm(servlet, session, VirtualDedicatedSignupCustomizeServerForm.class, "virtualDedicatedSignupCustomizeServerForm");
         SignupBusinessForm signupBusinessForm = SignupHelper.getSessionActionForm(servlet, session, SignupBusinessForm.class, "signupBusinessForm");
         SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.class, "signupTechnicalForm");
         SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.class, "signupBillingInformationForm");
 
-        ActionMessages signupSelectServerFormErrors = signupSelectServerForm.validate(mapping, request);
+        ActionMessages signupSelectPackageFormErrors = signupSelectPackageForm.validate(mapping, request);
         ActionMessages signupCustomizeServerFormErrors = signupCustomizeServerForm.validate(mapping, request);
         ActionMessages signupBusinessFormErrors = signupBusinessForm.validate(mapping, request);
         ActionMessages signupTechnicalFormErrors = signupTechnicalForm.validate(mapping, request);
         ActionMessages signupBillingInformationFormErrors = signupBillingInformationForm.validate(mapping, request);
 
-        boolean signupSelectServerFormComplete = !doAddErrors(request, signupSelectServerFormErrors);
+        boolean signupSelectPackageFormComplete = !doAddErrors(request, signupSelectPackageFormErrors);
         boolean signupCustomizeServerFormComplete = !doAddErrors(request, signupCustomizeServerFormErrors);
         boolean signupBusinessFormComplete = !doAddErrors(request, signupBusinessFormErrors);
         boolean signupTechnicalFormComplete = !doAddErrors(request, signupTechnicalFormErrors);
         boolean signupBillingInformationFormComplete = !doAddErrors(request, signupBillingInformationFormErrors);
 
-        request.setAttribute("signupSelectServerFormComplete", signupSelectServerFormComplete ? "true" : "false");
+        request.setAttribute("signupSelectPackageFormComplete", signupSelectPackageFormComplete ? "true" : "false");
         request.setAttribute("signupCustomizeServerFormComplete", signupCustomizeServerFormComplete ? "true" : "false");
         request.setAttribute("signupBusinessFormComplete", signupBusinessFormComplete ? "true" : "false");
         request.setAttribute("signupTechnicalFormComplete", signupTechnicalFormComplete ? "true" : "false");
@@ -86,8 +86,8 @@ abstract public class VirtualDedicatedStepAction extends HttpsAction {
             siteSettings,
             locale,
             skin,
-            signupSelectServerForm,
-            signupSelectServerFormComplete,
+            signupSelectPackageForm,
+            signupSelectPackageFormComplete,
             signupCustomizeServerForm,
             signupCustomizeServerFormComplete,
             signupBusinessForm,
@@ -124,8 +124,8 @@ abstract public class VirtualDedicatedStepAction extends HttpsAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        VirtualDedicatedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,

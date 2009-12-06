@@ -26,8 +26,8 @@ public class Dedicated4CompletedAction extends Dedicated4Action {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        DedicatedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        DedicatedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
@@ -37,7 +37,7 @@ public class Dedicated4CompletedAction extends Dedicated4Action {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("dedicated-server-completed");
+        if(!signupSelectPackageFormComplete) return mapping.findForward("dedicated-server-completed");
         if(!signupCustomizeServerFormComplete)  return mapping.findForward("dedicated-server-2-completed");
         if(!signupBusinessFormComplete)  return mapping.findForward("dedicated-server-3-completed");
         if(!signupTechnicalFormComplete) {
@@ -49,8 +49,8 @@ public class Dedicated4CompletedAction extends Dedicated4Action {
                 siteSettings,
                 locale,
                 skin,
-                signupSelectServerForm,
-                signupSelectServerFormComplete,
+                signupSelectPackageForm,
+                signupSelectPackageFormComplete,
                 signupCustomizeServerForm,
                 signupCustomizeServerFormComplete,
                 signupBusinessForm,

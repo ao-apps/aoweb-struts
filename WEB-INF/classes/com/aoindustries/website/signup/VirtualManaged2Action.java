@@ -27,8 +27,8 @@ public class VirtualManaged2Action extends VirtualManagedStepAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        VirtualManagedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
@@ -40,9 +40,9 @@ public class VirtualManaged2Action extends VirtualManagedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtual-managed-server-completed");
+        if(!signupSelectPackageFormComplete) return mapping.findForward("virtual-managed-server-completed");
 
-        SignupCustomizeServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, signupSelectServerForm, signupCustomizeServerForm, false);
+        SignupCustomizeServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, signupSelectPackageForm, signupCustomizeServerForm, false);
 
         // Clear errors if they should not be displayed
         clearErrors(request);

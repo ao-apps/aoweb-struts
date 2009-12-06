@@ -10,7 +10,6 @@ import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.aoserv.client.PackageDefinitionLimit;
 import com.aoindustries.aoserv.client.Resource;
 import com.aoindustries.io.ChainWriter;
-import com.aoindustries.sql.SQLUtility;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -42,14 +41,14 @@ final public class SignupCustomizeServerActionHelper {
         ServletContext servletContext,
         HttpServletRequest request,
         HttpServletResponse response,
-        SignupSelectServerForm signupSelectServerForm,
+        SignupSelectPackageForm signupSelectPackageForm,
         SignupCustomizeServerForm signupCustomizeServerForm,
         boolean includeNoHardDriveOption
     ) throws IOException, SQLException {
         Locale userLocale = response.getLocale();
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
-        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectServerForm.getPackageDefinition());
-        if(packageDefinition==null) throw new SQLException("Unable to find PackageDefinition: "+signupSelectServerForm.getPackageDefinition());
+        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
+        if(packageDefinition==null) throw new SQLException("Unable to find PackageDefinition: "+signupSelectPackageForm.getPackageDefinition());
         List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
 
         // Find the cheapest resources to scale prices from
@@ -75,11 +74,11 @@ final public class SignupCustomizeServerActionHelper {
                     if(limitPower>maxPowers) maxPowers = limitPower;
                     if(cheapestPower==null) cheapestPower = limit;
                     else {
-                        int additionalRate = limit.getAdditionalRate();
-                        if(additionalRate==-1) additionalRate=0;
-                        int cheapestRate = cheapestPower.getAdditionalRate();
-                        if(cheapestRate==-1) cheapestRate=0;
-                        if(additionalRate<cheapestRate) cheapestPower = limit;
+                        BigDecimal additionalRate = limit.getAdditionalRate();
+                        if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
+                        BigDecimal cheapestRate = cheapestPower.getAdditionalRate();
+                        if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
+                        if(additionalRate.compareTo(cheapestRate)<0) cheapestPower = limit;
                     }
                 }
             } else if(resourceName.startsWith("hardware_processor_")) {
@@ -88,11 +87,11 @@ final public class SignupCustomizeServerActionHelper {
                     if(limitCpu>maxCPUs) maxCPUs = limitCpu;
                     if(cheapestCPU==null) cheapestCPU = limit;
                     else {
-                        int additionalRate = limit.getAdditionalRate();
-                        if(additionalRate==-1) additionalRate=0;
-                        int cheapestRate = cheapestCPU.getAdditionalRate();
-                        if(cheapestRate==-1) cheapestRate=0;
-                        if(additionalRate<cheapestRate) cheapestCPU = limit;
+                        BigDecimal additionalRate = limit.getAdditionalRate();
+                        if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
+                        BigDecimal cheapestRate = cheapestCPU.getAdditionalRate();
+                        if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
+                        if(additionalRate.compareTo(cheapestRate)<0) cheapestCPU = limit;
                     }
                 }
             } else if(resourceName.startsWith("hardware_ram_")) {
@@ -101,11 +100,11 @@ final public class SignupCustomizeServerActionHelper {
                     if(limitRAM>maxRAMs) maxRAMs = limitRAM;
                     if(cheapestRAM==null) cheapestRAM = limit;
                     else {
-                        int additionalRate = limit.getAdditionalRate();
-                        if(additionalRate==-1) additionalRate=0;
-                        int cheapestRate = cheapestRAM.getAdditionalRate();
-                        if(cheapestRate==-1) cheapestRate=0;
-                        if(additionalRate<cheapestRate) cheapestRAM = limit;
+                        BigDecimal additionalRate = limit.getAdditionalRate();
+                        if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
+                        BigDecimal cheapestRate = cheapestRAM.getAdditionalRate();
+                        if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
+                        if(additionalRate.compareTo(cheapestRate)<0) cheapestRAM = limit;
                     }
                 }
             } else if(resourceName.startsWith("hardware_disk_controller_sata_")) {
@@ -114,11 +113,11 @@ final public class SignupCustomizeServerActionHelper {
                     if(limitSataController>maxSataControllers) maxSataControllers = limitSataController;
                     if(cheapestSataController==null) cheapestSataController = limit;
                     else {
-                        int additionalRate = limit.getAdditionalRate();
-                        if(additionalRate==-1) additionalRate=0;
-                        int cheapestRate = cheapestSataController.getAdditionalRate();
-                        if(cheapestRate==-1) cheapestRate=0;
-                        if(additionalRate<cheapestRate) cheapestSataController = limit;
+                        BigDecimal additionalRate = limit.getAdditionalRate();
+                        if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
+                        BigDecimal cheapestRate = cheapestSataController.getAdditionalRate();
+                        if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
+                        if(additionalRate.compareTo(cheapestRate)<0) cheapestSataController = limit;
                     }
                 }
             } else if(resourceName.startsWith("hardware_disk_controller_scsi_")) {
@@ -127,11 +126,11 @@ final public class SignupCustomizeServerActionHelper {
                     if(limitScsiController>maxScsiControllers) maxScsiControllers = limitScsiController;
                     if(cheapestScsiController==null) cheapestScsiController = limit;
                     else {
-                        int additionalRate = limit.getAdditionalRate();
-                        if(additionalRate==-1) additionalRate=0;
-                        int cheapestRate = cheapestScsiController.getAdditionalRate();
-                        if(cheapestRate==-1) cheapestRate=0;
-                        if(additionalRate<cheapestRate) cheapestScsiController = limit;
+                        BigDecimal additionalRate = limit.getAdditionalRate();
+                        if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
+                        BigDecimal cheapestRate = cheapestScsiController.getAdditionalRate();
+                        if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
+                        if(additionalRate.compareTo(cheapestRate)<0) cheapestScsiController = limit;
                     }
                 }
             } else if(resourceName.startsWith("hardware_disk_")) {
@@ -139,11 +138,11 @@ final public class SignupCustomizeServerActionHelper {
                 if(hardLimit>0) {
                     if(cheapestDisk==null) cheapestDisk = limit;
                     else {
-                        int additionalRate = limit.getAdditionalRate();
-                        if(additionalRate==-1) additionalRate=0;
-                        int cheapestRate = cheapestDisk.getAdditionalRate();
-                        if(cheapestRate==-1) cheapestRate=0;
-                        if(additionalRate<cheapestRate) cheapestDisk = limit;
+                        BigDecimal additionalRate = limit.getAdditionalRate();
+                        if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
+                        BigDecimal cheapestRate = cheapestDisk.getAdditionalRate();
+                        if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
+                        if(additionalRate.compareTo(cheapestRate)<0) cheapestDisk = limit;
                     }
                     if(resourceName.startsWith("hardware_disk_ide_")) {
                         if(hardLimit>maxIDEs) maxIDEs = hardLimit;
@@ -177,108 +176,108 @@ final public class SignupCustomizeServerActionHelper {
             if(resourceName.startsWith("hardware_power_")) {
                 int limitPower = limit.getHardLimit();
                 if(limitPower>0) {
-                    int additionalRate = limit.getAdditionalRate();
-                    if(additionalRate==-1) additionalRate=0;
-                    int cheapestRate = cheapestPower.getAdditionalRate();
-                    if(cheapestRate==-1) cheapestRate=0;
+                    BigDecimal additionalRate = limit.getAdditionalRate();
+                    if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
+                    BigDecimal cheapestRate = cheapestPower.getAdditionalRate();
+                    if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
                     String description = maxPowers==1 ? resource.toString(userLocale) : (maxPowers+"x"+resource.toString(userLocale));
-                    powerOptions.add(new Option(limit.getPkey(), description, new BigDecimal(SQLUtility.getDecimal(maxPowers * (additionalRate-cheapestRate)))));
+                    powerOptions.add(new Option(limit.getPkey(), description, BigDecimal.valueOf(maxPowers).multiply(additionalRate.subtract(cheapestRate))));
                 }
             } else if(resourceName.startsWith("hardware_processor_")) {
                 int limitCpu = limit.getHardLimit();
                 if(limitCpu>0) {
-                    int additionalRate = limit.getAdditionalRate();
-                    if(additionalRate==-1) additionalRate=0;
-                    int cheapestRate = cheapestCPU.getAdditionalRate();
-                    if(cheapestRate==-1) cheapestRate=0;
+                    BigDecimal additionalRate = limit.getAdditionalRate();
+                    if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
+                    BigDecimal cheapestRate = cheapestCPU.getAdditionalRate();
+                    if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
                     String description = maxCPUs==1 ? resource.toString(userLocale) : (maxCPUs+"x"+resource.toString(userLocale));
-                    cpuOptions.add(new Option(limit.getPkey(), description, new BigDecimal(SQLUtility.getDecimal(maxCPUs * (additionalRate-cheapestRate)))));
+                    cpuOptions.add(new Option(limit.getPkey(), description, BigDecimal.valueOf(maxCPUs).multiply(additionalRate.subtract(cheapestRate))));
                 }
             } else if(resourceName.startsWith("hardware_ram_")) {
                 int limitRAM = limit.getHardLimit();
                 if(limitRAM>0) {
-                    int additionalRate = limit.getAdditionalRate();
-                    if(additionalRate==-1) additionalRate=0;
-                    int cheapestRate = cheapestRAM.getAdditionalRate();
-                    if(cheapestRate==-1) cheapestRate=0;
+                    BigDecimal additionalRate = limit.getAdditionalRate();
+                    if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
+                    BigDecimal cheapestRate = cheapestRAM.getAdditionalRate();
+                    if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
                     String description = maxRAMs==1 ? resource.toString(userLocale) : (maxRAMs+"x"+resource.toString(userLocale));
-                    ramOptions.add(new Option(limit.getPkey(), description, new BigDecimal(SQLUtility.getDecimal(maxRAMs * (additionalRate-cheapestRate)))));
+                    ramOptions.add(new Option(limit.getPkey(), description, BigDecimal.valueOf(maxRAMs).multiply(additionalRate.subtract(cheapestRate))));
                 }
             } else if(resourceName.startsWith("hardware_disk_controller_sata_")) {
                 int limitSataController = limit.getHardLimit();
                 if(limitSataController>0) {
-                    int additionalRate = limit.getAdditionalRate();
-                    if(additionalRate==-1) additionalRate=0;
-                    int cheapestRate = cheapestSataController.getAdditionalRate();
-                    if(cheapestRate==-1) cheapestRate=0;
+                    BigDecimal additionalRate = limit.getAdditionalRate();
+                    if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
+                    BigDecimal cheapestRate = cheapestSataController.getAdditionalRate();
+                    if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
                     String description = maxSataControllers==1 ? resource.toString(userLocale) : (maxSataControllers+"x"+resource.toString(userLocale));
-                    sataControllerOptions.add(new Option(limit.getPkey(), description, new BigDecimal(SQLUtility.getDecimal(maxSataControllers * (additionalRate-cheapestRate)))));
+                    sataControllerOptions.add(new Option(limit.getPkey(), description, BigDecimal.valueOf(maxSataControllers).multiply(additionalRate.subtract(cheapestRate))));
                 }
             } else if(resourceName.startsWith("hardware_disk_controller_scsi_")) {
                 int limitScsiController = limit.getHardLimit();
                 if(limitScsiController>0) {
-                    int additionalRate = limit.getAdditionalRate();
-                    if(additionalRate==-1) additionalRate=0;
-                    int cheapestRate = cheapestScsiController.getAdditionalRate();
-                    if(cheapestRate==-1) cheapestRate=0;
+                    BigDecimal additionalRate = limit.getAdditionalRate();
+                    if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
+                    BigDecimal cheapestRate = cheapestScsiController.getAdditionalRate();
+                    if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
                     String description = maxScsiControllers==1 ? resource.toString(userLocale) : (maxScsiControllers+"x"+resource.toString(userLocale));
-                    scsiControllerOptions.add(new Option(limit.getPkey(), description, new BigDecimal(SQLUtility.getDecimal(maxScsiControllers * (additionalRate-cheapestRate)))));
+                    scsiControllerOptions.add(new Option(limit.getPkey(), description, BigDecimal.valueOf(maxScsiControllers).multiply(additionalRate.subtract(cheapestRate))));
                 }
             } else if(resourceName.startsWith("hardware_disk_ide_")) {
                 int limitDisk = limit.getHardLimit();
                 if(limitDisk>0) {
-                    int additionalRate = limit.getAdditionalRate();
-                    if(additionalRate==-1) additionalRate=0;
-                    int adjustedRate = additionalRate;
+                    BigDecimal additionalRate = limit.getAdditionalRate();
+                    if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
+                    BigDecimal adjustedRate = additionalRate;
                     // Discount adjusted rate if the cheapest disk is of this type
                     if(cheapestDisk.getResource().getName().startsWith("hardware_disk_ide_")) {
-                        int cheapestRate = cheapestDisk.getAdditionalRate();
-                        if(cheapestRate==-1) cheapestRate=0;
-                        adjustedRate -= cheapestRate;
+                        BigDecimal cheapestRate = cheapestDisk.getAdditionalRate();
+                        if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
+                        adjustedRate = adjustedRate.subtract(cheapestRate);
                     }
                     for(int c=0;c<maxIDEs;c++) {
                         List<Option> options = ideOptions.get(c);
                         // Add none opption
-                        if(includeNoHardDriveOption && options.isEmpty()) options.add(new Option(-1, "None", new BigDecimal(SQLUtility.getDecimal(c==0 ? (adjustedRate-additionalRate) : 0))));
-                        options.add(new Option(limit.getPkey(), resource.toString(userLocale), new BigDecimal(SQLUtility.getDecimal(c==0 ? adjustedRate : additionalRate))));
+                        if(includeNoHardDriveOption && options.isEmpty()) options.add(new Option(-1, "None", c==0 ? adjustedRate.subtract(additionalRate) : BigDecimal.valueOf(0, 2)));
+                        options.add(new Option(limit.getPkey(), resource.toString(userLocale), c==0 ? adjustedRate : additionalRate));
                     }
                 }
             } else if(resourceName.startsWith("hardware_disk_sata_")) {
                 int limitDisk = limit.getHardLimit();
                 if(limitDisk>0) {
-                    int additionalRate = limit.getAdditionalRate();
-                    if(additionalRate==-1) additionalRate=0;
-                    int adjustedRate = additionalRate;
+                    BigDecimal additionalRate = limit.getAdditionalRate();
+                    if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
+                    BigDecimal adjustedRate = additionalRate;
                     // Discount first rate if the cheapest disk is of this type
                     if(cheapestDisk.getResource().getName().startsWith("hardware_disk_sata_")) {
-                        int cheapestRate = cheapestDisk.getAdditionalRate();
-                        if(cheapestRate==-1) cheapestRate=0;
-                        adjustedRate -= cheapestRate;
+                        BigDecimal cheapestRate = cheapestDisk.getAdditionalRate();
+                        if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
+                        adjustedRate = adjustedRate.subtract(cheapestRate);
                     }
                     for(int c=0;c<maxSATAs;c++) {
                         List<Option> options = sataOptions.get(c);
                         // Add none opption
-                        if(includeNoHardDriveOption && options.isEmpty()) options.add(new Option(-1, "None", new BigDecimal(SQLUtility.getDecimal(c==0 ? (adjustedRate-additionalRate) : 0))));
-                        options.add(new Option(limit.getPkey(), resource.toString(userLocale), new BigDecimal(SQLUtility.getDecimal(c==0 ? adjustedRate : additionalRate))));
+                        if(includeNoHardDriveOption && options.isEmpty()) options.add(new Option(-1, "None", c==0 ? adjustedRate.subtract(additionalRate) : BigDecimal.valueOf(0, 2)));
+                        options.add(new Option(limit.getPkey(), resource.toString(userLocale), c==0 ? adjustedRate : additionalRate));
                     }
                 }
             } else if(resourceName.startsWith("hardware_disk_scsi_")) {
                 int limitDisk = limit.getHardLimit();
                 if(limitDisk>0) {
-                    int additionalRate = limit.getAdditionalRate();
-                    if(additionalRate==-1) additionalRate=0;
-                    int adjustedRate = additionalRate;
+                    BigDecimal additionalRate = limit.getAdditionalRate();
+                    if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
+                    BigDecimal adjustedRate = additionalRate;
                     // Discount first rate if the cheapest disk is of this type
                     if(cheapestDisk.getResource().getName().startsWith("hardware_disk_scsi_")) {
-                        int cheapestRate = cheapestDisk.getAdditionalRate();
-                        if(cheapestRate==-1) cheapestRate=0;
-                        adjustedRate -= cheapestRate;
+                        BigDecimal cheapestRate = cheapestDisk.getAdditionalRate();
+                        if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
+                        adjustedRate = adjustedRate.subtract(cheapestRate);
                     }
                     for(int c=0;c<maxSCSIs;c++) {
                         List<Option> options = scsiOptions.get(c);
                         // Add none opption
-                        if(includeNoHardDriveOption && options.isEmpty()) options.add(new Option(-1, "None", new BigDecimal(SQLUtility.getDecimal(c==0 ? (adjustedRate-additionalRate) : 0))));
-                        options.add(new Option(limit.getPkey(), resource.toString(userLocale), new BigDecimal(SQLUtility.getDecimal(c==0 ? adjustedRate : additionalRate))));
+                        if(includeNoHardDriveOption && options.isEmpty()) options.add(new Option(-1, "None", c==0 ? adjustedRate.subtract(additionalRate) : BigDecimal.valueOf(0, 2)));
+                        options.add(new Option(limit.getPkey(), resource.toString(userLocale), c==0 ? adjustedRate : additionalRate));
                     }
                 }
             }
@@ -397,14 +396,14 @@ final public class SignupCustomizeServerActionHelper {
         }
 
         // Find the basePrice (base plus minimum number of cheapest of each resource class)
-        int basePrice = packageDefinition.getMonthlyRate();
-        if(basePrice==-1) basePrice = 0;
-        if(cheapestPower!=null) basePrice += cheapestPower.getAdditionalRate()==-1 ? 0 : (cheapestPower.getAdditionalRate() * maxPowers);
-        basePrice += cheapestCPU.getAdditionalRate()==-1 ? 0 : (cheapestCPU.getAdditionalRate() * maxCPUs);
-        basePrice += cheapestRAM.getAdditionalRate()==-1 ? 0 : cheapestRAM.getAdditionalRate();
-        if(cheapestSataController!=null) basePrice += cheapestSataController.getAdditionalRate()==-1 ? 0 : cheapestSataController.getAdditionalRate();
-        if(cheapestScsiController!=null) basePrice += cheapestScsiController.getAdditionalRate()==-1 ? 0 : cheapestScsiController.getAdditionalRate();
-        basePrice += cheapestDisk.getAdditionalRate()==-1 ? 0 : cheapestDisk.getAdditionalRate();
+        BigDecimal basePrice = packageDefinition.getMonthlyRate();
+        if(basePrice==null) basePrice = BigDecimal.valueOf(0, 2);
+        if(cheapestPower!=null && cheapestPower.getAdditionalRate()!=null) basePrice = basePrice.add(cheapestPower.getAdditionalRate().multiply(BigDecimal.valueOf(maxPowers)));
+        if(cheapestCPU.getAdditionalRate()!=null) basePrice = basePrice.add(cheapestCPU.getAdditionalRate().multiply(BigDecimal.valueOf(maxCPUs)));
+        if(cheapestRAM.getAdditionalRate()!=null) basePrice = basePrice.add(cheapestRAM.getAdditionalRate());
+        if(cheapestSataController!=null && cheapestSataController.getAdditionalRate()!=null) basePrice = basePrice.add(cheapestSataController.getAdditionalRate());
+        if(cheapestScsiController!=null && cheapestScsiController.getAdditionalRate()!=null) basePrice = basePrice.add(cheapestScsiController.getAdditionalRate());
+        if(cheapestDisk.getAdditionalRate()!=null) basePrice = basePrice.add(cheapestDisk.getAdditionalRate());
 
         // Store to request
         request.setAttribute("packageDefinition", packageDefinition);
@@ -416,43 +415,43 @@ final public class SignupCustomizeServerActionHelper {
         request.setAttribute("ideOptions", ideOptions);
         request.setAttribute("sataOptions", sataOptions);
         request.setAttribute("scsiOptions", scsiOptions);
-        request.setAttribute("basePrice", new BigDecimal(SQLUtility.getDecimal(basePrice)));
+        request.setAttribute("basePrice", basePrice);
     }
 
     /**
      * Gets the hardware monthly rate for the server, basic server + hardware options
      */
     public static BigDecimal getHardwareMonthlyRate(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, PackageDefinition packageDefinition) throws IOException, SQLException {
-        BigDecimal monthlyRate = new BigDecimal(SQLUtility.getDecimal(packageDefinition.getMonthlyRate()));
+        BigDecimal monthlyRate = packageDefinition.getMonthlyRate();
 
         // Add the power option
         int powerOption = signupCustomizeServerForm.getPowerOption();
         if(powerOption!=-1) {
             PackageDefinitionLimit powerPDL = rootConn.getPackageDefinitionLimits().get(powerOption);
             int numPower = powerPDL.getHardLimit();
-            int powerRate = powerPDL.getAdditionalRate();
-            if(powerRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numPower * powerRate)));
+            BigDecimal powerRate = powerPDL.getAdditionalRate();
+            if(powerRate!=null) monthlyRate = monthlyRate.add(BigDecimal.valueOf(numPower).multiply(powerRate));
         }
 
         // Add the cpu option
         PackageDefinitionLimit cpuPDL = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getCpuOption());
         int numCpu = cpuPDL.getHardLimit();
-        int cpuRate = cpuPDL.getAdditionalRate();
-        if(cpuRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numCpu * cpuRate)));
+        BigDecimal cpuRate = cpuPDL.getAdditionalRate();
+        if(cpuRate!=null) monthlyRate = monthlyRate.add(BigDecimal.valueOf(numCpu).multiply(cpuRate));
 
         // Add the RAM option
         PackageDefinitionLimit ramPDL = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getRamOption());
         int numRam = ramPDL.getHardLimit();
-        int ramRate = ramPDL.getAdditionalRate();
-        if(ramRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numRam * ramRate)));
+        BigDecimal ramRate = ramPDL.getAdditionalRate();
+        if(ramRate!=null) monthlyRate = monthlyRate.add(BigDecimal.valueOf(numRam).multiply(ramRate));
 
         // Add the SATA controller option
         int sataControllerOption = signupCustomizeServerForm.getSataControllerOption();
         if(sataControllerOption!=-1) {
             PackageDefinitionLimit sataControllerPDL = rootConn.getPackageDefinitionLimits().get(sataControllerOption);
             int numSataController = sataControllerPDL.getHardLimit();
-            int sataControllerRate = sataControllerPDL.getAdditionalRate();
-            if(sataControllerRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numSataController * sataControllerRate)));
+            BigDecimal sataControllerRate = sataControllerPDL.getAdditionalRate();
+            if(sataControllerRate!=null) monthlyRate = monthlyRate.add(BigDecimal.valueOf(numSataController).multiply(sataControllerRate));
         }
 
         // Add the SCSI controller option
@@ -460,8 +459,8 @@ final public class SignupCustomizeServerActionHelper {
         if(scsiControllerOption!=-1) {
             PackageDefinitionLimit scsiControllerPDL = rootConn.getPackageDefinitionLimits().get(scsiControllerOption);
             int numScsiController = scsiControllerPDL.getHardLimit();
-            int scsiControllerRate = scsiControllerPDL.getAdditionalRate();
-            if(scsiControllerRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(numScsiController * scsiControllerRate)));
+            BigDecimal scsiControllerRate = scsiControllerPDL.getAdditionalRate();
+            if(scsiControllerRate!=null) monthlyRate = monthlyRate.add(BigDecimal.valueOf(numScsiController).multiply(scsiControllerRate));
         }
 
         // Add the IDE options
@@ -469,8 +468,8 @@ final public class SignupCustomizeServerActionHelper {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
                 PackageDefinitionLimit idePDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
                 if(idePDL!=null) {
-                    int ideRate = idePDL.getAdditionalRate();
-                    if(ideRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(ideRate)));
+                    BigDecimal ideRate = idePDL.getAdditionalRate();
+                    if(ideRate!=null) monthlyRate = monthlyRate.add(ideRate);
                 }
             }
         }
@@ -480,8 +479,8 @@ final public class SignupCustomizeServerActionHelper {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
                 PackageDefinitionLimit sataPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
                 if(sataPDL!=null) {
-                    int sataRate = sataPDL.getAdditionalRate();
-                    if(sataRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(sataRate)));
+                    BigDecimal sataRate = sataPDL.getAdditionalRate();
+                    if(sataRate!=null) monthlyRate = monthlyRate.add(sataRate);
                 }
             }
         }
@@ -491,8 +490,8 @@ final public class SignupCustomizeServerActionHelper {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
                 PackageDefinitionLimit scsiPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
                 if(scsiPDL!=null) {
-                    int scsiRate = scsiPDL.getAdditionalRate();
-                    if(scsiRate>0) monthlyRate = monthlyRate.add(new BigDecimal(SQLUtility.getDecimal(scsiRate)));
+                    BigDecimal scsiRate = scsiPDL.getAdditionalRate();
+                    if(scsiRate!=null) monthlyRate = monthlyRate.add(scsiRate);
                 }
             }
         }
@@ -511,8 +510,8 @@ final public class SignupCustomizeServerActionHelper {
     public static String getCpuOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException, SQLException {
         PackageDefinitionLimit cpuPDL = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getCpuOption());
         int numCpu = cpuPDL.getHardLimit();
-        if(numCpu==1) return cpuPDL.getResource().toString(userLocale).replaceAll(", ", "<br />&#160;&#160;&#160;&#160;");
-        else return numCpu + "x" + cpuPDL.getResource().toString(userLocale).replaceAll(", ", "<br />&#160;&#160;&#160;&#160;");
+        if(numCpu==1) return cpuPDL.getResource().toString(userLocale); //.replaceAll(", ", "<br />&#160;&#160;&#160;&#160;");
+        else return numCpu + "x" + cpuPDL.getResource().toString(userLocale); //.replaceAll(", ", "<br />&#160;&#160;&#160;&#160;");
     }
     
     public static String getRamOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException, SQLException {
@@ -545,10 +544,7 @@ final public class SignupCustomizeServerActionHelper {
         for(String pkey : signupCustomizeServerForm.getIdeOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
                 PackageDefinitionLimit idePDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
-                if(idePDL!=null) {
-                    int ideRate = idePDL.getAdditionalRate();
-                    ideOptions.add(idePDL.getResource().toString(userLocale));
-                }
+                if(idePDL!=null) ideOptions.add(idePDL.getResource().toString(userLocale));
             }
         }
         return ideOptions;
@@ -559,10 +555,7 @@ final public class SignupCustomizeServerActionHelper {
         for(String pkey : signupCustomizeServerForm.getSataOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
                 PackageDefinitionLimit sataPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
-                if(sataPDL!=null) {
-                    int sataRate = sataPDL.getAdditionalRate();
-                    sataOptions.add(sataPDL.getResource().toString(userLocale));
-                }
+                if(sataPDL!=null) sataOptions.add(sataPDL.getResource().toString(userLocale));
             }
         }
         return sataOptions;
@@ -573,10 +566,7 @@ final public class SignupCustomizeServerActionHelper {
         for(String pkey : signupCustomizeServerForm.getScsiOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
                 PackageDefinitionLimit scsiPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
-                if(scsiPDL!=null) {
-                    int scsiRate = scsiPDL.getAdditionalRate();
-                    scsiOptions.add(scsiPDL.getResource().toString(userLocale));
-                }
+                if(scsiPDL!=null) scsiOptions.add(scsiPDL.getResource().toString(userLocale));
             }
         }
         return scsiOptions;
@@ -586,13 +576,13 @@ final public class SignupCustomizeServerActionHelper {
         ServletContext servletContext,
         HttpServletRequest request,
         HttpServletResponse response,
-        SignupSelectServerForm signupSelectServerForm,
+        SignupSelectPackageForm signupSelectPackageForm,
         SignupCustomizeServerForm signupCustomizeServerForm
     ) throws IOException, SQLException {
         Locale userLocale = response.getLocale();
         // Lookup things needed by the view
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
-        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectServerForm.getPackageDefinition());
+        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
 
         // Store as request attribute for the view
         request.setAttribute("packageDefinition", packageDefinition);
@@ -675,7 +665,7 @@ final public class SignupCustomizeServerActionHelper {
                      + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
                      + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.setup.prompt")).print("</td>\n"
                      + "        <td>\n");
-        BigDecimal setup = SignupSelectServerActionHelper.getSetup(packageDefinition);
+        BigDecimal setup = packageDefinition.getSetupFee();
         if(setup==null) {
             emailOut.print("            ").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.setup.none")).print("\n");
         } else {

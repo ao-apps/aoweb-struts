@@ -298,7 +298,7 @@ final public class ConfirmationCompletedActionHelper {
                          + "        <hr />\n"
                          + "    </td></tr>\n"
                          + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(userLocale, "steps.selectServer.label")).print("</th></tr>\n");
-            SignupSelectServerActionHelper.printConfirmation(emailOut, userLocale, packageDefinition, signupApplicationResources);
+            SignupSelectPackageActionHelper.printConfirmation(emailOut, userLocale, packageDefinition, signupApplicationResources);
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
                          + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(userLocale, "steps.customizeServer.label")).print("</th></tr>\n");
             AOServConnector rootConn = siteSettings.getRootAOServConnector();

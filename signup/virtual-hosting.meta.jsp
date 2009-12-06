@@ -8,7 +8,7 @@
 <%@include file="/_taglibs.jsp" %>
 
 <fmt:bundle basename="com.aoindustries.website.signup.ApplicationResources">
-    <skin:path>/signup/VirtualSignUp.ao</skin:path>
+    <skin:path>/signup/virtual-hosting.do</skin:path>
     <skin:encrypt>true</skin:encrypt>
     <skin:title><fmt:message key="virtual.title" /></skin:title>
     <skin:navImageAlt><fmt:message key="virtual.navImageAlt" /></skin:navImageAlt>

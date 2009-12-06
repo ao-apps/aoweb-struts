@@ -34,8 +34,8 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        DedicatedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        DedicatedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
@@ -46,7 +46,7 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
         boolean signupBillingInformationFormComplete
     ) throws Exception {
         // Forward to previous steps if they have not been completed
-        if(!signupSelectServerFormComplete) return mapping.findForward("dedicated-server-completed");
+        if(!signupSelectPackageFormComplete) return mapping.findForward("dedicated-server-completed");
         if(!signupCustomizeServerFormComplete) return mapping.findForward("dedicated-server-2-completed");
         if(!signupBusinessFormComplete) return mapping.findForward("dedicated-server-3-completed");
         if(!signupTechnicalFormComplete) return mapping.findForward("dedicated-server-4-completed");
@@ -56,7 +56,7 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
         initRequestAttributes(
             request,
             response,
-            signupSelectServerForm,
+            signupSelectPackageForm,
             signupCustomizeServerForm,
             signupBusinessForm,
             signupTechnicalForm,
@@ -68,7 +68,7 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
         ActionServlet myServlet = getServlet();
         ServletContext servletContext = myServlet.getServletContext();
         AOServConnector rootConn = siteSettings.getRootAOServConnector();
-        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectServerForm.getPackageDefinition());
+        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
 
         // Build the options map
         Map<String,String> options = new HashMap<String,String>();
@@ -114,7 +114,7 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
         );
         
         // Clear dedicated signup-specific forms from the session
-        session.removeAttribute("dedicatedSignupSelectServerForm");
+        session.removeAttribute("dedicatedSignupSelectPackageForm");
         session.removeAttribute("dedicatedSignupCustomizeServerForm");
 
         return mapping.findForward("success");

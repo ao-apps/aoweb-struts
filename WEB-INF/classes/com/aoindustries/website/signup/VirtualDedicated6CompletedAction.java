@@ -34,8 +34,8 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        VirtualDedicatedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
@@ -46,7 +46,7 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
         boolean signupBillingInformationFormComplete
     ) throws Exception {
         // Forward to previous steps if they have not been completed
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtual-dedicated-server-completed");
+        if(!signupSelectPackageFormComplete) return mapping.findForward("virtual-dedicated-server-completed");
         if(!signupCustomizeServerFormComplete) return mapping.findForward("virtual-dedicated-server-2-completed");
         if(!signupBusinessFormComplete) return mapping.findForward("virtual-dedicated-server-3-completed");
         if(!signupTechnicalFormComplete) return mapping.findForward("virtual-dedicated-server-4-completed");
@@ -56,7 +56,7 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
         initRequestAttributes(
             request,
             response,
-            signupSelectServerForm,
+            signupSelectPackageForm,
             signupCustomizeServerForm,
             signupBusinessForm,
             signupTechnicalForm,
@@ -68,7 +68,7 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
         ActionServlet myServlet = getServlet();
         ServletContext servletContext = myServlet.getServletContext();
         AOServConnector rootConn = siteSettings.getRootAOServConnector();
-        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectServerForm.getPackageDefinition());
+        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
 
         // Build the options map
         Map<String,String> options = new HashMap<String,String>();
@@ -114,7 +114,7 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
         );
         
         // Clear virtualDedicated signup-specific forms from the session
-        session.removeAttribute("virtualDedicatedSignupSelectServerForm");
+        session.removeAttribute("virtualDedicatedSignupSelectPackageForm");
         session.removeAttribute("virtualDedicatedSignupCustomizeServerForm");
 
         return mapping.findForward("success");

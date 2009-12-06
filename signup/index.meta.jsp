@@ -8,7 +8,7 @@
 <%@include file="/_taglibs.jsp" %>
 
 <fmt:bundle basename="com.aoindustries.website.signup.ApplicationResources">
-    <skin:path>/signup/SignUpIndex.ao</skin:path>
+    <skin:path>/signup/index.do</skin:path>
     <skin:encrypt>false</skin:encrypt>
     <skin:title><fmt:message key="index.title" /></skin:title>
     <skin:navImageAlt><fmt:message key="index.navImageAlt" /></skin:navImageAlt>

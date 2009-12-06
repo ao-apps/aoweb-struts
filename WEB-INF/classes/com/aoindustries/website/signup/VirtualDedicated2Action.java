@@ -27,8 +27,8 @@ public class VirtualDedicated2Action extends VirtualDedicatedStepAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        VirtualDedicatedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
@@ -38,9 +38,9 @@ public class VirtualDedicated2Action extends VirtualDedicatedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtual-dedicated-server-completed");
+        if(!signupSelectPackageFormComplete) return mapping.findForward("virtual-dedicated-server-completed");
         
-        SignupCustomizeServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, signupSelectServerForm, signupCustomizeServerForm, false);
+        SignupCustomizeServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, signupSelectPackageForm, signupCustomizeServerForm, false);
 
         // Clear errors if they should not be displayed
         clearErrors(request);

@@ -27,8 +27,8 @@ public class Managed6CompletedAction extends Managed6Action {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        ManagedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        ManagedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         ManagedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
@@ -41,7 +41,7 @@ public class Managed6CompletedAction extends Managed6Action {
         boolean signupBillingInformationFormComplete
     ) throws Exception {
         // Forward to previous steps if they have not been completed
-        if(!signupSelectServerFormComplete) return mapping.findForward("managed-server-completed");
+        if(!signupSelectPackageFormComplete) return mapping.findForward("managed-server-completed");
         if(!signupCustomizeServerFormComplete) return mapping.findForward("managed-server-2-completed");
         if(!signupCustomizeManagementFormComplete) return mapping.findForward("managed-server-3-completed");
         if(!signupBusinessFormComplete) return mapping.findForward("managed-server-4-completed");
@@ -55,8 +55,8 @@ public class Managed6CompletedAction extends Managed6Action {
                 siteSettings,
                 locale,
                 skin,
-                signupSelectServerForm,
-                signupSelectServerFormComplete,
+                signupSelectPackageForm,
+                signupSelectPackageFormComplete,
                 signupCustomizeServerForm,
                 signupCustomizeServerFormComplete,
                 signupCustomizeManagementForm,

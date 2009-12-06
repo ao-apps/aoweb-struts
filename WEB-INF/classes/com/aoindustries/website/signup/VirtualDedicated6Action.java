@@ -28,8 +28,8 @@ public class VirtualDedicated6Action extends VirtualDedicatedStepAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        VirtualDedicatedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupBusinessForm signupBusinessForm,
@@ -39,7 +39,7 @@ public class VirtualDedicated6Action extends VirtualDedicatedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtual-dedicated-server-completed");
+        if(!signupSelectPackageFormComplete) return mapping.findForward("virtual-dedicated-server-completed");
         if(!signupCustomizeServerFormComplete) return mapping.findForward("virtual-dedicated-server-2-completed");
         if(!signupBusinessFormComplete) return mapping.findForward("virtual-dedicated-server-3-completed");
         if(!signupTechnicalFormComplete) return mapping.findForward("virtual-dedicated-server-4-completed");
@@ -48,7 +48,7 @@ public class VirtualDedicated6Action extends VirtualDedicatedStepAction {
         initRequestAttributes(
             request,
             response,
-            signupSelectServerForm,
+            signupSelectPackageForm,
             signupCustomizeServerForm,
             signupBusinessForm,
             signupTechnicalForm,
@@ -61,7 +61,7 @@ public class VirtualDedicated6Action extends VirtualDedicatedStepAction {
     protected void initRequestAttributes(
         HttpServletRequest request,
         HttpServletResponse response,
-        SignupSelectServerForm signupSelectServerForm,
+        SignupSelectPackageForm signupSelectPackageForm,
         SignupCustomizeServerForm signupCustomizeServerForm,
         SignupBusinessForm signupBusinessForm,
         SignupTechnicalForm signupTechnicalForm,
@@ -69,8 +69,8 @@ public class VirtualDedicated6Action extends VirtualDedicatedStepAction {
     ) throws IOException, SQLException {
         ServletContext servletContext = getServlet().getServletContext();
 
-        SignupSelectServerActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectServerForm);
-        SignupCustomizeServerActionHelper.setConfirmationRequestAttributes(servletContext, request, response, signupSelectServerForm, signupCustomizeServerForm);
+        SignupSelectPackageActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectPackageForm);
+        SignupCustomizeServerActionHelper.setConfirmationRequestAttributes(servletContext, request, response, signupSelectPackageForm, signupCustomizeServerForm);
         SignupBusinessActionHelper.setConfirmationRequestAttributes(servletContext, request, signupBusinessForm);
         SignupTechnicalActionHelper.setConfirmationRequestAttributes(servletContext, request, signupTechnicalForm);
         SignupBillingInformationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupBillingInformationForm);

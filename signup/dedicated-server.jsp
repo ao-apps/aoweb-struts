@@ -20,7 +20,7 @@
                 <skin:contentLine>
                     <ao:script>
                         function selectStep(step) {
-                            var form = document.forms['dedicatedSignupSelectServerForm'];
+                            var form = document.forms['dedicatedSignupSelectPackageForm'];
                             form.selectedStep.value=step;
                             form.submit();
                         }

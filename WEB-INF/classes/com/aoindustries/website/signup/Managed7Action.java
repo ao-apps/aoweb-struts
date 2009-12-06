@@ -28,8 +28,8 @@ public class Managed7Action extends ManagedStepAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        ManagedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        ManagedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         ManagedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
@@ -41,7 +41,7 @@ public class Managed7Action extends ManagedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectServerFormComplete) return mapping.findForward("managed-server-completed");
+        if(!signupSelectPackageFormComplete) return mapping.findForward("managed-server-completed");
         if(!signupCustomizeServerFormComplete) return mapping.findForward("managed-server-2-completed");
         if(!signupCustomizeManagementFormComplete) return mapping.findForward("managed-server-3-completed");
         if(!signupBusinessFormComplete) return mapping.findForward("managed-server-4-completed");
@@ -51,7 +51,7 @@ public class Managed7Action extends ManagedStepAction {
         initRequestAttributes(
             request,
             response,
-            signupSelectServerForm,
+            signupSelectPackageForm,
             signupCustomizeServerForm,
             signupCustomizeManagementForm,
             signupBusinessForm,
@@ -65,7 +65,7 @@ public class Managed7Action extends ManagedStepAction {
     protected void initRequestAttributes(
         HttpServletRequest request,
         HttpServletResponse response,
-        SignupSelectServerForm signupSelectServerForm,
+        SignupSelectPackageForm signupSelectPackageForm,
         SignupCustomizeServerForm signupCustomizeServerForm,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
         SignupBusinessForm signupBusinessForm,
@@ -74,9 +74,9 @@ public class Managed7Action extends ManagedStepAction {
     ) throws IOException, SQLException {
         ServletContext servletContext = getServlet().getServletContext();
 
-        SignupSelectServerActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectServerForm);
-        SignupCustomizeServerActionHelper.setConfirmationRequestAttributes(servletContext, request, response, signupSelectServerForm, signupCustomizeServerForm);
-        SignupCustomizeManagementActionHelper.setConfirmationRequestAttributes(servletContext, request, response, signupSelectServerForm, signupCustomizeServerForm, signupCustomizeManagementForm);
+        SignupSelectPackageActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectPackageForm);
+        SignupCustomizeServerActionHelper.setConfirmationRequestAttributes(servletContext, request, response, signupSelectPackageForm, signupCustomizeServerForm);
+        SignupCustomizeManagementActionHelper.setConfirmationRequestAttributes(servletContext, request, response, signupSelectPackageForm, signupCustomizeServerForm, signupCustomizeManagementForm);
         SignupBusinessActionHelper.setConfirmationRequestAttributes(servletContext, request, signupBusinessForm);
         SignupTechnicalActionHelper.setConfirmationRequestAttributes(servletContext, request, signupTechnicalForm);
         SignupBillingInformationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupBillingInformationForm);

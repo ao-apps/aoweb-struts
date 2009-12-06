@@ -56,21 +56,21 @@ abstract public class ManagedStepAction extends HttpsAction {
 
         HttpSession session = request.getSession();
 
-        ManagedSignupSelectServerForm signupSelectServerForm = SignupHelper.getSessionActionForm(servlet, session, ManagedSignupSelectServerForm.class, "managedSignupSelectServerForm");
+        ManagedSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, ManagedSignupSelectPackageForm.class, "managedSignupSelectPackageForm");
         ManagedSignupCustomizeServerForm signupCustomizeServerForm = SignupHelper.getSessionActionForm(servlet, session, ManagedSignupCustomizeServerForm.class, "managedSignupCustomizeServerForm");
         SignupCustomizeManagementForm signupCustomizeManagementForm = SignupHelper.getSessionActionForm(servlet, session, SignupCustomizeManagementForm.class, "managedSignupCustomizeManagementForm");
         SignupBusinessForm signupBusinessForm = SignupHelper.getSessionActionForm(servlet, session, SignupBusinessForm.class, "signupBusinessForm");
         SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.class, "signupTechnicalForm");
         SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.class, "signupBillingInformationForm");
 
-        ActionMessages signupSelectServerFormErrors = signupSelectServerForm.validate(mapping, request);
+        ActionMessages signupSelectPackageFormErrors = signupSelectPackageForm.validate(mapping, request);
         ActionMessages signupCustomizeServerFormErrors = signupCustomizeServerForm.validate(mapping, request);
         ActionMessages signupCustomizeManagementFormErrors = signupCustomizeManagementForm.validate(mapping, request);
         ActionMessages signupBusinessFormErrors = signupBusinessForm.validate(mapping, request);
         ActionMessages signupTechnicalFormErrors = signupTechnicalForm.validate(mapping, request);
         ActionMessages signupBillingInformationFormErrors = signupBillingInformationForm.validate(mapping, request);
 
-        boolean signupSelectServerFormComplete = !doAddErrors(request, signupSelectServerFormErrors);
+        boolean signupSelectPackageFormComplete = !doAddErrors(request, signupSelectPackageFormErrors);
         boolean signupCustomizeServerFormComplete = !doAddErrors(request, signupCustomizeServerFormErrors);
         boolean signupCustomizeManagementFormComplete;
         if(doAddErrors(request, signupCustomizeManagementFormErrors)) signupCustomizeManagementFormComplete = false;
@@ -80,7 +80,7 @@ abstract public class ManagedStepAction extends HttpsAction {
         boolean signupTechnicalFormComplete = !doAddErrors(request, signupTechnicalFormErrors);
         boolean signupBillingInformationFormComplete = !doAddErrors(request, signupBillingInformationFormErrors);
 
-        request.setAttribute("signupSelectServerFormComplete", signupSelectServerFormComplete ? "true" : "false");
+        request.setAttribute("signupSelectPackageFormComplete", signupSelectPackageFormComplete ? "true" : "false");
         request.setAttribute("signupCustomizeServerFormComplete", signupCustomizeServerFormComplete ? "true" : "false");
         request.setAttribute("signupCustomizeManagementFormComplete", signupCustomizeManagementFormComplete ? "true" : "false");
         request.setAttribute("signupBusinessFormComplete", signupBusinessFormComplete ? "true" : "false");
@@ -94,8 +94,8 @@ abstract public class ManagedStepAction extends HttpsAction {
             siteSettings,
             locale,
             skin,
-            signupSelectServerForm,
-            signupSelectServerFormComplete,
+            signupSelectPackageForm,
+            signupSelectPackageFormComplete,
             signupCustomizeServerForm,
             signupCustomizeServerFormComplete,
             signupCustomizeManagementForm,
@@ -134,8 +134,8 @@ abstract public class ManagedStepAction extends HttpsAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        ManagedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        ManagedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         ManagedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupCustomizeManagementForm signupCustomizeManagementForm,

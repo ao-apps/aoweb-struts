@@ -14,7 +14,7 @@ public class VirtualManagedSignupCustomizeServerForm extends SignupCustomizeServ
 
     private static final long serialVersionUID = 1L;
 
-    protected String getSignupSelectServerFromName() {
-        return "virtualManagedSignupSelectServerForm";
+    protected String getSignupSelectPackageFormName() {
+        return "virtualManagedSignupSelectPackageForm";
     }
 }

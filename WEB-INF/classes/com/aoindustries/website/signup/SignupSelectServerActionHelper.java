@@ -9,11 +9,8 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.PackageCategory;
 import com.aoindustries.aoserv.client.PackageDefinition;
-import com.aoindustries.io.ChainWriter;
-import com.aoindustries.sql.SQLUtility;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +20,6 @@ import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.util.MessageResources;
 
 /**
  * ManagedAction and DedicatedAction both use this to setup the request attributes.  This is implemented
@@ -100,31 +96,5 @@ final public class SignupSelectServerActionHelper {
         public int compare(Server s1, Server s2) {
             return s1.getMinimumConfiguration().getMonthly().compareTo(s2.getMinimumConfiguration().getMonthly());
         }
-    }
-
-    public static BigDecimal getSetup(PackageDefinition packageDefinition) {
-        int setupFee = packageDefinition.getSetupFee();
-        return setupFee==-1 ? null : new BigDecimal(SQLUtility.getDecimal(setupFee));
-    }
-
-    public static void setConfirmationRequestAttributes(
-        ServletContext servletContext,
-        HttpServletRequest request,
-        SignupSelectServerForm signupSelectServerForm
-    ) throws IOException, SQLException {
-        // Lookup things needed by the view
-        AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
-        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectServerForm.getPackageDefinition());
-
-        // Store as request attribute for the view
-        request.setAttribute("setup", getSetup(packageDefinition));
-    }
-    
-    public static void printConfirmation(ChainWriter emailOut, Locale userLocale, PackageDefinition packageDefinition, MessageResources signupApplicationResources) throws IOException {
-        emailOut.print("    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupSelectServerForm.packageDefinition.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(packageDefinition.getDisplay()).print("</td>\n"
-                     + "    </tr>\n");
     }
 }

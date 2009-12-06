@@ -33,8 +33,8 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        VirtualManagedSignupSelectServerForm signupSelectServerForm,
-        boolean signupSelectServerFormComplete,
+        VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
+        boolean signupSelectPackageFormComplete,
         VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
         boolean signupCustomizeServerFormComplete,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
@@ -47,7 +47,7 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
         boolean signupBillingInformationFormComplete
     ) throws Exception {
         // Forward to previous steps if they have not been completed
-        if(!signupSelectServerFormComplete) return mapping.findForward("virtual-managed-server-completed");
+        if(!signupSelectPackageFormComplete) return mapping.findForward("virtual-managed-server-completed");
         if(!signupCustomizeServerFormComplete) return mapping.findForward("virtual-managed-server-2-completed");
         if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtual-managed-server-3-completed");
         if(!signupBusinessFormComplete) return mapping.findForward("virtual-managed-server-4-completed");
@@ -58,7 +58,7 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
         initRequestAttributes(
             request,
             response,
-            signupSelectServerForm,
+            signupSelectPackageForm,
             signupCustomizeServerForm,
             signupCustomizeManagementForm,
             signupBusinessForm,
@@ -70,7 +70,7 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
         HttpSession session = request.getSession();
         ActionServlet myServlet = getServlet();
         AOServConnector rootConn = siteSettings.getRootAOServConnector();
-        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectServerForm.getPackageDefinition());
+        PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
 
         // Build the options map
         Map<String,String> options = new HashMap<String,String>();
@@ -117,7 +117,7 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
         );
         
         // Clear virtualManaged signup-specific forms from the session
-        session.removeAttribute("virtualManagedSignupSelectServerForm");
+        session.removeAttribute("virtualManagedSignupSelectPackageForm");
         session.removeAttribute("virtualManagedSignupCustomizeServerForm");
         session.removeAttribute("virtualManagedSignupCustomizeManagementForm");
 
