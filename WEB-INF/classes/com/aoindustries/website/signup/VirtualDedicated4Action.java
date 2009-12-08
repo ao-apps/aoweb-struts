@@ -49,25 +49,6 @@ public class VirtualDedicated4Action extends VirtualDedicatedStepAction {
         return mapping.findForward("input");
     }
 
-    public static class CountryOption {
-
-        final private String code;
-        final private String name;
-
-        private CountryOption(String code, String name) {
-            this.code = code;
-            this.name = name;
-        }
-        
-        public String getCode() {
-            return code;
-        }
-        
-        public String getName() {
-            return name;
-        }
-    }
-
     /**
      * May clear specific errors here.
      */

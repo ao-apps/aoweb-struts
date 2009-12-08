@@ -10,10 +10,8 @@ import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.PackageCategory;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.io.ChainWriter;
-import com.aoindustries.sql.SQLUtility;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -84,9 +82,10 @@ final public class SignupSelectPackageActionHelper {
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
 
         // Store as request attribute for the view
+        request.setAttribute("packageDefinition", packageDefinition);
         request.setAttribute("setup", packageDefinition.getSetupFee());
     }
-    
+
     public static void printConfirmation(ChainWriter emailOut, Locale userLocale, PackageDefinition packageDefinition, MessageResources signupApplicationResources) throws IOException {
         emailOut.print("    <tr>\n"
                      + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"

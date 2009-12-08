@@ -441,7 +441,6 @@ final public class SignupCustomizeServerActionHelper {
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
 
         // Store as request attribute for the view
-        request.setAttribute("packageDefinition", packageDefinition);
         request.setAttribute("monthlyRate", getHardwareMonthlyRate(rootConn, signupCustomizeServerForm, packageDefinition));
         request.setAttribute("powerOption", getPowerOption(rootConn, signupCustomizeServerForm, userLocale));
         request.setAttribute("cpuOption", getCpuOption(rootConn, signupCustomizeServerForm, userLocale));

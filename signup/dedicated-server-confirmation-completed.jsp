@@ -30,7 +30,7 @@
                 <hr />
             </td></tr>
             <tr><th colspan="3"><fmt:message key="steps.selectServer.label" /></th></tr>
-            <%@include file="signup-select-package-confirmation.jsp" %>
+            <%@include file="signup-select-server-confirmation.jsp" %>
             <tr><td colspan="3">&#160;</td></tr>
             <tr><th colspan="3"><fmt:message key="steps.customizeServer.label" /></th></tr>
             <%@include file="signup-customize-server-confirmation.jsp" %>

@@ -72,17 +72,17 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
 
         // Build the options map
         Map<String,String> options = new HashMap<String,String>();
-        ConfirmationCompletedActionHelper.addOptions(options, signupCustomizeServerForm);
+        ServerConfirmationCompletedActionHelper.addOptions(options, signupCustomizeServerForm);
 
         // Store to the database
-        ConfirmationCompletedActionHelper.storeToDatabase(myServlet, request, rootConn, packageDefinition, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm, options);
+        ServerConfirmationCompletedActionHelper.storeToDatabase(myServlet, request, rootConn, packageDefinition, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm, options);
         String pkey = (String)request.getAttribute("pkey");
         String statusKey = (String)request.getAttribute("statusKey");
 
         Locale userLocale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
 
         // Send confirmation email to support
-        ConfirmationCompletedActionHelper.sendSupportSummaryEmail(
+        ServerConfirmationCompletedActionHelper.sendSupportSummaryEmail(
             myServlet,
             request,
             pkey,
@@ -98,7 +98,7 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
         );
 
         // Send confirmation email to customer
-        ConfirmationCompletedActionHelper.sendCustomerSummaryEmails(
+        ServerConfirmationCompletedActionHelper.sendCustomerSummaryEmails(
             myServlet,
             request,
             pkey,

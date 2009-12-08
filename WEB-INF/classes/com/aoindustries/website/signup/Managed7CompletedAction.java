@@ -76,18 +76,18 @@ public class Managed7CompletedAction extends Managed7Action {
 
         // Build the options map
         Map<String,String> options = new HashMap<String,String>();
-        ConfirmationCompletedActionHelper.addOptions(options, signupCustomizeServerForm);
-        ConfirmationCompletedActionHelper.addOptions(options, signupCustomizeManagementForm);
+        ServerConfirmationCompletedActionHelper.addOptions(options, signupCustomizeServerForm);
+        ServerConfirmationCompletedActionHelper.addOptions(options, signupCustomizeManagementForm);
 
         // Store to the database
-        ConfirmationCompletedActionHelper.storeToDatabase(myServlet, request, rootConn, packageDefinition, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm, options);
+        ServerConfirmationCompletedActionHelper.storeToDatabase(myServlet, request, rootConn, packageDefinition, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm, options);
         String pkey = (String)request.getAttribute("pkey");
         String statusKey = (String)request.getAttribute("statusKey");
 
         Locale userLocale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
 
         // Send confirmation email to support
-        ConfirmationCompletedActionHelper.sendSupportSummaryEmail(
+        ServerConfirmationCompletedActionHelper.sendSupportSummaryEmail(
             myServlet,
             request,
             pkey,
@@ -103,7 +103,7 @@ public class Managed7CompletedAction extends Managed7Action {
         );
 
         // Send confirmation email to customer
-        ConfirmationCompletedActionHelper.sendCustomerSummaryEmails(
+        ServerConfirmationCompletedActionHelper.sendCustomerSummaryEmails(
             myServlet,
             request,
             pkey,

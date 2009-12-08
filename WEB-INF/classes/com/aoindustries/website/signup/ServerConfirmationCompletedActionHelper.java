@@ -38,12 +38,12 @@ import org.apache.struts.util.MessageResources;
  *
  * @author  AO Industries, Inc.
  */
-final public class ConfirmationCompletedActionHelper {
+final public class ServerConfirmationCompletedActionHelper {
 
     /**
      * Make no instances.
      */
-    private ConfirmationCompletedActionHelper() {}
+    private ServerConfirmationCompletedActionHelper() {}
 
     public static void addOptions(Map<String,String> options, SignupCustomizeServerForm signupCustomizeServerForm) {
         // Power option
@@ -282,7 +282,7 @@ final public class ConfirmationCompletedActionHelper {
                          + "        <hr />\n"
                          + "    </td></tr>\n"
                          + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(userLocale, "steps.selectServer.label")).print("</th></tr>\n");
-            SignupSelectPackageActionHelper.printConfirmation(emailOut, userLocale, packageDefinition, signupApplicationResources);
+            SignupSelectServerActionHelper.printConfirmation(emailOut, userLocale, packageDefinition, signupApplicationResources);
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
                          + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(userLocale, "steps.customizeServer.label")).print("</th></tr>\n");
             AOServConnector rootConn = siteSettings.getRootAOServConnector();
