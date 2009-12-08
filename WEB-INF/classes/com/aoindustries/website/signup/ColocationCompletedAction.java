@@ -53,7 +53,10 @@ public class ColocationCompletedAction extends ColocationAction {
                 signupBillingInformationFormComplete
             );
         }
-        return mapping.findForward("colocation-2");
+        if(!signupBusinessFormComplete) return mapping.findForward("colocation-2");
+        if(!signupTechnicalFormComplete) return mapping.findForward("colocation-3");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("colocation-4");
+        return mapping.findForward("colocation-5");
     }
 
     /**

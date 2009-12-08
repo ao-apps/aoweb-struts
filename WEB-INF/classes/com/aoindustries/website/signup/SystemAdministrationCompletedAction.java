@@ -53,7 +53,10 @@ public class SystemAdministrationCompletedAction extends SystemAdministrationAct
                 signupBillingInformationFormComplete
             );
         }
-        return mapping.findForward("system-administration-2");
+        if(!signupBusinessFormComplete) return mapping.findForward("system-administration-2");
+        if(!signupTechnicalFormComplete) return mapping.findForward("system-administration-3");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("system-administration-4");
+        return mapping.findForward("system-administration-5");
     }
 
     /**

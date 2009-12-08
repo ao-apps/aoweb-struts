@@ -60,7 +60,7 @@
     </tr>
     <tr>
         <td><fmt:message key="signup.notRequired" /></td>
-        <td><fmt:message key="signupCustomizeServerConfirmation.monthlyRate.prompt" /></td>
+        <td style='white-space:nowrap'><fmt:message key="signupCustomizeServerConfirmation.monthlyRate.prompt" /></td>
         <td>$<ao:write name="monthlyRate" /></td>
     </tr>
 </fmt:bundle>

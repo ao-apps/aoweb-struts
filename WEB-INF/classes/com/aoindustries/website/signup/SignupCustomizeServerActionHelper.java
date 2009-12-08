@@ -514,7 +514,7 @@ final public class SignupCustomizeServerActionHelper {
                      + "    </tr>\n"
                      + "    <tr>\n"
                      + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.monthlyRate.prompt")).print("</td>\n"
+                     + "        <td style='white-space:nowrap'>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.monthlyRate.prompt")).print("</td>\n"
                      + "        <td>$").print(request.getAttribute("monthlyRate")).print("</td>\n"
                      + "    </tr>\n");
     }

@@ -53,7 +53,10 @@ public class AOServCompletedAction extends AOServAction {
                 signupBillingInformationFormComplete
             );
         }
-        return mapping.findForward("aoserv-2");
+        if(!signupBusinessFormComplete) return mapping.findForward("aoserv-2");
+        if(!signupTechnicalFormComplete) return mapping.findForward("aoserv-3");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("aoserv-4");
+        return mapping.findForward("aoserv-5");
     }
 
     /**

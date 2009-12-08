@@ -53,7 +53,10 @@ public class ResellerCompletedAction extends ResellerAction {
                 signupBillingInformationFormComplete
             );
         }
-        return mapping.findForward("reseller-2");
+        if(!signupBusinessFormComplete) return mapping.findForward("reseller-2");
+        if(!signupTechnicalFormComplete) return mapping.findForward("reseller-3");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("reseller-4");
+        return mapping.findForward("reseller-5");
     }
 
     /**

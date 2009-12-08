@@ -53,7 +53,10 @@ public class BackupCompletedAction extends BackupAction {
                 signupBillingInformationFormComplete
             );
         }
-        return mapping.findForward("backup-2");
+        if(!signupBusinessFormComplete) return mapping.findForward("backup-2");
+        if(!signupTechnicalFormComplete) return mapping.findForward("backup-3");
+        if(!signupBillingInformationFormComplete) return mapping.findForward("backup-4");
+        return mapping.findForward("backup-5");
     }
 
     /**
