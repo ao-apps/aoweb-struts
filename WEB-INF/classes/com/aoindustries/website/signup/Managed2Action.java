@@ -41,7 +41,7 @@ public class Managed2Action extends ManagedStepAction {
     ) throws Exception {
         if(!signupSelectPackageFormComplete) return mapping.findForward("managed-server-completed");
 
-        SignupCustomizeServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, signupSelectPackageForm, signupCustomizeServerForm, true);
+        SignupCustomizeServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, signupSelectPackageForm, signupCustomizeServerForm);
 
         // Clear errors if they should not be displayed
         clearErrors(request);

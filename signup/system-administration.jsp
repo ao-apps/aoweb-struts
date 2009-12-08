@@ -27,7 +27,7 @@
                     </ao:script>
                     <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="1" />
                     <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="system-administration" />
-                    <%@include file="system-administration-steps.jsp" %>
+                    <%@include file="minimal-steps.jsp" %>
                     <br />
                     <html:form action="/system-administration-completed.do">
                         <div>

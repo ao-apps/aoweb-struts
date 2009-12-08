@@ -27,7 +27,7 @@
                     </ao:script>
                     <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="1" />
                     <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="backup" />
-                    <%@include file="backup-steps.jsp" %>
+                    <%@include file="minimal-steps.jsp" %>
                     <br />
                     <html:form action="/backup-completed.do">
                         <div>

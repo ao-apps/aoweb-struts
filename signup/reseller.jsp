@@ -27,7 +27,7 @@
                     </ao:script>
                     <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="1" />
                     <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="reseller" />
-                    <%@include file="reseller-steps.jsp" %>
+                    <%@include file="minimal-steps.jsp" %>
                     <br />
                     <html:form action="/reseller-completed.do">
                         <div>

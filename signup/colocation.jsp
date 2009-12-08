@@ -27,7 +27,7 @@
                     </ao:script>
                     <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="1" />
                     <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="colocation" />
-                    <%@include file="colocation-steps.jsp" %>
+                    <%@include file="minimal-steps.jsp" %>
                     <br />
                     <html:form action="/colocation-completed.do">
                         <div>

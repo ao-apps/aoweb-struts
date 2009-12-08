@@ -40,7 +40,7 @@ public class Dedicated2Action extends DedicatedStepAction {
     ) throws Exception {
         if(!signupSelectPackageFormComplete) return mapping.findForward("dedicated-server-completed");
         
-        SignupCustomizeServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, signupSelectPackageForm, signupCustomizeServerForm, true);
+        SignupCustomizeServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, signupSelectPackageForm, signupCustomizeServerForm);
 
         // Clear errors if they should not be displayed
         clearErrors(request);

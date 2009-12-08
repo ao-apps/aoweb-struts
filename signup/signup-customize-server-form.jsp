@@ -84,47 +84,17 @@
                 </logic:iterate>
             </logic:notEqual>
 
-            // Add the IDE options
-            <logic:iterate name="ideOptions" id="ideOptionList" indexId="index">
-                <bean:size name="ideOptionList" id="ideOptionListSize" />
-                <logic:equal name="ideOptionListSize" value="1">
-                    <logic:iterate name="ideOptionList" id="option">
-                        if(form.elements["ideOptions["+<ao:write name="index" />+"]"].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
+            // Add the disk options
+            <logic:iterate name="diskOptions" id="diskOptionList" indexId="index">
+                <bean:size name="diskOptionList" id="diskOptionListSize" />
+                <logic:equal name="diskOptionListSize" value="1">
+                    <logic:iterate name="diskOptionList" id="option">
+                        if(form.elements["diskOptions["+<ao:write name="index" />+"]"].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                     </logic:iterate>
                 </logic:equal>
-                <logic:notEqual name="ideOptionListSize" value="1">
-                    <logic:iterate name="ideOptionList" id="option" indexId="index2">
-                        if(form.elements["ideOptions["+<ao:write name="index" />+"]"][parseInt(<ao:write name="index2" />)].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
-                    </logic:iterate>
-                </logic:notEqual>
-            </logic:iterate>
-
-            // Add the SATA options
-            <logic:iterate name="sataOptions" id="sataOptionList" indexId="index">
-                <bean:size name="sataOptionList" id="sataOptionListSize" />
-                <logic:equal name="sataOptionListSize" value="1">
-                    <logic:iterate name="sataOptionList" id="option">
-                        if(form.elements["sataOptions["+<ao:write name="index" />+"]"].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
-                    </logic:iterate>
-                </logic:equal>
-                <logic:notEqual name="sataOptionListSize" value="1">
-                    <logic:iterate name="sataOptionList" id="option" indexId="index2">
-                        if(form.elements["sataOptions["+<ao:write name="index" />+"]"][parseInt(<ao:write name="index2" />)].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
-                    </logic:iterate>
-                </logic:notEqual>
-            </logic:iterate>
-
-            // Add the SCSI options
-            <logic:iterate name="scsiOptions" id="scsiOptionList" indexId="index">
-                <bean:size name="scsiOptionList" id="scsiOptionListSize" />
-                <logic:equal name="scsiOptionListSize" value="1">
-                    <logic:iterate name="scsiOptionList" id="option">
-                        if(form.elements["scsiOptions["+<ao:write name="index" />+"]"].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
-                    </logic:iterate>
-                </logic:equal>
-                <logic:notEqual name="scsiOptionListSize" value="1">
-                    <logic:iterate name="scsiOptionList" id="option" indexId="index2">
-                        if(form.elements["scsiOptions["+<ao:write name="index" />+"]"][parseInt(<ao:write name="index2" />)].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
+                <logic:notEqual name="diskOptionListSize" value="1">
+                    <logic:iterate name="diskOptionList" id="option" indexId="index2">
+                        if(form.elements["diskOptions["+<ao:write name="index" />+"]"][parseInt(<ao:write name="index2" />)].checked) totalMonthly = totalMonthly + Math.round(parseFloat(<ao:write name="option" property="priceDifference" />)*100);
                     </logic:iterate>
                 </logic:notEqual>
             </logic:iterate>
@@ -234,60 +204,20 @@
                         </tr>
                     </logic:iterate>
                 </logic:notEmpty>
-                <logic:iterate name="ideOptions" id="ideOptionList" indexId="index">
+                <logic:iterate name="diskOptions" id="diskOptionList" indexId="index">
                     <tr>
                         <th>
-                            <fmt:message key="signupCustomizeServerForm.selectIDE">
+                            <fmt:message key="signupCustomizeServerForm.selectDisk">
                                 <fmt:param><c:out value="${index+1}" /></fmt:param>
                             </fmt:message><br />
-                            <logic:equal name="index" value="0"><html:errors bundle="/signup/ApplicationResources" property="ideOptions" /></logic:equal>
+                            <logic:equal name="index" value="0"><html:errors bundle="/signup/ApplicationResources" property="diskOptions" /></logic:equal>
                         </th>
-                        <th><fmt:message key="signupCustomizeServerForm.ideMonthly" /></th>
+                        <th><fmt:message key="signupCustomizeServerForm.diskMonthly" /></th>
                     </tr>
-                    <logic:iterate name="ideOptionList" id="option">
+                    <logic:iterate name="diskOptionList" id="option">
                         <tr>
                             <td style="white-space:nowrap">
-                                <html:radio onclick="recalcMonthly();" property='<%= "ideOptions[" + index + "]" %>' idName="option" value="packageDefinitionLimit" />
-                                <ao:write name="option" property="display" />
-                            </td>
-                            <td>$<ao:write name="option" property="priceDifference" /></td>
-                        </tr>
-                    </logic:iterate>
-                </logic:iterate>
-                <logic:iterate name="sataOptions" id="sataOptionList" indexId="index">
-                    <tr>
-                        <th>
-                            <fmt:message key="signupCustomizeServerForm.selectSATA">
-                                <fmt:param><c:out value="${index+1}" /></fmt:param>
-                            </fmt:message><br />
-                            <logic:equal name="index" value="0"><html:errors bundle="/signup/ApplicationResources" property="sataOptions" /></logic:equal>
-                        </th>
-                        <th><fmt:message key="signupCustomizeServerForm.sataMonthly" /></th>
-                    </tr>
-                    <logic:iterate name="sataOptionList" id="option">
-                        <tr>
-                            <td style="white-space:nowrap">
-                                <html:radio onclick="recalcMonthly();" property='<%= "sataOptions[" + index + "]" %>' idName="option" value="packageDefinitionLimit" />
-                                <ao:write name="option" property="display" />
-                            </td>
-                            <td>$<ao:write name="option" property="priceDifference" /></td>
-                        </tr>
-                    </logic:iterate>
-                </logic:iterate>
-                <logic:iterate name="scsiOptions" id="scsiOptionList" indexId="index">
-                    <tr>
-                        <th>
-                            <fmt:message key="signupCustomizeServerForm.selectSCSI">
-                                <fmt:param><c:out value="${index+1}" /></fmt:param>
-                            </fmt:message><br />
-                            <logic:equal name="index" value="0"><html:errors bundle="/signup/ApplicationResources" property="scsiOptions" /></logic:equal>
-                        </th>
-                        <th><fmt:message key="signupCustomizeServerForm.scsiMonthly" /></th>
-                    </tr>
-                    <logic:iterate name="scsiOptionList" id="option">
-                        <tr>
-                            <td style="white-space:nowrap">
-                                <html:radio onclick="recalcMonthly();" property='<%= "scsiOptions[" + index + "]" %>' idName="option" value="packageDefinitionLimit" />
+                                <html:radio onclick="recalcMonthly();" property='<%= "diskOptions[" + index + "]" %>' idName="option" value="packageDefinitionLimit" />
                                 <ao:write name="option" property="display" />
                             </td>
                             <td>$<ao:write name="option" property="priceDifference" /></td>

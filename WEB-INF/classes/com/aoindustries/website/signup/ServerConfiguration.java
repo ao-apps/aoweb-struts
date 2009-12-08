@@ -51,9 +51,7 @@ public class ServerConfiguration {
         PackageDefinitionLimit cheapestSataController = null;
         int maxScsiControllers = 0;
         PackageDefinitionLimit cheapestScsiController = null;
-        int maxIDEs = 0;
-        int maxSATAs = 0;
-        int maxSCSIs = 0;
+        int maxDisks = 0;
         PackageDefinitionLimit cheapestDisk = null;
         for(PackageDefinitionLimit limit : limits) {
             String resourceName = limit.getResource().getName();
@@ -133,14 +131,8 @@ public class ServerConfiguration {
                         if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
                         if(additionalRate.compareTo(cheapestRate)<0) cheapestDisk = limit;
                     }
-                    if(resourceName.startsWith("hardware_disk_ide_")) {
-                        if(hardLimit>maxIDEs) maxIDEs = hardLimit;
-                    } else if(resourceName.startsWith("hardware_disk_sata_")) {
-                        if(hardLimit>maxSATAs) maxSATAs = hardLimit;
-                    } else if(resourceName.startsWith("hardware_disk_scsi_")) {
-                        if(hardLimit>maxSCSIs) maxSCSIs = hardLimit;
-                    }
-                } else throw new SQLException("Unexpected type of disk: "+resourceName);
+                    if(hardLimit>maxDisks) maxDisks = hardLimit;
+                }
             }
         }
         if(cheapestCPU==null) throw new SQLException("Unable to find cheapestCPU");
@@ -189,9 +181,7 @@ public class ServerConfiguration {
         if(cheapestScsiController!=null && cheapestScsiController.getAdditionalRate()!=null) minimumMonthly = minimumMonthly.add(cheapestScsiController.getAdditionalRate());
 
         // Build the disk description
-        String minimumIDE = getDiskDescription(1, cheapestDisk.getResource().getName().startsWith("hardware_disk_ide_") ? cheapestDisk : null, userLocale);
-        String minimumSATA = getDiskDescription(1, cheapestDisk.getResource().getName().startsWith("hardware_disk_sata_") ? cheapestDisk : null, userLocale);
-        String minimumSCSI = getDiskDescription(1, cheapestDisk.getResource().getName().startsWith("hardware_disk_scsi_") ? cheapestDisk : null, userLocale);
+        String minimumDisk = getDiskDescription(1, cheapestDisk, userLocale);
 
         // Add the disk cost
         if(cheapestDisk.getAdditionalRate()!=null) minimumMonthly = minimumMonthly.add(cheapestDisk.getAdditionalRate());
@@ -204,9 +194,7 @@ public class ServerConfiguration {
             minimumRam.toString(),
             minimumSataController.toString(),
             minimumScsiController.toString(),
-            minimumIDE,
-            minimumSATA,
-            minimumSCSI,
+            minimumDisk,
             setup,
             minimumMonthly.compareTo(BigDecimal.ZERO)==0 ? null : minimumMonthly
         );
@@ -231,12 +219,8 @@ public class ServerConfiguration {
         PackageDefinitionLimit expensiveSataController = null;
         int maxScsiControllers = 0;
         PackageDefinitionLimit expensiveScsiController = null;
-        int maxIDEs = 0;
-        PackageDefinitionLimit expensiveIDE = null;
-        int maxSATAs = 0;
-        PackageDefinitionLimit expensiveSATA = null;
-        int maxSCSIs = 0;
-        PackageDefinitionLimit expensiveSCSI = null;
+        int maxDisks = 0;
+        PackageDefinitionLimit expensiveDisk = null;
         for(PackageDefinitionLimit limit : limits) {
             String resourceName = limit.getResource().getName();
             if(resourceName.startsWith("hardware_power_")) {
@@ -304,43 +288,17 @@ public class ServerConfiguration {
                         if(additionalRate.compareTo(expensiveRate)>0) expensiveScsiController = limit;
                     }
                 }
-            } else if(resourceName.startsWith("hardware_disk_ide_")) {
-                int limitIDE = limit.getHardLimit();
-                if(limitIDE>0) {
-                    if(limitIDE>maxIDEs) maxIDEs = limitIDE;
-                    if(expensiveIDE==null) expensiveIDE = limit;
+            } else if(resourceName.startsWith("hardware_disk_")) {
+                int limitDisk = limit.getHardLimit();
+                if(limitDisk>0) {
+                    if(limitDisk>maxDisks) maxDisks = limitDisk;
+                    if(expensiveDisk==null) expensiveDisk = limit;
                     else {
                         BigDecimal additionalRate = limit.getAdditionalRate();
                         if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
-                        BigDecimal expensiveRate = expensiveIDE.getAdditionalRate();
+                        BigDecimal expensiveRate = expensiveDisk.getAdditionalRate();
                         if(expensiveRate==null) expensiveRate=BigDecimal.valueOf(0, 2);
-                        if(additionalRate.compareTo(expensiveRate)>0) expensiveIDE = limit;
-                    }
-                }
-            } else if(resourceName.startsWith("hardware_disk_sata_")) {
-                int limitSATA = limit.getHardLimit();
-                if(limitSATA>0) {
-                    if(limitSATA>maxSATAs) maxSATAs = limitSATA;
-                    if(expensiveSATA==null) expensiveSATA = limit;
-                    else {
-                        BigDecimal additionalRate = limit.getAdditionalRate();
-                        if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
-                        BigDecimal expensiveRate = expensiveSATA.getAdditionalRate();
-                        if(expensiveRate==null) expensiveRate=BigDecimal.valueOf(0, 2);
-                        if(additionalRate.compareTo(expensiveRate)>0) expensiveSATA = limit;
-                    }
-                }
-            } else if(resourceName.startsWith("hardware_disk_scsi_")) {
-                int limitSCSI = limit.getHardLimit();
-                if(limitSCSI>0) {
-                    if(limitSCSI>maxSCSIs) maxSCSIs = limitSCSI;
-                    if(expensiveSCSI==null) expensiveSCSI = limit;
-                    else {
-                        BigDecimal additionalRate = limit.getAdditionalRate();
-                        if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
-                        BigDecimal expensiveRate = expensiveSCSI.getAdditionalRate();
-                        if(expensiveRate==null) expensiveRate=BigDecimal.valueOf(0, 2);
-                        if(additionalRate.compareTo(expensiveRate)>0) expensiveSCSI = limit;
+                        if(additionalRate.compareTo(expensiveRate)>0) expensiveDisk = limit;
                     }
                 }
             }
@@ -395,14 +353,10 @@ public class ServerConfiguration {
         if(expensiveScsiController!=null && expensiveScsiController.getAdditionalRate()!=null) maximumMonthly = maximumMonthly.add(expensiveScsiController.getAdditionalRate().multiply(BigDecimal.valueOf(maxScsiControllers)));
 
         // Build the disk description
-        String maximumIDE = getDiskDescription(maxIDEs, expensiveIDE, userLocale);
-        String maximumSATA = getDiskDescription(maxSATAs, expensiveSATA, userLocale);
-        String maximumSCSI = getDiskDescription(maxSCSIs, expensiveSCSI, userLocale);
+        String maximumDisk = getDiskDescription(maxDisks, expensiveDisk, userLocale);
 
         // Add the disk cost
-        if(expensiveIDE!=null && expensiveIDE.getAdditionalRate()!=null) maximumMonthly = maximumMonthly.add(expensiveIDE.getAdditionalRate().multiply(BigDecimal.valueOf(maxIDEs)));
-        if(expensiveSATA!=null && expensiveSATA.getAdditionalRate()!=null) maximumMonthly = maximumMonthly.add(expensiveSATA.getAdditionalRate().multiply(BigDecimal.valueOf(maxSATAs)));
-        if(expensiveSCSI!=null && expensiveSCSI.getAdditionalRate()!=null) maximumMonthly = maximumMonthly.add(expensiveSCSI.getAdditionalRate().multiply(BigDecimal.valueOf(maxSCSIs)));
+        if(expensiveDisk!=null && expensiveDisk.getAdditionalRate()!=null) maximumMonthly = maximumMonthly.add(expensiveDisk.getAdditionalRate().multiply(BigDecimal.valueOf(maxDisks)));
 
         return new ServerConfiguration(
             packageDefinition.getPkey(),
@@ -412,9 +366,7 @@ public class ServerConfiguration {
             maximumRam.toString(),
             maximumSataController.toString(),
             maximumScsiController.toString(),
-            maximumIDE,
-            maximumSATA,
-            maximumSCSI,
+            maximumDisk,
             setup,
             maximumMonthly.compareTo(BigDecimal.ZERO)==0 ? null : maximumMonthly
         );
@@ -427,9 +379,7 @@ public class ServerConfiguration {
     final private String ram;
     final private String sataController;
     final private String scsiController;
-    final private String ide;
-    final private String sata;
-    final private String scsi;
+    final private String disk;
     final private BigDecimal setup;
     final private BigDecimal monthly;
 
@@ -441,9 +391,7 @@ public class ServerConfiguration {
         String ram,
         String sataController,
         String scsiController,
-        String ide,
-        String sata,
-        String scsi,
+        String disk,
         BigDecimal setup,
         BigDecimal monthly
     ) {
@@ -454,9 +402,7 @@ public class ServerConfiguration {
         this.ram = ram;
         this.sataController = sataController;
         this.scsiController = scsiController;
-        this.ide = ide;
-        this.sata = sata;
-        this.scsi = scsi;
+        this.disk = disk;
         this.setup = setup;
         this.monthly = monthly;
     }
@@ -497,15 +443,7 @@ public class ServerConfiguration {
         return monthly;
     }
 
-    public String getIde() {
-        return ide;
-    }
-
-    public String getSata() {
-        return sata;
-    }
-
-    public String getScsi() {
-        return scsi;
+    public String getDisk() {
+        return disk;
     }
 }

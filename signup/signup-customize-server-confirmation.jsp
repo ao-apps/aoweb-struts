@@ -39,25 +39,11 @@
             <td><ao:write name="scsiControllerOption" /></td>
         </tr>
     </logic:notEmpty>
-    <logic:iterate name="ideOptions" id="ideOption">
+    <logic:iterate name="diskOptions" id="diskOption">
         <tr>
             <td><fmt:message key="signup.notRequired" /></td>
-            <td><fmt:message key="signupCustomizeServerConfirmation.ide.prompt" /></td>
-            <td><ao:write name="ideOption" /></td>
-        </tr>
-    </logic:iterate>
-    <logic:iterate name="sataOptions" id="sataOption">
-        <tr>
-            <td><fmt:message key="signup.notRequired" /></td>
-            <td><fmt:message key="signupCustomizeServerConfirmation.sata.prompt" /></td>
-            <td><ao:write name="sataOption" /></td>
-        </tr>
-    </logic:iterate>
-    <logic:iterate name="scsiOptions" id="scsiOption">
-        <tr>
-            <td><fmt:message key="signup.notRequired" /></td>
-            <td><fmt:message key="signupCustomizeServerConfirmation.scsi.prompt" /></td>
-            <td><ao:write name="scsiOption" /></td>
+            <td><fmt:message key="signupCustomizeServerConfirmation.disk.prompt" /></td>
+            <td><ao:write name="diskOption" /></td>
         </tr>
     </logic:iterate>
     <tr>

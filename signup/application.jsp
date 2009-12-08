@@ -27,7 +27,7 @@
                     </ao:script>
                     <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="1" />
                     <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="application" />
-                    <%@include file="application-steps.jsp" %>
+                    <%@include file="virtual-hosting-steps.jsp" %>
                     <br />
                     <html:form action="/application-completed.do">
                         <div>

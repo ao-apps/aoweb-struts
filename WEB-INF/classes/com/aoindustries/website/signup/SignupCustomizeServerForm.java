@@ -35,9 +35,7 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
     private int ramOption;
     private int sataControllerOption;
     private int scsiControllerOption;
-    private List<String> ideOptions;
-    private List<String> sataOptions;
-    private List<String> scsiOptions;
+    private List<String> diskOptions;
 
     public SignupCustomizeServerForm() {
         setPowerOption(-1);
@@ -45,9 +43,7 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
         setRamOption(-1);
         setSataControllerOption(-1);
         setScsiControllerOption(-1);
-        setIdeOptions(new AutoGrowArrayList<String>());
-        setSataOptions(new AutoGrowArrayList<String>());
-        setScsiOptions(new AutoGrowArrayList<String>());
+        setDiskOptions(new AutoGrowArrayList<String>());
     }
 
     public boolean isEmpty() {
@@ -57,9 +53,7 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
             && ramOption==-1
             && sataControllerOption==-1
             && scsiControllerOption==-1
-            && ideOptions.isEmpty()
-            && sataOptions.isEmpty()
-            && scsiOptions.isEmpty()
+            && diskOptions.isEmpty()
         ;
     }
 
@@ -103,28 +97,12 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
         this.scsiControllerOption = scsiControllerOption;
     }
 
-    public List<String> getIdeOptions() {
-        return ideOptions;
+    public List<String> getDiskOptions() {
+        return diskOptions;
     }
     
-    public void setIdeOptions(List<String> ideOptions) {
-        this.ideOptions = ideOptions;
-    }
-
-    public List<String> getSataOptions() {
-        return sataOptions;
-    }
-    
-    public void setSataOptions(List<String> sataOptions) {
-        this.sataOptions = sataOptions;
-    }
-
-    public List<String> getScsiOptions() {
-        return scsiOptions;
-    }
-    
-    public void setScsiOptions(List<String> scsiOptions) {
-        this.scsiOptions = scsiOptions;
+    public void setDiskOptions(List<String> diskOptions) {
+        this.diskOptions = diskOptions;
     }
 
     @Override
@@ -191,11 +169,7 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
             }
             // At least one hard drive must be selected
             boolean foundDisk = isAtLeastOneDiskSelected();
-            if(!foundDisk) {
-                if(!ideOptions.isEmpty()) errors.add("ideOptions", new ActionMessage("signupCustomizeServerForm.atLeastOneDisk"));
-                else if(!sataOptions.isEmpty()) errors.add("sataOptions", new ActionMessage("signupCustomizeServerForm.atLeastOneDisk"));
-                else if(!scsiOptions.isEmpty()) errors.add("scsiOptions", new ActionMessage("signupCustomizeServerForm.atLeastOneDisk"));
-            }
+            if(!foundDisk) errors.add("diskOptions", new ActionMessage("signupCustomizeServerForm.atLeastOneDisk"));
             return errors;
         } catch(IOException err) {
             throw new WrappedException(err);
@@ -205,18 +179,8 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
     }
 
     public boolean isAtLeastOneDiskSelected() {
-        for(String ideOption : ideOptions) {
-            if(ideOption!=null && ideOption.length()>0 && !ideOption.equals("-1")) {
-                return true;
-            }
-        }
-        for(String sataOption : sataOptions) {
-            if(sataOption!=null && sataOption.length()>0 && !sataOption.equals("-1")) {
-                return true;
-            }
-        }
-        for(String scsiOption : scsiOptions) {
-            if(scsiOption!=null && scsiOption.length()>0 && !scsiOption.equals("-1")) {
+        for(String diskOption : diskOptions) {
+            if(diskOption!=null && diskOption.length()>0 && !diskOption.equals("-1")) {
                 return true;
             }
         }

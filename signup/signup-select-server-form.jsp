@@ -15,7 +15,7 @@
                 <tr><td colspan="6"><fmt:message key="signupSelectServerForm.stepHelp" /><br /><br /></td></tr>
                 <tr>
                     <th style='white-space:nowrap'><fmt:message key="signupSelectPackageForm.select.header" /></th>
-                    <th style='white-space:nowrap'><fmt:message key="signupSelectPackageForm.packageDefinition.header" /></th>
+                    <th style='white-space:nowrap'><fmt:message key="signupSelectServerForm.packageDefinition.header" /></th>
                     <th style='white-space:nowrap'><fmt:message key="signupSelectPackageForm.setup.header" /></th>
                     <th style='white-space:nowrap'><fmt:message key="signupSelectPackageForm.minimumMonthlyRate.header" /></th>
                     <th style='white-space:nowrap'><fmt:message key="signupSelectPackageForm.maximumMonthlyRate.header" /></th>
@@ -55,34 +55,14 @@
                                         <td style="white-space:nowrap"><ao:write name="server" property="minimumConfiguration.ram" /></td>
                                         <td style="white-space:nowrap"><ao:write name="server" property="maximumConfiguration.ram" /></td>
                                     </tr>
-                                    <logic:notEmpty name="server" property="maximumConfiguration.ide">
+                                    <logic:notEmpty name="server" property="maximumConfiguration.disk">
                                         <tr class='<%= ((row2++)&1)==0 ? "aoPopupLightRow" : "aoPopupDarkRow" %>'>
-                                            <td style="white-space:nowrap"><b><fmt:message key="signupSelectPackageForm.ide.header" /></b></td>
+                                            <td style="white-space:nowrap"><b><fmt:message key="signupSelectPackageForm.disk.header" /></b></td>
                                             <td style="white-space:nowrap">
-                                                <logic:empty name="server" property="minimumConfiguration.ide">&#160;</logic:empty>
-                                                <logic:notEmpty name="server" property="minimumConfiguration.ide"><ao:write name="server" property="minimumConfiguration.ide" /></logic:notEmpty>
+                                                <logic:empty name="server" property="minimumConfiguration.disk">&#160;</logic:empty>
+                                                <logic:notEmpty name="server" property="minimumConfiguration.disk"><ao:write name="server" property="minimumConfiguration.disk" /></logic:notEmpty>
                                                 </td>
-                                            <td style="white-space:nowrap"><ao:write name="server" property="maximumConfiguration.ide" /></td>
-                                        </tr>
-                                    </logic:notEmpty>
-                                    <logic:notEmpty name="server" property="maximumConfiguration.sata">
-                                        <tr class='<%= ((row2++)&1)==0 ? "aoPopupLightRow" : "aoPopupDarkRow" %>'>
-                                            <td style="white-space:nowrap"><b><fmt:message key="signupSelectPackageForm.sata.header" /></b></td>
-                                            <td style="white-space:nowrap">
-                                                <logic:empty name="server" property="minimumConfiguration.sata">&#160;</logic:empty>
-                                                <logic:notEmpty name="server" property="minimumConfiguration.sata"><ao:write name="server" property="minimumConfiguration.sata" /></logic:notEmpty>
-                                                </td>
-                                            <td style="white-space:nowrap"><ao:write name="server" property="maximumConfiguration.sata" /></td>
-                                        </tr>
-                                    </logic:notEmpty>
-                                    <logic:notEmpty name="server" property="maximumConfiguration.scsi">
-                                        <tr class='<%= ((row2++)&1)==0 ? "aoPopupLightRow" : "aoPopupDarkRow" %>'>
-                                            <td style="white-space:nowrap"><b><fmt:message key="signupSelectPackageForm.scsi.header" /></b></td>
-                                            <td style="white-space:nowrap">
-                                                <logic:empty name="server" property="minimumConfiguration.scsi">&#160;</logic:empty>
-                                                <logic:notEmpty name="server" property="minimumConfiguration.scsi"><ao:write name="server" property="minimumConfiguration.scsi" /></logic:notEmpty>
-                                                </td>
-                                            <td style="white-space:nowrap"><ao:write name="server" property="maximumConfiguration.scsi" /></td>
+                                            <td style="white-space:nowrap"><ao:write name="server" property="maximumConfiguration.disk" /></td>
                                         </tr>
                                     </logic:notEmpty>
                                 </table>

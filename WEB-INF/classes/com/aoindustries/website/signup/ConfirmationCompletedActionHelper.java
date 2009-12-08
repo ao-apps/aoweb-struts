@@ -61,27 +61,11 @@ final public class ConfirmationCompletedActionHelper {
         // SCSI Controller option
         options.put("scsiControllerOption", Integer.toString(signupCustomizeServerForm.getScsiControllerOption()));
 
-        // IDE options
+        // Disk options
         int number = 0;
-        for(String ideOption : signupCustomizeServerForm.getIdeOptions()) {
-            if(ideOption!=null && ideOption.length()>0 && !ideOption.equals("-1")) {
-                options.put("ideOptions["+(number++)+"]", ideOption);
-            }
-        }
-
-        // SATA options
-        number = 0;
-        for(String sataOption : signupCustomizeServerForm.getSataOptions()) {
-            if(sataOption!=null && sataOption.length()>0 && !sataOption.equals("-1")) {
-                options.put("sataOptions["+(number++)+"]", sataOption);
-            }
-        }
-
-        // SCSI options
-        number = 0;
-        for(String scsiOption : signupCustomizeServerForm.getScsiOptions()) {
-            if(scsiOption!=null && scsiOption.length()>0 && !scsiOption.equals("-1")) {
-                options.put("scsiOptions["+(number++)+"]", scsiOption);
+        for(String diskOption : signupCustomizeServerForm.getDiskOptions()) {
+            if(diskOption!=null && diskOption.length()>0 && !diskOption.equals("-1")) {
+                options.put("diskOptions["+(number++)+"]", diskOption);
             }
         }
     }

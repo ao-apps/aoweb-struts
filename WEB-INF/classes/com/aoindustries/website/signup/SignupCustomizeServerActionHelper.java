@@ -42,8 +42,7 @@ final public class SignupCustomizeServerActionHelper {
         HttpServletRequest request,
         HttpServletResponse response,
         SignupSelectPackageForm signupSelectPackageForm,
-        SignupCustomizeServerForm signupCustomizeServerForm,
-        boolean includeNoHardDriveOption
+        SignupCustomizeServerForm signupCustomizeServerForm
     ) throws IOException, SQLException {
         Locale userLocale = response.getLocale();
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
@@ -62,9 +61,7 @@ final public class SignupCustomizeServerActionHelper {
         PackageDefinitionLimit cheapestSataController = null;
         int maxScsiControllers = 0;
         PackageDefinitionLimit cheapestScsiController = null;
-        int maxIDEs = 0;
-        int maxSATAs = 0;
-        int maxSCSIs = 0;
+        int maxDisks = 0;
         PackageDefinitionLimit cheapestDisk = null;
         for(PackageDefinitionLimit limit : limits) {
             String resourceName = limit.getResource().getName();
@@ -144,14 +141,8 @@ final public class SignupCustomizeServerActionHelper {
                         if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
                         if(additionalRate.compareTo(cheapestRate)<0) cheapestDisk = limit;
                     }
-                    if(resourceName.startsWith("hardware_disk_ide_")) {
-                        if(hardLimit>maxIDEs) maxIDEs = hardLimit;
-                    } else if(resourceName.startsWith("hardware_disk_sata_")) {
-                        if(hardLimit>maxSATAs) maxSATAs = hardLimit;
-                    } else if(resourceName.startsWith("hardware_disk_scsi_")) {
-                        if(hardLimit>maxSCSIs) maxSCSIs = hardLimit;
-                    }
-                } else throw new SQLException("Unexpected type of disk: "+resourceName);
+                    if(hardLimit>maxDisks) maxDisks = hardLimit;
+                }
             }
         }
         if(cheapestCPU==null) throw new SQLException("Unable to find cheapestCPU");
@@ -164,12 +155,8 @@ final public class SignupCustomizeServerActionHelper {
         List<Option> ramOptions = new ArrayList<Option>();
         List<Option> sataControllerOptions = new ArrayList<Option>();
         List<Option> scsiControllerOptions = new ArrayList<Option>();
-        List<List<Option>> ideOptions = new ArrayList<List<Option>>();
-        for(int c=0;c<maxIDEs;c++) ideOptions.add(new ArrayList<Option>());
-        List<List<Option>> sataOptions = new ArrayList<List<Option>>();
-        for(int c=0;c<maxSATAs;c++) sataOptions.add(new ArrayList<Option>());
-        List<List<Option>> scsiOptions = new ArrayList<List<Option>>();
-        for(int c=0;c<maxSCSIs;c++) scsiOptions.add(new ArrayList<Option>());
+        List<List<Option>> diskOptions = new ArrayList<List<Option>>();
+        for(int c=0;c<maxDisks;c++) diskOptions.add(new ArrayList<Option>());
         for(PackageDefinitionLimit limit : limits) {
             Resource resource = limit.getResource();
             String resourceName = resource.getName();
@@ -223,60 +210,22 @@ final public class SignupCustomizeServerActionHelper {
                     String description = maxScsiControllers==1 ? resource.toString(userLocale) : (maxScsiControllers+"x"+resource.toString(userLocale));
                     scsiControllerOptions.add(new Option(limit.getPkey(), description, BigDecimal.valueOf(maxScsiControllers).multiply(additionalRate.subtract(cheapestRate))));
                 }
-            } else if(resourceName.startsWith("hardware_disk_ide_")) {
+            } else if(resourceName.startsWith("hardware_disk_")) {
                 int limitDisk = limit.getHardLimit();
                 if(limitDisk>0) {
                     BigDecimal additionalRate = limit.getAdditionalRate();
                     if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
                     BigDecimal adjustedRate = additionalRate;
                     // Discount adjusted rate if the cheapest disk is of this type
-                    if(cheapestDisk.getResource().getName().startsWith("hardware_disk_ide_")) {
+                    if(cheapestDisk.getResource().getName().startsWith("hardware_disk_")) {
                         BigDecimal cheapestRate = cheapestDisk.getAdditionalRate();
                         if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
                         adjustedRate = adjustedRate.subtract(cheapestRate);
                     }
-                    for(int c=0;c<maxIDEs;c++) {
-                        List<Option> options = ideOptions.get(c);
-                        // Add none opption
-                        if(includeNoHardDriveOption && options.isEmpty()) options.add(new Option(-1, "None", c==0 ? adjustedRate.subtract(additionalRate) : BigDecimal.valueOf(0, 2)));
-                        options.add(new Option(limit.getPkey(), resource.toString(userLocale), c==0 ? adjustedRate : additionalRate));
-                    }
-                }
-            } else if(resourceName.startsWith("hardware_disk_sata_")) {
-                int limitDisk = limit.getHardLimit();
-                if(limitDisk>0) {
-                    BigDecimal additionalRate = limit.getAdditionalRate();
-                    if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
-                    BigDecimal adjustedRate = additionalRate;
-                    // Discount first rate if the cheapest disk is of this type
-                    if(cheapestDisk.getResource().getName().startsWith("hardware_disk_sata_")) {
-                        BigDecimal cheapestRate = cheapestDisk.getAdditionalRate();
-                        if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
-                        adjustedRate = adjustedRate.subtract(cheapestRate);
-                    }
-                    for(int c=0;c<maxSATAs;c++) {
-                        List<Option> options = sataOptions.get(c);
-                        // Add none opption
-                        if(includeNoHardDriveOption && options.isEmpty()) options.add(new Option(-1, "None", c==0 ? adjustedRate.subtract(additionalRate) : BigDecimal.valueOf(0, 2)));
-                        options.add(new Option(limit.getPkey(), resource.toString(userLocale), c==0 ? adjustedRate : additionalRate));
-                    }
-                }
-            } else if(resourceName.startsWith("hardware_disk_scsi_")) {
-                int limitDisk = limit.getHardLimit();
-                if(limitDisk>0) {
-                    BigDecimal additionalRate = limit.getAdditionalRate();
-                    if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
-                    BigDecimal adjustedRate = additionalRate;
-                    // Discount first rate if the cheapest disk is of this type
-                    if(cheapestDisk.getResource().getName().startsWith("hardware_disk_scsi_")) {
-                        BigDecimal cheapestRate = cheapestDisk.getAdditionalRate();
-                        if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
-                        adjustedRate = adjustedRate.subtract(cheapestRate);
-                    }
-                    for(int c=0;c<maxSCSIs;c++) {
-                        List<Option> options = scsiOptions.get(c);
-                        // Add none opption
-                        if(includeNoHardDriveOption && options.isEmpty()) options.add(new Option(-1, "None", c==0 ? adjustedRate.subtract(additionalRate) : BigDecimal.valueOf(0, 2)));
+                    for(int c=0;c<maxDisks;c++) {
+                        List<Option> options = diskOptions.get(c);
+                        // Add none option
+                        if(maxDisks>1 && options.isEmpty()) options.add(new Option(-1, "None", c==0 ? adjustedRate.subtract(additionalRate) : BigDecimal.valueOf(0, 2)));
                         options.add(new Option(limit.getPkey(), resource.toString(userLocale), c==0 ? adjustedRate : additionalRate));
                     }
                 }
@@ -289,9 +238,7 @@ final public class SignupCustomizeServerActionHelper {
         Collections.sort(ramOptions, new Option.PriceComparator());
         Collections.sort(sataControllerOptions, new Option.PriceComparator());
         Collections.sort(scsiControllerOptions, new Option.PriceComparator());
-        for(List<Option> ideOptionList : ideOptions) Collections.sort(ideOptionList, new Option.PriceComparator());
-        for(List<Option> sataOptionList : sataOptions) Collections.sort(sataOptionList, new Option.PriceComparator());
-        for(List<Option> scsiOptionList : scsiOptions) Collections.sort(scsiOptionList, new Option.PriceComparator());
+        for(List<Option> diskOptionList : diskOptions) Collections.sort(diskOptionList, new Option.PriceComparator());
 
         // Clear any customization settings that are not part of the current package definition (this happens when they
         // select a different package type)
@@ -315,34 +262,14 @@ final public class SignupCustomizeServerActionHelper {
             PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getScsiControllerOption());
             if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) signupCustomizeServerForm.setScsiControllerOption(-1);
         }
-        List<String> formIdeOptions = signupCustomizeServerForm.getIdeOptions();
-        while(formIdeOptions.size()>maxIDEs) formIdeOptions.remove(formIdeOptions.size()-1);
-        for(int c=0;c<formIdeOptions.size();c++) {
-            String S = formIdeOptions.get(c);
+        List<String> formDiskOptions = signupCustomizeServerForm.getDiskOptions();
+        while(formDiskOptions.size()>maxDisks) formDiskOptions.remove(formDiskOptions.size()-1);
+        for(int c=0;c<formDiskOptions.size();c++) {
+            String S = formDiskOptions.get(c);
             if(S!=null && S.length()>0 && !S.equals("-1")) {
                 int pkey = Integer.parseInt(S);
                 PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(pkey);
-                if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) formIdeOptions.set(c, "-1");
-            }
-        }
-        List<String> formSataOptions = signupCustomizeServerForm.getSataOptions();
-        while(formSataOptions.size()>maxSATAs) formSataOptions.remove(formSataOptions.size()-1);
-        for(int c=0;c<formSataOptions.size();c++) {
-            String S = formSataOptions.get(c);
-            if(S!=null && S.length()>0 && !S.equals("-1")) {
-                int pkey = Integer.parseInt(S);
-                PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(pkey);
-                if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) formSataOptions.set(c, "-1");
-            }
-        }
-        List<String> formScsiOptions = signupCustomizeServerForm.getScsiOptions();
-        while(formSataOptions.size()>maxSATAs) formSataOptions.remove(formSataOptions.size()-1);
-        for(int c=0;c<formScsiOptions.size();c++) {
-            String S = formScsiOptions.get(c);
-            if(S!=null && S.length()>0 && !S.equals("-1")) {
-                int pkey = Integer.parseInt(S);
-                PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(pkey);
-                if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) formScsiOptions.set(c, "-1");
+                if(pdl==null || !packageDefinition.equals(pdl.getPackageDefinition())) formDiskOptions.set(c, "-1");
             }
         }
 
@@ -355,43 +282,17 @@ final public class SignupCustomizeServerActionHelper {
         if(signupCustomizeServerForm.getRamOption()==-1) signupCustomizeServerForm.setRamOption(cheapestRAM.getPkey());
         if(cheapestSataController!=null && signupCustomizeServerForm.getSataControllerOption()==-1) signupCustomizeServerForm.setSataControllerOption(cheapestSataController.getPkey());
         if(cheapestScsiController!=null && signupCustomizeServerForm.getScsiControllerOption()==-1) signupCustomizeServerForm.setScsiControllerOption(cheapestScsiController.getPkey());
-        for(int c=0;c<maxIDEs;c++) {
-            List<Option> options = ideOptions.get(c);
+        for(int c=0;c<maxDisks;c++) {
+            List<Option> options = diskOptions.get(c);
             if(!options.isEmpty()) {
                 Option firstOption = options.get(0);
                 if(!isAtLeastOneDiskSelected && options.size()>=2 && firstOption.getPriceDifference().compareTo(BigDecimal.ZERO)<0) {
                     firstOption = options.get(1);
                 }
                 String defaultSelected = Integer.toString(firstOption.getPackageDefinitionLimit());
-                if(formIdeOptions.size()<=c || formIdeOptions.get(c)==null || formIdeOptions.get(c).length()==0 || formIdeOptions.get(c).equals("-1")) formIdeOptions.set(c, defaultSelected);
+                if(formDiskOptions.size()<=c || formDiskOptions.get(c)==null || formDiskOptions.get(c).length()==0 || formDiskOptions.get(c).equals("-1")) formDiskOptions.set(c, defaultSelected);
             } else {
-                formIdeOptions.set(c, "-1");
-            }
-        }
-        for(int c=0;c<maxSATAs;c++) {
-            List<Option> options = sataOptions.get(c);
-            if(!options.isEmpty()) {
-                Option firstOption = options.get(0);
-                if(!isAtLeastOneDiskSelected && options.size()>=2 && firstOption.getPriceDifference().compareTo(BigDecimal.ZERO)<0) {
-                    firstOption = options.get(1);
-                }
-                String defaultSelected = Integer.toString(firstOption.getPackageDefinitionLimit());
-                if(formSataOptions.size()<=c || formSataOptions.get(c)==null || formSataOptions.get(c).length()==0 || formSataOptions.get(c).equals("-1")) formSataOptions.set(c, defaultSelected);
-            } else {
-                formSataOptions.set(c, "-1");
-            }
-        }
-        for(int c=0;c<maxSCSIs;c++) {
-            List<Option> options = scsiOptions.get(c);
-            if(!options.isEmpty()) {
-                Option firstOption = options.get(0);
-                if(!isAtLeastOneDiskSelected && options.size()>=2 && firstOption.getPriceDifference().compareTo(BigDecimal.ZERO)<0) {
-                    firstOption = options.get(1);
-                }
-                String defaultSelected = Integer.toString(firstOption.getPackageDefinitionLimit());
-                if(formScsiOptions.size()<=c || formScsiOptions.get(c)==null || formScsiOptions.get(c).length()==0 || formScsiOptions.get(c).equals("-1")) formScsiOptions.set(c, defaultSelected);
-            } else {
-                formScsiOptions.set(c, "-1");
+                formDiskOptions.set(c, "-1");
             }
         }
 
@@ -412,9 +313,7 @@ final public class SignupCustomizeServerActionHelper {
         request.setAttribute("ramOptions", ramOptions);
         request.setAttribute("sataControllerOptions", sataControllerOptions);
         request.setAttribute("scsiControllerOptions", scsiControllerOptions);
-        request.setAttribute("ideOptions", ideOptions);
-        request.setAttribute("sataOptions", sataOptions);
-        request.setAttribute("scsiOptions", scsiOptions);
+        request.setAttribute("diskOptions", diskOptions);
         request.setAttribute("basePrice", basePrice);
     }
 
@@ -463,38 +362,17 @@ final public class SignupCustomizeServerActionHelper {
             if(scsiControllerRate!=null) monthlyRate = monthlyRate.add(BigDecimal.valueOf(numScsiController).multiply(scsiControllerRate));
         }
 
-        // Add the IDE options
-        for(String pkey : signupCustomizeServerForm.getIdeOptions()) {
+        // Add the disk options
+        for(String pkey : signupCustomizeServerForm.getDiskOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
-                PackageDefinitionLimit idePDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
-                if(idePDL!=null) {
-                    BigDecimal ideRate = idePDL.getAdditionalRate();
-                    if(ideRate!=null) monthlyRate = monthlyRate.add(ideRate);
+                PackageDefinitionLimit diskPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
+                if(diskPDL!=null) {
+                    BigDecimal diskRate = diskPDL.getAdditionalRate();
+                    if(diskRate!=null) monthlyRate = monthlyRate.add(diskRate);
                 }
             }
         }
 
-        // Add the SATA options
-        for(String pkey : signupCustomizeServerForm.getSataOptions()) {
-            if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
-                PackageDefinitionLimit sataPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
-                if(sataPDL!=null) {
-                    BigDecimal sataRate = sataPDL.getAdditionalRate();
-                    if(sataRate!=null) monthlyRate = monthlyRate.add(sataRate);
-                }
-            }
-        }
-
-        // Add the SCSI options
-        for(String pkey : signupCustomizeServerForm.getScsiOptions()) {
-            if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
-                PackageDefinitionLimit scsiPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
-                if(scsiPDL!=null) {
-                    BigDecimal scsiRate = scsiPDL.getAdditionalRate();
-                    if(scsiRate!=null) monthlyRate = monthlyRate.add(scsiRate);
-                }
-            }
-        }
         return monthlyRate;
     }
 
@@ -539,39 +417,17 @@ final public class SignupCustomizeServerActionHelper {
         else return numScsiController + "x" + scsiControllerPDL.getResource().toString(userLocale);
     }
 
-    public static List<String> getIdeOptions(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException, SQLException {
-        List<String> ideOptions = new ArrayList<String>();
-        for(String pkey : signupCustomizeServerForm.getIdeOptions()) {
+    public static List<String> getDiskOptions(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException, SQLException {
+        List<String> diskOptions = new ArrayList<String>();
+        for(String pkey : signupCustomizeServerForm.getDiskOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
-                PackageDefinitionLimit idePDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
-                if(idePDL!=null) ideOptions.add(idePDL.getResource().toString(userLocale));
+                PackageDefinitionLimit diskPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
+                if(diskPDL!=null) diskOptions.add(diskPDL.getResource().toString(userLocale));
             }
         }
-        return ideOptions;
+        return diskOptions;
     }
 
-    public static List<String> getSataOptions(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException, SQLException {
-        List<String> sataOptions = new ArrayList<String>();
-        for(String pkey : signupCustomizeServerForm.getSataOptions()) {
-            if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
-                PackageDefinitionLimit sataPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
-                if(sataPDL!=null) sataOptions.add(sataPDL.getResource().toString(userLocale));
-            }
-        }
-        return sataOptions;
-    }
-
-    public static List<String> getScsiOptions(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException, SQLException {
-        List<String> scsiOptions = new ArrayList<String>();
-        for(String pkey : signupCustomizeServerForm.getScsiOptions()) {
-            if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
-                PackageDefinitionLimit scsiPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
-                if(scsiPDL!=null) scsiOptions.add(scsiPDL.getResource().toString(userLocale));
-            }
-        }
-        return scsiOptions;
-    }
-    
     public static void setConfirmationRequestAttributes(
         ServletContext servletContext,
         HttpServletRequest request,
@@ -592,9 +448,7 @@ final public class SignupCustomizeServerActionHelper {
         request.setAttribute("ramOption", getRamOption(rootConn, signupCustomizeServerForm, userLocale));
         request.setAttribute("sataControllerOption", getSataControllerOption(rootConn, signupCustomizeServerForm, userLocale));
         request.setAttribute("scsiControllerOption", getScsiControllerOption(rootConn, signupCustomizeServerForm, userLocale));
-        request.setAttribute("ideOptions", getIdeOptions(rootConn, signupCustomizeServerForm, userLocale));
-        request.setAttribute("sataOptions", getSataOptions(rootConn, signupCustomizeServerForm, userLocale));
-        request.setAttribute("scsiOptions", getScsiOptions(rootConn, signupCustomizeServerForm, userLocale));
+        request.setAttribute("diskOptions", getDiskOptions(rootConn, signupCustomizeServerForm, userLocale));
     }
 
     public static void printConfirmation(
@@ -640,25 +494,11 @@ final public class SignupCustomizeServerActionHelper {
                          + "        <td>").print(scsiControllerOption).print("</td>\n"
                          + "    </tr>\n");
         }
-        for(String ideOption : getIdeOptions(rootConn, signupCustomizeServerForm, userLocale)) {
+        for(String diskOption : getDiskOptions(rootConn, signupCustomizeServerForm, userLocale)) {
             emailOut.print("    <tr>\n"
                          + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.ide.prompt")).print("</td>\n"
-                         + "        <td>").encodeHtml(ideOption).print("</td>\n"
-                         + "    </tr>\n");
-        }
-        for(String sataOption : getSataOptions(rootConn, signupCustomizeServerForm, userLocale)) {
-            emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.sata.prompt")).print("</td>\n"
-                         + "        <td>").encodeHtml(sataOption).print("</td>\n"
-                         + "    </tr>\n");
-        }
-        for(String scsiOption : getScsiOptions(rootConn, signupCustomizeServerForm, userLocale)) {
-            emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.scsi.prompt")).print("</td>\n"
-                         + "        <td>").encodeHtml(scsiOption).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.disk.prompt")).print("</td>\n"
+                         + "        <td>").encodeHtml(diskOption).print("</td>\n"
                          + "    </tr>\n");
         }
         emailOut.print("    <tr>\n"
@@ -686,69 +526,15 @@ final public class SignupCustomizeServerActionHelper {
     public static int getTotalHardwareDiskSpace(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         if(signupCustomizeServerForm==null) return 0;
         int total = 0;
-        for(String ideOption : signupCustomizeServerForm.getIdeOptions()) {
-            if(ideOption!=null && ideOption.length()>0 && !"-1".equals(ideOption)) {
-                PackageDefinitionLimit limit = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(ideOption));
+        for(String diskOption : signupCustomizeServerForm.getDiskOptions()) {
+            if(diskOption!=null && diskOption.length()>0 && !"-1".equals(diskOption)) {
+                PackageDefinitionLimit limit = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(diskOption));
                 if(limit!=null) {
                     Resource resource = limit.getResource();
                     String name = resource.getName();
-                    if(name.startsWith("hardware_disk_ide_")) {
-                        // Is in formation hardware_disk_ide_RPM_SIZE
-                        int pos = name.indexOf('_', 18);
-                        if(pos!=-1) {
-                            int pos2 = name.indexOf('_', pos+1);
-                            if(pos2==-1) {
-                                // Not raid
-                                total += Integer.parseInt(name.substring(pos+1));
-                            } else {
-                                // Does it end with _raid1, double space if it does.
-                                if(name.endsWith("_raid1")) {
-                                    total += 2*Integer.parseInt(name.substring(pos+1, pos2));
-                                } else {
-                                    total += Integer.parseInt(name.substring(pos+1, pos2));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        for(String sataOption : signupCustomizeServerForm.getSataOptions()) {
-            if(sataOption!=null && sataOption.length()>0 && !"-1".equals(sataOption)) {
-                PackageDefinitionLimit limit = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(sataOption));
-                if(limit!=null) {
-                    Resource resource = limit.getResource();
-                    String name = resource.getName();
-                    if(name.startsWith("hardware_disk_sata_")) {
-                        // Is in formation hardware_disk_sata_RPM_SIZE
-                        int pos = name.indexOf('_', 19);
-                        if(pos!=-1) {
-                            int pos2 = name.indexOf('_', pos+1);
-                            if(pos2==-1) {
-                                // Not raid
-                                total += Integer.parseInt(name.substring(pos+1));
-                            } else {
-                                // Does it end with _raid1, double space if it does.
-                                if(name.endsWith("_raid1")) {
-                                    total += 2*Integer.parseInt(name.substring(pos+1, pos2));
-                                } else {
-                                    total += Integer.parseInt(name.substring(pos+1, pos2));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        for(String scsiOption : signupCustomizeServerForm.getScsiOptions()) {
-            if(scsiOption!=null && scsiOption.length()>0 && !"-1".equals(scsiOption)) {
-                PackageDefinitionLimit limit = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(scsiOption));
-                if(limit!=null) {
-                    Resource resource = limit.getResource();
-                    String name = resource.getName();
-                    if(name.startsWith("hardware_disk_scsi_")) {
-                        // Is in formation hardware_disk_scsi_RPM_SIZE
-                        int pos = name.indexOf('_', 19);
+                    if(name.startsWith("hardware_disk_")) {
+                        // Is in formation hardware_disk_RPM_SIZE
+                        int pos = name.indexOf('_', 14);
                         if(pos!=-1) {
                             int pos2 = name.indexOf('_', pos+1);
                             if(pos2==-1) {
