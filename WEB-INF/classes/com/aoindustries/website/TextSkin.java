@@ -10,7 +10,7 @@ import com.aoindustries.aoserv.client.Brand;
 import com.aoindustries.encoding.NewEncodingUtils;
 import com.aoindustries.encoding.TextInXhtmlEncoder;
 import com.aoindustries.io.ChainWriter;
-import com.aoindustries.util.EditableResourceBundle;
+import com.aoindustries.util.i18n.EditableResourceBundle;
 import com.aoindustries.util.EncodingUtils;
 import com.aoindustries.util.StringUtility;
 import com.aoindustries.website.skintags.Child;

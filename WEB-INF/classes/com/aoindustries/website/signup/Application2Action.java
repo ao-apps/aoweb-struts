@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -17,21 +17,19 @@ import org.apache.struts.action.ActionMessages;
 /**
  * @author  AO Industries, Inc.
  */
-public class VirtualManaged2Action extends VirtualManagedStepAction {
+public class Application2Action extends ApplicationStepAction {
 
-    public ActionForward executeVirtualManagedStep(
+    public ActionForward executeApplicationStep(
         ActionMapping mapping,
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
+        ApplicationSignupSelectPackageForm signupSelectPackageForm,
         boolean signupSelectPackageFormComplete,
-        VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
-        boolean signupCustomizeServerFormComplete,
-        SignupCustomizeManagementForm signupCustomizeManagementForm,
-        boolean signupCustomizeManagementFormComplete,
+        SignupDomainForm signupDomainForm,
+        boolean signupDomainFormComplete,
         SignupBusinessForm signupBusinessForm,
         boolean signupBusinessFormComplete,
         SignupTechnicalForm signupTechnicalForm,
@@ -39,9 +37,7 @@ public class VirtualManaged2Action extends VirtualManagedStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        if(!signupSelectPackageFormComplete) return mapping.findForward("virtual-managed-server-completed");
-
-        SignupCustomizeServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, signupSelectPackageForm, signupCustomizeServerForm);
+        if(!signupSelectPackageFormComplete) return mapping.findForward("application-completed");
 
         // Clear errors if they should not be displayed
         clearErrors(request);

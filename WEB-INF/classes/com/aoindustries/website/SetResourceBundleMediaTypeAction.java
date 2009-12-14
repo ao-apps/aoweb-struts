@@ -6,7 +6,7 @@ package com.aoindustries.website;
  * All rights reserved.
  */
 import com.aoindustries.encoding.MediaType;
-import com.aoindustries.util.ModifiableResourceBundle;
+import com.aoindustries.util.i18n.ModifiableResourceBundle;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.ResourceBundle;

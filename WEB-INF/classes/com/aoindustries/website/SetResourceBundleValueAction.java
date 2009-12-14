@@ -5,7 +5,7 @@ package com.aoindustries.website;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.util.ModifiableResourceBundle;
+import com.aoindustries.util.i18n.ModifiableResourceBundle;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.ResourceBundle;

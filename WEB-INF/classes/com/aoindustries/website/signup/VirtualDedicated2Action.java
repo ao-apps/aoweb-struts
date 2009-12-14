@@ -7,7 +7,6 @@ package com.aoindustries.website.signup;
  */
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.Comparator;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -59,11 +58,5 @@ public class VirtualDedicated2Action extends VirtualDedicatedStepAction {
      */
     protected void clearErrors(HttpServletRequest request) {
         saveErrors(request, new ActionMessages());
-    }
-
-    private static class PriceComparator implements Comparator<Option> {
-        public int compare(Option pdl1, Option pdl2) {
-            return pdl1.getPriceDifference().compareTo(pdl2.getPriceDifference());
-        }
     }
 }

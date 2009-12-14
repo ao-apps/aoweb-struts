@@ -55,10 +55,4 @@ public class Managed2Action extends ManagedStepAction {
     protected void clearErrors(HttpServletRequest request) {
         saveErrors(request, new ActionMessages());
     }
-
-    /*private static class PriceComparator implements Comparator<Option> {
-        public int compare(Option pdl1, Option pdl2) {
-            return pdl1.getPriceDifference().compareTo(pdl2.getPriceDifference());
-        }
-    }*/
 }
