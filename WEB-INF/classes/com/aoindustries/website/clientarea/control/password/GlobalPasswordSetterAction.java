@@ -42,13 +42,13 @@ public class GlobalPasswordSetterAction extends PermissionAction {
 
         List<Username> uns = aoConn.getUsernames().getRows();
 
-        List<String> packages = new ArrayList<String>(uns.size());
+        List<String> businesses = new ArrayList<String>(uns.size());
         List<String> usernames = new ArrayList<String>(uns.size());
         List<String> newPasswords = new ArrayList<String>(uns.size());
         List<String> confirmPasswords = new ArrayList<String>(uns.size());
         for(Username un : uns) {
             if(un.canSetPassword()) {
-                packages.add(un.getPackage().getName());
+                businesses.add(un.getBusiness().getAccounting());
                 usernames.add(un.getUsername());
                 newPasswords.add("");
                 confirmPasswords.add("");
@@ -56,7 +56,7 @@ public class GlobalPasswordSetterAction extends PermissionAction {
         }
 
         // Store to the form
-        globalPasswordSetterForm.setPackages(packages);
+        globalPasswordSetterForm.setBusinesses(businesses);
         globalPasswordSetterForm.setUsernames(usernames);
         globalPasswordSetterForm.setNewPasswords(newPasswords);
         globalPasswordSetterForm.setConfirmPasswords(confirmPasswords);

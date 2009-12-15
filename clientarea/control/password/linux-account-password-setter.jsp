@@ -22,17 +22,17 @@
                         <%@include file="../../../_permission-denied.jsp" %>
                     </logic:present>
                     <logic:notPresent scope="request" name="permissionDenied">
-                        <logic:empty scope="request" name="linuxAccountPasswordSetterForm" property="packages">
+                        <logic:empty scope="request" name="linuxAccountPasswordSetterForm" property="businesses">
                             <b><fmt:message key="password.linuxAccountPasswordSetter.noAccounts" /></b>
                         </logic:empty>
-                        <logic:notEmpty scope="request" name="linuxAccountPasswordSetterForm" property="packages">
+                        <logic:notEmpty scope="request" name="linuxAccountPasswordSetterForm" property="businesses">
                             <html:form action="/password/linux-account-password-setter-completed">
                                 <skin:lightArea>
                                     <table cellspacing='0' cellpadding='2'>
                                         <tr>
-                                            <bean:size scope="request" name="aoConn" property="packages.map" id="packagesSize" />
-                                            <logic:greaterThan name="packagesSize" value="1">
-                                                <th><fmt:message key="password.linuxAccountPasswordSetter.header.package" /></th>
+                                            <bean:size scope="request" name="aoConn" property="businesses.map" id="businessesSize" />
+                                            <logic:greaterThan name="businessesSize" value="1">
+                                                <th><fmt:message key="password.linuxAccountPasswordSetter.header.business" /></th>
                                             </logic:greaterThan>
                                             <th><fmt:message key="password.linuxAccountPasswordSetter.header.username" /></th>
                                             <bean:size scope="request" name="aoConn" property="aoServers.map" id="aoServersSize" />
@@ -43,13 +43,13 @@
                                             <th><fmt:message key="password.linuxAccountPasswordSetter.header.confirmPassword" /></th>
                                             <th>&#160;</th>
                                         </tr>
-                                        <logic:iterate scope="request" name="linuxAccountPasswordSetterForm" property="packages" id="pack" indexId="index">
+                                        <logic:iterate scope="request" name="linuxAccountPasswordSetterForm" property="businesses" id="accounting" indexId="index">
                                             <tr>
-                                                <logic:greaterThan name="packagesSize" value="1">
-                                                    <td><ao:write name="pack" /></td>
+                                                <logic:greaterThan name="businessesSize" value="1">
+                                                    <td><ao:write name="accounting" /></td>
                                                 </logic:greaterThan>
                                                 <td>
-                                                    <html:hidden property='<%= "packages[" + index + "]" %>' />
+                                                    <html:hidden property='<%= "businesses[" + index + "]" %>' />
                                                     <code><html:hidden property='<%= "usernames[" + index + "]" %>' write="true" /></code>
                                                     <html:hidden property='<%= "aoServers[" + index + "]" %>' />
                                                 </td>

@@ -53,7 +53,7 @@ final public class SignupSelectServerActionHelper {
     public static List<Server> getServers(ServletContext servletContext, String packageCategoryName, Locale userLocale) throws IOException, SQLException {
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageCategory category = rootConn.getPackageCategories().get(packageCategoryName);
-        Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
+        Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getBusiness();
         List<PackageDefinition> packageDefinitions = rootBusiness.getPackageDefinitions(category);
         List<Server> servers = new ArrayList<Server>();
         

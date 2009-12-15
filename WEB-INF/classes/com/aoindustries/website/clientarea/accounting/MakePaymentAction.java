@@ -37,7 +37,7 @@ public class MakePaymentAction extends AuthenticatedAction {
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
-        Business thisBusiness = aoConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
+        Business thisBusiness = aoConn.getThisBusinessAdministrator().getUsername().getBusiness();
 
         // Get the list of businesses that are not canceled or have a non-zero balance, or are thisBusiness
         List<Business> allBusinesses = aoConn.getBusinesses().getRows();

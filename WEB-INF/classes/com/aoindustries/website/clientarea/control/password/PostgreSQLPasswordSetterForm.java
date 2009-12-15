@@ -29,7 +29,7 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
 
     private static final long serialVersionUID = 1L;
 
-    private List<String> packages;
+    private List<String> businesses;
     private List<String> usernames;
     private List<String> postgreSQLServers;
     private List<String> aoServers;
@@ -39,7 +39,7 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
     @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         super.reset(mapping, request);
-        setPackages(new AutoGrowArrayList<String>());
+        setBusinesses(new AutoGrowArrayList<String>());
         setUsernames(new AutoGrowArrayList<String>());
         setPostgreSQLServers(new AutoGrowArrayList<String>());
         setAoServers(new AutoGrowArrayList<String>());
@@ -47,12 +47,12 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
         setConfirmPasswords(new AutoGrowArrayList<String>());
     }
 
-    public List<String> getPackages() {
-        return packages;
+    public List<String> getBusinesses() {
+        return businesses;
     }
 
-    public void setPackages(List<String> packages) {
-        this.packages = packages;
+    public void setBusinesses(List<String> businesses) {
+        this.businesses = businesses;
     }
 
     public List<String> getUsernames() {

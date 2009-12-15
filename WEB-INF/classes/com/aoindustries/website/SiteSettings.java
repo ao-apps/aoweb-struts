@@ -138,7 +138,7 @@ public class SiteSettings {
      * allow privilege escelation.
      */
     public Brand getBrand() throws IOException, SQLException {
-        Brand br = getRootAOServConnector().getThisBusinessAdministrator().getUsername().getPackage().getBusiness().getBrand();
+        Brand br = getRootAOServConnector().getThisBusinessAdministrator().getUsername().getBusiness().getBrand();
         if(br==null) throw new SQLException("Unable to find Brand for username="+getRootAOServConnectorUsername());
         return br;
     }

@@ -99,7 +99,7 @@ final public class ServerConfirmationCompletedActionHelper {
             CountryCode baCountry = GenericValidator.isBlankOrNull(signupTechnicalForm.getBaCountry()) ? null : rootConn.getCountryCodes().get(signupTechnicalForm.getBaCountry());
 
             pkey = rootConn.getSignupRequests().addSignupRequest(
-                rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness().getBrand(),
+                rootConn.getThisBusinessAdministrator().getUsername().getBusiness().getBrand(),
                 request.getRemoteAddr(),
                 packageDefinition,
                 signupBusinessForm.getBusinessName(),

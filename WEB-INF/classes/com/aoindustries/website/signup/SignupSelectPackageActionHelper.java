@@ -53,7 +53,7 @@ final public class SignupSelectPackageActionHelper {
     public static List<PackageDefinition> getPackageDefinitions(ServletContext servletContext, String packageCategoryName, Locale userLocale) throws IOException, SQLException {
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageCategory category = rootConn.getPackageCategories().get(packageCategoryName);
-        Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
+        Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getBusiness();
         List<PackageDefinition> packageDefinitions = rootBusiness.getPackageDefinitions(category);
         List<PackageDefinition> activePackageDefinitions = new ArrayList<PackageDefinition>();
 

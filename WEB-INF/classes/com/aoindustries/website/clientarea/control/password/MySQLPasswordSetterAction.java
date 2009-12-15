@@ -46,7 +46,7 @@ public class MySQLPasswordSetterAction extends PermissionAction {
 
         List<MySQLServerUser> msus = aoConn.getMysqlServerUsers().getRows();
 
-        List<String> packages = new ArrayList<String>(msus.size());
+        List<String> businesses = new ArrayList<String>(msus.size());
         List<String> usernames = new ArrayList<String>(msus.size());
         List<String> mySQLServers = new ArrayList<String>(msus.size());
         List<String> aoServers = new ArrayList<String>(msus.size());
@@ -57,7 +57,7 @@ public class MySQLPasswordSetterAction extends PermissionAction {
                 MySQLUser mu = msu.getMySQLUser();
                 Username un = mu.getUsername();
                 MySQLServer ms = msu.getMySQLServer();
-                packages.add(un.getPackage().getName());
+                businesses.add(un.getBusiness().getAccounting());
                 usernames.add(un.getUsername());
                 mySQLServers.add(ms.getName());
                 aoServers.add(ms.getAOServer().getHostname());
@@ -67,7 +67,7 @@ public class MySQLPasswordSetterAction extends PermissionAction {
         }
 
         // Store to the form
-        mySQLPasswordSetterForm.setPackages(packages);
+        mySQLPasswordSetterForm.setBusinesses(businesses);
         mySQLPasswordSetterForm.setUsernames(usernames);
         mySQLPasswordSetterForm.setMySQLServers(mySQLServers);
         mySQLPasswordSetterForm.setAoServers(aoServers);

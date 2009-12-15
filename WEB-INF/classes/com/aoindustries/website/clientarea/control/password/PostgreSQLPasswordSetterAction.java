@@ -46,7 +46,7 @@ public class PostgreSQLPasswordSetterAction extends PermissionAction {
 
         List<PostgresServerUser> psus = aoConn.getPostgresServerUsers().getRows();
 
-        List<String> packages = new ArrayList<String>(psus.size());
+        List<String> businesses = new ArrayList<String>(psus.size());
         List<String> usernames = new ArrayList<String>(psus.size());
         List<String> postgreSQLServers = new ArrayList<String>(psus.size());
         List<String> aoServers = new ArrayList<String>(psus.size());
@@ -57,7 +57,7 @@ public class PostgreSQLPasswordSetterAction extends PermissionAction {
                 PostgresUser pu = psu.getPostgresUser();
                 Username un = pu.getUsername();
                 PostgresServer ps = psu.getPostgresServer();
-                packages.add(un.getPackage().getName());
+                businesses.add(un.getBusiness().getAccounting());
                 usernames.add(un.getUsername());
                 postgreSQLServers.add(ps.getName());
                 aoServers.add(ps.getAOServer().getHostname());
@@ -67,7 +67,7 @@ public class PostgreSQLPasswordSetterAction extends PermissionAction {
         }
 
         // Store to the form
-        postgreSQLPasswordSetterForm.setPackages(packages);
+        postgreSQLPasswordSetterForm.setBusinesses(businesses);
         postgreSQLPasswordSetterForm.setUsernames(usernames);
         postgreSQLPasswordSetterForm.setPostgreSQLServers(postgreSQLServers);
         postgreSQLPasswordSetterForm.setAoServers(aoServers);

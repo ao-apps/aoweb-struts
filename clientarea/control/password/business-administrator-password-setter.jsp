@@ -18,30 +18,30 @@
                 <skin:contentTitle><fmt:message key="password.businessAdministratorPasswordSetter.title" /></skin:contentTitle>
                 <skin:contentHorizontalDivider />
                 <skin:contentLine>
-                    <logic:empty scope="request" name="businessAdministratorPasswordSetterForm" property="packages">
+                    <logic:empty scope="request" name="businessAdministratorPasswordSetterForm" property="businesses">
                         <b><fmt:message key="password.businessAdministratorPasswordSetter.noAccounts" /></b>
                     </logic:empty>
-                    <logic:notEmpty scope="request" name="businessAdministratorPasswordSetterForm" property="packages">
+                    <logic:notEmpty scope="request" name="businessAdministratorPasswordSetterForm" property="businesses">
                         <html:form action="/password/business-administrator-password-setter-completed">
                             <skin:lightArea>
                                 <table cellspacing='0' cellpadding='2'>
                                     <tr>
-                                        <bean:size scope="request" name="aoConn" property="packages.map" id="packagesSize" />
-                                        <logic:greaterThan name="packagesSize" value="1">
-                                            <th><fmt:message key="password.businessAdministratorPasswordSetter.header.package" /></th>
+                                        <bean:size scope="request" name="aoConn" property="businesses.map" id="businessesSize" />
+                                        <logic:greaterThan name="businessesSize" value="1">
+                                            <th><fmt:message key="password.businessAdministratorPasswordSetter.header.business" /></th>
                                         </logic:greaterThan>
                                         <th><fmt:message key="password.businessAdministratorPasswordSetter.header.username" /></th>
                                         <th colspan='2'><fmt:message key="password.businessAdministratorPasswordSetter.header.newPassword" /></th>
                                         <th><fmt:message key="password.businessAdministratorPasswordSetter.header.confirmPassword" /></th>
                                         <th>&#160;</th>
                                     </tr>
-                                    <logic:iterate scope="request" name="businessAdministratorPasswordSetterForm" property="packages" id="pack" indexId="index">
+                                    <logic:iterate scope="request" name="businessAdministratorPasswordSetterForm" property="businesses" id="accounting" indexId="index">
                                         <tr>
-                                            <logic:greaterThan name="packagesSize" value="1">
-                                                <td><ao:write name="pack" /></td>
+                                            <logic:greaterThan name="businessesSize" value="1">
+                                                <td><ao:write name="accounting" /></td>
                                             </logic:greaterThan>
                                             <td>
-                                                <html:hidden property='<%= "packages[" + index + "]" %>' />
+                                                <html:hidden property='<%= "businesses[" + index + "]" %>' />
                                                 <code><html:hidden property='<%= "usernames[" + index + "]" %>' write="true" /></code>
                                             </td>
                                             <td><html:password size="20" property='<%= "newPasswords[" + index + "]" %>' /></td>

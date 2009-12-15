@@ -33,7 +33,7 @@ public class IndexAction extends HttpAction {
         AOServConnector rootConn = SiteSettings.getInstance(getServlet().getServletContext()).getRootAOServConnector();
 
         // Determine the active packages per category
-        Map<PackageCategory,List<PackageDefinition>> categories = rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness().getActivePackageDefinitions();
+        Map<PackageCategory,List<PackageDefinition>> categories = rootConn.getThisBusinessAdministrator().getUsername().getBusiness().getActivePackageDefinitions();
         // 404 when no packages defined
         if(categories.isEmpty()) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);

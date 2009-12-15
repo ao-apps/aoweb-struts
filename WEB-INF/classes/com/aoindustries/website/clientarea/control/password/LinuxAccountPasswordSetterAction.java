@@ -45,7 +45,7 @@ public class LinuxAccountPasswordSetterAction extends PermissionAction {
 
         List<LinuxServerAccount> lsas = aoConn.getLinuxServerAccounts().getRows();
 
-        List<String> packages = new ArrayList<String>(lsas.size());
+        List<String> businesses = new ArrayList<String>(lsas.size());
         List<String> usernames = new ArrayList<String>(lsas.size());
         List<String> aoServers = new ArrayList<String>(lsas.size());
         List<String> newPasswords = new ArrayList<String>(lsas.size());
@@ -54,7 +54,7 @@ public class LinuxAccountPasswordSetterAction extends PermissionAction {
             if(lsa.canSetPassword()) {
                 LinuxAccount la = lsa.getLinuxAccount();
                 Username un = la.getUsername();
-                packages.add(un.getPackage().getName());
+                businesses.add(un.getBusiness().getAccounting());
                 usernames.add(un.getUsername());
                 aoServers.add(lsa.getAOServer().getHostname());
                 newPasswords.add("");
@@ -63,7 +63,7 @@ public class LinuxAccountPasswordSetterAction extends PermissionAction {
         }
 
         // Store to the form
-        linuxAccountPasswordSetterForm.setPackages(packages);
+        linuxAccountPasswordSetterForm.setBusinesses(businesses);
         linuxAccountPasswordSetterForm.setUsernames(usernames);
         linuxAccountPasswordSetterForm.setAoServers(aoServers);
         linuxAccountPasswordSetterForm.setNewPasswords(newPasswords);

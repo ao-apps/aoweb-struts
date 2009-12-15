@@ -57,7 +57,7 @@ abstract public class SignupSelectPackageForm extends ActionForm implements Seri
             if(myServlet!=null) {
                 AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
                 PackageCategory category = rootConn.getPackageCategories().get(getPackageCategory());
-                Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
+                Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getBusiness();
 
                 PackageDefinition pd = rootConn.getPackageDefinitions().get(packageDefinition);
                 if(pd==null || !pd.getPackageCategory().equals(category) || !pd.getBusiness().equals(rootBusiness)) {

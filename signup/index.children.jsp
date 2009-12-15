@@ -7,7 +7,7 @@
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@include file="/_taglibs.jsp" %>
 
-<c:set var="activePackageDefinitions" value="${siteSettings.rootAOServConnector.thisBusinessAdministrator.username.package.business.activePackageDefinitions}"/>
+<c:set var="activePackageDefinitions" value="${siteSettings.rootAOServConnector.thisBusinessAdministrator.username.business.activePackageDefinitions}"/>
 <c:if test="${activePackageDefinitions[siteSettings.rootAOServConnector.packageCategories.map['application']]!=null}">
     <skin:child><%@include file="application.meta.jsp" %></skin:child>
 </c:if>

@@ -40,7 +40,7 @@ public class CreditCardManagerAction extends PermissionAction {
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
-        Business thisBusiness = aoConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
+        Business thisBusiness = aoConn.getThisBusinessAdministrator().getUsername().getBusiness();
 
         // Create a map from business to list of credit cards
         List<BusinessAndCreditCards> businessCreditCards = new ArrayList<BusinessAndCreditCards>();

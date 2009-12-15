@@ -46,14 +46,14 @@ public class BusinessAdministratorPasswordSetterAction extends AuthenticatedActi
         
         List<BusinessAdministrator> bas = thisBA.hasPermission(AOServPermission.Permission.set_business_administrator_password) ? aoConn.getBusinessAdministrators().getRows() : Collections.singletonList(thisBA);
 
-        List<String> packages = new ArrayList<String>(bas.size());
+        List<String> businesses = new ArrayList<String>(bas.size());
         List<String> usernames = new ArrayList<String>(bas.size());
         List<String> newPasswords = new ArrayList<String>(bas.size());
         List<String> confirmPasswords = new ArrayList<String>(bas.size());
         for(BusinessAdministrator ba : bas) {
             if(ba.canSetPassword()) {
                 Username un = ba.getUsername();
-                packages.add(un.getPackage().getName());
+                businesses.add(un.getBusiness().getAccounting());
                 usernames.add(un.getUsername());
                 newPasswords.add("");
                 confirmPasswords.add("");
@@ -61,7 +61,7 @@ public class BusinessAdministratorPasswordSetterAction extends AuthenticatedActi
         }
 
         // Store to the form
-        businessAdministratorPasswordSetterForm.setPackages(packages);
+        businessAdministratorPasswordSetterForm.setBusinesses(businesses);
         businessAdministratorPasswordSetterForm.setUsernames(usernames);
         businessAdministratorPasswordSetterForm.setNewPasswords(newPasswords);
         businessAdministratorPasswordSetterForm.setConfirmPasswords(confirmPasswords);
