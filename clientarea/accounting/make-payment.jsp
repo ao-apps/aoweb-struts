@@ -5,6 +5,7 @@
   All rights reserved.
 --%>
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
+<%@ page import="java.math.BigDecimal" %>
 <%@include file="/_taglibs.jsp" %>
 
 <skin:setContentType />
@@ -33,16 +34,16 @@
                                     <td style="white-space:nowrap"><ao:write name="business" property="accounting" /></td>
                                     <td style='white-space:nowrap' align='right'><ao:write name="business" property="monthlyRateString" /></td>
                                     <td style='white-space:nowrap' align='right'>
-                                        <% int balance = business.getAccountBalance(); %>
-                                        <% if(balance==0) { %>
+                                        <% BigDecimal balance = business.getAccountBalance(); %>
+                                        <% if(balance.compareTo(BigDecimal.ZERO)==0) { %>
                                             <fmt:message key="makePayment.balance.value.zero" />
-                                        <% } else if(balance<0) { %>
+                                        <% } else if(balance.compareTo(BigDecimal.ZERO)<0) { %>
                                             <fmt:message key="makePayment.balance.value.credit">
-                                                <fmt:param><c:out value="<%= com.aoindustries.sql.SQLUtility.getDecimal(-balance) %>" /></fmt:param>
+                                                <fmt:param><c:out value="<%= balance.negate().toPlainString() %>" /></fmt:param>
                                             </fmt:message>
                                         <% } else { %>
                                             <fmt:message key="makePayment.balance.value.debt">
-                                                <fmt:param><c:out value="<%= com.aoindustries.sql.SQLUtility.getDecimal(balance) %>" /></fmt:param>
+                                                <fmt:param><c:out value="<%= balance.toPlainString() %>" /></fmt:param>
                                             </fmt:message>
                                         <% } %>
                                     </td>

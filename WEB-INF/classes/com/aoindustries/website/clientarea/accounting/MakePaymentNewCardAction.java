@@ -9,12 +9,12 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.BusinessProfile;
-import com.aoindustries.sql.SQLUtility;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.signup.SignupBusinessActionHelper;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -89,9 +89,9 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
         initRequestAttributes(request, getServlet().getServletContext());
 
         // Prompt for amount of payment defaults to current balance.
-        int balance = business.getAccountBalance();
-        if(balance>0) {
-            makePaymentNewCardForm.setPaymentAmount(SQLUtility.getDecimal(balance));
+        BigDecimal balance = business.getAccountBalance();
+        if(balance.compareTo(BigDecimal.ZERO)>0) {
+            makePaymentNewCardForm.setPaymentAmount(balance.toPlainString());
         } else {
             makePaymentNewCardForm.setPaymentAmount("");
         }

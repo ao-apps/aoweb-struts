@@ -8,7 +8,7 @@ package com.aoindustries.website.signup;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.aoserv.client.PackageDefinitionLimit;
-import com.aoindustries.aoserv.client.Resource;
+import com.aoindustries.aoserv.client.ResourceType;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
@@ -60,7 +60,7 @@ final public class SignupCustomizeManagementActionHelper {
         List<Option> distributionScanOptions = new ArrayList<Option>();
         List<Option> failoverOptions = new ArrayList<Option>();
         for(PackageDefinitionLimit limit : limits) {
-            Resource resource = limit.getResource();
+            ResourceType resource = limit.getResourceType();
             String resourceName = resource.getName();
             if(resourceName.startsWith("backup_onsite_")) {
                 int limitPower = limit.getHardLimit();
@@ -82,9 +82,9 @@ final public class SignupCustomizeManagementActionHelper {
         }
         // Distribution scan option
         {
-            Resource resource = rootConn.getResources().get(Resource.DISTRIBUTION_SCAN);
+            ResourceType resource = rootConn.getResourceTypes().get(ResourceType.DISTRIBUTION_SCAN);
             if(resource==null) {
-                servletContext.log(null, new SQLException("Unable to find Resource: "+Resource.DISTRIBUTION_SCAN));
+                servletContext.log(null, new SQLException("Unable to find Resource: "+ResourceType.DISTRIBUTION_SCAN));
             } else {
                 PackageDefinitionLimit limit = packageDefinition.getLimit(resource);
                 if(limit!=null) {
@@ -99,9 +99,9 @@ final public class SignupCustomizeManagementActionHelper {
         }
         // Failover option
         {
-            Resource resource = rootConn.getResources().get(Resource.FAILOVER);
+            ResourceType resource = rootConn.getResourceTypes().get(ResourceType.FAILOVER);
             if(resource==null) {
-                servletContext.log(null, new SQLException("Unable to find Resource: "+Resource.FAILOVER));
+                servletContext.log(null, new SQLException("Unable to find Resource: "+ResourceType.FAILOVER));
             } else {
                 PackageDefinitionLimit limit = packageDefinition.getLimit(resource);
                 if(limit!=null) {
@@ -114,9 +114,9 @@ final public class SignupCustomizeManagementActionHelper {
                         failoverOptions.add(new Option(limit.getPkey(), resource.toString(userLocale), additionalRate));
                         
                         // Only once the failover option is available will the MySQL replication option be available
-                        Resource mrResource = rootConn.getResources().get(Resource.MYSQL_REPLICATION);
+                        ResourceType mrResource = rootConn.getResourceTypes().get(ResourceType.MYSQL_REPLICATION);
                         if(mrResource==null) {
-                            servletContext.log(null, new SQLException("Unable to find Resource: "+Resource.MYSQL_REPLICATION));
+                            servletContext.log(null, new SQLException("Unable to find Resource: "+ResourceType.MYSQL_REPLICATION));
                         } else {
                             PackageDefinitionLimit mrLimit = packageDefinition.getLimit(mrResource);
                             if(mrLimit!=null) {
@@ -290,17 +290,17 @@ final public class SignupCustomizeManagementActionHelper {
         int failoverOption = signupCustomizeManagementForm.getFailoverOption();
         if(failoverOption!=-1) {
             PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(failoverOption);
-            String resourceName = pdl.getResource().getName();
-            if(Resource.FAILOVER.equals(resourceName)) {
+            String resourceName = pdl.getResourceType().getName();
+            if(ResourceType.FAILOVER.equals(resourceName)) {
                 // Failover mirror only
                 BigDecimal rate = pdl.getAdditionalRate();
                 if(rate!=null) monthlyRate = monthlyRate.add(rate.multiply(BigDecimal.valueOf(totalDiskSpace)));
-            } else if(Resource.MYSQL_REPLICATION.equals(resourceName)) {
+            } else if(ResourceType.MYSQL_REPLICATION.equals(resourceName)) {
                 // Failover mirror plus MySQL replication
-                Resource failoverResource = rootConn.getResources().get(Resource.FAILOVER);
-                if(failoverResource==null) throw new SQLException("Unable to find Resource: "+Resource.FAILOVER);
+                ResourceType failoverResource = rootConn.getResourceTypes().get(ResourceType.FAILOVER);
+                if(failoverResource==null) throw new SQLException("Unable to find Resource: "+ResourceType.FAILOVER);
                 PackageDefinitionLimit failoverPDL = packageDefinition.getLimit(failoverResource);
-                if(failoverPDL==null) throw new SQLException("Unable to find PackageDefinitionLimit: "+Resource.FAILOVER+" on PackageDefinition #"+packageDefinition.getPkey());
+                if(failoverPDL==null) throw new SQLException("Unable to find PackageDefinitionLimit: "+ResourceType.FAILOVER+" on PackageDefinition #"+packageDefinition.getPkey());
                 BigDecimal additionalRate = BigDecimal.valueOf(0, 2);
                 BigDecimal failoverRate = failoverPDL.getAdditionalRate();
                 if(failoverRate!=null) additionalRate = failoverRate.multiply(BigDecimal.valueOf(totalDiskSpace));
@@ -317,14 +317,14 @@ final public class SignupCustomizeManagementActionHelper {
         int option = signupCustomizeManagementForm.getBackupOnsiteOption();
         if(option==-1) return null;
         PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(option);
-        return pdl.getResource().toString(userLocale);
+        return pdl.getResourceType().toString(userLocale);
     }
 
     public static String getBackupOffsiteOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm, Locale userLocale) throws IOException, SQLException {
         int option = signupCustomizeManagementForm.getBackupOffsiteOption();
         if(option==-1) return null;
         PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(option);
-        return pdl.getResource().toString(userLocale);
+        return pdl.getResourceType().toString(userLocale);
     }
 
     public static String getBackupDvdOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) {
@@ -337,13 +337,13 @@ final public class SignupCustomizeManagementActionHelper {
         int option = signupCustomizeManagementForm.getDistributionScanOption();
         if(option==-1) return null;
         PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(option);
-        return pdl.getResource().toString(userLocale);
+        return pdl.getResourceType().toString(userLocale);
     }
 
     public static String getFailoverOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm, Locale userLocale) throws IOException, SQLException {
         int option = signupCustomizeManagementForm.getFailoverOption();
         if(option==-1) return null;
         PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(option);
-        return pdl.getResource().toString(userLocale);
+        return pdl.getResourceType().toString(userLocale);
     }
 }

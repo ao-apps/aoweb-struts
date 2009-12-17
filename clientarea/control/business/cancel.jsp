@@ -6,6 +6,7 @@
 --%>
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ page import="com.aoindustries.util.EncodingUtils" %>
+<%@ page import="java.math.BigDecimal" %>
 <%@include file="/_taglibs.jsp" %>
 
 <skin:setContentType />
@@ -84,14 +85,14 @@
                                                             </logic:notEmpty>
                                                         </td>
                                                         <td align='right'>
-                                                            <% int balance=bu.getAccountBalance(); %>
-                                                            <% if(balance<0) { %>
+                                                            <% BigDecimal balance=bu.getAccountBalance(); %>
+                                                            <% if(balance.compareTo(BigDecimal.ZERO)<0) { %>
                                                                 <fmt:message key="business.cancel.field.balance.credit">
-                                                                    <fmt:param><c:out value="<%= com.aoindustries.sql.SQLUtility.getDecimal(-balance) %>" /></fmt:param>
+                                                                    <fmt:param><c:out value="<%= balance.negate().toPlainString() %>" /></fmt:param>
                                                                 </fmt:message>
-                                                            <% } else if(balance>0) { %>
+                                                            <% } else if(balance.compareTo(BigDecimal.ZERO)>0) { %>
                                                                 <fmt:message key="business.cancel.field.balance.debt">
-                                                                    <fmt:param><c:out value="<%= com.aoindustries.sql.SQLUtility.getDecimal(balance) %>" /></fmt:param>
+                                                                    <fmt:param><c:out value="<%= balance.toPlainString() %>" /></fmt:param>
                                                                 </fmt:message>
                                                             <% } else { %>
                                                                 <fmt:message key="business.cancel.field.balance.zero" />

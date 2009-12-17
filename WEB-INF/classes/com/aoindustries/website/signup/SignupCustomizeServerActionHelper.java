@@ -8,7 +8,7 @@ package com.aoindustries.website.signup;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.aoserv.client.PackageDefinitionLimit;
-import com.aoindustries.aoserv.client.Resource;
+import com.aoindustries.aoserv.client.ResourceType;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
@@ -64,7 +64,7 @@ final public class SignupCustomizeServerActionHelper {
         int maxDisks = 0;
         PackageDefinitionLimit cheapestDisk = null;
         for(PackageDefinitionLimit limit : limits) {
-            String resourceName = limit.getResource().getName();
+            String resourceName = limit.getResourceType().getName();
             if(resourceName.startsWith("hardware_power_")) {
                 int limitPower = limit.getHardLimit();
                 if(limitPower>0) {
@@ -158,7 +158,7 @@ final public class SignupCustomizeServerActionHelper {
         List<List<Option>> diskOptions = new ArrayList<List<Option>>();
         for(int c=0;c<maxDisks;c++) diskOptions.add(new ArrayList<Option>());
         for(PackageDefinitionLimit limit : limits) {
-            Resource resource = limit.getResource();
+            ResourceType resource = limit.getResourceType();
             String resourceName = resource.getName();
             if(resourceName.startsWith("hardware_power_")) {
                 int limitPower = limit.getHardLimit();
@@ -217,7 +217,7 @@ final public class SignupCustomizeServerActionHelper {
                     if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
                     BigDecimal adjustedRate = additionalRate;
                     // Discount adjusted rate if the cheapest disk is of this type
-                    if(cheapestDisk.getResource().getName().startsWith("hardware_disk_")) {
+                    if(cheapestDisk.getResourceType().getName().startsWith("hardware_disk_")) {
                         BigDecimal cheapestRate = cheapestDisk.getAdditionalRate();
                         if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
                         adjustedRate = adjustedRate.subtract(cheapestRate);
@@ -381,22 +381,22 @@ final public class SignupCustomizeServerActionHelper {
         if(powerOption==-1) return null;
         PackageDefinitionLimit powerPDL = rootConn.getPackageDefinitionLimits().get(powerOption);
         int numPower = powerPDL.getHardLimit();
-        if(numPower==1) return powerPDL.getResource().toString(userLocale);
-        else return numPower + "x" + powerPDL.getResource().toString(userLocale);
+        if(numPower==1) return powerPDL.getResourceType().toString(userLocale);
+        else return numPower + "x" + powerPDL.getResourceType().toString(userLocale);
     }
 
     public static String getCpuOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException, SQLException {
         PackageDefinitionLimit cpuPDL = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getCpuOption());
         int numCpu = cpuPDL.getHardLimit();
-        if(numCpu==1) return cpuPDL.getResource().toString(userLocale); //.replaceAll(", ", "<br />&#160;&#160;&#160;&#160;");
-        else return numCpu + "x" + cpuPDL.getResource().toString(userLocale); //.replaceAll(", ", "<br />&#160;&#160;&#160;&#160;");
+        if(numCpu==1) return cpuPDL.getResourceType().toString(userLocale); //.replaceAll(", ", "<br />&#160;&#160;&#160;&#160;");
+        else return numCpu + "x" + cpuPDL.getResourceType().toString(userLocale); //.replaceAll(", ", "<br />&#160;&#160;&#160;&#160;");
     }
     
     public static String getRamOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException, SQLException {
         PackageDefinitionLimit ramPDL = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getRamOption());
         int numRam = ramPDL.getHardLimit();
-        if(numRam==1) return ramPDL.getResource().toString(userLocale);
-        else return numRam + "x" + ramPDL.getResource().toString(userLocale);
+        if(numRam==1) return ramPDL.getResourceType().toString(userLocale);
+        else return numRam + "x" + ramPDL.getResourceType().toString(userLocale);
     }
     
     public static String getSataControllerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException, SQLException {
@@ -404,8 +404,8 @@ final public class SignupCustomizeServerActionHelper {
         if(sataControllerOption==-1) return null;
         PackageDefinitionLimit sataControllerPDL = rootConn.getPackageDefinitionLimits().get(sataControllerOption);
         int numSataController = sataControllerPDL.getHardLimit();
-        if(numSataController==1) return sataControllerPDL.getResource().toString(userLocale);
-        else return numSataController + "x" + sataControllerPDL.getResource().toString(userLocale);
+        if(numSataController==1) return sataControllerPDL.getResourceType().toString(userLocale);
+        else return numSataController + "x" + sataControllerPDL.getResourceType().toString(userLocale);
     }
 
     public static String getScsiControllerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException, SQLException {
@@ -413,8 +413,8 @@ final public class SignupCustomizeServerActionHelper {
         if(scsiControllerOption==-1) return null;
         PackageDefinitionLimit scsiControllerPDL = rootConn.getPackageDefinitionLimits().get(scsiControllerOption);
         int numScsiController = scsiControllerPDL.getHardLimit();
-        if(numScsiController==1) return scsiControllerPDL.getResource().toString(userLocale);
-        else return numScsiController + "x" + scsiControllerPDL.getResource().toString(userLocale);
+        if(numScsiController==1) return scsiControllerPDL.getResourceType().toString(userLocale);
+        else return numScsiController + "x" + scsiControllerPDL.getResourceType().toString(userLocale);
     }
 
     public static List<String> getDiskOptions(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException, SQLException {
@@ -422,7 +422,7 @@ final public class SignupCustomizeServerActionHelper {
         for(String pkey : signupCustomizeServerForm.getDiskOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
                 PackageDefinitionLimit diskPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
-                if(diskPDL!=null) diskOptions.add(diskPDL.getResource().toString(userLocale));
+                if(diskPDL!=null) diskOptions.add(diskPDL.getResourceType().toString(userLocale));
             }
         }
         return diskOptions;
@@ -529,7 +529,7 @@ final public class SignupCustomizeServerActionHelper {
             if(diskOption!=null && diskOption.length()>0 && !"-1".equals(diskOption)) {
                 PackageDefinitionLimit limit = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(diskOption));
                 if(limit!=null) {
-                    Resource resource = limit.getResource();
+                    ResourceType resource = limit.getResourceType();
                     String name = resource.getName();
                     if(name.startsWith("hardware_disk_")) {
                         // Is in formation hardware_disk_RPM_SIZE

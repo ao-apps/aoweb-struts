@@ -23,7 +23,7 @@ public class ServerConfiguration {
 
     private static String getDiskDescription(int numDrives, PackageDefinitionLimit pdl, Locale userLocale) throws SQLException, IOException {
         if(pdl==null || numDrives==0) return null;
-        String description = pdl.getResource().toString(userLocale);
+        String description = pdl.getResourceType().toString(userLocale);
         if(numDrives==1) {
             if(description.startsWith("2x")) return description;
             else return "Single " + description;
@@ -54,7 +54,7 @@ public class ServerConfiguration {
         int maxDisks = 0;
         PackageDefinitionLimit cheapestDisk = null;
         for(PackageDefinitionLimit limit : limits) {
-            String resourceName = limit.getResource().getName();
+            String resourceName = limit.getResourceType().getName();
             if(resourceName.startsWith("hardware_power_")) {
                 int limitPower = limit.getHardLimit();
                 if(limitPower>0) {
@@ -143,7 +143,7 @@ public class ServerConfiguration {
         StringBuilder minimumPower = new StringBuilder();
         if(cheapestPower!=null) {
             if(maxPowers!=1) minimumPower.append(maxPowers).append('x');
-            minimumPower.append(cheapestPower.getResource().toString(userLocale));
+            minimumPower.append(cheapestPower.getResourceType().toString(userLocale));
         }
 
         // Add the Power costs
@@ -153,7 +153,7 @@ public class ServerConfiguration {
         if(cheapestCPU==null) throw new SQLException("Unable to find cheapestCPU");
         StringBuilder minimumCpu = new StringBuilder();
         if(maxCPUs!=1) minimumCpu.append(maxCPUs).append('x');
-        minimumCpu.append(cheapestCPU.getResource().toString(userLocale));
+        minimumCpu.append(cheapestCPU.getResourceType().toString(userLocale));
 
         // Add the CPU costs
         if(cheapestCPU.getAdditionalRate()!=null) minimumMonthly = minimumMonthly.add(cheapestCPU.getAdditionalRate().multiply(BigDecimal.valueOf(maxCPUs)));
@@ -161,21 +161,21 @@ public class ServerConfiguration {
         // Build the RAM description
         if(cheapestRAM==null) throw new SQLException("Unable to find cheapestRAM");
         StringBuilder minimumRam = new StringBuilder();
-        minimumRam.append(cheapestRAM.getResource().toString(userLocale));
+        minimumRam.append(cheapestRAM.getResourceType().toString(userLocale));
 
         // Add the RAM cost
         if(cheapestRAM.getAdditionalRate()!=null) minimumMonthly = minimumMonthly.add(cheapestRAM.getAdditionalRate());
 
         // Build the SATA controller description
         StringBuilder minimumSataController = new StringBuilder();
-        if(cheapestSataController!=null) minimumSataController.append(cheapestSataController.getResource().toString(userLocale));
+        if(cheapestSataController!=null) minimumSataController.append(cheapestSataController.getResourceType().toString(userLocale));
 
         // Add the SataController cost
         if(cheapestSataController!=null && cheapestSataController.getAdditionalRate()!=null) minimumMonthly = minimumMonthly.add(cheapestSataController.getAdditionalRate());
 
         // Build the SCSI controller description
         StringBuilder minimumScsiController = new StringBuilder();
-        if(cheapestScsiController!=null) minimumScsiController.append(cheapestScsiController.getResource().toString(userLocale));
+        if(cheapestScsiController!=null) minimumScsiController.append(cheapestScsiController.getResourceType().toString(userLocale));
 
         // Add the ScsiController cost
         if(cheapestScsiController!=null && cheapestScsiController.getAdditionalRate()!=null) minimumMonthly = minimumMonthly.add(cheapestScsiController.getAdditionalRate());
@@ -222,7 +222,7 @@ public class ServerConfiguration {
         int maxDisks = 0;
         PackageDefinitionLimit expensiveDisk = null;
         for(PackageDefinitionLimit limit : limits) {
-            String resourceName = limit.getResource().getName();
+            String resourceName = limit.getResourceType().getName();
             if(resourceName.startsWith("hardware_power_")) {
                 int limitPower = limit.getHardLimit();
                 if(limitPower>0) {
@@ -308,7 +308,7 @@ public class ServerConfiguration {
         StringBuilder maximumPower = new StringBuilder();
         if(expensivePower!=null) {
             if(maxPowers!=1) maximumPower.append(maxPowers).append('x');
-            maximumPower.append(expensivePower.getResource().toString(userLocale));
+            maximumPower.append(expensivePower.getResourceType().toString(userLocale));
         }
 
         // Add the Power costs
@@ -318,7 +318,7 @@ public class ServerConfiguration {
         if(expensiveCPU==null) throw new SQLException("Unable to find expensiveCPU");
         StringBuilder maximumCpu = new StringBuilder();
         if(maxCPUs!=1) maximumCpu.append(maxCPUs).append('x');
-        maximumCpu.append(expensiveCPU.getResource().toString(userLocale));
+        maximumCpu.append(expensiveCPU.getResourceType().toString(userLocale));
 
         // Add the CPU costs
         if(expensiveCPU.getAdditionalRate()!=null) maximumMonthly = maximumMonthly.add(expensiveCPU.getAdditionalRate().multiply(BigDecimal.valueOf(maxCPUs)));
@@ -327,7 +327,7 @@ public class ServerConfiguration {
         if(expensiveRAM==null) throw new SQLException("Unable to find expensiveRAM");
         StringBuilder maximumRam = new StringBuilder();
         if(maxRAMs>1) maximumRam.append(maxRAMs).append('x');
-        maximumRam.append(expensiveRAM.getResource().toString(userLocale));
+        maximumRam.append(expensiveRAM.getResourceType().toString(userLocale));
 
         // Add the RAM cost
         if(expensiveRAM.getAdditionalRate()!=null) maximumMonthly = maximumMonthly.add(expensiveRAM.getAdditionalRate().multiply(BigDecimal.valueOf(maxRAMs)));
@@ -336,7 +336,7 @@ public class ServerConfiguration {
         StringBuilder maximumSataController = new StringBuilder();
         if(expensiveSataController!=null) {
             if(maxSataControllers>1) maximumSataController.append(maxSataControllers).append('x');
-            maximumSataController.append(expensiveSataController.getResource().toString(userLocale));
+            maximumSataController.append(expensiveSataController.getResourceType().toString(userLocale));
         }
 
         // Add the SataController cost
@@ -346,7 +346,7 @@ public class ServerConfiguration {
         StringBuilder maximumScsiController = new StringBuilder();
         if(expensiveScsiController!=null) {
             if(maxScsiControllers>1) maximumScsiController.append(maxScsiControllers).append('x');
-            maximumScsiController.append(expensiveScsiController.getResource().toString(userLocale));
+            maximumScsiController.append(expensiveScsiController.getResourceType().toString(userLocale));
         }
 
         // Add the ScsiController cost

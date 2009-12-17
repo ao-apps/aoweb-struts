@@ -9,10 +9,10 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.CreditCard;
-import com.aoindustries.sql.SQLUtility;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -95,9 +95,9 @@ public class MakePaymentStoredCardAction extends PermissionAction {
         }
 
         // Prompt for amount of payment defaults to current balance.
-        int balance = business.getAccountBalance();
-        if(balance>0) {
-            makePaymentStoredCardForm.setPaymentAmount(SQLUtility.getDecimal(balance));
+        BigDecimal balance = business.getAccountBalance();
+        if(balance.compareTo(BigDecimal.ZERO)>0) {
+            makePaymentStoredCardForm.setPaymentAmount(balance.toPlainString());
         } else {
             makePaymentStoredCardForm.setPaymentAmount("");
         }

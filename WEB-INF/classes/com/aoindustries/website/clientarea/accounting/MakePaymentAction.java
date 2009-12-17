@@ -10,6 +10,7 @@ import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -48,7 +49,7 @@ public class MakePaymentAction extends AuthenticatedAction {
                 || (
                     business.getCanceled()==-1
                     && !business.billParent()
-                ) || business.getAccountBalance()!=0
+                ) || business.getAccountBalance().compareTo(BigDecimal.ZERO)!=0
             ) businesses.add(business);
         }
         if(businesses.size()==1) {

@@ -12,6 +12,7 @@ import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,7 +53,7 @@ public class CreditCardManagerAction extends PermissionAction {
                 || (
                     business.getCanceled()==-1
                     && !business.billParent()
-                ) || business.getAccountBalance()!=0
+                ) || business.getAccountBalance().compareTo(BigDecimal.ZERO)!=0
             ) {
                 boolean hasActiveCard = false;
                 for(CreditCard cc : ccs) {

@@ -5,6 +5,7 @@
   All rights reserved.
 --%>
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
+<%@ page import="java.math.BigDecimal" %>
 <%@include file="/_taglibs.jsp" %>
 
 <skin:setContentType />
@@ -68,16 +69,16 @@
                             <tr>
                                 <th style='white-space:nowrap' align='left'><fmt:message key="makePaymentStoredCardCompleted.newBalance.prompt" /></th>
                                 <td style="white-space:nowrap">
-                                    <% int balance = business.getAccountBalance(); %>
-                                    <% if(balance==0) { %>
+                                    <% BigDecimal balance = business.getAccountBalance(); %>
+                                    <% if(balance.compareTo(BigDecimal.ZERO)==0) { %>
                                         <fmt:message key="makePaymentStoredCardCompleted.newBalance.value.zero" />
-                                    <% } else if(balance<0) { %>
+                                    <% } else if(balance.compareTo(BigDecimal.ZERO)<0) { %>
                                         <fmt:message key="makePaymentStoredCardCompleted.newBalance.value.credit">
-                                            <fmt:param><c:out value="<%= com.aoindustries.sql.SQLUtility.getDecimal(-balance) %>" /></fmt:param>
+                                            <fmt:param><c:out value="<%= balance.negate().toPlainString() %>" /></fmt:param>
                                         </fmt:message>
                                     <% } else { %>
                                         <fmt:message key="makePaymentStoredCardCompleted.newBalance.value.debt">
-                                            <fmt:param><c:out value="<%= com.aoindustries.sql.SQLUtility.getDecimal(balance) %>" /></fmt:param>
+                                            <fmt:param><c:out value="<%= balance.toPlainString() %>" /></fmt:param>
                                         </fmt:message>
                                     <% } %>
                                 </td>

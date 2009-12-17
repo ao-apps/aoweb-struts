@@ -136,7 +136,7 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
                 // Only required when there is at least one power option available
                 boolean found = false;
                 for(PackageDefinitionLimit limit : limits) {
-                    if(limit.getResource().getName().startsWith("hardware_power_")) {
+                    if(limit.getResourceType().getName().startsWith("hardware_power_")) {
                         found=true;
                         break;
                     }
@@ -149,7 +149,7 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
                 // Only required when there is at least one power option available
                 boolean found = false;
                 for(PackageDefinitionLimit limit : limits) {
-                    if(limit.getResource().getName().startsWith("hardware_disk_controller_sata_")) {
+                    if(limit.getResourceType().getName().startsWith("hardware_disk_controller_sata_")) {
                         found=true;
                         break;
                     }
@@ -160,7 +160,7 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
                 // Only required when there is at least one power option available
                 boolean found = false;
                 for(PackageDefinitionLimit limit : limits) {
-                    if(limit.getResource().getName().startsWith("hardware_disk_controller_scsi_")) {
+                    if(limit.getResourceType().getName().startsWith("hardware_disk_controller_scsi_")) {
                         found=true;
                         break;
                     }
