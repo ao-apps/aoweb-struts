@@ -9,7 +9,7 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.MySQLServer;
-import com.aoindustries.aoserv.client.MySQLServerUser;
+import com.aoindustries.aoserv.client.MySQLUser;
 import com.aoindustries.aoserv.client.Server;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
@@ -70,9 +70,9 @@ public class MySQLPasswordSetterCompletedAction extends PermissionAction {
                 String serverName = mySQLServers.get(c);
                 MySQLServer ms = aoServer.getMySQLServer(serverName);
                 if(ms==null) throw new SQLException("Unable to find MySQLServer: "+serverName+" on "+hostname);
-                MySQLServerUser msu = ms.getMySQLServerUser(username);
-                if(msu==null) throw new SQLException("Unable to find MySQLServerUser: "+username+" on "+serverName+" on "+hostname);
-                msu.setPassword(newPassword);
+                MySQLUser mu = ms.getMySQLUser(username);
+                if(mu==null) throw new SQLException("Unable to find MySQLUser: "+username+" on "+serverName+" on "+hostname);
+                mu.setPassword(newPassword);
                 messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.mySQLPasswordSetter.field.confirmPasswords.passwordReset"));
                 newPasswords.set(c, "");
                 confirmPasswords.set(c, "");
@@ -84,6 +84,6 @@ public class MySQLPasswordSetterCompletedAction extends PermissionAction {
     }
 
     public List<AOServPermission.Permission> getPermissions() {
-        return Collections.singletonList(AOServPermission.Permission.set_mysql_server_user_password);
+        return Collections.singletonList(AOServPermission.Permission.set_mysql_user_password);
     }
 }

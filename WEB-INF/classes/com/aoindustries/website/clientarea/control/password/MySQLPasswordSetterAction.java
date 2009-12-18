@@ -8,7 +8,6 @@ package com.aoindustries.website.clientarea.control.password;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.MySQLServer;
-import com.aoindustries.aoserv.client.MySQLServerUser;
 import com.aoindustries.aoserv.client.MySQLUser;
 import com.aoindustries.aoserv.client.Username;
 import com.aoindustries.website.PermissionAction;
@@ -44,19 +43,18 @@ public class MySQLPasswordSetterAction extends PermissionAction {
     ) throws Exception {
         MySQLPasswordSetterForm mySQLPasswordSetterForm = (MySQLPasswordSetterForm)form;
 
-        List<MySQLServerUser> msus = aoConn.getMysqlServerUsers().getRows();
+        List<MySQLUser> mus = aoConn.getMysqlUsers().getRows();
 
-        List<String> businesses = new ArrayList<String>(msus.size());
-        List<String> usernames = new ArrayList<String>(msus.size());
-        List<String> mySQLServers = new ArrayList<String>(msus.size());
-        List<String> aoServers = new ArrayList<String>(msus.size());
-        List<String> newPasswords = new ArrayList<String>(msus.size());
-        List<String> confirmPasswords = new ArrayList<String>(msus.size());
-        for(MySQLServerUser msu : msus) {
-            if(msu.canSetPassword()) {
-                MySQLUser mu = msu.getMySQLUser();
+        List<String> businesses = new ArrayList<String>(mus.size());
+        List<String> usernames = new ArrayList<String>(mus.size());
+        List<String> mySQLServers = new ArrayList<String>(mus.size());
+        List<String> aoServers = new ArrayList<String>(mus.size());
+        List<String> newPasswords = new ArrayList<String>(mus.size());
+        List<String> confirmPasswords = new ArrayList<String>(mus.size());
+        for(MySQLUser mu : mus) {
+            if(mu.canSetPassword()) {
                 Username un = mu.getUsername();
-                MySQLServer ms = msu.getMySQLServer();
+                MySQLServer ms = mu.getMySQLServer();
                 businesses.add(un.getBusiness().getAccounting());
                 usernames.add(un.getUsername());
                 mySQLServers.add(ms.getName());
@@ -78,6 +76,6 @@ public class MySQLPasswordSetterAction extends PermissionAction {
     }
 
     public List<AOServPermission.Permission> getPermissions() {
-        return Collections.singletonList(AOServPermission.Permission.set_mysql_server_user_password);
+        return Collections.singletonList(AOServPermission.Permission.set_mysql_user_password);
     }
 }

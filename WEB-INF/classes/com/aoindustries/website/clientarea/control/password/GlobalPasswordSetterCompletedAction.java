@@ -74,7 +74,7 @@ public class GlobalPasswordSetterCompletedAction extends PermissionAction {
         List<AOServPermission.Permission> permissions = new ArrayList<AOServPermission.Permission>();
         permissions.add(AOServPermission.Permission.set_business_administrator_password);
         permissions.add(AOServPermission.Permission.set_linux_server_account_password);
-        permissions.add(AOServPermission.Permission.set_mysql_server_user_password);
+        permissions.add(AOServPermission.Permission.set_mysql_user_password);
         permissions.add(AOServPermission.Permission.set_postgres_server_user_password);
         return permissions;
     }
