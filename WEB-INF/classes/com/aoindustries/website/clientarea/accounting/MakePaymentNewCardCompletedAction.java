@@ -23,7 +23,6 @@ import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,7 +48,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         MakePaymentNewCardForm makePaymentNewCardForm=(MakePaymentNewCardForm)form;
 
@@ -112,15 +111,11 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         
         // 1) Pick a processor
         CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootConn);
-        if(rootProcessor==null) throw new SQLException("Unable to find enabled CreditCardProcessor for root connector");
         com.aoindustries.aoserv.client.CreditCardProcessor rootAoProcessor = rootConn.getCreditCardProcessors().get(rootProcessor.getProviderId());
-        if(rootAoProcessor==null) throw new SQLException("Unable to find CreditCardProcessor: "+rootProcessor.getProviderId());
 
         // 2) Add the transaction as pending on this processor
         Business rootBusiness = rootConn.getBusinesses().get(accounting);
-        if(rootBusiness==null) throw new SQLException("Unable to find Business: "+accounting);
         TransactionType paymentTransactionType = rootConn.getTransactionTypes().get(TransactionType.PAYMENT);
-        if(paymentTransactionType==null) throw new SQLException("Unable to find TransactionType: "+TransactionType.PAYMENT);
         MessageResources applicationResources = (MessageResources)request.getAttribute("/clientarea/accounting/ApplicationResources");
         String paymentTypeName;
         if(cardNumber.startsWith("34") || cardNumber.startsWith("37")) {
@@ -138,7 +133,6 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         if(paymentTypeName==null) paymentType = null;
         else {
             paymentType = rootConn.getPaymentTypes().get(paymentTypeName);
-            if(paymentType==null) throw new SQLException("Unable to find PaymentType: "+paymentTypeName);
         }
 
         int transID = rootBusiness.addTransaction(
@@ -154,7 +148,6 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
             com.aoindustries.aoserv.client.Transaction.WAITING_CONFIRMATION
         );
         com.aoindustries.aoserv.client.Transaction aoTransaction = rootConn.getTransactions().get(transID);
-        if(aoTransaction==null) throw new SQLException("Unable to find Transaction: "+transID);
 
         // 3) Process
         AOServConnectorPrincipal principal = new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername());
@@ -242,10 +235,6 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                                 getServlet().log("Unable to store card", err);
                                 request.setAttribute("storeError", err);
                                 storeSuccess = false;
-                            } catch(SQLException err) {
-                                getServlet().log("Unable to store card", err);
-                                request.setAttribute("storeError", err);
-                                storeSuccess = false;
                             } catch(RuntimeException err) {
                                 getServlet().log("Unable to store card", err);
                                 request.setAttribute("storeError", err);
@@ -256,9 +245,6 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                                 try {
                                     setAutomatic(rootConn, newCreditCard, business);
                                     request.setAttribute("cardSetAutomatic", "true");
-                                } catch(SQLException err) {
-                                    getServlet().log("Unable to set automatic", err);
-                                    request.setAttribute("setAutomaticError", err);
                                 } catch(RuntimeException err) {
                                     getServlet().log("Unable to set automatic", err);
                                     request.setAttribute("setAutomaticError", err);
@@ -300,10 +286,6 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                                 getServlet().log("Unable to store card", err);
                                 request.setAttribute("storeError", err);
                                 storeSuccess = false;
-                            } catch(SQLException err) {
-                                getServlet().log("Unable to store card", err);
-                                request.setAttribute("storeError", err);
-                                storeSuccess = false;
                             } catch(RuntimeException err) {
                                 getServlet().log("Unable to store card", err);
                                 request.setAttribute("storeError", err);
@@ -314,9 +296,6 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                                 try {
                                     setAutomatic(rootConn, newCreditCard, business);
                                     request.setAttribute("cardSetAutomatic", "true");
-                                } catch(SQLException err) {
-                                    getServlet().log("Unable to set automatic", err);
-                                    request.setAttribute("setAutomaticError", err);
                                 } catch(RuntimeException err) {
                                     getServlet().log("Unable to set automatic", err);
                                     request.setAttribute("setAutomaticError", err);
@@ -333,7 +312,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         }
     }
     
-    private void storeCard(CreditCardProcessor rootProcessor, AOServConnectorPrincipal principal, BusinessGroup businessGroup, com.aoindustries.creditcards.CreditCard newCreditCard, Locale locale) throws SQLException, IOException {
+    private void storeCard(CreditCardProcessor rootProcessor, AOServConnectorPrincipal principal, BusinessGroup businessGroup, com.aoindustries.creditcards.CreditCard newCreditCard, Locale locale) throws IOException {
         rootProcessor.storeCreditCard(
             principal,
             businessGroup,
@@ -347,11 +326,10 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
      *                   Otherwise there is a race condition between the non-root AOServConnector getting the invalidation signal
      *                   and this method being called.
      */
-    private void setAutomatic(AOServConnector rootConn, com.aoindustries.creditcards.CreditCard newCreditCard, Business business) throws SQLException, IOException {
+    private void setAutomatic(AOServConnector rootConn, com.aoindustries.creditcards.CreditCard newCreditCard, Business business) throws IOException {
         String persistenceUniqueId = newCreditCard.getPersistenceUniqueId();
         CreditCard creditCard = rootConn.getCreditCards().get(Integer.parseInt(persistenceUniqueId));
-        if(creditCard==null) throw new SQLException("Unable to find CreditCard: "+persistenceUniqueId);
-        if(!creditCard.getBusiness().equals(business)) throw new SQLException("Requested business and CreditCard business do not match: "+creditCard.getBusiness().getAccounting()+"!="+business.getAccounting());
+        if(!creditCard.getBusiness().equals(business)) throw new AssertionError("Requested business and CreditCard business do not match: "+creditCard.getBusiness().getAccounting()+"!="+business.getAccounting());
         business.setUseMonthlyCreditCard(creditCard);
     }
 }

@@ -38,7 +38,7 @@ public class EditAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         TicketForm ticketForm = (TicketForm)form;
 
@@ -66,7 +66,7 @@ public class EditAction extends PermissionAction {
 
         // Populate the ticket form
         Business business = ticket.getBusiness();
-        ticketForm.setAccounting(business==null ? "" : business.getAccounting());
+        ticketForm.setAccounting(business==null ? "" : business.getAccounting().getAccounting());
         ticketForm.setClientPriority(ticket.getClientPriority().getPriority());
         ticketForm.setContactEmails(ticket.getContactEmails());
         ticketForm.setContactPhoneNumbers(ticket.getContactPhoneNumbers());

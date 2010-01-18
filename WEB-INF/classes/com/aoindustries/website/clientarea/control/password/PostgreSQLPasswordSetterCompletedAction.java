@@ -14,7 +14,6 @@ import com.aoindustries.aoserv.client.Server;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -40,7 +39,7 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         PostgreSQLPasswordSetterForm postgreSQLPasswordSetterForm = (PostgreSQLPasswordSetterForm)form;
 
@@ -64,14 +63,10 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
                 String username = usernames.get(c);
                 String hostname = aoServers.get(c);
                 Server server = aoConn.getServers().get(hostname);
-                if(server==null) throw new SQLException("Unable to find Server: "+server);
-                AOServer aoServer = server.getAOServer();
-                if(aoServer==null) throw new SQLException("Unable to find AOServer: "+aoServer);
+                AOServer aoServer = server.getAoServer();
                 String serverName = postgreSQLServers.get(c);
                 PostgresServer ps = aoServer.getPostgresServer(serverName);
-                if(ps==null) throw new SQLException("Unable to find PostgresServer: "+serverName+" on "+hostname);
                 PostgresServerUser psu = ps.getPostgresServerUser(username);
-                if(psu==null) throw new SQLException("Unable to find PostgresServerUser: "+username+" on "+serverName+" on "+hostname);
                 psu.setPassword(newPassword);
                 messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.postgreSQLPasswordSetter.field.confirmPasswords.passwordReset"));
                 newPasswords.set(c, "");

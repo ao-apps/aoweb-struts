@@ -13,7 +13,6 @@ import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.signup.SignupBusinessActionHelper;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -43,7 +42,7 @@ public class EditCreditCardAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         EditCreditCardForm editCreditCardForm=(EditCreditCardForm)form;
 
@@ -92,7 +91,7 @@ public class EditCreditCardAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    protected void initRequestAttributes(HttpServletRequest request, ServletContext context) throws SQLException, IOException {
+    protected void initRequestAttributes(HttpServletRequest request, ServletContext context) throws IOException {
         // Build the list of years
         List<String> expirationYears = new ArrayList<String>(12);
         int startYear = Calendar.getInstance().get(Calendar.YEAR);

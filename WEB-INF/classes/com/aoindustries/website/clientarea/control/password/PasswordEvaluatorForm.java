@@ -19,6 +19,7 @@ public class PasswordEvaluatorForm extends ValidatorForm implements Serializable
 
     private String password;
 
+    @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         super.reset(mapping, request);
         setPassword("");

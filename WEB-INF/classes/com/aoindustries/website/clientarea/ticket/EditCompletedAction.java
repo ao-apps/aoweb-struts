@@ -13,7 +13,6 @@ import com.aoindustries.aoserv.client.TicketPriority;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,7 +40,7 @@ public class EditCompletedAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         TicketForm ticketForm = (TicketForm)form;
 
@@ -78,8 +77,7 @@ public class EditCompletedAction extends PermissionAction {
         boolean annotationAdded = false;
 
         // Update anything that changed
-        Business newBusiness = aoConn.getBusinesses().get(ticketForm.getAccounting());
-        if(newBusiness==null) throw new SQLException("Unable to find Business: "+ticketForm.getAccounting());
+        Business newBusiness = aoConn.getBusinesses().get(AccountingCode.valueOf(ticketForm.getAccounting()));
         Business oldBusiness = ticket.getBusiness();
         if(!newBusiness.equals(oldBusiness)) {
             ticket.setBusiness(oldBusiness, newBusiness);
@@ -94,7 +92,6 @@ public class EditCompletedAction extends PermissionAction {
             contactPhoneNumbersUpdated = true;
         }
         TicketPriority clientPriority = aoConn.getTicketPriorities().get(ticketForm.getClientPriority());
-        if(clientPriority==null) throw new SQLException("Unable to find TicketPriority: "+ticketForm.getClientPriority());
         if(!clientPriority.equals(ticket.getClientPriority())) {
             ticket.setClientPriority(clientPriority);
             clientPriorityUpdated = true;

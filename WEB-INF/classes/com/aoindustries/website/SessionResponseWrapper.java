@@ -10,7 +10,6 @@ import com.aoindustries.util.WrappedException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
@@ -90,8 +89,6 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             throw new WrappedException(err);
         } catch(IOException err) {
             throw new WrappedException(err);
-        } catch(SQLException err) {
-            throw new WrappedException(err);
         }
     }
 
@@ -143,8 +140,6 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             throw new WrappedException(err);
         } catch(IOException err) {
             throw new WrappedException(err);
-        } catch(SQLException err) {
-            throw new WrappedException(err);
         }
     }
 
@@ -159,7 +154,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
     /**
      * Adds the no cookie parameters (language and layout) if needed and not already set.
      */
-    private String addNoCookieParameters(String url, boolean isRedirect) throws JspException, UnsupportedEncodingException, IOException, SQLException {
+    private String addNoCookieParameters(String url, boolean isRedirect) throws JspException, UnsupportedEncodingException, IOException {
         HttpSession session = request.getSession();
         if(session.isNew() || request.isRequestedSessionIdFromURL()) {
             // Don't add for certains file types

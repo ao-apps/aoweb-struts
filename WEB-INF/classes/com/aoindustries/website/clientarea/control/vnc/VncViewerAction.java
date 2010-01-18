@@ -38,7 +38,7 @@ public class VncViewerAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         try {
             VirtualServer virtualServer = aoConn.getVirtualServers().get(Integer.parseInt(request.getParameter("virtualServer")));

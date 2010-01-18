@@ -14,7 +14,6 @@ import com.aoindustries.aoserv.client.Server;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -40,7 +39,7 @@ public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction 
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         LinuxAccountPasswordSetterForm linuxAccountPasswordSetterForm = (LinuxAccountPasswordSetterForm)form;
 
@@ -62,14 +61,10 @@ public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction 
             if(newPassword.length()>0) {
                 String username = usernames.get(c);
                 LinuxAccount la = aoConn.getLinuxAccounts().get(username);
-                if(la==null) throw new SQLException("Unable to find LinuxAccount: "+username);
                 String hostname = aoServers.get(c);
                 Server server = aoConn.getServers().get(hostname);
-                if(server==null) throw new SQLException("Unable to find Server: "+server);
-                AOServer aoServer = server.getAOServer();
-                if(aoServer==null) throw new SQLException("Unable to find AOServer: "+aoServer);
+                AOServer aoServer = server.getAoServer();
                 LinuxServerAccount lsa = la.getLinuxServerAccount(aoServer);
-                if(lsa==null) throw new SQLException("Unable to find LinuxServerAccount: "+username+" on "+hostname);
                 lsa.setPassword(newPassword);
                 messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.linuxAccountPasswordSetter.field.confirmPasswords.passwordReset"));
                 newPasswords.set(c, "");

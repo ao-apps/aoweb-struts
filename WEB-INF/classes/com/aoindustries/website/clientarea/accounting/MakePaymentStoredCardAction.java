@@ -41,7 +41,7 @@ public class MakePaymentStoredCardAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn,
+        AOServConnector<?,?> aoConn,
         List<AOServPermission> permissions
     ) throws Exception {
         // Redirect when they don't have permissions to retrieve stored cards
@@ -58,7 +58,7 @@ public class MakePaymentStoredCardAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         MakePaymentStoredCardForm makePaymentStoredCardForm = (MakePaymentStoredCardForm)form;
 

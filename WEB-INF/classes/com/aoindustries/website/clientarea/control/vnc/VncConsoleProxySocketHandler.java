@@ -24,7 +24,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import javax.net.ssl.SSLHandshakeException;
@@ -241,7 +240,6 @@ public class VncConsoleProxySocketHandler {
                                     }
                                 } else {
                                     if (result == AOServDaemonProtocol.IO_EXCEPTION) throw new IOException(daemonIn.readUTF());
-                                    else if (result == AOServDaemonProtocol.SQL_EXCEPTION) throw new SQLException(daemonIn.readUTF());
                                     else if (result==-1) throw new EOFException("EOF from daemonIn");
                                     else throw new IOException("Unknown result: " + result);
                                 }

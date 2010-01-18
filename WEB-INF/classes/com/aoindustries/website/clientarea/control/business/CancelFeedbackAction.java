@@ -37,7 +37,7 @@ public class CancelFeedbackAction  extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         String business = request.getParameter("business");
         Business bu;

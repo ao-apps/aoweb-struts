@@ -8,7 +8,6 @@ package com.aoindustries.website;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +30,7 @@ import org.apache.struts.action.ActionMapping;
  */
 abstract public class PermissionAction extends AuthenticatedAction {
 
+    @Override
     final public ActionForward execute(
         ActionMapping mapping,
         ActionForm form,
@@ -39,7 +39,7 @@ abstract public class PermissionAction extends AuthenticatedAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         List<AOServPermission.Permission> permissions = getPermissions();
         
@@ -62,11 +62,10 @@ abstract public class PermissionAction extends AuthenticatedAction {
         BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
         // Return denied on first missing permission
         for(AOServPermission.Permission permission : permissions) {
-            if(!thisBA.hasPermission(permission)) {
+            if(!thisBA.hasPermission(permission.name())) {
                 List<AOServPermission> aoPerms = new ArrayList<AOServPermission>(permissions.size());
                 for(AOServPermission.Permission requiredPermission : permissions) {
-                    AOServPermission aoPerm = aoConn.getAoservPermissions().get(requiredPermission);
-                    if(aoPerm==null) throw new SQLException("Unable to find AOServPermission: "+requiredPermission);
+                    AOServPermission aoPerm = aoConn.getAoservPermissions().get(requiredPermission.name());
                     aoPerms.add(aoPerm);
                 }
                 return executePermissionDenied(
@@ -99,7 +98,7 @@ abstract public class PermissionAction extends AuthenticatedAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         return mapping.findForward("success");
     }
@@ -117,7 +116,7 @@ abstract public class PermissionAction extends AuthenticatedAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn,
+        AOServConnector<?,?> aoConn,
         List<AOServPermission> permissions
     ) throws Exception {
         request.setAttribute(Constants.PERMISSION_DENIED, permissions);

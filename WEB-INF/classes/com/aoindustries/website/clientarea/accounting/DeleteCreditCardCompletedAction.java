@@ -15,7 +15,6 @@ import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -41,7 +40,7 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         // Make sure the credit card still exists, redirect to credit-card-manager if doesn't
         CreditCard creditCard = null;
@@ -61,7 +60,6 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
         // Lookup the card in the root connector (to get access to the processor)
         AOServConnector rootConn = siteSettings.getRootAOServConnector();
         CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
-        if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPkey());
 
         // Delete the card from the bank and persistence
         CreditCardProcessor rootAoservCCP = rootCreditCard.getCreditCardProcessor();

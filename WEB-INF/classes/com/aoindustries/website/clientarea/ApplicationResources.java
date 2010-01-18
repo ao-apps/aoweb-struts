@@ -36,7 +36,7 @@ public final class ApplicationResources extends EditableResourceBundle {
         );
     }
 
-    private static final ApplicationResourcesAccessor accessor = new ApplicationResourcesAccessor(bundleSet.getBaseName());
+    private static final ApplicationResourcesAccessor accessor = ApplicationResourcesAccessor.getInstance(bundleSet.getBaseName());
 
     public static String getMessage(Locale locale, String key) {
         return accessor.getMessage(locale, key);

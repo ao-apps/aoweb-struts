@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.aoindustries.website.skintags.PageAttributes;
 import com.aoindustries.website.skintags.Parent;
 import java.net.URLEncoder;
-import java.sql.SQLException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
@@ -140,7 +139,7 @@ public class TextSkin extends Skin {
             out.print("    <meta http-equiv=\"Content-Style-Type\" content=\"text/css\" />\n"
                     + "    <meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\" />\n");
             // If this is an authenticated page, redirect to session timeout after one hour
-            AOServConnector aoConn = AuthenticatedAction.getAoConn(req, resp);
+            AOServConnector<?,?> aoConn = AuthenticatedAction.getAoConn(req, resp);
             if(isOkResponseStatus && aoConn!=null) {
                 out.print("    <meta http-equiv=\"Refresh\" content=\"");
                 out.print(Math.max(60, session.getMaxInactiveInterval()-60));
@@ -408,8 +407,6 @@ public class TextSkin extends Skin {
             printCommonPages(req, resp, out);
         } catch(IOException err) {
             throw new JspException(err);
-        } catch(SQLException err) {
-            throw new JspException(err);
         }
     }
 
@@ -620,8 +617,6 @@ public class TextSkin extends Skin {
             printGoogleAnalyticsTrackPageViewScript(req, out, SiteSettings.getInstance(req.getSession().getServletContext()).getBrand().getAowebStrutsGoogleAnalyticsNewTrackingCode());
             out.print("  </body>\n");
         } catch(IOException err) {
-            throw new JspException(err);
-        } catch(SQLException err) {
             throw new JspException(err);
         }
     }

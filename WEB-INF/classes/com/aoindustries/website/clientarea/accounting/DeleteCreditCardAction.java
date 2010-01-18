@@ -37,7 +37,7 @@ public class DeleteCreditCardAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         // Make sure the credit card still exists, redirect to credit-card-manager if doesn't
         CreditCard creditCard = null;

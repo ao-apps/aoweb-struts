@@ -5,19 +5,21 @@ package com.aoindustries.website;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.aoserv.client.AOServClientConfiguration;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Brand;
+import com.aoindustries.aoserv.client.validator.UserId;
+import com.aoindustries.aoserv.client.validator.ValidationException;
+import com.aoindustries.security.LoginException;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,7 +36,8 @@ public class SiteSettings {
      * This logger doesn't use the ticket handler to avoid logging loops
      * due to RootAOServConnector being used as part of the logging process.
      */
-    private static final Logger logger = Logger.getLogger(SiteSettings.class.getName());
+    //private static final Logger logger = Logger.getLogger(SiteSettings.class.getName());
+
     // <editor-fold desc="Instance Selection">
     /**
      * Only one instance is created per unique classname.
@@ -99,8 +102,14 @@ public class SiteSettings {
      *
      * @see #getRootAOServConnector()
      */
-    protected String getRootAOServConnectorUsername() {
-        return servletContext.getInitParameter("root.aoserv.client.username");
+    protected UserId getRootAOServConnectorUsername() throws IOException {
+        try {
+            return UserId.valueOf(servletContext.getInitParameter("root.aoserv.client.username"));
+        } catch(ValidationException err) {
+            IOException ioErr = new IOException(err.getMessage());
+            ioErr.initCause(err);
+            throw ioErr;
+        }
     }
 
     /**
@@ -112,21 +121,26 @@ public class SiteSettings {
         return servletContext.getInitParameter("root.aoserv.client.password");
     }
 
-    private AOServConnector rootAOServConnector = null;
+    private AOServConnector<?,?> rootAOServConnector = null;
     private final Object rootAOServConnectorLock = new Object();
 
     /**
      * Gets the root connector.  Because this potentially has unrestricted privileges, this must be used at an absolute minimum for situations
      * where a user isn't logged-in but access to the master is required, such as for sign up requests.
      */
-    public AOServConnector getRootAOServConnector() throws IOException {
+    public AOServConnector<?,?> getRootAOServConnector() throws IOException {
         synchronized(rootAOServConnectorLock) {
             if(rootAOServConnector==null) {
-                rootAOServConnector = AOServConnector.getConnector(
-                    getRootAOServConnectorUsername(),
-                    getRootAOServConnectorPassword(),
-                    logger
-                );
+                try {
+                    rootAOServConnector = AOServClientConfiguration.getConnector(
+                        getRootAOServConnectorUsername(),
+                        getRootAOServConnectorPassword()
+                    );
+                } catch(LoginException err) {
+                    IOException ioErr = new IOException(err.getMessage());
+                    ioErr.initCause(err);
+                    throw ioErr;
+                }
             }
             return rootAOServConnector;
         }
@@ -137,9 +151,9 @@ public class SiteSettings {
      * site's RootAOServConnector and should therefore be used carefully to not
      * allow privilege escelation.
      */
-    public Brand getBrand() throws IOException, SQLException {
+    public Brand getBrand() throws IOException {
         Brand br = getRootAOServConnector().getThisBusinessAdministrator().getUsername().getBusiness().getBrand();
-        if(br==null) throw new SQLException("Unable to find Brand for username="+getRootAOServConnectorUsername());
+        if(br==null) throw new AssertionError("Unable to find Brand for username="+getRootAOServConnectorUsername());
         return br;
     }
     // </editor-fold>
@@ -153,7 +167,7 @@ public class SiteSettings {
      *
      * The off version is created by filling with black, opacity 25% in gimp 2.
      */
-    public List<Skin.Language> getLanguages(HttpServletRequest req) throws IOException, SQLException {
+    public List<Skin.Language> getLanguages(HttpServletRequest req) throws IOException {
         HttpSession session = req.getSession();
         Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
         if(locale==null) locale = Locale.getDefault(); // Can't use: LocaleAction.getDefaultLocale(req); due to stack overflow

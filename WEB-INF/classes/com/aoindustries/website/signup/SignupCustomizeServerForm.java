@@ -14,7 +14,6 @@ import com.aoindustries.website.SessionActionForm;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts.action.ActionErrors;
@@ -172,8 +171,6 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
             if(!foundDisk) errors.add("diskOptions", new ActionMessage("signupCustomizeServerForm.atLeastOneDisk"));
             return errors;
         } catch(IOException err) {
-            throw new WrappedException(err);
-        } catch(SQLException err) {
             throw new WrappedException(err);
         }
     }

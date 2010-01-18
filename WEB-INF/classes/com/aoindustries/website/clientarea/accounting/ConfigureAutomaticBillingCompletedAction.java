@@ -12,7 +12,6 @@ import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,7 +39,7 @@ public class ConfigureAutomaticBillingCompletedAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         // Business must be selected and accessible
         String accounting = request.getParameter("accounting");
@@ -63,7 +62,7 @@ public class ConfigureAutomaticBillingCompletedAction extends PermissionAction {
         } else {
             creditCard = aoConn.getCreditCards().get(Integer.parseInt(pkey));
             if(creditCard==null) return mapping.findForward("credit-card-manager");
-            if(!creditCard.getBusiness().equals(business)) throw new SQLException("Requested business and CreditCard business do not match: "+creditCard.getBusiness().getAccounting()+"!="+business.getAccounting());
+            if(!creditCard.getBusiness().equals(business)) throw new AssertionError("Requested business and CreditCard business do not match: "+creditCard.getBusiness().getAccounting()+"!="+business.getAccounting());
         }
 
         business.setUseMonthlyCreditCard(creditCard);

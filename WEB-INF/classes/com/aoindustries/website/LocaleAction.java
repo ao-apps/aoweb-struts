@@ -6,7 +6,6 @@ package com.aoindustries.website;
  * All rights reserved.
  */
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +54,7 @@ public class LocaleAction extends SiteSettingsAction {
      * <p>Also allows the parameter "language" to override the current settings.</p>
      * <p>This also sets the struts, JSTL, and response locales to the same value.</p>
      */
-    public static Locale getEffectiveLocale(SiteSettings siteSettings, HttpServletRequest request, HttpServletResponse response) throws JspException, IOException, SQLException {
+    public static Locale getEffectiveLocale(SiteSettings siteSettings, HttpServletRequest request, HttpServletResponse response) throws JspException, IOException {
         HttpSession session = request.getSession();
         List<Skin.Language> languages = siteSettings.getLanguages(request);
         Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
@@ -98,7 +97,7 @@ public class LocaleAction extends SiteSettingsAction {
      * Gets the default locale for the provided request.  The session is not
      * set.
      */
-    public static Locale getDefaultLocale(SiteSettings siteSettings, HttpServletRequest request) throws JspException, IOException, SQLException {
+    public static Locale getDefaultLocale(SiteSettings siteSettings, HttpServletRequest request) throws JspException, IOException {
         return getDefaultLocale(siteSettings.getLanguages(request));
     }
 

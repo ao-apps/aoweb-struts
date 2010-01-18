@@ -12,7 +12,6 @@ import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,7 +40,7 @@ final public class SignupSelectServerActionHelper {
         HttpServletRequest request,
         HttpServletResponse response,
         String packageCategoryName
-    ) throws IOException, SQLException {
+    ) throws IOException {
         List<Server> servers = getServers(servletContext, packageCategoryName, response.getLocale());
         
         request.setAttribute("servers", servers);
@@ -50,7 +49,7 @@ final public class SignupSelectServerActionHelper {
     /**
      * Gets the possible servers ordered by minimum monthly rate.
      */
-    public static List<Server> getServers(ServletContext servletContext, String packageCategoryName, Locale userLocale) throws IOException, SQLException {
+    public static List<Server> getServers(ServletContext servletContext, String packageCategoryName, Locale userLocale) throws IOException {
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageCategory category = rootConn.getPackageCategories().get(packageCategoryName);
         Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getBusiness();
@@ -104,7 +103,7 @@ final public class SignupSelectServerActionHelper {
         ServletContext servletContext,
         HttpServletRequest request,
         SignupSelectPackageForm signupSelectPackageForm
-    ) throws IOException, SQLException {
+    ) throws IOException {
         // Lookup things needed by the view
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());

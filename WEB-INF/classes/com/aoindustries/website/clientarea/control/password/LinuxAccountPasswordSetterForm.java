@@ -13,7 +13,6 @@ import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.AuthenticatedAction;
 import java.io.IOException;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -91,7 +90,7 @@ public class LinuxAccountPasswordSetterForm extends ActionForm implements Serial
         try {
             ActionErrors errors = super.validate(mapping, request);
             if(errors==null) errors = new ActionErrors();
-            AOServConnector aoConn = AuthenticatedAction.getAoConn(request, null);
+            AOServConnector<?,?> aoConn = AuthenticatedAction.getAoConn(request, null);
             if(aoConn==null) throw new RuntimeException("aoConn is null");
             Locale locale = (Locale)request.getSession().getAttribute(Globals.LOCALE_KEY);
 
@@ -104,22 +103,16 @@ public class LinuxAccountPasswordSetterForm extends ActionForm implements Serial
                     if(newPassword.length()>0) {
                         String username = usernames.get(c);
                         LinuxAccount la = aoConn.getLinuxAccounts().get(username);
-                        if(la==null) {
-                            throw new AssertionError("Unable to find LinuxAccount: "+username);
-                        } else {
-                            // Check the password strength
-                            PasswordChecker.Result[] results = LinuxAccount.checkPassword(locale, username, la.getType().getName(), newPassword);
-                            if(PasswordChecker.hasResults(locale, results)) {
-                                errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
-                            }
+                        // Check the password strength
+                        PasswordChecker.Result[] results = LinuxAccount.checkPassword(locale, username, la.getType().getName(), newPassword);
+                        if(PasswordChecker.hasResults(locale, results)) {
+                            errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                         }
                     }
                 }
             }
             return errors;
         } catch(IOException err) {
-            throw new WrappedException(err);
-        } catch(SQLException err) {
             throw new WrappedException(err);
         }
     }

@@ -10,7 +10,6 @@ import com.aoindustries.aoserv.client.CountryCode;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -35,7 +34,7 @@ final public class SignupBusinessActionHelper {
     public static void setRequestAttributes(
         ServletContext servletContext,
         HttpServletRequest request
-    ) throws IOException, SQLException {
+    ) throws IOException {
         AOServConnector rootConn=SiteSettings.getInstance(servletContext).getRootAOServConnector();
 
         // Build the list of countries
@@ -52,7 +51,7 @@ final public class SignupBusinessActionHelper {
      *
      * @see  RootAOServConnector
      */
-    public static List<CountryOption> getCountryOptions(AOServConnector aoConn) throws IOException, SQLException {
+    public static List<CountryOption> getCountryOptions(AOServConnector<?,?> aoConn) throws IOException {
         // Build the list of countries
         List<CountryOption> countryOptions = new ArrayList<CountryOption>();
         countryOptions.add(new CountryOption("", "---"));
@@ -90,7 +89,7 @@ final public class SignupBusinessActionHelper {
         }
     }
 
-    public static String getBusinessCountry(AOServConnector rootConn, SignupBusinessForm signupBusinessForm) throws IOException, SQLException {
+    public static String getBusinessCountry(AOServConnector rootConn, SignupBusinessForm signupBusinessForm) throws IOException {
         return rootConn.getCountryCodes().get(signupBusinessForm.getBusinessCountry()).getName();
     }
 
@@ -98,7 +97,7 @@ final public class SignupBusinessActionHelper {
         ServletContext servletContext,
         HttpServletRequest request,
         SignupBusinessForm signupBusinessForm
-    ) throws IOException, SQLException {
+    ) throws IOException {
         // Lookup things needed by the view
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
 
@@ -106,7 +105,7 @@ final public class SignupBusinessActionHelper {
         request.setAttribute("businessCountry", getBusinessCountry(rootConn, signupBusinessForm));
     }
 
-    public static void printConfirmation(ChainWriter emailOut, Locale userLocale, MessageResources signupApplicationResources, AOServConnector rootConn, SignupBusinessForm signupBusinessForm) throws IOException, SQLException {
+    public static void printConfirmation(ChainWriter emailOut, Locale userLocale, MessageResources signupApplicationResources, AOServConnector rootConn, SignupBusinessForm signupBusinessForm) throws IOException {
         emailOut.print("    <tr>\n"
                      + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.required")).print("</td>\n"
                      + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupBusinessForm.businessName.prompt")).print("</td>\n"

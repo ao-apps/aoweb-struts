@@ -36,7 +36,7 @@ public class CancelAction  extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         List<Business> businesses = aoConn.getBusinesses().getRows();
 

@@ -36,7 +36,7 @@ public class MakePaymentAction extends AuthenticatedAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         Business thisBusiness = aoConn.getThisBusinessAdministrator().getUsername().getBusiness();
 

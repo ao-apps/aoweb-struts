@@ -39,7 +39,7 @@ public class ConfigureAutomaticBillingAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         // Business must be selected and accessible
         String accounting = request.getParameter("accounting");

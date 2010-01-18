@@ -42,7 +42,7 @@ public class MakePaymentSelectCardAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn,
+        AOServConnector<?,?> aoConn,
         List<AOServPermission> permissions
     ) throws Exception {
         // Redirect when they don't have permissions to retrieve stored cards
@@ -59,7 +59,7 @@ public class MakePaymentSelectCardAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         // Find the requested business
         String accounting = request.getParameter("accounting");

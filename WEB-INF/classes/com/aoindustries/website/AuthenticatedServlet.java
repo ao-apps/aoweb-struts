@@ -25,7 +25,7 @@ abstract public class AuthenticatedServlet extends HttpServlet {
         HttpServletResponse response
     ) throws IOException {
         // Must be logged in
-        AOServConnector aoConn = (AOServConnector)request.getSession().getAttribute("aoConn");
+        AOServConnector<?,?> aoConn = (AOServConnector)request.getSession().getAttribute("aoConn");
         if(aoConn==null) {
             // Save target for later
             String target = request.getRequestURL().toString();
@@ -54,6 +54,6 @@ abstract public class AuthenticatedServlet extends HttpServlet {
     abstract public void doGet(
         HttpServletRequest request,
         HttpServletResponse response,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws IOException;
 }

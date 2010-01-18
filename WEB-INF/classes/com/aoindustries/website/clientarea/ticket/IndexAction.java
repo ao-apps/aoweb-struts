@@ -8,13 +8,14 @@ package com.aoindustries.website.clientarea.ticket;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Ticket;
 import com.aoindustries.aoserv.client.TicketStatus;
-import com.aoindustries.aoserv.client.TicketType;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.SiteSettings;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -37,9 +38,9 @@ public class IndexAction  extends AuthenticatedAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
-        List<Ticket> tickets = aoConn.getTickets().getRows();
+        SortedSet<Ticket> tickets = new TreeSet<Ticket>(aoConn.getTickets().getSet());
 
         List<Ticket> filteredTickets = new ArrayList<Ticket>(tickets.size());
         for(Ticket ticket : tickets) {

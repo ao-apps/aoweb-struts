@@ -11,10 +11,11 @@ import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.Language;
 import com.aoindustries.aoserv.client.TicketPriority;
 import com.aoindustries.aoserv.client.TicketType;
+import com.aoindustries.aoserv.client.validator.AccountingCode;
+import com.aoindustries.util.StringUtility;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -41,7 +42,7 @@ public class CreateCompletedAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         TicketForm ticketForm = (TicketForm)form;
 
@@ -52,19 +53,14 @@ public class CreateCompletedAction extends PermissionAction {
             return mapping.findForward("input");
         }
 
-        Business business = aoConn.getBusinesses().get(ticketForm.getAccounting());
-        if(business==null) throw new SQLException("Unable to find Business: "+ticketForm.getAccounting());
+        Business business = aoConn.getBusinesses().get(AccountingCode.valueOf(ticketForm.getAccounting()));
         Language language = aoConn.getLanguages().get(locale.getLanguage());
         if(language==null) {
             language = aoConn.getLanguages().get(Language.EN);
-            if(language==null) throw new SQLException("Unable to find Language: "+Language.EN);
         }
         TicketType ticketType = aoConn.getTicketTypes().get(TicketType.SUPPORT);
-        if(ticketType==null) throw new SQLException("Unable to find TicketType: "+TicketType.SUPPORT);
         TicketPriority clientPriority = aoConn.getTicketPriorities().get(ticketForm.getClientPriority());
-        if(clientPriority==null) throw new SQLException("Unable to find TicketPriority: "+ticketForm.getClientPriority());
-        int pkey = aoConn.getTickets().addTicket(
-            siteSettings.getBrand(),
+        int pkey = siteSettings.getBrand().addTicket(
             business,
             language,
             null,

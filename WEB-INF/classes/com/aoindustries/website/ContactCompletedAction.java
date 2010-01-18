@@ -9,7 +9,6 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Language;
 import com.aoindustries.aoserv.client.TicketPriority;
 import com.aoindustries.aoserv.client.TicketType;
-import java.sql.SQLException;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,16 +41,13 @@ public class ContactCompletedAction extends HttpsAction {
             return mapping.findForward("input");
         }
 
-        AOServConnector rootConn = siteSettings.getRootAOServConnector();
+        AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
         Language language = rootConn.getLanguages().get(locale.getLanguage());
         if(language==null) {
             language = rootConn.getLanguages().get(Language.EN);
-            if(language==null) throw new SQLException("Unable to find Language: "+Language.EN);
         }
         TicketType ticketType = rootConn.getTicketTypes().get(TicketType.CONTACT);
-        if(ticketType==null) throw new SQLException("Unable to find TicketType: "+TicketType.CONTACT);
         TicketPriority clientPriority = rootConn.getTicketPriorities().get(TicketPriority.NORMAL);
-        if(clientPriority==null) throw new SQLException("Unable to find TicketPriority: "+TicketPriority.NORMAL);
         rootConn.getTickets().addTicket(
             siteSettings.getBrand(),
             null,

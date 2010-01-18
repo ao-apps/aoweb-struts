@@ -15,11 +15,11 @@ import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.NoSuchElementException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
@@ -44,7 +44,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         MessageResources controlApplicationResources = (MessageResources)request.getAttribute("/clientarea/control/ApplicationResources");
         if(controlApplicationResources==null) throw new JspException("Unable to load resources: /clientarea/control/ApplicationResources");
@@ -58,7 +58,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
             AOServer failoverServer;
             try {
                 failoverServer = aoServer.getFailoverServer();
-            } catch(SQLException err) {
+            } catch(NoSuchElementException err) {
                 // May be filtered, need to use RootAOServConnector
                 failoverServer = rootConn.getAoServers().get(aoServer.getPkey()).getFailoverServer();
             }
@@ -82,7 +82,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                         FailoverFileReplication ffr = fmr.getFailoverFileReplication();
                         try {
                             slave = ffr.getBackupPartition().getAOServer().getHostname();
-                        } catch(SQLException err) {
+                        } catch(NoSuchElementException err) {
                             // May be filtered, need to use RootAOServConnector
                             slave = rootConn.getFailoverFileReplications().get(ffr.getPkey()).getBackupPartition().getAOServer().getHostname();
                         }
@@ -125,14 +125,6 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                                 )
                             );
                         }
-                    } catch(SQLException err) {
-                        replications.add(
-                            new ReplicationRow(
-                                true,
-                                slave,
-                                controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.sqlException", err.getMessage())
-                            )
-                        );
                     } catch(IOException err) {
                         replications.add(
                             new ReplicationRow(
@@ -164,14 +156,6 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                             replications
                         );
                     }
-                } catch(SQLException err) {
-                    masterStatus = null;
-                    mysqlServerRow = new MySQLServerRow(
-                        mysqlServer.getVersion().getVersion(),
-                        server.toString(),
-                        controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.sqlException", err.getMessage()),
-                        replications
-                    );
                 } catch(IOException err) {
                     masterStatus = null;
                     mysqlServerRow = new MySQLServerRow(

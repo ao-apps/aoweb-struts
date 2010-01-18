@@ -36,7 +36,7 @@ public class GlobalPasswordSetterAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         GlobalPasswordSetterForm globalPasswordSetterForm = (GlobalPasswordSetterForm)form;
 

@@ -9,7 +9,6 @@ import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.aoserv.client.PackageDefinitionLimit;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 
@@ -21,7 +20,7 @@ import java.util.Locale;
  */
 public class ServerConfiguration {
 
-    private static String getDiskDescription(int numDrives, PackageDefinitionLimit pdl, Locale userLocale) throws SQLException, IOException {
+    private static String getDiskDescription(int numDrives, PackageDefinitionLimit pdl, Locale userLocale) throws IOException {
         if(pdl==null || numDrives==0) return null;
         String description = pdl.getResourceType().toString(userLocale);
         if(numDrives==1) {
@@ -32,7 +31,7 @@ public class ServerConfiguration {
         }
     }
 
-    public static ServerConfiguration getMinimumConfiguration(PackageDefinition packageDefinition, Locale userLocale) throws SQLException, IOException {
+    public static ServerConfiguration getMinimumConfiguration(PackageDefinition packageDefinition, Locale userLocale) throws IOException {
         List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
 
         // Calculate the total minimum monthly
@@ -135,9 +134,9 @@ public class ServerConfiguration {
                 }
             }
         }
-        if(cheapestCPU==null) throw new SQLException("Unable to find cheapestCPU");
-        if(cheapestRAM==null) throw new SQLException("Unable to find cheapestRAM");
-        if(cheapestDisk==null) throw new SQLException("Unable to find cheapestDisk");
+        if(cheapestCPU==null) throw new AssertionError("Unable to find cheapestCPU");
+        if(cheapestRAM==null) throw new AssertionError("Unable to find cheapestRAM");
+        if(cheapestDisk==null) throw new AssertionError("Unable to find cheapestDisk");
 
         // Build the Power descriptions
         StringBuilder minimumPower = new StringBuilder();
@@ -150,7 +149,7 @@ public class ServerConfiguration {
         if(cheapestPower!=null && cheapestPower.getAdditionalRate()!=null) minimumMonthly = minimumMonthly.add(cheapestPower.getAdditionalRate().multiply(BigDecimal.valueOf(maxPowers)));
 
         // Build the CPU descriptions
-        if(cheapestCPU==null) throw new SQLException("Unable to find cheapestCPU");
+        if(cheapestCPU==null) throw new AssertionError("Unable to find cheapestCPU");
         StringBuilder minimumCpu = new StringBuilder();
         if(maxCPUs!=1) minimumCpu.append(maxCPUs).append('x');
         minimumCpu.append(cheapestCPU.getResourceType().toString(userLocale));
@@ -159,7 +158,7 @@ public class ServerConfiguration {
         if(cheapestCPU.getAdditionalRate()!=null) minimumMonthly = minimumMonthly.add(cheapestCPU.getAdditionalRate().multiply(BigDecimal.valueOf(maxCPUs)));
 
         // Build the RAM description
-        if(cheapestRAM==null) throw new SQLException("Unable to find cheapestRAM");
+        if(cheapestRAM==null) throw new AssertionError("Unable to find cheapestRAM");
         StringBuilder minimumRam = new StringBuilder();
         minimumRam.append(cheapestRAM.getResourceType().toString(userLocale));
 
@@ -200,7 +199,7 @@ public class ServerConfiguration {
         );
     }
     
-    public static ServerConfiguration getMaximumConfiguration(PackageDefinition packageDefinition, Locale userLocale) throws SQLException, IOException {
+    public static ServerConfiguration getMaximumConfiguration(PackageDefinition packageDefinition, Locale userLocale) throws IOException {
         List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
 
         // Calculate the total maximum monthly
@@ -315,7 +314,7 @@ public class ServerConfiguration {
         if(expensivePower!=null && expensivePower.getAdditionalRate()!=null) maximumMonthly = maximumMonthly.add(expensivePower.getAdditionalRate().multiply(BigDecimal.valueOf(maxPowers)));
 
         // Build the CPU descriptions
-        if(expensiveCPU==null) throw new SQLException("Unable to find expensiveCPU");
+        if(expensiveCPU==null) throw new AssertionError("Unable to find expensiveCPU");
         StringBuilder maximumCpu = new StringBuilder();
         if(maxCPUs!=1) maximumCpu.append(maxCPUs).append('x');
         maximumCpu.append(expensiveCPU.getResourceType().toString(userLocale));
@@ -324,7 +323,7 @@ public class ServerConfiguration {
         if(expensiveCPU.getAdditionalRate()!=null) maximumMonthly = maximumMonthly.add(expensiveCPU.getAdditionalRate().multiply(BigDecimal.valueOf(maxCPUs)));
 
         // Build the RAM description
-        if(expensiveRAM==null) throw new SQLException("Unable to find expensiveRAM");
+        if(expensiveRAM==null) throw new AssertionError("Unable to find expensiveRAM");
         StringBuilder maximumRam = new StringBuilder();
         if(maxRAMs>1) maximumRam.append(maxRAMs).append('x');
         maximumRam.append(expensiveRAM.getResourceType().toString(userLocale));

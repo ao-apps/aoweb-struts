@@ -12,7 +12,6 @@ import com.aoindustries.website.SessionActionForm;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
@@ -231,8 +230,6 @@ public class SignupTechnicalForm extends ActionForm implements Serializable, Ses
             }
             return errors;
         } catch(IOException err) {
-            throw new WrappedException(err);
-        } catch(SQLException err) {
             throw new WrappedException(err);
         }
     }

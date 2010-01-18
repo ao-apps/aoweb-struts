@@ -101,7 +101,7 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
         try {
             ActionErrors errors = super.validate(mapping, request);
             if(errors==null) errors = new ActionErrors();
-            AOServConnector aoConn = AuthenticatedAction.getAoConn(request, null);
+            AOServConnector<?,?> aoConn = AuthenticatedAction.getAoConn(request, null);
             if(aoConn==null) throw new RuntimeException("aoConn is null");
             Locale locale = (Locale)request.getSession().getAttribute(Globals.LOCALE_KEY);
 

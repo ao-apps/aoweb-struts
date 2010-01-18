@@ -11,7 +11,6 @@ import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +35,7 @@ public class BusinessAdministratorPasswordSetterCompletedAction extends Authenti
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         BusinessAdministratorPasswordSetterForm businessAdministratorPasswordSetterForm = (BusinessAdministratorPasswordSetterForm)form;
 
@@ -59,14 +58,11 @@ public class BusinessAdministratorPasswordSetterCompletedAction extends Authenti
                 String username = usernames.get(c);
                 if(!thisBA.hasPermission(AOServPermission.Permission.set_business_administrator_password) && !thisBA.getUsername().getUsername().equals(username)) {
                     AOServPermission aoPerm = aoConn.getAoservPermissions().get(AOServPermission.Permission.set_business_administrator_password);
-                    if(aoPerm==null) throw new SQLException("Unable to find AOServPermission: "+AOServPermission.Permission.set_business_administrator_password);
                     request.setAttribute("permission", aoPerm);
                     ActionForward forward = mapping.findForward("permission-denied");
-                    if(forward==null) throw new Exception("Unable to find ActionForward: permission-denied");
                     return forward;
                 }
                 BusinessAdministrator ba = aoConn.getBusinessAdministrators().get(username);
-                if(ba==null) throw new SQLException("Unable to find BusinessAdministrator: "+username);
                 ba.setPassword(newPassword);
                 messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.businessAdministratorPasswordSetter.field.confirmPasswords.passwordReset"));
                 newPasswords.set(c, "");

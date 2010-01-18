@@ -15,7 +15,6 @@ import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.signup.SignupBusinessActionHelper;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -83,7 +82,7 @@ public class AddCreditCardAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         AddCreditCardForm addCreditCardForm=(AddCreditCardForm)form;
 
@@ -95,7 +94,6 @@ public class AddCreditCardAction extends PermissionAction {
 
         // Populate the initial details from the selected accounting code or authenticated user
         Business business = aoConn.getBusinesses().get(accounting);
-        if(business==null) throw new SQLException("Unable to find Business: "+accounting);
         BusinessProfile profile = business.getBusinessProfile();
         if(profile!=null) {
             addCreditCardForm.setFirstName(getFirstName(profile.getBillingContact(), locale));
@@ -130,7 +128,7 @@ public class AddCreditCardAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    protected void initRequestAttributes(HttpServletRequest request, ServletContext context) throws SQLException, IOException {
+    protected void initRequestAttributes(HttpServletRequest request, ServletContext context) throws IOException {
         // Build the list of years
         List<String> expirationYears = new ArrayList<String>(12);
         int startYear = Calendar.getInstance().get(Calendar.YEAR);

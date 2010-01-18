@@ -8,7 +8,6 @@ package com.aoindustries.website.signup;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -66,7 +65,7 @@ public class Dedicated6Action extends DedicatedStepAction {
         SignupBusinessForm signupBusinessForm,
         SignupTechnicalForm signupTechnicalForm,
         SignupBillingInformationForm signupBillingInformationForm
-    ) throws IOException, SQLException {
+    ) throws IOException {
         ServletContext servletContext = getServlet().getServletContext();
 
         SignupSelectServerActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectPackageForm);

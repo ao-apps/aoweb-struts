@@ -41,7 +41,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
         Skin skin
     ) throws Exception {
         // Handle login
-        AOServConnector aoConn = getAoConn(request, response);
+        AOServConnector<?,?> aoConn = getAoConn(request, response);
         if(aoConn==null) {
             String target = request.getRequestURL().toString();
             if(!target.endsWith("/login.do")) {
@@ -83,7 +83,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
         if(su!=null) {
             session.removeAttribute(Constants.SU_REQUESTED);
             try {
-                AOServConnector aoConn = su.length()==0 ? authenticatedAoConn : authenticatedAoConn.switchUsers(su);
+                AOServConnector<?,?> aoConn = su.length()==0 ? authenticatedAoConn : authenticatedAoConn.switchUsers(su);
                 session.setAttribute(Constants.AO_CONN, aoConn);
                 return aoConn;
             } catch(IOException err) {
@@ -92,7 +92,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
         }
 
         // Look for previous effective user
-        AOServConnector aoConn = (AOServConnector)session.getAttribute(Constants.AO_CONN);
+        AOServConnector<?,?> aoConn = (AOServConnector)session.getAttribute(Constants.AO_CONN);
         if(aoConn!=null) return aoConn;
 
         // Default effective user to authenticated user
@@ -112,7 +112,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         return mapping.findForward("success");
     }

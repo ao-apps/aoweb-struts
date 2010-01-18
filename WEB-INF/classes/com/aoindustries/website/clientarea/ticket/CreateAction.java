@@ -37,13 +37,13 @@ public class CreateAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         TicketForm ticketForm = (TicketForm)form;
         BusinessAdministrator thisBusinessAdministrator = aoConn.getThisBusinessAdministrator();
 
         // Default to the business of the authenticated user
-        ticketForm.setAccounting(thisBusinessAdministrator.getUsername().getBusiness().getAccounting());
+        ticketForm.setAccounting(thisBusinessAdministrator.getUsername().getBusiness().getAccounting().getAccounting());
 
         // Default to normal priority
         ticketForm.setClientPriority(TicketPriority.NORMAL);

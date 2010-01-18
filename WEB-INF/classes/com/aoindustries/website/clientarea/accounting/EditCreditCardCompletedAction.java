@@ -14,7 +14,6 @@ import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.creditcards.CreditCardProcessor;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.sql.SQLException;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +39,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         EditCreditCardForm editCreditCardForm=(EditCreditCardForm)form;
 
@@ -88,7 +87,6 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             // Root connector used to get processor
             AOServConnector rootConn = siteSettings.getRootAOServConnector();
             CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
-            if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPkey());
             CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
             rootProcessor.updateCreditCardNumberAndExpiration(
                 new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
@@ -109,7 +107,6 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
                 // Root connector used to get processor
                 AOServConnector rootConn = siteSettings.getRootAOServConnector();
                 CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
-                if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPkey());
                 CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
                 rootProcessor.updateCreditCardExpiration(
                     new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
@@ -140,7 +137,6 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
         ) {
             // Update rest of the fields
             CountryCode countryCode = aoConn.getCountryCodes().get(editCreditCardForm.getCountryCode());
-            if(countryCode==null) throw new SQLException("Unable to find CountryCode: "+editCreditCardForm.getCountryCode());
             creditCard.update(
                 editCreditCardForm.getFirstName(),
                 editCreditCardForm.getLastName(),

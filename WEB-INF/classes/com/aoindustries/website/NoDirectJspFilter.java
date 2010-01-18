@@ -50,8 +50,6 @@ public class NoDirectJspFilter implements Filter {
                 httpResponse.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
             } catch(JspException err) {
                 throw new ServletException(err);
-            //} catch(SQLException err) {
-            //    throw new ServletException(err);
             }
         } else {
             httpResponse.sendError(HttpServletResponse.SC_NOT_FOUND);

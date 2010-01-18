@@ -10,7 +10,6 @@ import com.aoindustries.aoserv.client.LinuxAccountTable;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -36,7 +35,7 @@ final public class SignupTechnicalActionHelper {
         ServletContext servletContext,
         HttpServletRequest request,
         SignupTechnicalForm signupTechnicalForm
-    ) throws IOException, SQLException {
+    ) throws IOException {
         AOServConnector rootConn=SiteSettings.getInstance(servletContext).getRootAOServConnector();
 
         // Build the list of countries
@@ -52,7 +51,7 @@ final public class SignupTechnicalActionHelper {
         request.setAttribute("passwords", passwords);
     }
 
-    public static String getBaCountry(AOServConnector rootConn, SignupTechnicalForm signupTechnicalForm) throws IOException, SQLException {
+    public static String getBaCountry(AOServConnector rootConn, SignupTechnicalForm signupTechnicalForm) throws IOException {
         String baCountry = signupTechnicalForm.getBaCountry();
         return baCountry==null || baCountry.length()==0 ? "" : rootConn.getCountryCodes().get(baCountry).getName();
     }
@@ -61,7 +60,7 @@ final public class SignupTechnicalActionHelper {
         ServletContext servletContext,
         HttpServletRequest request,
         SignupTechnicalForm signupTechnicalForm
-    ) throws IOException, SQLException {
+    ) throws IOException {
         // Lookup things needed by the view
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
 
@@ -69,7 +68,7 @@ final public class SignupTechnicalActionHelper {
         request.setAttribute("baCountry", getBaCountry(rootConn, signupTechnicalForm));
     }
 
-    public static void printConfirmation(ChainWriter emailOut, Locale userLocale, MessageResources signupApplicationResources, AOServConnector rootConn, SignupTechnicalForm signupTechnicalForm) throws IOException, SQLException {
+    public static void printConfirmation(ChainWriter emailOut, Locale userLocale, MessageResources signupApplicationResources, AOServConnector rootConn, SignupTechnicalForm signupTechnicalForm) throws IOException {
         emailOut.print("    <tr>\n"
                      + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.required")).print("</td>\n"
                      + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupTechnicalForm.baName.prompt")).print("</td>\n"

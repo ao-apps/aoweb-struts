@@ -12,7 +12,6 @@ import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,7 +40,7 @@ final public class SignupSelectPackageActionHelper {
         HttpServletRequest request,
         HttpServletResponse response,
         String packageCategoryName
-    ) throws IOException, SQLException {
+    ) throws IOException {
         List<PackageDefinition> packageDefinitions = getPackageDefinitions(servletContext, packageCategoryName, response.getLocale());
         
         request.setAttribute("packageDefinitions", packageDefinitions);
@@ -50,7 +49,7 @@ final public class SignupSelectPackageActionHelper {
     /**
      * Gets the active package definitions ordered by monthly rate.
      */
-    public static List<PackageDefinition> getPackageDefinitions(ServletContext servletContext, String packageCategoryName, Locale userLocale) throws IOException, SQLException {
+    public static List<PackageDefinition> getPackageDefinitions(ServletContext servletContext, String packageCategoryName, Locale userLocale) throws IOException {
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageCategory category = rootConn.getPackageCategories().get(packageCategoryName);
         Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getBusiness();
@@ -76,7 +75,7 @@ final public class SignupSelectPackageActionHelper {
         ServletContext servletContext,
         HttpServletRequest request,
         SignupSelectPackageForm signupSelectPackageForm
-    ) throws IOException, SQLException {
+    ) throws IOException {
         // Lookup things needed by the view
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());

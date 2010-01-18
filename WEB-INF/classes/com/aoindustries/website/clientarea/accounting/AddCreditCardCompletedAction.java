@@ -13,7 +13,6 @@ import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.creditcards.CreditCardProcessor;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.sql.SQLException;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +38,7 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         AddCreditCardForm addCreditCardForm=(AddCreditCardForm)form;
 
@@ -61,10 +60,9 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
         // Get the credit card processor for the root connector of this website
         AOServConnector rootConn = siteSettings.getRootAOServConnector();
         CreditCardProcessor creditCardProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootConn);
-        if(creditCardProcessor==null) throw new SQLException("Unable to find enabled CreditCardProcessor for root connector");
 
         // Add card
-        if(!creditCardProcessor.canStoreCreditCards(locale)) throw new SQLException("CreditCardProcessor indicates it does not support storing credit cards.");
+        if(!creditCardProcessor.canStoreCreditCards(locale)) throw new AssertionError("CreditCardProcessor indicates it does not support storing credit cards.");
 
         creditCardProcessor.storeCreditCard(
             new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),

@@ -38,7 +38,7 @@ public class VncConsoleAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         List<VirtualServer> virtualServers = aoConn.getVirtualServers().getRows();
         List<VirtualServer> vncVirtualServers = new ArrayList<VirtualServer>(virtualServers.size());

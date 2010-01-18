@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -190,9 +189,6 @@ final public class MinimalConfirmationCompletedActionHelper {
             servlet.log("Unable to send sign up details to "+recipient, err);
             return false;
         } catch(IOException err) {
-            servlet.log("Unable to send sign up details to "+recipient, err);
-            return false;
-        } catch(SQLException err) {
             servlet.log("Unable to send sign up details to "+recipient, err);
             return false;
         } catch(MessagingException err) {

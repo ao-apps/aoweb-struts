@@ -39,7 +39,7 @@ public class MySQLPasswordSetterAction extends PermissionAction {
         SiteSettings siteSettings,
         Locale locale,
         Skin skin,
-        AOServConnector aoConn
+        AOServConnector<?,?> aoConn
     ) throws Exception {
         MySQLPasswordSetterForm mySQLPasswordSetterForm = (MySQLPasswordSetterForm)form;
 
