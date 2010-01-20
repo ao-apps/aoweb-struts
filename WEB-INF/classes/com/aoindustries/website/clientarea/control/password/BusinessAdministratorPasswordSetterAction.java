@@ -9,13 +9,16 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.Username;
+import com.aoindustries.aoserv.client.command.SetBusinessAdministratorPasswordCommand;
+import com.aoindustries.util.Collections;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -44,17 +47,21 @@ public class BusinessAdministratorPasswordSetterAction extends AuthenticatedActi
 
         BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
         
-        List<BusinessAdministrator> bas = thisBA.hasPermission(AOServPermission.Permission.set_business_administrator_password) ? aoConn.getBusinessAdministrators().getRows() : Collections.singletonList(thisBA);
+        SortedSet<BusinessAdministrator> bas =
+            thisBA.hasPermission(AOServPermission.Permission.set_business_administrator_password)
+            ? new TreeSet<BusinessAdministrator>(aoConn.getBusinessAdministrators().getSet())
+            : Collections.singletonSortedSet(thisBA)
+        ;
 
         List<String> businesses = new ArrayList<String>(bas.size());
         List<String> usernames = new ArrayList<String>(bas.size());
         List<String> newPasswords = new ArrayList<String>(bas.size());
         List<String> confirmPasswords = new ArrayList<String>(bas.size());
         for(BusinessAdministrator ba : bas) {
-            if(ba.canSetPassword()) {
+            if(!new SetBusinessAdministratorPasswordCommand(ba.getUsername().getUsername(), null).validate(aoConn).containsKey(SetBusinessAdministratorPasswordCommand.PARAM_USERNAME)) {
                 Username un = ba.getUsername();
-                businesses.add(un.getBusiness().getAccounting());
-                usernames.add(un.getUsername());
+                businesses.add(un.getBusiness().getAccounting().getAccounting());
+                usernames.add(un.getUsername().getId());
                 newPasswords.add("");
                 confirmPasswords.add("");
             }

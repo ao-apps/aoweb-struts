@@ -7,11 +7,11 @@ package com.aoindustries.website;
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
-import com.aoindustries.aoserv.client.BusinessAdministrator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.aoindustries.util.Collections;
 import java.util.Locale;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -41,11 +41,11 @@ abstract public class PermissionAction extends AuthenticatedAction {
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {
-        List<AOServPermission.Permission> permissions = getPermissions();
+        Set<AOServPermission.Permission> permissions = getPermissions();
         
         // No permissions defined, default to denied
         if(permissions==null || permissions.isEmpty()) {
-            List<AOServPermission> aoPerms = Collections.emptyList();
+            SortedSet<AOServPermission> aoPerms = Collections.emptySortedSet();
             return executePermissionDenied(
                 mapping,
                 form,
@@ -59,31 +59,24 @@ abstract public class PermissionAction extends AuthenticatedAction {
             );
         }
 
-        BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
-        // Return denied on first missing permission
-        for(AOServPermission.Permission permission : permissions) {
-            if(!thisBA.hasPermission(permission.name())) {
-                List<AOServPermission> aoPerms = new ArrayList<AOServPermission>(permissions.size());
-                for(AOServPermission.Permission requiredPermission : permissions) {
-                    AOServPermission aoPerm = aoConn.getAoservPermissions().get(requiredPermission.name());
-                    aoPerms.add(aoPerm);
-                }
-                return executePermissionDenied(
-                    mapping,
-                    form,
-                    request,
-                    response,
-                    siteSettings,
-                    locale,
-                    skin,
-                    aoConn,
-                    aoPerms
-                );
-            }
+        if(aoConn.getThisBusinessAdministrator().hasPermissions(permissions)) {
+            // All permissions found, consider granted
+            return executePermissionGranted(mapping, form, request, response, siteSettings, locale, skin, aoConn);
+        } else {
+            SortedSet<AOServPermission> aoPerms = new TreeSet<AOServPermission>();
+            for(AOServPermission.Permission requiredPermission : permissions) aoPerms.add(aoConn.getAoservPermissions().get(requiredPermission.name()));
+            return executePermissionDenied(
+                mapping,
+                form,
+                request,
+                response,
+                siteSettings,
+                locale,
+                skin,
+                aoConn,
+                aoPerms
+            );
         }
-        
-        // All permissions found, consider granted
-        return executePermissionGranted(mapping, form, request, response, siteSettings, locale, skin, aoConn);
     }
 
     /**
@@ -117,16 +110,16 @@ abstract public class PermissionAction extends AuthenticatedAction {
         Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn,
-        List<AOServPermission> permissions
+        SortedSet<AOServPermission> permissions
     ) throws Exception {
         request.setAttribute(Constants.PERMISSION_DENIED, permissions);
         return mapping.findForward("permission-denied");
     }
 
     /**
-     * Gets the list of permissions that are required for this action.  Returning a null or empty list will result in nothing being allowed.
+     * Gets the set of permissions that are required for this action.  Returning a null or empty list will result in nothing being allowed.
      *
      * @see  AOServPermission
      */
-    abstract public List<AOServPermission.Permission> getPermissions();
+    abstract public Set<AOServPermission.Permission> getPermissions();
 }

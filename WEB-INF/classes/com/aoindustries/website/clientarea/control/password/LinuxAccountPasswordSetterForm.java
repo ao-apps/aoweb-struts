@@ -6,8 +6,12 @@ package com.aoindustries.website.clientarea.control.password;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.LinuxAccount;
+import com.aoindustries.aoserv.client.LinuxAccountType;
 import com.aoindustries.aoserv.client.PasswordChecker;
+import com.aoindustries.aoserv.client.validator.UserId;
+import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.util.AutoGrowArrayList;
 import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.AuthenticatedAction;
@@ -101,12 +105,19 @@ public class LinuxAccountPasswordSetterForm extends ActionForm implements Serial
                     errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.linuxAccountPasswordSetter.field.confirmPasswords.mismatch"));
                 } else {
                     if(newPassword.length()>0) {
-                        String username = usernames.get(c);
-                        LinuxAccount la = aoConn.getLinuxAccounts().get(username);
-                        // Check the password strength
-                        PasswordChecker.Result[] results = LinuxAccount.checkPassword(locale, username, la.getType().getName(), newPassword);
-                        if(PasswordChecker.hasResults(locale, results)) {
-                            errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
+                        try {
+                            String username = usernames.get(c);
+                            LinuxAccount la = aoConn
+                                .getAoServers()
+                                .filterUnique(AOServer.COLUMN_HOSTNAME, aoServers.get(c))
+                                .getLinuxAccount(UserId.valueOf(username));
+                            // Check the password strength
+                            PasswordChecker.Result[] results = LinuxAccount.checkPassword(locale, username, LinuxAccountType.Constant.valueOf(la.getLinuxAccountType().getResourceType().getName()), newPassword);
+                            if(PasswordChecker.hasResults(locale, results)) {
+                                errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
+                            }
+                        } catch(ValidationException err) {
+                            errors.add("usernames[" + c + "].usernames", new ActionMessage(err.getLocalizedMessage(locale), false));
                         }
                     }
                 }

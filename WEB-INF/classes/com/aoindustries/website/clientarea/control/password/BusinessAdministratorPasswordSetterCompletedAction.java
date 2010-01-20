@@ -8,6 +8,7 @@ package com.aoindustries.website.clientarea.control.password;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
+import com.aoindustries.aoserv.client.validator.UserId;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
@@ -55,9 +56,9 @@ public class BusinessAdministratorPasswordSetterCompletedAction extends Authenti
         for(int c=0;c<usernames.size();c++) {
             String newPassword = newPasswords.get(c);
             if(newPassword.length()>0) {
-                String username = usernames.get(c);
+                UserId username = UserId.valueOf(usernames.get(c));
                 if(!thisBA.hasPermission(AOServPermission.Permission.set_business_administrator_password) && !thisBA.getUsername().getUsername().equals(username)) {
-                    AOServPermission aoPerm = aoConn.getAoservPermissions().get(AOServPermission.Permission.set_business_administrator_password);
+                    AOServPermission aoPerm = aoConn.getAoservPermissions().get(AOServPermission.Permission.set_business_administrator_password.name());
                     request.setAttribute("permission", aoPerm);
                     ActionForward forward = mapping.findForward("permission-denied");
                     return forward;

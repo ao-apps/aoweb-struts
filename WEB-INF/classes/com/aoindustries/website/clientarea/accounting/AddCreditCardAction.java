@@ -110,8 +110,8 @@ public class AddCreditCardAction extends PermissionAction {
             addCreditCardForm.setCountryCode(profile.getCountry().getCode());
         } else {
             BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
-            addCreditCardForm.setFirstName(getFirstName(thisBA.getName(), locale));
-            addCreditCardForm.setLastName(getLastName(thisBA.getName(), locale));
+            addCreditCardForm.setFirstName(getFirstName(thisBA.getFullName(), locale));
+            addCreditCardForm.setLastName(getLastName(thisBA.getFullName(), locale));
             addCreditCardForm.setEmail(thisBA.getEmail());
             addCreditCardForm.setPhone(thisBA.getWorkPhone());
             addCreditCardForm.setFax(thisBA.getFax());

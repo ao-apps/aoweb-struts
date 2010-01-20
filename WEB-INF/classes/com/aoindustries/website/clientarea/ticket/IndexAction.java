@@ -27,7 +27,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author  AO Industries, Inc.
  */
-public class IndexAction  extends AuthenticatedAction {
+public class IndexAction extends AuthenticatedAction {
 
     @Override
     public ActionForward execute(

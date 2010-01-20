@@ -8,12 +8,12 @@ package com.aoindustries.website.clientarea.control.business;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
+import com.aoindustries.aoserv.client.command.CommandName;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +27,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author  AO Industries, Inc.
  */
-public class CancelAction  extends PermissionAction {
+public class CancelAction extends PermissionAction {
 
     @Override
     public ActionForward executePermissionGranted(
@@ -48,7 +48,7 @@ public class CancelAction  extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    public List<AOServPermission.Permission> getPermissions() {
-        return Collections.singletonList(AOServPermission.Permission.cancel_business);
+    public Set<AOServPermission.Permission> getPermissions() {
+        return CommandName.cancel_business.getPermissions();
     }
 }

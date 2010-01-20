@@ -9,12 +9,9 @@ import com.aoindustries.aoserv.client.PasswordChecker;
 import com.aoindustries.website.HttpsAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -27,6 +24,7 @@ import org.apache.struts.action.ActionMessages;
  */
 public class PasswordEvaluatorCompletedAction extends HttpsAction {
 
+    @Override
     public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,
@@ -46,7 +44,7 @@ public class PasswordEvaluatorCompletedAction extends HttpsAction {
 
         // Evaluate the password
         String password = passwordEvaluatorForm.getPassword();
-        PasswordChecker.Result[] results = PasswordChecker.checkPassword(locale, null, password, true, false);
+        PasswordChecker.Result[] results = PasswordChecker.checkPassword(locale, null, password, PasswordChecker.PasswordStrength.STRICT);
             
         // Set request values
         request.setAttribute("results", results);

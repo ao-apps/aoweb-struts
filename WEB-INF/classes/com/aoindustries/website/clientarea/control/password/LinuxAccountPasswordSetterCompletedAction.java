@@ -8,15 +8,14 @@ package com.aoindustries.website.clientarea.control.password;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.AOServer;
-import com.aoindustries.aoserv.client.LinuxAccount;
-import com.aoindustries.aoserv.client.LinuxServerAccount;
-import com.aoindustries.aoserv.client.Server;
+import com.aoindustries.aoserv.client.command.CommandName;
+import com.aoindustries.aoserv.client.validator.UserId;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -59,13 +58,11 @@ public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction 
         for(int c=0;c<usernames.size();c++) {
             String newPassword = newPasswords.get(c);
             if(newPassword.length()>0) {
-                String username = usernames.get(c);
-                LinuxAccount la = aoConn.getLinuxAccounts().get(username);
-                String hostname = aoServers.get(c);
-                Server server = aoConn.getServers().get(hostname);
-                AOServer aoServer = server.getAoServer();
-                LinuxServerAccount lsa = la.getLinuxServerAccount(aoServer);
-                lsa.setPassword(newPassword);
+                aoConn
+                    .getAoServers()
+                    .filterUnique(AOServer.COLUMN_HOSTNAME, aoServers.get(c))
+                    .getLinuxAccount(UserId.valueOf(usernames.get(c)))
+                    .setPassword(newPassword);
                 messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.linuxAccountPasswordSetter.field.confirmPasswords.passwordReset"));
                 newPasswords.set(c, "");
                 confirmPasswords.set(c, "");
@@ -76,7 +73,7 @@ public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction 
         return mapping.findForward("success");
     }
 
-    public List<AOServPermission.Permission> getPermissions() {
-        return Collections.singletonList(AOServPermission.Permission.set_linux_server_account_password);
+    public Set<AOServPermission.Permission> getPermissions() {
+        return CommandName.set_linux_account_password.getPermissions();
     }
 }

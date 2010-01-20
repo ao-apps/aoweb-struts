@@ -8,15 +8,18 @@ package com.aoindustries.website.clientarea.control.password;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.LinuxAccount;
-import com.aoindustries.aoserv.client.LinuxServerAccount;
 import com.aoindustries.aoserv.client.Username;
+import com.aoindustries.aoserv.client.command.CommandName;
+import com.aoindustries.aoserv.client.command.SetLinuxAccountPasswordCommand;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -43,20 +46,19 @@ public class LinuxAccountPasswordSetterAction extends PermissionAction {
     ) throws Exception {
         LinuxAccountPasswordSetterForm linuxAccountPasswordSetterForm = (LinuxAccountPasswordSetterForm)form;
 
-        List<LinuxServerAccount> lsas = aoConn.getLinuxServerAccounts().getRows();
+        SortedSet<LinuxAccount> las = new TreeSet<LinuxAccount>(aoConn.getLinuxAccounts().getSet());
 
-        List<String> businesses = new ArrayList<String>(lsas.size());
-        List<String> usernames = new ArrayList<String>(lsas.size());
-        List<String> aoServers = new ArrayList<String>(lsas.size());
-        List<String> newPasswords = new ArrayList<String>(lsas.size());
-        List<String> confirmPasswords = new ArrayList<String>(lsas.size());
-        for(LinuxServerAccount lsa : lsas) {
-            if(lsa.canSetPassword()) {
-                LinuxAccount la = lsa.getLinuxAccount();
+        List<String> businesses = new ArrayList<String>(las.size());
+        List<String> usernames = new ArrayList<String>(las.size());
+        List<String> aoServers = new ArrayList<String>(las.size());
+        List<String> newPasswords = new ArrayList<String>(las.size());
+        List<String> confirmPasswords = new ArrayList<String>(las.size());
+        for(LinuxAccount la : las) {
+            if(!new SetLinuxAccountPasswordCommand(la.getKey(), null).validate(aoConn).containsKey(SetLinuxAccountPasswordCommand.PARAM_LINUX_ACCOUNT)) {
                 Username un = la.getUsername();
-                businesses.add(un.getBusiness().getAccounting());
-                usernames.add(un.getUsername());
-                aoServers.add(lsa.getAOServer().getHostname());
+                businesses.add(un.getBusiness().getAccounting().getAccounting());
+                usernames.add(un.getUsername().getId());
+                aoServers.add(la.getAoServerResource().getAoServer().getHostname().getDomain());
                 newPasswords.add("");
                 confirmPasswords.add("");
             }
@@ -72,7 +74,7 @@ public class LinuxAccountPasswordSetterAction extends PermissionAction {
         return mapping.findForward("success");
     }
     
-    public List<AOServPermission.Permission> getPermissions() {
-        return Collections.singletonList(AOServPermission.Permission.set_linux_server_account_password);
+    public Set<AOServPermission.Permission> getPermissions() {
+        return CommandName.set_linux_account_password.getPermissions();
     }
 }

@@ -8,13 +8,14 @@ package com.aoindustries.website.clientarea.control.business;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
+import com.aoindustries.aoserv.client.command.CancelBusinessCommand;
+import com.aoindustries.aoserv.client.command.CommandName;
 import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
@@ -27,7 +28,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author  AO Industries, Inc.
  */
-public class CancelFeedbackCompletedAction  extends PermissionAction {
+public class CancelFeedbackCompletedAction extends PermissionAction {
 
     @Override
     public ActionForward executePermissionGranted(
@@ -50,7 +51,7 @@ public class CancelFeedbackCompletedAction  extends PermissionAction {
         } else {
             bu = aoConn.getBusinesses().get(AccountingCode.valueOf(business));
         }
-        if(bu==null || !bu.canCancel()) {
+        if(bu==null || !new CancelBusinessCommand(bu.getAccounting(), null).validate(aoConn).isEmpty()) {
             return mapping.findForward("invalid-business");
         }
 
@@ -63,8 +64,7 @@ public class CancelFeedbackCompletedAction  extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    @Override
-    public List<AOServPermission.Permission> getPermissions() {
-        return Collections.singletonList(AOServPermission.Permission.cancel_business);
+    public Set<AOServPermission.Permission> getPermissions() {
+        return CommandName.cancel_business.getPermissions();
     }
 }

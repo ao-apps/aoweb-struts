@@ -5,7 +5,7 @@ package com.aoindustries.website.clientarea.control.password;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.aoserv.client.LinuxAccountTable;
+import com.aoindustries.aoserv.client.PasswordGenerator;
 import com.aoindustries.website.HttpsAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
@@ -39,7 +39,7 @@ public class PasswordGeneratorAction extends HttpsAction {
     ) throws Exception {
         // Generate the passwords
         List<String> generatedPasswords = new ArrayList<String>(NUM_PASSWORDS);
-        for(int c=0;c<10;c++) generatedPasswords.add(LinuxAccountTable.generatePassword());
+        for(int c=0;c<10;c++) generatedPasswords.add(PasswordGenerator.generatePassword());
 
         // Set request values
         request.setAttribute("generatedPasswords", generatedPasswords);
