@@ -5,7 +5,6 @@ package com.aoindustries.website.clientarea.accounting;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.creditcards.TransactionResult;
 import com.aoindustries.sql.SQLUtility;
 import java.io.Serializable;
@@ -14,7 +13,6 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 
@@ -35,6 +33,7 @@ public class MakePaymentNewCardForm extends AddCreditCardForm implements Seriali
     public MakePaymentNewCardForm() {
     }
 
+    @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         super.reset(mapping, request);
         setPaymentAmount("");
@@ -59,6 +58,7 @@ public class MakePaymentNewCardForm extends AddCreditCardForm implements Seriali
         this.storeCard = storeCard;
     }
 
+    @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = super.validate(mapping, request);
         if(errors==null) errors = new ActionErrors();
@@ -70,10 +70,10 @@ public class MakePaymentNewCardForm extends AddCreditCardForm implements Seriali
                 // Long-term plan is to use BigDecimal exclusively for all monetary values. - DRA 2007-10-09
                 int pennies = SQLUtility.getPennies(this.paymentAmount);
                 // Make sure can parse as BigDecimal, and is correct value
-                BigDecimal paymentAmount = new BigDecimal(this.paymentAmount);
-                if(paymentAmount.compareTo(BigDecimal.ZERO)<=0) {
+                BigDecimal localPaymentAmount = new BigDecimal(this.paymentAmount);
+                if(localPaymentAmount.compareTo(BigDecimal.ZERO)<=0) {
                     errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.mustBeGeaterThanZero"));
-                } else if(paymentAmount.scale()>2) {
+                } else if(localPaymentAmount.scale()>2) {
                     // Must not have more than 2 decimal places
                     errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.invalid"));
                 }
@@ -84,6 +84,7 @@ public class MakePaymentNewCardForm extends AddCreditCardForm implements Seriali
         return errors;
     }
 
+    @Override
     public ActionErrors mapTransactionError(TransactionResult.ErrorCode errorCode, Locale userLocale) {
         String errorString = errorCode.toString(userLocale);
         ActionErrors errors = new ActionErrors();

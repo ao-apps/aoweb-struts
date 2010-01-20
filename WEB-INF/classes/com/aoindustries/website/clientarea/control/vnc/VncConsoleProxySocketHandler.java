@@ -7,10 +7,7 @@ package com.aoindustries.website.clientarea.control.vnc;
  */
 import com.aoindustries.aoserv.client.AOServClientConfiguration;
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.AOServProtocol;
 import com.aoindustries.aoserv.client.AOServer;
-import com.aoindustries.aoserv.client.IPAddress;
-import com.aoindustries.aoserv.client.VirtualServer;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonConnection;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonConnector;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonProtocol;
@@ -24,7 +21,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.rmi.RemoteException;
+import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.logging.Level;
 import javax.net.ssl.SSLHandshakeException;
 import javax.servlet.ServletContext;
@@ -81,6 +81,7 @@ public class VncConsoleProxySocketHandler {
         (byte)'8',
         (byte)'\n'
     };
+    private static final Random random = new SecureRandom();
     public VncConsoleProxySocketHandler(final ServletContext servletContext, final AOServConnector rootConn, final Socket socket) {
         // This thread will read from socket
         Thread thread = new Thread(
@@ -109,7 +110,7 @@ public class VncConsoleProxySocketHandler {
                         socketOut.write(2);
                         // VNC Authentication
                         byte[] challenge = new byte[16];
-                        AOServConnector.getRandom().nextBytes(challenge);
+                        random.nextBytes(challenge);
                         socketOut.write(challenge);
                         socketOut.flush();
                         byte[] response = new byte[16];
@@ -140,14 +141,14 @@ public class VncConsoleProxySocketHandler {
                             AOServer.DaemonAccess daemonAccess = virtualServer.requestVncConsoleAccess();
                             AOServDaemonConnector daemonConnector=AOServDaemonConnector.getConnector(
                                 daemonAccess.getHost(),
-                                IPAddress.WILDCARD_IP,
+                                null,
                                 daemonAccess.getPort(),
                                 daemonAccess.getProtocol(),
                                 null,
                                 100,
                                 AOPool.DEFAULT_MAX_CONNECTION_AGE,
-                                AOServClientConfiguration.getSslTruststorePath(),
-                                AOServClientConfiguration.getSslTruststorePassword(),
+                                AOServClientConfiguration.getTrustStorePath(),
+                                AOServClientConfiguration.getTrustStorePassword(),
                                 LogFactory.getLogger(servletContext, getClass())
                             );
                             final AOServDaemonConnection daemonConn=daemonConnector.getConnection();
@@ -239,7 +240,7 @@ public class VncConsoleProxySocketHandler {
                                         socketOut.flush();
                                     }
                                 } else {
-                                    if (result == AOServDaemonProtocol.IO_EXCEPTION) throw new IOException(daemonIn.readUTF());
+                                    if (result == AOServDaemonProtocol.REMOTE_EXCEPTION) throw new RemoteException(daemonIn.readUTF());
                                     else if (result==-1) throw new EOFException("EOF from daemonIn");
                                     else throw new IOException("Unknown result: " + result);
                                 }

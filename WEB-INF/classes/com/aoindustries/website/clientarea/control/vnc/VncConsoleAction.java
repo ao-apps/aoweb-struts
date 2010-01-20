@@ -7,7 +7,6 @@ package com.aoindustries.website.clientarea.control.vnc;
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
-import com.aoindustries.aoserv.client.AOServProtocol;
 import com.aoindustries.aoserv.client.VirtualServer;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;

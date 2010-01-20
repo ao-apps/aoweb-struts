@@ -5,7 +5,6 @@ package com.aoindustries.website.clientarea.accounting;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.creditcards.CreditCard;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +28,7 @@ public class MakePaymentStoredCardForm extends ActionForm implements Serializabl
     public MakePaymentStoredCardForm() {
     }
 
+    @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         super.reset(mapping, request);
         setAccounting("");
@@ -62,16 +62,17 @@ public class MakePaymentStoredCardForm extends ActionForm implements Serializabl
         this.paymentAmount = paymentAmount;
     }
 
+    @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = new ActionErrors();
         if(GenericValidator.isBlankOrNull(paymentAmount)) {
             errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.required"));
         } else {
             try {
-                BigDecimal paymentAmount = new BigDecimal(this.paymentAmount);
-                if(paymentAmount.compareTo(BigDecimal.ZERO)<=0) {
+                BigDecimal localPaymentAmount = new BigDecimal(this.paymentAmount);
+                if(localPaymentAmount.compareTo(BigDecimal.ZERO)<=0) {
                     errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.mustBeGeaterThanZero"));
-                } else if(paymentAmount.scale()>2) {
+                } else if(localPaymentAmount.scale()>2) {
                     // Must not have more than 2 decimal places
                     errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.invalid"));
                 }

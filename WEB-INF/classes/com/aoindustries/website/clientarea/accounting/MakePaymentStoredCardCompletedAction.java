@@ -10,6 +10,7 @@ import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.aoserv.client.PaymentType;
 import com.aoindustries.aoserv.client.TransactionType;
+import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.BusinessGroup;
 import com.aoindustries.aoserv.creditcards.CreditCardFactory;
@@ -55,7 +56,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
 
         // Init request values
         String accounting = makePaymentStoredCardForm.getAccounting();
-        Business business = accounting==null ? null : aoConn.getBusinesses().get(accounting);
+        Business business = accounting==null ? null : aoConn.getBusinesses().get(AccountingCode.valueOf(accounting));
         if(business==null) {
             // Redirect back to make-payment if business not found
             return mapping.findForward("make-payment");

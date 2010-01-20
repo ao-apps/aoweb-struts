@@ -11,6 +11,7 @@ import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.FailoverFileReplication;
 import com.aoindustries.aoserv.client.FailoverMySQLReplication;
 import com.aoindustries.aoserv.client.MySQLServer;
+import com.aoindustries.aoserv.client.validator.DomainName;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
@@ -20,6 +21,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
@@ -49,31 +52,30 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
         MessageResources controlApplicationResources = (MessageResources)request.getAttribute("/clientarea/control/ApplicationResources");
         if(controlApplicationResources==null) throw new JspException("Unable to load resources: /clientarea/control/ApplicationResources");
 
-        AOServConnector rootConn = siteSettings.getRootAOServConnector();
+        AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
 
         List<MySQLServerRow> mysqlServerRows = new ArrayList<MySQLServerRow>();
-        List<MySQLServer> mysqlServers = aoConn.getMysqlServers().getRows();
-        for(MySQLServer mysqlServer : mysqlServers) {
+        for(MySQLServer mysqlServer : new TreeSet<MySQLServer>(aoConn.getMysqlServers().getSet())) {
             AOServer aoServer = mysqlServer.getAoServerResource().getAoServer();
             AOServer failoverServer;
             try {
                 failoverServer = aoServer.getFailoverServer();
             } catch(NoSuchElementException err) {
                 // May be filtered, need to use RootAOServConnector
-                failoverServer = rootConn.getAoServers().get(aoServer.getPkey()).getFailoverServer();
+                failoverServer = rootConn.getAoServers().get(aoServer.getKey()).getFailoverServer();
             }
 
             StringBuilder server = new StringBuilder();
             server.append(aoServer.getHostname());
             if(failoverServer!=null) server.append(" on ").append(failoverServer.getHostname());
 
-            List<FailoverMySQLReplication> fmrs = mysqlServer.getFailoverMySQLReplications();
+            SortedSet<FailoverMySQLReplication> fmrs = new TreeSet<FailoverMySQLReplication>(mysqlServer.getFailoverMySQLReplications());
             if(!fmrs.isEmpty()) {
                 // Query the slaves first, this way the master will always appear equal to or ahead of the slaves
                 // since we can't query them both exactly at the same time.
                 List<ReplicationRow> replications = new ArrayList<ReplicationRow>();
                 for(FailoverMySQLReplication fmr : fmrs) {
-                    String slave;
+                    DomainName slave;
                     AOServer replicationAoServer = fmr.getAOServer();
                     if(replicationAoServer!=null) {
                         // ao_server-based
@@ -84,7 +86,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                             slave = ffr.getBackupPartition().getAOServer().getHostname();
                         } catch(NoSuchElementException err) {
                             // May be filtered, need to use RootAOServConnector
-                            slave = rootConn.getFailoverFileReplications().get(ffr.getPkey()).getBackupPartition().getAOServer().getHostname();
+                            slave = rootConn.getFailoverFileReplications().get(ffr.getKey()).getBackupPartition().getAOServer().getHostname();
                         }
                     }
                     try {
@@ -285,7 +287,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
     public static class ReplicationRow {
 
         private boolean error;
-        final private String slave;
+        final private DomainName slave;
         final private String lineError;
         final private String slaveIOState;
         final private String slaveLogFile;
@@ -296,7 +298,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
         final private String lastError;
         final private String secondsBehindMaster;
 
-        private ReplicationRow(boolean error, String slave, String lineError) {
+        private ReplicationRow(boolean error, DomainName slave, String lineError) {
             this.error = error;
             this.slave = slave;
             this.lineError = lineError;
@@ -313,7 +315,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 
         private ReplicationRow(
             boolean error,
-            String slave,
+            DomainName slave,
             String slaveIOState,
             String slaveLogFile,
             String slaveLogPos,
@@ -340,7 +342,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
             return error;
         }
 
-        public String getSlave() {
+        public DomainName getSlave() {
             return slave;
         }
         

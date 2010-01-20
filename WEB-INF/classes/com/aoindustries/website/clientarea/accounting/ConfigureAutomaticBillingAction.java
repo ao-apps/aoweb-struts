@@ -9,6 +9,7 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.CreditCard;
+import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
@@ -46,7 +47,7 @@ public class ConfigureAutomaticBillingAction extends PermissionAction {
         if(GenericValidator.isBlankOrNull(accounting)) {
             return mapping.findForward("credit-card-manager");
         }
-        Business business = aoConn.getBusinesses().get(accounting);
+        Business business = aoConn.getBusinesses().get(AccountingCode.valueOf(accounting));
         if(business==null) {
             return mapping.findForward("credit-card-manager");
         }

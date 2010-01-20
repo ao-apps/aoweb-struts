@@ -14,6 +14,8 @@ import com.aoindustries.website.Skin;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -38,7 +40,7 @@ public class CancelAction  extends PermissionAction {
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {
-        List<Business> businesses = aoConn.getBusinesses().getRows();
+        SortedSet<Business> businesses = new TreeSet<Business>(aoConn.getBusinesses().getSet());
 
         // Set request values
         request.setAttribute("businesses", businesses);

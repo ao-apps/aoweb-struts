@@ -6,6 +6,7 @@ package com.aoindustries.website.clientarea.accounting;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.BusinessGroup;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
@@ -65,8 +66,8 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
         if(!creditCardProcessor.canStoreCreditCards(locale)) throw new AssertionError("CreditCardProcessor indicates it does not support storing credit cards.");
 
         creditCardProcessor.storeCreditCard(
-            new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
-            new BusinessGroup(aoConn.getBusinesses().get(accounting), accounting),
+            new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername().getId()),
+            new BusinessGroup(aoConn.getBusinesses().get(AccountingCode.valueOf(accounting)), accounting),
             new CreditCard(
                 locale,
                 null,

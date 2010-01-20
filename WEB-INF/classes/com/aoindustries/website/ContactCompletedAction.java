@@ -9,6 +9,7 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Language;
 import com.aoindustries.aoserv.client.TicketPriority;
 import com.aoindustries.aoserv.client.TicketType;
+import com.aoindustries.aoserv.client.validator.Email;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,13 +49,12 @@ public class ContactCompletedAction extends HttpsAction {
         }
         TicketType ticketType = rootConn.getTicketTypes().get(TicketType.CONTACT);
         TicketPriority clientPriority = rootConn.getTicketPriorities().get(TicketPriority.NORMAL);
-        rootConn.getTickets().addTicket(
-            siteSettings.getBrand(),
+        siteSettings.getBrand().addTicket(
             null,
             language,
             null,
             ticketType,
-            contactForm.getFrom(),
+            Email.valueOf(contactForm.getFrom()),
             contactForm.getSubject(),
             contactForm.getMessage(),
             clientPriority,

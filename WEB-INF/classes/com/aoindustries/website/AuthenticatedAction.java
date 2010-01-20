@@ -6,7 +6,10 @@ package com.aoindustries.website;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
-import java.io.IOException;
+import com.aoindustries.aoserv.client.validator.UserId;
+import com.aoindustries.aoserv.client.validator.ValidationException;
+import com.aoindustries.security.LoginException;
+import java.rmi.RemoteException;
 import java.util.Locale;
 import java.util.logging.Level;
 import javax.servlet.http.HttpSession;
@@ -83,10 +86,20 @@ abstract public class AuthenticatedAction extends HttpsAction {
         if(su!=null) {
             session.removeAttribute(Constants.SU_REQUESTED);
             try {
-                AOServConnector<?,?> aoConn = su.length()==0 ? authenticatedAoConn : authenticatedAoConn.switchUsers(su);
+                AOServConnector<?,?> aoConn = su.length()==0 ? authenticatedAoConn : authenticatedAoConn.getFactory().getConnector(
+                    authenticatedAoConn.getLocale(),
+                    UserId.valueOf(su),
+                    authenticatedAoConn.getAuthenticateAs(),
+                    authenticatedAoConn.getPassword(),
+                    null
+                );
                 session.setAttribute(Constants.AO_CONN, aoConn);
                 return aoConn;
-            } catch(IOException err) {
+            } catch(RemoteException err) {
+                LogFactory.getLogger(session.getServletContext(), AuthenticatedAction.class).log(Level.SEVERE, null, err);
+            } catch(LoginException err) {
+                LogFactory.getLogger(session.getServletContext(), AuthenticatedAction.class).log(Level.SEVERE, null, err);
+            } catch(ValidationException err) {
                 LogFactory.getLogger(session.getServletContext(), AuthenticatedAction.class).log(Level.SEVERE, null, err);
             }
         }
