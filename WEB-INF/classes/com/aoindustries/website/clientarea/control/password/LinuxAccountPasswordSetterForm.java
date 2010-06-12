@@ -8,7 +8,6 @@ package com.aoindustries.website.clientarea.control.password;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.LinuxAccount;
-import com.aoindustries.aoserv.client.LinuxAccountType;
 import com.aoindustries.aoserv.client.PasswordChecker;
 import com.aoindustries.aoserv.client.validator.UserId;
 import com.aoindustries.aoserv.client.validator.ValidationException;
@@ -112,7 +111,7 @@ public class LinuxAccountPasswordSetterForm extends ActionForm implements Serial
                                 .filterUnique(AOServer.COLUMN_HOSTNAME, aoServers.get(c))
                                 .getLinuxAccount(UserId.valueOf(username));
                             // Check the password strength
-                            PasswordChecker.Result[] results = LinuxAccount.checkPassword(locale, username, LinuxAccountType.Constant.valueOf(la.getLinuxAccountType().getResourceType().getName()), newPassword);
+                            PasswordChecker.Result[] results = la.getLinuxAccountType().checkPassword(locale, username, newPassword);
                             if(PasswordChecker.hasResults(locale, results)) {
                                 errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                             }

@@ -1,22 +1,26 @@
-package com.aoindustries.website.clientarea.control.password;
-
 /*
  * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.control.password;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.MySQLServer;
 import com.aoindustries.aoserv.client.MySQLUser;
 import com.aoindustries.aoserv.client.Username;
+import com.aoindustries.aoserv.client.command.CommandName;
+import com.aoindustries.aoserv.client.command.SetMySQLUserPasswordCommand;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -43,7 +47,7 @@ public class MySQLPasswordSetterAction extends PermissionAction {
     ) throws Exception {
         MySQLPasswordSetterForm mySQLPasswordSetterForm = (MySQLPasswordSetterForm)form;
 
-        List<MySQLUser> mus = aoConn.getMysqlUsers().getRows();
+        SortedSet<MySQLUser> mus = new TreeSet<MySQLUser>(aoConn.getMysqlUsers().getSet());
 
         List<String> businesses = new ArrayList<String>(mus.size());
         List<String> usernames = new ArrayList<String>(mus.size());
@@ -52,13 +56,13 @@ public class MySQLPasswordSetterAction extends PermissionAction {
         List<String> newPasswords = new ArrayList<String>(mus.size());
         List<String> confirmPasswords = new ArrayList<String>(mus.size());
         for(MySQLUser mu : mus) {
-            if(mu.canSetPassword()) {
+            if(!new SetMySQLUserPasswordCommand(mu.getKey(), null).validate(aoConn).containsKey(SetMySQLUserPasswordCommand.PARAM_MYSQL_USER)) {
                 Username un = mu.getUsername();
-                MySQLServer ms = mu.getMySQLServer();
-                businesses.add(un.getBusiness().getAccounting());
-                usernames.add(un.getUsername());
-                mySQLServers.add(ms.getName());
-                aoServers.add(ms.getAoServerResource().getAoServer().getHostname());
+                MySQLServer ms = mu.getMysqlServer();
+                businesses.add(un.getBusiness().getAccounting().getAccounting());
+                usernames.add(un.getUsername().getId());
+                mySQLServers.add(ms.getName().getName());
+                aoServers.add(ms.getAoServerResource().getAoServer().getHostname().getDomain());
                 newPasswords.add("");
                 confirmPasswords.add("");
             }
@@ -75,7 +79,7 @@ public class MySQLPasswordSetterAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    public List<AOServPermission.Permission> getPermissions() {
-        return Collections.singletonList(AOServPermission.Permission.set_mysql_user_password);
+    public Set<AOServPermission.Permission> getPermissions() {
+        return CommandName.set_mysql_user_password.getPermissions();
     }
 }

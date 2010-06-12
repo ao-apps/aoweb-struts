@@ -56,7 +56,7 @@ public class VncConsoleProxySocketServer implements Runnable {
                 SiteSettings siteSettings = SiteSettings.getInstance(myServletContext);
                 Brand brand = siteSettings.getBrand();
                 NetBind vncBind = brand.getAowebStrutsVncBind();
-                InetAddress inetAddress = InetAddress.getByName(vncBind.getIPAddress().getIPAddress());
+                InetAddress inetAddress = InetAddress.getByName(vncBind.getIpAddress().getIpAddress().getAddress());
                 AOServConnector rootConn = siteSettings.getRootAOServConnector();
                 // Init SSL without using system properties because default SSLContext may be already set
                 // From: http://java.sun.com/j2se/1.5.0/docs/guide/security/jsse/JSSERefGuide.html  "Multiple and Dynamic Keystores"

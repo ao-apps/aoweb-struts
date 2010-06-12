@@ -8,12 +8,14 @@ package com.aoindustries.website.clientarea.control.password;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Username;
+import com.aoindustries.aoserv.client.command.CommandName;
+import com.aoindustries.aoserv.client.validator.UserId;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -55,7 +57,7 @@ public class GlobalPasswordSetterCompletedAction extends PermissionAction {
         for(int c=0;c<usernames.size();c++) {
             String newPassword = newPasswords.get(c);
             if(newPassword.length()>0) {
-                String username = usernames.get(c);
+                UserId username = UserId.valueOf(usernames.get(c));
                 Username un = aoConn.getUsernames().get(username);
                 un.setPassword(newPassword);
                 messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.globalPasswordSetter.field.confirmPasswords.passwordReset"));
@@ -68,12 +70,7 @@ public class GlobalPasswordSetterCompletedAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    public List<AOServPermission.Permission> getPermissions() {
-        List<AOServPermission.Permission> permissions = new ArrayList<AOServPermission.Permission>();
-        permissions.add(AOServPermission.Permission.set_business_administrator_password);
-        permissions.add(AOServPermission.Permission.set_linux_server_account_password);
-        permissions.add(AOServPermission.Permission.set_mysql_user_password);
-        permissions.add(AOServPermission.Permission.set_postgres_server_user_password);
-        return permissions;
+    public Set<AOServPermission.Permission> getPermissions() {
+        return CommandName.set_username_password.getPermissions();
     }
 }

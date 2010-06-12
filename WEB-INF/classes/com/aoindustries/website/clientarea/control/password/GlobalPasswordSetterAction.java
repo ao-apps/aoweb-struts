@@ -8,12 +8,17 @@ package com.aoindustries.website.clientarea.control.password;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Username;
+import com.aoindustries.aoserv.client.command.CommandName;
+import com.aoindustries.aoserv.client.command.SetUsernamePasswordCommand;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -40,16 +45,16 @@ public class GlobalPasswordSetterAction extends PermissionAction {
     ) throws Exception {
         GlobalPasswordSetterForm globalPasswordSetterForm = (GlobalPasswordSetterForm)form;
 
-        List<Username> uns = aoConn.getUsernames().getRows();
+        SortedSet<Username> uns = new TreeSet<Username>(aoConn.getUsernames().getSet());
 
         List<String> businesses = new ArrayList<String>(uns.size());
         List<String> usernames = new ArrayList<String>(uns.size());
         List<String> newPasswords = new ArrayList<String>(uns.size());
         List<String> confirmPasswords = new ArrayList<String>(uns.size());
         for(Username un : uns) {
-            if(un.canSetPassword()) {
-                businesses.add(un.getBusiness().getAccounting());
-                usernames.add(un.getUsername());
+            if(!new SetUsernamePasswordCommand(un.getUsername(), null).validate(aoConn).containsKey(SetUsernamePasswordCommand.PARAM_USERNAME)) {
+                businesses.add(un.getBusiness().getAccounting().getAccounting());
+                usernames.add(un.getUsername().getId());
                 newPasswords.add("");
                 confirmPasswords.add("");
             }
@@ -64,12 +69,7 @@ public class GlobalPasswordSetterAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    public List<AOServPermission.Permission> getPermissions() {
-        List<AOServPermission.Permission> permissions = new ArrayList<AOServPermission.Permission>();
-        permissions.add(AOServPermission.Permission.set_business_administrator_password);
-        permissions.add(AOServPermission.Permission.set_linux_server_account_password);
-        permissions.add(AOServPermission.Permission.set_mysql_user_password);
-        permissions.add(AOServPermission.Permission.set_postgres_server_user_password);
-        return permissions;
+    public Set<AOServPermission.Permission> getPermissions() {
+        return CommandName.set_username_password.getPermissions();
     }
 }

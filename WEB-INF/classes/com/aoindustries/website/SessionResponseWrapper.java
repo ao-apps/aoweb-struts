@@ -62,6 +62,10 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                 remaining = url.substring(7);
             } else if(url.length()>8 && (protocol=url.substring(0, 8)).equalsIgnoreCase("https://")) {
                 remaining = url.substring(8);
+            } else if(url.startsWith("javascript:")) {
+                return url;
+            } else if(url.startsWith("mailto:")) {
+                return url;
             } else {
                 return addNoCookieParameters(url, false);
                 //return response.encodeURL(url);
@@ -113,6 +117,8 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                 remaining = url.substring(7);
             } else if(url.length()>8 && (protocol=url.substring(0, 8)).equalsIgnoreCase("https://")) {
                 remaining = url.substring(8);
+            } else if(url.startsWith("mailto:")) {
+                return url;
             } else {
                 return addNoCookieParameters(url, true);
                 //return response.encodeRedirectURL(url);
@@ -157,6 +163,14 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
     private String addNoCookieParameters(String url, boolean isRedirect) throws JspException, UnsupportedEncodingException, IOException {
         HttpSession session = request.getSession();
         if(session.isNew() || request.isRequestedSessionIdFromURL()) {
+            // Split the anchor
+            int poundPos = url.lastIndexOf('#');
+            String anchor;
+            if(poundPos==-1) anchor = null;
+            else {
+                anchor = url.substring(poundPos);
+                url = url.substring(0, poundPos);
+            }
             // Don't add for certains file types
             int pos = url.indexOf('?');
             String lowerPath = (pos==-1 ? url : url.substring(0, pos)).toLowerCase(Locale.ENGLISH);
@@ -219,6 +233,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                         );
                     } else {
                         // System.out.println("DEBUG: Why needs jsessionid: "+whyNeedsJsessionid);
+                        if(anchor!=null) url = url+anchor;
                         return isRedirect ? response.encodeRedirectURL(url) : response.encodeURL(url);
                     }
                 }
@@ -272,6 +287,8 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             } else {
                 //System.err.println("DEBUG: encodeRedirectURL: Not adding parameters to skipped type: "+url);
             }
+            if(anchor!=null) url = url+anchor;
+
         }
         return url;
     }
@@ -289,7 +306,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             url.indexOf("?"+encodedName+'=')==-1
             && url.indexOf("&"+encodedName+'=')==-1
         ) {
-            return url+"&amp;"+encodedName+'='+URLEncoder.encode(value, "UTF-8");
+            return url+'&'+encodedName+'='+URLEncoder.encode(value, "UTF-8");
         }
         return url;
     }

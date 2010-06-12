@@ -10,6 +10,7 @@ import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.BusinessProfile;
+import com.aoindustries.aoserv.client.command.CommandName;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
@@ -17,9 +18,9 @@ import com.aoindustries.website.signup.SignupBusinessActionHelper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -143,7 +144,7 @@ public class AddCreditCardAction extends PermissionAction {
         request.setAttribute("countryOptions", countryOptions);
     }
 
-    public List<AOServPermission.Permission> getPermissions() {
-        return Collections.singletonList(AOServPermission.Permission.add_credit_card);
+    public Set<AOServPermission.Permission> getPermissions() {
+        return CommandName.add_credit_card.getPermissions();
     }
 }

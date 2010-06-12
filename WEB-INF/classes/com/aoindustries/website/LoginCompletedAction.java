@@ -59,7 +59,7 @@ public class LoginCompletedAction extends HttpsAction {
         Throwable throwable;
         try {
             // Get connector
-            AOServConnector<?,?> aoConn = AOServClientConfiguration.getConnector(UserId.valueOf(username), password);
+            AOServConnector<?,?> aoConn = AOServClientConfiguration.getConnector(UserId.valueOf(username), password, false);
 
             // Store in session
             HttpSession session = request.getSession();

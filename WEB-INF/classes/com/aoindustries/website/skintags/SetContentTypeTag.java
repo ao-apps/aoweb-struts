@@ -138,9 +138,10 @@ public class SetContentTypeTag extends TagSupport {
                 JspWriter out = pageContext.getOut();
                 out.clear();
                 response.resetBuffer(); // Cannot have even whitespace before the xml declaration
-                out.print("<?xml version=\"1.0\" encoding=\"");
-                out.print(charset);
-                out.print("\"?>");
+                // Disabled per A.1 at http://www.w3.org/TR/xhtml-media-types/#compatGuidelines
+                // out.print("<?xml version=\"1.0\" encoding=\"");
+                // out.print(charset);
+                // out.print("\"?>");
             }
 
             return SKIP_BODY;

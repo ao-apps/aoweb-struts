@@ -11,6 +11,9 @@ import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.FailoverFileReplication;
 import com.aoindustries.aoserv.client.FailoverMySQLReplication;
 import com.aoindustries.aoserv.client.MySQLServer;
+import com.aoindustries.aoserv.client.command.CommandName;
+import com.aoindustries.aoserv.client.command.GetMySQLMasterStatusCommand;
+import com.aoindustries.aoserv.client.command.GetMySQLSlaveStatusCommand;
 import com.aoindustries.aoserv.client.validator.DomainName;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
@@ -18,9 +21,11 @@ import com.aoindustries.website.Skin;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
@@ -90,7 +95,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                         }
                     }
                     try {
-                        FailoverMySQLReplication.SlaveStatus slaveStatus = fmr.getSlaveStatus();
+                        GetMySQLSlaveStatusCommand.SlaveStatus slaveStatus = fmr.getSlaveStatus();
                         if(slaveStatus==null) {
                             replications.add(
                                 new ReplicationRow(
@@ -138,7 +143,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                     }
                 }
                 // Next, query the master and add the results to the rows
-                MySQLServer.MasterStatus masterStatus;
+                GetMySQLMasterStatusCommand.MasterStatus masterStatus;
                 MySQLServerRow mysqlServerRow;
                 try {
                     masterStatus = mysqlServer.getMasterStatus();
@@ -214,14 +219,15 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    private static final List<AOServPermission.Permission> permissions = new ArrayList<AOServPermission.Permission>(2);
+    private static final Set<AOServPermission.Permission> unmodifiablePermissions;
     static {
-        permissions.add(AOServPermission.Permission.get_mysql_master_status);
-        permissions.add(AOServPermission.Permission.get_mysql_slave_status);
+        Set<AOServPermission.Permission> permissions = new HashSet<AOServPermission.Permission>();
+        permissions.addAll(CommandName.get_mysql_master_status.getPermissions());
+        permissions.addAll(CommandName.get_mysql_slave_status.getPermissions());
+        unmodifiablePermissions = Collections.unmodifiableSet(permissions);
     }
-    private static final List<AOServPermission.Permission> unmodifiablePermissions = Collections.unmodifiableList(permissions);
 
-    public List<AOServPermission.Permission> getPermissions() {
+    public Set<AOServPermission.Permission> getPermissions() {
         return unmodifiablePermissions;
     }
 

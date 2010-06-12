@@ -134,7 +134,8 @@ public class SiteSettings {
                 try {
                     rootAOServConnector = AOServClientConfiguration.getConnector(
                         getRootAOServConnectorUsername(),
-                        getRootAOServConnectorPassword()
+                        getRootAOServConnectorPassword(),
+                        false
                     );
                 } catch(LoginException err) {
                     IOException ioErr = new IOException(err.getMessage());

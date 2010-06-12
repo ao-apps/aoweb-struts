@@ -1,22 +1,25 @@
-package com.aoindustries.website.clientarea.control.password;
-
 /*
  * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.control.password;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.MySQLServer;
 import com.aoindustries.aoserv.client.MySQLUser;
-import com.aoindustries.aoserv.client.Server;
+import com.aoindustries.aoserv.client.command.CommandName;
+import com.aoindustries.aoserv.client.validator.DomainName;
+import com.aoindustries.aoserv.client.validator.MySQLServerName;
+import com.aoindustries.aoserv.client.validator.MySQLUserId;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -61,12 +64,11 @@ public class MySQLPasswordSetterCompletedAction extends PermissionAction {
             String newPassword = newPasswords.get(c);
             if(newPassword.length()>0) {
                 String username = usernames.get(c);
-                String hostname = aoServers.get(c);
-                Server server = aoConn.getServers().get(hostname);
-                AOServer aoServer = server.getAoServer();
+                DomainName hostname = DomainName.valueOf(aoServers.get(c));
+                AOServer aoServer = aoConn.getAoServers().filterUnique(AOServer.COLUMN_HOSTNAME, hostname);
                 String serverName = mySQLServers.get(c);
-                MySQLServer ms = aoServer.getMySQLServer(serverName);
-                MySQLUser mu = ms.getMySQLUser(username);
+                MySQLServer ms = aoServer.getMysqlServer(MySQLServerName.valueOf(serverName));
+                MySQLUser mu = ms.getMysqlUser(MySQLUserId.valueOf(username));
                 mu.setPassword(newPassword);
                 messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.mySQLPasswordSetter.field.confirmPasswords.passwordReset"));
                 newPasswords.set(c, "");
@@ -78,7 +80,7 @@ public class MySQLPasswordSetterCompletedAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    public List<AOServPermission.Permission> getPermissions() {
-        return Collections.singletonList(AOServPermission.Permission.set_mysql_user_password);
+    public Set<AOServPermission.Permission> getPermissions() {
+        return CommandName.set_mysql_user_password.getPermissions();
     }
 }

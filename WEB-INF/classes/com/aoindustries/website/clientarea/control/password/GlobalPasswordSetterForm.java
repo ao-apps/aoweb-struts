@@ -92,7 +92,7 @@ public class GlobalPasswordSetterForm extends ActionForm implements Serializable
                     if(newPassword.length()>0) {
                         String username = usernames.get(c);
                         // Check the password strength
-                        PasswordChecker.Result[] results = PasswordChecker.checkPassword(locale, username, newPassword,  true, false);
+                        PasswordChecker.Result[] results = PasswordChecker.checkPassword(locale, username, newPassword, PasswordChecker.PasswordStrength.STRICT);
                         if(PasswordChecker.hasResults(locale, results)) {
                             errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                         }

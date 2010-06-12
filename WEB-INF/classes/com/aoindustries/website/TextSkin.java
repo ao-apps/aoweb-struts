@@ -12,7 +12,6 @@ import com.aoindustries.encoding.TextInXhtmlEncoder;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.util.i18n.EditableResourceBundle;
 import com.aoindustries.util.EncodingUtils;
-import com.aoindustries.util.StringUtility;
 import com.aoindustries.website.skintags.Child;
 import com.aoindustries.website.skintags.Meta;
 import java.io.IOException;
@@ -261,11 +260,7 @@ public class TextSkin extends Skin {
                     NewEncodingUtils.encodeTextInJavaScriptInXhtml(skin.getName(), out);
                     out.print("') window.top.location.href='");
                     NewEncodingUtils.encodeTextInJavaScriptInXhtml(
-                        StringUtility.replace(
-                            resp.encodeURL(fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&amp;")+"layout="+skin.getName()),
-                            "&amp;",
-                            "&"
-                        ),
+                        resp.encodeURL(fullPath+(fullPath.indexOf('?')==-1 ? '?' : '&')+"layout="+URLEncoder.encode(skin.getName(), "UTF-8")),
                         out
                     );
                     out.print("';\n");
@@ -331,11 +326,11 @@ public class TextSkin extends Skin {
                         out.print("' onmouseover='document.images[\"flagSelector_");
                         NewEncodingUtils.encodeTextInJavaScriptInXhtmlAttribute(language.getCode(), out);
                         out.print("\"].src=\"");
-                        NewEncodingUtils.encodeTextInJavaScriptInXhtmlAttribute(StringUtility.replace(resp.encodeURL(urlBase + language.getFlagOnSrc(req, locale)), "&amp;", "&"), out);
+                        NewEncodingUtils.encodeTextInJavaScriptInXhtmlAttribute(resp.encodeURL(urlBase + language.getFlagOnSrc(req, locale)), out);
                         out.print("\";' onmouseout='document.images[\"flagSelector_");
                         out.print(language.getCode());
                         out.print("\"].src=\"");
-                        NewEncodingUtils.encodeTextInJavaScriptInXhtmlAttribute(StringUtility.replace(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)), "&amp;", "&"), out);
+                        NewEncodingUtils.encodeTextInJavaScriptInXhtmlAttribute(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)), out);
                         out.print("\";'><img src='");
                         out.print(resp.encodeURL(urlBase + language.getFlagOffSrc(req, locale)));
                         out.print("' id='flagSelector_");
