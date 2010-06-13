@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -11,9 +11,9 @@ import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -41,20 +41,19 @@ public class MakePaymentAction extends AuthenticatedAction {
         Business thisBusiness = aoConn.getThisBusinessAdministrator().getUsername().getBusiness();
 
         // Get the list of businesses that are not canceled or have a non-zero balance, or are thisBusiness
-        List<Business> allBusinesses = aoConn.getBusinesses().getRows();
-        List<Business> businesses = new ArrayList<Business>(allBusinesses.size());
-        for(Business business : allBusinesses) {
+        SortedSet<Business> businesses = new TreeSet<Business>();
+        for(Business business : aoConn.getBusinesses().getSet()) {
             if(
                 thisBusiness.equals(business)
                 || (
-                    business.getCanceled()==-1
+                    business.getCanceled()==null
                     && !business.billParent()
                 ) || business.getAccountBalance().compareTo(BigDecimal.ZERO)!=0
             ) businesses.add(business);
         }
         if(businesses.size()==1) {
             // Redirect, only one option
-            response.sendRedirect(response.encodeRedirectURL(skin.getHttpsUrlBase(request)+"clientarea/accounting/make-payment-select-card.do?accounting="+businesses.get(0).getAccounting()));
+            response.sendRedirect(response.encodeRedirectURL(skin.getHttpsUrlBase(request)+"clientarea/accounting/make-payment-select-card.do?accounting="+businesses.first().getAccounting()));
             return null;
         } else {
             // Show selector screen

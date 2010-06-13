@@ -91,7 +91,8 @@ abstract public class AuthenticatedAction extends HttpsAction {
                     UserId.valueOf(su),
                     authenticatedAoConn.getAuthenticateAs(),
                     authenticatedAoConn.getPassword(),
-                    null
+                    null,
+                    false
                 );
                 session.setAttribute(Constants.AO_CONN, aoConn);
                 return aoConn;

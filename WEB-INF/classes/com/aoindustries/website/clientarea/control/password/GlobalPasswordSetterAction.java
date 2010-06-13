@@ -52,7 +52,7 @@ public class GlobalPasswordSetterAction extends PermissionAction {
         List<String> newPasswords = new ArrayList<String>(uns.size());
         List<String> confirmPasswords = new ArrayList<String>(uns.size());
         for(Username un : uns) {
-            if(!new SetUsernamePasswordCommand(un.getUsername(), null).validate(aoConn).containsKey(SetUsernamePasswordCommand.PARAM_USERNAME)) {
+            if(!new SetUsernamePasswordCommand(un.getUsername(), null).validate(aoConn).containsKey("username")) {
                 businesses.add(un.getBusiness().getAccounting().getAccounting());
                 usernames.add(un.getUsername().getId());
                 newPasswords.add("");

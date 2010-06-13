@@ -1,13 +1,15 @@
 package com.aoindustries.website.clientarea.control.vnc;
 
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009, 2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServClientConfiguration;
 import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AOServObject;
 import com.aoindustries.aoserv.client.AOServer;
+import com.aoindustries.aoserv.client.VirtualServer;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonConnection;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonConnector;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonProtocol;
@@ -82,7 +84,7 @@ public class VncConsoleProxySocketHandler {
         (byte)'\n'
     };
     private static final Random random = new SecureRandom();
-    public VncConsoleProxySocketHandler(final ServletContext servletContext, final AOServConnector rootConn, final Socket socket) {
+    public VncConsoleProxySocketHandler(final ServletContext servletContext, final AOServConnector<?,?> rootConn, final Socket socket) {
         // This thread will read from socket
         Thread thread = new Thread(
             new Runnable() {
@@ -116,9 +118,9 @@ public class VncConsoleProxySocketHandler {
                         byte[] response = new byte[16];
                         for(int c=0;c<16;c++) if((response[c] = (byte)socketIn.read())==-1) throw new EOFException("EOF from socketIn");
                         VirtualServer virtualServer = null;
-                        for(VirtualServer vs : rootConn.getVirtualServers().getRows()) {
+                        for(VirtualServer vs : rootConn.getVirtualServers().getSet()) {
                             String vncPassword = vs.getVncPassword();
-                            if(vncPassword!=null && !vncPassword.equals(AOServProtocol.FILTERED)) {
+                            if(vncPassword!=null && !vncPassword.equals(AOServObject.FILTERED)) {
                                 byte[] expectedResponse = desCipher(challenge, vncPassword);
                                 if(Arrays.equals(response, expectedResponse)) {
                                     virtualServer = vs;

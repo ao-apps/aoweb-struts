@@ -10,6 +10,7 @@ import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.aoserv.client.PaymentType;
 import com.aoindustries.aoserv.client.TransactionType;
+import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.BusinessGroup;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
@@ -55,7 +56,8 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         // Init request values
         initRequestAttributes(request, getServlet().getServletContext());
 
-        String accounting = makePaymentNewCardForm.getAccounting();
+        String accountingS = makePaymentNewCardForm.getAccounting();
+        AccountingCode accounting = accountingS==null ? null : AccountingCode.valueOf(accountingS);
         Business business = accounting==null ? null : aoConn.getBusinesses().get(accounting);
         if(business==null) {
             // Redirect back to make-payment if business not found
@@ -107,7 +109,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         );
 
         // Perform the transaction
-        AOServConnector rootConn = siteSettings.getRootAOServConnector();
+        AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
         
         // 1) Pick a processor
         CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootConn);
@@ -151,7 +153,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
 
         // 3) Process
         AOServConnectorPrincipal principal = new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername());
-        BusinessGroup businessGroup = new BusinessGroup(rootBusiness, accounting);
+        BusinessGroup businessGroup = new BusinessGroup(rootBusiness, accounting==null ? null : accounting.getAccounting());
         Transaction transaction = rootProcessor.sale(
             principal,
             businessGroup,
@@ -326,7 +328,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
      *                   Otherwise there is a race condition between the non-root AOServConnector getting the invalidation signal
      *                   and this method being called.
      */
-    private void setAutomatic(AOServConnector rootConn, com.aoindustries.creditcards.CreditCard newCreditCard, Business business) throws IOException {
+    private void setAutomatic(AOServConnector<?,?> rootConn, com.aoindustries.creditcards.CreditCard newCreditCard, Business business) throws IOException {
         String persistenceUniqueId = newCreditCard.getPersistenceUniqueId();
         CreditCard creditCard = rootConn.getCreditCards().get(Integer.parseInt(persistenceUniqueId));
         if(!creditCard.getBusiness().equals(business)) throw new AssertionError("Requested business and CreditCard business do not match: "+creditCard.getBusiness().getAccounting()+"!="+business.getAccounting());
