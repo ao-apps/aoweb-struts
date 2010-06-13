@@ -11,6 +11,7 @@ import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.BusinessProfile;
 import com.aoindustries.aoserv.client.command.CommandName;
+import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
@@ -94,26 +95,26 @@ public class AddCreditCardAction extends PermissionAction {
         }
 
         // Populate the initial details from the selected accounting code or authenticated user
-        Business business = aoConn.getBusinesses().get(accounting);
+        Business business = aoConn.getBusinesses().get(AccountingCode.valueOf(accounting));
         BusinessProfile profile = business.getBusinessProfile();
         if(profile!=null) {
             addCreditCardForm.setFirstName(getFirstName(profile.getBillingContact(), locale));
             addCreditCardForm.setLastName(getLastName(profile.getBillingContact(), locale));
             addCreditCardForm.setCompanyName(profile.getName());
-            addCreditCardForm.setEmail(profile.getBillingEmail().isEmpty() ? "" : profile.getBillingEmail().get(0));
+            addCreditCardForm.setEmail(profile.getBillingEmail().isEmpty() ? "" : profile.getBillingEmail().get(0).toString());
             addCreditCardForm.setPhone(profile.getPhone());
             addCreditCardForm.setFax(profile.getFax());
             addCreditCardForm.setStreetAddress1(profile.getAddress1());
             addCreditCardForm.setStreetAddress2(profile.getAddress2());
             addCreditCardForm.setCity(profile.getCity());
             addCreditCardForm.setState(profile.getState());
-            addCreditCardForm.setPostalCode(profile.getZIP());
+            addCreditCardForm.setPostalCode(profile.getZip());
             addCreditCardForm.setCountryCode(profile.getCountry().getCode());
         } else {
             BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
             addCreditCardForm.setFirstName(getFirstName(thisBA.getFullName(), locale));
             addCreditCardForm.setLastName(getLastName(thisBA.getFullName(), locale));
-            addCreditCardForm.setEmail(thisBA.getEmail());
+            addCreditCardForm.setEmail(thisBA.getEmail().toString());
             addCreditCardForm.setPhone(thisBA.getWorkPhone());
             addCreditCardForm.setFax(thisBA.getFax());
             addCreditCardForm.setStreetAddress1(thisBA.getAddress1());
