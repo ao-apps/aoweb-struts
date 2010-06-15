@@ -72,7 +72,7 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
             BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
             makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(thisBA.getName()));
             makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(thisBA.getName()));
-            makePaymentNewCardForm.setEmail(thisBA.getEmail());
+            makePaymentNewCardForm.setEmail(thisBA.getEmail().toString());
             makePaymentNewCardForm.setPhone(thisBA.getWorkPhone());
             makePaymentNewCardForm.setFax(thisBA.getFax());
             makePaymentNewCardForm.setStreetAddress1(thisBA.getAddress1());

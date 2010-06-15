@@ -65,7 +65,7 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
         HttpSession session = request.getSession();
         ActionServlet myServlet = getServlet();
         ServletContext servletContext = myServlet.getServletContext();
-        AOServConnector rootConn = siteSettings.getRootAOServConnector();
+        AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
 
         // Build the options map

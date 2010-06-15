@@ -59,7 +59,7 @@ public class PostgreSQLPasswordSetterAction extends PermissionAction {
                 PostgresServer ps = pu.getPostgresServer();
                 businesses.add(un.getBusiness().getAccounting().toString());
                 usernames.add(un.getUsername().toString());
-                postgreSQLServers.add(ps.getName().getName());
+                postgreSQLServers.add(ps.getName().toString());
                 aoServers.add(ps.getAoServerResource().getAoServer().getHostname().toString());
                 newPasswords.add("");
                 confirmPasswords.add("");
@@ -77,6 +77,7 @@ public class PostgreSQLPasswordSetterAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
+    @Override
     public Set<AOServPermission.Permission> getPermissions() {
         return CommandName.set_postgres_user_password.getPermissions();
     }

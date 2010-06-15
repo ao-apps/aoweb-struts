@@ -149,7 +149,7 @@ final public class MinimalConfirmationCompletedActionHelper {
                          + "    </td></tr>\n"
                          + "    <tr><th colspan=\"3\">").print(ApplicationResources.accessor.getMessage("steps.selectPackage.label")).print("</th></tr>\n");
             SignupSelectPackageActionHelper.printConfirmation(emailOut, packageDefinition);
-            AOServConnector rootConn = siteSettings.getRootAOServConnector();
+            AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
                          + "    <tr><th colspan=\"3\">").print(ApplicationResources.accessor.getMessage("steps.businessInfo.label")).print("</th></tr>\n");
             SignupBusinessActionHelper.printConfirmation(emailOut, rootConn, signupBusinessForm);

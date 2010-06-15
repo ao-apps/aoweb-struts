@@ -270,7 +270,7 @@ final public class ServerConfirmationCompletedActionHelper {
             SignupSelectServerActionHelper.printConfirmation(emailOut, packageDefinition);
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
                          + "    <tr><th colspan=\"3\">").print(ApplicationResources.accessor.getMessage("steps.customizeServer.label")).print("</th></tr>\n");
-            AOServConnector rootConn = siteSettings.getRootAOServConnector();
+            AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
             SignupCustomizeServerActionHelper.printConfirmation(request, emailOut, rootConn, packageDefinition, signupCustomizeServerForm);
             if(signupCustomizeManagementForm!=null) {
                 emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"

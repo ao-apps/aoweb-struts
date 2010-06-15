@@ -14,7 +14,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.struts.Globals;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionServlet;
@@ -59,7 +58,7 @@ public class AOServ5CompletedAction extends AOServ5Action {
         // Used later
         HttpSession session = request.getSession();
         ActionServlet myServlet = getServlet();
-        AOServConnector rootConn = siteSettings.getRootAOServConnector();
+        AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
 
         // Build the options map

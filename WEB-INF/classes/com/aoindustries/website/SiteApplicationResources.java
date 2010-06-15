@@ -6,6 +6,7 @@
  */
 package com.aoindustries.website;
 
+import com.aoindustries.util.i18n.ApplicationResourcesAccessor;
 import com.aoindustries.util.i18n.EditableResourceBundle;
 import com.aoindustries.util.i18n.EditableResourceBundleSet;
 import java.io.File;
@@ -35,4 +36,6 @@ public final class SiteApplicationResources extends EditableResourceBundle {
             bundleSet
         );
     }
+
+    public static final ApplicationResourcesAccessor accessor = ApplicationResourcesAccessor.getInstance(bundleSet.getBaseName());
 }

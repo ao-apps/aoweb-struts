@@ -83,11 +83,11 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
         if(!GenericValidator.isBlankOrNull(newCardNumber)) {
             // Update card number and expiration
             // Root connector used to get processor
-            AOServConnector rootConn = siteSettings.getRootAOServConnector();
+            AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
             CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
             CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
             rootProcessor.updateCreditCardNumberAndExpiration(
-                new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
+                new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername().toString()),
                 CreditCardFactory.getCreditCard(rootCreditCard),
                 newCardNumber,
                 Byte.parseByte(newExpirationMonth),
@@ -102,11 +102,11 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             ) {
                 // Update expiration only
                 // Root connector used to get processor
-                AOServConnector rootConn = siteSettings.getRootAOServConnector();
+                AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
                 CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
                 CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
                 rootProcessor.updateCreditCardExpiration(
-                    new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
+                    new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername().toString()),
                     CreditCardFactory.getCreditCard(rootCreditCard),
                     Byte.parseByte(newExpirationMonth),
                     Short.parseShort(newExpirationYear)
@@ -119,7 +119,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             !nullOrBlankEquals(editCreditCardForm.getFirstName(), creditCard.getFirstName())
             || !nullOrBlankEquals(editCreditCardForm.getLastName(), creditCard.getLastName())
             || !nullOrBlankEquals(editCreditCardForm.getCompanyName(), creditCard.getCompanyName())
-            || !nullOrBlankEquals(editCreditCardForm.getEmail(), creditCard.getEmail())
+            || !nullOrBlankEquals(editCreditCardForm.getEmail(), creditCard.getEmail().toString())
             || !nullOrBlankEquals(editCreditCardForm.getPhone(), creditCard.getPhone())
             || !nullOrBlankEquals(editCreditCardForm.getFax(), creditCard.getFax())
             || !nullOrBlankEquals(editCreditCardForm.getCustomerTaxId(), creditCard.getCustomerTaxId())

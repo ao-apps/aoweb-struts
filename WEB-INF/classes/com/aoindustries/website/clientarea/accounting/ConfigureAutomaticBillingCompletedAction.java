@@ -13,9 +13,9 @@ import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
@@ -64,7 +64,7 @@ public class ConfigureAutomaticBillingCompletedAction extends PermissionAction {
             if(!creditCard.getBusiness().equals(business)) throw new AssertionError("Requested business and CreditCard business do not match: "+creditCard.getBusiness().getAccounting()+"!="+business.getAccounting());
         }
 
-        business.setUseMonthlyCreditCard(creditCard);
+        business.setCreditCardUseMonthly(creditCard);
 
         // Store request attributes
         request.setAttribute("business", business);
@@ -73,15 +73,16 @@ public class ConfigureAutomaticBillingCompletedAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    private static List<AOServPermission.Permission> permissions;
+    private static Set<AOServPermission.Permission> permissions;
     static {
-        List<AOServPermission.Permission> newList = new ArrayList<AOServPermission.Permission>(2);
-        newList.add(AOServPermission.Permission.get_credit_cards);
-        newList.add(AOServPermission.Permission.edit_credit_card);
-        permissions = Collections.unmodifiableList(newList);
+        Set<AOServPermission.Permission> newSet = new HashSet<AOServPermission.Permission>(2*4/3+1);
+        newSet.add(AOServPermission.Permission.get_credit_cards);
+        newSet.add(AOServPermission.Permission.edit_credit_card);
+        permissions = Collections.unmodifiableSet(newSet);
     }
 
-    public List<AOServPermission.Permission> getPermissions() {
+    @Override
+    public Set<AOServPermission.Permission> getPermissions() {
         return permissions;
     }
 }

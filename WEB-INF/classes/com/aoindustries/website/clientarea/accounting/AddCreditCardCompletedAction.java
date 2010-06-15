@@ -57,7 +57,7 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
         }
 
         // Get the credit card processor for the root connector of this website
-        AOServConnector rootConn = siteSettings.getRootAOServConnector();
+        AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
         CreditCardProcessor creditCardProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootConn);
 
         // Add card

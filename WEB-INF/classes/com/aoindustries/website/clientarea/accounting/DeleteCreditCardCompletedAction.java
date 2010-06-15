@@ -16,7 +16,7 @@ import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -56,14 +56,14 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
         String cardNumber = creditCard.getCardInfo();
 
         // Lookup the card in the root connector (to get access to the processor)
-        AOServConnector rootConn = siteSettings.getRootAOServConnector();
+        AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
         CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
 
         // Delete the card from the bank and persistence
         CreditCardProcessor rootAoservCCP = rootCreditCard.getCreditCardProcessor();
         com.aoindustries.creditcards.CreditCardProcessor processor = CreditCardProcessorFactory.getCreditCardProcessor(rootAoservCCP);
         processor.deleteCreditCard(
-            new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
+            new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername().toString()),
             CreditCardFactory.getCreditCard(rootCreditCard)
         );
 
@@ -74,7 +74,8 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    public List<AOServPermission.Permission> getPermissions() {
-        return Collections.singletonList(AOServPermission.Permission.delete_credit_card);
+    @Override
+    public Set<AOServPermission.Permission> getPermissions() {
+        return Collections.singleton(AOServPermission.Permission.delete_credit_card);
     }
 }

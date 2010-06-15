@@ -67,7 +67,7 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
         // Used later
         HttpSession session = request.getSession();
         ActionServlet myServlet = getServlet();
-        AOServConnector rootConn = siteSettings.getRootAOServConnector();
+        AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
 
         // Build the options map

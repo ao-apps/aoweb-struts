@@ -11,9 +11,9 @@ import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -57,15 +57,16 @@ public class DeleteCreditCardAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    private static List<AOServPermission.Permission> permissions;
+    private static Set<AOServPermission.Permission> permissions;
     static {
-        List<AOServPermission.Permission> newList = new ArrayList<AOServPermission.Permission>(2);
-        newList.add(AOServPermission.Permission.get_credit_cards);
-        newList.add(AOServPermission.Permission.delete_credit_card);
-        permissions = Collections.unmodifiableList(newList);
+        Set<AOServPermission.Permission> newSet = new HashSet<AOServPermission.Permission>(2);
+        newSet.add(AOServPermission.Permission.get_credit_cards);
+        newSet.add(AOServPermission.Permission.delete_credit_card);
+        permissions = Collections.unmodifiableSet(newSet);
     }
 
-    public List<AOServPermission.Permission> getPermissions() {
+    @Override
+    public Set<AOServPermission.Permission> getPermissions() {
         return permissions;
     }
 }
