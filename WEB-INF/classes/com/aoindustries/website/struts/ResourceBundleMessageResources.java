@@ -1,7 +1,7 @@
 package com.aoindustries.website.struts;
 
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -34,6 +34,7 @@ public class ResourceBundleMessageResources extends MessageResources implements 
         super(factory, config, returnNull);
     }
 
+    @Override
     public String getMessage(Locale locale, String key) {
         String value = null;
         try {

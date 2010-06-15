@@ -1,13 +1,12 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.creditcards.TransactionResult;
 import java.io.Serializable;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionErrors;
@@ -204,8 +203,8 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
      *
      * @return the <code>ActionErrors</code> with the mapping or <code>null</code> if unable to map
      */
-    public ActionErrors mapTransactionError(TransactionResult.ErrorCode errorCode, Locale userLocale) {
-        String errorString = errorCode.toString(userLocale);
+    public ActionErrors mapTransactionError(TransactionResult.ErrorCode errorCode) {
+        String errorString = errorCode.toString();
         ActionErrors errors = new ActionErrors();
         switch(errorCode) {
             case INVALID_CARD_NAME:

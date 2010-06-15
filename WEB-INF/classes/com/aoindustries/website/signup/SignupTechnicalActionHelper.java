@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -12,7 +12,6 @@ import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
@@ -68,82 +67,82 @@ final public class SignupTechnicalActionHelper {
         request.setAttribute("baCountry", getBaCountry(rootConn, signupTechnicalForm));
     }
 
-    public static void printConfirmation(ChainWriter emailOut, Locale userLocale, MessageResources signupApplicationResources, AOServConnector rootConn, SignupTechnicalForm signupTechnicalForm) throws IOException {
+    public static void printConfirmation(ChainWriter emailOut, MessageResources signupApplicationResources, AOServConnector rootConn, SignupTechnicalForm signupTechnicalForm) throws IOException {
         emailOut.print("    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.required")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupTechnicalForm.baName.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.required")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupTechnicalForm.baName.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupTechnicalForm.getBaName()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupTechnicalForm.baTitle.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupTechnicalForm.baTitle.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupTechnicalForm.getBaTitle()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.required")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupTechnicalForm.baWorkPhone.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.required")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupTechnicalForm.baWorkPhone.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupTechnicalForm.getBaWorkPhone()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupTechnicalForm.baCellPhone.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupTechnicalForm.baCellPhone.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupTechnicalForm.getBaCellPhone()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupTechnicalForm.baHomePhone.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupTechnicalForm.baHomePhone.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupTechnicalForm.getBaHomePhone()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupTechnicalForm.baFax.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupTechnicalForm.baFax.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupTechnicalForm.getBaFax()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.required")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupTechnicalForm.baEmail.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.required")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupTechnicalForm.baEmail.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupTechnicalForm.getBaEmail()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupTechnicalForm.baAddress1.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupTechnicalForm.baAddress1.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupTechnicalForm.getBaAddress1()).print("</td>\n"
                      + "    </tr>\n");
         if(!GenericValidator.isBlankOrNull(signupTechnicalForm.getBaAddress2())) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupTechnicalForm.baAddress2.prompt")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupTechnicalForm.baAddress2.prompt")).print("</td>\n"
                          + "        <td>").encodeHtml(signupTechnicalForm.getBaAddress2()).print("</td>\n"
                          + "    </tr>\n");
         }
         emailOut.print("    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupTechnicalForm.baCity.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupTechnicalForm.baCity.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupTechnicalForm.getBaCity()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupTechnicalForm.baState.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupTechnicalForm.baState.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupTechnicalForm.getBaState()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupTechnicalForm.baCountry.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupTechnicalForm.baCountry.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(getBaCountry(rootConn, signupTechnicalForm)).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupTechnicalForm.baZip.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupTechnicalForm.baZip.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupTechnicalForm.getBaZip()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.required")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupTechnicalForm.baUsername.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.required")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupTechnicalForm.baUsername.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupTechnicalForm.getBaUsername()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupTechnicalForm.baPassword.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupTechnicalForm.baPassword.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupTechnicalForm.getBaPassword()).print("</td>\n"
                      + "    </tr>\n");
     }

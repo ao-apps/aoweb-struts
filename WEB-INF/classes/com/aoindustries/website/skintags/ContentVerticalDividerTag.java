@@ -1,12 +1,11 @@
-package com.aoindustries.website.skintags;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.skintags;
+
 import com.aoindustries.website.Skin;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -45,10 +44,8 @@ public class ContentVerticalDividerTag extends TagSupport {
         try {
             ContentLineTag contentLineTag = (ContentLineTag)findAncestorWithClass(this, ContentLineTag.class);
             if(contentLineTag==null) {
-                HttpSession session = pageContext.getSession();
-                Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
                 MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
-                throw new JspException(applicationResources.getMessage(locale, "skintags.ContentVerticalDividerTag.mustNestInContentLineTag"));
+                throw new JspException(applicationResources.getMessage("skintags.ContentVerticalDividerTag.mustNestInContentLineTag"));
             }
 
             Skin skin = SkinTag.getSkin(pageContext);

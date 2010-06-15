@@ -1,11 +1,10 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import com.aoindustries.website.skintags.PageAttributes;
 import javax.servlet.http.HttpServletResponse;
@@ -31,25 +30,12 @@ abstract public class Skin {
     ;
 
     /**
-     * Provides the correct character set for the given locale.
-     */
-    static public String getCharacterSet(Locale locale) {
-        /*if(locale!=null && locale.getLanguage().equals(Locale.JAPANESE.getLanguage())) {
-            //return "euc-jp";
-            return "Shift_JIS";
-        } else {*/
-            // return "iso-8859-1";
-            return "UTF-8";
-        //}
-    }
-
-    /**
      * Gets the name of this skin.
      */
     abstract public String getName();
 
     /**
-     * Gets the display value for this skin in the provided locale.
+     * Gets the display value for this skin.
      */
     abstract public String getDisplay(HttpServletRequest req) throws JspException;
 
@@ -209,34 +195,34 @@ abstract public class Skin {
             return code;
         }
         
-        public String getDisplay(HttpServletRequest req, Locale locale) throws JspException {
+        public String getDisplay(HttpServletRequest req) throws JspException {
             MessageResources applicationResources = (MessageResources)req.getAttribute(displayResourcesKey);
             if(applicationResources==null) throw new JspException("Unable to load resources: "+displayResourcesKey);
-            return applicationResources.getMessage(locale, displayKey);
+            return applicationResources.getMessage(displayKey);
         }
 
-        public String getFlagOnSrc(HttpServletRequest req, Locale locale) throws JspException {
+        public String getFlagOnSrc(HttpServletRequest req) throws JspException {
             MessageResources applicationResources = (MessageResources)req.getAttribute(flagOnSrcResourcesKey);
             if(applicationResources==null) throw new JspException("Unable to load resources: "+flagOnSrcResourcesKey);
-            return applicationResources.getMessage(locale, flagOnSrcKey);
+            return applicationResources.getMessage(flagOnSrcKey);
         }
 
-        public String getFlagOffSrc(HttpServletRequest req, Locale locale) throws JspException {
+        public String getFlagOffSrc(HttpServletRequest req) throws JspException {
             MessageResources applicationResources = (MessageResources)req.getAttribute(flagOffSrcResourcesKey);
             if(applicationResources==null) throw new JspException("Unable to load resources: "+flagOffSrcResourcesKey);
-            return applicationResources.getMessage(locale, flagOffSrcKey);
+            return applicationResources.getMessage(flagOffSrcKey);
         }
 
-        public String getFlagWidth(HttpServletRequest req, Locale locale) throws JspException {
+        public String getFlagWidth(HttpServletRequest req) throws JspException {
             MessageResources applicationResources = (MessageResources)req.getAttribute(flagWidthResourcesKey);
             if(applicationResources==null) throw new JspException("Unable to load resources: "+flagWidthResourcesKey);
-            return applicationResources.getMessage(locale, flagWidthKey);
+            return applicationResources.getMessage(flagWidthKey);
         }
 
-        public String getFlagHeight(HttpServletRequest req, Locale locale) throws JspException {
+        public String getFlagHeight(HttpServletRequest req) throws JspException {
             MessageResources applicationResources = (MessageResources)req.getAttribute(flagHeightResourcesKey);
             if(applicationResources==null) throw new JspException("Unable to load resources: "+flagHeightResourcesKey);
-            return applicationResources.getMessage(locale, flagHeightKey);
+            return applicationResources.getMessage(flagHeightKey);
         }
 
         /**

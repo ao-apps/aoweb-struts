@@ -1,14 +1,13 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
-import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +24,6 @@ public class Colocation5Action extends ColocationStepAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         ColocationSignupSelectPackageForm signupSelectPackageForm,
         boolean signupSelectPackageFormComplete,

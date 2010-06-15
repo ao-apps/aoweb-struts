@@ -1,10 +1,9 @@
-package com.aoindustries.website;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website;
 
 /**
  * Constants that may be used by other applications.
@@ -57,11 +56,6 @@ public class Constants {
      */
     public static final String SITE_SETTINGS = "siteSettings";
 
-    /**
-     * The request key used to store the current <code>Locale</code>.
-     */
-    public static final String LOCALE = "locale";
-    
     /**
      * The request key used to store the <code>List&lt;AOServPermission&gt;</code> that ALL must be allowed for the specified task.
      */

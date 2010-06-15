@@ -1,11 +1,10 @@
-package com.aoindustries.website;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import java.util.Locale;
+package com.aoindustries.website;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -32,20 +31,19 @@ abstract public class ProtocolAction extends SkinAction {
     public static final int HTTPS = 2;
 
     @Override
-    final public ActionForward execute(
+    public ActionForward execute(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin
     ) throws Exception {
         int acceptableProtocols = getAcceptableProtocols();
         boolean isSecure = request.isSecure();
         if(isSecure) {
             if((acceptableProtocols&HTTPS)!=0) {
-                return executeProtocolAccepted(mapping, form, request, response, siteSettings, locale, skin);
+                return executeProtocolAccepted(mapping, form, request, response, siteSettings, skin);
             } else {
                 // Will default to true for safety with incorrect value in config file
                 boolean redirectOnMismatch = siteSettings.getProtocolActionRedirectOnMismatch();
@@ -59,13 +57,13 @@ abstract public class ProtocolAction extends SkinAction {
                 } else {
                     MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
                     request.setAttribute(com.aoindustries.website.Constants.HTTP_SERVLET_RESPONSE_STATUS, Integer.valueOf(HttpServletResponse.SC_FORBIDDEN));
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN, applicationResources.getMessage(locale, "ProtocolAction.httpsNotAllowed"));
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, applicationResources.getMessage("ProtocolAction.httpsNotAllowed"));
                 }
                 return null;
             }
         } else {
             if((acceptableProtocols&HTTP)!=0) {
-                return executeProtocolAccepted(mapping, form, request, response, siteSettings, locale, skin);
+                return executeProtocolAccepted(mapping, form, request, response, siteSettings, skin);
             } else {
                 // Will default to true for safety with incorrect value in config file
                 boolean redirectOnMismatch = siteSettings.getProtocolActionRedirectOnMismatch();
@@ -77,7 +75,7 @@ abstract public class ProtocolAction extends SkinAction {
                     response.sendError(HttpServletResponse.SC_MOVED_PERMANENTLY);
                 } else {
                     MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN, applicationResources.getMessage(locale, "ProtocolAction.httpNotAllowed"));
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, applicationResources.getMessage("ProtocolAction.httpNotAllowed"));
                 }
                 return null;
             }
@@ -99,7 +97,6 @@ abstract public class ProtocolAction extends SkinAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin
     ) throws Exception {
         return mapping.findForward("success");

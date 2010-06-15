@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.control.monitor;
 
 /*
- * Copyright 2000-2009 by AO Industries, Inc.,
+ * Copyright 2000-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.SortedSet;
@@ -50,7 +49,6 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {
@@ -101,7 +99,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                                 new ReplicationRow(
                                     true,
                                     slave,
-                                    controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.slaveNotRunning")
+                                    controlApplicationResources.accessor.getMessage("monitor.mysqlReplicationMonitor.slaveNotRunning")
                                 )
                             );
                         } else {
@@ -137,7 +135,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                             new ReplicationRow(
                                 true,
                                 slave,
-                                controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.ioException", err.getMessage())
+                                controlApplicationResources.accessor.getMessage("monitor.mysqlReplicationMonitor.ioException", err.getMessage())
                             )
                         );
                     }
@@ -151,7 +149,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                         mysqlServerRow = new MySQLServerRow(
                             mysqlServer.getVersion().getVersion(),
                             server.toString(),
-                            controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.masterNotRunning"),
+                            controlApplicationResources.accessor.getMessage("monitor.mysqlReplicationMonitor.masterNotRunning"),
                             replications
                         );
                     } else {
@@ -168,7 +166,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                     mysqlServerRow = new MySQLServerRow(
                         mysqlServer.getVersion().getVersion(),
                         server.toString(),
-                        controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.ioException", err.getMessage()),
+                        controlApplicationResources.accessor.getMessage("monitor.mysqlReplicationMonitor.ioException", err.getMessage()),
                         replications
                     );
                 }

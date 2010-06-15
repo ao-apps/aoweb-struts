@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -12,7 +12,6 @@ import com.aoindustries.website.SessionActionForm;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.Globals;
@@ -208,8 +207,6 @@ public class SignupTechnicalForm extends ActionForm implements Serializable, Ses
         ActionErrors errors = super.validate(mapping, request);
         if(errors==null) errors = new ActionErrors();
         try {
-            Locale locale = (Locale)request.getSession().getAttribute(Globals.LOCALE_KEY);
-
             if(GenericValidator.isBlankOrNull(baName)) errors.add("baName", new ActionMessage("signupTechnicalForm.baName.required"));
             if(GenericValidator.isBlankOrNull(baWorkPhone)) errors.add("baWorkPhone", new ActionMessage("signupTechnicalForm.baWorkPhone.required"));
             if(GenericValidator.isBlankOrNull(baEmail)) {
@@ -223,9 +220,9 @@ public class SignupTechnicalForm extends ActionForm implements Serializable, Ses
                 if(myServlet!=null) {
                     AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
                     String lowerUsername = baUsername.toLowerCase();
-                    String check = Username.checkUsername(lowerUsername, locale);
+                    String check = Username.checkUsername(lowerUsername);
                     if(check!=null) errors.add("baUsername", new ActionMessage(check, false));
-                    else if(!rootConn.getUsernames().isUsernameAvailable(lowerUsername, locale)) errors.add("baUsername", new ActionMessage("signupTechnicalForm.baUsername.unavailable"));
+                    else if(!rootConn.getUsernames().isUsernameAvailable(lowerUsername)) errors.add("baUsername", new ActionMessage("signupTechnicalForm.baUsername.unavailable"));
                 }
             }
             return errors;

@@ -1,7 +1,7 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2000-2009 by AO Industries, Inc.,
+ * Copyright 2000-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -10,7 +10,8 @@ import com.aoindustries.aoserv.client.Language;
 import com.aoindustries.aoserv.client.TicketPriority;
 import com.aoindustries.aoserv.client.TicketType;
 import com.aoindustries.aoserv.client.validator.Email;
-import java.util.Locale;
+import com.aoindustries.util.i18n.ThreadLocale;
+import java.util.NoSuchElementException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -30,7 +31,6 @@ public class ContactCompletedAction extends HttpsAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin
     ) throws Exception {
         ContactForm contactForm = (ContactForm)form;
@@ -43,8 +43,10 @@ public class ContactCompletedAction extends HttpsAction {
         }
 
         AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
-        Language language = rootConn.getLanguages().get(locale.getLanguage());
-        if(language==null) {
+        Language language;
+        try {
+            language = rootConn.getLanguages().get(ThreadLocale.get().getLanguage());
+        } catch(NoSuchElementException err) {
             language = rootConn.getLanguages().get(Language.EN);
         }
         TicketType ticketType = rootConn.getTicketTypes().get(TicketType.CONTACT);

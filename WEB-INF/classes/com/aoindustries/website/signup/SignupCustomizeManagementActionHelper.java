@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -16,7 +16,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +43,6 @@ final public class SignupCustomizeManagementActionHelper {
         SignupCustomizeServerForm signupCustomizeServerForm,
         SignupCustomizeManagementForm signupCustomizeManagementForm
     ) throws IOException {
-        Locale userLocale = response.getLocale();
         AOServConnector<?,?> rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
         List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
@@ -66,7 +64,7 @@ final public class SignupCustomizeManagementActionHelper {
                     // This is per gigabyte of physical space
                     BigDecimal additionalRate = limit.getAdditionalRate();
                     if(additionalRate==null) additionalRate = BigDecimal.valueOf(0, 2);
-                    backupOnsiteOptions.add(new Option(limit.getPkey(), resource.toString(userLocale), additionalRate.multiply(BigDecimal.valueOf(totalHardwareDiskSpace))));
+                    backupOnsiteOptions.add(new Option(limit.getPkey(), resource.toString(), additionalRate.multiply(BigDecimal.valueOf(totalHardwareDiskSpace))));
                 }
             } else if(resourceName.startsWith("backup_offsite_")) {
                 int limitPower = limit.getHardLimit();
@@ -74,7 +72,7 @@ final public class SignupCustomizeManagementActionHelper {
                     // This is per gigabyte of physical space
                     BigDecimal additionalRate = limit.getAdditionalRate();
                     if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
-                    backupOffsiteOptions.add(new Option(limit.getPkey(), resource.toString(userLocale), additionalRate.multiply(BigDecimal.valueOf(totalHardwareDiskSpace))));
+                    backupOffsiteOptions.add(new Option(limit.getPkey(), resource.toString(), additionalRate.multiply(BigDecimal.valueOf(totalHardwareDiskSpace))));
                 }
             }
         }
@@ -87,7 +85,7 @@ final public class SignupCustomizeManagementActionHelper {
                 if(hard==PackageDefinitionLimit.UNLIMITED || hard>0) {
                     BigDecimal additionalRate = limit.getAdditionalRate();
                     if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
-                    distributionScanOptions.add(new Option(limit.getPkey(), resource.toString(userLocale), additionalRate));
+                    distributionScanOptions.add(new Option(limit.getPkey(), resource.toString(), additionalRate));
                 }
             }
         }
@@ -102,7 +100,7 @@ final public class SignupCustomizeManagementActionHelper {
                     BigDecimal additionalRate = limit.getAdditionalRate();
                     if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
                     additionalRate = additionalRate.multiply(BigDecimal.valueOf(totalHardwareDiskSpace));
-                    failoverOptions.add(new Option(limit.getPkey(), resource.toString(userLocale), additionalRate));
+                    failoverOptions.add(new Option(limit.getPkey(), resource.toString(), additionalRate));
 
                     // Only once the failover option is available will the MySQL replication option be available
                     ResourceType mrResource = rootConn.getResourceTypes().get(ResourceType.MYSQL_REPLICATION);
@@ -112,7 +110,7 @@ final public class SignupCustomizeManagementActionHelper {
                         if(mrHard==PackageDefinitionLimit.UNLIMITED || mrHard>0) {
                             BigDecimal mrAdditionalRate = mrLimit.getAdditionalRate();
                             if(mrAdditionalRate==null) mrAdditionalRate=BigDecimal.valueOf(0, 2);
-                            failoverOptions.add(new Option(mrLimit.getPkey(), mrResource.toString(userLocale), additionalRate.add(mrAdditionalRate)));
+                            failoverOptions.add(new Option(mrLimit.getPkey(), mrResource.toString(), additionalRate.add(mrAdditionalRate)));
                         }
                     }
                 }
@@ -166,71 +164,69 @@ final public class SignupCustomizeManagementActionHelper {
         SignupCustomizeServerForm signupCustomizeServerForm,
         SignupCustomizeManagementForm signupCustomizeManagementForm
     ) throws IOException {
-        Locale userLocale = response.getLocale();
         // Lookup things needed by the view
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
 
         // Store as request attribute for the view
         request.setAttribute("totalMonthlyRate", getTotalMonthlyRate(rootConn, signupCustomizeServerForm, signupCustomizeManagementForm, packageDefinition));
-        request.setAttribute("backupOnsiteOption", getBackupOnsiteOption(rootConn, signupCustomizeManagementForm, userLocale));
-        request.setAttribute("backupOffsiteOption", getBackupOffsiteOption(rootConn, signupCustomizeManagementForm, userLocale));
+        request.setAttribute("backupOnsiteOption", getBackupOnsiteOption(rootConn, signupCustomizeManagementForm));
+        request.setAttribute("backupOffsiteOption", getBackupOffsiteOption(rootConn, signupCustomizeManagementForm));
         request.setAttribute("backupDvdOption", getBackupDvdOption(rootConn, signupCustomizeManagementForm));
-        request.setAttribute("distributionScanOption", getDistributionScanOption(rootConn, signupCustomizeManagementForm, userLocale));
-        request.setAttribute("failoverOption", getFailoverOption(rootConn, signupCustomizeManagementForm, userLocale));
+        request.setAttribute("distributionScanOption", getDistributionScanOption(rootConn, signupCustomizeManagementForm));
+        request.setAttribute("failoverOption", getFailoverOption(rootConn, signupCustomizeManagementForm));
     }
 
     public static void printConfirmation(
         HttpServletRequest request,
         ChainWriter emailOut,
-        Locale userLocale,
         AOServConnector rootConn,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
         MessageResources signupApplicationResources
     ) throws IOException {
-        String backupOnsiteOption = getBackupOnsiteOption(rootConn, signupCustomizeManagementForm, userLocale);
+        String backupOnsiteOption = getBackupOnsiteOption(rootConn, signupCustomizeManagementForm);
         if(!GenericValidator.isBlankOrNull(backupOnsiteOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeManagementConfirmation.backupOnsite.prompt")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.backupOnsite.prompt")).print("</td>\n"
                          + "        <td>").print(backupOnsiteOption).print("</td>\n"
                          + "    </tr>\n");
         }
-        String backupOffsiteOption = getBackupOffsiteOption(rootConn, signupCustomizeManagementForm, userLocale);
+        String backupOffsiteOption = getBackupOffsiteOption(rootConn, signupCustomizeManagementForm);
         if(!GenericValidator.isBlankOrNull(backupOffsiteOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeManagementConfirmation.backupOffsite.prompt")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.backupOffsite.prompt")).print("</td>\n"
                          + "        <td>").print(backupOffsiteOption).print("</td>\n"
                          + "    </tr>\n");
         }
         String backupDvdOption = getBackupDvdOption(rootConn, signupCustomizeManagementForm);
         if(!GenericValidator.isBlankOrNull(backupDvdOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeManagementConfirmation.backupDvd.prompt")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.backupDvd.prompt")).print("</td>\n"
                          + "        <td>").print(backupDvdOption).print("</td>\n"
                          + "    </tr>\n");
         }
-        String distributionScanOption = getDistributionScanOption(rootConn, signupCustomizeManagementForm, userLocale);
+        String distributionScanOption = getDistributionScanOption(rootConn, signupCustomizeManagementForm);
         if(!GenericValidator.isBlankOrNull(distributionScanOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeManagementConfirmation.distributionScan.prompt")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.distributionScan.prompt")).print("</td>\n"
                          + "        <td>").print(distributionScanOption).print("</td>\n"
                          + "    </tr>\n");
         }
-        String failoverOption = getFailoverOption(rootConn, signupCustomizeManagementForm, userLocale);
+        String failoverOption = getFailoverOption(rootConn, signupCustomizeManagementForm);
         if(!GenericValidator.isBlankOrNull(failoverOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeManagementConfirmation.failover.prompt")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.failover.prompt")).print("</td>\n"
                          + "        <td>").print(failoverOption).print("</td>\n"
                          + "    </tr>\n");
         }
         emailOut.print("    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeManagementConfirmation.totalMonthlyRate.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.totalMonthlyRate.prompt")).print("</td>\n"
                      + "        <td>$").print(request.getAttribute("totalMonthlyRate")).print("</td>\n"
                      + "    </tr>\n");
     }
@@ -297,18 +293,18 @@ final public class SignupCustomizeManagementActionHelper {
         return monthlyRate;
     }
 
-    public static String getBackupOnsiteOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm, Locale userLocale) throws IOException {
+    public static String getBackupOnsiteOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) throws IOException {
         int option = signupCustomizeManagementForm.getBackupOnsiteOption();
         if(option==-1) return null;
         PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(option);
-        return pdl.getResourceType().toString(userLocale);
+        return pdl.getResourceType().toString();
     }
 
-    public static String getBackupOffsiteOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm, Locale userLocale) throws IOException {
+    public static String getBackupOffsiteOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) throws IOException {
         int option = signupCustomizeManagementForm.getBackupOffsiteOption();
         if(option==-1) return null;
         PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(option);
-        return pdl.getResourceType().toString(userLocale);
+        return pdl.getResourceType().toString();
     }
 
     public static String getBackupDvdOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) {
@@ -317,17 +313,17 @@ final public class SignupCustomizeManagementActionHelper {
         return option;
     }
 
-    public static String getDistributionScanOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm, Locale userLocale) throws IOException {
+    public static String getDistributionScanOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) throws IOException {
         int option = signupCustomizeManagementForm.getDistributionScanOption();
         if(option==-1) return null;
         PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(option);
-        return pdl.getResourceType().toString(userLocale);
+        return pdl.getResourceType().toString();
     }
 
-    public static String getFailoverOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm, Locale userLocale) throws IOException {
+    public static String getFailoverOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) throws IOException {
         int option = signupCustomizeManagementForm.getFailoverOption();
         if(option==-1) return null;
         PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(option);
-        return pdl.getResourceType().toString(userLocale);
+        return pdl.getResourceType().toString();
     }
 }

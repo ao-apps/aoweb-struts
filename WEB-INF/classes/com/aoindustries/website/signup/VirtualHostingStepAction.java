@@ -1,14 +1,13 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.website.HttpsAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,13 +25,12 @@ abstract public class VirtualHostingStepAction extends HttpsAction {
      * Initializes the step details.
      */
     @Override
-    final public ActionForward executeProtocolAccepted(
+    public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin
     ) throws Exception {
         // Clear checkboxes that were not part of the request
@@ -84,7 +82,6 @@ abstract public class VirtualHostingStepAction extends HttpsAction {
             request,
             response,
             siteSettings,
-            locale,
             skin,
             signupSelectPackageForm,
             signupSelectPackageFormComplete,
@@ -122,7 +119,6 @@ abstract public class VirtualHostingStepAction extends HttpsAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         VirtualHostingSignupSelectPackageForm signupSelectPackageForm,
         boolean signupSelectPackageFormComplete,

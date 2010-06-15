@@ -13,7 +13,6 @@ import com.aoindustries.aoserv.client.command.CommandName;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.Locale;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +34,6 @@ public class VncViewerAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {

@@ -11,7 +11,6 @@ import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.math.BigDecimal;
-import java.util.Locale;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,13 +27,12 @@ import org.apache.struts.action.ActionMapping;
 public class MakePaymentAction extends AuthenticatedAction {
 
     @Override
-    final public ActionForward execute(
+    public ActionForward execute(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {

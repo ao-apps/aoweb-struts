@@ -1,10 +1,11 @@
-package com.aoindustries.website;
-
+// aoweb-struts: Do not edit
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website;
+
 import com.aoindustries.util.i18n.EditableResourceBundle;
 import com.aoindustries.util.i18n.EditableResourceBundleSet;
 import java.io.File;
@@ -19,7 +20,7 @@ public final class SiteApplicationResources extends EditableResourceBundle {
     static final EditableResourceBundleSet bundleSet = new EditableResourceBundleSet(
         SiteApplicationResources.class.getName(),
         Arrays.asList(
-            new Locale(""), // Locale.ROOT in Java 1.6
+            Locale.ROOT,
             Locale.JAPANESE
         )
     );
@@ -30,7 +31,7 @@ public final class SiteApplicationResources extends EditableResourceBundle {
     public SiteApplicationResources() {
         super(
             new File(System.getProperty("user.home")+"/common/ao/cvswork/aoweb-struts/WEB-INF/classes/com/aoindustries/website/SiteApplicationResources.properties"),
-            new Locale(""),
+            Locale.ROOT,
             bundleSet
         );
     }

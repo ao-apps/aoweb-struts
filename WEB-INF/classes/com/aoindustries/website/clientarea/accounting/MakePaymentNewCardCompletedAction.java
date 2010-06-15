@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -24,7 +24,6 @@ import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -41,13 +40,12 @@ import org.apache.struts.util.MessageResources;
 public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction {
 
     @Override
-    final public ActionForward execute(
+    public ActionForward execute(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {
@@ -80,7 +78,6 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         // Encapsulate the values into a new credit card
         String cardNumber = makePaymentNewCardForm.getCardNumber();
         com.aoindustries.creditcards.CreditCard newCreditCard = new com.aoindustries.creditcards.CreditCard(
-            locale,
             null,
             null,
             null,
@@ -141,7 +138,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
             rootBusiness,
             aoConn.getThisBusinessAdministrator(),
             paymentTransactionType,
-            applicationResources.getMessage(locale, "makePaymentStoredCardCompleted.transaction.description"),
+            applicationResources.getMessage("makePaymentStoredCardCompleted.transaction.description"),
             1000,
             -pennies,
             paymentType,
@@ -158,7 +155,6 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
             principal,
             businessGroup,
             new TransactionRequest(
-                locale,
                 false,
                 request.getRemoteAddr(),
                 120,
@@ -182,10 +178,9 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                 null,
                 null,
                 null,
-                applicationResources.getMessage(Locale.US, "makePaymentStoredCardCompleted.transaction.description")
+                applicationResources.getMessage("makePaymentStoredCardCompleted.transaction.description")
             ),
-            newCreditCard,
-            locale
+            newCreditCard
         );
 
         // 4) Decline/approve based on results
@@ -199,10 +194,10 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                 aoTransaction.declined(Integer.parseInt(transaction.getPersistenceUniqueId()));
 
                 TransactionResult.ErrorCode errorCode = authorizationResult.getErrorCode();
-                ActionMessages mappedErrors = makePaymentNewCardForm.mapTransactionError(errorCode, locale);
+                ActionMessages mappedErrors = makePaymentNewCardForm.mapTransactionError(errorCode);
                 if(mappedErrors==null || mappedErrors.isEmpty()) {
                     // Not mapped, store to request attributes as generate error (to be displayed separate from specific fields)
-                    request.setAttribute("errorReason", errorCode.toString(locale));
+                    request.setAttribute("errorReason", errorCode);
                 } else {
                     // Store for display with specific fields
                     saveErrors(request, mappedErrors);
@@ -220,7 +215,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                         // Store to request attributes
                         request.setAttribute("transaction", transaction);
                         request.setAttribute("aoTransaction", aoTransaction);
-                        request.setAttribute("reviewReason", authorizationResult.getReviewReason().toString(locale));
+                        request.setAttribute("reviewReason", authorizationResult.getReviewReason());
 
                         String storeCard = makePaymentNewCardForm.getStoreCard();
                         if(
@@ -230,7 +225,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                             // Store card
                             boolean storeSuccess;
                             try {
-                                storeCard(rootProcessor, principal, businessGroup, newCreditCard, locale);
+                                storeCard(rootProcessor, principal, businessGroup, newCreditCard);
                                 request.setAttribute("cardStored", "true");
                                 storeSuccess = true;
                             } catch(IOException err) {
@@ -261,7 +256,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                         aoTransaction.declined(Integer.parseInt(transaction.getPersistenceUniqueId()));
 
                         // Store to request attributes
-                        request.setAttribute("declineReason", authorizationResult.getDeclineReason().toString(locale));
+                        request.setAttribute("declineReason", authorizationResult.getDeclineReason());
                         return mapping.findForward("declined");
                     }
                     case APPROVED :
@@ -281,7 +276,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                             // Store card
                             boolean storeSuccess;
                             try {
-                                storeCard(rootProcessor, principal, businessGroup, newCreditCard, locale);
+                                storeCard(rootProcessor, principal, businessGroup, newCreditCard);
                                 request.setAttribute("cardStored", "true");
                                 storeSuccess = true;
                             } catch(IOException err) {
@@ -314,12 +309,11 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         }
     }
     
-    private void storeCard(CreditCardProcessor rootProcessor, AOServConnectorPrincipal principal, BusinessGroup businessGroup, com.aoindustries.creditcards.CreditCard newCreditCard, Locale locale) throws IOException {
+    private void storeCard(CreditCardProcessor rootProcessor, AOServConnectorPrincipal principal, BusinessGroup businessGroup, com.aoindustries.creditcards.CreditCard newCreditCard) throws IOException {
         rootProcessor.storeCreditCard(
             principal,
             businessGroup,
-            newCreditCard,
-            locale
+            newCreditCard
         );
     }
     

@@ -1,10 +1,11 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.util.i18n.ThreadLocale;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -26,9 +27,9 @@ import org.apache.struts.action.ActionMapping;
 public class LocaleAction extends SiteSettingsAction {
 
     /**
-     * Selects the <code>Locale</code>, sets the request attribute "locale", then the subclass execute method is invoked.
+     * Selects the <code>Locale</code> then the subclass execute method is invoked.
      *
-     * @see #execute(ActionMapping,ActionForm,HttpServletRequest,HttpServletResponse,Locale)
+     * @see #execute(ActionMapping,ActionForm,HttpServletRequest,HttpServletResponse)
      */
     @Override
     final public ActionForward execute(
@@ -38,11 +39,8 @@ public class LocaleAction extends SiteSettingsAction {
         HttpServletResponse response,
         SiteSettings siteSettings
     ) throws Exception {
-        // Resolve the locale
-        Locale locale = getEffectiveLocale(siteSettings, request, response);
-        request.setAttribute(Constants.LOCALE, locale);
-
-        return execute(mapping, form, request, response, siteSettings, locale);
+        getEffectiveLocale(siteSettings, request, response);
+        return executeL(mapping, form, request, response, siteSettings);
     }
 
     /**
@@ -52,7 +50,7 @@ public class LocaleAction extends SiteSettingsAction {
      * (the first in the language list).
      * </p>
      * <p>Also allows the parameter "language" to override the current settings.</p>
-     * <p>This also sets the struts, JSTL, and response locales to the same value.</p>
+     * <p>This also sets the struts, JSTL, response, and thread locales to the same value.</p>
      */
     public static Locale getEffectiveLocale(SiteSettings siteSettings, HttpServletRequest request, HttpServletResponse response) throws JspException, IOException {
         HttpSession session = request.getSession();
@@ -68,6 +66,7 @@ public class LocaleAction extends SiteSettingsAction {
                     session.setAttribute(Globals.LOCALE_KEY, locale);
                     Config.set(session, Config.FMT_LOCALE, locale);
                     response.setLocale(locale);
+                    ThreadLocale.set(locale);
                     return locale;
                 }
             }
@@ -79,6 +78,7 @@ public class LocaleAction extends SiteSettingsAction {
                 if(possLanguage.getCode().equals(localeLanguage)) {
                     // Current value is from session and is OK
                     response.setLocale(locale);
+                    ThreadLocale.set(locale);
                     // Make sure the JSTL value matches
                     if(!locale.equals(Config.get(session, Config.FMT_LOCALE))) Config.set(session, Config.FMT_LOCALE, locale);
                     return locale;
@@ -90,17 +90,20 @@ public class LocaleAction extends SiteSettingsAction {
         session.setAttribute(Globals.LOCALE_KEY, locale);
         Config.set(session, Config.FMT_LOCALE, locale);
         response.setLocale(locale);
+        ThreadLocale.set(locale);
         return locale;
     }
 
     /**
-     * Gets the default locale for the provided request.  The session is not
-     * set.
+     * Gets the default locale for the provided request.  The session is not set.
      */
     public static Locale getDefaultLocale(SiteSettings siteSettings, HttpServletRequest request) throws JspException, IOException {
         return getDefaultLocale(siteSettings.getLanguages(request));
     }
 
+    /**
+     * Gets the default locale for the provided languages.  The session is not set.
+     */
     private static Locale getDefaultLocale(List<Skin.Language> languages) {
         return new Locale(languages.get(0).getCode());
     }
@@ -109,13 +112,12 @@ public class LocaleAction extends SiteSettingsAction {
      * Once the locale is selected, this version of the execute method is invoked.
      * The default implementation of this method simply returns the mapping of "success".
      */
-    public ActionForward execute(
+    public ActionForward executeL(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
-        SiteSettings siteSettings,
-        Locale locale
+        SiteSettings siteSettings
     ) throws Exception {
         return mapping.findForward("success");
     }

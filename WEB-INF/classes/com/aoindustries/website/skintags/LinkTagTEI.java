@@ -1,12 +1,11 @@
 package com.aoindustries.website.skintags;
 
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.website.ApplicationResources;
-import java.util.Locale;
 import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.ValidationMessage;
@@ -28,9 +27,8 @@ public class LinkTagTEI extends TagExtraInfo {
                 return new ValidationMessage[] {
                     new ValidationMessage(
                         data.getId(),
-                        ApplicationResources.getMessage(
+                        ApplicationResources.accessor.getMessage(
                             "Invalid value for conditional comment expression.  Please refer to aoweb-struts-skin.tld for the valid values.",
-                            Locale.getDefault(),
                             "skintags.LinkTagTEI.validate.layout.invalid"
                         )
                     )

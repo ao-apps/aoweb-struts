@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -9,6 +9,7 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Brand;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.io.ChainWriter;
+import com.aoindustries.util.i18n.ThreadLocale;
 import com.aoindustries.website.Mailer;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
@@ -20,7 +21,6 @@ import java.io.Reader;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Set;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -43,7 +43,6 @@ final public class MinimalConfirmationCompletedActionHelper {
         HttpServletRequest request,
         String pkey,
         String statusKey,
-        Locale userLocale,
         SiteSettings siteSettings,
         PackageDefinition packageDefinition,
         SignupBusinessForm signupBusinessForm,
@@ -51,7 +50,7 @@ final public class MinimalConfirmationCompletedActionHelper {
         SignupBillingInformationForm signupBillingInformationForm
     ) {
         try {
-            sendSummaryEmail(servlet, request, pkey, statusKey, siteSettings.getBrand().getAowebStrutsSignupAdminAddress(), userLocale, Locale.US, siteSettings, packageDefinition, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
+            sendSummaryEmail(servlet, request, pkey, statusKey, siteSettings.getBrand().getAowebStrutsSignupAdminAddress(), siteSettings, packageDefinition, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
         } catch(Exception err) {
             servlet.log("Unable to send sign up details to support admin address", err);
         }
@@ -65,7 +64,6 @@ final public class MinimalConfirmationCompletedActionHelper {
         HttpServletRequest request,
         String pkey,
         String statusKey,
-        Locale userLocale,
         SiteSettings siteSettings,
         PackageDefinition packageDefinition,
         SignupBusinessForm signupBusinessForm,
@@ -80,7 +78,7 @@ final public class MinimalConfirmationCompletedActionHelper {
         Iterator<String> I=addresses.iterator();
         while(I.hasNext()) {
             String address=I.next();
-            boolean success = sendSummaryEmail(servlet, request, pkey, statusKey, address, userLocale, userLocale, siteSettings, packageDefinition, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
+            boolean success = sendSummaryEmail(servlet, request, pkey, statusKey, address, siteSettings, packageDefinition, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm);
             if(success) successAddresses.add(address);
             else failureAddresses.add(address);
         }
@@ -99,8 +97,6 @@ final public class MinimalConfirmationCompletedActionHelper {
         String pkey,
         String statusKey,
         String recipient,
-        Locale userLocale,
-        Locale subjectLocale,
         SiteSettings siteSettings,
         PackageDefinition packageDefinition,
         SignupBusinessForm signupBusinessForm,
@@ -108,15 +104,15 @@ final public class MinimalConfirmationCompletedActionHelper {
         SignupBillingInformationForm signupBillingInformationForm
     ) {
         try {
-            // Find the locale and related resource bundles
-            String charset = Skin.getCharacterSet(userLocale);
+            // Find the related resource bundles
+            String charset = Skin.getCharacterSet(ThreadLocale.get());
             MessageResources signupApplicationResources = (MessageResources)request.getAttribute("/signup/ApplicationResources");
             if(signupApplicationResources==null) throw new JspException("Unable to load resources: /signup/ApplicationResources");
 
             // Generate the email contents
             CharArrayWriter cout = new CharArrayWriter();
             ChainWriter emailOut = new ChainWriter(cout);
-            String htmlLang = ServerConfirmationCompletedActionHelper.getHtmlLang(userLocale);
+            String htmlLang = ServerConfirmationCompletedActionHelper.getHtmlLang(ThreadLocale.get());
             emailOut.print("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
                     + "<html xmlns=\"http://www.w3.org/1999/xhtml\"");
             if(htmlLang!=null) emailOut.print(" lang=\"").print(htmlLang).print("\" xml:lang=\"").print(htmlLang).print('"');
@@ -149,23 +145,23 @@ final public class MinimalConfirmationCompletedActionHelper {
                          + "<body>\n"
                          + "<table style='border:0px' cellpadding=\"0\" cellspacing=\"0\">\n"
                          + "    <tr><td style='white-space:nowrap' colspan=\"3\">\n"
-                         + "        ").print(signupApplicationResources.getMessage(userLocale, statusKey, pkey)).print("<br />\n"
+                         + "        ").print(signupApplicationResources.accessor.getMessage(statusKey, pkey)).print("<br />\n"
                          + "        <br />\n"
-                         + "        ").print(signupApplicationResources.getMessage(userLocale, "serverConfirmationCompleted.belowIsSummary")).print("<br />\n"
+                         + "        ").print(signupApplicationResources.accessor.getMessage("serverConfirmationCompleted.belowIsSummary")).print("<br />\n"
                          + "        <hr />\n"
                          + "    </td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(userLocale, "steps.selectPackage.label")).print("</th></tr>\n");
-            SignupSelectPackageActionHelper.printConfirmation(emailOut, userLocale, packageDefinition, signupApplicationResources);
+                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.accessor.getMessage("steps.selectPackage.label")).print("</th></tr>\n");
+            SignupSelectPackageActionHelper.printConfirmation(emailOut, packageDefinition, signupApplicationResources);
             AOServConnector rootConn = siteSettings.getRootAOServConnector();
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(userLocale, "steps.businessInfo.label")).print("</th></tr>\n");
-            SignupBusinessActionHelper.printConfirmation(emailOut, userLocale, signupApplicationResources, rootConn, signupBusinessForm);
+                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.accessor.getMessage("steps.businessInfo.label")).print("</th></tr>\n");
+            SignupBusinessActionHelper.printConfirmation(emailOut, signupApplicationResources, rootConn, signupBusinessForm);
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(userLocale, "steps.technicalInfo.label")).print("</th></tr>\n");
-            SignupTechnicalActionHelper.printConfirmation(emailOut, userLocale, signupApplicationResources, rootConn, signupTechnicalForm);
+                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.accessor.getMessage("steps.technicalInfo.label")).print("</th></tr>\n");
+            SignupTechnicalActionHelper.printConfirmation(emailOut, signupApplicationResources, rootConn, signupTechnicalForm);
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.getMessage(userLocale, "steps.billingInformation.label")).print("</th></tr>\n");
-            SignupBillingInformationActionHelper.printConfirmation(emailOut, userLocale, signupApplicationResources, signupBillingInformationForm);
+                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.accessor.getMessage("steps.billingInformation.label")).print("</th></tr>\n");
+            SignupBillingInformationActionHelper.printConfirmation(emailOut, signupApplicationResources, signupBillingInformationForm);
             emailOut.print("</table>\n"
                          + "</body>\n"
                          + "</html>\n");
@@ -180,7 +176,7 @@ final public class MinimalConfirmationCompletedActionHelper {
                 brand.getSignupEmailAddress().toString(),
                 brand.getSignupEmailDisplay(),
                 Collections.singletonList(recipient),
-                signupApplicationResources.getMessage(subjectLocale, "serverConfirmationCompleted.email.subject", pkey),
+                signupApplicationResources.accessor.getMessage("serverConfirmationCompleted.email.subject", pkey),
                 cout.toString()
             );
 

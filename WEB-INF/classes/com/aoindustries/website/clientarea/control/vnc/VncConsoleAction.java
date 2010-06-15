@@ -13,7 +13,6 @@ import com.aoindustries.aoserv.client.command.CommandName;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.Locale;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -37,7 +36,6 @@ public class VncConsoleAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {

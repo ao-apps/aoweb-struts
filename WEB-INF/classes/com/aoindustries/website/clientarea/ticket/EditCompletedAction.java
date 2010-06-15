@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.ticket;
 
 /*
- * Copyright 2000-2009 by AO Industries, Inc.,
+ * Copyright 2000-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -10,13 +10,13 @@ import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.Ticket;
 import com.aoindustries.aoserv.client.TicketPriority;
+import com.aoindustries.aoserv.client.command.CommandName;
 import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +39,6 @@ public class EditCompletedAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {
@@ -131,8 +130,8 @@ public class EditCompletedAction extends PermissionAction {
     static final Set<AOServPermission.Permission> permissions;
     static {
         Set<AOServPermission.Permission> newPermissions = new HashSet<AOServPermission.Permission>();
-        // TODO: newPermissions.add(CommandName.add_ticket_annotation);
-        // TODO: permissions.add(CommandName.edit_ticket.getPermissions());
+        newPermissions.addAll(CommandName.add_ticket_annotation.getPermissions());
+        newPermissions.add(AOServPermission.Permission.edit_ticket);
         permissions = Collections.unmodifiableSet(newPermissions);
     }
     public Set<AOServPermission.Permission> getPermissions() {

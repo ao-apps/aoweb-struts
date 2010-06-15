@@ -1,30 +1,27 @@
 package com.aoindustries.website.skintags;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.util.StringUtility;
-import com.aoindustries.website.Skin;
 import java.io.IOException;
 import java.util.Enumeration;
-import java.util.Locale;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
-import org.apache.struts.Globals;
 
 /**
  * Sets the content type for the page.
  *
- * @see  Skin#getCharacterSet(Locale)
- *
  * @author  AO Industries, Inc.
  */
 public class SetContentTypeTag extends TagSupport {
+
+    private static final long serialVersionUID = 1L;
 
     public SetContentTypeTag() {
     }
@@ -122,14 +119,9 @@ public class SetContentTypeTag extends TagSupport {
             // System.out.println("DEBUG: SetContentTypeTag: doStartTag: response.setContentType("+contentType+")");
             // System.out.println("DEBUG: SetContentTypeTag: doStartTag: response.getContentType()="+response.getContentType());
 
-            // Set the locale
-            Locale locale = (Locale)pageContext.getSession().getAttribute(Globals.LOCALE_KEY);
-            response.setLocale(locale);
-
             // Set the encoding
-            String charset = Skin.getCharacterSet(locale);
             // System.out.println("DEBUG: SetContentTypeTag: doStartTag: response.getCharacterEncoding()="+response.getCharacterEncoding());
-            response.setCharacterEncoding(charset);
+            response.setCharacterEncoding("UTF-8");
             // System.out.println("DEBUG: SetContentTypeTag: doStartTag: response.setCharacterEncoding("+charset+")");
             // System.out.println("DEBUG: SetContentTypeTag: doStartTag: response.getCharacterEncoding()="+response.getCharacterEncoding());
 

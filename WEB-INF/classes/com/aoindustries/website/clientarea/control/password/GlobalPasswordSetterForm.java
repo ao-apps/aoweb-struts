@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.control.password;
 
 /*
- * Copyright 2000-2009 by AO Industries, Inc.,
+ * Copyright 2000-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -13,7 +13,6 @@ import com.aoindustries.website.AuthenticatedAction;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts.Globals;
 import org.apache.struts.action.ActionErrors;
@@ -81,8 +80,6 @@ public class GlobalPasswordSetterForm extends ActionForm implements Serializable
             if(errors==null) errors = new ActionErrors();
             AOServConnector<?,?> aoConn = AuthenticatedAction.getAoConn(request, null);
             if(aoConn==null) throw new RuntimeException("aoConn is null");
-            Locale locale = (Locale)request.getSession().getAttribute(Globals.LOCALE_KEY);
-
             for(int c=0;c<usernames.size();c++) {
                 String newPassword = newPasswords.get(c);
                 String confirmPassword = confirmPasswords.get(c);
@@ -92,8 +89,8 @@ public class GlobalPasswordSetterForm extends ActionForm implements Serializable
                     if(newPassword.length()>0) {
                         String username = usernames.get(c);
                         // Check the password strength
-                        PasswordChecker.Result[] results = PasswordChecker.checkPassword(locale, username, newPassword, PasswordChecker.PasswordStrength.STRICT);
-                        if(PasswordChecker.hasResults(locale, results)) {
+                        PasswordChecker.Result[] results = PasswordChecker.checkPassword(username, newPassword, PasswordChecker.PasswordStrength.STRICT);
+                        if(PasswordChecker.hasResults(results)) {
                             errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                         }
                     }

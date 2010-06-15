@@ -1,6 +1,6 @@
 <%-- aoweb-struts: Do not edit --%>
 <%--
-  Copyright 2007-2009 by AO Industries, Inc.,
+  Copyright 2007-2010 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
@@ -17,10 +17,7 @@
     }
 
     // Set locale request attribute if not yet done
-    if(request.getAttribute(com.aoindustries.website.Constants.LOCALE)==null) {
-        java.util.Locale locale = com.aoindustries.website.LocaleAction.getEffectiveLocale(siteSettings, request, response);
-        request.setAttribute(com.aoindustries.website.Constants.LOCALE, locale);
-    }
+    com.aoindustries.website.LocaleAction.getEffectiveLocale(siteSettings, request, response);
 
     // Set the skin request attribute if not yet done
     if(request.getAttribute(com.aoindustries.website.Constants.SKIN)==null) {

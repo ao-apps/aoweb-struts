@@ -1,15 +1,13 @@
-package com.aoindustries.website;
-
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website;
+
 import java.util.Enumeration;
-import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.jstl.core.Config;
 import org.apache.struts.Globals;
 
 /**
@@ -27,26 +25,32 @@ public class FilteredHttpSession implements HttpSession {
         this.wrapped = wrapped;
     }
 
+    @Override
     public long getCreationTime() {
         return wrapped.getCreationTime();
     }
 
+    @Override
     public String getId() {
         return wrapped.getId();
     }
 
+    @Override
     public long getLastAccessedTime() {
         return wrapped.getLastAccessedTime();
     }
 
+    @Override
     public ServletContext getServletContext() {
         return wrapped.getServletContext();
     }
 
+    @Override
     public void setMaxInactiveInterval(int interval) {
         wrapped.setMaxInactiveInterval(interval);
     }
 
+    @Override
     public int getMaxInactiveInterval() {
         return wrapped.getMaxInactiveInterval();
     }
@@ -55,10 +59,12 @@ public class FilteredHttpSession implements HttpSession {
      * @deprecated
      */
     @Deprecated
+    @Override
     public javax.servlet.http.HttpSessionContext getSessionContext() {
         return wrapped.getSessionContext();
     }
 
+    @Override
     public Object getAttribute(String name) {
         return wrapped.getAttribute(name);
     }
@@ -67,10 +73,12 @@ public class FilteredHttpSession implements HttpSession {
      * @deprecated
      */
     @Deprecated
+    @Override
     public Object getValue(String name) {
         return wrapped.getValue(name);
     }
 
+    @Override
     public Enumeration getAttributeNames() {
         return wrapped.getAttributeNames();
     }
@@ -79,6 +87,7 @@ public class FilteredHttpSession implements HttpSession {
      * @deprecated
      */
     @Deprecated
+    @Override
     public String[] getValueNames() {
         return wrapped.getValueNames();
     }
@@ -104,11 +113,12 @@ public class FilteredHttpSession implements HttpSession {
                 // Must be an SessionActionForm if none of the above
                 && !(value instanceof SessionActionForm)
             ) {
-                throw new AssertionError(ApplicationResources.getMessage(Locale.getDefault(), "FilteredHttpSession.unexpectedSessionAttribute", name, value.getClass().getName()));
+                throw new AssertionError(ApplicationResources.accessor.getMessage("FilteredHttpSession.unexpectedSessionAttribute", name, value.getClass().getName()));
             }
         }
     }
 
+    @Override
     public void setAttribute(String name, Object value) {
         checkSessionAttribute(name, value);
         wrapped.setAttribute(name, value);
@@ -118,11 +128,13 @@ public class FilteredHttpSession implements HttpSession {
      * @deprecated
      */
     @Deprecated
+    @Override
     public void putValue(String name, Object value) {
         checkSessionAttribute(name, value);
         wrapped.putValue(name, value);
     }
 
+    @Override
     public void removeAttribute(String name) {
         wrapped.removeAttribute(name);
     }
@@ -131,14 +143,17 @@ public class FilteredHttpSession implements HttpSession {
      * @deprecated
      */
     @Deprecated
+    @Override
     public void removeValue(String name) {
         wrapped.removeValue(name);
     }
 
+    @Override
     public void invalidate() {
         wrapped.invalidate();
     }
 
+    @Override
     public boolean isNew() {
         return wrapped.isNew();
     }

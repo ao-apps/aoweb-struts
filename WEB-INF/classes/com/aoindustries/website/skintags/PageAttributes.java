@@ -1,15 +1,14 @@
-package com.aoindustries.website.skintags;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.skintags;
+
 import com.aoindustries.website.ApplicationResources;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -65,9 +64,8 @@ public class PageAttributes {
                 this.conditionalCommentExpression = conditionalCommentExpression;
             } else {
                 throw new IllegalArgumentException(
-                    ApplicationResources.getMessage(
+                    ApplicationResources.accessor.getMessage(
                         "Invalid value for conditional comment expression.  Please refer to aoweb-struts-skin.tld for the valid values.",
-                        Locale.getDefault(),
                         "skintags.PageAttributes.Link.conditionalCommentExpression.invalid"
                     )
                 );
@@ -230,7 +228,7 @@ public class PageAttributes {
 
     public void setLayout(String layout) {
         if(layout.equals(LAYOUT_NORMAL) || layout.equals(LAYOUT_MINIMAL)) this.layout = layout;
-        else throw new IllegalArgumentException(ApplicationResources.getMessage(Locale.getDefault(), "skintags.PageAttributes.setLayout.invalid"));
+        else throw new IllegalArgumentException(ApplicationResources.accessor.getMessage("skintags.PageAttributes.setLayout.invalid"));
     }
 
     public String getOnload() {

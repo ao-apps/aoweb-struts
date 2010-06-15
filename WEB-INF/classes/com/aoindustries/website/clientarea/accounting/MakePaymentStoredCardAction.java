@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -15,7 +15,6 @@ import com.aoindustries.website.Skin;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -39,7 +38,6 @@ public class MakePaymentStoredCardAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn,
         List<AOServPermission> permissions
@@ -56,7 +54,6 @@ public class MakePaymentStoredCardAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {

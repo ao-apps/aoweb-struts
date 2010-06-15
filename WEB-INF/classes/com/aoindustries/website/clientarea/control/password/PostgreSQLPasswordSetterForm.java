@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.control.password;
 
 /*
- * Copyright 2000-2009 by AO Industries, Inc.,
+ * Copyright 2000-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -14,9 +14,7 @@ import com.aoindustries.website.AuthenticatedAction;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.struts.Globals;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
@@ -103,7 +101,6 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
             if(errors==null) errors = new ActionErrors();
             AOServConnector<?,?> aoConn = AuthenticatedAction.getAoConn(request, null);
             if(aoConn==null) throw new RuntimeException("aoConn is null");
-            Locale locale = (Locale)request.getSession().getAttribute(Globals.LOCALE_KEY);
 
             for(int c=0;c<usernames.size();c++) {
                 String newPassword = newPasswords.get(c);
@@ -115,8 +112,8 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
                         String username = usernames.get(c);
 
                         // Check the password strength
-                        PasswordChecker.Result[] results = PostgresUser.checkPassword(locale, username, newPassword);
-                        if(PasswordChecker.hasResults(locale, results)) {
+                        PasswordChecker.Result[] results = PostgresUser.checkPassword(username, newPassword);
+                        if(PasswordChecker.hasResults(results)) {
                             errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                         }
                     }

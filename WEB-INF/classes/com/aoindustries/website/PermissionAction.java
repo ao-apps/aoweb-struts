@@ -1,14 +1,13 @@
-package com.aoindustries.website;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.util.Collections;
-import java.util.Locale;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -31,13 +30,12 @@ import org.apache.struts.action.ActionMapping;
 abstract public class PermissionAction extends AuthenticatedAction {
 
     @Override
-    final public ActionForward execute(
+    public ActionForward execute(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {
@@ -52,7 +50,6 @@ abstract public class PermissionAction extends AuthenticatedAction {
                 request,
                 response,
                 siteSettings,
-                locale,
                 skin,
                 aoConn,
                 aoPerms
@@ -61,7 +58,7 @@ abstract public class PermissionAction extends AuthenticatedAction {
 
         if(aoConn.getThisBusinessAdministrator().hasPermissions(permissions)) {
             // All permissions found, consider granted
-            return executePermissionGranted(mapping, form, request, response, siteSettings, locale, skin, aoConn);
+            return executePermissionGranted(mapping, form, request, response, siteSettings, skin, aoConn);
         } else {
             SortedSet<AOServPermission> aoPerms = new TreeSet<AOServPermission>();
             for(AOServPermission.Permission requiredPermission : permissions) aoPerms.add(aoConn.getAoservPermissions().get(requiredPermission.name()));
@@ -71,7 +68,6 @@ abstract public class PermissionAction extends AuthenticatedAction {
                 request,
                 response,
                 siteSettings,
-                locale,
                 skin,
                 aoConn,
                 aoPerms
@@ -89,7 +85,6 @@ abstract public class PermissionAction extends AuthenticatedAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {
@@ -107,7 +102,6 @@ abstract public class PermissionAction extends AuthenticatedAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn,
         SortedSet<AOServPermission> permissions

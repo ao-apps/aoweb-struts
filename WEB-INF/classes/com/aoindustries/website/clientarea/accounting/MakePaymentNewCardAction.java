@@ -19,7 +19,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +41,6 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {
@@ -58,8 +56,8 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
         Business business = aoConn.getBusinesses().get(AccountingCode.valueOf(accounting));
         BusinessProfile profile = business.getBusinessProfile();
         if(profile!=null) {
-            makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(profile.getBillingContact(), locale));
-            makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(profile.getBillingContact(), locale));
+            makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(profile.getBillingContact()));
+            makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(profile.getBillingContact()));
             makePaymentNewCardForm.setCompanyName(profile.getName());
             makePaymentNewCardForm.setEmail(profile.getBillingEmail().isEmpty() ? "" : profile.getBillingEmail().get(0).toString());
             makePaymentNewCardForm.setPhone(profile.getPhone());
@@ -72,8 +70,8 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
             makePaymentNewCardForm.setCountryCode(profile.getCountry().getCode());
         } else {
             BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
-            makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(thisBA.getName(), locale));
-            makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(thisBA.getName(), locale));
+            makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(thisBA.getName()));
+            makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(thisBA.getName()));
             makePaymentNewCardForm.setEmail(thisBA.getEmail());
             makePaymentNewCardForm.setPhone(thisBA.getWorkPhone());
             makePaymentNewCardForm.setFax(thisBA.getFax());

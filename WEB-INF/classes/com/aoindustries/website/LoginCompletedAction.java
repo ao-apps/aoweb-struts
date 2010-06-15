@@ -1,7 +1,7 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -15,7 +15,6 @@ import com.aoindustries.security.BadPasswordException;
 import com.aoindustries.security.LoginException;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.Locale;
 import java.util.logging.Level;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +39,6 @@ public class LoginCompletedAction extends HttpsAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin
     ) throws JspException, RemoteException, IOException {
         LoginForm loginForm = (LoginForm)form;
@@ -80,23 +78,23 @@ public class LoginCompletedAction extends HttpsAction {
             // Return success
             //return mapping.findForward("success");
         } catch(ValidationException err) {
-            message = err.getLocalizedMessage(locale);
+            message = err.getLocalizedMessage();
             throwable = err;
         } catch(AccountNotFoundException err) {
             MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-            message = applicationResources.getMessage(locale, "login.accountNotFound");
+            message = applicationResources.getMessage("login.accountNotFound");
             throwable = err;
         } catch(BadPasswordException err) {
             MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-            message = applicationResources.getMessage(locale, "login.badPassword");
+            message = applicationResources.getMessage("login.badPassword");
             throwable = err;
         } catch(AccountDisabledException err) {
             MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-            message = applicationResources.getMessage(locale, "login.accountDisabled");
+            message = applicationResources.getMessage("login.accountDisabled");
             throwable = err;
         } catch(LoginException err) {
             MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-            message = applicationResources.getMessage(locale, "login.failed");
+            message = applicationResources.getMessage("login.failed");
             throwable = err;
         }
         if(message!=null) request.setAttribute(Constants.AUTHENTICATION_MESSAGE, message);

@@ -1,7 +1,7 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -26,10 +26,12 @@ public class NoDirectJspFilter implements Filter {
 
     private ServletContext servletContext;
 
+    @Override
     public void init(FilterConfig config) {
         servletContext = config.getServletContext();
     }
 
+    @Override
     public void doFilter(
         ServletRequest request,
         ServletResponse response,
@@ -41,7 +43,6 @@ public class NoDirectJspFilter implements Filter {
         if(servletPath.equals("/index.jsp")) {
             try {
                 SiteSettings siteSettings = SiteSettings.getInstance(servletContext);
-                // Locale locale = LocaleAction.getEffectiveLocale(siteSettings, httpRequest, httpResponse);
                 Skin skin = SkinAction.getSkin(siteSettings, httpRequest, httpResponse);
                 StringBuilder url = new StringBuilder(request.isSecure() ? skin.getHttpsUrlBase(httpRequest) : skin.getHttpUrlBase(httpRequest)).append("index.do");
                 String query = httpRequest.getQueryString();
@@ -56,6 +57,7 @@ public class NoDirectJspFilter implements Filter {
         }
     }
 
+    @Override
     public void destroy() {
         servletContext = null;
     }

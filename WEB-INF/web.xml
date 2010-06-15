@@ -35,7 +35,7 @@
     <filter-name>TrimFilter</filter-name>
     <filter-class>com.aoindustries.servlet.filter.TrimFilter</filter-class>
   </filter>
-  <!-- Filter to set request character encoding based on locale in session -->
+  <!-- Filter to set request character encoding to UTF-8 -->
   <filter>
     <filter-name>SetRequestCharacterEncodingFilter</filter-name>
     <filter-class>com.aoindustries.website.SetRequestCharacterEncodingFilter</filter-class>

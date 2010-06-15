@@ -1,7 +1,7 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -36,7 +36,6 @@ public class SetResourceBundleValueAction extends SkinAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale userLocale,
         Skin skin
     ) throws Exception {
         // If disabled, return 404 status

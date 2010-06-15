@@ -1,7 +1,7 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -10,7 +10,6 @@ import com.aoindustries.aoserv.client.validator.UserId;
 import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.security.LoginException;
 import java.rmi.RemoteException;
-import java.util.Locale;
 import java.util.logging.Level;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +21,7 @@ import org.apache.struts.action.ActionMapping;
 /**
  * Ensures the user is logged in.  Forwards to "login" if not logged in.  Otherwise, it sets the
  * request attribute "aoConn" and then calls
- * <code>execute(ActionMapping,ActionForm,HttpServletRequest,HttpServletResponse,Locale,Skin,AOServConnector)</code>.
+ * <code>execute(ActionMapping,ActionForm,HttpServletRequest,HttpServletResponse,Skin,AOServConnector)</code>.
  * The default implementation of this new <code>execute</code> method simply returns the mapping
  * of "success".<br />
  * <br />
@@ -34,13 +33,12 @@ import org.apache.struts.action.ActionMapping;
 abstract public class AuthenticatedAction extends HttpsAction {
 
     @Override
-    final public ActionForward executeProtocolAccepted(
+    public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin
     ) throws Exception {
         // Handle login
@@ -60,7 +58,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
         // Set request values
         request.setAttribute("aoConn", aoConn);
 
-        return execute(mapping, form, request, response, siteSettings, locale, skin, aoConn);
+        return execute(mapping, form, request, response, siteSettings, skin, aoConn);
     }
 
     /**
@@ -75,12 +73,15 @@ abstract public class AuthenticatedAction extends HttpsAction {
      * Gets the AOServConnector for the user or <code>null</code> if not logged in.  This also handles the "su" behavior that was
      * stored in the session by <code>SkinAction</code>.
      */
-    public static AOServConnector getAoConn(HttpServletRequest request, HttpServletResponse response) {
+    public static AOServConnector getAoConn(HttpServletRequest request, HttpServletResponse response) throws RemoteException {
         HttpSession session = request.getSession();
         AOServConnector authenticatedAoConn = getAuthenticatedAoConn(request, response);
         // Not logged in
         if(authenticatedAoConn==null) return null;
-        
+
+        // Set the connector locale to match the response locale
+        authenticatedAoConn.setLocale(response.getLocale());
+
         // Is a "su" requested?
         String su=(String)session.getAttribute(Constants.SU_REQUESTED);
         if(su!=null) {
@@ -124,7 +125,6 @@ abstract public class AuthenticatedAction extends HttpsAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {

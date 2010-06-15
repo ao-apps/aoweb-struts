@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -14,7 +14,6 @@ import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.creditcards.CreditCardProcessor;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
@@ -37,7 +36,6 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {
@@ -90,11 +88,10 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
             rootProcessor.updateCreditCardNumberAndExpiration(
                 new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
-                CreditCardFactory.getCreditCard(rootCreditCard, locale),
+                CreditCardFactory.getCreditCard(rootCreditCard),
                 newCardNumber,
                 Byte.parseByte(newExpirationMonth),
-                Short.parseShort(newExpirationYear),
-                locale
+                Short.parseShort(newExpirationYear)
             );
             updatedCardNumber = true;
             updatedExpirationDate = true;
@@ -110,10 +107,9 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
                 CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
                 rootProcessor.updateCreditCardExpiration(
                     new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
-                    CreditCardFactory.getCreditCard(rootCreditCard, locale),
+                    CreditCardFactory.getCreditCard(rootCreditCard),
                     Byte.parseByte(newExpirationMonth),
-                    Short.parseShort(newExpirationYear),
-                    locale
+                    Short.parseShort(newExpirationYear)
                 );
                 updatedExpirationDate = true;
             }

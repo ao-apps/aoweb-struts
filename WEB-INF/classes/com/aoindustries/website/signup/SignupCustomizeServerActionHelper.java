@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -16,7 +16,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,7 +42,6 @@ final public class SignupCustomizeServerActionHelper {
         SignupSelectPackageForm signupSelectPackageForm,
         SignupCustomizeServerForm signupCustomizeServerForm
     ) throws IOException {
-        Locale userLocale = response.getLocale();
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
         List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
@@ -165,7 +163,7 @@ final public class SignupCustomizeServerActionHelper {
                     if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
                     BigDecimal cheapestRate = cheapestPower.getAdditionalRate();
                     if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
-                    String description = maxPowers==1 ? resource.toString(userLocale) : (maxPowers+"x"+resource.toString(userLocale));
+                    String description = maxPowers==1 ? resource.toString() : (maxPowers+"x"+resource.toString());
                     powerOptions.add(new Option(limit.getPkey(), description, BigDecimal.valueOf(maxPowers).multiply(additionalRate.subtract(cheapestRate))));
                 }
             } else if(resourceName.startsWith("hardware_processor_")) {
@@ -175,7 +173,7 @@ final public class SignupCustomizeServerActionHelper {
                     if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
                     BigDecimal cheapestRate = cheapestCPU.getAdditionalRate();
                     if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
-                    String description = maxCPUs==1 ? resource.toString(userLocale) : (maxCPUs+"x"+resource.toString(userLocale));
+                    String description = maxCPUs==1 ? resource.toString() : (maxCPUs+"x"+resource.toString());
                     cpuOptions.add(new Option(limit.getPkey(), description, BigDecimal.valueOf(maxCPUs).multiply(additionalRate.subtract(cheapestRate))));
                 }
             } else if(resourceName.startsWith("hardware_ram_")) {
@@ -185,7 +183,7 @@ final public class SignupCustomizeServerActionHelper {
                     if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
                     BigDecimal cheapestRate = cheapestRAM.getAdditionalRate();
                     if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
-                    String description = maxRAMs==1 ? resource.toString(userLocale) : (maxRAMs+"x"+resource.toString(userLocale));
+                    String description = maxRAMs==1 ? resource.toString() : (maxRAMs+"x"+resource.toString());
                     ramOptions.add(new Option(limit.getPkey(), description, BigDecimal.valueOf(maxRAMs).multiply(additionalRate.subtract(cheapestRate))));
                 }
             } else if(resourceName.startsWith("hardware_disk_controller_sata_")) {
@@ -195,7 +193,7 @@ final public class SignupCustomizeServerActionHelper {
                     if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
                     BigDecimal cheapestRate = cheapestSataController.getAdditionalRate();
                     if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
-                    String description = maxSataControllers==1 ? resource.toString(userLocale) : (maxSataControllers+"x"+resource.toString(userLocale));
+                    String description = maxSataControllers==1 ? resource.toString() : (maxSataControllers+"x"+resource.toString());
                     sataControllerOptions.add(new Option(limit.getPkey(), description, BigDecimal.valueOf(maxSataControllers).multiply(additionalRate.subtract(cheapestRate))));
                 }
             } else if(resourceName.startsWith("hardware_disk_controller_scsi_")) {
@@ -205,7 +203,7 @@ final public class SignupCustomizeServerActionHelper {
                     if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
                     BigDecimal cheapestRate = cheapestScsiController.getAdditionalRate();
                     if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
-                    String description = maxScsiControllers==1 ? resource.toString(userLocale) : (maxScsiControllers+"x"+resource.toString(userLocale));
+                    String description = maxScsiControllers==1 ? resource.toString() : (maxScsiControllers+"x"+resource.toString());
                     scsiControllerOptions.add(new Option(limit.getPkey(), description, BigDecimal.valueOf(maxScsiControllers).multiply(additionalRate.subtract(cheapestRate))));
                 }
             } else if(resourceName.startsWith("hardware_disk_")) {
@@ -224,7 +222,7 @@ final public class SignupCustomizeServerActionHelper {
                         List<Option> options = diskOptions.get(c);
                         // Add none option
                         if(maxDisks>1 && options.isEmpty()) options.add(new Option(-1, "None", c==0 ? adjustedRate.subtract(additionalRate) : BigDecimal.valueOf(0, 2)));
-                        options.add(new Option(limit.getPkey(), resource.toString(userLocale), c==0 ? adjustedRate : additionalRate));
+                        options.add(new Option(limit.getPkey(), resource.toString(), c==0 ? adjustedRate : additionalRate));
                     }
                 }
             }
@@ -374,53 +372,53 @@ final public class SignupCustomizeServerActionHelper {
         return monthlyRate;
     }
 
-    public static String getPowerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException {
+    public static String getPowerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException {
         int powerOption = signupCustomizeServerForm.getPowerOption();
         if(powerOption==-1) return null;
         PackageDefinitionLimit powerPDL = rootConn.getPackageDefinitionLimits().get(powerOption);
         int numPower = powerPDL.getHardLimit();
-        if(numPower==1) return powerPDL.getResourceType().toString(userLocale);
-        else return numPower + "x" + powerPDL.getResourceType().toString(userLocale);
+        if(numPower==1) return powerPDL.getResourceType().toString();
+        else return numPower + "x" + powerPDL.getResourceType().toString();
     }
 
-    public static String getCpuOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException {
+    public static String getCpuOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException {
         PackageDefinitionLimit cpuPDL = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getCpuOption());
         int numCpu = cpuPDL.getHardLimit();
-        if(numCpu==1) return cpuPDL.getResourceType().toString(userLocale); //.replaceAll(", ", "<br />&#160;&#160;&#160;&#160;");
-        else return numCpu + "x" + cpuPDL.getResourceType().toString(userLocale); //.replaceAll(", ", "<br />&#160;&#160;&#160;&#160;");
+        if(numCpu==1) return cpuPDL.getResourceType().toString(); //.replaceAll(", ", "<br />&#160;&#160;&#160;&#160;");
+        else return numCpu + "x" + cpuPDL.getResourceType().toString(); //.replaceAll(", ", "<br />&#160;&#160;&#160;&#160;");
     }
     
-    public static String getRamOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException {
+    public static String getRamOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException {
         PackageDefinitionLimit ramPDL = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getRamOption());
         int numRam = ramPDL.getHardLimit();
-        if(numRam==1) return ramPDL.getResourceType().toString(userLocale);
-        else return numRam + "x" + ramPDL.getResourceType().toString(userLocale);
+        if(numRam==1) return ramPDL.getResourceType().toString();
+        else return numRam + "x" + ramPDL.getResourceType().toString();
     }
     
-    public static String getSataControllerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException {
+    public static String getSataControllerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException {
         int sataControllerOption = signupCustomizeServerForm.getSataControllerOption();
         if(sataControllerOption==-1) return null;
         PackageDefinitionLimit sataControllerPDL = rootConn.getPackageDefinitionLimits().get(sataControllerOption);
         int numSataController = sataControllerPDL.getHardLimit();
-        if(numSataController==1) return sataControllerPDL.getResourceType().toString(userLocale);
-        else return numSataController + "x" + sataControllerPDL.getResourceType().toString(userLocale);
+        if(numSataController==1) return sataControllerPDL.getResourceType().toString();
+        else return numSataController + "x" + sataControllerPDL.getResourceType().toString();
     }
 
-    public static String getScsiControllerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException {
+    public static String getScsiControllerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException {
         int scsiControllerOption = signupCustomizeServerForm.getScsiControllerOption();
         if(scsiControllerOption==-1) return null;
         PackageDefinitionLimit scsiControllerPDL = rootConn.getPackageDefinitionLimits().get(scsiControllerOption);
         int numScsiController = scsiControllerPDL.getHardLimit();
-        if(numScsiController==1) return scsiControllerPDL.getResourceType().toString(userLocale);
-        else return numScsiController + "x" + scsiControllerPDL.getResourceType().toString(userLocale);
+        if(numScsiController==1) return scsiControllerPDL.getResourceType().toString();
+        else return numScsiController + "x" + scsiControllerPDL.getResourceType().toString();
     }
 
-    public static List<String> getDiskOptions(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, Locale userLocale) throws IOException {
+    public static List<String> getDiskOptions(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException {
         List<String> diskOptions = new ArrayList<String>();
         for(String pkey : signupCustomizeServerForm.getDiskOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
                 PackageDefinitionLimit diskPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
-                if(diskPDL!=null) diskOptions.add(diskPDL.getResourceType().toString(userLocale));
+                if(diskPDL!=null) diskOptions.add(diskPDL.getResourceType().toString());
             }
         }
         return diskOptions;
@@ -433,86 +431,84 @@ final public class SignupCustomizeServerActionHelper {
         SignupSelectPackageForm signupSelectPackageForm,
         SignupCustomizeServerForm signupCustomizeServerForm
     ) throws IOException {
-        Locale userLocale = response.getLocale();
         // Lookup things needed by the view
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
 
         // Store as request attribute for the view
         request.setAttribute("monthlyRate", getHardwareMonthlyRate(rootConn, signupCustomizeServerForm, packageDefinition));
-        request.setAttribute("powerOption", getPowerOption(rootConn, signupCustomizeServerForm, userLocale));
-        request.setAttribute("cpuOption", getCpuOption(rootConn, signupCustomizeServerForm, userLocale));
-        request.setAttribute("ramOption", getRamOption(rootConn, signupCustomizeServerForm, userLocale));
-        request.setAttribute("sataControllerOption", getSataControllerOption(rootConn, signupCustomizeServerForm, userLocale));
-        request.setAttribute("scsiControllerOption", getScsiControllerOption(rootConn, signupCustomizeServerForm, userLocale));
-        request.setAttribute("diskOptions", getDiskOptions(rootConn, signupCustomizeServerForm, userLocale));
+        request.setAttribute("powerOption", getPowerOption(rootConn, signupCustomizeServerForm));
+        request.setAttribute("cpuOption", getCpuOption(rootConn, signupCustomizeServerForm));
+        request.setAttribute("ramOption", getRamOption(rootConn, signupCustomizeServerForm));
+        request.setAttribute("sataControllerOption", getSataControllerOption(rootConn, signupCustomizeServerForm));
+        request.setAttribute("scsiControllerOption", getScsiControllerOption(rootConn, signupCustomizeServerForm));
+        request.setAttribute("diskOptions", getDiskOptions(rootConn, signupCustomizeServerForm));
     }
 
     public static void printConfirmation(
         HttpServletRequest request,
         ChainWriter emailOut,
-        Locale userLocale,
         AOServConnector rootConn,
         PackageDefinition packageDefinition,
         SignupCustomizeServerForm signupCustomizeServerForm,
         MessageResources signupApplicationResources
     ) throws IOException {
-        String powerOption = getPowerOption(rootConn, signupCustomizeServerForm, userLocale);
+        String powerOption = getPowerOption(rootConn, signupCustomizeServerForm);
         if(!GenericValidator.isBlankOrNull(powerOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.power.prompt")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.power.prompt")).print("</td>\n"
                          + "        <td>").print(powerOption).print("</td>\n"
                          + "    </tr>\n");
         }
         emailOut.print("    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.cpu.prompt")).print("</td>\n"
-                     + "        <td>").print(getCpuOption(rootConn, signupCustomizeServerForm, userLocale)).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.cpu.prompt")).print("</td>\n"
+                     + "        <td>").print(getCpuOption(rootConn, signupCustomizeServerForm)).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.ram.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(getRamOption(rootConn, signupCustomizeServerForm, userLocale)).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.ram.prompt")).print("</td>\n"
+                     + "        <td>").encodeHtml(getRamOption(rootConn, signupCustomizeServerForm)).print("</td>\n"
                      + "    </tr>\n");
-        String sataControllerOption = getSataControllerOption(rootConn, signupCustomizeServerForm, userLocale);
+        String sataControllerOption = getSataControllerOption(rootConn, signupCustomizeServerForm);
         if(!GenericValidator.isBlankOrNull(sataControllerOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.sataController.prompt")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.sataController.prompt")).print("</td>\n"
                          + "        <td>").print(sataControllerOption).print("</td>\n"
                          + "    </tr>\n");
         }
-        String scsiControllerOption = getScsiControllerOption(rootConn, signupCustomizeServerForm, userLocale);
+        String scsiControllerOption = getScsiControllerOption(rootConn, signupCustomizeServerForm);
         if(!GenericValidator.isBlankOrNull(scsiControllerOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.scsiController.prompt")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.scsiController.prompt")).print("</td>\n"
                          + "        <td>").print(scsiControllerOption).print("</td>\n"
                          + "    </tr>\n");
         }
-        for(String diskOption : getDiskOptions(rootConn, signupCustomizeServerForm, userLocale)) {
+        for(String diskOption : getDiskOptions(rootConn, signupCustomizeServerForm)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.disk.prompt")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.disk.prompt")).print("</td>\n"
                          + "        <td>").encodeHtml(diskOption).print("</td>\n"
                          + "    </tr>\n");
         }
         emailOut.print("    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.setup.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.setup.prompt")).print("</td>\n"
                      + "        <td>\n");
         BigDecimal setup = packageDefinition.getSetupFee();
         if(setup==null) {
-            emailOut.print("            ").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.setup.none")).print("\n");
+            emailOut.print("            ").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.setup.none")).print("\n");
         } else {
             emailOut.print("            $").print(setup).print("\n");
         }
         emailOut.print("        </td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td style='white-space:nowrap'>").print(signupApplicationResources.getMessage(userLocale, "signupCustomizeServerConfirmation.monthlyRate.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td style='white-space:nowrap'>").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.monthlyRate.prompt")).print("</td>\n"
                      + "        <td>$").print(request.getAttribute("monthlyRate")).print("</td>\n"
                      + "    </tr>\n");
     }

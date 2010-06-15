@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -12,6 +12,7 @@ import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.BusinessProfile;
 import com.aoindustries.aoserv.client.command.CommandName;
 import com.aoindustries.aoserv.client.validator.AccountingCode;
+import com.aoindustries.util.i18n.ThreadLocale;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
@@ -40,10 +41,10 @@ public class AddCreditCardAction extends PermissionAction {
     /**
      * Parses the first name in a locale-specific manner.
      */
-    public static String getFirstName(String name, Locale userLocale) {
+    public static String getFirstName(String name) {
         if(name==null) return null;
         name=name.trim();
-        if(userLocale.getLanguage().equals(Locale.JAPANESE.getLanguage())) {
+        if(ThreadLocale.get().getLanguage().equals(Locale.JAPANESE.getLanguage())) {
             // Last then first
             int pos = name.lastIndexOf(' ');
             if(pos==-1) return "";
@@ -59,10 +60,10 @@ public class AddCreditCardAction extends PermissionAction {
     /**
      * Parses the last name in a locale-specific manner.
      */
-    public static String getLastName(String name, Locale userLocale) {
+    public static String getLastName(String name) {
         if(name==null) return null;
         name=name.trim();
-        if(userLocale.getLanguage().equals(Locale.JAPANESE.getLanguage())) {
+        if(ThreadLocale.get().getLanguage().equals(Locale.JAPANESE.getLanguage())) {
             // Last then first
             int pos = name.lastIndexOf(' ');
             if(pos==-1) return name;
@@ -82,7 +83,6 @@ public class AddCreditCardAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {
@@ -98,8 +98,8 @@ public class AddCreditCardAction extends PermissionAction {
         Business business = aoConn.getBusinesses().get(AccountingCode.valueOf(accounting));
         BusinessProfile profile = business.getBusinessProfile();
         if(profile!=null) {
-            addCreditCardForm.setFirstName(getFirstName(profile.getBillingContact(), locale));
-            addCreditCardForm.setLastName(getLastName(profile.getBillingContact(), locale));
+            addCreditCardForm.setFirstName(getFirstName(profile.getBillingContact()));
+            addCreditCardForm.setLastName(getLastName(profile.getBillingContact()));
             addCreditCardForm.setCompanyName(profile.getName());
             addCreditCardForm.setEmail(profile.getBillingEmail().isEmpty() ? "" : profile.getBillingEmail().get(0).toString());
             addCreditCardForm.setPhone(profile.getPhone());
@@ -112,8 +112,8 @@ public class AddCreditCardAction extends PermissionAction {
             addCreditCardForm.setCountryCode(profile.getCountry().getCode());
         } else {
             BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
-            addCreditCardForm.setFirstName(getFirstName(thisBA.getFullName(), locale));
-            addCreditCardForm.setLastName(getLastName(thisBA.getFullName(), locale));
+            addCreditCardForm.setFirstName(getFirstName(thisBA.getFullName()));
+            addCreditCardForm.setLastName(getLastName(thisBA.getFullName()));
             addCreditCardForm.setEmail(thisBA.getEmail().toString());
             addCreditCardForm.setPhone(thisBA.getWorkPhone());
             addCreditCardForm.setFax(thisBA.getFax());

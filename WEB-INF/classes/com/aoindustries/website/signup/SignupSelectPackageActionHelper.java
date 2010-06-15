@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +40,7 @@ final public class SignupSelectPackageActionHelper {
         HttpServletResponse response,
         String packageCategoryName
     ) throws IOException {
-        List<PackageDefinition> packageDefinitions = getPackageDefinitions(servletContext, packageCategoryName, response.getLocale());
+        List<PackageDefinition> packageDefinitions = getPackageDefinitions(servletContext, packageCategoryName);
         
         request.setAttribute("packageDefinitions", packageDefinitions);
     }
@@ -49,7 +48,7 @@ final public class SignupSelectPackageActionHelper {
     /**
      * Gets the active package definitions ordered by monthly rate.
      */
-    public static List<PackageDefinition> getPackageDefinitions(ServletContext servletContext, String packageCategoryName, Locale userLocale) throws IOException {
+    public static List<PackageDefinition> getPackageDefinitions(ServletContext servletContext, String packageCategoryName) throws IOException {
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageCategory category = rootConn.getPackageCategories().get(packageCategoryName);
         Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getBusiness();
@@ -85,10 +84,10 @@ final public class SignupSelectPackageActionHelper {
         request.setAttribute("setup", packageDefinition.getSetupFee());
     }
 
-    public static void printConfirmation(ChainWriter emailOut, Locale userLocale, PackageDefinition packageDefinition, MessageResources signupApplicationResources) throws IOException {
+    public static void printConfirmation(ChainWriter emailOut, PackageDefinition packageDefinition, MessageResources signupApplicationResources) throws IOException {
         emailOut.print("    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.getMessage(userLocale, "signupSelectPackageForm.packageDefinition.prompt")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupSelectPackageForm.packageDefinition.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(packageDefinition.getDisplay()).print("</td>\n"
                      + "    </tr>\n");
     }

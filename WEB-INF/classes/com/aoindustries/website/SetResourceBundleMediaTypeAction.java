@@ -1,13 +1,12 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.util.i18n.ModifiableResourceBundle;
-import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +27,6 @@ public class SetResourceBundleMediaTypeAction extends SkinAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale userLocale,
         Skin skin
     ) throws Exception {
         // If disabled, return 404 status
@@ -70,7 +68,7 @@ public class SetResourceBundleMediaTypeAction extends SkinAction {
             return null;
         }
         // Find the bundle
-        Locale locale = new Locale(""); // Locale.BASE in Java 1.6
+        Locale locale = Locale.ROOT;
         ResourceBundle resourceBundle = ResourceBundle.getBundle(baseName, locale);
         if(!resourceBundle.getLocale().equals(locale)) throw new AssertionError("resourceBundle.locale!=locale");
         if(!(resourceBundle instanceof ModifiableResourceBundle)) throw new AssertionError("resourceBundle is not a ModifiableResourceBundle");

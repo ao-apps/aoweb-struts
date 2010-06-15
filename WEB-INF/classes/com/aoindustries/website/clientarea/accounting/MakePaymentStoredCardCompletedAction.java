@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -25,7 +25,6 @@ import com.aoindustries.website.Skin;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -42,13 +41,12 @@ import org.apache.struts.util.MessageResources;
 public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardAction {
 
     @Override
-    final public ActionForward executePermissionGranted(
+    public ActionForward executePermissionGranted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {
@@ -136,7 +134,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
             rootBusiness,
             aoConn.getThisBusinessAdministrator(),
             paymentTransactionType,
-            applicationResources.getMessage(locale, "makePaymentStoredCardCompleted.transaction.description"),
+            applicationResources.getMessage("makePaymentStoredCardCompleted.transaction.description"),
             1000,
             -pennies,
             paymentType,
@@ -151,7 +149,6 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
             new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
             new BusinessGroup(rootBusiness, accounting),
             new TransactionRequest(
-                locale,
                 false,
                 request.getRemoteAddr(),
                 120,
@@ -175,10 +172,9 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
                 null,
                 null,
                 null,
-                applicationResources.getMessage(Locale.US, "makePaymentStoredCardCompleted.transaction.description")
+                applicationResources.getMessage("makePaymentStoredCardCompleted.transaction.description")
             ),
-            CreditCardFactory.getCreditCard(rootCreditCard, locale),
-            locale
+            CreditCardFactory.getCreditCard(rootCreditCard)
         );
         
         // 4) Decline/approve based on results
@@ -200,7 +196,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
                 request.setAttribute("business", business);
                 request.setAttribute("creditCards", creditCards);
                 request.setAttribute("lastPaymentCreditCard", creditCard.getProviderUniqueId());
-                request.setAttribute("errorReason", authorizationResult.getErrorCode().toString(locale));
+                request.setAttribute("errorReason", authorizationResult.getErrorCode().toString());
                 return mapping.findForward("error");
             }
             case SUCCESS :
@@ -212,7 +208,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
                         request.setAttribute("creditCard", creditCard);
                         request.setAttribute("transaction", transaction);
                         request.setAttribute("aoTransaction", aoTransaction);
-                        request.setAttribute("reviewReason", authorizationResult.getReviewReason().toString(locale));
+                        request.setAttribute("reviewReason", authorizationResult.getReviewReason().toString());
                         return mapping.findForward("hold");
                     case DECLINED :
                         // Update transaction as declined
@@ -227,7 +223,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
                         request.setAttribute("business", business);
                         request.setAttribute("creditCards", creditCards);
                         request.setAttribute("lastPaymentCreditCard", creditCard.getProviderUniqueId());
-                        request.setAttribute("declineReason", authorizationResult.getDeclineReason().toString(locale));
+                        request.setAttribute("declineReason", authorizationResult.getDeclineReason().toString());
                         return mapping.findForward("declined");
                     case APPROVED :
                         // Update transaction as successful

@@ -1,12 +1,11 @@
-package com.aoindustries.website;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website;
+
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -93,17 +92,15 @@ public class SkinAction extends LocaleAction {
      * Selects the <code>Skin</code>, sets the request attribute "skin", then the subclass execute method is invoked.
      * It also stores any "su" request for later processing by AuthenticatedAction.
      *
-     * @see #execute(ActionMapping,ActionForm,HttpServletRequest,HttpServletResponse,Locale,Skin)
+     * @see #execute(ActionMapping,ActionForm,HttpServletRequest,HttpServletResponse,Skin)
      */
     @Override
-    final public ActionForward execute(
+    public ActionForward executeL(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
-        SiteSettings siteSettings,
-        Locale locale
-    ) throws Exception {
+        SiteSettings siteSettings) throws Exception {
         // Select Skin
         Skin skin = getSkin(siteSettings, request, response);
         request.setAttribute(Constants.SKIN, skin);
@@ -114,7 +111,7 @@ public class SkinAction extends LocaleAction {
             request.getSession().setAttribute(Constants.SU_REQUESTED, su.trim());
         }
 
-        return execute(mapping, form, request, response, siteSettings, locale, skin);
+        return execute(mapping, form, request, response, siteSettings, skin);
     }
 
     /**
@@ -127,7 +124,6 @@ public class SkinAction extends LocaleAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin
     ) throws Exception {
         return mapping.findForward("success");

@@ -1,7 +1,7 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -11,6 +11,7 @@ import com.aoindustries.aoserv.client.Brand;
 import com.aoindustries.aoserv.client.validator.UserId;
 import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.security.LoginException;
+import com.aoindustries.util.i18n.ThreadLocale;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -22,8 +23,6 @@ import java.util.Locale;
 import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import org.apache.struts.Globals;
 
 /**
  * Provides site-wide settings.
@@ -169,10 +168,7 @@ public class SiteSettings {
      * The off version is created by filling with black, opacity 25% in gimp 2.
      */
     public List<Skin.Language> getLanguages(HttpServletRequest req) throws IOException {
-        HttpSession session = req.getSession();
-        Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-        if(locale==null) locale = Locale.getDefault(); // Can't use: LocaleAction.getDefaultLocale(req); due to stack overflow
-        boolean isUnitedStates = locale.getCountry().equals(Locale.US.getCountry());
+        boolean isUnitedStates = ThreadLocale.get().getCountry().equals(Locale.US.getCountry());
 
         Brand brand = getBrand();
         List<Skin.Language> languages = new ArrayList<Skin.Language>(2);

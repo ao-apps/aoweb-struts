@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -14,7 +14,6 @@ import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.creditcards.CreditCardProcessor;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
@@ -37,7 +36,6 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {
@@ -63,13 +61,12 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
         CreditCardProcessor creditCardProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootConn);
 
         // Add card
-        if(!creditCardProcessor.canStoreCreditCards(locale)) throw new AssertionError("CreditCardProcessor indicates it does not support storing credit cards.");
+        if(!creditCardProcessor.canStoreCreditCards()) throw new AssertionError("CreditCardProcessor indicates it does not support storing credit cards.");
 
         creditCardProcessor.storeCreditCard(
             new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername().getId()),
             new BusinessGroup(aoConn.getBusinesses().get(AccountingCode.valueOf(accounting)), accounting),
             new CreditCard(
-                locale,
                 null,
                 null,
                 null,
@@ -95,8 +92,7 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
                 addCreditCardForm.getPostalCode(),
                 addCreditCardForm.getCountryCode(),
                 addCreditCardForm.getDescription()
-            ),
-            locale
+            )
         );
 
         request.setAttribute("cardNumber", CreditCard.maskCreditCardNumber(addCreditCardForm.getCardNumber()));

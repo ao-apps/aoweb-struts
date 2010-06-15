@@ -1,13 +1,12 @@
 package com.aoindustries.website.skintags;
 
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.website.Constants;
 import com.aoindustries.website.Skin;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,16 +22,16 @@ import org.apache.struts.util.MessageResources;
  */
 public class SkinTag extends PageAttributesBodyTag {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Gets the current skin from the session.  It is assumed the skin is already set.  Will throw an exception if not available.
      */
     public static Skin getSkin(PageContext pageContext) throws JspException {
         Skin skin = (Skin)pageContext.getAttribute(Constants.SKIN, PageContext.REQUEST_SCOPE);
         if(skin==null) {
-            HttpSession session = pageContext.getSession();
-            Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
             MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
-            throw new JspException(applicationResources.getMessage(locale, "skintags.unableToFindSkinInRequest"));
+            throw new JspException(applicationResources.getMessage("skintags.unableToFindSkinInRequest"));
         }
         return skin;
     }

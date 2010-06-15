@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -10,7 +10,6 @@ import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForward;
@@ -27,7 +26,6 @@ public class BackupAction extends BackupStepAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
-        Locale locale,
         Skin skin,
         BackupSignupSelectPackageForm signupSelectPackageForm,
         boolean signupSelectPackageFormComplete,
@@ -38,7 +36,7 @@ public class BackupAction extends BackupStepAction {
         SignupBillingInformationForm signupBillingInformationForm,
         boolean signupBillingInformationFormComplete
     ) throws Exception {
-        List<PackageDefinition> packageDefinitions = SignupSelectPackageActionHelper.getPackageDefinitions(getServlet().getServletContext(), PackageCategory.BACKUP, response.getLocale());
+        List<PackageDefinition> packageDefinitions = SignupSelectPackageActionHelper.getPackageDefinitions(getServlet().getServletContext(), PackageCategory.BACKUP);
         if(packageDefinitions.size()==1) {
             response.sendRedirect(
                 response.encodeRedirectURL(

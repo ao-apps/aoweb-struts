@@ -1,6 +1,6 @@
 <%-- aoweb-struts: Do not edit --%>
 <%--
-  Copyright 2000-2009 by AO Industries, Inc.,
+  Copyright 2000-2010 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
@@ -56,7 +56,6 @@
                                         <tr>
                                             <td style="white-space:nowrap"><fmt:message key="edit.label.status" /></td>
                                             <td>
-                                                <%--<bean:define scope="request" name="locale" type="java.util.Locale" id="locale" />--%>
                                                 <ao:write name="ticket" property="status" method="getDescription" type="application/xhtml+xml" />
                                             </td>
                                         </tr>
