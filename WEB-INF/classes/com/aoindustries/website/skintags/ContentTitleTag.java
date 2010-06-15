@@ -5,12 +5,12 @@
  */
 package com.aoindustries.website.skintags;
 
+import com.aoindustries.website.ApplicationResources;
 import com.aoindustries.website.Skin;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
-import org.apache.struts.util.MessageResources;
 
 /**
  * @author  AO Industries, Inc.
@@ -32,10 +32,7 @@ public class ContentTitleTag extends BodyTagSupport {
         String title = getBodyContent().getString().trim();
 
         ContentTag contentTag = (ContentTag)findAncestorWithClass(this, ContentTag.class);
-        if(contentTag==null) {
-            MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
-            throw new JspException(applicationResources.getMessage("skintags.ContentTitleTag.mustNestInContentTag"));
-        }
+        if(contentTag==null) throw new JspException(ApplicationResources.accessor.getMessage("skintags.ContentTitleTag.mustNestInContentTag"));
 
         Skin skin = SkinTag.getSkin(pageContext);
 

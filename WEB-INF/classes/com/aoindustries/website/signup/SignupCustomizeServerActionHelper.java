@@ -1,10 +1,10 @@
-package com.aoindustries.website.signup;
-
 /*
  * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.signup;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.aoserv.client.PackageDefinitionLimit;
@@ -20,7 +20,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
-import org.apache.struts.util.MessageResources;
 
 /**
  * Managed2Action and Dedicated2Action both use this to setup the request attributes.  This is implemented
@@ -450,65 +449,64 @@ final public class SignupCustomizeServerActionHelper {
         ChainWriter emailOut,
         AOServConnector rootConn,
         PackageDefinition packageDefinition,
-        SignupCustomizeServerForm signupCustomizeServerForm,
-        MessageResources signupApplicationResources
+        SignupCustomizeServerForm signupCustomizeServerForm
     ) throws IOException {
         String powerOption = getPowerOption(rootConn, signupCustomizeServerForm);
         if(!GenericValidator.isBlankOrNull(powerOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.power.prompt")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.power.prompt")).print("</td>\n"
                          + "        <td>").print(powerOption).print("</td>\n"
                          + "    </tr>\n");
         }
         emailOut.print("    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.cpu.prompt")).print("</td>\n"
+                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.cpu.prompt")).print("</td>\n"
                      + "        <td>").print(getCpuOption(rootConn, signupCustomizeServerForm)).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.ram.prompt")).print("</td>\n"
+                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.ram.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(getRamOption(rootConn, signupCustomizeServerForm)).print("</td>\n"
                      + "    </tr>\n");
         String sataControllerOption = getSataControllerOption(rootConn, signupCustomizeServerForm);
         if(!GenericValidator.isBlankOrNull(sataControllerOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.sataController.prompt")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.sataController.prompt")).print("</td>\n"
                          + "        <td>").print(sataControllerOption).print("</td>\n"
                          + "    </tr>\n");
         }
         String scsiControllerOption = getScsiControllerOption(rootConn, signupCustomizeServerForm);
         if(!GenericValidator.isBlankOrNull(scsiControllerOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.scsiController.prompt")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.scsiController.prompt")).print("</td>\n"
                          + "        <td>").print(scsiControllerOption).print("</td>\n"
                          + "    </tr>\n");
         }
         for(String diskOption : getDiskOptions(rootConn, signupCustomizeServerForm)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.disk.prompt")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.disk.prompt")).print("</td>\n"
                          + "        <td>").encodeHtml(diskOption).print("</td>\n"
                          + "    </tr>\n");
         }
         emailOut.print("    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.setup.prompt")).print("</td>\n"
+                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.setup.prompt")).print("</td>\n"
                      + "        <td>\n");
         BigDecimal setup = packageDefinition.getSetupFee();
         if(setup==null) {
-            emailOut.print("            ").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.setup.none")).print("\n");
+            emailOut.print("            ").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.setup.none")).print("\n");
         } else {
             emailOut.print("            $").print(setup).print("\n");
         }
         emailOut.print("        </td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                     + "        <td style='white-space:nowrap'>").print(signupApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.monthlyRate.prompt")).print("</td>\n"
+                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td style='white-space:nowrap'>").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.monthlyRate.prompt")).print("</td>\n"
                      + "        <td>$").print(request.getAttribute("monthlyRate")).print("</td>\n"
                      + "    </tr>\n");
     }

@@ -26,7 +26,6 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import org.apache.struts.action.ActionServlet;
-import org.apache.struts.util.MessageResources;
 
 /**
  * @author  AO Industries, Inc.
@@ -106,8 +105,6 @@ final public class MinimalConfirmationCompletedActionHelper {
         try {
             // Find the related resource bundles
             String charset = Skin.getCharacterSet(ThreadLocale.get());
-            MessageResources signupApplicationResources = (MessageResources)request.getAttribute("/signup/ApplicationResources");
-            if(signupApplicationResources==null) throw new JspException("Unable to load resources: /signup/ApplicationResources");
 
             // Generate the email contents
             CharArrayWriter cout = new CharArrayWriter();
@@ -145,23 +142,23 @@ final public class MinimalConfirmationCompletedActionHelper {
                          + "<body>\n"
                          + "<table style='border:0px' cellpadding=\"0\" cellspacing=\"0\">\n"
                          + "    <tr><td style='white-space:nowrap' colspan=\"3\">\n"
-                         + "        ").print(signupApplicationResources.accessor.getMessage(statusKey, pkey)).print("<br />\n"
+                         + "        ").print(ApplicationResources.accessor.getMessage(statusKey, pkey)).print("<br />\n"
                          + "        <br />\n"
-                         + "        ").print(signupApplicationResources.accessor.getMessage("serverConfirmationCompleted.belowIsSummary")).print("<br />\n"
+                         + "        ").print(ApplicationResources.accessor.getMessage("serverConfirmationCompleted.belowIsSummary")).print("<br />\n"
                          + "        <hr />\n"
                          + "    </td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.accessor.getMessage("steps.selectPackage.label")).print("</th></tr>\n");
-            SignupSelectPackageActionHelper.printConfirmation(emailOut, packageDefinition, signupApplicationResources);
+                         + "    <tr><th colspan=\"3\">").print(ApplicationResources.accessor.getMessage("steps.selectPackage.label")).print("</th></tr>\n");
+            SignupSelectPackageActionHelper.printConfirmation(emailOut, packageDefinition);
             AOServConnector rootConn = siteSettings.getRootAOServConnector();
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.accessor.getMessage("steps.businessInfo.label")).print("</th></tr>\n");
-            SignupBusinessActionHelper.printConfirmation(emailOut, signupApplicationResources, rootConn, signupBusinessForm);
+                         + "    <tr><th colspan=\"3\">").print(ApplicationResources.accessor.getMessage("steps.businessInfo.label")).print("</th></tr>\n");
+            SignupBusinessActionHelper.printConfirmation(emailOut, rootConn, signupBusinessForm);
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.accessor.getMessage("steps.technicalInfo.label")).print("</th></tr>\n");
-            SignupTechnicalActionHelper.printConfirmation(emailOut, signupApplicationResources, rootConn, signupTechnicalForm);
+                         + "    <tr><th colspan=\"3\">").print(ApplicationResources.accessor.getMessage("steps.technicalInfo.label")).print("</th></tr>\n");
+            SignupTechnicalActionHelper.printConfirmation(emailOut, rootConn, signupTechnicalForm);
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.accessor.getMessage("steps.billingInformation.label")).print("</th></tr>\n");
-            SignupBillingInformationActionHelper.printConfirmation(emailOut, signupApplicationResources, signupBillingInformationForm);
+                         + "    <tr><th colspan=\"3\">").print(ApplicationResources.accessor.getMessage("steps.billingInformation.label")).print("</th></tr>\n");
+            SignupBillingInformationActionHelper.printConfirmation(emailOut, signupBillingInformationForm);
             emailOut.print("</table>\n"
                          + "</body>\n"
                          + "</html>\n");
@@ -176,7 +173,7 @@ final public class MinimalConfirmationCompletedActionHelper {
                 brand.getSignupEmailAddress().toString(),
                 brand.getSignupEmailDisplay(),
                 Collections.singletonList(recipient),
-                signupApplicationResources.accessor.getMessage("serverConfirmationCompleted.email.subject", pkey),
+                ApplicationResources.accessor.getMessage("serverConfirmationCompleted.email.subject", pkey),
                 cout.toString()
             );
 

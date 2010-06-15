@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.util.MessageResources;
 
 /**
  * Makes sure the request coming in is in the right protocol (either http or https) by checking
@@ -55,9 +54,8 @@ abstract public class ProtocolAction extends SkinAction {
                     request.setAttribute(com.aoindustries.website.Constants.HTTP_SERVLET_RESPONSE_STATUS, Integer.valueOf(HttpServletResponse.SC_MOVED_PERMANENTLY));
                     response.sendError(HttpServletResponse.SC_MOVED_PERMANENTLY);
                 } else {
-                    MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
                     request.setAttribute(com.aoindustries.website.Constants.HTTP_SERVLET_RESPONSE_STATUS, Integer.valueOf(HttpServletResponse.SC_FORBIDDEN));
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN, applicationResources.getMessage("ProtocolAction.httpsNotAllowed"));
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, ApplicationResources.accessor.getMessage("ProtocolAction.httpsNotAllowed"));
                 }
                 return null;
             }
@@ -74,8 +72,7 @@ abstract public class ProtocolAction extends SkinAction {
                     response.setHeader("Location", response.encodeRedirectURL(skin.getHttpsUrlBase(request) + path));
                     response.sendError(HttpServletResponse.SC_MOVED_PERMANENTLY);
                 } else {
-                    MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN, applicationResources.getMessage("ProtocolAction.httpNotAllowed"));
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, ApplicationResources.accessor.getMessage("ProtocolAction.httpNotAllowed"));
                 }
                 return null;
             }

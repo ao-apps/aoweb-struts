@@ -5,14 +5,12 @@
  */
 package com.aoindustries.website.skintags;
 
+import com.aoindustries.website.ApplicationResources;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
-import org.apache.struts.Globals;
-import org.apache.struts.util.MessageResources;
 
 /**
  * Common parent to parent and child tags.
@@ -141,10 +139,7 @@ abstract public class PageTag extends BodyTagSupport implements
     @Override
     public int doEndTag() throws JspException {
         try {
-            if(title==null) {
-                MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
-                throw new JspException(applicationResources.getMessage("skintags.PageTag.needsTitleTag"));
-            }
+            if(title==null) throw new JspException(ApplicationResources.accessor.getMessage("skintags.PageTag.needsTitleTag"));
             String myNavImageAlt = this.navImageAlt;
             if(myNavImageAlt == null || myNavImageAlt.length()==0) myNavImageAlt=title;
             String myDescription = this.description;

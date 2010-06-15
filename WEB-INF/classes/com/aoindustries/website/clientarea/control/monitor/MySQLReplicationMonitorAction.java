@@ -18,6 +18,7 @@ import com.aoindustries.aoserv.client.validator.DomainName;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import com.aoindustries.website.clientarea.control.ApplicationResources;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,11 +30,9 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspException;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.util.MessageResources;
 
 /**
  * Retrieves the mysql slave statuses.
@@ -52,9 +51,6 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
         Skin skin,
         AOServConnector<?,?> aoConn
     ) throws Exception {
-        MessageResources controlApplicationResources = (MessageResources)request.getAttribute("/clientarea/control/ApplicationResources");
-        if(controlApplicationResources==null) throw new JspException("Unable to load resources: /clientarea/control/ApplicationResources");
-
         AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
 
         List<MySQLServerRow> mysqlServerRows = new ArrayList<MySQLServerRow>();
@@ -99,7 +95,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                                 new ReplicationRow(
                                     true,
                                     slave,
-                                    controlApplicationResources.accessor.getMessage("monitor.mysqlReplicationMonitor.slaveNotRunning")
+                                    ApplicationResources.accessor.getMessage("monitor.mysqlReplicationMonitor.slaveNotRunning")
                                 )
                             );
                         } else {
@@ -135,7 +131,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                             new ReplicationRow(
                                 true,
                                 slave,
-                                controlApplicationResources.accessor.getMessage("monitor.mysqlReplicationMonitor.ioException", err.getMessage())
+                                ApplicationResources.accessor.getMessage("monitor.mysqlReplicationMonitor.ioException", err.getMessage())
                             )
                         );
                     }
@@ -149,7 +145,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                         mysqlServerRow = new MySQLServerRow(
                             mysqlServer.getVersion().getVersion(),
                             server.toString(),
-                            controlApplicationResources.accessor.getMessage("monitor.mysqlReplicationMonitor.masterNotRunning"),
+                            ApplicationResources.accessor.getMessage("monitor.mysqlReplicationMonitor.masterNotRunning"),
                             replications
                         );
                     } else {
@@ -166,7 +162,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                     mysqlServerRow = new MySQLServerRow(
                         mysqlServer.getVersion().getVersion(),
                         server.toString(),
-                        controlApplicationResources.accessor.getMessage("monitor.mysqlReplicationMonitor.ioException", err.getMessage()),
+                        ApplicationResources.accessor.getMessage("monitor.mysqlReplicationMonitor.ioException", err.getMessage()),
                         replications
                     );
                 }
@@ -225,6 +221,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
         unmodifiablePermissions = Collections.unmodifiableSet(permissions);
     }
 
+    @Override
     public Set<AOServPermission.Permission> getPermissions() {
         return unmodifiablePermissions;
     }

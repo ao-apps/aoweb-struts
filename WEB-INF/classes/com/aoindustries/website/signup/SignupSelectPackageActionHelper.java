@@ -19,7 +19,6 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.util.MessageResources;
 
 /**
  * ManagedAction and DedicatedAction both use this to setup the request attributes.  This is implemented
@@ -84,10 +83,10 @@ final public class SignupSelectPackageActionHelper {
         request.setAttribute("setup", packageDefinition.getSetupFee());
     }
 
-    public static void printConfirmation(ChainWriter emailOut, PackageDefinition packageDefinition, MessageResources signupApplicationResources) throws IOException {
+    public static void printConfirmation(ChainWriter emailOut, PackageDefinition packageDefinition) throws IOException {
         emailOut.print("    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupSelectPackageForm.packageDefinition.prompt")).print("</td>\n"
+                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupSelectPackageForm.packageDefinition.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(packageDefinition.getDisplay()).print("</td>\n"
                      + "    </tr>\n");
     }

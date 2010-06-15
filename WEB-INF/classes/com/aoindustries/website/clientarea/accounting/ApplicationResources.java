@@ -5,6 +5,7 @@ package com.aoindustries.website.clientarea.accounting;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.util.i18n.ApplicationResourcesAccessor;
 import com.aoindustries.util.i18n.EditableResourceBundle;
 import com.aoindustries.util.i18n.EditableResourceBundleSet;
 import java.io.File;
@@ -34,4 +35,6 @@ public final class ApplicationResources extends EditableResourceBundle {
             bundleSet
         );
     }
+
+    public static final ApplicationResourcesAccessor accessor = ApplicationResourcesAccessor.getInstance(bundleSet.getBaseName());
 }

@@ -5,14 +5,12 @@
  */
 package com.aoindustries.website.skintags;
 
+import com.aoindustries.website.ApplicationResources;
 import com.aoindustries.website.Skin;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
-import org.apache.struts.Globals;
-import org.apache.struts.util.MessageResources;
 
 /**
  * @author  AO Industries, Inc.
@@ -43,10 +41,7 @@ public class ContentVerticalDividerTag extends TagSupport {
     public int doStartTag() throws JspException {
         try {
             ContentLineTag contentLineTag = (ContentLineTag)findAncestorWithClass(this, ContentLineTag.class);
-            if(contentLineTag==null) {
-                MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
-                throw new JspException(applicationResources.getMessage("skintags.ContentVerticalDividerTag.mustNestInContentLineTag"));
-            }
+            if(contentLineTag==null) throw new JspException(ApplicationResources.accessor.getMessage("skintags.ContentVerticalDividerTag.mustNestInContentLineTag"));
 
             Skin skin = SkinTag.getSkin(pageContext);
 

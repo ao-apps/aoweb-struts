@@ -1,10 +1,10 @@
-package com.aoindustries.website.signup;
-
 /*
  * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.signup;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.aoserv.client.PackageDefinitionLimit;
@@ -20,7 +20,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
-import org.apache.struts.util.MessageResources;
 
 /**
  * Managed2Action and Dedicated2Action both use this to setup the request attributes.  This is implemented
@@ -181,52 +180,51 @@ final public class SignupCustomizeManagementActionHelper {
         HttpServletRequest request,
         ChainWriter emailOut,
         AOServConnector rootConn,
-        SignupCustomizeManagementForm signupCustomizeManagementForm,
-        MessageResources signupApplicationResources
+        SignupCustomizeManagementForm signupCustomizeManagementForm
     ) throws IOException {
         String backupOnsiteOption = getBackupOnsiteOption(rootConn, signupCustomizeManagementForm);
         if(!GenericValidator.isBlankOrNull(backupOnsiteOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.backupOnsite.prompt")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.backupOnsite.prompt")).print("</td>\n"
                          + "        <td>").print(backupOnsiteOption).print("</td>\n"
                          + "    </tr>\n");
         }
         String backupOffsiteOption = getBackupOffsiteOption(rootConn, signupCustomizeManagementForm);
         if(!GenericValidator.isBlankOrNull(backupOffsiteOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.backupOffsite.prompt")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.backupOffsite.prompt")).print("</td>\n"
                          + "        <td>").print(backupOffsiteOption).print("</td>\n"
                          + "    </tr>\n");
         }
         String backupDvdOption = getBackupDvdOption(rootConn, signupCustomizeManagementForm);
         if(!GenericValidator.isBlankOrNull(backupDvdOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.backupDvd.prompt")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.backupDvd.prompt")).print("</td>\n"
                          + "        <td>").print(backupDvdOption).print("</td>\n"
                          + "    </tr>\n");
         }
         String distributionScanOption = getDistributionScanOption(rootConn, signupCustomizeManagementForm);
         if(!GenericValidator.isBlankOrNull(distributionScanOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.distributionScan.prompt")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.distributionScan.prompt")).print("</td>\n"
                          + "        <td>").print(distributionScanOption).print("</td>\n"
                          + "    </tr>\n");
         }
         String failoverOption = getFailoverOption(rootConn, signupCustomizeManagementForm);
         if(!GenericValidator.isBlankOrNull(failoverOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.failover.prompt")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.failover.prompt")).print("</td>\n"
                          + "        <td>").print(failoverOption).print("</td>\n"
                          + "    </tr>\n");
         }
         emailOut.print("    <tr>\n"
-                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(signupApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.totalMonthlyRate.prompt")).print("</td>\n"
+                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeManagementConfirmation.totalMonthlyRate.prompt")).print("</td>\n"
                      + "        <td>$").print(request.getAttribute("totalMonthlyRate")).print("</td>\n"
                      + "    </tr>\n");
     }

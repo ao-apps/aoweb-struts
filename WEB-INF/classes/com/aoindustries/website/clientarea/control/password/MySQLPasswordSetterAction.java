@@ -57,10 +57,10 @@ public class MySQLPasswordSetterAction extends PermissionAction {
             if(!new SetMySQLUserPasswordCommand(mu.getKey(), null).validate(aoConn).containsKey(SetMySQLUserPasswordCommand.PARAM_MYSQL_USER)) {
                 Username un = mu.getUsername();
                 MySQLServer ms = mu.getMysqlServer();
-                businesses.add(un.getBusiness().getAccounting().getAccounting());
-                usernames.add(un.getUsername().getId());
-                mySQLServers.add(ms.getName().getName());
-                aoServers.add(ms.getAoServerResource().getAoServer().getHostname().getDomain());
+                businesses.add(un.getBusiness().getAccounting().toString());
+                usernames.add(un.getUsername().toString());
+                mySQLServers.add(ms.getName().toString());
+                aoServers.add(ms.getAoServerResource().getAoServer().getHostname().toString());
                 newPasswords.add("");
                 confirmPasswords.add("");
             }

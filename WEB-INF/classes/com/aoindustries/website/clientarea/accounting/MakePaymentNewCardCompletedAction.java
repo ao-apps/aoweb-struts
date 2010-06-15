@@ -30,7 +30,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessages;
-import org.apache.struts.util.MessageResources;
 
 /**
  * Payment from stored credit card.
@@ -115,7 +114,6 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         // 2) Add the transaction as pending on this processor
         Business rootBusiness = rootConn.getBusinesses().get(accounting);
         TransactionType paymentTransactionType = rootConn.getTransactionTypes().get(TransactionType.PAYMENT);
-        MessageResources applicationResources = (MessageResources)request.getAttribute("/clientarea/accounting/ApplicationResources");
         String paymentTypeName;
         if(cardNumber.startsWith("34") || cardNumber.startsWith("37")) {
             paymentTypeName = PaymentType.AMEX;
@@ -138,7 +136,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
             rootBusiness,
             aoConn.getThisBusinessAdministrator(),
             paymentTransactionType,
-            applicationResources.getMessage("makePaymentStoredCardCompleted.transaction.description"),
+            ApplicationResources.accessor.getMessage("makePaymentStoredCardCompleted.transaction.description"),
             1000,
             -pennies,
             paymentType,
@@ -150,7 +148,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
 
         // 3) Process
         AOServConnectorPrincipal principal = new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername());
-        BusinessGroup businessGroup = new BusinessGroup(rootBusiness, accounting==null ? null : accounting.getAccounting());
+        BusinessGroup businessGroup = new BusinessGroup(rootBusiness, accounting==null ? null : accounting.toString());
         Transaction transaction = rootProcessor.sale(
             principal,
             businessGroup,
@@ -178,7 +176,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                 null,
                 null,
                 null,
-                applicationResources.getMessage("makePaymentStoredCardCompleted.transaction.description")
+                ApplicationResources.accessor.getMessage("makePaymentStoredCardCompleted.transaction.description")
             ),
             newCreditCard
         );

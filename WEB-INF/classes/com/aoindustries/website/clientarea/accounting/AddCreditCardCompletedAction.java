@@ -64,7 +64,7 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
         if(!creditCardProcessor.canStoreCreditCards()) throw new AssertionError("CreditCardProcessor indicates it does not support storing credit cards.");
 
         creditCardProcessor.storeCreditCard(
-            new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername().getId()),
+            new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername().toString()),
             new BusinessGroup(aoConn.getBusinesses().get(AccountingCode.valueOf(accounting)), accounting),
             new CreditCard(
                 null,

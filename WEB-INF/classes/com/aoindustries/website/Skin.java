@@ -5,12 +5,12 @@ package com.aoindustries.website;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.util.i18n.ApplicationResourcesAccessor;
 import javax.servlet.http.HttpServletRequest;
 import com.aoindustries.website.skintags.PageAttributes;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
-import org.apache.struts.util.MessageResources;
 
 /**
  * One look-and-feel for the website.
@@ -148,15 +148,15 @@ abstract public class Skin {
 
     public static class Language {
         private final String code;
-        private final String displayResourcesKey;
+        private final ApplicationResourcesAccessor displayAccessor;
         private final String displayKey;
-        private final String flagOnSrcResourcesKey;
+        private final ApplicationResourcesAccessor flagOnSrcAccessor;
         private final String flagOnSrcKey;
-        private final String flagOffSrcResourcesKey;
+        private final ApplicationResourcesAccessor flagOffSrcAccessor;
         private final String flagOffSrcKey;
-        private final String flagWidthResourcesKey;
+        private final ApplicationResourcesAccessor flagWidthAccessor;
         private final String flagWidthKey;
-        private final String flagHeightResourcesKey;
+        private final ApplicationResourcesAccessor flagHeightAccessor;
         private final String flagHeightKey;
         private final String url;
 
@@ -165,28 +165,28 @@ abstract public class Skin {
          */
         public Language(
             String code,
-            String displayResourcesKey,
+            ApplicationResourcesAccessor displayAccessor,
             String displayKey,
-            String flagOnSrcResourcesKey,
+            ApplicationResourcesAccessor flagOnSrcAccessor,
             String flagOnSrcKey,
-            String flagOffSrcResourcesKey,
+            ApplicationResourcesAccessor flagOffSrcAccessor,
             String flagOffSrcKey,
-            String flagWidthResourcesKey,
+            ApplicationResourcesAccessor flagWidthAccessor,
             String flagWidthKey,
-            String flagHeightResourcesKey,
+            ApplicationResourcesAccessor flagHeightAccessor,
             String flagHeightKey,
             String url
         ) {
             this.code = code;
-            this.displayResourcesKey = displayResourcesKey;
+            this.displayAccessor = displayAccessor;
             this.displayKey = displayKey;
-            this.flagOnSrcResourcesKey = flagOnSrcResourcesKey;
+            this.flagOnSrcAccessor = flagOnSrcAccessor;
             this.flagOnSrcKey = flagOnSrcKey;
-            this.flagOffSrcResourcesKey = flagOffSrcResourcesKey;
+            this.flagOffSrcAccessor = flagOffSrcAccessor;
             this.flagOffSrcKey = flagOffSrcKey;
-            this.flagWidthResourcesKey = flagWidthResourcesKey;
+            this.flagWidthAccessor = flagWidthAccessor;
             this.flagWidthKey = flagWidthKey;
-            this.flagHeightResourcesKey = flagHeightResourcesKey;
+            this.flagHeightAccessor = flagHeightAccessor;
             this.flagHeightKey = flagHeightKey;
             this.url = url;
         }
@@ -195,34 +195,24 @@ abstract public class Skin {
             return code;
         }
         
-        public String getDisplay(HttpServletRequest req) throws JspException {
-            MessageResources applicationResources = (MessageResources)req.getAttribute(displayResourcesKey);
-            if(applicationResources==null) throw new JspException("Unable to load resources: "+displayResourcesKey);
-            return applicationResources.getMessage(displayKey);
+        public String getDisplay() {
+            return displayAccessor.getMessage(displayKey);
         }
 
-        public String getFlagOnSrc(HttpServletRequest req) throws JspException {
-            MessageResources applicationResources = (MessageResources)req.getAttribute(flagOnSrcResourcesKey);
-            if(applicationResources==null) throw new JspException("Unable to load resources: "+flagOnSrcResourcesKey);
-            return applicationResources.getMessage(flagOnSrcKey);
+        public String getFlagOnSrc() {
+            return flagOnSrcAccessor.getMessage(flagOnSrcKey);
         }
 
-        public String getFlagOffSrc(HttpServletRequest req) throws JspException {
-            MessageResources applicationResources = (MessageResources)req.getAttribute(flagOffSrcResourcesKey);
-            if(applicationResources==null) throw new JspException("Unable to load resources: "+flagOffSrcResourcesKey);
-            return applicationResources.getMessage(flagOffSrcKey);
+        public String getFlagOffSrc() {
+            return flagOffSrcAccessor.getMessage(flagOffSrcKey);
         }
 
-        public String getFlagWidth(HttpServletRequest req) throws JspException {
-            MessageResources applicationResources = (MessageResources)req.getAttribute(flagWidthResourcesKey);
-            if(applicationResources==null) throw new JspException("Unable to load resources: "+flagWidthResourcesKey);
-            return applicationResources.getMessage(flagWidthKey);
+        public String getFlagWidth() {
+            return flagWidthAccessor.getMessage(flagWidthKey);
         }
 
-        public String getFlagHeight(HttpServletRequest req) throws JspException {
-            MessageResources applicationResources = (MessageResources)req.getAttribute(flagHeightResourcesKey);
-            if(applicationResources==null) throw new JspException("Unable to load resources: "+flagHeightResourcesKey);
-            return applicationResources.getMessage(flagHeightKey);
+        public String getFlagHeight() {
+            return flagHeightAccessor.getMessage(flagHeightKey);
         }
 
         /**

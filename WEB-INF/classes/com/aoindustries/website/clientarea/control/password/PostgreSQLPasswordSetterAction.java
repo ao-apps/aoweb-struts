@@ -57,10 +57,10 @@ public class PostgreSQLPasswordSetterAction extends PermissionAction {
             if(!new SetPostgresUserPasswordCommand(pu.getKey(), null).validate(aoConn).containsKey(SetPostgresUserPasswordCommand.PARAM_POSTGRES_USER)) {
                 Username un = pu.getUsername();
                 PostgresServer ps = pu.getPostgresServer();
-                businesses.add(un.getBusiness().getAccounting().getAccounting());
-                usernames.add(un.getUsername().getId());
+                businesses.add(un.getBusiness().getAccounting().toString());
+                usernames.add(un.getUsername().toString());
                 postgreSQLServers.add(ps.getName().getName());
-                aoServers.add(ps.getAoServerResource().getAoServer().getHostname().getDomain());
+                aoServers.add(ps.getAoServerResource().getAoServer().getHostname().toString());
                 newPasswords.add("");
                 confirmPasswords.add("");
             }

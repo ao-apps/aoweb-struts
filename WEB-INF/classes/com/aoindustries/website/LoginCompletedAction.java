@@ -25,7 +25,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessages;
-import org.apache.struts.util.MessageResources;
 
 /**
  * @author  AO Industries, Inc.
@@ -81,20 +80,16 @@ public class LoginCompletedAction extends HttpsAction {
             message = err.getLocalizedMessage();
             throwable = err;
         } catch(AccountNotFoundException err) {
-            MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-            message = applicationResources.getMessage("login.accountNotFound");
+            message = ApplicationResources.accessor.getMessage("login.accountNotFound");
             throwable = err;
         } catch(BadPasswordException err) {
-            MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-            message = applicationResources.getMessage("login.badPassword");
+            message = ApplicationResources.accessor.getMessage("login.badPassword");
             throwable = err;
         } catch(AccountDisabledException err) {
-            MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-            message = applicationResources.getMessage("login.accountDisabled");
+            message = ApplicationResources.accessor.getMessage("login.accountDisabled");
             throwable = err;
         } catch(LoginException err) {
-            MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-            message = applicationResources.getMessage("login.failed");
+            message = ApplicationResources.accessor.getMessage("login.failed");
             throwable = err;
         }
         if(message!=null) request.setAttribute(Constants.AUTHENTICATION_MESSAGE, message);

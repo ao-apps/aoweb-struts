@@ -5,15 +5,13 @@ package com.aoindustries.website.skintags;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.website.ApplicationResources;
 import com.aoindustries.website.Constants;
 import com.aoindustries.website.Skin;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import org.apache.struts.Globals;
-import org.apache.struts.util.MessageResources;
 
 /**
  * Writes the skin header and footer.
@@ -29,10 +27,7 @@ public class SkinTag extends PageAttributesBodyTag {
      */
     public static Skin getSkin(PageContext pageContext) throws JspException {
         Skin skin = (Skin)pageContext.getAttribute(Constants.SKIN, PageContext.REQUEST_SCOPE);
-        if(skin==null) {
-            MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
-            throw new JspException(applicationResources.getMessage("skintags.unableToFindSkinInRequest"));
-        }
+        if(skin==null) throw new JspException(ApplicationResources.accessor.getMessage("skintags.unableToFindSkinInRequest"));
         return skin;
     }
 

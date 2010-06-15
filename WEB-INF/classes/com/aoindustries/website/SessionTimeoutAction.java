@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.util.MessageResources;
 
 /**
  * @author  AO Industries, Inc.
@@ -41,8 +40,7 @@ public class SessionTimeoutAction extends HttpsAction {
         }
 
         // Set the authenticationMessage
-        MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-        request.setAttribute(Constants.AUTHENTICATION_MESSAGE, applicationResources.getMessage("SessionTimeoutAction.authenticationMessage"));
+        request.setAttribute(Constants.AUTHENTICATION_MESSAGE, ApplicationResources.accessor.getMessage("SessionTimeoutAction.authenticationMessage"));
 
         return mapping.findForward("success");
     }

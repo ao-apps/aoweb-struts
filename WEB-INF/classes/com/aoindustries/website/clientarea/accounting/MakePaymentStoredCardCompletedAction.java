@@ -11,6 +11,7 @@ import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.aoserv.client.PaymentType;
 import com.aoindustries.aoserv.client.TransactionType;
 import com.aoindustries.aoserv.client.validator.AccountingCode;
+import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.BusinessGroup;
 import com.aoindustries.aoserv.creditcards.CreditCardFactory;
@@ -23,6 +24,7 @@ import com.aoindustries.sql.SQLUtility;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +33,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessages;
-import org.apache.struts.util.MessageResources;
 
 /**
  * Payment from stored credit card.
@@ -53,8 +54,15 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
         MakePaymentStoredCardForm makePaymentStoredCardForm = (MakePaymentStoredCardForm)form;
 
         // Init request values
-        String accounting = makePaymentStoredCardForm.getAccounting();
-        Business business = accounting==null ? null : aoConn.getBusinesses().get(AccountingCode.valueOf(accounting));
+        AccountingCode accounting;
+        try {
+            String accountingS = makePaymentStoredCardForm.getAccounting();
+            accounting = accountingS==null ? null : AccountingCode.valueOf(accountingS);
+        } catch(ValidationException err) {
+            // Redirect back to make-payment if invalid accounting code
+            return mapping.findForward("make-payment");
+        }
+        Business business = accounting==null ? null : aoConn.getBusinesses().get(accounting);
         if(business==null) {
             // Redirect back to make-payment if business not found
             return mapping.findForward("make-payment");
@@ -67,7 +75,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
             return mapping.findForward("make-payment");
         }
         if("".equals(pkeyString)) {
-            response.sendRedirect(response.encodeRedirectURL(skin.getHttpsUrlBase(request)+"clientarea/accounting/make-payment-new-card.do?accounting="+request.getParameter("accounting")));
+            response.sendRedirect(response.encodeRedirectURL(skin.getHttpsUrlBase(request)+"clientarea/accounting/make-payment-new-card.do?accounting="+URLEncoder.encode(accounting.toString(), "UTF-8")));
             return null;
         }
 
@@ -100,7 +108,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
         BigDecimal paymentAmount = new BigDecimal(makePaymentStoredCardForm.getPaymentAmount());
 
         // Perform the transaction
-        AOServConnector rootConn = siteSettings.getRootAOServConnector();
+        AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
         
         // 1) Pick a processor
         CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
@@ -110,7 +118,6 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
         // 2) Add the transaction as pending on this processor
         Business rootBusiness = rootConn.getBusinesses().get(accounting);
         TransactionType paymentTransactionType = rootConn.getTransactionTypes().get(TransactionType.PAYMENT);
-        MessageResources applicationResources = (MessageResources)request.getAttribute("/clientarea/accounting/ApplicationResources");
         String paymentTypeName;
         String cardInfo = creditCard.getCardInfo();
         if(cardInfo.startsWith("34") || cardInfo.startsWith("37")) {
@@ -134,7 +141,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
             rootBusiness,
             aoConn.getThisBusinessAdministrator(),
             paymentTransactionType,
-            applicationResources.getMessage("makePaymentStoredCardCompleted.transaction.description"),
+            ApplicationResources.accessor.getMessage("makePaymentStoredCardCompleted.transaction.description"),
             1000,
             -pennies,
             paymentType,
@@ -147,7 +154,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
         // 3) Process
         Transaction transaction = rootProcessor.sale(
             new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
-            new BusinessGroup(rootBusiness, accounting),
+            new BusinessGroup(rootBusiness, accounting.toString()),
             new TransactionRequest(
                 false,
                 request.getRemoteAddr(),
@@ -172,7 +179,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
                 null,
                 null,
                 null,
-                applicationResources.getMessage("makePaymentStoredCardCompleted.transaction.description")
+                ApplicationResources.accessor.getMessage("makePaymentStoredCardCompleted.transaction.description")
             ),
             CreditCardFactory.getCreditCard(rootCreditCard)
         );

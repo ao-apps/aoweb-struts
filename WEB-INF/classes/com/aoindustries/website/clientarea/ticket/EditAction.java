@@ -62,7 +62,7 @@ public class EditAction extends PermissionAction {
 
         // Populate the ticket form
         Business business = ticket.getBusiness();
-        ticketForm.setAccounting(business==null ? "" : business.getAccounting().getAccounting());
+        ticketForm.setAccounting(business==null ? "" : business.getAccounting().toString());
         ticketForm.setClientPriority(ticket.getClientPriority().getPriority());
         ticketForm.setContactEmails(ticket.getContactEmails());
         ticketForm.setContactPhoneNumbers(ticket.getContactPhoneNumbers());

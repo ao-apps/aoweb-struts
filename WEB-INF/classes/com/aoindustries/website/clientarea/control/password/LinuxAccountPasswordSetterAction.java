@@ -54,9 +54,9 @@ public class LinuxAccountPasswordSetterAction extends PermissionAction {
         for(LinuxAccount la : las) {
             if(!new SetLinuxAccountPasswordCommand(la.getKey(), null).validate(aoConn).containsKey(SetLinuxAccountPasswordCommand.PARAM_LINUX_ACCOUNT)) {
                 Username un = la.getUsername();
-                businesses.add(un.getBusiness().getAccounting().getAccounting());
-                usernames.add(un.getUsername().getId());
-                aoServers.add(la.getAoServerResource().getAoServer().getHostname().getDomain());
+                businesses.add(un.getBusiness().getAccounting().toString());
+                usernames.add(un.getUsername().toString());
+                aoServers.add(la.getAoServerResource().getAoServer().getHostname().toString());
                 newPasswords.add("");
                 confirmPasswords.add("");
             }

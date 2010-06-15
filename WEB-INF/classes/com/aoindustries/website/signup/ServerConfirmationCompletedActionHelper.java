@@ -29,7 +29,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionServlet;
-import org.apache.struts.util.MessageResources;
 
 /**
  * Managed6CompletedAction and Dedicated6CompletedAction both use this to setup the request attributes.  This is implemented
@@ -226,10 +225,6 @@ final public class ServerConfirmationCompletedActionHelper {
         SignupBillingInformationForm signupBillingInformationForm
     ) {
         try {
-            // Find the resource bundles
-            MessageResources signupApplicationResources = (MessageResources)request.getAttribute("/signup/ApplicationResources");
-            if(signupApplicationResources==null) throw new JspException("Unable to load resources: /signup/ApplicationResources");
-
             // Generate the email contents
             CharArrayWriter cout = new CharArrayWriter();
             ChainWriter emailOut = new ChainWriter(cout);
@@ -266,37 +261,36 @@ final public class ServerConfirmationCompletedActionHelper {
                          + "<body>\n"
                          + "<table style='border:0px' cellpadding=\"0\" cellspacing=\"0\">\n"
                          + "    <tr><td style='white-space:nowrap' colspan=\"3\">\n"
-                         + "        ").print(signupApplicationResources.accessor.getMessage(statusKey, pkey)).print("<br />\n"
+                         + "        ").print(ApplicationResources.accessor.getMessage(statusKey, pkey)).print("<br />\n"
                          + "        <br />\n"
-                         + "        ").print(signupApplicationResources.accessor.getMessage("serverConfirmationCompleted.belowIsSummary")).print("<br />\n"
+                         + "        ").print(ApplicationResources.accessor.getMessage("serverConfirmationCompleted.belowIsSummary")).print("<br />\n"
                          + "        <hr />\n"
                          + "    </td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.accessor.getMessage("steps.selectServer.label")).print("</th></tr>\n");
-            SignupSelectServerActionHelper.printConfirmation(emailOut, packageDefinition, signupApplicationResources);
+                         + "    <tr><th colspan=\"3\">").print(ApplicationResources.accessor.getMessage("steps.selectServer.label")).print("</th></tr>\n");
+            SignupSelectServerActionHelper.printConfirmation(emailOut, packageDefinition);
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.accessor.getMessage("steps.customizeServer.label")).print("</th></tr>\n");
+                         + "    <tr><th colspan=\"3\">").print(ApplicationResources.accessor.getMessage("steps.customizeServer.label")).print("</th></tr>\n");
             AOServConnector rootConn = siteSettings.getRootAOServConnector();
-            SignupCustomizeServerActionHelper.printConfirmation(request, emailOut, rootConn, packageDefinition, signupCustomizeServerForm, signupApplicationResources);
+            SignupCustomizeServerActionHelper.printConfirmation(request, emailOut, rootConn, packageDefinition, signupCustomizeServerForm);
             if(signupCustomizeManagementForm!=null) {
                 emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-                             + "    <tr><th colspan=\"3\">").print(signupApplicationResources.accessor.getMessage("steps.customizeManagement.label")).print("</th></tr>\n");
+                             + "    <tr><th colspan=\"3\">").print(ApplicationResources.accessor.getMessage("steps.customizeManagement.label")).print("</th></tr>\n");
                 SignupCustomizeManagementActionHelper.printConfirmation(
                     request,
                     emailOut,
                     rootConn,
-                    signupCustomizeManagementForm,
-                    signupApplicationResources
+                    signupCustomizeManagementForm
                 );
             }
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.accessor.getMessage("steps.businessInfo.label")).print("</th></tr>\n");
-            SignupBusinessActionHelper.printConfirmation(emailOut, signupApplicationResources, rootConn, signupBusinessForm);
+                         + "    <tr><th colspan=\"3\">").print(ApplicationResources.accessor.getMessage("steps.businessInfo.label")).print("</th></tr>\n");
+            SignupBusinessActionHelper.printConfirmation(emailOut, rootConn, signupBusinessForm);
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.accessor.getMessage("steps.technicalInfo.label")).print("</th></tr>\n");
-            SignupTechnicalActionHelper.printConfirmation(emailOut, signupApplicationResources, rootConn, signupTechnicalForm);
+                         + "    <tr><th colspan=\"3\">").print(ApplicationResources.accessor.getMessage("steps.technicalInfo.label")).print("</th></tr>\n");
+            SignupTechnicalActionHelper.printConfirmation(emailOut, rootConn, signupTechnicalForm);
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-                         + "    <tr><th colspan=\"3\">").print(signupApplicationResources.accessor.getMessage("steps.billingInformation.label")).print("</th></tr>\n");
-            SignupBillingInformationActionHelper.printConfirmation(emailOut, signupApplicationResources, signupBillingInformationForm);
+                         + "    <tr><th colspan=\"3\">").print(ApplicationResources.accessor.getMessage("steps.billingInformation.label")).print("</th></tr>\n");
+            SignupBillingInformationActionHelper.printConfirmation(emailOut, signupBillingInformationForm);
             emailOut.print("</table>\n"
                          + "</body>\n"
                          + "</html>\n");
@@ -311,7 +305,7 @@ final public class ServerConfirmationCompletedActionHelper {
                 brand.getSignupEmailAddress().toString(),
                 brand.getSignupEmailDisplay(),
                 Collections.singletonList(recipient),
-                signupApplicationResources.accessor.getMessage("serverConfirmationCompleted.email.subject", pkey),
+                ApplicationResources.accessor.getMessage("serverConfirmationCompleted.email.subject", pkey),
                 cout.toString()
             );
 
