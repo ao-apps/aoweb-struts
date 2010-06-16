@@ -82,7 +82,7 @@ final public class ServerConfirmationCompletedActionHelper {
     public static void storeToDatabase(
         ActionServlet servlet,
         HttpServletRequest request,
-        AOServConnector rootConn,
+        AOServConnector<?,?> rootConn,
         PackageDefinition packageDefinition,
         SignupBusinessForm signupBusinessForm,
         SignupTechnicalForm signupTechnicalForm,

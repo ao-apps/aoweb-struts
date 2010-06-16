@@ -19,11 +19,13 @@ import com.aoindustries.creditcards.CreditCardProcessor;
 import com.aoindustries.creditcards.Transaction;
 import com.aoindustries.creditcards.TransactionRequest;
 import com.aoindustries.creditcards.TransactionResult;
-import com.aoindustries.sql.SQLUtility;
+import com.aoindustries.util.i18n.Money;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.util.Currency;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -70,9 +72,8 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
             return mapping.findForward("input");
         }
 
-        // Convert to pennies
-        int pennies = SQLUtility.getPennies(makePaymentNewCardForm.getPaymentAmount());
-        BigDecimal paymentAmount = new BigDecimal(makePaymentNewCardForm.getPaymentAmount());
+        // Convert to money
+        Money paymentAmount = new Money(Currency.getInstance(makePaymentNewCardForm.getCurrency()), new BigDecimal(makePaymentNewCardForm.getPaymentAmount()));
 
         // Encapsulate the values into a new credit card
         String cardNumber = makePaymentNewCardForm.getCardNumber();
@@ -137,18 +138,18 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
             aoConn.getThisBusinessAdministrator(),
             paymentTransactionType,
             ApplicationResources.accessor.getMessage("makePaymentStoredCardCompleted.transaction.description"),
-            1000,
-            -pennies,
+            BigDecimal.ONE,
+            paymentAmount.negate(),
             paymentType,
             com.aoindustries.creditcards.CreditCard.maskCreditCardNumber(cardNumber),
             rootAoProcessor,
-            com.aoindustries.aoserv.client.Transaction.WAITING_CONFIRMATION
+            com.aoindustries.aoserv.client.Transaction.Status.W
         );
         com.aoindustries.aoserv.client.Transaction aoTransaction = rootConn.getTransactions().get(transID);
 
         // 3) Process
-        AOServConnectorPrincipal principal = new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername());
-        BusinessGroup businessGroup = new BusinessGroup(rootBusiness, accounting==null ? null : accounting.toString());
+        AOServConnectorPrincipal principal = new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername().toString());
+        BusinessGroup businessGroup = new BusinessGroup(rootBusiness, accounting.toString());
         Transaction transaction = rootProcessor.sale(
             principal,
             businessGroup,
@@ -157,8 +158,8 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                 request.getRemoteAddr(),
                 120,
                 Integer.toString(transID),
-                TransactionRequest.CurrencyCode.USD,
-                paymentAmount,
+                paymentAmount.getCurrency(),
+                paymentAmount.getValue(),
                 null,
                 false,
                 null,
@@ -189,7 +190,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
             case GATEWAY_ERROR :
             {
                 // Update transaction as failed
-                aoTransaction.declined(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                aoTransaction.decline(Integer.parseInt(transaction.getPersistenceUniqueId()));
 
                 TransactionResult.ErrorCode errorCode = authorizationResult.getErrorCode();
                 ActionMessages mappedErrors = makePaymentNewCardForm.mapTransactionError(errorCode);
@@ -208,7 +209,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                     case HOLD :
                     {
                         // Update transaction as held
-                        aoTransaction.held(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                        aoTransaction.hold(Integer.parseInt(transaction.getPersistenceUniqueId()));
 
                         // Store to request attributes
                         request.setAttribute("transaction", transaction);
@@ -251,7 +252,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                     case DECLINED :
                     {
                         // Update transaction as declined
-                        aoTransaction.declined(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                        aoTransaction.decline(Integer.parseInt(transaction.getPersistenceUniqueId()));
 
                         // Store to request attributes
                         request.setAttribute("declineReason", authorizationResult.getDeclineReason());
@@ -260,7 +261,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                     case APPROVED :
                     {
                         // Update transaction as successful
-                        aoTransaction.approved(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                        aoTransaction.approve(Integer.parseInt(transaction.getPersistenceUniqueId()));
 
                         // Store to request attributes
                         request.setAttribute("transaction", transaction);
@@ -307,7 +308,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         }
     }
     
-    private void storeCard(CreditCardProcessor rootProcessor, AOServConnectorPrincipal principal, BusinessGroup businessGroup, com.aoindustries.creditcards.CreditCard newCreditCard) throws IOException {
+    private void storeCard(CreditCardProcessor rootProcessor, AOServConnectorPrincipal principal, BusinessGroup businessGroup, com.aoindustries.creditcards.CreditCard newCreditCard) throws IOException, SQLException {
         rootProcessor.storeCreditCard(
             principal,
             businessGroup,

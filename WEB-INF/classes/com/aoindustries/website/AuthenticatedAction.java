@@ -65,7 +65,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
      * Gets the AOServConnector that represents the actual login id.  This will not change when
      * the user performs a switch user ("su")..
      */
-    public static AOServConnector getAuthenticatedAoConn(HttpServletRequest request, HttpServletResponse response) {
+    public static AOServConnector<?,?> getAuthenticatedAoConn(HttpServletRequest request, HttpServletResponse response) {
         return (AOServConnector)request.getSession().getAttribute(Constants.AUTHENTICATED_AO_CONN);
     }
 
@@ -73,9 +73,9 @@ abstract public class AuthenticatedAction extends HttpsAction {
      * Gets the AOServConnector for the user or <code>null</code> if not logged in.  This also handles the "su" behavior that was
      * stored in the session by <code>SkinAction</code>.
      */
-    public static AOServConnector getAoConn(HttpServletRequest request, HttpServletResponse response) throws RemoteException {
+    public static AOServConnector<?,?> getAoConn(HttpServletRequest request, HttpServletResponse response) throws RemoteException {
         HttpSession session = request.getSession();
-        AOServConnector authenticatedAoConn = getAuthenticatedAoConn(request, response);
+        AOServConnector<?,?> authenticatedAoConn = getAuthenticatedAoConn(request, response);
         // Not logged in
         if(authenticatedAoConn==null) return null;
 

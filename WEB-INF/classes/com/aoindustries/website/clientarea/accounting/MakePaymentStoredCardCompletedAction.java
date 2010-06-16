@@ -20,13 +20,14 @@ import com.aoindustries.creditcards.AuthorizationResult;
 import com.aoindustries.creditcards.CreditCardProcessor;
 import com.aoindustries.creditcards.Transaction;
 import com.aoindustries.creditcards.TransactionRequest;
-import com.aoindustries.sql.SQLUtility;
+import com.aoindustries.util.i18n.Money;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Currency;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -103,9 +104,8 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
             return mapping.findForward("input");
         }
 
-        // Convert to pennies
-        int pennies = SQLUtility.getPennies(makePaymentStoredCardForm.getPaymentAmount());
-        BigDecimal paymentAmount = new BigDecimal(makePaymentStoredCardForm.getPaymentAmount());
+        // Convert to money
+        Money paymentAmount = new Money(Currency.getInstance(makePaymentStoredCardForm.getCurrency()), new BigDecimal(makePaymentStoredCardForm.getPaymentAmount()));
 
         // Perform the transaction
         AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
@@ -142,26 +142,26 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
             aoConn.getThisBusinessAdministrator(),
             paymentTransactionType,
             ApplicationResources.accessor.getMessage("makePaymentStoredCardCompleted.transaction.description"),
-            1000,
-            -pennies,
+            BigDecimal.ONE,
+            paymentAmount.negate(),
             paymentType,
             cardInfo,
             rootAoProcessor,
-            com.aoindustries.aoserv.client.Transaction.WAITING_CONFIRMATION
+            com.aoindustries.aoserv.client.Transaction.Status.W
         );
         com.aoindustries.aoserv.client.Transaction aoTransaction = rootConn.getTransactions().get(transID);
 
         // 3) Process
         Transaction transaction = rootProcessor.sale(
-            new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
+            new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername().toString()),
             new BusinessGroup(rootBusiness, accounting.toString()),
             new TransactionRequest(
                 false,
                 request.getRemoteAddr(),
                 120,
                 Integer.toString(transID),
-                TransactionRequest.CurrencyCode.USD,
-                paymentAmount,
+                paymentAmount.getCurrency(),
+                paymentAmount.getValue(),
                 null,
                 false,
                 null,
@@ -192,12 +192,11 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
             case GATEWAY_ERROR :
             {
                 // Update transaction as failed
-                aoTransaction.declined(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                aoTransaction.decline(Integer.parseInt(transaction.getPersistenceUniqueId()));
                 // Get the list of active credit cards stored for this business
-                List<CreditCard> allCreditCards = business.getCreditCards();
-                List<CreditCard> creditCards = new ArrayList<CreditCard>(allCreditCards.size());
-                for(CreditCard tCreditCard : allCreditCards) {
-                    if(tCreditCard.getDeactivatedOn()==-1) creditCards.add(tCreditCard);
+                SortedSet<CreditCard> creditCards = new TreeSet<CreditCard>();
+                for(CreditCard tCreditCard : business.getCreditCards()) {
+                    if(tCreditCard.getDeactivatedOn()==null) creditCards.add(tCreditCard);
                 }
                 // Store to request attributes, return success
                 request.setAttribute("business", business);
@@ -210,7 +209,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
                 // Check approval result
                 switch(authorizationResult.getApprovalResult()) {
                     case HOLD :
-                        aoTransaction.held(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                        aoTransaction.hold(Integer.parseInt(transaction.getPersistenceUniqueId()));
                         request.setAttribute("business", business);
                         request.setAttribute("creditCard", creditCard);
                         request.setAttribute("transaction", transaction);
@@ -219,12 +218,11 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
                         return mapping.findForward("hold");
                     case DECLINED :
                         // Update transaction as declined
-                        aoTransaction.declined(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                        aoTransaction.decline(Integer.parseInt(transaction.getPersistenceUniqueId()));
                         // Get the list of active credit cards stored for this business
-                        List<CreditCard> allCreditCards = business.getCreditCards();
-                        List<CreditCard> creditCards = new ArrayList<CreditCard>(allCreditCards.size());
-                        for(CreditCard tCreditCard : allCreditCards) {
-                            if(tCreditCard.getDeactivatedOn()==-1) creditCards.add(tCreditCard);
+                        SortedSet<CreditCard> creditCards = new TreeSet<CreditCard>();
+                        for(CreditCard tCreditCard : business.getCreditCards()) {
+                            if(tCreditCard.getDeactivatedOn()==null) creditCards.add(tCreditCard);
                         }
                         // Store to request attributes, return success
                         request.setAttribute("business", business);
@@ -234,7 +232,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
                         return mapping.findForward("declined");
                     case APPROVED :
                         // Update transaction as successful
-                        aoTransaction.approved(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                        aoTransaction.approve(Integer.parseInt(transaction.getPersistenceUniqueId()));
                         request.setAttribute("business", business);
                         request.setAttribute("creditCard", creditCard);
                         request.setAttribute("transaction", transaction);

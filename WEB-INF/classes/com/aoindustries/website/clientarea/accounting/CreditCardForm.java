@@ -40,6 +40,7 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
     public CreditCardForm() {
     }
 
+    @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         super.reset(mapping, request);
         setAccounting("");
@@ -183,6 +184,7 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
         this.description = description==null ? "" : description.trim();
     }
 
+    @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = super.validate(mapping, request);
         if(errors==null) errors = new ActionErrors();

@@ -33,7 +33,7 @@ final public class SignupTechnicalActionHelper {
         HttpServletRequest request,
         SignupTechnicalForm signupTechnicalForm
     ) throws IOException {
-        AOServConnector rootConn=SiteSettings.getInstance(servletContext).getRootAOServConnector();
+        AOServConnector<?,?> rootConn=SiteSettings.getInstance(servletContext).getRootAOServConnector();
 
         // Build the list of countries
         List<SignupBusinessActionHelper.CountryOption> countryOptions = SignupBusinessActionHelper.getCountryOptions(rootConn);
@@ -59,13 +59,13 @@ final public class SignupTechnicalActionHelper {
         SignupTechnicalForm signupTechnicalForm
     ) throws IOException {
         // Lookup things needed by the view
-        AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
+        AOServConnector<?,?> rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
 
         // Store as request attribute for the view
         request.setAttribute("baCountry", getBaCountry(rootConn, signupTechnicalForm));
     }
 
-    public static void printConfirmation(ChainWriter emailOut, AOServConnector rootConn, SignupTechnicalForm signupTechnicalForm) throws IOException {
+    public static void printConfirmation(ChainWriter emailOut, AOServConnector<?,?> rootConn, SignupTechnicalForm signupTechnicalForm) throws IOException {
         emailOut.print("    <tr>\n"
                      + "        <td>").print(ApplicationResources.accessor.getMessage("signup.required")).print("</td>\n"
                      + "        <td>").print(ApplicationResources.accessor.getMessage("signupTechnicalForm.baName.prompt")).print("</td>\n"

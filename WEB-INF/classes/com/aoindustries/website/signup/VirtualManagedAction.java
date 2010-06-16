@@ -20,6 +20,7 @@ import org.apache.struts.action.ActionMessages;
  */
 public class VirtualManagedAction extends VirtualManagedStepAction {
 
+    @Override
     public ActionForward executeVirtualManagedStep(
         ActionMapping mapping,
         HttpServletRequest request,

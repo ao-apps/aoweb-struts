@@ -112,7 +112,7 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
             ActionServlet myServlet = getServlet();
 
             // Find the connector
-            AOServConnector rootConn;
+            AOServConnector<?,?> rootConn;
             if(myServlet!=null) {
                 rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
             } else {

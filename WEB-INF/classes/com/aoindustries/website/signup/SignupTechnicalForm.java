@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
-import org.apache.struts.Globals;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
@@ -62,6 +61,7 @@ public class SignupTechnicalForm extends ActionForm implements Serializable, Ses
         setBaPassword("");
     }
 
+    @Override
     public boolean isEmpty() {
         return
             "".equals(baName)
@@ -218,7 +218,7 @@ public class SignupTechnicalForm extends ActionForm implements Serializable, Ses
             else {
                 ActionServlet myServlet = getServlet();
                 if(myServlet!=null) {
-                    AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
+                    AOServConnector<?,?> rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
                     String lowerUsername = baUsername.toLowerCase();
                     String check = Username.checkUsername(lowerUsername);
                     if(check!=null) errors.add("baUsername", new ActionMessage(check, false));

@@ -164,7 +164,7 @@ final public class SignupCustomizeManagementActionHelper {
         SignupCustomizeManagementForm signupCustomizeManagementForm
     ) throws IOException {
         // Lookup things needed by the view
-        AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
+        AOServConnector<?,?> rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
 
         // Store as request attribute for the view
@@ -179,7 +179,7 @@ final public class SignupCustomizeManagementActionHelper {
     public static void printConfirmation(
         HttpServletRequest request,
         ChainWriter emailOut,
-        AOServConnector rootConn,
+        AOServConnector<?,?> rootConn,
         SignupCustomizeManagementForm signupCustomizeManagementForm
     ) throws IOException {
         String backupOnsiteOption = getBackupOnsiteOption(rootConn, signupCustomizeManagementForm);
@@ -233,7 +233,7 @@ final public class SignupCustomizeManagementActionHelper {
      * Gets the total monthly rate for the server, basic server + hardware options + management options
      */
     public static BigDecimal getTotalMonthlyRate(
-        AOServConnector rootConn,
+        AOServConnector<?,?> rootConn,
         SignupCustomizeServerForm signupCustomizeServerForm,
         SignupCustomizeManagementForm signupCustomizeManagementForm,
         PackageDefinition packageDefinition
@@ -291,34 +291,34 @@ final public class SignupCustomizeManagementActionHelper {
         return monthlyRate;
     }
 
-    public static String getBackupOnsiteOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) throws IOException {
+    public static String getBackupOnsiteOption(AOServConnector<?,?> rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) throws IOException {
         int option = signupCustomizeManagementForm.getBackupOnsiteOption();
         if(option==-1) return null;
         PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(option);
         return pdl.getResourceType().toString();
     }
 
-    public static String getBackupOffsiteOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) throws IOException {
+    public static String getBackupOffsiteOption(AOServConnector<?,?> rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) throws IOException {
         int option = signupCustomizeManagementForm.getBackupOffsiteOption();
         if(option==-1) return null;
         PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(option);
         return pdl.getResourceType().toString();
     }
 
-    public static String getBackupDvdOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) {
+    public static String getBackupDvdOption(AOServConnector<?,?> rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) {
         String option = signupCustomizeManagementForm.getBackupDvdOption();
         if(option==null || option.length()==0) return null;
         return option;
     }
 
-    public static String getDistributionScanOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) throws IOException {
+    public static String getDistributionScanOption(AOServConnector<?,?> rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) throws IOException {
         int option = signupCustomizeManagementForm.getDistributionScanOption();
         if(option==-1) return null;
         PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(option);
         return pdl.getResourceType().toString();
     }
 
-    public static String getFailoverOption(AOServConnector rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) throws IOException {
+    public static String getFailoverOption(AOServConnector<?,?> rootConn, SignupCustomizeManagementForm signupCustomizeManagementForm) throws IOException {
         int option = signupCustomizeManagementForm.getFailoverOption();
         if(option==-1) return null;
         PackageDefinitionLimit pdl = rootConn.getPackageDefinitionLimits().get(option);

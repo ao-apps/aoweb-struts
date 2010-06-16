@@ -48,7 +48,7 @@ final public class SignupSelectPackageActionHelper {
      * Gets the active package definitions ordered by monthly rate.
      */
     public static List<PackageDefinition> getPackageDefinitions(ServletContext servletContext, String packageCategoryName) throws IOException {
-        AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
+        AOServConnector<?,?> rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageCategory category = rootConn.getPackageCategories().get(packageCategoryName);
         Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getBusiness();
         List<PackageDefinition> packageDefinitions = rootBusiness.getPackageDefinitions(category);
@@ -75,7 +75,7 @@ final public class SignupSelectPackageActionHelper {
         SignupSelectPackageForm signupSelectPackageForm
     ) throws IOException {
         // Lookup things needed by the view
-        AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
+        AOServConnector<?,?> rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
 
         // Store as request attribute for the view

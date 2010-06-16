@@ -9,10 +9,8 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Brand;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.io.ChainWriter;
-import com.aoindustries.util.i18n.ThreadLocale;
 import com.aoindustries.website.Mailer;
 import com.aoindustries.website.SiteSettings;
-import com.aoindustries.website.Skin;
 import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -103,19 +101,16 @@ final public class MinimalConfirmationCompletedActionHelper {
         SignupBillingInformationForm signupBillingInformationForm
     ) {
         try {
-            // Find the related resource bundles
-            String charset = Skin.getCharacterSet(ThreadLocale.get());
-
             // Generate the email contents
             CharArrayWriter cout = new CharArrayWriter();
             ChainWriter emailOut = new ChainWriter(cout);
-            String htmlLang = ServerConfirmationCompletedActionHelper.getHtmlLang(ThreadLocale.get());
+            String htmlLang = ServerConfirmationCompletedActionHelper.getHtmlLang();
             emailOut.print("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
                     + "<html xmlns=\"http://www.w3.org/1999/xhtml\"");
             if(htmlLang!=null) emailOut.print(" lang=\"").print(htmlLang).print("\" xml:lang=\"").print(htmlLang).print('"');
             emailOut.print(">\n"
                          + "<head>\n"
-                         + "    <meta http-equiv='Content-Type' content='text/html; charset=").print(charset).print("' />\n");
+                         + "    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />\n");
             // Embed the text-only style sheet
             InputStream cssIn = servlet.getServletContext().getResourceAsStream("/textskin/global.css");
             if(cssIn!=null) {

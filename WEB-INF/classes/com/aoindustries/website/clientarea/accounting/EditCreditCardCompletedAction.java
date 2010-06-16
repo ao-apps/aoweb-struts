@@ -8,6 +8,7 @@ package com.aoindustries.website.clientarea.accounting;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.CountryCode;
 import com.aoindustries.aoserv.client.CreditCard;
+import com.aoindustries.aoserv.client.validator.Email;
 import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.CreditCardFactory;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
@@ -137,7 +138,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
                 editCreditCardForm.getFirstName(),
                 editCreditCardForm.getLastName(),
                 editCreditCardForm.getCompanyName(),
-                editCreditCardForm.getEmail(),
+                Email.valueOf(editCreditCardForm.getEmail()),
                 editCreditCardForm.getPhone(),
                 editCreditCardForm.getFax(),
                 editCreditCardForm.getCustomerTaxId(),
@@ -152,7 +153,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             updatedCardDetails = true;
         }
         
-        if(!creditCard.getIsActive()) {
+        if(!creditCard.isActive()) {
             // Reactivate if not active
             creditCard.reactivate();
             reactivatedCard = true;

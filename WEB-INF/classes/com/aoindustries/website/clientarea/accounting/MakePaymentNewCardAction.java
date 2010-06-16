@@ -10,6 +10,7 @@ import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.BusinessProfile;
 import com.aoindustries.aoserv.client.validator.AccountingCode;
+import com.aoindustries.util.i18n.Money;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
@@ -18,7 +19,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Currency;
 import java.util.List;
+import java.util.SortedMap;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -86,13 +89,23 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
         initRequestAttributes(request, getServlet().getServletContext());
 
         // Prompt for amount of payment defaults to current balance.
-        BigDecimal balance = business.getAccountBalance();
-        if(balance.compareTo(BigDecimal.ZERO)>0) {
-            makePaymentNewCardForm.setPaymentAmount(balance.toPlainString());
+        SortedMap<Currency,Money> balances = business.getAccountBalances();
+        Money posBalance = null;
+        for(Money balance : balances.values()) {
+            if(balance.getValue().compareTo(BigDecimal.ZERO)>0) {
+                posBalance = balance;
+                break;
+            }
+        }
+        if(posBalance!=null) {
+            makePaymentNewCardForm.setCurrency(posBalance.getCurrency().getCurrencyCode());
+            makePaymentNewCardForm.setPaymentAmount(posBalance.getValue().toPlainString());
         } else {
+            makePaymentNewCardForm.setCurrency(business.getPackageDefinition().getMonthlyRate().getCurrency().getCurrencyCode());
             makePaymentNewCardForm.setPaymentAmount("");
         }
 
+        request.setAttribute("currencies", balances.keySet());
         request.setAttribute("business", business);
 
         return mapping.findForward("success");
