@@ -14,8 +14,14 @@ import java.util.Comparator;
 public class Option {
 
     public static class PriceComparator implements Comparator<Option> {
+        @Override
         public int compare(Option pdl1, Option pdl2) {
             return pdl1.getPriceDifference().compareTo(pdl2.getPriceDifference());
+        }
+
+        @Override
+        public boolean equals(Object O) {
+            return O!=null && (O instanceof PriceComparator);
         }
     }
 

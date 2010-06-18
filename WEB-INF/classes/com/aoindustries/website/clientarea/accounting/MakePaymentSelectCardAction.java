@@ -82,8 +82,8 @@ public class MakePaymentSelectCardAction extends PermissionAction {
             // Store to request attributes, return success
             request.setAttribute("business", business);
             request.setAttribute("creditCards", creditCards);
-            CreditCardTransaction lastCCT = business.getLastCreditCardTransaction();
-            request.setAttribute("lastPaymentCreditCard", lastCCT==null ? null : lastCCT.getCreditCardProviderUniqueId());
+            Set<CreditCardTransaction> ccts = business.getCreditCardTransactions();
+            request.setAttribute("lastPaymentCreditCard", ccts.isEmpty() ? null : Collections.max(ccts).getCreditCardProviderUniqueId());
             return mapping.findForward("success");
         }
     }

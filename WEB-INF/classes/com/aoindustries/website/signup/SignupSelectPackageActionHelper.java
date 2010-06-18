@@ -64,8 +64,14 @@ final public class SignupSelectPackageActionHelper {
     }
 
     private static class PackageDefinitionComparator implements Comparator<PackageDefinition> {
+        @Override
         public int compare(PackageDefinition pd1, PackageDefinition pd2) {
             return pd1.getMonthlyRate().compareTo(pd2.getMonthlyRate());
+        }
+
+        @Override
+        public boolean equals(Object O) {
+            return O!=null && (O instanceof PackageDefinitionComparator);
         }
     }
 
