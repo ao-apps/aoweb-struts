@@ -10,6 +10,10 @@ import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.aoserv.client.PaymentType;
 import com.aoindustries.aoserv.client.TransactionType;
+import com.aoindustries.aoserv.client.command.AddTransactionCommand;
+import com.aoindustries.aoserv.client.command.ApproveTransactionCommand;
+import com.aoindustries.aoserv.client.command.DeclineTransactionCommand;
+import com.aoindustries.aoserv.client.command.HoldTransactionCommand;
 import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
@@ -137,7 +141,8 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
             paymentType = rootConn.getPaymentTypes().get(paymentTypeName);
         }
 
-        int transID = rootBusiness.addTransaction(
+        int transID = new AddTransactionCommand(
+            rootBusiness,
             rootBusiness,
             aoConn.getThisBusinessAdministrator(),
             paymentTransactionType,
@@ -148,7 +153,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
             cardInfo,
             rootAoProcessor,
             com.aoindustries.aoserv.client.Transaction.Status.W
-        );
+        ).execute(rootConn);
         com.aoindustries.aoserv.client.Transaction aoTransaction = rootConn.getTransactions().get(transID);
 
         // 3) Process
@@ -192,7 +197,10 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
             case GATEWAY_ERROR :
             {
                 // Update transaction as failed
-                aoTransaction.decline(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                new DeclineTransactionCommand(
+                    aoTransaction,
+                    rootConn.getCreditCardTransactions().get(Integer.parseInt(transaction.getPersistenceUniqueId()))
+                ).execute(rootConn);
                 // Get the list of active credit cards stored for this business
                 SortedSet<CreditCard> creditCards = new TreeSet<CreditCard>();
                 for(CreditCard tCreditCard : business.getCreditCards()) {
@@ -209,7 +217,10 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
                 // Check approval result
                 switch(authorizationResult.getApprovalResult()) {
                     case HOLD :
-                        aoTransaction.hold(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                        new HoldTransactionCommand(
+                            aoTransaction,
+                            rootConn.getCreditCardTransactions().get(Integer.parseInt(transaction.getPersistenceUniqueId()))
+                        ).execute(rootConn);
                         request.setAttribute("business", business);
                         request.setAttribute("creditCard", creditCard);
                         request.setAttribute("transaction", transaction);
@@ -218,7 +229,10 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
                         return mapping.findForward("hold");
                     case DECLINED :
                         // Update transaction as declined
-                        aoTransaction.decline(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                        new DeclineTransactionCommand(
+                            aoTransaction,
+                            rootConn.getCreditCardTransactions().get(Integer.parseInt(transaction.getPersistenceUniqueId()))
+                        ).execute(rootConn);
                         // Get the list of active credit cards stored for this business
                         SortedSet<CreditCard> creditCards = new TreeSet<CreditCard>();
                         for(CreditCard tCreditCard : business.getCreditCards()) {
@@ -232,7 +246,10 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
                         return mapping.findForward("declined");
                     case APPROVED :
                         // Update transaction as successful
-                        aoTransaction.approve(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                        new ApproveTransactionCommand(
+                            aoTransaction,
+                            aoConn.getCreditCardTransactions().get(Integer.parseInt(transaction.getPersistenceUniqueId()))
+                        ).execute(aoConn);
                         request.setAttribute("business", business);
                         request.setAttribute("creditCard", creditCard);
                         request.setAttribute("transaction", transaction);

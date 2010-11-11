@@ -89,7 +89,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                         }
                     }
                     try {
-                        GetMySQLSlaveStatusCommand.SlaveStatus slaveStatus = fmr.getSlaveStatus();
+                        GetMySQLSlaveStatusCommand.SlaveStatus slaveStatus = new GetMySQLSlaveStatusCommand(fmr).execute(aoConn);
                         if(slaveStatus==null) {
                             replications.add(
                                 new ReplicationRow(
@@ -140,7 +140,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                 GetMySQLMasterStatusCommand.MasterStatus masterStatus;
                 MySQLServerRow mysqlServerRow;
                 try {
-                    masterStatus = mysqlServer.getMasterStatus();
+                    masterStatus = new GetMySQLMasterStatusCommand(mysqlServer).execute(aoConn);
                     if(masterStatus==null) {
                         mysqlServerRow = new MySQLServerRow(
                             mysqlServer.getVersion().getVersion(),

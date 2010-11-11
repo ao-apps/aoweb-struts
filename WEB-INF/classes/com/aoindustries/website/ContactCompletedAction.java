@@ -9,6 +9,7 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Language;
 import com.aoindustries.aoserv.client.TicketPriority;
 import com.aoindustries.aoserv.client.TicketType;
+import com.aoindustries.aoserv.client.command.AddTicketCommand;
 import com.aoindustries.aoserv.client.validator.Email;
 import com.aoindustries.util.i18n.ThreadLocale;
 import java.util.NoSuchElementException;
@@ -51,7 +52,8 @@ public class ContactCompletedAction extends HttpsAction {
         }
         TicketType ticketType = rootConn.getTicketTypes().get(TicketType.CONTACT);
         TicketPriority clientPriority = rootConn.getTicketPriorities().get(TicketPriority.NORMAL);
-        siteSettings.getBrand().addTicket(
+        new AddTicketCommand(
+            siteSettings.getBrand(),
             null,
             language,
             null,
@@ -62,7 +64,7 @@ public class ContactCompletedAction extends HttpsAction {
             clientPriority,
             contactForm.getFrom(),
             ""
-        );
+        ).execute(rootConn);
 
         return mapping.findForward("success");
     }

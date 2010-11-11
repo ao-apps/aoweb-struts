@@ -10,7 +10,13 @@ import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.Ticket;
 import com.aoindustries.aoserv.client.TicketPriority;
+import com.aoindustries.aoserv.client.command.AddTicketAnnotationCommand;
 import com.aoindustries.aoserv.client.command.CommandName;
+import com.aoindustries.aoserv.client.command.SetTicketBusinessCommand;
+import com.aoindustries.aoserv.client.command.SetTicketClientPriorityCommand;
+import com.aoindustries.aoserv.client.command.SetTicketContactEmailsCommand;
+import com.aoindustries.aoserv.client.command.SetTicketContactPhoneNumbersCommand;
+import com.aoindustries.aoserv.client.command.SetTicketSummaryCommand;
 import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
@@ -80,31 +86,32 @@ public class EditCompletedAction extends PermissionAction {
         Business newBusiness = aoConn.getBusinesses().get(AccountingCode.valueOf(ticketForm.getAccounting()));
         Business oldBusiness = ticket.getBusiness();
         if(!newBusiness.equals(oldBusiness)) {
-            ticket.setBusiness(oldBusiness, newBusiness);
+            new SetTicketBusinessCommand(ticket, oldBusiness, newBusiness).execute(aoConn);
             businessUpdated = true;
         }
         if(!ticketForm.getContactEmails().equals(ticket.getContactEmails())) {
-            ticket.setContactEmails(ticketForm.getContactEmails());
+            new SetTicketContactEmailsCommand(ticket, ticketForm.getContactEmails()).execute(aoConn);
             contactEmailsUpdated = true;
         }
         if(!ticketForm.getContactPhoneNumbers().equals(ticket.getContactPhoneNumbers())) {
-            ticket.setContactPhoneNumbers(ticketForm.getContactPhoneNumbers());
+            new SetTicketContactPhoneNumbersCommand(ticket, ticketForm.getContactPhoneNumbers()).execute(aoConn);
             contactPhoneNumbersUpdated = true;
         }
         TicketPriority clientPriority = aoConn.getTicketPriorities().get(ticketForm.getClientPriority());
         if(!clientPriority.equals(ticket.getClientPriority())) {
-            ticket.setClientPriority(clientPriority);
+            new SetTicketClientPriorityCommand(ticket, clientPriority).execute(aoConn);
             clientPriorityUpdated = true;
         }
         if(!ticketForm.getSummary().equals(ticket.getSummary())) {
-            ticket.setSummary(ticketForm.getSummary());
+            new SetTicketSummaryCommand(ticket, ticketForm.getSummary()).execute(aoConn);
             summaryUpdated = true;
         }
         if(ticketForm.getAnnotationSummary().length()>0) {
-            ticket.addAnnotation(
+            new AddTicketAnnotationCommand(
+                ticket,
                 ticketForm.getAnnotationSummary(),
                 ticketForm.getAnnotationDetails()
-            );
+            ).execute(aoConn);
             annotationAdded = true;
         }
 
@@ -134,6 +141,7 @@ public class EditCompletedAction extends PermissionAction {
         newPermissions.add(AOServPermission.Permission.edit_ticket);
         permissions = Collections.unmodifiableSet(newPermissions);
     }
+    @Override
     public Set<AOServPermission.Permission> getPermissions() {
         return permissions;
     }

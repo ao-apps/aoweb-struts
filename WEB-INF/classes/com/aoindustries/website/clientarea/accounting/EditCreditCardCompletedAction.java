@@ -1,13 +1,14 @@
-package com.aoindustries.website.clientarea.accounting;
-
 /*
  * Copyright 2007-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.accounting;
+
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.CountryCode;
 import com.aoindustries.aoserv.client.CreditCard;
+import com.aoindustries.aoserv.client.command.ReactivateCreditCardCommand;
+import com.aoindustries.aoserv.client.command.UpdateCreditCardCommand;
 import com.aoindustries.aoserv.client.validator.Email;
 import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.CreditCardFactory;
@@ -133,8 +134,8 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             || !nullOrBlankEquals(editCreditCardForm.getDescription(), creditCard.getDescription())
         ) {
             // Update rest of the fields
-            CountryCode countryCode = aoConn.getCountryCodes().get(editCreditCardForm.getCountryCode());
-            creditCard.update(
+            new UpdateCreditCardCommand(
+                creditCard,
                 editCreditCardForm.getFirstName(),
                 editCreditCardForm.getLastName(),
                 editCreditCardForm.getCompanyName(),
@@ -147,15 +148,15 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
                 editCreditCardForm.getCity(),
                 editCreditCardForm.getState(),
                 editCreditCardForm.getPostalCode(),
-                countryCode,
+                aoConn.getCountryCodes().get(editCreditCardForm.getCountryCode()),
                 editCreditCardForm.getDescription()
-            );
+            ).execute(aoConn);
             updatedCardDetails = true;
         }
         
         if(!creditCard.isActive()) {
             // Reactivate if not active
-            creditCard.reactivate();
+            new ReactivateCreditCardCommand(creditCard).execute(aoConn);
             reactivatedCard = true;
         }
 

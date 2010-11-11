@@ -10,6 +10,7 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServObject;
 import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.VirtualServer;
+import com.aoindustries.aoserv.client.command.RequestVncConsoleAccessCommand;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonConnection;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonConnector;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonProtocol;
@@ -88,6 +89,7 @@ public class VncConsoleProxySocketHandler {
         // This thread will read from socket
         Thread thread = new Thread(
             new Runnable() {
+                @Override
                 public void run() {
                     try {
                         final OutputStream socketOut = socket.getOutputStream();
@@ -140,7 +142,7 @@ public class VncConsoleProxySocketHandler {
                             // Connect and authenticate to the real VNC server before sending security result
 
                             // Connect through AOServ system
-                            AOServer.DaemonAccess daemonAccess = virtualServer.requestVncConsoleAccess();
+                            AOServer.DaemonAccess daemonAccess = new RequestVncConsoleAccessCommand(virtualServer).execute(rootConn);
                             AOServDaemonConnector daemonConnector=AOServDaemonConnector.getConnector(
                                 daemonAccess.getHost(),
                                 null,
@@ -209,6 +211,7 @@ public class VncConsoleProxySocketHandler {
                                     // socketIn -> daemonOut in another thread
                                     Thread inThread = new Thread(
                                         new Runnable() {
+                                            @Override
                                             public void run() {
                                                 try {
                                                     try {

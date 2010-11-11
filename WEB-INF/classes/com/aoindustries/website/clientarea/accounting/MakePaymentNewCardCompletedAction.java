@@ -10,6 +10,11 @@ import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.aoserv.client.PaymentType;
 import com.aoindustries.aoserv.client.TransactionType;
+import com.aoindustries.aoserv.client.command.AddTransactionCommand;
+import com.aoindustries.aoserv.client.command.ApproveTransactionCommand;
+import com.aoindustries.aoserv.client.command.DeclineTransactionCommand;
+import com.aoindustries.aoserv.client.command.HoldTransactionCommand;
+import com.aoindustries.aoserv.client.command.SetCreditCardUseMonthlyCommand;
 import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.BusinessGroup;
@@ -133,7 +138,8 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
             paymentType = rootConn.getPaymentTypes().get(paymentTypeName);
         }
 
-        int transID = rootBusiness.addTransaction(
+        int transID = new AddTransactionCommand(
+            rootBusiness,
             rootBusiness,
             aoConn.getThisBusinessAdministrator(),
             paymentTransactionType,
@@ -144,7 +150,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
             com.aoindustries.creditcards.CreditCard.maskCreditCardNumber(cardNumber),
             rootAoProcessor,
             com.aoindustries.aoserv.client.Transaction.Status.W
-        );
+        ).execute(rootConn);
         com.aoindustries.aoserv.client.Transaction aoTransaction = rootConn.getTransactions().get(transID);
 
         // 3) Process
@@ -190,7 +196,10 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
             case GATEWAY_ERROR :
             {
                 // Update transaction as failed
-                aoTransaction.decline(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                new DeclineTransactionCommand(
+                    aoTransaction,
+                    rootConn.getCreditCardTransactions().get(Integer.parseInt(transaction.getPersistenceUniqueId()))
+                ).execute(rootConn);
 
                 TransactionResult.ErrorCode errorCode = authorizationResult.getErrorCode();
                 ActionMessages mappedErrors = makePaymentNewCardForm.mapTransactionError(errorCode);
@@ -209,7 +218,10 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                     case HOLD :
                     {
                         // Update transaction as held
-                        aoTransaction.hold(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                        new HoldTransactionCommand(
+                            aoTransaction,
+                            rootConn.getCreditCardTransactions().get(Integer.parseInt(transaction.getPersistenceUniqueId()))
+                        ).execute(rootConn);
 
                         // Store to request attributes
                         request.setAttribute("transaction", transaction);
@@ -252,7 +264,10 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                     case DECLINED :
                     {
                         // Update transaction as declined
-                        aoTransaction.decline(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                        new DeclineTransactionCommand(
+                            aoTransaction,
+                            rootConn.getCreditCardTransactions().get(Integer.parseInt(transaction.getPersistenceUniqueId()))
+                        ).execute(rootConn);
 
                         // Store to request attributes
                         request.setAttribute("declineReason", authorizationResult.getDeclineReason());
@@ -261,7 +276,10 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                     case APPROVED :
                     {
                         // Update transaction as successful
-                        aoTransaction.approve(Integer.parseInt(transaction.getPersistenceUniqueId()));
+                        new ApproveTransactionCommand(
+                            aoTransaction,
+                            aoConn.getCreditCardTransactions().get(Integer.parseInt(transaction.getPersistenceUniqueId()))
+                        ).execute(aoConn);
 
                         // Store to request attributes
                         request.setAttribute("transaction", transaction);
@@ -325,6 +343,6 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         String persistenceUniqueId = newCreditCard.getPersistenceUniqueId();
         CreditCard creditCard = rootConn.getCreditCards().get(Integer.parseInt(persistenceUniqueId));
         if(!creditCard.getBusiness().equals(business)) throw new AssertionError("Requested business and CreditCard business do not match: "+creditCard.getBusiness().getAccounting()+"!="+business.getAccounting());
-        business.setCreditCardUseMonthly(creditCard);
+        new SetCreditCardUseMonthlyCommand(business, creditCard).execute(business.getService().getConnector());
     }
 }

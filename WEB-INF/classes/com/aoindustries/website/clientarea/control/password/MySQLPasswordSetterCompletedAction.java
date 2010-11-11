@@ -11,6 +11,7 @@ import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.MySQLServer;
 import com.aoindustries.aoserv.client.MySQLUser;
 import com.aoindustries.aoserv.client.command.CommandName;
+import com.aoindustries.aoserv.client.command.SetMySQLUserPasswordCommand;
 import com.aoindustries.aoserv.client.validator.DomainName;
 import com.aoindustries.aoserv.client.validator.MySQLServerName;
 import com.aoindustries.aoserv.client.validator.MySQLUserId;
@@ -67,7 +68,7 @@ public class MySQLPasswordSetterCompletedAction extends PermissionAction {
                 String serverName = mySQLServers.get(c);
                 MySQLServer ms = aoServer.getMysqlServer(MySQLServerName.valueOf(serverName));
                 MySQLUser mu = ms.getMysqlUser(MySQLUserId.valueOf(username));
-                mu.setPassword(newPassword);
+                new SetMySQLUserPasswordCommand(mu, newPassword).execute(aoConn);
                 messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.mySQLPasswordSetter.field.confirmPasswords.passwordReset"));
                 newPasswords.set(c, "");
                 confirmPasswords.set(c, "");
@@ -78,6 +79,7 @@ public class MySQLPasswordSetterCompletedAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
+    @Override
     public Set<AOServPermission.Permission> getPermissions() {
         return CommandName.set_mysql_user_password.getPermissions();
     }

@@ -54,7 +54,7 @@ public class PostgreSQLPasswordSetterAction extends PermissionAction {
         List<String> newPasswords = new ArrayList<String>(pus.size());
         List<String> confirmPasswords = new ArrayList<String>(pus.size());
         for(PostgresUser pu : pus) {
-            if(!new SetPostgresUserPasswordCommand(pu.getKey(), null).validate(aoConn).containsKey(SetPostgresUserPasswordCommand.PARAM_POSTGRES_USER)) {
+            if(!new SetPostgresUserPasswordCommand(pu, null).validate(aoConn).containsKey(SetPostgresUserPasswordCommand.PARAM_POSTGRES_USER)) {
                 Username un = pu.getUsername();
                 PostgresServer ps = pu.getPostgresServer();
                 businesses.add(un.getBusiness().getAccounting().toString());

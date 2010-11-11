@@ -9,6 +9,7 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Username;
 import com.aoindustries.aoserv.client.command.CommandName;
+import com.aoindustries.aoserv.client.command.SetUsernamePasswordCommand;
 import com.aoindustries.aoserv.client.validator.UserId;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
@@ -57,7 +58,7 @@ public class GlobalPasswordSetterCompletedAction extends PermissionAction {
             if(newPassword.length()>0) {
                 UserId username = UserId.valueOf(usernames.get(c));
                 Username un = aoConn.getUsernames().get(username);
-                un.setPassword(newPassword);
+                new SetUsernamePasswordCommand(un, newPassword).execute(aoConn);
                 messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.globalPasswordSetter.field.confirmPasswords.passwordReset"));
                 newPasswords.set(c, "");
                 confirmPasswords.set(c, "");
@@ -68,6 +69,7 @@ public class GlobalPasswordSetterCompletedAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
+    @Override
     public Set<AOServPermission.Permission> getPermissions() {
         return CommandName.set_username_password.getPermissions();
     }

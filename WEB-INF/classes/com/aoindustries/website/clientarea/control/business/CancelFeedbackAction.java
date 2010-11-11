@@ -46,7 +46,7 @@ public class CancelFeedbackAction extends PermissionAction {
         } else {
             bu = aoConn.getBusinesses().get(AccountingCode.valueOf(business));
         }
-        if(bu==null || !new CancelBusinessCommand(bu.getAccounting(), null).validate(aoConn).isEmpty()) {
+        if(bu==null || !new CancelBusinessCommand(bu, null).validate(aoConn).isEmpty()) {
             return mapping.findForward("invalid-business");
         }
 
@@ -59,6 +59,7 @@ public class CancelFeedbackAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
+    @Override
     public Set<AOServPermission.Permission> getPermissions() {
         return CommandName.cancel_business.getPermissions();
     }

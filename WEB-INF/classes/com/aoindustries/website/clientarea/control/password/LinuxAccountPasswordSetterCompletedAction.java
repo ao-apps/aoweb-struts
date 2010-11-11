@@ -9,6 +9,7 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.command.CommandName;
+import com.aoindustries.aoserv.client.command.SetLinuxAccountPasswordCommand;
 import com.aoindustries.aoserv.client.validator.UserId;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
@@ -56,11 +57,10 @@ public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction 
         for(int c=0;c<usernames.size();c++) {
             String newPassword = newPasswords.get(c);
             if(newPassword.length()>0) {
-                aoConn
-                    .getAoServers()
-                    .filterUnique(AOServer.COLUMN_HOSTNAME, aoServers.get(c))
-                    .getLinuxAccount(UserId.valueOf(usernames.get(c)))
-                    .setPassword(newPassword);
+                new SetLinuxAccountPasswordCommand(
+                    aoConn.getAoServers().filterUnique(AOServer.COLUMN_HOSTNAME, aoServers.get(c)).getLinuxAccount(UserId.valueOf(usernames.get(c))),
+                    newPassword
+                ).execute(aoConn);
                 messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.linuxAccountPasswordSetter.field.confirmPasswords.passwordReset"));
                 newPasswords.set(c, "");
                 confirmPasswords.set(c, "");
@@ -71,6 +71,7 @@ public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction 
         return mapping.findForward("success");
     }
 
+    @Override
     public Set<AOServPermission.Permission> getPermissions() {
         return CommandName.set_linux_account_password.getPermissions();
     }

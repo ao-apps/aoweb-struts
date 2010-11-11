@@ -9,6 +9,7 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.CreditCard;
+import com.aoindustries.aoserv.client.command.SetCreditCardUseMonthlyCommand;
 import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
@@ -64,7 +65,7 @@ public class ConfigureAutomaticBillingCompletedAction extends PermissionAction {
             if(!creditCard.getBusiness().equals(business)) throw new AssertionError("Requested business and CreditCard business do not match: "+creditCard.getBusiness().getAccounting()+"!="+business.getAccounting());
         }
 
-        business.setCreditCardUseMonthly(creditCard);
+        new SetCreditCardUseMonthlyCommand(business, creditCard).execute(aoConn);
 
         // Store request attributes
         request.setAttribute("business", business);

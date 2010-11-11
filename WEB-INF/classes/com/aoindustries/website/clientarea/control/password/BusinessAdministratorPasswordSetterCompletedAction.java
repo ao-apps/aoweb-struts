@@ -8,6 +8,7 @@ package com.aoindustries.website.clientarea.control.password;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
+import com.aoindustries.aoserv.client.command.SetBusinessAdministratorPasswordCommand;
 import com.aoindustries.aoserv.client.validator.UserId;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.SiteSettings;
@@ -62,7 +63,7 @@ public class BusinessAdministratorPasswordSetterCompletedAction extends Authenti
                     return forward;
                 }
                 BusinessAdministrator ba = aoConn.getBusinessAdministrators().get(username);
-                ba.setPassword(newPassword);
+                new SetBusinessAdministratorPasswordCommand(ba, newPassword).execute(aoConn);
                 messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.businessAdministratorPasswordSetter.field.confirmPasswords.passwordReset"));
                 newPasswords.set(c, "");
                 confirmPasswords.set(c, "");

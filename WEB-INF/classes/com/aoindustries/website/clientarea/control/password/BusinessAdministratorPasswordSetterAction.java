@@ -56,7 +56,7 @@ public class BusinessAdministratorPasswordSetterAction extends AuthenticatedActi
         List<String> newPasswords = new ArrayList<String>(bas.size());
         List<String> confirmPasswords = new ArrayList<String>(bas.size());
         for(BusinessAdministrator ba : bas) {
-            if(!new SetBusinessAdministratorPasswordCommand(ba.getUsername().getUsername(), null).validate(aoConn).containsKey(SetBusinessAdministratorPasswordCommand.PARAM_USERNAME)) {
+            if(!new SetBusinessAdministratorPasswordCommand(ba, null).validate(aoConn).containsKey(SetBusinessAdministratorPasswordCommand.PARAM_BUSINESS_ADMINISTRATOR)) {
                 Username un = ba.getUsername();
                 businesses.add(un.getBusiness().getAccounting().toString());
                 usernames.add(un.getUsername().toString());

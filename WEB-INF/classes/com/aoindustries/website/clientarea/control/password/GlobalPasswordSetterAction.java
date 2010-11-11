@@ -50,7 +50,7 @@ public class GlobalPasswordSetterAction extends PermissionAction {
         List<String> newPasswords = new ArrayList<String>(uns.size());
         List<String> confirmPasswords = new ArrayList<String>(uns.size());
         for(Username un : uns) {
-            if(!new SetUsernamePasswordCommand(un.getUsername(), null).validate(aoConn).containsKey("username")) {
+            if(!new SetUsernamePasswordCommand(un, null).validate(aoConn).containsKey("username")) {
                 businesses.add(un.getBusiness().getAccounting().toString());
                 usernames.add(un.getUsername().toString());
                 newPasswords.add("");
@@ -67,6 +67,7 @@ public class GlobalPasswordSetterAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
+    @Override
     public Set<AOServPermission.Permission> getPermissions() {
         return CommandName.set_username_password.getPermissions();
     }

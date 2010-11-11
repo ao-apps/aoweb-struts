@@ -11,6 +11,7 @@ import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.Language;
 import com.aoindustries.aoserv.client.TicketPriority;
 import com.aoindustries.aoserv.client.TicketType;
+import com.aoindustries.aoserv.client.command.AddTicketCommand;
 import com.aoindustries.aoserv.client.command.CommandName;
 import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.util.i18n.ThreadLocale;
@@ -58,7 +59,8 @@ public class CreateCompletedAction extends PermissionAction {
         }
         TicketType ticketType = aoConn.getTicketTypes().get(TicketType.SUPPORT);
         TicketPriority clientPriority = aoConn.getTicketPriorities().get(ticketForm.getClientPriority());
-        int pkey = siteSettings.getBrand().addTicket(
+        int pkey = new AddTicketCommand(
+            siteSettings.getBrand(),
             business,
             language,
             null,
@@ -69,12 +71,13 @@ public class CreateCompletedAction extends PermissionAction {
             clientPriority,
             ticketForm.getContactEmails(),
             ticketForm.getContactPhoneNumbers()
-        );
+        ).execute(aoConn);
         request.setAttribute("pkey", pkey);
 
         return mapping.findForward("success");
     }
 
+    @Override
     public Set<AOServPermission.Permission> getPermissions() {
         return CommandName.add_ticket.getPermissions();
     }

@@ -11,6 +11,7 @@ import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.PostgresServer;
 import com.aoindustries.aoserv.client.PostgresUser;
 import com.aoindustries.aoserv.client.command.CommandName;
+import com.aoindustries.aoserv.client.command.SetPostgresUserPasswordCommand;
 import com.aoindustries.aoserv.client.validator.DomainName;
 import com.aoindustries.aoserv.client.validator.PostgresUserId;
 import com.aoindustries.website.PermissionAction;
@@ -66,7 +67,7 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
                 String serverName = postgreSQLServers.get(c);
                 PostgresServer ps = aoServer.getPostgresServer(serverName);
                 PostgresUser pu = ps.getPostgresUser(username);
-                pu.setPassword(newPassword);
+                new SetPostgresUserPasswordCommand(pu, newPassword).execute(aoConn);
                 messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.postgreSQLPasswordSetter.field.confirmPasswords.passwordReset"));
                 newPasswords.set(c, "");
                 confirmPasswords.set(c, "");
@@ -77,6 +78,7 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
+    @Override
     public Set<AOServPermission.Permission> getPermissions() {
         return CommandName.set_postgres_user_password.getPermissions();
     }
