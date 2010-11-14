@@ -343,6 +343,6 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         String persistenceUniqueId = newCreditCard.getPersistenceUniqueId();
         CreditCard creditCard = rootConn.getCreditCards().get(Integer.parseInt(persistenceUniqueId));
         if(!creditCard.getBusiness().equals(business)) throw new AssertionError("Requested business and CreditCard business do not match: "+creditCard.getBusiness().getAccounting()+"!="+business.getAccounting());
-        new SetCreditCardUseMonthlyCommand(business, creditCard).execute(business.getService().getConnector());
+        new SetCreditCardUseMonthlyCommand(business, creditCard).execute(business.getConnector());
     }
 }

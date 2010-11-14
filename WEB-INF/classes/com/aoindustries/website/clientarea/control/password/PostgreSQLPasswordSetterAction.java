@@ -60,7 +60,7 @@ public class PostgreSQLPasswordSetterAction extends PermissionAction {
                 businesses.add(un.getBusiness().getAccounting().toString());
                 usernames.add(un.getUsername().toString());
                 postgreSQLServers.add(ps.getName().toString());
-                aoServers.add(ps.getAoServerResource().getAoServer().getHostname().toString());
+                aoServers.add(ps.getAoServer().getHostname().toString());
                 newPasswords.add("");
                 confirmPasswords.add("");
             }
