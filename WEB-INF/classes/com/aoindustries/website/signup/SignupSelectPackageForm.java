@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2010 by AO Industries, Inc.,
+ * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -54,7 +54,7 @@ abstract public class SignupSelectPackageForm extends ActionForm implements Seri
             // Must be one of the active package_definitions
             ActionServlet myServlet = getServlet();
             if(myServlet!=null) {
-                AOServConnector<?,?> rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
+                AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
                 PackageCategory category = rootConn.getPackageCategories().get(getPackageCategory());
                 Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getBusiness();
 

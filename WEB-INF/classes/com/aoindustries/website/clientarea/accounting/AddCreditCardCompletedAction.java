@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007-2010 by AO Industries, Inc.,
+ * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -37,7 +37,7 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
         HttpServletResponse response,
         SiteSettings siteSettings,
         Skin skin,
-        AOServConnector<?,?> aoConn
+        AOServConnector aoConn
     ) throws Exception {
         AddCreditCardForm addCreditCardForm=(AddCreditCardForm)form;
 
@@ -57,7 +57,7 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
         }
 
         // Get the credit card processor for the root connector of this website
-        AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
+        AOServConnector rootConn = siteSettings.getRootAOServConnector();
         CreditCardProcessor creditCardProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootConn);
 
         // Add card

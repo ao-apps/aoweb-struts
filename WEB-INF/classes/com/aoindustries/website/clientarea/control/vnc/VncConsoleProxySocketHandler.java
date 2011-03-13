@@ -85,7 +85,7 @@ public class VncConsoleProxySocketHandler {
         (byte)'\n'
     };
     private static final Random random = new SecureRandom();
-    public VncConsoleProxySocketHandler(final ServletContext servletContext, final AOServConnector<?,?> rootConn, final Socket socket) {
+    public VncConsoleProxySocketHandler(final ServletContext servletContext, final AOServConnector rootConn, final Socket socket) {
         // This thread will read from socket
         Thread thread = new Thread(
             new Runnable() {

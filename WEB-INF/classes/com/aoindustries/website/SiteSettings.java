@@ -1,7 +1,7 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2009-2010 by AO Industries, Inc.,
+ * Copyright 2009-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -120,14 +120,14 @@ public class SiteSettings {
         return servletContext.getInitParameter("root.aoserv.client.password");
     }
 
-    private AOServConnector<?,?> rootAOServConnector = null;
+    private AOServConnector rootAOServConnector = null;
     private final Object rootAOServConnectorLock = new Object();
 
     /**
      * Gets the root connector.  Because this potentially has unrestricted privileges, this must be used at an absolute minimum for situations
      * where a user isn't logged-in but access to the master is required, such as for sign up requests.
      */
-    public AOServConnector<?,?> getRootAOServConnector() throws IOException {
+    public AOServConnector getRootAOServConnector() throws IOException {
         synchronized(rootAOServConnectorLock) {
             if(rootAOServConnector==null) {
                 try {

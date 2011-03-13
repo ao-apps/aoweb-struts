@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007-2010 by AO Industries, Inc.,
+ * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -54,7 +54,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
         HttpServletResponse response,
         SiteSettings siteSettings,
         Skin skin,
-        AOServConnector<?,?> aoConn
+        AOServConnector aoConn
     ) throws Exception {
         MakePaymentStoredCardForm makePaymentStoredCardForm = (MakePaymentStoredCardForm)form;
 
@@ -112,7 +112,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
         Money paymentAmount = new Money(Currency.getInstance(makePaymentStoredCardForm.getCurrency()), new BigDecimal(makePaymentStoredCardForm.getPaymentAmount()));
 
         // Perform the transaction
-        AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
+        AOServConnector rootConn = siteSettings.getRootAOServConnector();
         
         // 1) Pick a processor
         CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());

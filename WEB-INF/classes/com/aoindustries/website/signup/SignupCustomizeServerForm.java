@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2010 by AO Industries, Inc.,
+ * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -112,7 +112,7 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
             ActionServlet myServlet = getServlet();
 
             // Find the connector
-            AOServConnector<?,?> rootConn;
+            AOServConnector rootConn;
             if(myServlet!=null) {
                 rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
             } else {

@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2009-2010 by AO Industries, Inc.,
+ * Copyright 2009-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -59,7 +59,7 @@ public class SystemAdministration5CompletedAction extends SystemAdministration5A
         // Used later
         HttpSession session = request.getSession();
         ActionServlet myServlet = getServlet();
-        AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
+        AOServConnector rootConn = siteSettings.getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
 
         // Build the options map

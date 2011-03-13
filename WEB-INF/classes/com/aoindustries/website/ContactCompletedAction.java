@@ -1,7 +1,7 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2000-2010 by AO Industries, Inc.,
+ * Copyright 2000-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -43,7 +43,7 @@ public class ContactCompletedAction extends HttpsAction {
             return mapping.findForward("input");
         }
 
-        AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
+        AOServConnector rootConn = siteSettings.getRootAOServConnector();
         Language language;
         try {
             language = rootConn.getLanguages().get(ThreadLocale.get().getLanguage());

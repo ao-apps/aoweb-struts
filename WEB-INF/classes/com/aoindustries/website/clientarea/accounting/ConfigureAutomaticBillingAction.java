@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007-2010 by AO Industries, Inc.,
+ * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -40,7 +40,7 @@ public class ConfigureAutomaticBillingAction extends PermissionAction {
         HttpServletResponse response,
         SiteSettings siteSettings,
         Skin skin,
-        AOServConnector<?,?> aoConn
+        AOServConnector aoConn
     ) throws Exception {
         // Business must be selected and accessible
         String accounting = request.getParameter("accounting");

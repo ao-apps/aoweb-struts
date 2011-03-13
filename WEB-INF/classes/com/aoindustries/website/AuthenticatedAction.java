@@ -1,7 +1,7 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2007-2010 by AO Industries, Inc.,
+ * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -42,7 +42,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
         Skin skin
     ) throws Exception {
         // Handle login
-        AOServConnector<?,?> aoConn = getAoConn(request, response);
+        AOServConnector aoConn = getAoConn(request, response);
         if(aoConn==null) {
             String target = request.getRequestURL().toString();
             if(!target.endsWith("/login.do")) {
@@ -65,7 +65,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
      * Gets the AOServConnector that represents the actual login id.  This will not change when
      * the user performs a switch user ("su")..
      */
-    public static AOServConnector<?,?> getAuthenticatedAoConn(HttpServletRequest request, HttpServletResponse response) {
+    public static AOServConnector getAuthenticatedAoConn(HttpServletRequest request, HttpServletResponse response) {
         return (AOServConnector)request.getSession().getAttribute(Constants.AUTHENTICATED_AO_CONN);
     }
 
@@ -73,9 +73,9 @@ abstract public class AuthenticatedAction extends HttpsAction {
      * Gets the AOServConnector for the user or <code>null</code> if not logged in.  This also handles the "su" behavior that was
      * stored in the session by <code>SkinAction</code>.
      */
-    public static AOServConnector<?,?> getAoConn(HttpServletRequest request, HttpServletResponse response) throws RemoteException {
+    public static AOServConnector getAoConn(HttpServletRequest request, HttpServletResponse response) throws RemoteException {
         HttpSession session = request.getSession();
-        AOServConnector<?,?> authenticatedAoConn = getAuthenticatedAoConn(request, response);
+        AOServConnector authenticatedAoConn = getAuthenticatedAoConn(request, response);
         // Not logged in
         if(authenticatedAoConn==null) return null;
 
@@ -87,7 +87,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
         if(su!=null) {
             session.removeAttribute(Constants.SU_REQUESTED);
             try {
-                AOServConnector<?,?> aoConn = su.length()==0 ? authenticatedAoConn : authenticatedAoConn.getFactory().getConnector(
+                AOServConnector aoConn = su.length()==0 ? authenticatedAoConn : authenticatedAoConn.getFactory().getConnector(
                     authenticatedAoConn.getLocale(),
                     UserId.valueOf(su),
                     authenticatedAoConn.getAuthenticateAs(),
@@ -107,7 +107,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
         }
 
         // Look for previous effective user
-        AOServConnector<?,?> aoConn = (AOServConnector)session.getAttribute(Constants.AO_CONN);
+        AOServConnector aoConn = (AOServConnector)session.getAttribute(Constants.AO_CONN);
         if(aoConn!=null) return aoConn;
 
         // Default effective user to authenticated user
@@ -126,7 +126,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
         HttpServletResponse response,
         SiteSettings siteSettings,
         Skin skin,
-        AOServConnector<?,?> aoConn
+        AOServConnector aoConn
     ) throws Exception {
         return mapping.findForward("success");
     }

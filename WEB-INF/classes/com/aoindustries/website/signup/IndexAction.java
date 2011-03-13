@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2009-2010 by AO Industries, Inc.,
+ * Copyright 2009-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -27,7 +27,7 @@ public class IndexAction extends HttpAction {
 
     @Override
     public ActionForward executeProtocolAccepted(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, SiteSettings siteSettings, Skin skin) throws Exception {
-        AOServConnector<?,?> rootConn = SiteSettings.getInstance(getServlet().getServletContext()).getRootAOServConnector();
+        AOServConnector rootConn = SiteSettings.getInstance(getServlet().getServletContext()).getRootAOServConnector();
 
         // Determine the active packages per category
         Map<PackageCategory,List<PackageDefinition>> categories = rootConn.getThisBusinessAdministrator().getUsername().getBusiness().getActivePackageDefinitions();

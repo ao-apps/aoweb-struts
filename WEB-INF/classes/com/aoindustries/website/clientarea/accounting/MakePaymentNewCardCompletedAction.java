@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007-2010 by AO Industries, Inc.,
+ * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -53,7 +53,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         HttpServletResponse response,
         SiteSettings siteSettings,
         Skin skin,
-        AOServConnector<?,?> aoConn
+        AOServConnector aoConn
     ) throws Exception {
         MakePaymentNewCardForm makePaymentNewCardForm=(MakePaymentNewCardForm)form;
 
@@ -111,7 +111,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         );
 
         // Perform the transaction
-        AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
+        AOServConnector rootConn = siteSettings.getRootAOServConnector();
         
         // 1) Pick a processor
         CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootConn);
@@ -339,7 +339,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
      *                   Otherwise there is a race condition between the non-root AOServConnector getting the invalidation signal
      *                   and this method being called.
      */
-    private void setAutomatic(AOServConnector<?,?> rootConn, com.aoindustries.creditcards.CreditCard newCreditCard, Business business) throws IOException {
+    private void setAutomatic(AOServConnector rootConn, com.aoindustries.creditcards.CreditCard newCreditCard, Business business) throws IOException {
         String persistenceUniqueId = newCreditCard.getPersistenceUniqueId();
         CreditCard creditCard = rootConn.getCreditCards().get(Integer.parseInt(persistenceUniqueId));
         if(!creditCard.getBusiness().equals(business)) throw new AssertionError("Requested business and CreditCard business do not match: "+creditCard.getBusiness().getAccounting()+"!="+business.getAccounting());

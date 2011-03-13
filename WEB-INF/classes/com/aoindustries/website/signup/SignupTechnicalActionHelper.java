@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2010 by AO Industries, Inc.,
+ * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -33,7 +33,7 @@ final public class SignupTechnicalActionHelper {
         HttpServletRequest request,
         SignupTechnicalForm signupTechnicalForm
     ) throws IOException {
-        AOServConnector<?,?> rootConn=SiteSettings.getInstance(servletContext).getRootAOServConnector();
+        AOServConnector rootConn=SiteSettings.getInstance(servletContext).getRootAOServConnector();
 
         // Build the list of countries
         List<SignupBusinessActionHelper.CountryOption> countryOptions = SignupBusinessActionHelper.getCountryOptions(rootConn);
@@ -48,7 +48,7 @@ final public class SignupTechnicalActionHelper {
         request.setAttribute("passwords", passwords);
     }
 
-    public static String getBaCountry(AOServConnector<?,?> rootConn, SignupTechnicalForm signupTechnicalForm) throws IOException {
+    public static String getBaCountry(AOServConnector rootConn, SignupTechnicalForm signupTechnicalForm) throws IOException {
         String baCountry = signupTechnicalForm.getBaCountry();
         return baCountry==null || baCountry.length()==0 ? "" : rootConn.getCountryCodes().get(baCountry).getName();
     }
@@ -59,13 +59,13 @@ final public class SignupTechnicalActionHelper {
         SignupTechnicalForm signupTechnicalForm
     ) throws IOException {
         // Lookup things needed by the view
-        AOServConnector<?,?> rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
+        AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
 
         // Store as request attribute for the view
         request.setAttribute("baCountry", getBaCountry(rootConn, signupTechnicalForm));
     }
 
-    public static void printConfirmation(ChainWriter emailOut, AOServConnector<?,?> rootConn, SignupTechnicalForm signupTechnicalForm) throws IOException {
+    public static void printConfirmation(ChainWriter emailOut, AOServConnector rootConn, SignupTechnicalForm signupTechnicalForm) throws IOException {
         emailOut.print("    <tr>\n"
                      + "        <td>").print(ApplicationResources.accessor.getMessage("signup.required")).print("</td>\n"
                      + "        <td>").print(ApplicationResources.accessor.getMessage("signupTechnicalForm.baName.prompt")).print("</td>\n"

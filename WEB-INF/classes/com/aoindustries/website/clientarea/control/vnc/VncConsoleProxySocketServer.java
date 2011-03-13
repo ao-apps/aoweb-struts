@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.control.vnc;
 
 /*
- * Copyright 2009-2010 by AO Industries, Inc.,
+ * Copyright 2009-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -57,7 +57,7 @@ public class VncConsoleProxySocketServer implements Runnable {
                 Brand brand = siteSettings.getBrand();
                 NetBind vncBind = brand.getAowebStrutsVncBind();
                 InetAddress inetAddress = InetAddress.getByName(vncBind.getIpAddress().getIpAddress().toString());
-                AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
+                AOServConnector rootConn = siteSettings.getRootAOServConnector();
                 // Init SSL without using system properties because default SSLContext may be already set
                 // From: http://java.sun.com/j2se/1.5.0/docs/guide/security/jsse/JSSERefGuide.html  "Multiple and Dynamic Keystores"
                 KeyStore.Builder fsBuilder = KeyStore.Builder.newInstance(

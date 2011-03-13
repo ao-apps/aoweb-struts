@@ -1,7 +1,7 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2007-2010 by AO Industries, Inc.,
+ * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -127,7 +127,7 @@ public class TextSkin extends Skin {
             out.print("    <meta http-equiv=\"Content-Style-Type\" content=\"text/css\" />\n"
                     + "    <meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\" />\n");
             // If this is an authenticated page, redirect to session timeout after one hour
-            AOServConnector<?,?> aoConn = AuthenticatedAction.getAoConn(req, resp);
+            AOServConnector aoConn = AuthenticatedAction.getAoConn(req, resp);
             if(isOkResponseStatus && aoConn!=null) {
                 out.print("    <meta http-equiv=\"Refresh\" content=\"");
                 out.print(Math.max(60, session.getMaxInactiveInterval()-60));

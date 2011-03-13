@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2010 by AO Industries, Inc.,
+ * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -39,7 +39,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
         HttpServletResponse response,
         SiteSettings siteSettings,
         Skin skin,
-        AOServConnector<?,?> aoConn
+        AOServConnector aoConn
     ) throws Exception {
         EditCreditCardForm editCreditCardForm=(EditCreditCardForm)form;
 
@@ -85,7 +85,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
         if(!GenericValidator.isBlankOrNull(newCardNumber)) {
             // Update card number and expiration
             // Root connector used to get processor
-            AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
+            AOServConnector rootConn = siteSettings.getRootAOServConnector();
             CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
             CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
             rootProcessor.updateCreditCardNumberAndExpiration(
@@ -104,7 +104,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             ) {
                 // Update expiration only
                 // Root connector used to get processor
-                AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
+                AOServConnector rootConn = siteSettings.getRootAOServConnector();
                 CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
                 CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
                 rootProcessor.updateCreditCardExpiration(

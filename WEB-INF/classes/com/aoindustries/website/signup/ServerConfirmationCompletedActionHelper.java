@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2010 by AO Industries, Inc.,
+ * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -82,7 +82,7 @@ final public class ServerConfirmationCompletedActionHelper {
     public static void storeToDatabase(
         ActionServlet servlet,
         HttpServletRequest request,
-        AOServConnector<?,?> rootConn,
+        AOServConnector rootConn,
         PackageDefinition packageDefinition,
         SignupBusinessForm signupBusinessForm,
         SignupTechnicalForm signupTechnicalForm,
@@ -270,7 +270,7 @@ final public class ServerConfirmationCompletedActionHelper {
             SignupSelectServerActionHelper.printConfirmation(emailOut, packageDefinition);
             emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
                          + "    <tr><th colspan=\"3\">").print(ApplicationResources.accessor.getMessage("steps.customizeServer.label")).print("</th></tr>\n");
-            AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
+            AOServConnector rootConn = siteSettings.getRootAOServConnector();
             SignupCustomizeServerActionHelper.printConfirmation(request, emailOut, rootConn, packageDefinition, signupCustomizeServerForm);
             if(signupCustomizeManagementForm!=null) {
                 emailOut.print("    <tr><td colspan=\"3\">&#160;</td></tr>\n"

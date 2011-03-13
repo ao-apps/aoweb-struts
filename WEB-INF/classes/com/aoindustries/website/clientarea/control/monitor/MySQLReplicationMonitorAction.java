@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.control.monitor;
 
 /*
- * Copyright 2000-2010 by AO Industries, Inc.,
+ * Copyright 2000-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -49,9 +49,9 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
         HttpServletResponse response,
         SiteSettings siteSettings,
         Skin skin,
-        AOServConnector<?,?> aoConn
+        AOServConnector aoConn
     ) throws Exception {
-        AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
+        AOServConnector rootConn = siteSettings.getRootAOServConnector();
 
         List<MySQLServerRow> mysqlServerRows = new ArrayList<MySQLServerRow>();
         for(MySQLServer mysqlServer : new TreeSet<MySQLServer>(aoConn.getMysqlServers().getSet())) {

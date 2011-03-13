@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007-2010 by AO Industries, Inc.,
+ * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -38,7 +38,7 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
         HttpServletResponse response,
         SiteSettings siteSettings,
         Skin skin,
-        AOServConnector<?,?> aoConn
+        AOServConnector aoConn
     ) throws Exception {
         // Make sure the credit card still exists, redirect to credit-card-manager if doesn't
         CreditCard creditCard = null;
@@ -56,7 +56,7 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
         String cardNumber = creditCard.getCardInfo();
 
         // Lookup the card in the root connector (to get access to the processor)
-        AOServConnector<?,?> rootConn = siteSettings.getRootAOServConnector();
+        AOServConnector rootConn = siteSettings.getRootAOServConnector();
         CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
 
         // Delete the card from the bank and persistence
