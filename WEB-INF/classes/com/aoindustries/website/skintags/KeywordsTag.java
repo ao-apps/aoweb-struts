@@ -6,7 +6,7 @@ package com.aoindustries.website.skintags;
  * All rights reserved.
  */
 import com.aoindustries.encoding.MediaType;
-import com.aoindustries.io.StringBuilderWriter;
+import com.aoindustries.io.AutoTempFileWriter;
 import com.aoindustries.taglib.AutoEncodingBufferedTag;
 import java.io.Writer;
 import javax.servlet.jsp.PageContext;
@@ -17,15 +17,18 @@ import javax.servlet.jsp.tagext.JspTag;
  */
 public class KeywordsTag extends AutoEncodingBufferedTag {
 
+    @Override
     public MediaType getContentType() {
         return MediaType.TEXT;
     }
 
+    @Override
     public MediaType getOutputType() {
         return null;
     }
 
-    protected void doTag(StringBuilderWriter capturedBody, Writer out) {
+    @Override
+    protected void doTag(AutoTempFileWriter capturedBody, Writer out) {
         String keywords = capturedBody.toString().trim();
         JspTag parent = findAncestorWithClass(this, KeywordsAttribute.class);
         if(parent==null) {

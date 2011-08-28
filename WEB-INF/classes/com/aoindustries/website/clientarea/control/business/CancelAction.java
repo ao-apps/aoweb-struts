@@ -46,6 +46,7 @@ public class CancelAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
+    @Override
     public Set<AOServPermission.Permission> getPermissions() {
         return CommandName.cancel_business.getPermissions();
     }

@@ -7,7 +7,7 @@ package com.aoindustries.website;
 
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
-import com.aoindustries.util.Collections;
+import com.aoindustries.util.AoCollections;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -43,7 +43,7 @@ abstract public class PermissionAction extends AuthenticatedAction {
         
         // No permissions defined, default to denied
         if(permissions==null || permissions.isEmpty()) {
-            SortedSet<AOServPermission> aoPerms = Collections.emptySortedSet();
+            SortedSet<AOServPermission> aoPerms = AoCollections.emptySortedSet();
             return executePermissionDenied(
                 mapping,
                 form,

@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.control.business;
-
 /*
  * Copyright 2003-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.control.business;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
@@ -49,7 +49,7 @@ public class CancelFeedbackCompletedAction extends PermissionAction {
         } else {
             bu = aoConn.getBusinesses().get(AccountingCode.valueOf(business));
         }
-        if(bu==null || !new CancelBusinessCommand(bu, null).validate(aoConn).isEmpty()) {
+        if(bu==null || !new CancelBusinessCommand(bu, null).checkExecute(aoConn).isEmpty()) {
             return mapping.findForward("invalid-business");
         }
 

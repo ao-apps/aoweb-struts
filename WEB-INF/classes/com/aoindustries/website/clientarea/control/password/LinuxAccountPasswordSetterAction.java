@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.control.password;
-
 /*
  * Copyright 2000-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.control.password;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.LinuxAccount;
@@ -52,7 +52,7 @@ public class LinuxAccountPasswordSetterAction extends PermissionAction {
         List<String> newPasswords = new ArrayList<String>(las.size());
         List<String> confirmPasswords = new ArrayList<String>(las.size());
         for(LinuxAccount la : las) {
-            if(!new SetLinuxAccountPasswordCommand(la.getKey(), null).validate(aoConn).containsKey(SetLinuxAccountPasswordCommand.PARAM_LINUX_ACCOUNT)) {
+            if(new SetLinuxAccountPasswordCommand(la, "X1234Yzw").checkExecute(aoConn).isEmpty()) {
                 Username un = la.getUsername();
                 businesses.add(un.getBusiness().getAccounting().toString());
                 usernames.add(un.getUsername().toString());

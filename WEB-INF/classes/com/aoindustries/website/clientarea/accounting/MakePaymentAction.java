@@ -44,7 +44,7 @@ public class MakePaymentAction extends AuthenticatedAction {
                 thisBusiness.equals(business)
                 || (
                     business.getCanceled()==null
-                    && !business.billParent()
+                    && !business.getBillParent()
                 ) || business.hasNonZeroBalance()
             ) businesses.add(business);
         }

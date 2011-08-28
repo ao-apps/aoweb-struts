@@ -1,12 +1,15 @@
-package com.aoindustries.website.clientarea.control.password;
-
 /*
  * Copyright 2000-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.control.password;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.PasswordChecker;
+import com.aoindustries.aoserv.client.command.CheckUsernamePasswordCommand;
+import com.aoindustries.aoserv.client.validator.UserId;
+import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.util.AutoGrowArrayList;
 import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.AuthenticatedAction;
@@ -14,7 +17,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.struts.Globals;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
@@ -89,7 +91,10 @@ public class GlobalPasswordSetterForm extends ActionForm implements Serializable
                     if(newPassword.length()>0) {
                         String username = usernames.get(c);
                         // Check the password strength
-                        PasswordChecker.Result[] results = PasswordChecker.checkPassword(username, newPassword, PasswordChecker.PasswordStrength.STRICT);
+                        List<PasswordChecker.Result> results = new CheckUsernamePasswordCommand(
+                            aoConn.getUsernames().get(UserId.valueOf(username)),
+                            newPassword
+                        ).execute(aoConn);
                         if(PasswordChecker.hasResults(results)) {
                             errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                         }
@@ -98,6 +103,8 @@ public class GlobalPasswordSetterForm extends ActionForm implements Serializable
             }
             return errors;
         } catch(IOException err) {
+            throw new WrappedException(err);
+        } catch(ValidationException err) {
             throw new WrappedException(err);
         }
     }

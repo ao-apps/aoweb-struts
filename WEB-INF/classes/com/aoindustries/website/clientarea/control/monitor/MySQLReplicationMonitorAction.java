@@ -22,7 +22,7 @@ import com.aoindustries.website.clientarea.control.ApplicationResources;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -75,17 +75,17 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                 List<ReplicationRow> replications = new ArrayList<ReplicationRow>();
                 for(FailoverMySQLReplication fmr : fmrs) {
                     DomainName slave;
-                    AOServer replicationAoServer = fmr.getAOServer();
+                    AOServer replicationAoServer = fmr.getAoServer();
                     if(replicationAoServer!=null) {
                         // ao_server-based
                         slave = replicationAoServer.getHostname();
                     } else {
-                        FailoverFileReplication ffr = fmr.getFailoverFileReplication();
+                        FailoverFileReplication ffr = fmr.getReplication();
                         try {
-                            slave = ffr.getBackupPartition().getAOServer().getHostname();
+                            slave = ffr.getBackupPartition().getAoServer().getHostname();
                         } catch(NoSuchElementException err) {
                             // May be filtered, need to use RootAOServConnector
-                            slave = rootConn.getFailoverFileReplications().get(ffr.getKey()).getBackupPartition().getAOServer().getHostname();
+                            slave = rootConn.getFailoverFileReplications().get(ffr.getKey()).getBackupPartition().getAoServer().getHostname();
                         }
                     }
                     try {
@@ -215,7 +215,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 
     private static final Set<AOServPermission.Permission> unmodifiablePermissions;
     static {
-        Set<AOServPermission.Permission> permissions = new HashSet<AOServPermission.Permission>();
+        Set<AOServPermission.Permission> permissions = EnumSet.noneOf(AOServPermission.Permission.class);
         permissions.addAll(CommandName.get_mysql_master_status.getPermissions());
         permissions.addAll(CommandName.get_mysql_slave_status.getPermissions());
         unmodifiablePermissions = Collections.unmodifiableSet(permissions);

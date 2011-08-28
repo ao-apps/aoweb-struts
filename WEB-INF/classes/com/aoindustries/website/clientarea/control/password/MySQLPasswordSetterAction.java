@@ -54,7 +54,7 @@ public class MySQLPasswordSetterAction extends PermissionAction {
         List<String> newPasswords = new ArrayList<String>(mus.size());
         List<String> confirmPasswords = new ArrayList<String>(mus.size());
         for(MySQLUser mu : mus) {
-            if(!new SetMySQLUserPasswordCommand(mu, null).validate(aoConn).containsKey(SetMySQLUserPasswordCommand.PARAM_MYSQL_USER)) {
+            if(new SetMySQLUserPasswordCommand(mu, "X1234Yzw").checkExecute(aoConn).isEmpty()) {
                 Username un = mu.getUsername();
                 MySQLServer ms = mu.getMysqlServer();
                 businesses.add(un.getBusiness().getAccounting().toString());

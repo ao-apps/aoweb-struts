@@ -1,16 +1,16 @@
-package com.aoindustries.website.clientarea.control.password;
-
 /*
  * Copyright 2000-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.control.password;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.Username;
 import com.aoindustries.aoserv.client.command.SetBusinessAdministratorPasswordCommand;
-import com.aoindustries.util.Collections;
+import com.aoindustries.util.AoCollections;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
@@ -48,7 +48,7 @@ public class BusinessAdministratorPasswordSetterAction extends AuthenticatedActi
         SortedSet<BusinessAdministrator> bas =
             thisBA.hasPermission(AOServPermission.Permission.set_business_administrator_password)
             ? new TreeSet<BusinessAdministrator>(aoConn.getBusinessAdministrators().getSet())
-            : Collections.singletonSortedSet(thisBA)
+            : AoCollections.singletonSortedSet(thisBA)
         ;
 
         List<String> businesses = new ArrayList<String>(bas.size());
@@ -56,7 +56,7 @@ public class BusinessAdministratorPasswordSetterAction extends AuthenticatedActi
         List<String> newPasswords = new ArrayList<String>(bas.size());
         List<String> confirmPasswords = new ArrayList<String>(bas.size());
         for(BusinessAdministrator ba : bas) {
-            if(!new SetBusinessAdministratorPasswordCommand(ba, null).validate(aoConn).containsKey(SetBusinessAdministratorPasswordCommand.PARAM_BUSINESS_ADMINISTRATOR)) {
+            if(new SetBusinessAdministratorPasswordCommand(ba, "X1234Yzw").checkExecute(aoConn).isEmpty()) {
                 Username un = ba.getUsername();
                 businesses.add(un.getBusiness().getAccounting().toString());
                 usernames.add(un.getUsername().toString());

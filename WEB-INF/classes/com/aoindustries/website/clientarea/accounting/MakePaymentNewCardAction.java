@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.accounting;
-
 /*
  * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.accounting;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
@@ -82,7 +82,7 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
             makePaymentNewCardForm.setStreetAddress2(thisBA.getAddress2());
             makePaymentNewCardForm.setCity(thisBA.getCity());
             makePaymentNewCardForm.setState(thisBA.getState());
-            makePaymentNewCardForm.setPostalCode(thisBA.getZIP());
+            makePaymentNewCardForm.setPostalCode(thisBA.getZip());
             makePaymentNewCardForm.setCountryCode(thisBA.getCountry()==null ? "" : thisBA.getCountry().getCode());
         }
 

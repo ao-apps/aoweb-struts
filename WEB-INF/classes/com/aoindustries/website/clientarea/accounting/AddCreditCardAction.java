@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.accounting;
-
 /*
  * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.accounting;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
@@ -121,7 +121,7 @@ public class AddCreditCardAction extends PermissionAction {
             addCreditCardForm.setStreetAddress2(thisBA.getAddress2());
             addCreditCardForm.setCity(thisBA.getCity());
             addCreditCardForm.setState(thisBA.getState());
-            addCreditCardForm.setPostalCode(thisBA.getZIP());
+            addCreditCardForm.setPostalCode(thisBA.getZip());
             addCreditCardForm.setCountryCode(thisBA.getCountry()==null ? "" : thisBA.getCountry().getCode());
         }
 
@@ -145,6 +145,7 @@ public class AddCreditCardAction extends PermissionAction {
         request.setAttribute("countryOptions", countryOptions);
     }
 
+    @Override
     public Set<AOServPermission.Permission> getPermissions() {
         return CommandName.add_credit_card.getPermissions();
     }

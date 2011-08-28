@@ -13,6 +13,7 @@ import com.aoindustries.aoserv.client.PostgresUser;
 import com.aoindustries.aoserv.client.command.CommandName;
 import com.aoindustries.aoserv.client.command.SetPostgresUserPasswordCommand;
 import com.aoindustries.aoserv.client.validator.DomainName;
+import com.aoindustries.aoserv.client.validator.PostgresServerName;
 import com.aoindustries.aoserv.client.validator.PostgresUserId;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
@@ -64,7 +65,7 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
                 PostgresUserId username = PostgresUserId.valueOf(usernames.get(c));
                 DomainName hostname = DomainName.valueOf(aoServers.get(c));
                 AOServer aoServer = aoConn.getAoServers().filterUnique(AOServer.COLUMN_HOSTNAME, hostname);
-                String serverName = postgreSQLServers.get(c);
+                PostgresServerName serverName = PostgresServerName.valueOf(postgreSQLServers.get(c));
                 PostgresServer ps = aoServer.getPostgresServer(serverName);
                 PostgresUser pu = ps.getPostgresUser(username);
                 new SetPostgresUserPasswordCommand(pu, newPassword).execute(aoConn);

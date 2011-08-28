@@ -23,11 +23,13 @@ public class Constants {
     /**
      * The session key used to store the effective <code>AOServConnector</code> when the user has successfully authenticated.  Any "su" can change this.
      */
+    // TODO: Switch to resolve during request from username/password/switchUser:
     public static final String AO_CONN = "aoConn";
 
     /**
      * The session key used to store the <code>AOServConnector</code> that the user has authenticated as.  "su" will not changes this.
      */
+    // TODO: Switch to resolve during request from username/password/switchUser:
     public static final String AUTHENTICATED_AO_CONN="authenticatedAoConn";
 
     /**

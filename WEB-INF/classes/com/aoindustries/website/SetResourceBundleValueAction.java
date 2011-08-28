@@ -26,7 +26,8 @@ public class SetResourceBundleValueAction extends SkinAction {
     static String getUTF8Parameter(HttpServletRequest request, String name) throws UnsupportedEncodingException {
         String value = request.getParameter(name);
         if(value==null) return null;
-        return new String(value.getBytes("iso-8859-1"), "UTF-8");
+        //return new String(value.getBytes("iso-8859-1"), "UTF-8");
+        return value;
     }
 
     @Override

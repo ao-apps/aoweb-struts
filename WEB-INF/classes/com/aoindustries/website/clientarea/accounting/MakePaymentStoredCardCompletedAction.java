@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.accounting;
-
 /*
  * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.accounting;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.CreditCard;
@@ -116,7 +116,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
         
         // 1) Pick a processor
         CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
-        com.aoindustries.aoserv.client.CreditCardProcessor rootAoProcessor = rootCreditCard.getCreditCardProcessor();
+        com.aoindustries.aoserv.client.CreditCardProcessor rootAoProcessor = rootCreditCard.getProcessor();
         CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootAoProcessor);
 
         // 2) Add the transaction as pending on this processor

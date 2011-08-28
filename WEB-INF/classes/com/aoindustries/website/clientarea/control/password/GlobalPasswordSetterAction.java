@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.control.password;
-
 /*
  * Copyright 2000-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.control.password;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Username;
@@ -50,7 +50,7 @@ public class GlobalPasswordSetterAction extends PermissionAction {
         List<String> newPasswords = new ArrayList<String>(uns.size());
         List<String> confirmPasswords = new ArrayList<String>(uns.size());
         for(Username un : uns) {
-            if(!new SetUsernamePasswordCommand(un, null).validate(aoConn).containsKey("username")) {
+            if(new SetUsernamePasswordCommand(un, "X1234Yzw").checkExecute(aoConn).isEmpty()) {
                 businesses.add(un.getBusiness().getAccounting().toString());
                 usernames.add(un.getUsername().toString());
                 newPasswords.add("");

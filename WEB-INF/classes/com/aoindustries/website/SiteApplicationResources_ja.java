@@ -23,9 +23,9 @@ public final class SiteApplicationResources_ja extends EditableResourceBundle {
      */
     public SiteApplicationResources_ja() {
         super(
-            new File(System.getProperty("user.home")+"/common/ao/cvswork/aoweb-struts/WEB-INF/classes/com/aoindustries/website/SiteApplicationResources_ja.properties"),
             Locale.JAPANESE,
-            SiteApplicationResources.bundleSet
+            SiteApplicationResources.bundleSet,
+            new File(System.getProperty("user.home")+"/common/ao/cvswork/aoweb-struts/WEB-INF/classes/com/aoindustries/website/SiteApplicationResources_ja.properties")
         );
     }
 }

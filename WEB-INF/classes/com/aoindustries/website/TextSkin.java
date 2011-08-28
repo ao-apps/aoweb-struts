@@ -10,6 +10,7 @@ import com.aoindustries.aoserv.client.Brand;
 import com.aoindustries.encoding.NewEncodingUtils;
 import com.aoindustries.encoding.TextInXhtmlEncoder;
 import com.aoindustries.io.ChainWriter;
+import com.aoindustries.lang.NotImplementedException;
 import com.aoindustries.util.i18n.EditableResourceBundle;
 import com.aoindustries.util.EncodingUtils;
 import com.aoindustries.util.i18n.ThreadLocale;
@@ -97,7 +98,7 @@ public class TextSkin extends Skin {
     public void startSkin(HttpServletRequest req, HttpServletResponse resp, JspWriter out, PageAttributes pageAttributes) throws JspException {
         try {
             String layout = pageAttributes.getLayout();
-            if(!layout.equals(PageAttributes.LAYOUT_NORMAL)) throw new JspException("TODO: Implement layout: "+layout);
+            if(!layout.equals(PageAttributes.LAYOUT_NORMAL)) throw new NotImplementedException("Layount not implemented: "+layout);
             boolean isSecure = req.isSecure();
             HttpSession session = req.getSession();
             String httpsUrlBase = getHttpsUrlBase(req);
@@ -106,7 +107,7 @@ public class TextSkin extends Skin {
             String path = pageAttributes.getPath();
             if(path.startsWith("/")) path=path.substring(1);
             final String fullPath = (isSecure ? httpsUrlBase : httpUrlBase) + path;
-            final String encodedFullPath = resp.encodeURL(EncodingUtils.encodeXmlAttribute(NewEncodingUtils.encodeURL(fullPath)));
+            final String encodedFullPath = resp.encodeURL(EncodingUtils.encodeXmlAttribute(NewEncodingUtils.encodeUrlPath(fullPath)));
             ServletContext servletContext = session.getServletContext();
             SiteSettings settings = SiteSettings.getInstance(servletContext);
             List<Skin> skins = settings.getSkins();
@@ -282,7 +283,7 @@ public class TextSkin extends Skin {
                         out.print(
                             resp.encodeURL(
                                 EncodingUtils.encodeXmlAttribute(
-                                    NewEncodingUtils.encodeURL(
+                                    NewEncodingUtils.encodeUrlPath(
                                         url==null
                                         ? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&")+"language="+language.getCode())
                                         : url
@@ -304,7 +305,7 @@ public class TextSkin extends Skin {
                         out.print(
                             resp.encodeURL(
                                 EncodingUtils.encodeXmlAttribute(
-                                    NewEncodingUtils.encodeURL(
+                                    NewEncodingUtils.encodeUrlPath(
                                         url==null
                                         ? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&")+"language="+language.getCode())
                                         : url
@@ -350,7 +351,7 @@ public class TextSkin extends Skin {
                 String parentPath = parent.getPath();
                 if(parentPath.startsWith("/")) parentPath=parentPath.substring(1);
                 out.print("            <a href='");
-                out.print(resp.encodeURL((encrypt ? httpsUrlBase : httpUrlBase) + NewEncodingUtils.encodeURL(parentPath)));
+                out.print(resp.encodeURL((encrypt ? httpsUrlBase : httpUrlBase) + NewEncodingUtils.encodeUrlPath(parentPath)));
                 out.print("'>");
                 EncodingUtils.encodeHtml(navAlt, out);
                 out.print("</a><br />\n");
@@ -378,7 +379,7 @@ public class TextSkin extends Skin {
                 String siblingPath = sibling.getPath();
                 if(siblingPath.startsWith("/")) siblingPath=siblingPath.substring(1);
                 out.print("          <a href='");
-                out.print(resp.encodeURL((encrypt ? httpsUrlBase : httpUrlBase) + NewEncodingUtils.encodeURL(siblingPath)));
+                out.print(resp.encodeURL((encrypt ? httpsUrlBase : httpUrlBase) + NewEncodingUtils.encodeUrlPath(siblingPath)));
                 out.print("'>");
                 EncodingUtils.encodeHtml(navAlt, out);
                 out.print("</a><br />\n");
@@ -407,7 +408,7 @@ public class TextSkin extends Skin {
                 out.print("    <link rel=\"");
                 EncodingUtils.encodeXmlAttribute(link.getRel(), out);
                 out.print("\" href=\"");
-                EncodingUtils.encodeXmlAttribute(NewEncodingUtils.encodeURL(link.getHref()), out);
+                EncodingUtils.encodeXmlAttribute(NewEncodingUtils.encodeUrlPath(link.getHref()), out);
                 out.print("\" type=\"");
                 EncodingUtils.encodeXmlAttribute(link.getType(), out);
                 out.print("\" />\n");
@@ -605,7 +606,7 @@ public class TextSkin extends Skin {
             out.print("        </td>\n"
                     + "      </tr>\n"
                     + "    </table>\n");
-            EditableResourceBundle.printEditableResourceBundleLookups(out);
+            EditableResourceBundle.printEditableResourceBundleLookups(out, 4, true);
             printGoogleAnalyticsTrackPageViewScript(req, out, SiteSettings.getInstance(req.getSession().getServletContext()).getBrand().getAowebStrutsGoogleAnalyticsNewTrackingCode());
             out.print("  </body>\n");
         } catch(IOException err) {
@@ -732,7 +733,7 @@ public class TextSkin extends Skin {
 
                 out.print("  <tr>\n"
                         + "    <td style=\"white-space:nowrap\"><a class='aoLightLink' href='");
-                out.print(resp.encodeURL((encrypt ? httpsUrlBase : httpUrlBase) + NewEncodingUtils.encodeURL(siblingPath)));
+                out.print(resp.encodeURL((encrypt ? httpsUrlBase : httpUrlBase) + NewEncodingUtils.encodeUrlPath(siblingPath)));
                 out.print("'>");
                 TextInXhtmlEncoder.encodeTextInXhtml(navAlt, out);
                 out.print("</a></td>\n"

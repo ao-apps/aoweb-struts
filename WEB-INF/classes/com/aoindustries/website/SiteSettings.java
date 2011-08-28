@@ -1,10 +1,10 @@
-package com.aoindustries.website;
-
 /*
  * Copyright 2009-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website;
+
 import com.aoindustries.aoserv.client.AOServClientConfiguration;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Brand;
@@ -56,8 +56,8 @@ public class SiteSettings {
                 if(settings==null) {
                     // Create through reflection
                     Class<? extends SiteSettings> clazz = Class.forName(classname).asSubclass(SiteSettings.class);
-                    Constructor<? extends SiteSettings> constructor = clazz.getConstructor(new Class[] {ServletContext.class});
-                    settings = constructor.newInstance(new Object[] {servletContext});
+                    Constructor<? extends SiteSettings> constructor = clazz.getConstructor(ServletContext.class);
+                    settings = constructor.newInstance(servletContext);
                     instanceCache.put(classname, settings);
                 }
                 return settings;
@@ -105,9 +105,7 @@ public class SiteSettings {
         try {
             return UserId.valueOf(servletContext.getInitParameter("root.aoserv.client.username"));
         } catch(ValidationException err) {
-            IOException ioErr = new IOException(err.getMessage());
-            ioErr.initCause(err);
-            throw ioErr;
+            throw new IOException(err);
         }
     }
 
@@ -137,9 +135,7 @@ public class SiteSettings {
                         false
                     );
                 } catch(LoginException err) {
-                    IOException ioErr = new IOException(err.getMessage());
-                    ioErr.initCause(err);
-                    throw ioErr;
+                    throw new IOException(err);
                 }
             }
             return rootAOServConnector;
@@ -172,7 +168,7 @@ public class SiteSettings {
 
         Brand brand = getBrand();
         List<Skin.Language> languages = new ArrayList<Skin.Language>(2);
-        if(brand.getEnglishEnabled()) {
+        if(brand.isEnglishEnabled()) {
             if(isUnitedStates) {
                 languages.add(
                     new Skin.Language(
@@ -199,7 +195,7 @@ public class SiteSettings {
                 );
             }
         }
-        if(brand.getJapaneseEnabled()) {
+        if(brand.isJapaneseEnabled()) {
             languages.add(
                 new Skin.Language(
                     Locale.JAPANESE.getLanguage(),

@@ -7,6 +7,8 @@ package com.aoindustries.website.signup;
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Username;
+import com.aoindustries.aoserv.client.validator.UserId;
+import com.aoindustries.aoserv.client.validator.ValidationResult;
 import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.SessionActionForm;
 import com.aoindustries.website.SiteSettings;
@@ -23,7 +25,7 @@ import org.apache.struts.action.ActionServlet;
 /**
  * @author  AO Industries, Inc.
  */
-public class SignupTechnicalForm extends ActionForm implements Serializable, SessionActionForm {
+public final class SignupTechnicalForm extends ActionForm implements Serializable, SessionActionForm {
 
     private static final long serialVersionUID = 1L;
 
@@ -220,8 +222,8 @@ public class SignupTechnicalForm extends ActionForm implements Serializable, Ses
                 if(myServlet!=null) {
                     AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
                     String lowerUsername = baUsername.toLowerCase();
-                    String check = Username.checkUsername(lowerUsername);
-                    if(check!=null) errors.add("baUsername", new ActionMessage(check, false));
+                    ValidationResult check = UserId.validate(lowerUsername);
+                    if(!check.isValid()) errors.add("baUsername", new ActionMessage(check.toString(), false));
                     else if(!rootConn.getUsernames().isUsernameAvailable(lowerUsername)) errors.add("baUsername", new ActionMessage("signupTechnicalForm.baUsername.unavailable"));
                 }
             }

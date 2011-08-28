@@ -59,7 +59,7 @@ abstract public class SignupSelectPackageForm extends ActionForm implements Seri
                 Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getBusiness();
 
                 PackageDefinition pd = rootConn.getPackageDefinitions().get(packageDefinition);
-                if(pd==null || !pd.getPackageCategory().equals(category) || !pd.getBusiness().equals(rootBusiness)) {
+                if(pd==null || !pd.getCategory().equals(category) || !pd.getBusiness().equals(rootBusiness)) {
                     errors.add("packageDefinition", new ActionMessage("signupSelectPackageForm.packageDefinition.required"));
                 }
             }

@@ -1,10 +1,10 @@
-package com.aoindustries.website.signup;
-
 /*
  * Copyright 2009-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.signup;
+
 import com.aoindustries.util.i18n.EditableResourceBundle;
 import java.io.File;
 import java.util.Locale;
@@ -22,9 +22,9 @@ public final class ApplicationResources_ja extends EditableResourceBundle {
      */
     public ApplicationResources_ja() {
         super(
-            new File(System.getProperty("user.home")+"/common/ao/cvswork/aoweb-struts/WEB-INF/classes/com/aoindustries/website/signup/ApplicationResources_ja.properties"),
             Locale.JAPANESE,
-            ApplicationResources.bundleSet
+            ApplicationResources.bundleSet,
+            new File(System.getProperty("user.home")+"/common/ao/cvswork/aoweb-struts/WEB-INF/classes/com/aoindustries/website/signup/ApplicationResources_ja.properties")
         );
     }
 }

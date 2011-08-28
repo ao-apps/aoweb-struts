@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.control.vnc;
-
 /*
  * Copyright 2009, 2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.control.vnc;
+
 import com.aoindustries.aoserv.client.AOServClientConfiguration;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServObject;
@@ -17,6 +17,7 @@ import com.aoindustries.aoserv.daemon.client.AOServDaemonProtocol;
 import com.aoindustries.io.AOPool;
 import com.aoindustries.io.CompressedDataInputStream;
 import com.aoindustries.io.CompressedDataOutputStream;
+import com.aoindustries.io.IoUtils;
 import com.aoindustries.website.LogFactory;
 import java.io.EOFException;
 import java.io.IOException;
@@ -215,12 +216,7 @@ public class VncConsoleProxySocketHandler {
                                             public void run() {
                                                 try {
                                                     try {
-                                                        byte[] buff = new byte[4096];
-                                                        int ret;
-                                                        while((ret=socketIn.read(buff, 0, 4096))!=-1) {
-                                                            daemonOut.write(buff, 0, ret);
-                                                            daemonOut.flush();
-                                                        }
+                                                        IoUtils.copy(socketIn, daemonOut, true);
                                                     } finally {
                                                         daemonConn.close();
                                                     }
@@ -238,12 +234,7 @@ public class VncConsoleProxySocketHandler {
                                     inThread.start();
 
                                     // daemonIn -> socketOut in this thread
-                                    byte[] buff = new byte[4096];
-                                    int ret;
-                                    while((ret=daemonIn.read(buff, 0, 4096))!=-1) {
-                                        socketOut.write(buff, 0, ret);
-                                        socketOut.flush();
-                                    }
+                                    IoUtils.copy(daemonIn, socketOut, true);
                                 } else {
                                     if (result == AOServDaemonProtocol.REMOTE_EXCEPTION) throw new RemoteException(daemonIn.readUTF());
                                     else if (result==-1) throw new EOFException("EOF from daemonIn");

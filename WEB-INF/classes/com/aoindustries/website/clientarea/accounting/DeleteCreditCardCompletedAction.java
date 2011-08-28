@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.accounting;
-
 /*
  * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.accounting;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.CreditCard;
@@ -60,7 +60,7 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
         CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
 
         // Delete the card from the bank and persistence
-        CreditCardProcessor rootAoservCCP = rootCreditCard.getCreditCardProcessor();
+        CreditCardProcessor rootAoservCCP = rootCreditCard.getProcessor();
         com.aoindustries.creditcards.CreditCardProcessor processor = CreditCardProcessorFactory.getCreditCardProcessor(rootAoservCCP);
         processor.deleteCreditCard(
             new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername().toString()),

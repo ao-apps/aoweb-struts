@@ -55,6 +55,8 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
     public String encodeURL(final String url) {
         //System.err.println("DEBUG: encodeURL: "+url);
         try {
+            // Don't rewrite anchor-only URLs
+            if(url.length()>0 && url.charAt(0)=='#') return url;
             // If starts with http:// or https:// parse out the first part of the URL, encode the path, and reassemble.
             String protocol;
             String remaining;
@@ -65,6 +67,8 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             } else if(url.startsWith("javascript:")) {
                 return url;
             } else if(url.startsWith("mailto:")) {
+                return url;
+            } else if(url.startsWith("cid:")) {
                 return url;
             } else {
                 return addNoCookieParameters(url, false);
@@ -110,6 +114,8 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
     public String encodeRedirectURL(String url) {
         //System.err.println("DEBUG: encodeRedirectURL: "+url);
         try {
+            // Don't rewrite anchor-only URLs
+            if(url.length()>0 && url.charAt(0)=='#') return url;
             // If starts with http:// or https:// parse out the first part of the URL, encode the path, and reassemble.
             String protocol;
             String remaining;
@@ -117,7 +123,11 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                 remaining = url.substring(7);
             } else if(url.length()>8 && (protocol=url.substring(0, 8)).equalsIgnoreCase("https://")) {
                 remaining = url.substring(8);
+            } else if(url.startsWith("javascript:")) {
+                return url;
             } else if(url.startsWith("mailto:")) {
+                return url;
+            } else if(url.startsWith("cid:")) {
                 return url;
             } else {
                 return addNoCookieParameters(url, true);

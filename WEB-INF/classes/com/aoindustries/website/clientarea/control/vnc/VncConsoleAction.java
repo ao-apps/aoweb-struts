@@ -49,6 +49,7 @@ public class VncConsoleAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
+    @Override
     public Set<AOServPermission.Permission> getPermissions() {
         return CommandName.request_vnc_console_access.getPermissions();
     }

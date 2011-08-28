@@ -52,6 +52,7 @@ public class CreateAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
+    @Override
     public Set<AOServPermission.Permission> getPermissions() {
         return CommandName.add_ticket.getPermissions();
     }

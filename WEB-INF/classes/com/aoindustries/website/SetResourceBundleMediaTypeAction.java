@@ -42,7 +42,7 @@ public class SetResourceBundleMediaTypeAction extends SkinAction {
         Boolean isBlockElement = null;
         //System.out.println("DEBUG: mediaTypeParam="+mediaTypeParam);
         for(MediaType mt : MediaType.values()) {
-            String mtVal = mt.getMediaType().replace('+', ' '); // Losing + sign from XMLHttpRequest call
+            String mtVal = mt.getMediaType(); //.replace('+', ' '); // Losing + sign from XMLHttpRequest call
             if(mt==MediaType.XHTML) {
                 // Special treatment for isBlockElement
                 if((mtVal+" (inline)").equals(mediaTypeParam)) {

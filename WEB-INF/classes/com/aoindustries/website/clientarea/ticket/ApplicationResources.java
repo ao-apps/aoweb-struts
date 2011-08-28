@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.ticket;
-
 /*
  * Copyright 2009-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.ticket;
+
 import com.aoindustries.util.i18n.EditableResourceBundle;
 import com.aoindustries.util.i18n.EditableResourceBundleSet;
 import java.io.File;
@@ -29,9 +29,9 @@ public final class ApplicationResources extends EditableResourceBundle {
      */
     public ApplicationResources() {
         super(
-            new File(System.getProperty("user.home")+"/common/ao/cvswork/aoweb-struts/WEB-INF/classes/com/aoindustries/website/clientarea/ticket/ApplicationResources.properties"),
             Locale.ROOT,
-            bundleSet
+            bundleSet,
+            new File(System.getProperty("user.home")+"/common/ao/cvswork/aoweb-struts/WEB-INF/classes/com/aoindustries/website/clientarea/ticket/ApplicationResources.properties")
         );
     }
 }

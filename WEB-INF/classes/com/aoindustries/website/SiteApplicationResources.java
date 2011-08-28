@@ -31,9 +31,9 @@ public final class SiteApplicationResources extends EditableResourceBundle {
      */
     public SiteApplicationResources() {
         super(
-            new File(System.getProperty("user.home")+"/common/ao/cvswork/aoweb-struts/WEB-INF/classes/com/aoindustries/website/SiteApplicationResources.properties"),
             Locale.ROOT,
-            bundleSet
+            bundleSet,
+            new File(System.getProperty("user.home")+"/common/ao/cvswork/aoweb-struts/WEB-INF/classes/com/aoindustries/website/SiteApplicationResources.properties")
         );
     }
 

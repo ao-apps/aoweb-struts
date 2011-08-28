@@ -1,13 +1,20 @@
-package com.aoindustries.website.clientarea.control.password;
-
 /*
  * Copyright 2000-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.control.password;
+
 import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.PasswordChecker;
+import com.aoindustries.aoserv.client.PostgresServer;
 import com.aoindustries.aoserv.client.PostgresUser;
+import com.aoindustries.aoserv.client.command.CheckPostgresUserPasswordCommand;
+import com.aoindustries.aoserv.client.validator.DomainName;
+import com.aoindustries.aoserv.client.validator.PostgresServerName;
+import com.aoindustries.aoserv.client.validator.PostgresUserId;
+import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.util.AutoGrowArrayList;
 import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.AuthenticatedAction;
@@ -109,10 +116,12 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
                     errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.postgreSQLPasswordSetter.field.confirmPasswords.mismatch"));
                 } else {
                     if(newPassword.length()>0) {
-                        String username = usernames.get(c);
+                        AOServer aoServer = aoConn.getAoServers().filterUnique(AOServer.COLUMN_HOSTNAME, DomainName.valueOf(aoServers.get(c)));
+                        PostgresServer postgresServer = aoServer.getPostgresServer(PostgresServerName.valueOf(postgreSQLServers.get(c)));
+                        PostgresUser postgresUser = postgresServer.getPostgresUser(PostgresUserId.valueOf(usernames.get(c)));
 
                         // Check the password strength
-                        PasswordChecker.Result[] results = PostgresUser.checkPassword(username, newPassword);
+                        List<PasswordChecker.Result> results = new CheckPostgresUserPasswordCommand(postgresUser, newPassword).execute(aoConn);
                         if(PasswordChecker.hasResults(results)) {
                             errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                         }
@@ -121,6 +130,8 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
             }
             return errors;
         } catch(IOException err) {
+            throw new WrappedException(err);
+        } catch(ValidationException err) {
             throw new WrappedException(err);
         }
     }

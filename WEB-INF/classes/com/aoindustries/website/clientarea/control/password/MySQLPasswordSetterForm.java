@@ -1,13 +1,20 @@
-package com.aoindustries.website.clientarea.control.password;
-
 /*
  * Copyright 2000-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.control.password;
+
 import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AOServer;
+import com.aoindustries.aoserv.client.MySQLServer;
 import com.aoindustries.aoserv.client.MySQLUser;
 import com.aoindustries.aoserv.client.PasswordChecker;
+import com.aoindustries.aoserv.client.command.CheckMySQLUserPasswordCommand;
+import com.aoindustries.aoserv.client.validator.DomainName;
+import com.aoindustries.aoserv.client.validator.MySQLServerName;
+import com.aoindustries.aoserv.client.validator.MySQLUserId;
+import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.util.AutoGrowArrayList;
 import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.AuthenticatedAction;
@@ -15,7 +22,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.struts.Globals;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
@@ -109,10 +115,12 @@ public class MySQLPasswordSetterForm extends ActionForm implements Serializable 
                     errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.mySQLPasswordSetter.field.confirmPasswords.mismatch"));
                 } else {
                     if(newPassword.length()>0) {
-                        String username = usernames.get(c);
+                        AOServer aoServer = aoConn.getAoServers().filterUnique(AOServer.COLUMN_HOSTNAME, DomainName.valueOf(aoServers.get(c)));
+                        MySQLServer mysqlServer = aoServer.getMysqlServer(MySQLServerName.valueOf(mySQLServers.get(c)));
+                        MySQLUser mysqlUser = mysqlServer.getMysqlUser(MySQLUserId.valueOf(usernames.get(c)));
 
                         // Check the password strength
-                        PasswordChecker.Result[] results = MySQLUser.checkPassword(username, newPassword);
+                        List<PasswordChecker.Result> results = new CheckMySQLUserPasswordCommand(mysqlUser, newPassword).execute(aoConn);
                         if(PasswordChecker.hasResults(results)) {
                             errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                         }
@@ -121,6 +129,8 @@ public class MySQLPasswordSetterForm extends ActionForm implements Serializable 
             }
             return errors;
         } catch(IOException err) {
+            throw new WrappedException(err);
+        } catch(ValidationException err) {
             throw new WrappedException(err);
         }
     }

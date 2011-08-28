@@ -10,6 +10,7 @@ import com.aoindustries.aoserv.client.Brand;
 import com.aoindustries.aoserv.client.CountryCode;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.io.ChainWriter;
+import com.aoindustries.io.IoUtils;
 import com.aoindustries.util.i18n.ThreadLocale;
 import com.aoindustries.website.Mailer;
 import com.aoindustries.website.SiteSettings;
@@ -243,9 +244,7 @@ final public class ServerConfirmationCompletedActionHelper {
                                  + "      /* <![CDATA[ */\n");
                     Reader cssReader = new InputStreamReader(cssIn);
                     try {
-                        char[] buff = new char[4096];
-                        int ret;
-                        while((ret=cssReader.read(buff, 0, 4096))!=-1) emailOut.write(buff, 0, ret);
+                        IoUtils.copy(cssReader, emailOut);
                     } finally {
                         cssIn.close();
                     }

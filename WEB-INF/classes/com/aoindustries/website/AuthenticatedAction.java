@@ -1,10 +1,10 @@
-package com.aoindustries.website;
-
 /*
  * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.validator.UserId;
 import com.aoindustries.aoserv.client.validator.ValidationException;
@@ -79,9 +79,6 @@ abstract public class AuthenticatedAction extends HttpsAction {
         // Not logged in
         if(authenticatedAoConn==null) return null;
 
-        // Set the connector locale to match the response locale
-        authenticatedAoConn.setLocale(response.getLocale());
-
         // Is a "su" requested?
         String su=(String)session.getAttribute(Constants.SU_REQUESTED);
         if(su!=null) {
@@ -89,9 +86,9 @@ abstract public class AuthenticatedAction extends HttpsAction {
             try {
                 AOServConnector aoConn = su.length()==0 ? authenticatedAoConn : authenticatedAoConn.getFactory().getConnector(
                     authenticatedAoConn.getLocale(),
-                    UserId.valueOf(su),
-                    authenticatedAoConn.getAuthenticateAs(),
+                    authenticatedAoConn.getUsername(),
                     authenticatedAoConn.getPassword(),
+                    UserId.valueOf(su),
                     null,
                     false
                 );

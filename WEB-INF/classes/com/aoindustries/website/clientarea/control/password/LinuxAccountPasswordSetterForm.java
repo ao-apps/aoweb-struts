@@ -1,14 +1,15 @@
-package com.aoindustries.website.clientarea.control.password;
-
 /*
  * Copyright 2000-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.control.password;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.LinuxAccount;
 import com.aoindustries.aoserv.client.PasswordChecker;
+import com.aoindustries.aoserv.client.command.CheckLinuxAccountPasswordCommand;
 import com.aoindustries.aoserv.client.validator.UserId;
 import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.util.AutoGrowArrayList;
@@ -18,7 +19,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.struts.Globals;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
@@ -108,7 +108,7 @@ public class LinuxAccountPasswordSetterForm extends ActionForm implements Serial
                                 .filterUnique(AOServer.COLUMN_HOSTNAME, aoServers.get(c))
                                 .getLinuxAccount(UserId.valueOf(username));
                             // Check the password strength
-                            PasswordChecker.Result[] results = la.getLinuxAccountType().checkPassword(username, newPassword);
+                            List<PasswordChecker.Result> results = new CheckLinuxAccountPasswordCommand(la, newPassword).execute(aoConn);
                             if(PasswordChecker.hasResults(results)) {
                                 errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                             }

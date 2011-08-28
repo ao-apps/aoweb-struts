@@ -87,7 +87,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             // Root connector used to get processor
             AOServConnector rootConn = siteSettings.getRootAOServConnector();
             CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
-            CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
+            CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getProcessor());
             rootProcessor.updateCreditCardNumberAndExpiration(
                 new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername().toString()),
                 CreditCardFactory.getCreditCard(rootCreditCard),
@@ -106,7 +106,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
                 // Root connector used to get processor
                 AOServConnector rootConn = siteSettings.getRootAOServConnector();
                 CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
-                CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
+                CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getProcessor());
                 rootProcessor.updateCreditCardExpiration(
                     new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername().toString()),
                     CreditCardFactory.getCreditCard(rootCreditCard),

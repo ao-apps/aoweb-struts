@@ -6,7 +6,7 @@
 package com.aoindustries.website.skintags;
 
 import com.aoindustries.encoding.MediaType;
-import com.aoindustries.io.StringBuilderWriter;
+import com.aoindustries.io.AutoTempFileWriter;
 import com.aoindustries.taglib.AutoEncodingBufferedTag;
 import com.aoindustries.website.ApplicationResources;
 import java.io.Writer;
@@ -19,15 +19,18 @@ import javax.servlet.jsp.tagext.JspTag;
  */
 public class EncryptTag extends AutoEncodingBufferedTag {
 
+    @Override
     public MediaType getContentType() {
         return MediaType.TEXT;
     }
 
+    @Override
     public MediaType getOutputType() {
         return null;
     }
 
-    protected void doTag(StringBuilderWriter capturedBody, Writer out) throws JspException {
+    @Override
+    protected void doTag(AutoTempFileWriter capturedBody, Writer out) throws JspException {
         String encrypt = capturedBody.toString().trim();
         boolean encryptFlag;
         if(encrypt.equalsIgnoreCase("true")) encryptFlag = true;

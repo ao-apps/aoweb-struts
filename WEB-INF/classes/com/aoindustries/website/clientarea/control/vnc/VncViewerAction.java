@@ -62,6 +62,7 @@ public class VncViewerAction extends PermissionAction {
         }
     }
 
+    @Override
     public Set<AOServPermission.Permission> getPermissions() {
         return CommandName.request_vnc_console_access.getPermissions();
     }

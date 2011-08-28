@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.accounting;
-
 /*
  * Copyright 2007-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.accounting;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
@@ -52,7 +52,7 @@ public class CreditCardManagerAction extends PermissionAction {
                 || !ccs.isEmpty()
                 || (
                     business.getCanceled()==null
-                    && !business.billParent()
+                    && !business.getBillParent()
                 ) || business.hasNonZeroBalance()
             ) {
                 boolean hasActiveCard = false;
