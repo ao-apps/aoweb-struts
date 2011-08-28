@@ -1,18 +1,18 @@
-package com.aoindustries.website.signup;
-
 /*
  * Copyright 2009-2011 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.signup;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.PackageCategory;
-import com.aoindustries.aoserv.client.PackageDefinition;
+import com.aoindustries.aoserv.client.PackageDefinitionBusiness;
 import com.aoindustries.website.HttpAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.List;
-import java.util.Map;
+import java.util.SortedMap;
+import java.util.SortedSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +30,7 @@ public class IndexAction extends HttpAction {
         AOServConnector rootConn = SiteSettings.getInstance(getServlet().getServletContext()).getRootAOServConnector();
 
         // Determine the active packages per category
-        Map<PackageCategory,List<PackageDefinition>> categories = rootConn.getThisBusinessAdministrator().getUsername().getBusiness().getActivePackageDefinitions();
+        SortedMap<PackageCategory,SortedSet<PackageDefinitionBusiness>> categories = rootConn.getThisBusinessAdministrator().getUsername().getBusiness().getActivePackageDefinitionBusinesses();
         // 404 when no packages defined
         if(categories.isEmpty()) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
