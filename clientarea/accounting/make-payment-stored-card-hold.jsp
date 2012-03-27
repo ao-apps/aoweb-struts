@@ -1,6 +1,6 @@
 <%-- aoweb-struts: Do not edit --%>
 <%--
-  Copyright 2007-2011 by AO Industries, Inc.,
+  Copyright 2007-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
@@ -73,9 +73,9 @@
                                 <th style='white-space:nowrap' align='left'><fmt:message key="makePaymentStoredCardCompleted.newBalance.prompt" /></th>
                                 <td style="white-space:nowrap">
                                     <% BigDecimal balance = business.getAccountBalance(); %>
-                                    <% if(balance.compareTo(BigDecimal.ZERO)==0) { %>
+                                    <% if(balance.signum()==0) { %>
                                         <fmt:message key="makePaymentStoredCardCompleted.newBalance.value.zero" />
-                                    <% } else if(balance.compareTo(BigDecimal.ZERO)<0) { %>
+                                    <% } else if(balance.signum()<0) { %>
                                         <fmt:message key="makePaymentStoredCardCompleted.newBalance.value.credit">
                                             <fmt:param><c:out value="<%= balance.negate().toPlainString() %>" /></fmt:param>
                                         </fmt:message>

@@ -1,10 +1,10 @@
+package com.aoindustries.website.clientarea.accounting;
+
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.clientarea.accounting;
-
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
@@ -15,9 +15,7 @@ import com.aoindustries.website.Skin;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -38,26 +36,27 @@ public class CreditCardManagerAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
-        Business thisBusiness = aoConn.getThisBusinessAdministrator().getUsername().getBusiness();
+        Business thisBusiness = aoConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
 
         // Create a map from business to list of credit cards
         List<BusinessAndCreditCards> businessCreditCards = new ArrayList<BusinessAndCreditCards>();
-        for(Business business : new TreeSet<Business>(aoConn.getBusinesses().getSet())) {
-            SortedSet<CreditCard> ccs = new TreeSet<CreditCard>(business.getCreditCards());
+        for(Business business : aoConn.getBusinesses().getRows()) {
+            List<CreditCard> ccs = business.getCreditCards();
             if(
                 thisBusiness.equals(business)
                 || !ccs.isEmpty()
                 || (
-                    business.getCanceled()==null
-                    && !business.getBillParent()
-                ) || business.hasNonZeroBalance()
+                    business.getCanceled()==-1
+                    && !business.billParent()
+                ) || business.getAccountBalance().signum()!=0
             ) {
                 boolean hasActiveCard = false;
                 for(CreditCard cc : ccs) {
-                    if(cc.isActive()) {
+                    if(cc.getIsActive()) {
                         hasActiveCard = true;
                         break;
                     }
@@ -65,7 +64,7 @@ public class CreditCardManagerAction extends PermissionAction {
                 businessCreditCards.add(new BusinessAndCreditCards(business, ccs, hasActiveCard));
             }
         }
-        boolean showAccounting = aoConn.getBusinesses().getSize()>1;
+        boolean showAccounting = aoConn.getBusinesses().getRows().size()>1;
 
         request.setAttribute("businessCreditCards", businessCreditCards);
         request.setAttribute("showAccounting", showAccounting ? "true" : "false");
@@ -73,18 +72,17 @@ public class CreditCardManagerAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    @Override
-    public Set<AOServPermission.Permission> getPermissions() {
-        return Collections.singleton(AOServPermission.Permission.get_credit_cards);
+    public List<AOServPermission.Permission> getPermissions() {
+        return Collections.singletonList(AOServPermission.Permission.get_credit_cards);
     }
-
+    
     public static class BusinessAndCreditCards {
 
         final private Business business;
-        final private SortedSet<CreditCard> creditCards;
+        final private List<CreditCard> creditCards;
         final private boolean hasActiveCard;
         
-        private BusinessAndCreditCards(Business business, SortedSet<CreditCard> creditCards, boolean hasActiveCard) {
+        private BusinessAndCreditCards(Business business, List<CreditCard> creditCards, boolean hasActiveCard) {
             this.business=business;
             this.creditCards=creditCards;
             this.hasActiveCard=hasActiveCard;
@@ -94,7 +92,7 @@ public class CreditCardManagerAction extends PermissionAction {
             return business;
         }
         
-        public SortedSet<CreditCard> getCreditCards() {
+        public List<CreditCard> getCreditCards() {
             return creditCards;
         }
         

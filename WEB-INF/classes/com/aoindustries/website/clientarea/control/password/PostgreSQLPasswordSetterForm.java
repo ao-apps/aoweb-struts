@@ -1,20 +1,13 @@
+package com.aoindustries.website.clientarea.control.password;
+
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.clientarea.control.password;
-
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.PasswordChecker;
-import com.aoindustries.aoserv.client.PostgresServer;
 import com.aoindustries.aoserv.client.PostgresUser;
-import com.aoindustries.aoserv.client.command.CheckPostgresUserPasswordCommand;
-import com.aoindustries.aoserv.client.validator.DomainName;
-import com.aoindustries.aoserv.client.validator.PostgresServerName;
-import com.aoindustries.aoserv.client.validator.PostgresUserId;
-import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.util.AutoGrowArrayList;
 import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.AuthenticatedAction;
@@ -34,7 +27,7 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
 
     private static final long serialVersionUID = 1L;
 
-    private List<String> businesses;
+    private List<String> packages;
     private List<String> usernames;
     private List<String> postgreSQLServers;
     private List<String> aoServers;
@@ -44,7 +37,7 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
     @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         super.reset(mapping, request);
-        setBusinesses(new AutoGrowArrayList<String>());
+        setPackages(new AutoGrowArrayList<String>());
         setUsernames(new AutoGrowArrayList<String>());
         setPostgreSQLServers(new AutoGrowArrayList<String>());
         setAoServers(new AutoGrowArrayList<String>());
@@ -52,12 +45,12 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
         setConfirmPasswords(new AutoGrowArrayList<String>());
     }
 
-    public List<String> getBusinesses() {
-        return businesses;
+    public List<String> getPackages() {
+        return packages;
     }
 
-    public void setBusinesses(List<String> businesses) {
-        this.businesses = businesses;
+    public void setPackages(List<String> packages) {
+        this.packages = packages;
     }
 
     public List<String> getUsernames() {
@@ -116,12 +109,10 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
                     errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.postgreSQLPasswordSetter.field.confirmPasswords.mismatch"));
                 } else {
                     if(newPassword.length()>0) {
-                        AOServer aoServer = aoConn.getAoServers().filterUnique(AOServer.COLUMN_HOSTNAME, DomainName.valueOf(aoServers.get(c)));
-                        PostgresServer postgresServer = aoServer.getPostgresServer(PostgresServerName.valueOf(postgreSQLServers.get(c)));
-                        PostgresUser postgresUser = postgresServer.getPostgresUser(PostgresUserId.valueOf(usernames.get(c)));
+                        String username = usernames.get(c);
 
                         // Check the password strength
-                        List<PasswordChecker.Result> results = new CheckPostgresUserPasswordCommand(postgresUser, newPassword).execute(aoConn);
+                        PasswordChecker.Result[] results = PostgresUser.checkPassword(username, newPassword);
                         if(PasswordChecker.hasResults(results)) {
                             errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                         }
@@ -130,8 +121,6 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
             }
             return errors;
         } catch(IOException err) {
-            throw new WrappedException(err);
-        } catch(ValidationException err) {
             throw new WrappedException(err);
         }
     }

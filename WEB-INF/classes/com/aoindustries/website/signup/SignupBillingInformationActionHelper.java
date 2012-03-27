@@ -1,10 +1,11 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import static com.aoindustries.website.signup.ApplicationResources.accessor;
 import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.io.ChainWriter;
 import java.io.IOException;
@@ -65,59 +66,59 @@ final public class SignupBillingInformationActionHelper {
 
     public static void printConfirmation(ChainWriter emailOut, SignupBillingInformationForm signupBillingInformationForm) throws IOException {
         emailOut.print("    <tr>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.required")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupBillingInformationForm.billingContact.prompt")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingContact.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupBillingInformationForm.getBillingContact()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.required")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupBillingInformationForm.billingEmail.prompt")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingEmail.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupBillingInformationForm.getBillingEmail()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.required")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupBillingInformationForm.billingCardholderName.prompt")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingCardholderName.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupBillingInformationForm.getBillingCardholderName()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.required")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupBillingInformationForm.billingCardNumber.prompt")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingCardNumber.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(getBillingCardNumber(signupBillingInformationForm)).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.required")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupBillingInformationForm.billingExpirationDate.prompt")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupBillingInformationForm.billingExpirationDate.hidden")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingExpirationDate.prompt")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingExpirationDate.hidden")).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.required")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupBillingInformationForm.billingStreetAddress.prompt")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingStreetAddress.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupBillingInformationForm.getBillingStreetAddress()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.required")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupBillingInformationForm.billingCity.prompt")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingCity.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupBillingInformationForm.getBillingCity()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.required")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupBillingInformationForm.billingState.prompt")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingState.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupBillingInformationForm.getBillingState()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.required")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupBillingInformationForm.billingZip.prompt")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingZip.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(signupBillingInformationForm.getBillingZip()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupBillingInformationForm.billingUseMonthly.prompt")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage(signupBillingInformationForm.getBillingUseMonthly() ? "signupBillingInformationForm.billingUseMonthly.yes" : "signupBillingInformationForm.billingUseMonthly.no")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingUseMonthly.prompt")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage(signupBillingInformationForm.getBillingUseMonthly() ? "signupBillingInformationForm.billingUseMonthly.yes" : "signupBillingInformationForm.billingUseMonthly.no")).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupBillingInformationForm.billingPayOneYear.prompt")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage(signupBillingInformationForm.getBillingPayOneYear() ? "signupBillingInformationForm.billingPayOneYear.yes" : "signupBillingInformationForm.billingPayOneYear.no")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingPayOneYear.prompt")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage(signupBillingInformationForm.getBillingPayOneYear() ? "signupBillingInformationForm.billingPayOneYear.yes" : "signupBillingInformationForm.billingPayOneYear.no")).print("</td>\n"
                      + "    </tr>\n");
     }
 }

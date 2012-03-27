@@ -1,9 +1,10 @@
+package com.aoindustries.website.skintags;
+
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.skintags;
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.io.AutoTempFileWriter;
 import com.aoindustries.taglib.AutoEncodingBufferedTag;
@@ -21,37 +22,30 @@ public class MetaTag extends AutoEncodingBufferedTag implements NameAttribute, C
     private String name;
     private String content;
 
-    @Override
     public MediaType getContentType() {
         return MediaType.TEXT;
     }
 
-    @Override
     public MediaType getOutputType() {
         return null;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public void setName(String name) {
         this.name = name;
     }
 
-    @Override
     public String getContent() {
         return content;
     }
 
-    @Override
     public void setContent(String content) {
         this.content = content;
     }
 
-    @Override
     protected void doTag(AutoTempFileWriter capturedBody, Writer out) {
         String myContent = content;
         if(myContent==null) myContent = capturedBody.toString().trim();

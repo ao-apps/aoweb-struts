@@ -1,22 +1,19 @@
+package com.aoindustries.website.clientarea.control.password;
+
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.clientarea.control.password;
-
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.LinuxAccount;
 import com.aoindustries.aoserv.client.PasswordChecker;
-import com.aoindustries.aoserv.client.command.CheckLinuxAccountPasswordCommand;
-import com.aoindustries.aoserv.client.validator.UserId;
-import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.util.AutoGrowArrayList;
 import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.AuthenticatedAction;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts.action.ActionErrors;
@@ -31,7 +28,7 @@ public class LinuxAccountPasswordSetterForm extends ActionForm implements Serial
 
     private static final long serialVersionUID = 1L;
 
-    private List<String> businesses;
+    private List<String> packages;
     private List<String> usernames;
     private List<String> aoServers;
     private List<String> newPasswords;
@@ -40,19 +37,19 @@ public class LinuxAccountPasswordSetterForm extends ActionForm implements Serial
     @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         super.reset(mapping, request);
-        setBusinesses(new AutoGrowArrayList<String>());
+        setPackages(new AutoGrowArrayList<String>());
         setUsernames(new AutoGrowArrayList<String>());
         setAoServers(new AutoGrowArrayList<String>());
         setNewPasswords(new AutoGrowArrayList<String>());
         setConfirmPasswords(new AutoGrowArrayList<String>());
     }
 
-    public List<String> getBusinesses() {
-        return businesses;
+    public List<String> getPackages() {
+        return packages;
     }
 
-    public void setBusinesses(List<String> businesses) {
-        this.businesses = businesses;
+    public void setPackages(List<String> packages) {
+        this.packages = packages;
     }
 
     public List<String> getUsernames() {
@@ -94,6 +91,7 @@ public class LinuxAccountPasswordSetterForm extends ActionForm implements Serial
             if(errors==null) errors = new ActionErrors();
             AOServConnector aoConn = AuthenticatedAction.getAoConn(request, null);
             if(aoConn==null) throw new RuntimeException("aoConn is null");
+
             for(int c=0;c<usernames.size();c++) {
                 String newPassword = newPasswords.get(c);
                 String confirmPassword = confirmPasswords.get(c);
@@ -101,25 +99,24 @@ public class LinuxAccountPasswordSetterForm extends ActionForm implements Serial
                     errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.linuxAccountPasswordSetter.field.confirmPasswords.mismatch"));
                 } else {
                     if(newPassword.length()>0) {
-                        try {
-                            String username = usernames.get(c);
-                            LinuxAccount la = aoConn
-                                .getAoServers()
-                                .filterUnique(AOServer.COLUMN_HOSTNAME, aoServers.get(c))
-                                .getLinuxAccount(UserId.valueOf(username));
+                        String username = usernames.get(c);
+                        LinuxAccount la = aoConn.getLinuxAccounts().get(username);
+                        if(la==null) {
+                            throw new AssertionError("Unable to find LinuxAccount: "+username);
+                        } else {
                             // Check the password strength
-                            List<PasswordChecker.Result> results = new CheckLinuxAccountPasswordCommand(la, newPassword).execute(aoConn);
+                            PasswordChecker.Result[] results = LinuxAccount.checkPassword(username, la.getType().getName(), newPassword);
                             if(PasswordChecker.hasResults(results)) {
                                 errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                             }
-                        } catch(ValidationException err) {
-                            errors.add("usernames[" + c + "].usernames", new ActionMessage(err.getLocalizedMessage(), false));
                         }
                     }
                 }
             }
             return errors;
         } catch(IOException err) {
+            throw new WrappedException(err);
+        } catch(SQLException err) {
             throw new WrappedException(err);
         }
     }

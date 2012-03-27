@@ -1,15 +1,15 @@
+package com.aoindustries.website.clientarea.control.password;
+
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.clientarea.control.password;
-
 import com.aoindustries.aoserv.client.PasswordChecker;
 import com.aoindustries.website.HttpsAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.List;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -24,13 +24,13 @@ import org.apache.struts.action.ActionMessages;
  */
 public class PasswordEvaluatorCompletedAction extends HttpsAction {
 
-    @Override
     public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin
     ) throws Exception {
         PasswordEvaluatorForm passwordEvaluatorForm = (PasswordEvaluatorForm)form;
@@ -43,7 +43,7 @@ public class PasswordEvaluatorCompletedAction extends HttpsAction {
 
         // Evaluate the password
         String password = passwordEvaluatorForm.getPassword();
-        List<PasswordChecker.Result> results = PasswordChecker.checkPassword(null, password, PasswordChecker.PasswordStrength.STRICT);
+        PasswordChecker.Result[] results = PasswordChecker.checkPassword(null, password, true, false);
             
         // Set request values
         request.setAttribute("results", results);

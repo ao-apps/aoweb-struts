@@ -1,21 +1,21 @@
+package com.aoindustries.website.clientarea.accounting;
+
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.clientarea.accounting;
-
 import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.CountryCode;
 import com.aoindustries.aoserv.client.CreditCard;
-import com.aoindustries.aoserv.client.command.ReactivateCreditCardCommand;
-import com.aoindustries.aoserv.client.command.UpdateCreditCardCommand;
-import com.aoindustries.aoserv.client.validator.Email;
 import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.CreditCardFactory;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.creditcards.CreditCardProcessor;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import java.sql.SQLException;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
@@ -38,6 +38,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
@@ -87,9 +88,10 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             // Root connector used to get processor
             AOServConnector rootConn = siteSettings.getRootAOServConnector();
             CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
-            CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getProcessor());
+            if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPkey());
+            CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
             rootProcessor.updateCreditCardNumberAndExpiration(
-                new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername().toString()),
+                new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
                 CreditCardFactory.getCreditCard(rootCreditCard),
                 newCardNumber,
                 Byte.parseByte(newExpirationMonth),
@@ -106,9 +108,10 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
                 // Root connector used to get processor
                 AOServConnector rootConn = siteSettings.getRootAOServConnector();
                 CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
-                CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getProcessor());
+                if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPkey());
+                CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
                 rootProcessor.updateCreditCardExpiration(
-                    new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername().toString()),
+                    new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
                     CreditCardFactory.getCreditCard(rootCreditCard),
                     Byte.parseByte(newExpirationMonth),
                     Short.parseShort(newExpirationYear)
@@ -121,7 +124,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             !nullOrBlankEquals(editCreditCardForm.getFirstName(), creditCard.getFirstName())
             || !nullOrBlankEquals(editCreditCardForm.getLastName(), creditCard.getLastName())
             || !nullOrBlankEquals(editCreditCardForm.getCompanyName(), creditCard.getCompanyName())
-            || !nullOrBlankEquals(editCreditCardForm.getEmail(), creditCard.getEmail().toString())
+            || !nullOrBlankEquals(editCreditCardForm.getEmail(), creditCard.getEmail())
             || !nullOrBlankEquals(editCreditCardForm.getPhone(), creditCard.getPhone())
             || !nullOrBlankEquals(editCreditCardForm.getFax(), creditCard.getFax())
             || !nullOrBlankEquals(editCreditCardForm.getCustomerTaxId(), creditCard.getCustomerTaxId())
@@ -134,12 +137,13 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             || !nullOrBlankEquals(editCreditCardForm.getDescription(), creditCard.getDescription())
         ) {
             // Update rest of the fields
-            new UpdateCreditCardCommand(
-                creditCard,
+            CountryCode countryCode = aoConn.getCountryCodes().get(editCreditCardForm.getCountryCode());
+            if(countryCode==null) throw new SQLException("Unable to find CountryCode: "+editCreditCardForm.getCountryCode());
+            creditCard.update(
                 editCreditCardForm.getFirstName(),
                 editCreditCardForm.getLastName(),
                 editCreditCardForm.getCompanyName(),
-                Email.valueOf(editCreditCardForm.getEmail()),
+                editCreditCardForm.getEmail(),
                 editCreditCardForm.getPhone(),
                 editCreditCardForm.getFax(),
                 editCreditCardForm.getCustomerTaxId(),
@@ -148,15 +152,15 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
                 editCreditCardForm.getCity(),
                 editCreditCardForm.getState(),
                 editCreditCardForm.getPostalCode(),
-                aoConn.getCountryCodes().get(editCreditCardForm.getCountryCode()),
+                countryCode,
                 editCreditCardForm.getDescription()
-            ).execute(aoConn);
+            );
             updatedCardDetails = true;
         }
         
-        if(!creditCard.isActive()) {
+        if(!creditCard.getIsActive()) {
             // Reactivate if not active
-            new ReactivateCreditCardCommand(creditCard).execute(aoConn);
+            creditCard.reactivate();
             reactivatedCard = true;
         }
 

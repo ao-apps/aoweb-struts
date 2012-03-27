@@ -1,15 +1,13 @@
+package com.aoindustries.website.clientarea.control.password;
+
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.clientarea.control.password;
-
 import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.PasswordChecker;
-import com.aoindustries.aoserv.client.command.CheckBusinessAdministratorPasswordCommand;
-import com.aoindustries.aoserv.client.validator.UserId;
-import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.util.AutoGrowArrayList;
 import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.AuthenticatedAction;
@@ -29,7 +27,7 @@ public class BusinessAdministratorPasswordSetterForm extends ActionForm implemen
 
     private static final long serialVersionUID = 1L;
 
-    private List<String> businesses;
+    private List<String> packages;
     private List<String> usernames;
     private List<String> newPasswords;
     private List<String> confirmPasswords;
@@ -37,18 +35,18 @@ public class BusinessAdministratorPasswordSetterForm extends ActionForm implemen
     @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         super.reset(mapping, request);
-        setBusinesses(new AutoGrowArrayList<String>());
+        setPackages(new AutoGrowArrayList<String>());
         setUsernames(new AutoGrowArrayList<String>());
         setNewPasswords(new AutoGrowArrayList<String>());
         setConfirmPasswords(new AutoGrowArrayList<String>());
     }
 
-    public List<String> getBusinesses() {
-        return businesses;
+    public List<String> getPackages() {
+        return packages;
     }
 
-    public void setBusinesses(List<String> businesses) {
-        this.businesses = businesses;
+    public void setPackages(List<String> packages) {
+        this.packages = packages;
     }
 
     public List<String> getUsernames() {
@@ -82,6 +80,7 @@ public class BusinessAdministratorPasswordSetterForm extends ActionForm implemen
             if(errors==null) errors = new ActionErrors();
             AOServConnector aoConn = AuthenticatedAction.getAoConn(request, null);
             if(aoConn==null) throw new RuntimeException("aoConn is null");
+
             for(int c=0;c<usernames.size();c++) {
                 String newPassword = newPasswords.get(c);
                 String confirmPassword = confirmPasswords.get(c);
@@ -91,10 +90,7 @@ public class BusinessAdministratorPasswordSetterForm extends ActionForm implemen
                     if(newPassword.length()>0) {
                         String username = usernames.get(c);
                         // Check the password strength
-                        List<PasswordChecker.Result> results = new CheckBusinessAdministratorPasswordCommand(
-                            aoConn.getBusinessAdministrators().get(UserId.valueOf(username)),
-                            newPassword
-                        ).execute(aoConn);
+                        PasswordChecker.Result[] results = BusinessAdministrator.checkPassword(username, newPassword);
                         if(PasswordChecker.hasResults(results)) {
                             errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                         }
@@ -103,8 +99,6 @@ public class BusinessAdministratorPasswordSetterForm extends ActionForm implemen
             }
             return errors;
         } catch(IOException err) {
-            throw new WrappedException(err);
-        } catch(ValidationException err) {
             throw new WrappedException(err);
         }
     }

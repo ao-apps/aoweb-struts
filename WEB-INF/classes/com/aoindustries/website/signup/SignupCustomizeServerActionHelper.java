@@ -1,18 +1,20 @@
+package com.aoindustries.website.signup;
+
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.signup;
-
+import static com.aoindustries.website.signup.ApplicationResources.accessor;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.aoserv.client.PackageDefinitionLimit;
-import com.aoindustries.aoserv.client.ResourceType;
+import com.aoindustries.aoserv.client.Resource;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,9 +42,10 @@ final public class SignupCustomizeServerActionHelper {
         HttpServletResponse response,
         SignupSelectPackageForm signupSelectPackageForm,
         SignupCustomizeServerForm signupCustomizeServerForm
-    ) throws IOException {
+    ) throws IOException, SQLException {
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
+        if(packageDefinition==null) throw new SQLException("Unable to find PackageDefinition: "+signupSelectPackageForm.getPackageDefinition());
         List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
 
         // Find the cheapest resources to scale prices from
@@ -59,7 +62,7 @@ final public class SignupCustomizeServerActionHelper {
         int maxDisks = 0;
         PackageDefinitionLimit cheapestDisk = null;
         for(PackageDefinitionLimit limit : limits) {
-            String resourceName = limit.getResourceType().getName();
+            String resourceName = limit.getResource().getName();
             if(resourceName.startsWith("hardware_power_")) {
                 int limitPower = limit.getHardLimit();
                 if(limitPower>0) {
@@ -140,9 +143,9 @@ final public class SignupCustomizeServerActionHelper {
                 }
             }
         }
-        if(cheapestCPU==null) throw new AssertionError("Unable to find cheapestCPU");
-        if(cheapestRAM==null) throw new AssertionError("Unable to find cheapestRAM");
-        if(cheapestDisk==null) throw new AssertionError("Unable to find cheapestDisk");
+        if(cheapestCPU==null) throw new SQLException("Unable to find cheapestCPU");
+        if(cheapestRAM==null) throw new SQLException("Unable to find cheapestRAM");
+        if(cheapestDisk==null) throw new SQLException("Unable to find cheapestDisk");
 
         // Find all the options
         List<Option> powerOptions = new ArrayList<Option>();
@@ -153,7 +156,7 @@ final public class SignupCustomizeServerActionHelper {
         List<List<Option>> diskOptions = new ArrayList<List<Option>>();
         for(int c=0;c<maxDisks;c++) diskOptions.add(new ArrayList<Option>());
         for(PackageDefinitionLimit limit : limits) {
-            ResourceType resource = limit.getResourceType();
+            Resource resource = limit.getResource();
             String resourceName = resource.getName();
             if(resourceName.startsWith("hardware_power_")) {
                 int limitPower = limit.getHardLimit();
@@ -212,7 +215,7 @@ final public class SignupCustomizeServerActionHelper {
                     if(additionalRate==null) additionalRate=BigDecimal.valueOf(0, 2);
                     BigDecimal adjustedRate = additionalRate;
                     // Discount adjusted rate if the cheapest disk is of this type
-                    if(cheapestDisk.getResourceType().getName().startsWith("hardware_disk_")) {
+                    if(cheapestDisk.getResource().getName().startsWith("hardware_disk_")) {
                         BigDecimal cheapestRate = cheapestDisk.getAdditionalRate();
                         if(cheapestRate==null) cheapestRate=BigDecimal.valueOf(0, 2);
                         adjustedRate = adjustedRate.subtract(cheapestRate);
@@ -315,7 +318,7 @@ final public class SignupCustomizeServerActionHelper {
     /**
      * Gets the hardware monthly rate for the server, basic server + hardware options
      */
-    public static BigDecimal getHardwareMonthlyRate(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, PackageDefinition packageDefinition) throws IOException {
+    public static BigDecimal getHardwareMonthlyRate(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm, PackageDefinition packageDefinition) throws IOException, SQLException {
         BigDecimal monthlyRate = packageDefinition.getMonthlyRate();
 
         // Add the power option
@@ -371,53 +374,53 @@ final public class SignupCustomizeServerActionHelper {
         return monthlyRate;
     }
 
-    public static String getPowerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException {
+    public static String getPowerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         int powerOption = signupCustomizeServerForm.getPowerOption();
         if(powerOption==-1) return null;
         PackageDefinitionLimit powerPDL = rootConn.getPackageDefinitionLimits().get(powerOption);
         int numPower = powerPDL.getHardLimit();
-        if(numPower==1) return powerPDL.getResourceType().toString();
-        else return numPower + "x" + powerPDL.getResourceType().toString();
+        if(numPower==1) return powerPDL.getResource().toString();
+        else return numPower + "x" + powerPDL.getResource().toString();
     }
 
-    public static String getCpuOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException {
+    public static String getCpuOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         PackageDefinitionLimit cpuPDL = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getCpuOption());
         int numCpu = cpuPDL.getHardLimit();
-        if(numCpu==1) return cpuPDL.getResourceType().toString(); //.replaceAll(", ", "<br />&#160;&#160;&#160;&#160;");
-        else return numCpu + "x" + cpuPDL.getResourceType().toString(); //.replaceAll(", ", "<br />&#160;&#160;&#160;&#160;");
+        if(numCpu==1) return cpuPDL.getResource().toString(); //.replaceAll(", ", "<br />&#160;&#160;&#160;&#160;");
+        else return numCpu + "x" + cpuPDL.getResource().toString(); //.replaceAll(", ", "<br />&#160;&#160;&#160;&#160;");
     }
     
-    public static String getRamOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException {
+    public static String getRamOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         PackageDefinitionLimit ramPDL = rootConn.getPackageDefinitionLimits().get(signupCustomizeServerForm.getRamOption());
         int numRam = ramPDL.getHardLimit();
-        if(numRam==1) return ramPDL.getResourceType().toString();
-        else return numRam + "x" + ramPDL.getResourceType().toString();
+        if(numRam==1) return ramPDL.getResource().toString();
+        else return numRam + "x" + ramPDL.getResource().toString();
     }
     
-    public static String getSataControllerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException {
+    public static String getSataControllerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         int sataControllerOption = signupCustomizeServerForm.getSataControllerOption();
         if(sataControllerOption==-1) return null;
         PackageDefinitionLimit sataControllerPDL = rootConn.getPackageDefinitionLimits().get(sataControllerOption);
         int numSataController = sataControllerPDL.getHardLimit();
-        if(numSataController==1) return sataControllerPDL.getResourceType().toString();
-        else return numSataController + "x" + sataControllerPDL.getResourceType().toString();
+        if(numSataController==1) return sataControllerPDL.getResource().toString();
+        else return numSataController + "x" + sataControllerPDL.getResource().toString();
     }
 
-    public static String getScsiControllerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException {
+    public static String getScsiControllerOption(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         int scsiControllerOption = signupCustomizeServerForm.getScsiControllerOption();
         if(scsiControllerOption==-1) return null;
         PackageDefinitionLimit scsiControllerPDL = rootConn.getPackageDefinitionLimits().get(scsiControllerOption);
         int numScsiController = scsiControllerPDL.getHardLimit();
-        if(numScsiController==1) return scsiControllerPDL.getResourceType().toString();
-        else return numScsiController + "x" + scsiControllerPDL.getResourceType().toString();
+        if(numScsiController==1) return scsiControllerPDL.getResource().toString();
+        else return numScsiController + "x" + scsiControllerPDL.getResource().toString();
     }
 
-    public static List<String> getDiskOptions(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException {
+    public static List<String> getDiskOptions(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         List<String> diskOptions = new ArrayList<String>();
         for(String pkey : signupCustomizeServerForm.getDiskOptions()) {
             if(pkey!=null && pkey.length()>0 && !pkey.equals("-1")) {
                 PackageDefinitionLimit diskPDL = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(pkey));
-                if(diskPDL!=null) diskOptions.add(diskPDL.getResourceType().toString());
+                if(diskPDL!=null) diskOptions.add(diskPDL.getResource().toString());
             }
         }
         return diskOptions;
@@ -429,7 +432,7 @@ final public class SignupCustomizeServerActionHelper {
         HttpServletResponse response,
         SignupSelectPackageForm signupSelectPackageForm,
         SignupCustomizeServerForm signupCustomizeServerForm
-    ) throws IOException {
+    ) throws IOException, SQLException {
         // Lookup things needed by the view
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
@@ -450,63 +453,63 @@ final public class SignupCustomizeServerActionHelper {
         AOServConnector rootConn,
         PackageDefinition packageDefinition,
         SignupCustomizeServerForm signupCustomizeServerForm
-    ) throws IOException {
+    ) throws IOException, SQLException {
         String powerOption = getPowerOption(rootConn, signupCustomizeServerForm);
         if(!GenericValidator.isBlankOrNull(powerOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.power.prompt")).print("</td>\n"
+                         + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(accessor.getMessage("signupCustomizeServerConfirmation.power.prompt")).print("</td>\n"
                          + "        <td>").print(powerOption).print("</td>\n"
                          + "    </tr>\n");
         }
         emailOut.print("    <tr>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.cpu.prompt")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signupCustomizeServerConfirmation.cpu.prompt")).print("</td>\n"
                      + "        <td>").print(getCpuOption(rootConn, signupCustomizeServerForm)).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.ram.prompt")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signupCustomizeServerConfirmation.ram.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(getRamOption(rootConn, signupCustomizeServerForm)).print("</td>\n"
                      + "    </tr>\n");
         String sataControllerOption = getSataControllerOption(rootConn, signupCustomizeServerForm);
         if(!GenericValidator.isBlankOrNull(sataControllerOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.sataController.prompt")).print("</td>\n"
+                         + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(accessor.getMessage("signupCustomizeServerConfirmation.sataController.prompt")).print("</td>\n"
                          + "        <td>").print(sataControllerOption).print("</td>\n"
                          + "    </tr>\n");
         }
         String scsiControllerOption = getScsiControllerOption(rootConn, signupCustomizeServerForm);
         if(!GenericValidator.isBlankOrNull(scsiControllerOption)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.scsiController.prompt")).print("</td>\n"
+                         + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(accessor.getMessage("signupCustomizeServerConfirmation.scsiController.prompt")).print("</td>\n"
                          + "        <td>").print(scsiControllerOption).print("</td>\n"
                          + "    </tr>\n");
         }
         for(String diskOption : getDiskOptions(rootConn, signupCustomizeServerForm)) {
             emailOut.print("    <tr>\n"
-                         + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                         + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.disk.prompt")).print("</td>\n"
+                         + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"
+                         + "        <td>").print(accessor.getMessage("signupCustomizeServerConfirmation.disk.prompt")).print("</td>\n"
                          + "        <td>").encodeHtml(diskOption).print("</td>\n"
                          + "    </tr>\n");
         }
         emailOut.print("    <tr>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.setup.prompt")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signupCustomizeServerConfirmation.setup.prompt")).print("</td>\n"
                      + "        <td>\n");
         BigDecimal setup = packageDefinition.getSetupFee();
         if(setup==null) {
-            emailOut.print("            ").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.setup.none")).print("\n");
+            emailOut.print("            ").print(accessor.getMessage("signupCustomizeServerConfirmation.setup.none")).print("\n");
         } else {
             emailOut.print("            $").print(setup).print("\n");
         }
         emailOut.print("        </td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                     + "        <td style='white-space:nowrap'>").print(ApplicationResources.accessor.getMessage("signupCustomizeServerConfirmation.monthlyRate.prompt")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td style='white-space:nowrap'>").print(accessor.getMessage("signupCustomizeServerConfirmation.monthlyRate.prompt")).print("</td>\n"
                      + "        <td>$").print(request.getAttribute("monthlyRate")).print("</td>\n"
                      + "    </tr>\n");
     }
@@ -514,14 +517,14 @@ final public class SignupCustomizeServerActionHelper {
     /**
      * Gets the total amount of hard drive space in gigabytes.
      */
-    public static int getTotalHardwareDiskSpace(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException {
+    public static int getTotalHardwareDiskSpace(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
         if(signupCustomizeServerForm==null) return 0;
         int total = 0;
         for(String diskOption : signupCustomizeServerForm.getDiskOptions()) {
             if(diskOption!=null && diskOption.length()>0 && !"-1".equals(diskOption)) {
                 PackageDefinitionLimit limit = rootConn.getPackageDefinitionLimits().get(Integer.parseInt(diskOption));
                 if(limit!=null) {
-                    ResourceType resource = limit.getResourceType();
+                    Resource resource = limit.getResource();
                     String name = resource.getName();
                     if(name.startsWith("hardware_disk_")) {
                         // Is in formation hardware_disk_RPM_SIZE

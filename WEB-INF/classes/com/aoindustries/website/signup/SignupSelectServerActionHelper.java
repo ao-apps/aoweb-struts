@@ -1,10 +1,11 @@
+package com.aoindustries.website.signup;
+
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.signup;
-
+import static com.aoindustries.website.signup.ApplicationResources.accessor;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.PackageCategory;
@@ -12,6 +13,7 @@ import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -38,7 +40,7 @@ final public class SignupSelectServerActionHelper {
         HttpServletRequest request,
         HttpServletResponse response,
         String packageCategoryName
-    ) throws IOException {
+    ) throws IOException, SQLException {
         List<Server> servers = getServers(servletContext, packageCategoryName);
         
         request.setAttribute("servers", servers);
@@ -47,10 +49,10 @@ final public class SignupSelectServerActionHelper {
     /**
      * Gets the possible servers ordered by minimum monthly rate.
      */
-    public static List<Server> getServers(ServletContext servletContext, String packageCategoryName) throws IOException {
+    public static List<Server> getServers(ServletContext servletContext, String packageCategoryName) throws IOException, SQLException {
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageCategory category = rootConn.getPackageCategories().get(packageCategoryName);
-        Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getBusiness();
+        Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
         List<PackageDefinition> packageDefinitions = rootBusiness.getPackageDefinitions(category);
         List<Server> servers = new ArrayList<Server>();
         
@@ -92,14 +94,8 @@ final public class SignupSelectServerActionHelper {
     }
 
     private static class ServerComparator implements Comparator<Server> {
-        @Override
         public int compare(Server s1, Server s2) {
             return s1.getMinimumConfiguration().getMonthly().compareTo(s2.getMinimumConfiguration().getMonthly());
-        }
-
-        @Override
-        public boolean equals(Object O) {
-            return O!=null && (O instanceof ServerComparator);
         }
     }
 
@@ -107,7 +103,7 @@ final public class SignupSelectServerActionHelper {
         ServletContext servletContext,
         HttpServletRequest request,
         SignupSelectPackageForm signupSelectPackageForm
-    ) throws IOException {
+    ) throws IOException, SQLException {
         // Lookup things needed by the view
         AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
         PackageDefinition packageDefinition = rootConn.getPackageDefinitions().get(signupSelectPackageForm.getPackageDefinition());
@@ -119,8 +115,8 @@ final public class SignupSelectServerActionHelper {
 
     public static void printConfirmation(ChainWriter emailOut, PackageDefinition packageDefinition) throws IOException {
         emailOut.print("    <tr>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signup.notRequired")).print("</td>\n"
-                     + "        <td>").print(ApplicationResources.accessor.getMessage("signupSelectServerForm.packageDefinition.prompt")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"
+                     + "        <td>").print(accessor.getMessage("signupSelectServerForm.packageDefinition.prompt")).print("</td>\n"
                      + "        <td>").encodeHtml(packageDefinition.getDisplay()).print("</td>\n"
                      + "    </tr>\n");
     }

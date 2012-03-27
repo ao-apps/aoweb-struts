@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.webmail;
 
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -19,7 +19,7 @@ public final class ApplicationResources extends EditableResourceBundle {
     static final EditableResourceBundleSet bundleSet = new EditableResourceBundleSet(
         ApplicationResources.class.getName(),
         Arrays.asList(
-            Locale.ROOT,
+            new Locale(""), // Locale.ROOT in Java 1.6
             Locale.JAPANESE
         )
     );
@@ -29,9 +29,9 @@ public final class ApplicationResources extends EditableResourceBundle {
      */
     public ApplicationResources() {
         super(
-            new File(System.getProperty("user.home")+"/common/ao/cvswork/aoweb-struts/WEB-INF/classes/com/aoindustries/website/clientarea/webmail/ApplicationResources.properties"),
-            Locale.ROOT,
-            bundleSet
+            new Locale(""),
+            bundleSet,
+            new File(System.getProperty("user.home")+"/common/ao/cvswork/aoweb-struts/WEB-INF/classes/com/aoindustries/website/clientarea/webmail/ApplicationResources.properties")
         );
     }
 }

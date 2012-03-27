@@ -1,27 +1,26 @@
+package com.aoindustries.website.clientarea.accounting;
+
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.clientarea.accounting;
-
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.BusinessProfile;
-import com.aoindustries.aoserv.client.validator.AccountingCode;
-import com.aoindustries.util.i18n.Money;
+import com.aoindustries.sql.SQLUtility;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.signup.SignupBusinessActionHelper;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Currency;
 import java.util.List;
-import java.util.SortedMap;
+import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,6 +43,7 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
@@ -56,62 +56,53 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
         }
 
         // Populate the initial details from the selected accounting code or authenticated user
-        Business business = aoConn.getBusinesses().get(AccountingCode.valueOf(accounting));
+        Business business = aoConn.getBusinesses().get(accounting);
+        if(business==null) throw new SQLException("Unable to find Business: "+accounting);
         BusinessProfile profile = business.getBusinessProfile();
         if(profile!=null) {
-            makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(profile.getBillingContact()));
-            makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(profile.getBillingContact()));
+            makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(profile.getBillingContact(), locale));
+            makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(profile.getBillingContact(), locale));
             makePaymentNewCardForm.setCompanyName(profile.getName());
-            makePaymentNewCardForm.setEmail(profile.getBillingEmail().isEmpty() ? "" : profile.getBillingEmail().get(0).toString());
+            makePaymentNewCardForm.setEmail(profile.getBillingEmail().isEmpty() ? "" : profile.getBillingEmail().get(0));
             makePaymentNewCardForm.setPhone(profile.getPhone());
             makePaymentNewCardForm.setFax(profile.getFax());
             makePaymentNewCardForm.setStreetAddress1(profile.getAddress1());
             makePaymentNewCardForm.setStreetAddress2(profile.getAddress2());
             makePaymentNewCardForm.setCity(profile.getCity());
             makePaymentNewCardForm.setState(profile.getState());
-            makePaymentNewCardForm.setPostalCode(profile.getZip());
+            makePaymentNewCardForm.setPostalCode(profile.getZIP());
             makePaymentNewCardForm.setCountryCode(profile.getCountry().getCode());
         } else {
             BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
-            makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(thisBA.getName()));
-            makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(thisBA.getName()));
-            makePaymentNewCardForm.setEmail(thisBA.getEmail().toString());
+            makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(thisBA.getName(), locale));
+            makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(thisBA.getName(), locale));
+            makePaymentNewCardForm.setEmail(thisBA.getEmail());
             makePaymentNewCardForm.setPhone(thisBA.getWorkPhone());
             makePaymentNewCardForm.setFax(thisBA.getFax());
             makePaymentNewCardForm.setStreetAddress1(thisBA.getAddress1());
             makePaymentNewCardForm.setStreetAddress2(thisBA.getAddress2());
             makePaymentNewCardForm.setCity(thisBA.getCity());
             makePaymentNewCardForm.setState(thisBA.getState());
-            makePaymentNewCardForm.setPostalCode(thisBA.getZip());
+            makePaymentNewCardForm.setPostalCode(thisBA.getZIP());
             makePaymentNewCardForm.setCountryCode(thisBA.getCountry()==null ? "" : thisBA.getCountry().getCode());
         }
 
         initRequestAttributes(request, getServlet().getServletContext());
 
         // Prompt for amount of payment defaults to current balance.
-        SortedMap<Currency,Money> balances = business.getAccountBalances();
-        Money posBalance = null;
-        for(Money balance : balances.values()) {
-            if(balance.getValue().compareTo(BigDecimal.ZERO)>0) {
-                posBalance = balance;
-                break;
-            }
-        }
-        if(posBalance!=null) {
-            makePaymentNewCardForm.setCurrency(posBalance.getCurrency().getCurrencyCode());
-            makePaymentNewCardForm.setPaymentAmount(posBalance.getValue().toPlainString());
+        BigDecimal balance = business.getAccountBalance();
+        if(balance.signum()>0) {
+            makePaymentNewCardForm.setPaymentAmount(balance.toPlainString());
         } else {
-            makePaymentNewCardForm.setCurrency(business.getPackageDefinition().getMonthlyRate().getCurrency().getCurrencyCode());
             makePaymentNewCardForm.setPaymentAmount("");
         }
 
-        request.setAttribute("currencies", balances.keySet());
         request.setAttribute("business", business);
 
         return mapping.findForward("success");
     }
 
-    protected void initRequestAttributes(HttpServletRequest request, ServletContext context) throws IOException {
+    protected void initRequestAttributes(HttpServletRequest request, ServletContext context) throws SQLException, IOException {
         // Build the list of years
         List<String> expirationYears = new ArrayList<String>(12);
         int startYear = Calendar.getInstance().get(Calendar.YEAR);

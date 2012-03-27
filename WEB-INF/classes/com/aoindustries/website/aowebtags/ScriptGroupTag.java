@@ -1,13 +1,13 @@
 package com.aoindustries.website.aowebtags;
 
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.util.Sequence;
 import com.aoindustries.util.UnsynchronizedSequence;
-import com.aoindustries.website.ApplicationResources;
+import static com.aoindustries.website.ApplicationResources.accessor;
 import java.io.IOException;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
@@ -18,8 +18,6 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * @author  AO Industries, Inc.
  */
 public class ScriptGroupTag extends BodyTagSupport {
-
-    private static final long serialVersionUID = 1L;
 
     /**
      * The maximum buffer size that will be allowed between requests.  This is
@@ -101,7 +99,7 @@ public class ScriptGroupTag extends BodyTagSupport {
                                 + "  // ]]>\n"
                                 + "</script>\n");
                     } else {
-                        throw new JspException(ApplicationResources.accessor.getMessage("aowebtags.ScriptGroupTag.onloadMode.invalid", onloadMode));
+                        throw new JspException(accessor.getMessage("aowebtags.ScriptGroupTag.onloadMode.invalid", onloadMode));
                     }
                 }
             }

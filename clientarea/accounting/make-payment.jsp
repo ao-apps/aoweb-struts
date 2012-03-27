@@ -1,6 +1,6 @@
 <%-- aoweb-struts: Do not edit --%>
 <%--
-  Copyright 2007-2011 by AO Industries, Inc.,
+  Copyright 2007-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
@@ -35,9 +35,9 @@
                                     <td style='white-space:nowrap' align='right'><ao:write name="business" property="monthlyRateString" /></td>
                                     <td style='white-space:nowrap' align='right'>
                                         <% BigDecimal balance = business.getAccountBalance(); %>
-                                        <% if(balance.compareTo(BigDecimal.ZERO)==0) { %>
+                                        <% if(balance.signum()==0) { %>
                                             <fmt:message key="makePayment.balance.value.zero" />
-                                        <% } else if(balance.compareTo(BigDecimal.ZERO)<0) { %>
+                                        <% } else if(balance.signum()<0) { %>
                                             <fmt:message key="makePayment.balance.value.credit">
                                                 <fmt:param><c:out value="<%= balance.negate().toPlainString() %>" /></fmt:param>
                                             </fmt:message>

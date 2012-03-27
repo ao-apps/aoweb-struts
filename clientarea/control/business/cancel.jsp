@@ -1,6 +1,6 @@
 <%-- aoweb-struts: Do not edit --%>
 <%--
-  Copyright 2003-2011 by AO Industries, Inc.,
+  Copyright 2003-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
@@ -86,11 +86,11 @@
                                                         </td>
                                                         <td align='right'>
                                                             <% BigDecimal balance=bu.getAccountBalance(); %>
-                                                            <% if(balance.compareTo(BigDecimal.ZERO)<0) { %>
+                                                            <% if(balance.signum()<0) { %>
                                                                 <fmt:message key="business.cancel.field.balance.credit">
                                                                     <fmt:param><c:out value="<%= balance.negate().toPlainString() %>" /></fmt:param>
                                                                 </fmt:message>
-                                                            <% } else if(balance.compareTo(BigDecimal.ZERO)>0) { %>
+                                                            <% } else if(balance.signum()>0) { %>
                                                                 <fmt:message key="business.cancel.field.balance.debt">
                                                                     <fmt:param><c:out value="<%= balance.toPlainString() %>" /></fmt:param>
                                                                 </fmt:message>

@@ -1,7 +1,7 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -26,8 +26,7 @@ public class SetResourceBundleValueAction extends SkinAction {
     static String getUTF8Parameter(HttpServletRequest request, String name) throws UnsupportedEncodingException {
         String value = request.getParameter(name);
         if(value==null) return null;
-        //return new String(value.getBytes("iso-8859-1"), "UTF-8");
-        return value;
+        return new String(value.getBytes("iso-8859-1"), "UTF-8");
     }
 
     @Override
@@ -37,6 +36,7 @@ public class SetResourceBundleValueAction extends SkinAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale userLocale,
         Skin skin
     ) throws Exception {
         // If disabled, return 404 status

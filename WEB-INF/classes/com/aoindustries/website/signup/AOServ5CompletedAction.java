@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -10,6 +10,7 @@ import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,7 @@ public class AOServ5CompletedAction extends AOServ5Action {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServSignupSelectPackageForm signupSelectPackageForm,
         boolean signupSelectPackageFormComplete,
@@ -68,6 +70,8 @@ public class AOServ5CompletedAction extends AOServ5Action {
         ServerConfirmationCompletedActionHelper.storeToDatabase(myServlet, request, rootConn, packageDefinition, signupBusinessForm, signupTechnicalForm, signupBillingInformationForm, options);
         String pkey = (String)request.getAttribute("pkey");
         String statusKey = (String)request.getAttribute("statusKey");
+
+        //Locale userLocale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
 
         // Send confirmation email to support
         MinimalConfirmationCompletedActionHelper.sendSupportSummaryEmail(

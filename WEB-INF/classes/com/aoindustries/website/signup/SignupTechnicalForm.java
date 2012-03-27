@@ -1,19 +1,18 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Username;
-import com.aoindustries.aoserv.client.validator.UserId;
-import com.aoindustries.aoserv.client.validator.ValidationResult;
 import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.SessionActionForm;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionErrors;
@@ -25,7 +24,7 @@ import org.apache.struts.action.ActionServlet;
 /**
  * @author  AO Industries, Inc.
  */
-public final class SignupTechnicalForm extends ActionForm implements Serializable, SessionActionForm {
+public class SignupTechnicalForm extends ActionForm implements Serializable, SessionActionForm {
 
     private static final long serialVersionUID = 1L;
 
@@ -63,7 +62,6 @@ public final class SignupTechnicalForm extends ActionForm implements Serializabl
         setBaPassword("");
     }
 
-    @Override
     public boolean isEmpty() {
         return
             "".equals(baName)
@@ -222,13 +220,15 @@ public final class SignupTechnicalForm extends ActionForm implements Serializabl
                 if(myServlet!=null) {
                     AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
                     String lowerUsername = baUsername.toLowerCase();
-                    ValidationResult check = UserId.validate(lowerUsername);
-                    if(!check.isValid()) errors.add("baUsername", new ActionMessage(check.toString(), false));
+                    String check = Username.checkUsername(lowerUsername);
+                    if(check!=null) errors.add("baUsername", new ActionMessage(check, false));
                     else if(!rootConn.getUsernames().isUsernameAvailable(lowerUsername)) errors.add("baUsername", new ActionMessage("signupTechnicalForm.baUsername.unavailable"));
                 }
             }
             return errors;
         } catch(IOException err) {
+            throw new WrappedException(err);
+        } catch(SQLException err) {
             throw new WrappedException(err);
         }
     }

@@ -1,15 +1,14 @@
+package com.aoindustries.website.clientarea.accounting;
+
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.clientarea.accounting;
-
 import com.aoindustries.creditcards.TransactionResult;
-import com.aoindustries.util.i18n.Money;
+import com.aoindustries.sql.SQLUtility;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Currency;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionErrors;
@@ -23,7 +22,6 @@ public class MakePaymentNewCardForm extends AddCreditCardForm implements Seriali
 
     private static final long serialVersionUID = 1L;
 
-    private String currency;
     private String paymentAmount;
     
     /**
@@ -34,20 +32,10 @@ public class MakePaymentNewCardForm extends AddCreditCardForm implements Seriali
     public MakePaymentNewCardForm() {
     }
 
-    @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         super.reset(mapping, request);
-        setCurrency("");
         setPaymentAmount("");
         setStoreCard("");
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
     }
 
     public String getPaymentAmount() {
@@ -56,7 +44,7 @@ public class MakePaymentNewCardForm extends AddCreditCardForm implements Seriali
 
     public void setPaymentAmount(String paymentAmount) {
         paymentAmount = paymentAmount.trim();
-        // if(paymentAmount.startsWith("$")) paymentAmount=paymentAmount.substring(1);
+        if(paymentAmount.startsWith("$")) paymentAmount=paymentAmount.substring(1);
         this.paymentAmount = paymentAmount;
     }
 
@@ -68,31 +56,31 @@ public class MakePaymentNewCardForm extends AddCreditCardForm implements Seriali
         this.storeCard = storeCard;
     }
 
-    @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = super.validate(mapping, request);
         if(errors==null) errors = new ActionErrors();
-        if(GenericValidator.isBlankOrNull(currency)) {
-            errors.add("currency", new ActionMessage("makePaymentStoredCardForm.currency.required"));
+        if(GenericValidator.isBlankOrNull(paymentAmount)) {
+            errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.required"));
         } else {
-            if(GenericValidator.isBlankOrNull(paymentAmount)) {
-                errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.required"));
-            } else {
-                try {
-                    // Make sure can parse as Money (checks scale for us)
-                    Money money = new Money(Currency.getInstance(currency), new BigDecimal(this.paymentAmount));
-                    if(money.getValue().compareTo(BigDecimal.ZERO)<=0) {
-                        errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.mustBeGeaterThanZero"));
-                    }
-                } catch(NumberFormatException err) {
+            try {
+                // Make sure can parse as int-of-pennies format (Once we no longer use int-of-pennies, this should be removed)
+                // Long-term plan is to use BigDecimal exclusively for all monetary values. - DRA 2007-10-09
+                int pennies = SQLUtility.getPennies(this.paymentAmount);
+                // Make sure can parse as BigDecimal, and is correct value
+                BigDecimal paymentAmount = new BigDecimal(this.paymentAmount);
+                if(paymentAmount.compareTo(BigDecimal.ZERO)<=0) {
+                    errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.mustBeGeaterThanZero"));
+                } else if(paymentAmount.scale()>2) {
+                    // Must not have more than 2 decimal places
                     errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.invalid"));
                 }
+            } catch(NumberFormatException err) {
+                errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.invalid"));
             }
         }
         return errors;
     }
 
-    @Override
     public ActionErrors mapTransactionError(TransactionResult.ErrorCode errorCode) {
         String errorString = errorCode.toString();
         ActionErrors errors = new ActionErrors();

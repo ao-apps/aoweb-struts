@@ -1,20 +1,13 @@
+package com.aoindustries.website.clientarea.control.password;
+
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.clientarea.control.password;
-
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.AOServer;
-import com.aoindustries.aoserv.client.MySQLServer;
 import com.aoindustries.aoserv.client.MySQLUser;
 import com.aoindustries.aoserv.client.PasswordChecker;
-import com.aoindustries.aoserv.client.command.CheckMySQLUserPasswordCommand;
-import com.aoindustries.aoserv.client.validator.DomainName;
-import com.aoindustries.aoserv.client.validator.MySQLServerName;
-import com.aoindustries.aoserv.client.validator.MySQLUserId;
-import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.util.AutoGrowArrayList;
 import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.AuthenticatedAction;
@@ -34,7 +27,7 @@ public class MySQLPasswordSetterForm extends ActionForm implements Serializable 
 
     private static final long serialVersionUID = 1L;
 
-    private List<String> businesses;
+    private List<String> packages;
     private List<String> usernames;
     private List<String> mySQLServers;
     private List<String> aoServers;
@@ -44,7 +37,7 @@ public class MySQLPasswordSetterForm extends ActionForm implements Serializable 
     @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         super.reset(mapping, request);
-        setBusinesses(new AutoGrowArrayList<String>());
+        setPackages(new AutoGrowArrayList<String>());
         setUsernames(new AutoGrowArrayList<String>());
         setMySQLServers(new AutoGrowArrayList<String>());
         setAoServers(new AutoGrowArrayList<String>());
@@ -52,12 +45,12 @@ public class MySQLPasswordSetterForm extends ActionForm implements Serializable 
         setConfirmPasswords(new AutoGrowArrayList<String>());
     }
 
-    public List<String> getBusinesses() {
-        return businesses;
+    public List<String> getPackages() {
+        return packages;
     }
 
-    public void setBusinesses(List<String> businesses) {
-        this.businesses = businesses;
+    public void setPackages(List<String> packages) {
+        this.packages = packages;
     }
 
     public List<String> getUsernames() {
@@ -108,6 +101,7 @@ public class MySQLPasswordSetterForm extends ActionForm implements Serializable 
             if(errors==null) errors = new ActionErrors();
             AOServConnector aoConn = AuthenticatedAction.getAoConn(request, null);
             if(aoConn==null) throw new RuntimeException("aoConn is null");
+
             for(int c=0;c<usernames.size();c++) {
                 String newPassword = newPasswords.get(c);
                 String confirmPassword = confirmPasswords.get(c);
@@ -115,12 +109,10 @@ public class MySQLPasswordSetterForm extends ActionForm implements Serializable 
                     errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.mySQLPasswordSetter.field.confirmPasswords.mismatch"));
                 } else {
                     if(newPassword.length()>0) {
-                        AOServer aoServer = aoConn.getAoServers().filterUnique(AOServer.COLUMN_HOSTNAME, DomainName.valueOf(aoServers.get(c)));
-                        MySQLServer mysqlServer = aoServer.getMysqlServer(MySQLServerName.valueOf(mySQLServers.get(c)));
-                        MySQLUser mysqlUser = mysqlServer.getMysqlUser(MySQLUserId.valueOf(usernames.get(c)));
+                        String username = usernames.get(c);
 
                         // Check the password strength
-                        List<PasswordChecker.Result> results = new CheckMySQLUserPasswordCommand(mysqlUser, newPassword).execute(aoConn);
+                        PasswordChecker.Result[] results = MySQLUser.checkPassword(username, newPassword);
                         if(PasswordChecker.hasResults(results)) {
                             errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                         }
@@ -129,8 +121,6 @@ public class MySQLPasswordSetterForm extends ActionForm implements Serializable 
             }
             return errors;
         } catch(IOException err) {
-            throw new WrappedException(err);
-        } catch(ValidationException err) {
             throw new WrappedException(err);
         }
     }

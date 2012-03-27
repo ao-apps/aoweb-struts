@@ -1,17 +1,16 @@
+package com.aoindustries.website.skintags;
+
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.skintags;
-
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.io.AutoTempFileWriter;
 import com.aoindustries.net.EmptyParameters;
 import com.aoindustries.net.HttpParameters;
 import com.aoindustries.net.HttpParametersMap;
 import com.aoindustries.net.HttpParametersUtils;
-import com.aoindustries.net.MutableHttpParameters;
 import com.aoindustries.taglib.AutoEncodingBufferedTag;
 import com.aoindustries.taglib.ParamsAttribute;
 import java.io.IOException;
@@ -28,14 +27,12 @@ public class PathTag extends AutoEncodingBufferedTag implements ParamsAttribute 
 
     private static final long serialVersionUID = 1L;
 
-    private MutableHttpParameters params;
+    private HttpParametersMap params;
 
-    @Override
     public MediaType getContentType() {
         return MediaType.URL;
     }
 
-    @Override
     public MediaType getOutputType() {
         return null;
     }
@@ -51,9 +48,9 @@ public class PathTag extends AutoEncodingBufferedTag implements ParamsAttribute 
         params.addParameter(name, value);
     }
 
-    @Override
     protected void doTag(AutoTempFileWriter capturedBody, Writer out) throws IOException {
-        String path = HttpParametersUtils.addParams(capturedBody.toString().trim(), params);
+        String path = capturedBody.toString().trim();
+        path = HttpParametersUtils.addParams(path, params);
         JspTag parent = findAncestorWithClass(this, PathAttribute.class);
         if(parent==null) {
             PageAttributesBodyTag.getPageAttributes((PageContext)getJspContext()).setPath(path);

@@ -1,7 +1,7 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -27,6 +27,7 @@ public class SetResourceBundleMediaTypeAction extends SkinAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale userLocale,
         Skin skin
     ) throws Exception {
         // If disabled, return 404 status
@@ -42,7 +43,7 @@ public class SetResourceBundleMediaTypeAction extends SkinAction {
         Boolean isBlockElement = null;
         //System.out.println("DEBUG: mediaTypeParam="+mediaTypeParam);
         for(MediaType mt : MediaType.values()) {
-            String mtVal = mt.getMediaType(); //.replace('+', ' '); // Losing + sign from XMLHttpRequest call
+            String mtVal = mt.getMediaType().replace('+', ' '); // Losing + sign from XMLHttpRequest call
             if(mt==MediaType.XHTML) {
                 // Special treatment for isBlockElement
                 if((mtVal+" (inline)").equals(mediaTypeParam)) {
@@ -68,7 +69,7 @@ public class SetResourceBundleMediaTypeAction extends SkinAction {
             return null;
         }
         // Find the bundle
-        Locale locale = Locale.ROOT;
+        Locale locale = new Locale(""); // Locale.BASE in Java 1.6
         ResourceBundle resourceBundle = ResourceBundle.getBundle(baseName, locale);
         if(!resourceBundle.getLocale().equals(locale)) throw new AssertionError("resourceBundle.locale!=locale");
         if(!(resourceBundle instanceof ModifiableResourceBundle)) throw new AssertionError("resourceBundle is not a ModifiableResourceBundle");
