@@ -1,5 +1,5 @@
 /*
- * Copyright 2009, 2010 by AO Industries, Inc.,
+ * Copyright 2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -7,17 +7,16 @@ package com.aoindustries.website.clientarea.control.vnc;
 
 import com.aoindustries.aoserv.client.AOServClientConfiguration;
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.AOServObject;
+import com.aoindustries.aoserv.client.AOServProtocol;
 import com.aoindustries.aoserv.client.AOServer;
+import com.aoindustries.aoserv.client.IPAddress;
 import com.aoindustries.aoserv.client.VirtualServer;
-import com.aoindustries.aoserv.client.command.RequestVncConsoleAccessCommand;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonConnection;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonConnector;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonProtocol;
 import com.aoindustries.io.AOPool;
 import com.aoindustries.io.CompressedDataInputStream;
 import com.aoindustries.io.CompressedDataOutputStream;
-import com.aoindustries.io.IoUtils;
 import com.aoindustries.website.LogFactory;
 import java.io.EOFException;
 import java.io.IOException;
@@ -25,10 +24,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
-import java.rmi.RemoteException;
-import java.security.SecureRandom;
+import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.logging.Level;
 import javax.net.ssl.SSLHandshakeException;
 import javax.servlet.ServletContext;
@@ -85,12 +82,10 @@ public class VncConsoleProxySocketHandler {
         (byte)'8',
         (byte)'\n'
     };
-    private static final Random random = new SecureRandom();
     public VncConsoleProxySocketHandler(final ServletContext servletContext, final AOServConnector rootConn, final Socket socket) {
         // This thread will read from socket
         Thread thread = new Thread(
             new Runnable() {
-                @Override
                 public void run() {
                     try {
                         final OutputStream socketOut = socket.getOutputStream();
@@ -106,7 +101,8 @@ public class VncConsoleProxySocketHandler {
                             if(
                                 protocolVersion_3_3[c]!=b
                                 && protocolVersion_3_5[c]!=b // Accept 3.5 but treat as 3.3
-                            ) throw new IOException("Mismatched protocolVersion from VNC client through socket");
+                                && protocolVersion_3_8[c]!=b // Accept 3.8 but treat as 3.3
+                            ) throw new IOException("Mismatched protocolVersion from VNC client through socket: #"+c+": "+(char)b);
                         }
                         // Security type
                         socketOut.write(0);
@@ -115,15 +111,15 @@ public class VncConsoleProxySocketHandler {
                         socketOut.write(2);
                         // VNC Authentication
                         byte[] challenge = new byte[16];
-                        random.nextBytes(challenge);
+                        AOServConnector.getRandom().nextBytes(challenge);
                         socketOut.write(challenge);
                         socketOut.flush();
                         byte[] response = new byte[16];
                         for(int c=0;c<16;c++) if((response[c] = (byte)socketIn.read())==-1) throw new EOFException("EOF from socketIn");
                         VirtualServer virtualServer = null;
-                        for(VirtualServer vs : rootConn.getVirtualServers().getSet()) {
+                        for(VirtualServer vs : rootConn.getVirtualServers().getRows()) {
                             String vncPassword = vs.getVncPassword();
-                            if(vncPassword!=null && !vncPassword.equals(AOServObject.FILTERED)) {
+                            if(vncPassword!=null && !vncPassword.equals(AOServProtocol.FILTERED)) {
                                 byte[] expectedResponse = desCipher(challenge, vncPassword);
                                 if(Arrays.equals(response, expectedResponse)) {
                                     virtualServer = vs;
@@ -143,17 +139,17 @@ public class VncConsoleProxySocketHandler {
                             // Connect and authenticate to the real VNC server before sending security result
 
                             // Connect through AOServ system
-                            AOServer.DaemonAccess daemonAccess = new RequestVncConsoleAccessCommand(virtualServer).execute(rootConn);
+                            AOServer.DaemonAccess daemonAccess = virtualServer.requestVncConsoleAccess();
                             AOServDaemonConnector daemonConnector=AOServDaemonConnector.getConnector(
                                 daemonAccess.getHost(),
-                                null,
+                                IPAddress.WILDCARD_IP,
                                 daemonAccess.getPort(),
                                 daemonAccess.getProtocol(),
                                 null,
                                 100,
                                 AOPool.DEFAULT_MAX_CONNECTION_AGE,
-                                AOServClientConfiguration.getTrustStorePath(),
-                                AOServClientConfiguration.getTrustStorePassword(),
+                                AOServClientConfiguration.getSslTruststorePath(),
+                                AOServClientConfiguration.getSslTruststorePassword(),
                                 LogFactory.getLogger(servletContext, getClass())
                             );
                             final AOServDaemonConnection daemonConn=daemonConnector.getConnection();
@@ -174,7 +170,7 @@ public class VncConsoleProxySocketHandler {
                                         if(
                                             protocolVersion_3_3[c]!=b // Hardware virtualized
                                             && protocolVersion_3_8[c]!=b // Paravirtualized
-                                        ) throw new IOException("Mismatched protocolVersion from VNC server through daemon");
+                                        ) throw new IOException("Mismatched protocolVersion from VNC server through daemon: #"+c+": "+(char)b);
                                     }
                                     daemonOut.write(protocolVersion_3_3);
                                     daemonOut.flush();
@@ -212,11 +208,15 @@ public class VncConsoleProxySocketHandler {
                                     // socketIn -> daemonOut in another thread
                                     Thread inThread = new Thread(
                                         new Runnable() {
-                                            @Override
                                             public void run() {
                                                 try {
                                                     try {
-                                                        IoUtils.copy(socketIn, daemonOut, true);
+                                                        byte[] buff = new byte[4096];
+                                                        int ret;
+                                                        while((ret=socketIn.read(buff, 0, 4096))!=-1) {
+                                                            daemonOut.write(buff, 0, ret);
+                                                            daemonOut.flush();
+                                                        }
                                                     } finally {
                                                         daemonConn.close();
                                                     }
@@ -234,9 +234,15 @@ public class VncConsoleProxySocketHandler {
                                     inThread.start();
 
                                     // daemonIn -> socketOut in this thread
-                                    IoUtils.copy(daemonIn, socketOut, true);
+                                    byte[] buff = new byte[4096];
+                                    int ret;
+                                    while((ret=daemonIn.read(buff, 0, 4096))!=-1) {
+                                        socketOut.write(buff, 0, ret);
+                                        socketOut.flush();
+                                    }
                                 } else {
-                                    if (result == AOServDaemonProtocol.REMOTE_EXCEPTION) throw new RemoteException(daemonIn.readUTF());
+                                    if (result == AOServDaemonProtocol.IO_EXCEPTION) throw new IOException(daemonIn.readUTF());
+                                    else if (result == AOServDaemonProtocol.SQL_EXCEPTION) throw new SQLException(daemonIn.readUTF());
                                     else if (result==-1) throw new EOFException("EOF from daemonIn");
                                     else throw new IOException("Unknown result: " + result);
                                 }
