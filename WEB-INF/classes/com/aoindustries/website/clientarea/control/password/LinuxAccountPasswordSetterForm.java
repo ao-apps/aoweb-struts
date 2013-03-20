@@ -8,6 +8,8 @@ package com.aoindustries.website.clientarea.control.password;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.LinuxAccount;
 import com.aoindustries.aoserv.client.PasswordChecker;
+import com.aoindustries.aoserv.client.validator.UserId;
+import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.util.AutoGrowArrayList;
 import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.AuthenticatedAction;
@@ -105,7 +107,7 @@ public class LinuxAccountPasswordSetterForm extends ActionForm implements Serial
                             throw new AssertionError("Unable to find LinuxAccount: "+username);
                         } else {
                             // Check the password strength
-                            PasswordChecker.Result[] results = LinuxAccount.checkPassword(username, la.getType().getName(), newPassword);
+                            List<PasswordChecker.Result> results = LinuxAccount.checkPassword(UserId.valueOf(username), la.getType().getName(), newPassword);
                             if(PasswordChecker.hasResults(results)) {
                                 errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                             }
@@ -117,6 +119,8 @@ public class LinuxAccountPasswordSetterForm extends ActionForm implements Serial
         } catch(IOException err) {
             throw new WrappedException(err);
         } catch(SQLException err) {
+            throw new WrappedException(err);
+        } catch(ValidationException err) {
             throw new WrappedException(err);
         }
     }

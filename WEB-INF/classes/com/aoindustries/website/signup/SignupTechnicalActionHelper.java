@@ -1,13 +1,13 @@
-package com.aoindustries.website.signup;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2013 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.signup;
+
 import static com.aoindustries.website.signup.ApplicationResources.accessor;
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.LinuxAccountTable;
+import com.aoindustries.aoserv.client.PasswordGenerator;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
@@ -44,7 +44,7 @@ final public class SignupTechnicalActionHelper {
         // Generate random passwords, keeping the selected password at index 0
         List<String> passwords = new ArrayList<String>(16);
         if(!GenericValidator.isBlankOrNull(signupTechnicalForm.getBaPassword())) passwords.add(signupTechnicalForm.getBaPassword());
-        while(passwords.size()<16) passwords.add(LinuxAccountTable.generatePassword());
+        while(passwords.size()<16) passwords.add(PasswordGenerator.generatePassword());
 
         // Store to the request
         request.setAttribute("countryOptions", countryOptions);

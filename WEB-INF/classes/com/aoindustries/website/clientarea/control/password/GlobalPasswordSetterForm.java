@@ -7,6 +7,8 @@ package com.aoindustries.website.clientarea.control.password;
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.PasswordChecker;
+import com.aoindustries.aoserv.client.validator.UserId;
+import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.util.AutoGrowArrayList;
 import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.AuthenticatedAction;
@@ -89,7 +91,7 @@ public class GlobalPasswordSetterForm extends ActionForm implements Serializable
                     if(newPassword.length()>0) {
                         String username = usernames.get(c);
                         // Check the password strength
-                        PasswordChecker.Result[] results = PasswordChecker.checkPassword(username, newPassword,  true, false);
+                        List<PasswordChecker.Result> results = PasswordChecker.checkPassword(UserId.valueOf(username), newPassword, PasswordChecker.PasswordStrength.STRICT);
                         if(PasswordChecker.hasResults(results)) {
                             errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                         }
@@ -98,6 +100,8 @@ public class GlobalPasswordSetterForm extends ActionForm implements Serializable
             }
             return errors;
         } catch(IOException err) {
+            throw new WrappedException(err);
+        } catch(ValidationException err) {
             throw new WrappedException(err);
         }
     }

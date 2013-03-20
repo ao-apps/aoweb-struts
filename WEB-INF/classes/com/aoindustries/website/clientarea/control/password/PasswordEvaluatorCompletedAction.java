@@ -9,6 +9,7 @@ import com.aoindustries.aoserv.client.PasswordChecker;
 import com.aoindustries.website.HttpsAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,7 +44,7 @@ public class PasswordEvaluatorCompletedAction extends HttpsAction {
 
         // Evaluate the password
         String password = passwordEvaluatorForm.getPassword();
-        PasswordChecker.Result[] results = PasswordChecker.checkPassword(null, password, true, false);
+        List<PasswordChecker.Result> results = PasswordChecker.checkPassword(null, password, PasswordChecker.PasswordStrength.STRICT);
             
         // Set request values
         request.setAttribute("results", results);

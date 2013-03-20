@@ -1,13 +1,15 @@
-package com.aoindustries.website.clientarea.control.password;
-
 /*
- * Copyright 2000-2009 by AO Industries, Inc.,
+ * Copyright 2000-2013 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.control.password;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.PasswordChecker;
+import com.aoindustries.aoserv.client.validator.UserId;
+import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.util.AutoGrowArrayList;
 import com.aoindustries.util.WrappedException;
 import com.aoindustries.website.AuthenticatedAction;
@@ -90,7 +92,7 @@ public class BusinessAdministratorPasswordSetterForm extends ActionForm implemen
                     if(newPassword.length()>0) {
                         String username = usernames.get(c);
                         // Check the password strength
-                        PasswordChecker.Result[] results = BusinessAdministrator.checkPassword(username, newPassword);
+                        List<PasswordChecker.Result> results = BusinessAdministrator.checkPassword(UserId.valueOf(username), newPassword);
                         if(PasswordChecker.hasResults(results)) {
                             errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage(PasswordChecker.getResultsHtml(results), false));
                         }
@@ -99,6 +101,8 @@ public class BusinessAdministratorPasswordSetterForm extends ActionForm implemen
             }
             return errors;
         } catch(IOException err) {
+            throw new WrappedException(err);
+        } catch(ValidationException err) {
             throw new WrappedException(err);
         }
     }
