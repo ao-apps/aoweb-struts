@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009-2013 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -9,8 +9,8 @@ import com.aoindustries.aoserv.client.AOServClientConfiguration;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServProtocol;
 import com.aoindustries.aoserv.client.AOServer;
-import com.aoindustries.aoserv.client.IPAddress;
 import com.aoindustries.aoserv.client.VirtualServer;
+import com.aoindustries.aoserv.client.validator.InetAddress;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonConnection;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonConnector;
 import com.aoindustries.aoserv.daemon.client.AOServDaemonProtocol;
@@ -142,7 +142,7 @@ public class VncConsoleProxySocketHandler {
                             AOServer.DaemonAccess daemonAccess = virtualServer.requestVncConsoleAccess();
                             AOServDaemonConnector daemonConnector=AOServDaemonConnector.getConnector(
                                 daemonAccess.getHost(),
-                                IPAddress.WILDCARD_IP,
+                                InetAddress.UNSPECIFIED,
                                 daemonAccess.getPort(),
                                 daemonAccess.getProtocol(),
                                 null,

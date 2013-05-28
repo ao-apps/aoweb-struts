@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * ManagedAction and DedicatedAction both use this to setup the request attributes.  This is implemented
- * here because inheritence is not possible and neither one is logically above the other.
+ * here because inheritance is not possible and neither one is logically above the other.
  *
  * @author  AO Industries, Inc.
  */

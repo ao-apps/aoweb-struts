@@ -1,15 +1,15 @@
-package com.aoindustries.website.clientarea.accounting;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2013 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.accounting;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.BusinessProfile;
-import com.aoindustries.sql.SQLUtility;
+import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
@@ -56,7 +56,7 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
         }
 
         // Populate the initial details from the selected accounting code or authenticated user
-        Business business = aoConn.getBusinesses().get(accounting);
+        Business business = aoConn.getBusinesses().get(AccountingCode.valueOf(accounting));
         if(business==null) throw new SQLException("Unable to find Business: "+accounting);
         BusinessProfile profile = business.getBusinessProfile();
         if(profile!=null) {

@@ -1,12 +1,13 @@
 <%-- aoweb-struts: Do not edit --%>
 <%--
-  Copyright 2003-2009 by AO Industries, Inc.,
+  Copyright 2003-2013 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@ page import="com.aoindustries.util.EncodingUtils" %>
 <%@ page import="java.math.BigDecimal" %>
+<%@ page import="java.sql.Timestamp" %>
 <%@include file="/_taglibs.jsp" %>
 
 <skin:setContentType />
@@ -98,13 +99,13 @@
                                                                 <fmt:message key="business.cancel.field.balance.zero" />
                                                             <% } %>
                                                         </td>
-                                                        <td><aoweb:date><ao:write name="bu" property="created" /></aoweb:date></td>
+                                                        <td><aoweb:date><ao:write name="bu" property="created.time" /></aoweb:date></td>
                                                         <td>
-                                                            <% long canceled=bu.getCanceled(); %>
-                                                            <% if(canceled==-1) { %>
+                                                            <% Timestamp canceled=bu.getCanceled(); %>
+                                                            <% if(canceled==null) { %>
                                                                 &#160;
                                                             <% } else { %>
-                                                                <aoweb:date><%= canceled %></aoweb:date>
+                                                                <aoweb:date><%= canceled.getTime() %></aoweb:date>
                                                             <% } %>
                                                         </td>
                                                         <td>

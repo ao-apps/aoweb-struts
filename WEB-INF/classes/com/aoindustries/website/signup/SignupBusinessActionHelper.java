@@ -20,7 +20,7 @@ import org.apache.commons.validator.GenericValidator;
 
 /**
  * Managed3Action and Dedicated3Action both use this to setup the request attributes.  This is implemented
- * here because inheritence is not possible and neither one is logically above the other.
+ * here because inheritance is not possible and neither one is logically above the other.
  *
  * @author  AO Industries, Inc.
  */

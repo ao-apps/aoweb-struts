@@ -6,6 +6,7 @@ package com.aoindustries.website.clientarea.accounting;
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.BusinessGroup;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
@@ -68,7 +69,7 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
 
         creditCardProcessor.storeCreditCard(
             new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
-            new BusinessGroup(aoConn.getBusinesses().get(accounting), accounting),
+            new BusinessGroup(aoConn.getBusinesses().get(AccountingCode.valueOf(accounting)), accounting),
             new CreditCard(
                 null,
                 null,

@@ -10,6 +10,7 @@ import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.aoserv.client.PaymentType;
 import com.aoindustries.aoserv.client.TransactionType;
+import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.BusinessGroup;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
@@ -58,7 +59,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         initRequestAttributes(request, getServlet().getServletContext());
 
         String accounting = makePaymentNewCardForm.getAccounting();
-        Business business = accounting==null ? null : aoConn.getBusinesses().get(accounting);
+        Business business = accounting==null ? null : aoConn.getBusinesses().get(AccountingCode.valueOf(accounting));
         if(business==null) {
             // Redirect back to make-payment if business not found
             return mapping.findForward("make-payment");
@@ -117,7 +118,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         if(rootAoProcessor==null) throw new SQLException("Unable to find CreditCardProcessor: "+rootProcessor.getProviderId());
 
         // 2) Add the transaction as pending on this processor
-        Business rootBusiness = rootConn.getBusinesses().get(accounting);
+        Business rootBusiness = rootConn.getBusinesses().get(AccountingCode.valueOf(accounting));
         if(rootBusiness==null) throw new SQLException("Unable to find Business: "+accounting);
         TransactionType paymentTransactionType = rootConn.getTransactionTypes().get(TransactionType.PAYMENT);
         if(paymentTransactionType==null) throw new SQLException("Unable to find TransactionType: "+TransactionType.PAYMENT);

@@ -10,6 +10,9 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Brand;
 import com.aoindustries.aoserv.client.CountryCode;
 import com.aoindustries.aoserv.client.PackageDefinition;
+import com.aoindustries.aoserv.client.validator.HostAddress;
+import com.aoindustries.aoserv.client.validator.InetAddress;
+import com.aoindustries.aoserv.client.validator.ValidationException;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.util.i18n.ThreadLocale;
 import com.aoindustries.website.Mailer;
@@ -29,13 +32,12 @@ import java.util.Map;
 import java.util.Set;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspException;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionServlet;
 
 /**
  * Managed6CompletedAction and Dedicated6CompletedAction both use this to setup the request attributes.  This is implemented
- * here because inheritence is not possible and neither one is logically above the other.
+ * here because inheritance is not possible and neither one is logically above the other.
  *
  * @author  AO Industries, Inc.
  */
@@ -101,7 +103,7 @@ final public class ServerConfirmationCompletedActionHelper {
 
             pkey = rootConn.getSignupRequests().addSignupRequest(
                 rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness().getBrand(),
-                request.getRemoteAddr(),
+                InetAddress.valueOf(request.getRemoteAddr()),
                 packageDefinition,
                 signupBusinessForm.getBusinessName(),
                 signupBusinessForm.getBusinessPhone(),
@@ -143,6 +145,10 @@ final public class ServerConfirmationCompletedActionHelper {
             );
             statusKey = "serverConfirmationCompleted.success";
         } catch(RuntimeException err) {
+            servlet.log("Unable to store signup", err);
+            pkey = -1;
+            statusKey = "serverConfirmationCompleted.error";
+        } catch(ValidationException err) {
             servlet.log("Unable to store signup", err);
             pkey = -1;
             statusKey = "serverConfirmationCompleted.error";
@@ -310,7 +316,7 @@ final public class ServerConfirmationCompletedActionHelper {
             // Send the email
             Brand brand = siteSettings.getBrand();
             Mailer.sendEmail(
-                brand.getSignupEmailAddress().getDomain().getAOServer().getHostname(),
+                HostAddress.valueOf(brand.getSignupEmailAddress().getDomain().getAOServer().getHostname()),
                 "text/html",
                 charset,
                 brand.getSignupEmailAddress().toString(),

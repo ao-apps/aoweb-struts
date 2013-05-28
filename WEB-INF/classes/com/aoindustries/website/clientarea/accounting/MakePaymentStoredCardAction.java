@@ -9,6 +9,7 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.CreditCard;
+import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
@@ -64,7 +65,7 @@ public class MakePaymentStoredCardAction extends PermissionAction {
 
         // Find the requested business
         String accounting = makePaymentStoredCardForm.getAccounting();
-        Business business = accounting==null ? null : aoConn.getBusinesses().get(accounting);
+        Business business = accounting==null ? null : aoConn.getBusinesses().get(AccountingCode.valueOf(accounting));
         if(business==null) {
             // Redirect back to make-payment if business not found
             return mapping.findForward("make-payment");

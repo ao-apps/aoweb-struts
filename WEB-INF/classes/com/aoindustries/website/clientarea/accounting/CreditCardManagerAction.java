@@ -50,7 +50,7 @@ public class CreditCardManagerAction extends PermissionAction {
                 thisBusiness.equals(business)
                 || !ccs.isEmpty()
                 || (
-                    business.getCanceled()==-1
+                    business.getCanceled()==null
                     && !business.billParent()
                 ) || business.getAccountBalance().signum()!=0
             ) {

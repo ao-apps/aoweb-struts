@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Managed5Action and Dedicated5Action both use this to setup the request attributes.  This is implemented
- * here because inheritence is not possible and neither one is logically above the other.
+ * here because inheritance is not possible and neither one is logically above the other.
  *
  * @author  AO Industries, Inc.
  */
