@@ -1,29 +1,24 @@
+package com.aoindustries.website.clientarea.ticket;
+
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.clientarea.ticket;
-
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.Ticket;
 import com.aoindustries.aoserv.client.TicketPriority;
-import com.aoindustries.aoserv.client.command.AddTicketAnnotationCommand;
-import com.aoindustries.aoserv.client.command.CommandName;
-import com.aoindustries.aoserv.client.command.SetTicketBusinessCommand;
-import com.aoindustries.aoserv.client.command.SetTicketClientPriorityCommand;
-import com.aoindustries.aoserv.client.command.SetTicketContactEmailsCommand;
-import com.aoindustries.aoserv.client.command.SetTicketContactPhoneNumbersCommand;
-import com.aoindustries.aoserv.client.command.SetTicketSummaryCommand;
 import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EnumSet;
-import java.util.Set;
+import java.util.List;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -45,6 +40,7 @@ public class EditCompletedAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
@@ -84,34 +80,35 @@ public class EditCompletedAction extends PermissionAction {
 
         // Update anything that changed
         Business newBusiness = aoConn.getBusinesses().get(AccountingCode.valueOf(ticketForm.getAccounting()));
+        if(newBusiness==null) throw new SQLException("Unable to find Business: "+ticketForm.getAccounting());
         Business oldBusiness = ticket.getBusiness();
         if(!newBusiness.equals(oldBusiness)) {
-            new SetTicketBusinessCommand(ticket, oldBusiness, newBusiness).execute(aoConn);
+            ticket.setBusiness(oldBusiness, newBusiness);
             businessUpdated = true;
         }
         if(!ticketForm.getContactEmails().equals(ticket.getContactEmails())) {
-            new SetTicketContactEmailsCommand(ticket, ticketForm.getContactEmails()).execute(aoConn);
+            ticket.setContactEmails(ticketForm.getContactEmails());
             contactEmailsUpdated = true;
         }
         if(!ticketForm.getContactPhoneNumbers().equals(ticket.getContactPhoneNumbers())) {
-            new SetTicketContactPhoneNumbersCommand(ticket, ticketForm.getContactPhoneNumbers()).execute(aoConn);
+            ticket.setContactPhoneNumbers(ticketForm.getContactPhoneNumbers());
             contactPhoneNumbersUpdated = true;
         }
         TicketPriority clientPriority = aoConn.getTicketPriorities().get(ticketForm.getClientPriority());
+        if(clientPriority==null) throw new SQLException("Unable to find TicketPriority: "+ticketForm.getClientPriority());
         if(!clientPriority.equals(ticket.getClientPriority())) {
-            new SetTicketClientPriorityCommand(ticket, clientPriority).execute(aoConn);
+            ticket.setClientPriority(clientPriority);
             clientPriorityUpdated = true;
         }
         if(!ticketForm.getSummary().equals(ticket.getSummary())) {
-            new SetTicketSummaryCommand(ticket, ticketForm.getSummary()).execute(aoConn);
+            ticket.setSummary(ticketForm.getSummary());
             summaryUpdated = true;
         }
         if(ticketForm.getAnnotationSummary().length()>0) {
-            new AddTicketAnnotationCommand(
-                ticket,
+            ticket.addAnnotation(
                 ticketForm.getAnnotationSummary(),
                 ticketForm.getAnnotationDetails()
-            ).execute(aoConn);
+            );
             annotationAdded = true;
         }
 
@@ -134,15 +131,13 @@ public class EditCompletedAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    static final Set<AOServPermission.Permission> permissions;
+    private static final List<AOServPermission.Permission> permissions = new ArrayList<AOServPermission.Permission>(2);
+    private static final List<AOServPermission.Permission> unmodifiablePermissions = Collections.unmodifiableList(permissions);
     static {
-        Set<AOServPermission.Permission> newPermissions = EnumSet.noneOf(AOServPermission.Permission.class);
-        newPermissions.addAll(CommandName.add_ticket_annotation.getPermissions());
-        newPermissions.add(AOServPermission.Permission.edit_ticket);
-        permissions = Collections.unmodifiableSet(newPermissions);
+        permissions.add(AOServPermission.Permission.add_ticket);
+        permissions.add(AOServPermission.Permission.edit_ticket);
     }
-    @Override
-    public Set<AOServPermission.Permission> getPermissions() {
-        return permissions;
+    public List<AOServPermission.Permission> getPermissions() {
+        return unmodifiablePermissions;
     }
 }

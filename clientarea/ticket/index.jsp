@@ -1,6 +1,6 @@
 <%-- aoweb-struts: Do not edit --%>
 <%--
-  Copyright 2000-2011 by AO Industries, Inc.,
+  Copyright 2000-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
@@ -93,7 +93,7 @@
                                             <ao:write name="ticket" property="clientPriority" />
                                         </td>
                                         <td style="white-space:nowrap"><ao:write name="ticket" property="status" type="application/xhtml+xml" /></td>
-                                        <td style="white-space:nowrap"><aoweb:dateTime><ao:write name="ticket" property="openDate" /></aoweb:dateTime></td>
+                                        <td style="white-space:nowrap"><aoweb:dateTime><ao:write name="ticket" property="openDate.time" /></aoweb:dateTime></td>
                                         <td style="white-space:nowrap">
                                             <logic:notEmpty name="ticket" property="createdBy">
                                                 <ao:write name="ticket" property="createdBy.name" />

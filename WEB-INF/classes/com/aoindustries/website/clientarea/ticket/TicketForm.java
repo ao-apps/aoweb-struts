@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.ticket;
 
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -19,7 +19,7 @@ import org.apache.struts.validator.ValidatorForm;
  */
 public class TicketForm extends ValidatorForm implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static long serialVersionUID = 1L;
 
     private static String makeLines(String commasOrLines) {
         StringBuilder result = new StringBuilder();
@@ -33,6 +33,14 @@ public class TicketForm extends ValidatorForm implements Serializable {
             }
         }
         return result.toString();
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public static void setSerialVersionUID(long aSerialVersionUID) {
+        serialVersionUID = aSerialVersionUID;
     }
 
     private String accounting;

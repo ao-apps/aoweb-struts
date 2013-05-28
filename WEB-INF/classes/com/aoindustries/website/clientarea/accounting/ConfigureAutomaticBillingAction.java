@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -13,11 +13,10 @@ import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.List;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
@@ -39,6 +38,7 @@ public class ConfigureAutomaticBillingAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
@@ -53,17 +53,20 @@ public class ConfigureAutomaticBillingAction extends PermissionAction {
         }
 
         // Get the list of cards for the business, must have at least one card.
+        List<CreditCard> creditCards = business.getCreditCards();
         // Build list of active cards
-        SortedSet<CreditCard> activeCards = new TreeSet<CreditCard>();
+        List<CreditCard> activeCards = new ArrayList<CreditCard>(creditCards.size());
         CreditCard automaticCard = null;
-        for(CreditCard creditCard : new TreeSet<CreditCard>(business.getCreditCards())) {
-            if(creditCard.isActive()) {
+        for(CreditCard creditCard : creditCards) {
+            if(creditCard.getIsActive()) {
                 activeCards.add(creditCard);
                 // The first automatic card is used
                 if(automaticCard==null && creditCard.getUseMonthly()) automaticCard = creditCard;
             }
         }
-        if(activeCards.isEmpty()) return mapping.findForward("credit-card-manager");
+        if(activeCards.isEmpty()) {
+            return mapping.findForward("credit-card-manager");
+        }
 
         // Store request attributes
         request.setAttribute("business", business);
@@ -73,16 +76,15 @@ public class ConfigureAutomaticBillingAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    private static Set<AOServPermission.Permission> permissions;
+    private static List<AOServPermission.Permission> permissions;
     static {
-        Set<AOServPermission.Permission> newSet = new HashSet<AOServPermission.Permission>(2*4/3+1);
-        newSet.add(AOServPermission.Permission.get_credit_cards);
-        newSet.add(AOServPermission.Permission.edit_credit_card);
-        permissions = Collections.unmodifiableSet(newSet);
+        List<AOServPermission.Permission> newList = new ArrayList<AOServPermission.Permission>(2);
+        newList.add(AOServPermission.Permission.get_credit_cards);
+        newList.add(AOServPermission.Permission.edit_credit_card);
+        permissions = Collections.unmodifiableList(newList);
     }
 
-    @Override
-    public Set<AOServPermission.Permission> getPermissions() {
+    public List<AOServPermission.Permission> getPermissions() {
         return permissions;
     }
 }

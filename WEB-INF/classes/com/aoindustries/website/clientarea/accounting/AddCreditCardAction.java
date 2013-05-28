@@ -1,28 +1,27 @@
+package com.aoindustries.website.clientarea.accounting;
+
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.clientarea.accounting;
-
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
 import com.aoindustries.aoserv.client.BusinessProfile;
-import com.aoindustries.aoserv.client.command.CommandName;
 import com.aoindustries.aoserv.client.validator.AccountingCode;
-import com.aoindustries.util.i18n.ThreadLocale;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.signup.SignupBusinessActionHelper;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,10 +40,10 @@ public class AddCreditCardAction extends PermissionAction {
     /**
      * Parses the first name in a locale-specific manner.
      */
-    public static String getFirstName(String name) {
+    public static String getFirstName(String name, Locale userLocale) {
         if(name==null) return null;
         name=name.trim();
-        if(ThreadLocale.get().getLanguage().equals(Locale.JAPANESE.getLanguage())) {
+        if(userLocale.getLanguage().equals(Locale.JAPANESE.getLanguage())) {
             // Last then first
             int pos = name.lastIndexOf(' ');
             if(pos==-1) return "";
@@ -60,10 +59,10 @@ public class AddCreditCardAction extends PermissionAction {
     /**
      * Parses the last name in a locale-specific manner.
      */
-    public static String getLastName(String name) {
+    public static String getLastName(String name, Locale userLocale) {
         if(name==null) return null;
         name=name.trim();
-        if(ThreadLocale.get().getLanguage().equals(Locale.JAPANESE.getLanguage())) {
+        if(userLocale.getLanguage().equals(Locale.JAPANESE.getLanguage())) {
             // Last then first
             int pos = name.lastIndexOf(' ');
             if(pos==-1) return name;
@@ -83,6 +82,7 @@ public class AddCreditCardAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
@@ -96,32 +96,33 @@ public class AddCreditCardAction extends PermissionAction {
 
         // Populate the initial details from the selected accounting code or authenticated user
         Business business = aoConn.getBusinesses().get(AccountingCode.valueOf(accounting));
+        if(business==null) throw new SQLException("Unable to find Business: "+accounting);
         BusinessProfile profile = business.getBusinessProfile();
         if(profile!=null) {
-            addCreditCardForm.setFirstName(getFirstName(profile.getBillingContact()));
-            addCreditCardForm.setLastName(getLastName(profile.getBillingContact()));
+            addCreditCardForm.setFirstName(getFirstName(profile.getBillingContact(), locale));
+            addCreditCardForm.setLastName(getLastName(profile.getBillingContact(), locale));
             addCreditCardForm.setCompanyName(profile.getName());
-            addCreditCardForm.setEmail(profile.getBillingEmail().isEmpty() ? "" : profile.getBillingEmail().get(0).toString());
+            addCreditCardForm.setEmail(profile.getBillingEmail().isEmpty() ? "" : profile.getBillingEmail().get(0));
             addCreditCardForm.setPhone(profile.getPhone());
             addCreditCardForm.setFax(profile.getFax());
             addCreditCardForm.setStreetAddress1(profile.getAddress1());
             addCreditCardForm.setStreetAddress2(profile.getAddress2());
             addCreditCardForm.setCity(profile.getCity());
             addCreditCardForm.setState(profile.getState());
-            addCreditCardForm.setPostalCode(profile.getZip());
+            addCreditCardForm.setPostalCode(profile.getZIP());
             addCreditCardForm.setCountryCode(profile.getCountry().getCode());
         } else {
             BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
-            addCreditCardForm.setFirstName(getFirstName(thisBA.getFullName()));
-            addCreditCardForm.setLastName(getLastName(thisBA.getFullName()));
-            addCreditCardForm.setEmail(thisBA.getEmail().toString());
+            addCreditCardForm.setFirstName(getFirstName(thisBA.getName(), locale));
+            addCreditCardForm.setLastName(getLastName(thisBA.getName(), locale));
+            addCreditCardForm.setEmail(thisBA.getEmail());
             addCreditCardForm.setPhone(thisBA.getWorkPhone());
             addCreditCardForm.setFax(thisBA.getFax());
             addCreditCardForm.setStreetAddress1(thisBA.getAddress1());
             addCreditCardForm.setStreetAddress2(thisBA.getAddress2());
             addCreditCardForm.setCity(thisBA.getCity());
             addCreditCardForm.setState(thisBA.getState());
-            addCreditCardForm.setPostalCode(thisBA.getZip());
+            addCreditCardForm.setPostalCode(thisBA.getZIP());
             addCreditCardForm.setCountryCode(thisBA.getCountry()==null ? "" : thisBA.getCountry().getCode());
         }
 
@@ -130,7 +131,7 @@ public class AddCreditCardAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    protected void initRequestAttributes(HttpServletRequest request, ServletContext context) throws IOException {
+    protected void initRequestAttributes(HttpServletRequest request, ServletContext context) throws SQLException, IOException {
         // Build the list of years
         List<String> expirationYears = new ArrayList<String>(12);
         int startYear = Calendar.getInstance().get(Calendar.YEAR);
@@ -145,8 +146,7 @@ public class AddCreditCardAction extends PermissionAction {
         request.setAttribute("countryOptions", countryOptions);
     }
 
-    @Override
-    public Set<AOServPermission.Permission> getPermissions() {
-        return CommandName.add_credit_card.getPermissions();
+    public List<AOServPermission.Permission> getPermissions() {
+        return Collections.singletonList(AOServPermission.Permission.add_credit_card);
     }
 }

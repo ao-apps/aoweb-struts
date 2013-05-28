@@ -1,24 +1,22 @@
+package com.aoindustries.website.clientarea.control.password;
+
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.clientarea.control.password;
-
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.LinuxAccount;
+import com.aoindustries.aoserv.client.LinuxServerAccount;
 import com.aoindustries.aoserv.client.Username;
-import com.aoindustries.aoserv.client.command.CommandName;
-import com.aoindustries.aoserv.client.command.SetLinuxAccountPasswordCommand;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -39,31 +37,33 @@ public class LinuxAccountPasswordSetterAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
         LinuxAccountPasswordSetterForm linuxAccountPasswordSetterForm = (LinuxAccountPasswordSetterForm)form;
 
-        SortedSet<LinuxAccount> las = new TreeSet<LinuxAccount>(aoConn.getLinuxAccounts().getSet());
+        List<LinuxServerAccount> lsas = aoConn.getLinuxServerAccounts().getRows();
 
-        List<String> businesses = new ArrayList<String>(las.size());
-        List<String> usernames = new ArrayList<String>(las.size());
-        List<String> aoServers = new ArrayList<String>(las.size());
-        List<String> newPasswords = new ArrayList<String>(las.size());
-        List<String> confirmPasswords = new ArrayList<String>(las.size());
-        for(LinuxAccount la : las) {
-            if(new SetLinuxAccountPasswordCommand(la, "X1234Yzw").checkExecute(aoConn).isEmpty()) {
+        List<String> packages = new ArrayList<String>(lsas.size());
+        List<String> usernames = new ArrayList<String>(lsas.size());
+        List<String> aoServers = new ArrayList<String>(lsas.size());
+        List<String> newPasswords = new ArrayList<String>(lsas.size());
+        List<String> confirmPasswords = new ArrayList<String>(lsas.size());
+        for(LinuxServerAccount lsa : lsas) {
+            if(lsa.canSetPassword()) {
+                LinuxAccount la = lsa.getLinuxAccount();
                 Username un = la.getUsername();
-                businesses.add(un.getBusiness().getAccounting().toString());
-                usernames.add(un.getUsername().toString());
-                aoServers.add(la.getAoServer().getHostname().toString());
+                packages.add(un.getPackage().getName());
+                usernames.add(un.getUsername());
+                aoServers.add(lsa.getAOServer().getHostname().toString());
                 newPasswords.add("");
                 confirmPasswords.add("");
             }
         }
 
         // Store to the form
-        linuxAccountPasswordSetterForm.setBusinesses(businesses);
+        linuxAccountPasswordSetterForm.setPackages(packages);
         linuxAccountPasswordSetterForm.setUsernames(usernames);
         linuxAccountPasswordSetterForm.setAoServers(aoServers);
         linuxAccountPasswordSetterForm.setNewPasswords(newPasswords);
@@ -72,8 +72,7 @@ public class LinuxAccountPasswordSetterAction extends PermissionAction {
         return mapping.findForward("success");
     }
     
-    @Override
-    public Set<AOServPermission.Permission> getPermissions() {
-        return CommandName.set_linux_account_password.getPermissions();
+    public List<AOServPermission.Permission> getPermissions() {
+        return Collections.singletonList(AOServPermission.Permission.set_linux_server_account_password);
     }
 }

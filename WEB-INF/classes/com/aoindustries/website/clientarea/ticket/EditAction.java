@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.ticket;
 
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -12,7 +12,10 @@ import com.aoindustries.aoserv.client.Ticket;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -33,6 +36,7 @@ public class EditAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
@@ -75,7 +79,13 @@ public class EditAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    public Set<AOServPermission.Permission> getPermissions() {
-        return EditCompletedAction.permissions;
+    private static final List<AOServPermission.Permission> permissions = new ArrayList<AOServPermission.Permission>(2);
+    private static final List<AOServPermission.Permission> unmodifiablePermissions = Collections.unmodifiableList(permissions);
+    static {
+        permissions.add(AOServPermission.Permission.add_ticket);
+        permissions.add(AOServPermission.Permission.edit_ticket);
+    }
+    public List<AOServPermission.Permission> getPermissions() {
+        return unmodifiablePermissions;
     }
 }

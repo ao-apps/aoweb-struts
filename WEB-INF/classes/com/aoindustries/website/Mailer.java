@@ -1,10 +1,11 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.aoserv.client.validator.HostAddress;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +37,7 @@ final public class Mailer {
      * Sends an email.
      */
     public static void sendEmail(
-        String smtpServer,
+        HostAddress smtpServer,
         String contentType,
         String charset,
         String fromAddress,

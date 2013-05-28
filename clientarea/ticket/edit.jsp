@@ -1,6 +1,6 @@
 <%-- aoweb-struts: Do not edit --%>
 <%--
-  Copyright 2000-2011 by AO Industries, Inc.,
+  Copyright 2000-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
@@ -56,12 +56,13 @@
                                         <tr>
                                             <td style="white-space:nowrap"><fmt:message key="edit.label.status" /></td>
                                             <td>
+                                                <%--<bean:define scope="request" name="locale" type="java.util.Locale" id="locale" />--%>
                                                 <ao:write name="ticket" property="status" method="getDescription" type="application/xhtml+xml" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="white-space:nowrap"><fmt:message key="edit.label.openDate" /></td>
-                                            <td><aoweb:dateTime><ao:write scope="request" name="ticket" property="openDate" /></aoweb:dateTime></td>
+                                            <td><aoweb:dateTime><ao:write scope="request" name="ticket" property="openDate.time" /></aoweb:dateTime></td>
                                         </tr>
                                         <logic:notEmpty scope="request" name="ticket" property="createdBy">
                                             <tr>
@@ -203,7 +204,7 @@
                                             </tr>
                                             <logic:iterate name="actions" type="com.aoindustries.aoserv.client.TicketAction" id="action">
                                                 <skin:lightDarkTableRow pageAttributeId="isDark">
-                                                    <td style="white-space:nowrap"><aoweb:dateTime><ao:write name="action" property="time" /></aoweb:dateTime></td>
+                                                    <td style="white-space:nowrap"><aoweb:dateTime><ao:write name="action" property="time.time" /></aoweb:dateTime></td>
                                                     <td style="white-space:nowrap">
                                                         <logic:notEmpty name="action" property="administrator">
                                                             <ao:write name="action" property="administrator.name" />

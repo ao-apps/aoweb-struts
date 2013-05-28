@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -14,10 +14,10 @@ import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.List;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -41,9 +41,10 @@ public class MakePaymentSelectCardAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn,
-        SortedSet<AOServPermission> permissions
+        List<AOServPermission> permissions
     ) throws Exception {
         // Redirect when they don't have permissions to retrieve stored cards
         response.sendRedirect(response.encodeRedirectURL(skin.getHttpsUrlBase(request)+"clientarea/accounting/make-payment-new-card.do?accounting="+request.getParameter("accounting")));
@@ -51,12 +52,13 @@ public class MakePaymentSelectCardAction extends PermissionAction {
     }
 
     @Override
-    public ActionForward executePermissionGranted(
+    final public ActionForward executePermissionGranted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
@@ -69,8 +71,9 @@ public class MakePaymentSelectCardAction extends PermissionAction {
         }
 
         // Get the list of active credit cards stored for this business
-        SortedSet<CreditCard> creditCards = new TreeSet<CreditCard>();
-        for(CreditCard creditCard : business.getCreditCards()) {
+        List<CreditCard> allCreditCards = business.getCreditCards();
+        List<CreditCard> creditCards = new ArrayList<CreditCard>(allCreditCards.size());
+        for(CreditCard creditCard : allCreditCards) {
             if(creditCard.getDeactivatedOn()==null) creditCards.add(creditCard);
         }
         
@@ -82,14 +85,13 @@ public class MakePaymentSelectCardAction extends PermissionAction {
             // Store to request attributes, return success
             request.setAttribute("business", business);
             request.setAttribute("creditCards", creditCards);
-            Set<CreditCardTransaction> ccts = business.getCreditCardTransactions();
-            request.setAttribute("lastPaymentCreditCard", ccts.isEmpty() ? null : Collections.max(ccts).getCreditCardProviderUniqueId());
+            CreditCardTransaction lastCCT = business.getLastCreditCardTransaction();
+            request.setAttribute("lastPaymentCreditCard", lastCCT==null ? null : lastCCT.getCreditCardProviderUniqueId());
             return mapping.findForward("success");
         }
     }
 
-    @Override
-    public Set<AOServPermission.Permission> getPermissions() {
-        return Collections.singleton(AOServPermission.Permission.get_credit_cards);
+    public List<AOServPermission.Permission> getPermissions() {
+        return Collections.singletonList(AOServPermission.Permission.get_credit_cards);
     }
 }

@@ -1,25 +1,23 @@
+package com.aoindustries.website.clientarea.control.password;
+
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.clientarea.control.password;
-
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.PostgresServer;
+import com.aoindustries.aoserv.client.PostgresServerUser;
 import com.aoindustries.aoserv.client.PostgresUser;
 import com.aoindustries.aoserv.client.Username;
-import com.aoindustries.aoserv.client.command.CommandName;
-import com.aoindustries.aoserv.client.command.SetPostgresUserPasswordCommand;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -40,34 +38,36 @@ public class PostgreSQLPasswordSetterAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
         PostgreSQLPasswordSetterForm postgreSQLPasswordSetterForm = (PostgreSQLPasswordSetterForm)form;
 
-        SortedSet<PostgresUser> pus = new TreeSet<PostgresUser>(aoConn.getPostgresUsers().getSet());
+        List<PostgresServerUser> psus = aoConn.getPostgresServerUsers().getRows();
 
-        List<String> businesses = new ArrayList<String>(pus.size());
-        List<String> usernames = new ArrayList<String>(pus.size());
-        List<String> postgreSQLServers = new ArrayList<String>(pus.size());
-        List<String> aoServers = new ArrayList<String>(pus.size());
-        List<String> newPasswords = new ArrayList<String>(pus.size());
-        List<String> confirmPasswords = new ArrayList<String>(pus.size());
-        for(PostgresUser pu : pus) {
-            if(new SetPostgresUserPasswordCommand(pu, "X1234Yzw").checkExecute(aoConn).isEmpty()) {
+        List<String> packages = new ArrayList<String>(psus.size());
+        List<String> usernames = new ArrayList<String>(psus.size());
+        List<String> postgreSQLServers = new ArrayList<String>(psus.size());
+        List<String> aoServers = new ArrayList<String>(psus.size());
+        List<String> newPasswords = new ArrayList<String>(psus.size());
+        List<String> confirmPasswords = new ArrayList<String>(psus.size());
+        for(PostgresServerUser psu : psus) {
+            if(psu.canSetPassword()) {
+                PostgresUser pu = psu.getPostgresUser();
                 Username un = pu.getUsername();
-                PostgresServer ps = pu.getPostgresServer();
-                businesses.add(un.getBusiness().getAccounting().toString());
-                usernames.add(un.getUsername().toString());
-                postgreSQLServers.add(ps.getName().toString());
-                aoServers.add(ps.getAoServer().getHostname().toString());
+                PostgresServer ps = psu.getPostgresServer();
+                packages.add(un.getPackage().getName());
+                usernames.add(un.getUsername());
+                postgreSQLServers.add(ps.getName());
+                aoServers.add(ps.getAOServer().getHostname().toString());
                 newPasswords.add("");
                 confirmPasswords.add("");
             }
         }
 
         // Store to the form
-        postgreSQLPasswordSetterForm.setBusinesses(businesses);
+        postgreSQLPasswordSetterForm.setPackages(packages);
         postgreSQLPasswordSetterForm.setUsernames(usernames);
         postgreSQLPasswordSetterForm.setPostgreSQLServers(postgreSQLServers);
         postgreSQLPasswordSetterForm.setAoServers(aoServers);
@@ -77,8 +77,7 @@ public class PostgreSQLPasswordSetterAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    @Override
-    public Set<AOServPermission.Permission> getPermissions() {
-        return CommandName.set_postgres_user_password.getPermissions();
+    public List<AOServPermission.Permission> getPermissions() {
+        return Collections.singletonList(AOServPermission.Permission.set_postgres_server_user_password);
     }
 }

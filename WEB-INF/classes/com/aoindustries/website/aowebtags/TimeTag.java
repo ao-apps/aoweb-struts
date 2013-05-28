@@ -1,14 +1,15 @@
-package com.aoindustries.website.aowebtags;
-
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009-2013 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.aowebtags;
+
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.util.Sequence;
 import com.aoindustries.util.UnsynchronizedSequence;
 import java.io.IOException;
+import java.sql.Timestamp;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -36,9 +37,9 @@ public class TimeTag extends BodyTagSupport {
     public int doEndTag() throws JspException {
         try {
             String millisString = getBodyContent().getString().trim();
-            long millis;
-            if(millisString.length()==0) millis = -1;
-            else millis = Long.parseLong(millisString);
+            Timestamp time;
+            if(millisString.length()==0) time = null;
+            else time = new Timestamp(Long.parseLong(millisString));
             // Resolve the sequence
             ServletRequest request = pageContext.getRequest();
             Sequence sequence = (Sequence)request.getAttribute(SEQUENCE_REQUEST_ATTRIBUTE_NAME);
@@ -46,10 +47,10 @@ public class TimeTag extends BodyTagSupport {
             // Resolve the scriptOut
             ScriptGroupTag scriptGroupTag = (ScriptGroupTag)findAncestorWithClass(this, ScriptGroupTag.class);
             if(scriptGroupTag!=null) {
-                ChainWriter.writeTimeJavaScript(millis, sequence, pageContext.getOut(), scriptGroupTag.getScriptOut());
+                ChainWriter.writeTimeJavaScript(time, sequence, pageContext.getOut(), scriptGroupTag.getScriptOut());
             } else {
                 StringBuilder scriptOut = new StringBuilder();
-                ChainWriter.writeTimeJavaScript(millis, sequence, pageContext.getOut(), scriptOut);
+                ChainWriter.writeTimeJavaScript(time, sequence, pageContext.getOut(), scriptOut);
                 if(scriptOut.length()>0) {
                     JspWriter out = pageContext.getOut();
                     out.print("<script type='text/javascript'>\n"

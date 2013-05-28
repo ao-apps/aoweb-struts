@@ -1,38 +1,33 @@
-package com.aoindustries.website.clientarea.control.monitor;
-
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2013 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.control.monitor;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.FailoverFileReplication;
 import com.aoindustries.aoserv.client.FailoverMySQLReplication;
 import com.aoindustries.aoserv.client.MySQLServer;
-import com.aoindustries.aoserv.client.command.CommandName;
-import com.aoindustries.aoserv.client.command.GetMySQLMasterStatusCommand;
-import com.aoindustries.aoserv.client.command.GetMySQLSlaveStatusCommand;
 import com.aoindustries.aoserv.client.validator.DomainName;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import com.aoindustries.website.clientarea.control.ApplicationResources;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspException;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.MessageResources;
 
 /**
  * Retrieves the mysql slave statuses.
@@ -48,54 +43,59 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
+        MessageResources controlApplicationResources = (MessageResources)request.getAttribute("/clientarea/control/ApplicationResources");
+        if(controlApplicationResources==null) throw new JspException("Unable to load resources: /clientarea/control/ApplicationResources");
+
         AOServConnector rootConn = siteSettings.getRootAOServConnector();
 
         List<MySQLServerRow> mysqlServerRows = new ArrayList<MySQLServerRow>();
-        for(MySQLServer mysqlServer : new TreeSet<MySQLServer>(aoConn.getMysqlServers().getSet())) {
-            AOServer aoServer = mysqlServer.getAoServer();
+        List<MySQLServer> mysqlServers = aoConn.getMysqlServers().getRows();
+        for(MySQLServer mysqlServer : mysqlServers) {
+            AOServer aoServer = mysqlServer.getAOServer();
             AOServer failoverServer;
             try {
                 failoverServer = aoServer.getFailoverServer();
-            } catch(NoSuchElementException err) {
+            } catch(SQLException err) {
                 // May be filtered, need to use RootAOServConnector
-                failoverServer = rootConn.getAoServers().get(aoServer.getKey()).getFailoverServer();
+                failoverServer = rootConn.getAoServers().get(aoServer.getPkey()).getFailoverServer();
             }
 
             StringBuilder server = new StringBuilder();
             server.append(aoServer.getHostname());
             if(failoverServer!=null) server.append(" on ").append(failoverServer.getHostname());
 
-            SortedSet<FailoverMySQLReplication> fmrs = new TreeSet<FailoverMySQLReplication>(mysqlServer.getFailoverMySQLReplications());
+            List<FailoverMySQLReplication> fmrs = mysqlServer.getFailoverMySQLReplications();
             if(!fmrs.isEmpty()) {
                 // Query the slaves first, this way the master will always appear equal to or ahead of the slaves
                 // since we can't query them both exactly at the same time.
                 List<ReplicationRow> replications = new ArrayList<ReplicationRow>();
                 for(FailoverMySQLReplication fmr : fmrs) {
                     DomainName slave;
-                    AOServer replicationAoServer = fmr.getAoServer();
+                    AOServer replicationAoServer = fmr.getAOServer();
                     if(replicationAoServer!=null) {
                         // ao_server-based
                         slave = replicationAoServer.getHostname();
                     } else {
-                        FailoverFileReplication ffr = fmr.getReplication();
+                        FailoverFileReplication ffr = fmr.getFailoverFileReplication();
                         try {
-                            slave = ffr.getBackupPartition().getAoServer().getHostname();
-                        } catch(NoSuchElementException err) {
+                            slave = ffr.getBackupPartition().getAOServer().getHostname();
+                        } catch(SQLException err) {
                             // May be filtered, need to use RootAOServConnector
-                            slave = rootConn.getFailoverFileReplications().get(ffr.getKey()).getBackupPartition().getAoServer().getHostname();
+                            slave = rootConn.getFailoverFileReplications().get(ffr.getPkey()).getBackupPartition().getAOServer().getHostname();
                         }
                     }
                     try {
-                        GetMySQLSlaveStatusCommand.SlaveStatus slaveStatus = new GetMySQLSlaveStatusCommand(fmr).execute(aoConn);
+                        FailoverMySQLReplication.SlaveStatus slaveStatus = fmr.getSlaveStatus();
                         if(slaveStatus==null) {
                             replications.add(
                                 new ReplicationRow(
                                     true,
                                     slave,
-                                    ApplicationResources.accessor.getMessage("monitor.mysqlReplicationMonitor.slaveNotRunning")
+                                    controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.slaveNotRunning")
                                 )
                             );
                         } else {
@@ -126,26 +126,34 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                                 )
                             );
                         }
+                    } catch(SQLException err) {
+                        replications.add(
+                            new ReplicationRow(
+                                true,
+                                slave,
+                                controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.sqlException", err.getMessage())
+                            )
+                        );
                     } catch(IOException err) {
                         replications.add(
                             new ReplicationRow(
                                 true,
                                 slave,
-                                ApplicationResources.accessor.getMessage("monitor.mysqlReplicationMonitor.ioException", err.getMessage())
+                                controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.ioException", err.getMessage())
                             )
                         );
                     }
                 }
                 // Next, query the master and add the results to the rows
-                GetMySQLMasterStatusCommand.MasterStatus masterStatus;
+                MySQLServer.MasterStatus masterStatus;
                 MySQLServerRow mysqlServerRow;
                 try {
-                    masterStatus = new GetMySQLMasterStatusCommand(mysqlServer).execute(aoConn);
+                    masterStatus = mysqlServer.getMasterStatus();
                     if(masterStatus==null) {
                         mysqlServerRow = new MySQLServerRow(
                             mysqlServer.getVersion().getVersion(),
                             server.toString(),
-                            ApplicationResources.accessor.getMessage("monitor.mysqlReplicationMonitor.masterNotRunning"),
+                            controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.masterNotRunning"),
                             replications
                         );
                     } else {
@@ -157,12 +165,20 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                             replications
                         );
                     }
+                } catch(SQLException err) {
+                    masterStatus = null;
+                    mysqlServerRow = new MySQLServerRow(
+                        mysqlServer.getVersion().getVersion(),
+                        server.toString(),
+                        controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.sqlException", err.getMessage()),
+                        replications
+                    );
                 } catch(IOException err) {
                     masterStatus = null;
                     mysqlServerRow = new MySQLServerRow(
                         mysqlServer.getVersion().getVersion(),
                         server.toString(),
-                        ApplicationResources.accessor.getMessage("monitor.mysqlReplicationMonitor.ioException", err.getMessage()),
+                        controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.ioException", err.getMessage()),
                         replications
                     );
                 }
@@ -213,16 +229,14 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    private static final Set<AOServPermission.Permission> unmodifiablePermissions;
+    private static final List<AOServPermission.Permission> permissions = new ArrayList<AOServPermission.Permission>(2);
     static {
-        Set<AOServPermission.Permission> permissions = EnumSet.noneOf(AOServPermission.Permission.class);
-        permissions.addAll(CommandName.get_mysql_master_status.getPermissions());
-        permissions.addAll(CommandName.get_mysql_slave_status.getPermissions());
-        unmodifiablePermissions = Collections.unmodifiableSet(permissions);
+        permissions.add(AOServPermission.Permission.get_mysql_master_status);
+        permissions.add(AOServPermission.Permission.get_mysql_slave_status);
     }
+    private static final List<AOServPermission.Permission> unmodifiablePermissions = Collections.unmodifiableList(permissions);
 
-    @Override
-    public Set<AOServPermission.Permission> getPermissions() {
+    public List<AOServPermission.Permission> getPermissions() {
         return unmodifiablePermissions;
     }
 

@@ -1,7 +1,7 @@
 package com.aoindustries.website.clientarea.accounting;
 
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -13,12 +13,12 @@ import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.signup.SignupBusinessActionHelper;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +41,7 @@ public class EditCreditCardAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
@@ -67,12 +68,12 @@ public class EditCreditCardAction extends PermissionAction {
         }
 
         // Populate the initial details from selected card
-        editCreditCardForm.setIsActive(creditCard.isActive() ? "true" : "false");
+        editCreditCardForm.setIsActive(creditCard.getIsActive() ? "true" : "false");
         editCreditCardForm.setAccounting(creditCard.getBusiness().getAccounting().toString());
         editCreditCardForm.setFirstName(creditCard.getFirstName());
         editCreditCardForm.setLastName(creditCard.getLastName());
         editCreditCardForm.setCompanyName(creditCard.getCompanyName());
-        editCreditCardForm.setEmail(creditCard.getEmail().toString());
+        editCreditCardForm.setEmail(creditCard.getEmail());
         editCreditCardForm.setPhone(creditCard.getPhone());
         editCreditCardForm.setFax(creditCard.getFax());
         editCreditCardForm.setCustomerTaxId(creditCard.getCustomerTaxId());
@@ -91,7 +92,7 @@ public class EditCreditCardAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    protected void initRequestAttributes(HttpServletRequest request, ServletContext context) throws IOException {
+    protected void initRequestAttributes(HttpServletRequest request, ServletContext context) throws SQLException, IOException {
         // Build the list of years
         List<String> expirationYears = new ArrayList<String>(12);
         int startYear = Calendar.getInstance().get(Calendar.YEAR);
@@ -105,16 +106,15 @@ public class EditCreditCardAction extends PermissionAction {
         request.setAttribute("countryOptions", countryOptions);
     }
 
-    private static Set<AOServPermission.Permission> permissions;
+    private static List<AOServPermission.Permission> permissions;
     static {
-        Set<AOServPermission.Permission> newSet = new HashSet<AOServPermission.Permission>(2);
-        newSet.add(AOServPermission.Permission.get_credit_cards);
-        newSet.add(AOServPermission.Permission.edit_credit_card);
-        permissions = Collections.unmodifiableSet(newSet);
+        List<AOServPermission.Permission> newList = new ArrayList<AOServPermission.Permission>(2);
+        newList.add(AOServPermission.Permission.get_credit_cards);
+        newList.add(AOServPermission.Permission.edit_credit_card);
+        permissions = Collections.unmodifiableList(newList);
     }
 
-    @Override
-    public Set<AOServPermission.Permission> getPermissions() {
+    public List<AOServPermission.Permission> getPermissions() {
         return permissions;
     }
 }

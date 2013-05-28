@@ -1,25 +1,23 @@
+package com.aoindustries.website.clientarea.control.password;
+
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.clientarea.control.password;
-
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.MySQLServer;
+import com.aoindustries.aoserv.client.MySQLServerUser;
 import com.aoindustries.aoserv.client.MySQLUser;
 import com.aoindustries.aoserv.client.Username;
-import com.aoindustries.aoserv.client.command.CommandName;
-import com.aoindustries.aoserv.client.command.SetMySQLUserPasswordCommand;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -40,34 +38,36 @@ public class MySQLPasswordSetterAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
         MySQLPasswordSetterForm mySQLPasswordSetterForm = (MySQLPasswordSetterForm)form;
 
-        SortedSet<MySQLUser> mus = new TreeSet<MySQLUser>(aoConn.getMysqlUsers().getSet());
+        List<MySQLServerUser> msus = aoConn.getMysqlServerUsers().getRows();
 
-        List<String> businesses = new ArrayList<String>(mus.size());
-        List<String> usernames = new ArrayList<String>(mus.size());
-        List<String> mySQLServers = new ArrayList<String>(mus.size());
-        List<String> aoServers = new ArrayList<String>(mus.size());
-        List<String> newPasswords = new ArrayList<String>(mus.size());
-        List<String> confirmPasswords = new ArrayList<String>(mus.size());
-        for(MySQLUser mu : mus) {
-            if(new SetMySQLUserPasswordCommand(mu, "X1234Yzw").checkExecute(aoConn).isEmpty()) {
+        List<String> packages = new ArrayList<String>(msus.size());
+        List<String> usernames = new ArrayList<String>(msus.size());
+        List<String> mySQLServers = new ArrayList<String>(msus.size());
+        List<String> aoServers = new ArrayList<String>(msus.size());
+        List<String> newPasswords = new ArrayList<String>(msus.size());
+        List<String> confirmPasswords = new ArrayList<String>(msus.size());
+        for(MySQLServerUser msu : msus) {
+            if(msu.canSetPassword()) {
+                MySQLUser mu = msu.getMySQLUser();
                 Username un = mu.getUsername();
-                MySQLServer ms = mu.getMysqlServer();
-                businesses.add(un.getBusiness().getAccounting().toString());
-                usernames.add(un.getUsername().toString());
-                mySQLServers.add(ms.getName().toString());
-                aoServers.add(ms.getAoServer().getHostname().toString());
+                MySQLServer ms = msu.getMySQLServer();
+                packages.add(un.getPackage().getName());
+                usernames.add(un.getUsername());
+                mySQLServers.add(ms.getName());
+                aoServers.add(ms.getAOServer().getHostname().toString());
                 newPasswords.add("");
                 confirmPasswords.add("");
             }
         }
 
         // Store to the form
-        mySQLPasswordSetterForm.setBusinesses(businesses);
+        mySQLPasswordSetterForm.setPackages(packages);
         mySQLPasswordSetterForm.setUsernames(usernames);
         mySQLPasswordSetterForm.setMySQLServers(mySQLServers);
         mySQLPasswordSetterForm.setAoServers(aoServers);
@@ -77,8 +77,7 @@ public class MySQLPasswordSetterAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    @Override
-    public Set<AOServPermission.Permission> getPermissions() {
-        return CommandName.set_mysql_user_password.getPermissions();
+    public List<AOServPermission.Permission> getPermissions() {
+        return Collections.singletonList(AOServPermission.Permission.set_mysql_server_user_password);
     }
 }
