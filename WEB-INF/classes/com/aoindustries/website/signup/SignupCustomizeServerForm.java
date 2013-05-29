@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -14,6 +14,7 @@ import com.aoindustries.website.SessionActionForm;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts.action.ActionErrors;
@@ -135,7 +136,7 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
                 // Only required when there is at least one power option available
                 boolean found = false;
                 for(PackageDefinitionLimit limit : limits) {
-                    if(limit.getResourceType().getName().startsWith("hardware_power_")) {
+                    if(limit.getResource().getName().startsWith("hardware_power_")) {
                         found=true;
                         break;
                     }
@@ -148,7 +149,7 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
                 // Only required when there is at least one power option available
                 boolean found = false;
                 for(PackageDefinitionLimit limit : limits) {
-                    if(limit.getResourceType().getName().startsWith("hardware_disk_controller_sata_")) {
+                    if(limit.getResource().getName().startsWith("hardware_disk_controller_sata_")) {
                         found=true;
                         break;
                     }
@@ -159,7 +160,7 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
                 // Only required when there is at least one power option available
                 boolean found = false;
                 for(PackageDefinitionLimit limit : limits) {
-                    if(limit.getResourceType().getName().startsWith("hardware_disk_controller_scsi_")) {
+                    if(limit.getResource().getName().startsWith("hardware_disk_controller_scsi_")) {
                         found=true;
                         break;
                     }
@@ -171,6 +172,8 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
             if(!foundDisk) errors.add("diskOptions", new ActionMessage("signupCustomizeServerForm.atLeastOneDisk"));
             return errors;
         } catch(IOException err) {
+            throw new WrappedException(err);
+        } catch(SQLException err) {
             throw new WrappedException(err);
         }
     }

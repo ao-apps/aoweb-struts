@@ -1,16 +1,18 @@
+package com.aoindustries.website;
+
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website;
-
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
-import com.aoindustries.util.AoCollections;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import com.aoindustries.aoserv.client.BusinessAdministrator;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -29,50 +31,60 @@ import org.apache.struts.action.ActionMapping;
  */
 abstract public class PermissionAction extends AuthenticatedAction {
 
-    @Override
-    public ActionForward execute(
+    final public ActionForward execute(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
-        Set<AOServPermission.Permission> permissions = getPermissions();
+        List<AOServPermission.Permission> permissions = getPermissions();
         
         // No permissions defined, default to denied
         if(permissions==null || permissions.isEmpty()) {
-            SortedSet<AOServPermission> aoPerms = AoCollections.emptySortedSet();
+            List<AOServPermission> aoPerms = Collections.emptyList();
             return executePermissionDenied(
                 mapping,
                 form,
                 request,
                 response,
                 siteSettings,
+                locale,
                 skin,
                 aoConn,
                 aoPerms
             );
         }
 
-        if(aoConn.getThisBusinessAdministrator().hasPermissions(permissions)) {
-            // All permissions found, consider granted
-            return executePermissionGranted(mapping, form, request, response, siteSettings, skin, aoConn);
-        } else {
-            SortedSet<AOServPermission> aoPerms = new TreeSet<AOServPermission>();
-            for(AOServPermission.Permission requiredPermission : permissions) aoPerms.add(aoConn.getAoservPermissions().get(requiredPermission.name()));
-            return executePermissionDenied(
-                mapping,
-                form,
-                request,
-                response,
-                siteSettings,
-                skin,
-                aoConn,
-                aoPerms
-            );
+        BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
+        // Return denied on first missing permission
+        for(AOServPermission.Permission permission : permissions) {
+            if(!thisBA.hasPermission(permission)) {
+                List<AOServPermission> aoPerms = new ArrayList<AOServPermission>(permissions.size());
+                for(AOServPermission.Permission requiredPermission : permissions) {
+                    AOServPermission aoPerm = aoConn.getAoservPermissions().get(requiredPermission);
+                    if(aoPerm==null) throw new SQLException("Unable to find AOServPermission: "+requiredPermission);
+                    aoPerms.add(aoPerm);
+                }
+                return executePermissionDenied(
+                    mapping,
+                    form,
+                    request,
+                    response,
+                    siteSettings,
+                    locale,
+                    skin,
+                    aoConn,
+                    aoPerms
+                );
+            }
         }
+        
+        // All permissions found, consider granted
+        return executePermissionGranted(mapping, form, request, response, siteSettings, locale, skin, aoConn);
     }
 
     /**
@@ -85,6 +97,7 @@ abstract public class PermissionAction extends AuthenticatedAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
@@ -102,18 +115,19 @@ abstract public class PermissionAction extends AuthenticatedAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn,
-        SortedSet<AOServPermission> permissions
+        List<AOServPermission> permissions
     ) throws Exception {
         request.setAttribute(Constants.PERMISSION_DENIED, permissions);
         return mapping.findForward("permission-denied");
     }
 
     /**
-     * Gets the set of permissions that are required for this action.  Returning a null or empty list will result in nothing being allowed.
+     * Gets the list of permissions that are required for this action.  Returning a null or empty list will result in nothing being allowed.
      *
      * @see  AOServPermission
      */
-    abstract public Set<AOServPermission.Permission> getPermissions();
+    abstract public List<AOServPermission.Permission> getPermissions();
 }

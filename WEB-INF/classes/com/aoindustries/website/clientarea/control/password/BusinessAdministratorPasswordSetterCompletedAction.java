@@ -1,19 +1,19 @@
 package com.aoindustries.website.clientarea.control.password;
 
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.BusinessAdministrator;
-import com.aoindustries.aoserv.client.command.SetBusinessAdministratorPasswordCommand;
-import com.aoindustries.aoserv.client.validator.UserId;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -34,6 +34,7 @@ public class BusinessAdministratorPasswordSetterCompletedAction extends Authenti
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
@@ -55,15 +56,18 @@ public class BusinessAdministratorPasswordSetterCompletedAction extends Authenti
         for(int c=0;c<usernames.size();c++) {
             String newPassword = newPasswords.get(c);
             if(newPassword.length()>0) {
-                UserId username = UserId.valueOf(usernames.get(c));
+                String username = usernames.get(c);
                 if(!thisBA.hasPermission(AOServPermission.Permission.set_business_administrator_password) && !thisBA.getUsername().getUsername().equals(username)) {
-                    AOServPermission aoPerm = aoConn.getAoservPermissions().get(AOServPermission.Permission.set_business_administrator_password.name());
+                    AOServPermission aoPerm = aoConn.getAoservPermissions().get(AOServPermission.Permission.set_business_administrator_password);
+                    if(aoPerm==null) throw new SQLException("Unable to find AOServPermission: "+AOServPermission.Permission.set_business_administrator_password);
                     request.setAttribute("permission", aoPerm);
                     ActionForward forward = mapping.findForward("permission-denied");
+                    if(forward==null) throw new Exception("Unable to find ActionForward: permission-denied");
                     return forward;
                 }
                 BusinessAdministrator ba = aoConn.getBusinessAdministrators().get(username);
-                new SetBusinessAdministratorPasswordCommand(ba, newPassword).execute(aoConn);
+                if(ba==null) throw new SQLException("Unable to find BusinessAdministrator: "+username);
+                ba.setPassword(newPassword);
                 messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.businessAdministratorPasswordSetter.field.confirmPasswords.passwordReset"));
                 newPasswords.set(c, "");
                 confirmPasswords.set(c, "");

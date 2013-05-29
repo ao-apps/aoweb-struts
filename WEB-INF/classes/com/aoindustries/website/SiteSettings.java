@@ -1,28 +1,27 @@
+package com.aoindustries.website;
+
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website;
-
-import com.aoindustries.aoserv.client.AOServClientConfiguration;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Brand;
-import com.aoindustries.aoserv.client.validator.UserId;
-import com.aoindustries.aoserv.client.validator.ValidationException;
-import com.aoindustries.security.LoginException;
-import com.aoindustries.util.i18n.ThreadLocale;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import org.apache.struts.Globals;
 
 /**
  * Provides site-wide settings.
@@ -35,8 +34,7 @@ public class SiteSettings {
      * This logger doesn't use the ticket handler to avoid logging loops
      * due to RootAOServConnector being used as part of the logging process.
      */
-    //private static final Logger logger = Logger.getLogger(SiteSettings.class.getName());
-
+    private static final Logger logger = Logger.getLogger(SiteSettings.class.getName());
     // <editor-fold desc="Instance Selection">
     /**
      * Only one instance is created per unique classname.
@@ -56,8 +54,8 @@ public class SiteSettings {
                 if(settings==null) {
                     // Create through reflection
                     Class<? extends SiteSettings> clazz = Class.forName(classname).asSubclass(SiteSettings.class);
-                    Constructor<? extends SiteSettings> constructor = clazz.getConstructor(ServletContext.class);
-                    settings = constructor.newInstance(servletContext);
+                    Constructor<? extends SiteSettings> constructor = clazz.getConstructor(new Class[] {ServletContext.class});
+                    settings = constructor.newInstance(new Object[] {servletContext});
                     instanceCache.put(classname, settings);
                 }
                 return settings;
@@ -101,12 +99,8 @@ public class SiteSettings {
      *
      * @see #getRootAOServConnector()
      */
-    protected UserId getRootAOServConnectorUsername() throws IOException {
-        try {
-            return UserId.valueOf(servletContext.getInitParameter("root.aoserv.client.username"));
-        } catch(ValidationException err) {
-            throw new IOException(err);
-        }
+    protected String getRootAOServConnectorUsername() {
+        return servletContext.getInitParameter("root.aoserv.client.username");
     }
 
     /**
@@ -128,15 +122,11 @@ public class SiteSettings {
     public AOServConnector getRootAOServConnector() throws IOException {
         synchronized(rootAOServConnectorLock) {
             if(rootAOServConnector==null) {
-                try {
-                    rootAOServConnector = AOServClientConfiguration.getConnector(
-                        getRootAOServConnectorUsername(),
-                        getRootAOServConnectorPassword(),
-                        false
-                    );
-                } catch(LoginException err) {
-                    throw new IOException(err);
-                }
+                rootAOServConnector = AOServConnector.getConnector(
+                    getRootAOServConnectorUsername(),
+                    getRootAOServConnectorPassword(),
+                    logger
+                );
             }
             return rootAOServConnector;
         }
@@ -147,9 +137,9 @@ public class SiteSettings {
      * site's RootAOServConnector and should therefore be used carefully to not
      * allow privilege escelation.
      */
-    public Brand getBrand() throws IOException {
-        Brand br = getRootAOServConnector().getThisBusinessAdministrator().getUsername().getBusiness().getBrand();
-        if(br==null) throw new AssertionError("Unable to find Brand for username="+getRootAOServConnectorUsername());
+    public Brand getBrand() throws IOException, SQLException {
+        Brand br = getRootAOServConnector().getThisBusinessAdministrator().getUsername().getPackage().getBusiness().getBrand();
+        if(br==null) throw new SQLException("Unable to find Brand for username="+getRootAOServConnectorUsername());
         return br;
     }
     // </editor-fold>
@@ -163,21 +153,24 @@ public class SiteSettings {
      *
      * The off version is created by filling with black, opacity 25% in gimp 2.
      */
-    public List<Skin.Language> getLanguages(HttpServletRequest req) throws IOException {
-        boolean isUnitedStates = ThreadLocale.get().getCountry().equals(Locale.US.getCountry());
+    public List<Skin.Language> getLanguages(HttpServletRequest req) throws IOException, SQLException {
+        HttpSession session = req.getSession();
+        Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
+        if(locale==null) locale = Locale.getDefault(); // Can't use: LocaleAction.getDefaultLocale(req); due to stack overflow
+        boolean isUnitedStates = locale.getCountry().equals(Locale.US.getCountry());
 
         Brand brand = getBrand();
         List<Skin.Language> languages = new ArrayList<Skin.Language>(2);
-        if(brand.isEnglishEnabled()) {
+        if(brand.getEnglishEnabled()) {
             if(isUnitedStates) {
                 languages.add(
                     new Skin.Language(
                         Locale.ENGLISH.getLanguage(),
-                        ApplicationResources.accessor, "TextSkin.language.en_US.alt",
-                        ApplicationResources.accessor, "TextSkin.language.en_US.flag.on.src",
-                        ApplicationResources.accessor, "TextSkin.language.en_US.flag.off.src",
-                        ApplicationResources.accessor, "TextSkin.language.en_US.flag.width",
-                        ApplicationResources.accessor, "TextSkin.language.en_US.flag.height",
+                        "/ApplicationResources", "TextSkin.language.en_US.alt",
+                        "/ApplicationResources", "TextSkin.language.en_US.flag.on.src",
+                        "/ApplicationResources", "TextSkin.language.en_US.flag.off.src",
+                        "/ApplicationResources", "TextSkin.language.en_US.flag.width",
+                        "/ApplicationResources", "TextSkin.language.en_US.flag.height",
                         null
                     )
                 );
@@ -185,25 +178,25 @@ public class SiteSettings {
                 languages.add(
                     new Skin.Language(
                         Locale.ENGLISH.getLanguage(),
-                        ApplicationResources.accessor, "TextSkin.language.en.alt",
-                        ApplicationResources.accessor, "TextSkin.language.en.flag.on.src",
-                        ApplicationResources.accessor, "TextSkin.language.en.flag.off.src",
-                        ApplicationResources.accessor, "TextSkin.language.en.flag.width",
-                        ApplicationResources.accessor, "TextSkin.language.en.flag.height",
+                        "/ApplicationResources", "TextSkin.language.en.alt",
+                        "/ApplicationResources", "TextSkin.language.en.flag.on.src",
+                        "/ApplicationResources", "TextSkin.language.en.flag.off.src",
+                        "/ApplicationResources", "TextSkin.language.en.flag.width",
+                        "/ApplicationResources", "TextSkin.language.en.flag.height",
                         null
                     )
                 );
             }
         }
-        if(brand.isJapaneseEnabled()) {
+        if(brand.getJapaneseEnabled()) {
             languages.add(
                 new Skin.Language(
                     Locale.JAPANESE.getLanguage(),
-                    ApplicationResources.accessor, "TextSkin.language.ja.alt",
-                    ApplicationResources.accessor, "TextSkin.language.ja.flag.on.src",
-                    ApplicationResources.accessor, "TextSkin.language.ja.flag.off.src",
-                    ApplicationResources.accessor, "TextSkin.language.ja.flag.width",
-                    ApplicationResources.accessor, "TextSkin.language.ja.flag.height",
+                    "/ApplicationResources", "TextSkin.language.ja.alt",
+                    "/ApplicationResources", "TextSkin.language.ja.flag.on.src",
+                    "/ApplicationResources", "TextSkin.language.ja.flag.off.src",
+                    "/ApplicationResources", "TextSkin.language.ja.flag.width",
+                    "/ApplicationResources", "TextSkin.language.ja.flag.height",
                     null
                 )
             );

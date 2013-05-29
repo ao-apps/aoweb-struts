@@ -1,7 +1,7 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -57,7 +57,7 @@ public class LogFactory {
             try {
                 SiteSettings siteSettings = SiteSettings.getInstance(servletContext);
                 AOServConnector rootConn = siteSettings.getRootAOServConnector();
-                TicketCategory category = rootConn.getTicketCategories().filterUnique(TicketCategory.COLUMN_DOT_PATH, "aoserv.aoweb_struts");
+                TicketCategory category = rootConn.getTicketCategories().getTicketCategoryByDotPath("aoserv.aoweb_struts");
                 handler = TicketLoggingHandler.getHandler(
                     siteSettings.getBrand().getAowebStrutsHttpUrlBase(),
                     rootConn,

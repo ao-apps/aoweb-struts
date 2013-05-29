@@ -1,25 +1,23 @@
+package com.aoindustries.website.clientarea.control.password;
+
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.clientarea.control.password;
-
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.AOServer;
 import com.aoindustries.aoserv.client.PostgresServer;
-import com.aoindustries.aoserv.client.PostgresUser;
-import com.aoindustries.aoserv.client.command.CommandName;
-import com.aoindustries.aoserv.client.command.SetPostgresUserPasswordCommand;
-import com.aoindustries.aoserv.client.validator.DomainName;
-import com.aoindustries.aoserv.client.validator.PostgresServerName;
-import com.aoindustries.aoserv.client.validator.PostgresUserId;
+import com.aoindustries.aoserv.client.PostgresServerUser;
+import com.aoindustries.aoserv.client.Server;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -40,6 +38,7 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
@@ -62,13 +61,18 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
         for(int c=0;c<usernames.size();c++) {
             String newPassword = newPasswords.get(c);
             if(newPassword.length()>0) {
-                PostgresUserId username = PostgresUserId.valueOf(usernames.get(c));
-                DomainName hostname = DomainName.valueOf(aoServers.get(c));
-                AOServer aoServer = aoConn.getAoServers().filterUnique(AOServer.COLUMN_HOSTNAME, hostname);
-                PostgresServerName serverName = PostgresServerName.valueOf(postgreSQLServers.get(c));
+                String username = usernames.get(c);
+                String hostname = aoServers.get(c);
+                Server server = aoConn.getServers().get(hostname);
+                if(server==null) throw new SQLException("Unable to find Server: "+server);
+                AOServer aoServer = server.getAOServer();
+                if(aoServer==null) throw new SQLException("Unable to find AOServer: "+aoServer);
+                String serverName = postgreSQLServers.get(c);
                 PostgresServer ps = aoServer.getPostgresServer(serverName);
-                PostgresUser pu = ps.getPostgresUser(username);
-                new SetPostgresUserPasswordCommand(pu, newPassword).execute(aoConn);
+                if(ps==null) throw new SQLException("Unable to find PostgresServer: "+serverName+" on "+hostname);
+                PostgresServerUser psu = ps.getPostgresServerUser(username);
+                if(psu==null) throw new SQLException("Unable to find PostgresServerUser: "+username+" on "+serverName+" on "+hostname);
+                psu.setPassword(newPassword);
                 messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.postgreSQLPasswordSetter.field.confirmPasswords.passwordReset"));
                 newPasswords.set(c, "");
                 confirmPasswords.set(c, "");
@@ -79,8 +83,7 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    @Override
-    public Set<AOServPermission.Permission> getPermissions() {
-        return CommandName.set_postgres_user_password.getPermissions();
+    public List<AOServPermission.Permission> getPermissions() {
+        return Collections.singletonList(AOServPermission.Permission.set_postgres_server_user_password);
     }
 }

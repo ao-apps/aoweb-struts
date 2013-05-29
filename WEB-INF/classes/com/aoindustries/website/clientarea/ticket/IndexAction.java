@@ -1,20 +1,20 @@
 package com.aoindustries.website.clientarea.ticket;
 
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Ticket;
 import com.aoindustries.aoserv.client.TicketStatus;
+import com.aoindustries.aoserv.client.TicketType;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.SiteSettings;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -26,7 +26,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author  AO Industries, Inc.
  */
-public class IndexAction extends AuthenticatedAction {
+public class IndexAction  extends AuthenticatedAction {
 
     @Override
     public ActionForward execute(
@@ -35,10 +35,11 @@ public class IndexAction extends AuthenticatedAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
-        SortedSet<Ticket> tickets = new TreeSet<Ticket>(aoConn.getTickets().getSet());
+        List<Ticket> tickets = aoConn.getTickets().getRows();
 
         List<Ticket> filteredTickets = new ArrayList<Ticket>(tickets.size());
         for(Ticket ticket : tickets) {

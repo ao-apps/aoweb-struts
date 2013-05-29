@@ -1,7 +1,7 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -60,6 +60,7 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
             // Use default locale
             locale = Locale.getDefault();
         }
+        request.setAttribute(Constants.LOCALE, locale);
 
         // Select Skin, to be compatible with SkinAction
         Skin skin;

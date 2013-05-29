@@ -1,21 +1,23 @@
 package com.aoindustries.website.clientarea.control.password;
 
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.AOServer;
-import com.aoindustries.aoserv.client.command.CommandName;
-import com.aoindustries.aoserv.client.command.SetLinuxAccountPasswordCommand;
-import com.aoindustries.aoserv.client.validator.UserId;
+import com.aoindustries.aoserv.client.LinuxAccount;
+import com.aoindustries.aoserv.client.LinuxServerAccount;
+import com.aoindustries.aoserv.client.Server;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -36,6 +38,7 @@ public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction 
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
@@ -57,10 +60,17 @@ public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction 
         for(int c=0;c<usernames.size();c++) {
             String newPassword = newPasswords.get(c);
             if(newPassword.length()>0) {
-                new SetLinuxAccountPasswordCommand(
-                    aoConn.getAoServers().filterUnique(AOServer.COLUMN_HOSTNAME, aoServers.get(c)).getLinuxAccount(UserId.valueOf(usernames.get(c))),
-                    newPassword
-                ).execute(aoConn);
+                String username = usernames.get(c);
+                LinuxAccount la = aoConn.getLinuxAccounts().get(username);
+                if(la==null) throw new SQLException("Unable to find LinuxAccount: "+username);
+                String hostname = aoServers.get(c);
+                Server server = aoConn.getServers().get(hostname);
+                if(server==null) throw new SQLException("Unable to find Server: "+server);
+                AOServer aoServer = server.getAOServer();
+                if(aoServer==null) throw new SQLException("Unable to find AOServer: "+aoServer);
+                LinuxServerAccount lsa = la.getLinuxServerAccount(aoServer);
+                if(lsa==null) throw new SQLException("Unable to find LinuxServerAccount: "+username+" on "+hostname);
+                lsa.setPassword(newPassword);
                 messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.linuxAccountPasswordSetter.field.confirmPasswords.passwordReset"));
                 newPasswords.set(c, "");
                 confirmPasswords.set(c, "");
@@ -71,8 +81,7 @@ public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction 
         return mapping.findForward("success");
     }
 
-    @Override
-    public Set<AOServPermission.Permission> getPermissions() {
-        return CommandName.set_linux_account_password.getPermissions();
+    public List<AOServPermission.Permission> getPermissions() {
+        return Collections.singletonList(AOServPermission.Permission.set_linux_server_account_password);
     }
 }

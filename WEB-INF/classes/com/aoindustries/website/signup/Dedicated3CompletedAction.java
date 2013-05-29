@@ -1,12 +1,13 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForward;
@@ -23,6 +24,7 @@ public class Dedicated3CompletedAction extends Dedicated3Action {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         DedicatedSignupSelectPackageForm signupSelectPackageForm,
         boolean signupSelectPackageFormComplete,
@@ -44,6 +46,7 @@ public class Dedicated3CompletedAction extends Dedicated3Action {
                 request,
                 response,
                 siteSettings,
+                locale,
                 skin,
                 signupSelectPackageForm,
                 signupSelectPackageFormComplete,

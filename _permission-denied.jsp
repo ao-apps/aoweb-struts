@@ -1,6 +1,6 @@
 <%-- aoweb-struts: Do not edit --%>
 <%--
-  Copyright 2007-2011 by AO Industries, Inc.,
+  Copyright 2007-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
@@ -10,6 +10,7 @@
   This is intended to be used by other JSP pages, not to be used directly.
   It only provides the content of the page.
 --%>
+<bean:define scope="request" name="locale" id="locale" type="java.util.Locale" />
 <skin:lightArea>
     <fmt:bundle basename="com.aoindustries.website.ApplicationResources">
         <b><fmt:message key="permissionDenied.permissionDenied" /></b>

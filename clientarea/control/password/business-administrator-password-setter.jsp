@@ -1,6 +1,6 @@
 <%-- aoweb-struts: Do not edit --%>
 <%--
-  Copyright 2000-2011 by AO Industries, Inc.,
+  Copyright 2000-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
@@ -18,30 +18,30 @@
                 <skin:contentTitle><fmt:message key="password.businessAdministratorPasswordSetter.title" /></skin:contentTitle>
                 <skin:contentHorizontalDivider />
                 <skin:contentLine>
-                    <logic:empty scope="request" name="businessAdministratorPasswordSetterForm" property="businesses">
+                    <logic:empty scope="request" name="businessAdministratorPasswordSetterForm" property="packages">
                         <b><fmt:message key="password.businessAdministratorPasswordSetter.noAccounts" /></b>
                     </logic:empty>
-                    <logic:notEmpty scope="request" name="businessAdministratorPasswordSetterForm" property="businesses">
+                    <logic:notEmpty scope="request" name="businessAdministratorPasswordSetterForm" property="packages">
                         <html:form action="/password/business-administrator-password-setter-completed">
                             <skin:lightArea>
                                 <table cellspacing='0' cellpadding='2'>
                                     <tr>
-                                        <bean:size scope="request" name="aoConn" property="businesses.map" id="businessesSize" />
-                                        <logic:greaterThan name="businessesSize" value="1">
-                                            <th><fmt:message key="password.businessAdministratorPasswordSetter.header.business" /></th>
+                                        <bean:size scope="request" name="aoConn" property="packages.map" id="packagesSize" />
+                                        <logic:greaterThan name="packagesSize" value="1">
+                                            <th><fmt:message key="password.businessAdministratorPasswordSetter.header.package" /></th>
                                         </logic:greaterThan>
                                         <th><fmt:message key="password.businessAdministratorPasswordSetter.header.username" /></th>
                                         <th colspan='2'><fmt:message key="password.businessAdministratorPasswordSetter.header.newPassword" /></th>
                                         <th><fmt:message key="password.businessAdministratorPasswordSetter.header.confirmPassword" /></th>
                                         <th>&#160;</th>
                                     </tr>
-                                    <logic:iterate scope="request" name="businessAdministratorPasswordSetterForm" property="businesses" id="accounting" indexId="index">
+                                    <logic:iterate scope="request" name="businessAdministratorPasswordSetterForm" property="packages" id="pack" indexId="index">
                                         <tr>
-                                            <logic:greaterThan name="businessesSize" value="1">
-                                                <td><ao:write name="accounting" /></td>
+                                            <logic:greaterThan name="packagesSize" value="1">
+                                                <td><ao:write name="pack" /></td>
                                             </logic:greaterThan>
                                             <td>
-                                                <html:hidden property='<%= "businesses[" + index + "]" %>' />
+                                                <html:hidden property='<%= "packages[" + index + "]" %>' />
                                                 <code><html:hidden property='<%= "usernames[" + index + "]" %>' write="true" /></code>
                                             </td>
                                             <td><html:password size="20" property='<%= "newPasswords[" + index + "]" %>' /></td>

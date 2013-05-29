@@ -1,13 +1,15 @@
+package com.aoindustries.website.signup;
+
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.signup;
-
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +26,7 @@ public class VirtualManaged7Action extends VirtualManagedStepAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
         boolean signupSelectPackageFormComplete,
@@ -68,7 +71,7 @@ public class VirtualManaged7Action extends VirtualManagedStepAction {
         SignupBusinessForm signupBusinessForm,
         SignupTechnicalForm signupTechnicalForm,
         SignupBillingInformationForm signupBillingInformationForm
-    ) throws IOException {
+    ) throws IOException, SQLException {
         ServletContext servletContext = getServlet().getServletContext();
 
         SignupSelectServerActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectPackageForm);

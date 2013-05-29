@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -14,14 +14,8 @@ import java.util.Comparator;
 public class Option {
 
     public static class PriceComparator implements Comparator<Option> {
-        @Override
         public int compare(Option pdl1, Option pdl2) {
             return pdl1.getPriceDifference().compareTo(pdl2.getPriceDifference());
-        }
-
-        @Override
-        public boolean equals(Object O) {
-            return O!=null && (O instanceof PriceComparator);
         }
     }
 

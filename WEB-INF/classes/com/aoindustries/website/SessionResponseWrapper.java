@@ -1,7 +1,7 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -10,6 +10,7 @@ import com.aoindustries.util.WrappedException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
@@ -55,8 +56,6 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
     public String encodeURL(final String url) {
         //System.err.println("DEBUG: encodeURL: "+url);
         try {
-            // Don't rewrite anchor-only URLs
-            if(url.length()>0 && url.charAt(0)=='#') return url;
             // If starts with http:// or https:// parse out the first part of the URL, encode the path, and reassemble.
             String protocol;
             String remaining;
@@ -64,12 +63,6 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                 remaining = url.substring(7);
             } else if(url.length()>8 && (protocol=url.substring(0, 8)).equalsIgnoreCase("https://")) {
                 remaining = url.substring(8);
-            } else if(url.startsWith("javascript:")) {
-                return url;
-            } else if(url.startsWith("mailto:")) {
-                return url;
-            } else if(url.startsWith("cid:")) {
-                return url;
             } else {
                 return addNoCookieParameters(url, false);
                 //return response.encodeURL(url);
@@ -97,6 +90,8 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             throw new WrappedException(err);
         } catch(IOException err) {
             throw new WrappedException(err);
+        } catch(SQLException err) {
+            throw new WrappedException(err);
         }
     }
 
@@ -114,8 +109,6 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
     public String encodeRedirectURL(String url) {
         //System.err.println("DEBUG: encodeRedirectURL: "+url);
         try {
-            // Don't rewrite anchor-only URLs
-            if(url.length()>0 && url.charAt(0)=='#') return url;
             // If starts with http:// or https:// parse out the first part of the URL, encode the path, and reassemble.
             String protocol;
             String remaining;
@@ -123,12 +116,6 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                 remaining = url.substring(7);
             } else if(url.length()>8 && (protocol=url.substring(0, 8)).equalsIgnoreCase("https://")) {
                 remaining = url.substring(8);
-            } else if(url.startsWith("javascript:")) {
-                return url;
-            } else if(url.startsWith("mailto:")) {
-                return url;
-            } else if(url.startsWith("cid:")) {
-                return url;
             } else {
                 return addNoCookieParameters(url, true);
                 //return response.encodeRedirectURL(url);
@@ -156,6 +143,8 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             throw new WrappedException(err);
         } catch(IOException err) {
             throw new WrappedException(err);
+        } catch(SQLException err) {
+            throw new WrappedException(err);
         }
     }
 
@@ -170,17 +159,9 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
     /**
      * Adds the no cookie parameters (language and layout) if needed and not already set.
      */
-    private String addNoCookieParameters(String url, boolean isRedirect) throws JspException, UnsupportedEncodingException, IOException {
+    private String addNoCookieParameters(String url, boolean isRedirect) throws JspException, UnsupportedEncodingException, IOException, SQLException {
         HttpSession session = request.getSession();
         if(session.isNew() || request.isRequestedSessionIdFromURL()) {
-            // Split the anchor
-            int poundPos = url.lastIndexOf('#');
-            String anchor;
-            if(poundPos==-1) anchor = null;
-            else {
-                anchor = url.substring(poundPos);
-                url = url.substring(0, poundPos);
-            }
             // Don't add for certains file types
             int pos = url.indexOf('?');
             String lowerPath = (pos==-1 ? url : url.substring(0, pos)).toLowerCase(Locale.ENGLISH);
@@ -243,7 +224,6 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                         );
                     } else {
                         // System.out.println("DEBUG: Why needs jsessionid: "+whyNeedsJsessionid);
-                        if(anchor!=null) url = url+anchor;
                         return isRedirect ? response.encodeRedirectURL(url) : response.encodeURL(url);
                     }
                 }
@@ -297,8 +277,6 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             } else {
                 //System.err.println("DEBUG: encodeRedirectURL: Not adding parameters to skipped type: "+url);
             }
-            if(anchor!=null) url = url+anchor;
-
         }
         return url;
     }
@@ -316,7 +294,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             url.indexOf("?"+encodedName+'=')==-1
             && url.indexOf("&"+encodedName+'=')==-1
         ) {
-            return url+'&'+encodedName+'='+URLEncoder.encode(value, "UTF-8");
+            return url+"&amp;"+encodedName+'='+URLEncoder.encode(value, "UTF-8");
         }
         return url;
     }

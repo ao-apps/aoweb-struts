@@ -1,14 +1,19 @@
 package com.aoindustries.website.skintags;
 
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.website.Skin;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.BodyTagSupport;
+import org.apache.struts.Globals;
 
 /**
  * Writes the skin white area.
@@ -16,8 +21,6 @@ import javax.servlet.jsp.JspException;
  * @author  AO Industries, Inc.
  */
 public class WhiteAreaTag extends PageAttributesBodyTag {
-
-    private static final long serialVersionUID = 1L;
 
     private String width;
     private boolean nowrap;
@@ -31,7 +34,6 @@ public class WhiteAreaTag extends PageAttributesBodyTag {
         nowrap = false;
     }
 
-    @Override
     public int doStartTag(PageAttributes pageAttributes) throws JspException {
         Skin skin = SkinTag.getSkin(pageContext);
 
@@ -40,7 +42,6 @@ public class WhiteAreaTag extends PageAttributesBodyTag {
         return EVAL_BODY_INCLUDE;
     }
 
-    @Override
     public int doEndTag(PageAttributes pageAttributes) throws JspException {
         try {
             Skin skin = SkinTag.getSkin(pageContext);

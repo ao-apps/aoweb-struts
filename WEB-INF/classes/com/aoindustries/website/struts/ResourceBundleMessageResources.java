@@ -1,10 +1,10 @@
+package com.aoindustries.website.struts;
+
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.struts;
-
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -34,14 +34,13 @@ public class ResourceBundleMessageResources extends MessageResources implements 
         super(factory, config, returnNull);
     }
 
-    @Override
     public String getMessage(Locale locale, String key) {
         String value = null;
         try {
             ResourceBundle applicationResources = ResourceBundle.getBundle(config, locale);
             value = applicationResources.getString(key);
         } catch(MissingResourceException err) {
-            // value remains null
+            // string remains null
         }
 
         if(value!=null) return value;

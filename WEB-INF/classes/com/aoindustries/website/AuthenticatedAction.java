@@ -1,15 +1,13 @@
+package com.aoindustries.website;
+
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website;
-
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.validator.UserId;
-import com.aoindustries.aoserv.client.validator.ValidationException;
-import com.aoindustries.security.LoginException;
-import java.rmi.RemoteException;
+import java.io.IOException;
+import java.util.Locale;
 import java.util.logging.Level;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +19,7 @@ import org.apache.struts.action.ActionMapping;
 /**
  * Ensures the user is logged in.  Forwards to "login" if not logged in.  Otherwise, it sets the
  * request attribute "aoConn" and then calls
- * <code>execute(ActionMapping,ActionForm,HttpServletRequest,HttpServletResponse,Skin,AOServConnector)</code>.
+ * <code>execute(ActionMapping,ActionForm,HttpServletRequest,HttpServletResponse,Locale,Skin,AOServConnector)</code>.
  * The default implementation of this new <code>execute</code> method simply returns the mapping
  * of "success".<br />
  * <br />
@@ -33,12 +31,13 @@ import org.apache.struts.action.ActionMapping;
 abstract public class AuthenticatedAction extends HttpsAction {
 
     @Override
-    public ActionForward executeProtocolAccepted(
+    final public ActionForward executeProtocolAccepted(
         ActionMapping mapping,
         ActionForm form,
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin
     ) throws Exception {
         // Handle login
@@ -58,7 +57,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
         // Set request values
         request.setAttribute("aoConn", aoConn);
 
-        return execute(mapping, form, request, response, siteSettings, skin, aoConn);
+        return execute(mapping, form, request, response, siteSettings, locale, skin, aoConn);
     }
 
     /**
@@ -73,32 +72,21 @@ abstract public class AuthenticatedAction extends HttpsAction {
      * Gets the AOServConnector for the user or <code>null</code> if not logged in.  This also handles the "su" behavior that was
      * stored in the session by <code>SkinAction</code>.
      */
-    public static AOServConnector getAoConn(HttpServletRequest request, HttpServletResponse response) throws RemoteException {
+    public static AOServConnector getAoConn(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         AOServConnector authenticatedAoConn = getAuthenticatedAoConn(request, response);
         // Not logged in
         if(authenticatedAoConn==null) return null;
-
+        
         // Is a "su" requested?
         String su=(String)session.getAttribute(Constants.SU_REQUESTED);
         if(su!=null) {
             session.removeAttribute(Constants.SU_REQUESTED);
             try {
-                AOServConnector aoConn = su.length()==0 ? authenticatedAoConn : authenticatedAoConn.getFactory().getConnector(
-                    authenticatedAoConn.getLocale(),
-                    authenticatedAoConn.getUsername(),
-                    authenticatedAoConn.getPassword(),
-                    UserId.valueOf(su),
-                    null,
-                    false
-                );
+                AOServConnector aoConn = su.length()==0 ? authenticatedAoConn : authenticatedAoConn.switchUsers(su);
                 session.setAttribute(Constants.AO_CONN, aoConn);
                 return aoConn;
-            } catch(RemoteException err) {
-                LogFactory.getLogger(session.getServletContext(), AuthenticatedAction.class).log(Level.SEVERE, null, err);
-            } catch(LoginException err) {
-                LogFactory.getLogger(session.getServletContext(), AuthenticatedAction.class).log(Level.SEVERE, null, err);
-            } catch(ValidationException err) {
+            } catch(IOException err) {
                 LogFactory.getLogger(session.getServletContext(), AuthenticatedAction.class).log(Level.SEVERE, null, err);
             }
         }
@@ -122,6 +110,7 @@ abstract public class AuthenticatedAction extends HttpsAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {

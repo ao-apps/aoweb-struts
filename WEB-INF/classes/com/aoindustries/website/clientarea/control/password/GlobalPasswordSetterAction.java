@@ -1,23 +1,19 @@
+package com.aoindustries.website.clientarea.control.password;
+
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.clientarea.control.password;
-
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Username;
-import com.aoindustries.aoserv.client.command.CommandName;
-import com.aoindustries.aoserv.client.command.SetUsernamePasswordCommand;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -38,28 +34,29 @@ public class GlobalPasswordSetterAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
         GlobalPasswordSetterForm globalPasswordSetterForm = (GlobalPasswordSetterForm)form;
 
-        SortedSet<Username> uns = new TreeSet<Username>(aoConn.getUsernames().getSet());
+        List<Username> uns = aoConn.getUsernames().getRows();
 
-        List<String> businesses = new ArrayList<String>(uns.size());
+        List<String> packages = new ArrayList<String>(uns.size());
         List<String> usernames = new ArrayList<String>(uns.size());
         List<String> newPasswords = new ArrayList<String>(uns.size());
         List<String> confirmPasswords = new ArrayList<String>(uns.size());
         for(Username un : uns) {
-            if(new SetUsernamePasswordCommand(un, "X1234Yzw").checkExecute(aoConn).isEmpty()) {
-                businesses.add(un.getBusiness().getAccounting().toString());
-                usernames.add(un.getUsername().toString());
+            if(un.canSetPassword()) {
+                packages.add(un.getPackage().getName());
+                usernames.add(un.getUsername());
                 newPasswords.add("");
                 confirmPasswords.add("");
             }
         }
 
         // Store to the form
-        globalPasswordSetterForm.setBusinesses(businesses);
+        globalPasswordSetterForm.setPackages(packages);
         globalPasswordSetterForm.setUsernames(usernames);
         globalPasswordSetterForm.setNewPasswords(newPasswords);
         globalPasswordSetterForm.setConfirmPasswords(confirmPasswords);
@@ -67,8 +64,12 @@ public class GlobalPasswordSetterAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    @Override
-    public Set<AOServPermission.Permission> getPermissions() {
-        return CommandName.set_username_password.getPermissions();
+    public List<AOServPermission.Permission> getPermissions() {
+        List<AOServPermission.Permission> permissions = new ArrayList<AOServPermission.Permission>();
+        permissions.add(AOServPermission.Permission.set_business_administrator_password);
+        permissions.add(AOServPermission.Permission.set_linux_server_account_password);
+        permissions.add(AOServPermission.Permission.set_mysql_server_user_password);
+        permissions.add(AOServPermission.Permission.set_postgres_server_user_password);
+        return permissions;
     }
 }

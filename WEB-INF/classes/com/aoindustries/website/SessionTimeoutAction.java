@@ -1,16 +1,18 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.MessageResources;
 
 /**
  * @author  AO Industries, Inc.
@@ -24,6 +26,7 @@ public class SessionTimeoutAction extends HttpsAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin
     ) throws Exception {
         // Logout, just in case session not actually expired
@@ -40,7 +43,8 @@ public class SessionTimeoutAction extends HttpsAction {
         }
 
         // Set the authenticationMessage
-        request.setAttribute(Constants.AUTHENTICATION_MESSAGE, ApplicationResources.accessor.getMessage("SessionTimeoutAction.authenticationMessage"));
+        MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
+        request.setAttribute(Constants.AUTHENTICATION_MESSAGE, applicationResources.getMessage(locale, "SessionTimeoutAction.authenticationMessage"));
 
         return mapping.findForward("success");
     }

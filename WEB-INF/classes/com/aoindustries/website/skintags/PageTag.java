@@ -1,16 +1,19 @@
+package com.aoindustries.website.skintags;
+
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.skintags;
-
-import com.aoindustries.website.ApplicationResources;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Locale;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import org.apache.struts.Globals;
+import org.apache.struts.util.MessageResources;
 
 /**
  * Common parent to parent and child tags.
@@ -139,7 +142,12 @@ abstract public class PageTag extends BodyTagSupport implements
     @Override
     public int doEndTag() throws JspException {
         try {
-            if(title==null) throw new JspException(ApplicationResources.accessor.getMessage("skintags.PageTag.needsTitleTag"));
+            if(title==null) {
+                HttpSession session = pageContext.getSession();
+                Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
+                MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
+                throw new JspException(applicationResources.getMessage(locale, "skintags.PageTag.needsTitleTag"));
+            }
             String myNavImageAlt = this.navImageAlt;
             if(myNavImageAlt == null || myNavImageAlt.length()==0) myNavImageAlt=title;
             String myDescription = this.description;

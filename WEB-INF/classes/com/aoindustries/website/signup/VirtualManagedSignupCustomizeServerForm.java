@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -14,7 +14,6 @@ public class VirtualManagedSignupCustomizeServerForm extends SignupCustomizeServ
 
     private static final long serialVersionUID = 1L;
 
-    @Override
     protected String getSignupSelectPackageFormName() {
         return "virtualManagedSignupSelectPackageForm";
     }

@@ -1,20 +1,19 @@
 package com.aoindustries.website.clientarea.control.business;
 
 /*
- * Copyright 2003-2011 by AO Industries, Inc.,
+ * Copyright 2003-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
-import com.aoindustries.aoserv.client.command.CommandName;
 import com.aoindustries.website.PermissionAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -26,7 +25,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author  AO Industries, Inc.
  */
-public class CancelAction extends PermissionAction {
+public class CancelAction  extends PermissionAction {
 
     @Override
     public ActionForward executePermissionGranted(
@@ -35,10 +34,11 @@ public class CancelAction extends PermissionAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin,
         AOServConnector aoConn
     ) throws Exception {
-        SortedSet<Business> businesses = new TreeSet<Business>(aoConn.getBusinesses().getSet());
+        List<Business> businesses = aoConn.getBusinesses().getRows();
 
         // Set request values
         request.setAttribute("businesses", businesses);
@@ -46,8 +46,7 @@ public class CancelAction extends PermissionAction {
         return mapping.findForward("success");
     }
 
-    @Override
-    public Set<AOServPermission.Permission> getPermissions() {
-        return CommandName.cancel_business.getPermissions();
+    public List<AOServPermission.Permission> getPermissions() {
+        return Collections.singletonList(AOServPermission.Permission.cancel_business);
     }
 }

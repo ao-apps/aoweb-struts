@@ -1,18 +1,21 @@
+package com.aoindustries.website.signup;
+
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.signup;
-
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.PackageCategory;
-import com.aoindustries.aoserv.client.PackageDefinitionBusiness;
+import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.website.HttpAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
-import java.util.SortedMap;
-import java.util.SortedSet;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,11 +29,11 @@ import org.apache.struts.action.ActionMapping;
 public class IndexAction extends HttpAction {
 
     @Override
-    public ActionForward executeProtocolAccepted(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, SiteSettings siteSettings, Skin skin) throws Exception {
+    public ActionForward executeProtocolAccepted(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, SiteSettings siteSettings, Locale locale, Skin skin) throws Exception {
         AOServConnector rootConn = SiteSettings.getInstance(getServlet().getServletContext()).getRootAOServConnector();
 
         // Determine the active packages per category
-        SortedMap<PackageCategory,SortedSet<PackageDefinitionBusiness>> categories = rootConn.getThisBusinessAdministrator().getUsername().getBusiness().getActivePackageDefinitionBusinesses();
+        Map<PackageCategory,List<PackageDefinition>> categories = rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness().getActivePackageDefinitions();
         // 404 when no packages defined
         if(categories.isEmpty()) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);

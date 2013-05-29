@@ -1,7 +1,7 @@
 package com.aoindustries.website;
 
 /*
- * Copyright 2000-2011 by AO Industries, Inc.,
+ * Copyright 2000-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -9,10 +9,8 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Language;
 import com.aoindustries.aoserv.client.TicketPriority;
 import com.aoindustries.aoserv.client.TicketType;
-import com.aoindustries.aoserv.client.command.AddTicketCommand;
-import com.aoindustries.aoserv.client.validator.Email;
-import com.aoindustries.util.i18n.ThreadLocale;
-import java.util.NoSuchElementException;
+import java.sql.SQLException;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -32,6 +30,7 @@ public class ContactCompletedAction extends HttpsAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin
     ) throws Exception {
         ContactForm contactForm = (ContactForm)form;
@@ -44,27 +43,28 @@ public class ContactCompletedAction extends HttpsAction {
         }
 
         AOServConnector rootConn = siteSettings.getRootAOServConnector();
-        Language language;
-        try {
-            language = rootConn.getLanguages().get(ThreadLocale.get().getLanguage());
-        } catch(NoSuchElementException err) {
+        Language language = rootConn.getLanguages().get(locale.getLanguage());
+        if(language==null) {
             language = rootConn.getLanguages().get(Language.EN);
+            if(language==null) throw new SQLException("Unable to find Language: "+Language.EN);
         }
         TicketType ticketType = rootConn.getTicketTypes().get(TicketType.CONTACT);
+        if(ticketType==null) throw new SQLException("Unable to find TicketType: "+TicketType.CONTACT);
         TicketPriority clientPriority = rootConn.getTicketPriorities().get(TicketPriority.NORMAL);
-        new AddTicketCommand(
+        if(clientPriority==null) throw new SQLException("Unable to find TicketPriority: "+TicketPriority.NORMAL);
+        rootConn.getTickets().addTicket(
             siteSettings.getBrand(),
             null,
             language,
             null,
             ticketType,
-            Email.valueOf(contactForm.getFrom()),
+            contactForm.getFrom(),
             contactForm.getSubject(),
             contactForm.getMessage(),
             clientPriority,
             contactForm.getFrom(),
             ""
-        ).execute(rootConn);
+        );
 
         return mapping.findForward("success");
     }

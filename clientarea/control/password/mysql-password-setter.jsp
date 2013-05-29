@@ -1,6 +1,6 @@
 <%-- aoweb-struts: Do not edit --%>
 <%--
-  Copyright 2000-2011 by AO Industries, Inc.,
+  Copyright 2000-2009 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
@@ -22,17 +22,17 @@
                         <%@include file="../../../_permission-denied.jsp" %>
                     </logic:present>
                     <logic:notPresent scope="request" name="permissionDenied">
-                        <logic:empty scope="request" name="mySQLPasswordSetterForm" property="businesses">
+                        <logic:empty scope="request" name="mySQLPasswordSetterForm" property="packages">
                             <b><fmt:message key="password.mySQLPasswordSetter.noAccounts" /></b>
                         </logic:empty>
-                        <logic:notEmpty scope="request" name="mySQLPasswordSetterForm" property="businesses">
+                        <logic:notEmpty scope="request" name="mySQLPasswordSetterForm" property="packages">
                             <html:form action="/password/mysql-password-setter-completed">
                                 <skin:lightArea>
                                     <table cellspacing='0' cellpadding='2'>
                                         <tr>
-                                            <bean:size scope="request" name="aoConn" property="businesses.map" id="businessesSize" />
-                                            <logic:greaterThan name="businessesSize" value="1">
-                                                <th><fmt:message key="password.mySQLPasswordSetter.header.business" /></th>
+                                            <bean:size scope="request" name="aoConn" property="packages.map" id="packagesSize" />
+                                            <logic:greaterThan name="packagesSize" value="1">
+                                                <th><fmt:message key="password.mySQLPasswordSetter.header.package" /></th>
                                             </logic:greaterThan>
                                             <th><fmt:message key="password.mySQLPasswordSetter.header.username" /></th>
                                             <bean:size scope="request" name="aoConn" property="mysqlServers.map" id="mysqlServersSize" />
@@ -47,13 +47,13 @@
                                             <th><fmt:message key="password.mySQLPasswordSetter.header.confirmPassword" /></th>
                                             <th>&#160;</th>
                                         </tr>
-                                        <logic:iterate scope="request" name="mySQLPasswordSetterForm" property="businesses" id="accounting" indexId="index">
+                                        <logic:iterate scope="request" name="mySQLPasswordSetterForm" property="packages" id="pack" indexId="index">
                                             <tr>
-                                                <logic:greaterThan name="businessesSize" value="1">
-                                                    <td><ao:write name="accounting" /></td>
+                                                <logic:greaterThan name="packagesSize" value="1">
+                                                    <td><ao:write name="pack" /></td>
                                                 </logic:greaterThan>
                                                 <td>
-                                                    <html:hidden property='<%= "businesses[" + index + "]" %>' />
+                                                    <html:hidden property='<%= "packages[" + index + "]" %>' />
                                                     <code><html:hidden property='<%= "usernames[" + index + "]" %>' write="true" /></code>
                                                     <html:hidden property='<%= "mySQLServers[" + index + "]" %>' />
                                                     <html:hidden property='<%= "aoServers[" + index + "]" %>' />

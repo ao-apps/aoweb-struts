@@ -1,30 +1,23 @@
+package com.aoindustries.website;
+
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website;
-
-import com.aoindustries.aoserv.client.AOServClientConfiguration;
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.validator.UserId;
-import com.aoindustries.aoserv.client.validator.ValidationException;
-import com.aoindustries.security.AccountDisabledException;
-import com.aoindustries.security.AccountNotFoundException;
-import com.aoindustries.security.BadPasswordException;
-import com.aoindustries.security.LoginException;
 import java.io.IOException;
-import java.rmi.RemoteException;
+import java.util.Locale;
 import java.util.logging.Level;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspException;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessages;
+import org.apache.struts.util.MessageResources;
 
 /**
  * @author  AO Industries, Inc.
@@ -38,8 +31,9 @@ public class LoginCompletedAction extends HttpsAction {
         HttpServletRequest request,
         HttpServletResponse response,
         SiteSettings siteSettings,
+        Locale locale,
         Skin skin
-    ) throws JspException, RemoteException, IOException {
+    ) throws Exception {
         LoginForm loginForm = (LoginForm)form;
 
         ActionMessages errors = loginForm.validate(mapping, request);
@@ -52,11 +46,10 @@ public class LoginCompletedAction extends HttpsAction {
         String password = loginForm.getPassword();
 
         ServletContext servletContext = getServlet().getServletContext();
-        String message;
-        Throwable throwable;
         try {
             // Get connector
-            AOServConnector aoConn = AOServClientConfiguration.getConnector(UserId.valueOf(username), password, false);
+            AOServConnector aoConn = AOServConnector.getConnector(username, password, LogFactory.getLogger(servletContext, LoginCompletedAction.class));
+            aoConn.ping();
 
             // Store in session
             HttpSession session = request.getSession();
@@ -76,24 +69,18 @@ public class LoginCompletedAction extends HttpsAction {
             return null;
             // Return success
             //return mapping.findForward("success");
-        } catch(ValidationException err) {
-            message = err.getLocalizedMessage();
-            throwable = err;
-        } catch(AccountNotFoundException err) {
-            message = ApplicationResources.accessor.getMessage("login.accountNotFound");
-            throwable = err;
-        } catch(BadPasswordException err) {
-            message = ApplicationResources.accessor.getMessage("login.badPassword");
-            throwable = err;
-        } catch(AccountDisabledException err) {
-            message = ApplicationResources.accessor.getMessage("login.accountDisabled");
-            throwable = err;
-        } catch(LoginException err) {
-            message = ApplicationResources.accessor.getMessage("login.failed");
-            throwable = err;
+        } catch(IOException err) {
+            String message=err.getMessage();
+            if(message!=null) {
+                MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
+        		if(message.indexOf("Unable to find BusinessAdministrator")!=-1) message=applicationResources.getMessage(locale, "login.accountNotFound");
+                else if(message.indexOf("Connection attempted with invalid password")!=-1) message=applicationResources.getMessage(locale, "login.badPassword");
+                else if(message.indexOf("BusinessAdministrator disabled")!=-1) message=applicationResources.getMessage(locale, "accountDisabled");
+                else message=null;
+    	    }
+            if(message!=null) request.setAttribute(Constants.AUTHENTICATION_MESSAGE, message);
+            else LogFactory.getLogger(servletContext, LoginCompletedAction.class).log(Level.SEVERE, null, err);
+            return mapping.findForward("failure");
         }
-        if(message!=null) request.setAttribute(Constants.AUTHENTICATION_MESSAGE, message);
-        else LogFactory.getLogger(servletContext, LoginCompletedAction.class).log(Level.SEVERE, null, throwable);
-        return mapping.findForward("failure");
     }
 }

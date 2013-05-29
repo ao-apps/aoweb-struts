@@ -35,10 +35,10 @@
     <filter-name>TrimFilter</filter-name>
     <filter-class>com.aoindustries.servlet.filter.TrimFilter</filter-class>
   </filter>
-  <!-- Filter to set request character encoding to UTF-8 -->
+  <!-- Filter to set request character encoding based on locale in session -->
   <filter>
-    <filter-name>Utf8RequestCharacterEncodingFilter</filter-name>
-    <filter-class>com.aoindustries.servlet.filter.Utf8RequestCharacterEncodingFilter</filter-class>
+    <filter-name>SetRequestCharacterEncodingFilter</filter-name>
+    <filter-class>com.aoindustries.website.SetRequestCharacterEncodingFilter</filter-class>
   </filter>
   <!-- Filter mappings -->
   <filter-mapping>
@@ -56,9 +56,8 @@
     <dispatcher>FORWARD</dispatcher>
   </filter-mapping>
   <filter-mapping>
-    <filter-name>Utf8RequestCharacterEncodingFilter</filter-name>
+    <filter-name>SetRequestCharacterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
-    <dispatcher>REQUEST</dispatcher>
   </filter-mapping>
 
   <!-- Action Servlet Configuration -->

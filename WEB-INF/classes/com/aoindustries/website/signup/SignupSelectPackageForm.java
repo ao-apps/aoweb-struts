@@ -1,7 +1,7 @@
 package com.aoindustries.website.signup;
 
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -14,6 +14,7 @@ import com.aoindustries.website.SessionActionForm;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -56,15 +57,17 @@ abstract public class SignupSelectPackageForm extends ActionForm implements Seri
             if(myServlet!=null) {
                 AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
                 PackageCategory category = rootConn.getPackageCategories().get(getPackageCategory());
-                Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getBusiness();
+                Business rootBusiness = rootConn.getThisBusinessAdministrator().getUsername().getPackage().getBusiness();
 
                 PackageDefinition pd = rootConn.getPackageDefinitions().get(packageDefinition);
-                if(pd==null || !pd.getCategory().equals(category) || !pd.getBusiness().equals(rootBusiness)) {
+                if(pd==null || !pd.getPackageCategory().equals(category) || !pd.getBusiness().equals(rootBusiness)) {
                     errors.add("packageDefinition", new ActionMessage("signupSelectPackageForm.packageDefinition.required"));
                 }
             }
             return errors;
         } catch(IOException err) {
+            throw new WrappedException(err);
+        } catch(SQLException err) {
             throw new WrappedException(err);
         }
     }

@@ -1,16 +1,19 @@
+package com.aoindustries.website.skintags;
+
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.skintags;
-
-import com.aoindustries.website.ApplicationResources;
 import com.aoindustries.website.Skin;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import org.apache.struts.Globals;
+import org.apache.struts.util.MessageResources;
 
 /**
  * @author  AO Industries, Inc.
@@ -40,7 +43,12 @@ public class ContentLineTag extends BodyTagSupport {
     @Override
     public int doStartTag() throws JspException {
         ContentTag contentTag = (ContentTag)findAncestorWithClass(this, ContentTag.class);
-        if(contentTag==null) throw new JspException(ApplicationResources.accessor.getMessage("skintags.ContentLineTag.mustNestInContentTag"));
+        if(contentTag==null) {
+            HttpSession session = pageContext.getSession();
+            Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
+            MessageResources applicationResources = (MessageResources)pageContext.getRequest().getAttribute("/ApplicationResources");
+            throw new JspException(applicationResources.getMessage(locale, "skintags.ContentLineTag.mustNestInContentTag"));
+        }
 
         Skin skin = SkinTag.getSkin(pageContext);
 

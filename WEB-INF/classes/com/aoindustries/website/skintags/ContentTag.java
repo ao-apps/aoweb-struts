@@ -1,23 +1,26 @@
+package com.aoindustries.website.skintags;
+
 /*
- * Copyright 2007-2011 by AO Industries, Inc.,
+ * Copyright 2007-2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-package com.aoindustries.website.skintags;
-
 import com.aoindustries.util.StringUtility;
-import com.aoindustries.website.Skin;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.BodyTagSupport;
+import com.aoindustries.website.*;
+import org.apache.struts.Globals;
 
 /**
  * @author  AO Industries, Inc.
  */
 public class ContentTag extends PageAttributesBodyTag {
-
-    private static final long serialVersionUID = 1L;
 
     /**
      * Parses a String of comma-separated integers into an <code>int[]</code>.
