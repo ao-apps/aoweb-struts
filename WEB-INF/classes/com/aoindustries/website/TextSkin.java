@@ -11,7 +11,6 @@ import com.aoindustries.encoding.NewEncodingUtils;
 import com.aoindustries.encoding.TextInXhtmlEncoder;
 import com.aoindustries.io.ChainWriter;
 import com.aoindustries.util.EncodingUtils;
-import com.aoindustries.util.StringUtility;
 import com.aoindustries.util.i18n.EditableResourceBundle;
 import com.aoindustries.website.skintags.Child;
 import com.aoindustries.website.skintags.Meta;
@@ -196,46 +195,8 @@ public class TextSkin extends Skin {
             if(author!=null && author.length()>0) {
                 out.print("    <meta name='author' content='"); EncodingUtils.encodeXmlAttribute(author, out); out.print("' />\n");
             }
-			// https://support.google.com/webmasters/answer/189077?hl=en
             List<Language> languages = settings.getLanguages(req);
-            if(languages.size()>1) {
-				// Default language
-				{
-					Language language = languages.get(0);
-					out.print("    <link rel='alternate' hreflang='x-default' href='");
-					String url = language.getUrl();
-					EncodingUtils.encodeXmlAttribute(
-						resp.encodeURL(
-							NewEncodingUtils.encodeUrlPath(
-								url==null
-								? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&")+"language="+language.getCode())
-								: url
-							)
-						),
-						out
-					);
-					out.print("' />\n");
-				}
-				// All languages
-                for(Language language : languages) {
-					out.print("    <link rel='alternate' hreflang='");
-					EncodingUtils.encodeXmlAttribute(language.getCode(), out);
-					out.print("' href='");
-					String url = language.getUrl();
-					EncodingUtils.encodeXmlAttribute(
-						resp.encodeURL(
-							NewEncodingUtils.encodeUrlPath(
-								url==null
-								? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&")+"language="+language.getCode())
-								: url
-							)
-						),
-						out
-					);
-					out.print("' />\n");
-                }
-                out.print("<br />\n");
-            }
+			printAlternativeLinks(resp, out, fullPath, languages);
             out.print("    <link rel='stylesheet' href='");
 			EncodingUtils.encodeXmlAttribute(
 				resp.encodeURL(urlBase+"textskin/global.css"),
@@ -480,7 +441,7 @@ public class TextSkin extends Skin {
         }
     }
 
-    public static void defaultPrintLinks(JspWriter out, PageAttributes pageAttributes) throws JspException {
+	public static void defaultPrintLinks(JspWriter out, PageAttributes pageAttributes) throws JspException {
         try {
             for(PageAttributes.Link link : pageAttributes.getLinks()) {
                 String conditionalCommentExpression = link.getConditionalCommentExpression();
