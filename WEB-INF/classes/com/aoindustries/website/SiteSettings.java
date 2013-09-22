@@ -1,10 +1,10 @@
-package com.aoindustries.website;
-
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009-2013 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Brand;
 import java.io.IOException;
@@ -54,7 +54,7 @@ public class SiteSettings {
                 if(settings==null) {
                     // Create through reflection
                     Class<? extends SiteSettings> clazz = Class.forName(classname).asSubclass(SiteSettings.class);
-                    Constructor<? extends SiteSettings> constructor = clazz.getConstructor(new Class[] {ServletContext.class});
+                    Constructor<? extends SiteSettings> constructor = clazz.getConstructor(new Class<?>[] {ServletContext.class});
                     settings = constructor.newInstance(new Object[] {servletContext});
                     instanceCache.put(classname, settings);
                 }
