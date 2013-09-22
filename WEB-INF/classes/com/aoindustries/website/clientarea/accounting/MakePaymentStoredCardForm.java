@@ -5,7 +5,6 @@ package com.aoindustries.website.clientarea.accounting;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.creditcards.CreditCard;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.servlet.http.HttpServletRequest;

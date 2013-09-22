@@ -6,7 +6,6 @@ package com.aoindustries.website.skintags;
  * All rights reserved.
  */
 import com.aoindustries.util.StringUtility;
-import com.aoindustries.website.Constants;
 import com.aoindustries.website.Skin;
 import java.util.List;
 import java.util.Locale;
@@ -14,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.TagSupport;
 import org.apache.struts.Globals;
 import org.apache.struts.util.MessageResources;

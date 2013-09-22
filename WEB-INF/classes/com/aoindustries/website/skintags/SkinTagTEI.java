@@ -6,7 +6,6 @@ package com.aoindustries.website.skintags;
  * All rights reserved.
  */
 import static com.aoindustries.website.ApplicationResources.accessor;
-import java.util.Locale;
 import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.ValidationMessage;

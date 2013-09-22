@@ -8,7 +8,6 @@ package com.aoindustries.website.clientarea.ticket;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Ticket;
 import com.aoindustries.aoserv.client.TicketStatus;
-import com.aoindustries.aoserv.client.TicketType;
 import com.aoindustries.website.AuthenticatedAction;
 import com.aoindustries.website.Skin;
 import com.aoindustries.website.SiteSettings;
