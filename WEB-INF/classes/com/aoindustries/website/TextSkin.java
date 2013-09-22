@@ -321,7 +321,12 @@ public class TextSkin extends Skin {
 							),
 							out
                         );
-                        out.print("'><img src='");
+                        out.print("' hreflang='");
+						EncodingUtils.encodeXmlAttribute(
+							language.getCode(),
+							out
+						);
+						out.print("'><img src='");
 						EncodingUtils.encodeXmlAttribute(
 	                        resp.encodeURL(urlBase + language.getFlagOnSrc(req, locale)),
 							out
@@ -345,6 +350,11 @@ public class TextSkin extends Skin {
                             ),
 							out
                         );
+                        out.print("' hreflang='");
+						EncodingUtils.encodeXmlAttribute(
+							language.getCode(),
+							out
+						);
                         out.print("' onmouseover='document.images[\"flagSelector_");
                         NewEncodingUtils.encodeTextInJavaScriptInXhtmlAttribute(language.getCode(), out);
                         out.print("\"].src=\"");
