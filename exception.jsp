@@ -68,7 +68,7 @@
                                         <th style='white-space:nowrap; text-align:left'><fmt:message key="exception.throwable.header" /></th>
                                         <td style="white-space:nowrap">
                                             <logic:notEmpty name="javax.servlet.jsp.jspPageContext" property="errorData.throwable">
-                                                <ao:pre><ao:getStackTraces name="javax.servlet.jsp.jspPageContext" property="errorData.throwable" /></ao:pre>
+                                                <pre><ao:text><ao:getStackTraces name="javax.servlet.jsp.jspPageContext" property="errorData.throwable" /></ao:text></pre>
                                             </logic:notEmpty>
                                             <logic:empty name="javax.servlet.jsp.jspPageContext" property="errorData.throwable">
                                                 &#160;
@@ -84,7 +84,7 @@
                             <skin:lightArea>
                                 <fmt:message key="exception.strutsException.title" />
                                 <hr />
-                                <ao:pre><ao:getStackTraces scope="request" name="exception" /></ao:pre>
+                                <pre><ao:text><ao:getStackTraces scope="request" name="exception" /></ao:text></pre>
                             </skin:lightArea><br />
                             <br />
                         </logic:present>
@@ -92,7 +92,7 @@
                             <skin:lightArea>
                                 <fmt:message key="exception.strutsException.title" />
                                 <hr />
-                                <ao:pre><ao:getStackTraces scope="request" name="org.apache.struts.action.EXCEPTION" /></ao:pre>
+                                <pre><ao:text><ao:getStackTraces scope="request" name="org.apache.struts.action.EXCEPTION" /></ao:text></pre>
                             </skin:lightArea><br />
                             <br />
                         </logic:present>
@@ -101,7 +101,7 @@
                             <skin:lightArea>
                                 <fmt:message key="exception.servletException.title" />
                                 <hr />
-                                <ao:pre><ao:getStackTraces name="javax.servlet.jsp.jspPageContext" property="exception" /></ao:pre>
+                                <pre><ao:text><ao:getStackTraces name="javax.servlet.jsp.jspPageContext" property="exception" /></ao:text></pre>
                             </skin:lightArea>
                         </logic:notEmpty>
                     </logic:equal>

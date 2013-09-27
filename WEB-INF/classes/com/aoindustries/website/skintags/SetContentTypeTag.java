@@ -1,14 +1,15 @@
-package com.aoindustries.website.skintags;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2013 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.skintags;
+
 import com.aoindustries.util.StringUtility;
 import com.aoindustries.website.Skin;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Locale;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,8 @@ import org.apache.struts.Globals;
  * @author  AO Industries, Inc.
  */
 public class SetContentTypeTag extends TagSupport {
+
+	private static final long serialVersionUID = 1L;
 
     public SetContentTypeTag() {
     }
@@ -44,7 +47,7 @@ public class SetContentTypeTag extends TagSupport {
                 // Determine the content type by the rules defined in http://www.w3.org/TR/xhtml-media-types/
                 // Default to application/xhtml+xml as discussed at http://www.smackthemouse.com/xhtmlxml
                 HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
-                Enumeration acceptValues = request.getHeaders("Accept");
+                Enumeration<String> acceptValues = request.getHeaders("Accept");
                 boolean hasAcceptHeader = false;
                 boolean hasAcceptApplicationXhtmlXml = false;
                 boolean hasAcceptHtmlHtml = false;
@@ -52,11 +55,12 @@ public class SetContentTypeTag extends TagSupport {
                 if(acceptValues!=null) {
                     while(acceptValues.hasMoreElements()) {
                         hasAcceptHeader = true;
-                        for(String value : StringUtility.splitString((String)acceptValues.nextElement(), ',')) {
+                        for(String value : StringUtility.splitString(acceptValues.nextElement(), ',')) {
                             value = value.trim();
-                            String[] params = StringUtility.splitString(value, ';');
-                            if(params.length>0) {
-                                String acceptType = params[0].trim();
+                            final List<String> params = StringUtility.splitString(value, ';');
+							final int paramsLen = params.size();
+                            if(paramsLen>0) {
+                                String acceptType = params.get(0).trim();
                                 if(acceptType.equals("*/*")) {
                                     // No q parameter parsing for */*
                                     hasAcceptStarStar = true;
@@ -67,8 +71,8 @@ public class SetContentTypeTag extends TagSupport {
                                 ) {
                                     // Find any q value
                                     boolean hasNegativeQ = false;
-                                    for(int paramNum = 1; paramNum<params.length; paramNum++) {
-                                        String paramSet = params[paramNum].trim();
+                                    for(int paramNum = 1; paramNum<paramsLen; paramNum++) {
+                                        String paramSet = params.get(paramNum).trim();
                                         if(paramSet.startsWith("q=") || paramSet.startsWith("Q=")) {
                                             try {
                                                 float q = Float.parseFloat(paramSet.substring(2).trim());

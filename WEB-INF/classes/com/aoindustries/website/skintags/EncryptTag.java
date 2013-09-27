@@ -1,14 +1,15 @@
-package com.aoindustries.website.skintags;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2013 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.skintags;
+
 import com.aoindustries.encoding.MediaType;
-import com.aoindustries.io.AutoTempFileWriter;
+import com.aoindustries.io.buffer.BufferResult;
 import com.aoindustries.taglib.AutoEncodingBufferedTag;
 import com.aoindustries.website.ApplicationResources;
+import java.io.IOException;
 import java.io.Writer;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -27,8 +28,8 @@ public class EncryptTag extends AutoEncodingBufferedTag {
         return null;
     }
 
-    protected void doTag(AutoTempFileWriter capturedBody, Writer out) throws JspException {
-        String encrypt = capturedBody.toString().trim();
+    protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+        String encrypt = capturedBody.trim().toString();
         boolean encryptFlag;
         if(encrypt.equalsIgnoreCase("true")) encryptFlag = true;
         else if(encrypt.equalsIgnoreCase("false")) encryptFlag = false;

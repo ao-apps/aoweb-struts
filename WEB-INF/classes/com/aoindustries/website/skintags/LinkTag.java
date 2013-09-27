@@ -1,12 +1,13 @@
-package com.aoindustries.website.skintags;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2013 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.skintags;
+
 import com.aoindustries.encoding.MediaType;
-import com.aoindustries.io.AutoTempFileWriter;
+import com.aoindustries.io.Coercion;
+import com.aoindustries.io.buffer.BufferResult;
 import com.aoindustries.taglib.AutoEncodingBufferedTag;
 import com.aoindustries.taglib.HrefAttribute;
 import com.aoindustries.taglib.RelAttribute;
@@ -18,7 +19,13 @@ import javax.servlet.jsp.PageContext;
 /**
  * @author  AO Industries, Inc.
  */
-public class LinkTag extends AutoEncodingBufferedTag implements RelAttribute, HrefAttribute, TypeAttribute {
+public class LinkTag
+	extends AutoEncodingBufferedTag
+	implements
+		RelAttribute,
+		HrefAttribute,
+		TypeAttribute
+{
 
     public MediaType getContentType() {
         return MediaType.URL;
@@ -28,9 +35,9 @@ public class LinkTag extends AutoEncodingBufferedTag implements RelAttribute, Hr
         return MediaType.XHTML;
     }
 
-    private String rel;
+    private Object rel;
     private String href;
-    private String type;
+    private Object type;
     private String conditionalCommentExpression;
 
     public LinkTag() {
@@ -44,11 +51,11 @@ public class LinkTag extends AutoEncodingBufferedTag implements RelAttribute, Hr
         conditionalCommentExpression = null;
     }
 
-    public String getRel() {
+    public Object getRel() {
         return rel;
     }
 
-    public void setRel(String rel) {
+    public void setRel(Object rel) {
         this.rel = rel;
     }
 
@@ -60,11 +67,11 @@ public class LinkTag extends AutoEncodingBufferedTag implements RelAttribute, Hr
         this.href = href;
     }
 
-    public String getType() {
+    public Object getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Object type) {
         this.type = type;
     }
 
@@ -76,9 +83,16 @@ public class LinkTag extends AutoEncodingBufferedTag implements RelAttribute, Hr
         this.conditionalCommentExpression = conditionalCommentExpression;
     }
 
-    protected void doTag(AutoTempFileWriter capturedBody, Writer out) throws IOException {
+    protected void doTag(BufferResult capturedBody, Writer out) throws IOException {
         String myHref = href;
-        if(myHref==null) myHref = capturedBody.toString().trim();
-        PageAttributesBodyTag.getPageAttributes((PageContext)getJspContext()).addLink(rel, href, type, conditionalCommentExpression);
+        if(myHref==null) myHref = capturedBody.trim().toString();
+        PageAttributesBodyTag.getPageAttributes(
+			(PageContext)getJspContext()
+		).addLink(
+			Coercion.toString(rel),
+			myHref,
+			Coercion.toString(type),
+			conditionalCommentExpression
+		);
     }
 }
