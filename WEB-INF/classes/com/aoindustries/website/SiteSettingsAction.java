@@ -1,10 +1,10 @@
-package com.aoindustries.website;
-
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009-2013 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website;
+
 import com.aoindustries.util.i18n.EditableResourceBundle;
 import com.aoindustries.website.struts.ResourceBundleMessageResources;
 import javax.servlet.http.Cookie;
@@ -61,7 +61,6 @@ public class SiteSettingsAction extends Action {
         EditableResourceBundle.resetRequest(
             canEditResources,
             canEditResources ? (request.isSecure() ? Skin.getDefaultHttpsUrlBase(request) : Skin.getDefaultHttpUrlBase(request))+"set-resource-bundle-value.do" : null,
-            canEditResources ? (request.isSecure() ? Skin.getDefaultHttpsUrlBase(request) : Skin.getDefaultHttpUrlBase(request))+"set-resource-bundle-media-type.do" : null,
             modifyAllText
         );
 
