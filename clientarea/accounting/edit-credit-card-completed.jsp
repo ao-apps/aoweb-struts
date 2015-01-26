@@ -1,6 +1,6 @@
 <%-- aoweb-struts: Do not edit --%>
 <%--
-  Copyright 2007-2009 by AO Industries, Inc.,
+  Copyright 2007-2009, 2015 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
@@ -68,6 +68,10 @@
                                 </fmt:message><br />
                             </logic:equal>
                             <ul>
+                                <logic:equal scope="request" name="updatedCardDetails" value="true">
+                                    <bean:define id="somethingChanged" value="true"/>
+                                    <li><fmt:message key="editCreditCardCompleted.successMessage.updatedCardDetails" /></li>
+                                </logic:equal>
                                 <logic:equal scope="request" name="updatedCardNumber" value="true">
                                     <bean:define id="somethingChanged" value="true"/>
                                     <li><fmt:message key="editCreditCardCompleted.successMessage.updatedCardNumber" /></li>
@@ -75,10 +79,6 @@
                                 <logic:equal scope="request" name="updatedExpirationDate" value="true">
                                     <bean:define id="somethingChanged" value="true"/>
                                     <li><fmt:message key="editCreditCardCompleted.successMessage.updatedExpirationDate" /></li>
-                                </logic:equal>
-                                <logic:equal scope="request" name="updatedCardDetails" value="true">
-                                    <bean:define id="somethingChanged" value="true"/>
-                                    <li><fmt:message key="editCreditCardCompleted.successMessage.updatedCardDetails" /></li>
                                 </logic:equal>
                                 <logic:equal scope="request" name="reactivatedCard" value="true">
                                     <bean:define id="somethingChanged" value="true"/>

@@ -1,12 +1,11 @@
-package com.aoindustries.website.clientarea.accounting;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.accounting;
+
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.CountryCode;
 import com.aoindustries.aoserv.client.CreditCard;
 import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.CreditCardFactory;
@@ -75,12 +74,58 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
         }
 
         // Tells the view layer what was updated
+        boolean updatedCardDetails = false;
         boolean updatedCardNumber = false;
         boolean updatedExpirationDate = false;
-        boolean updatedCardDetails = false;
         boolean reactivatedCard = false;
 
-        String newCardNumber = editCreditCardForm.getCardNumber();
+        if(
+            !nullOrBlankEquals(editCreditCardForm.getFirstName(), creditCard.getFirstName())
+            || !nullOrBlankEquals(editCreditCardForm.getLastName(), creditCard.getLastName())
+            || !nullOrBlankEquals(editCreditCardForm.getCompanyName(), creditCard.getCompanyName())
+            || !nullOrBlankEquals(editCreditCardForm.getEmail(), creditCard.getEmail())
+            || !nullOrBlankEquals(editCreditCardForm.getPhone(), creditCard.getPhone())
+            || !nullOrBlankEquals(editCreditCardForm.getFax(), creditCard.getFax())
+            || !nullOrBlankEquals(editCreditCardForm.getCustomerTaxId(), creditCard.getCustomerTaxId())
+            || !nullOrBlankEquals(editCreditCardForm.getStreetAddress1(), creditCard.getStreetAddress1())
+            || !nullOrBlankEquals(editCreditCardForm.getStreetAddress2(), creditCard.getStreetAddress2())
+            || !nullOrBlankEquals(editCreditCardForm.getCity(), creditCard.getCity())
+            || !nullOrBlankEquals(editCreditCardForm.getState(), creditCard.getState())
+            || !nullOrBlankEquals(editCreditCardForm.getPostalCode(), creditCard.getPostalCode())
+            || !nullOrBlankEquals(editCreditCardForm.getCountryCode(), creditCard.getCountryCode().getCode())
+            || !nullOrBlankEquals(editCreditCardForm.getDescription(), creditCard.getDescription())
+        ) {
+            // Update all fields except card number and expiration
+            // Root connector used to get processor
+            AOServConnector rootConn = siteSettings.getRootAOServConnector();
+            CreditCard rootCreditCard = rootConn.getCreditCards().get(creditCard.getPkey());
+            if(rootCreditCard==null) throw new SQLException("Unable to find CreditCard: "+creditCard.getPkey());
+            CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootCreditCard.getCreditCardProcessor());
+			com.aoindustries.creditcards.CreditCard storedCreditCard = CreditCardFactory.getCreditCard(rootCreditCard);
+			// Update fields
+			storedCreditCard.setFirstName(editCreditCardForm.getFirstName());
+			storedCreditCard.setLastName(editCreditCardForm.getLastName());
+			storedCreditCard.setCompanyName(editCreditCardForm.getCompanyName());
+			storedCreditCard.setEmail(editCreditCardForm.getEmail());
+			storedCreditCard.setPhone(editCreditCardForm.getPhone());
+			storedCreditCard.setFax(editCreditCardForm.getFax());
+			storedCreditCard.setCustomerTaxId(editCreditCardForm.getCustomerTaxId());
+			storedCreditCard.setStreetAddress1(editCreditCardForm.getStreetAddress1());
+			storedCreditCard.setStreetAddress2(editCreditCardForm.getStreetAddress2());
+			storedCreditCard.setCity(editCreditCardForm.getCity());
+			storedCreditCard.setState(editCreditCardForm.getState());
+			storedCreditCard.setPostalCode(editCreditCardForm.getPostalCode());
+			storedCreditCard.setCountryCode(editCreditCardForm.getCountryCode());
+			storedCreditCard.setComments(editCreditCardForm.getDescription());
+			// Update persistence
+            rootProcessor.updateCreditCard(
+                new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
+                storedCreditCard
+            );
+            updatedCardDetails = true;
+        }
+
+		String newCardNumber = editCreditCardForm.getCardNumber();
         String newExpirationMonth = editCreditCardForm.getExpirationMonth();
         String newExpirationYear = editCreditCardForm.getExpirationYear();
         if(!GenericValidator.isBlankOrNull(newCardNumber)) {
@@ -120,44 +165,6 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             }
         }
 
-        if(
-            !nullOrBlankEquals(editCreditCardForm.getFirstName(), creditCard.getFirstName())
-            || !nullOrBlankEquals(editCreditCardForm.getLastName(), creditCard.getLastName())
-            || !nullOrBlankEquals(editCreditCardForm.getCompanyName(), creditCard.getCompanyName())
-            || !nullOrBlankEquals(editCreditCardForm.getEmail(), creditCard.getEmail())
-            || !nullOrBlankEquals(editCreditCardForm.getPhone(), creditCard.getPhone())
-            || !nullOrBlankEquals(editCreditCardForm.getFax(), creditCard.getFax())
-            || !nullOrBlankEquals(editCreditCardForm.getCustomerTaxId(), creditCard.getCustomerTaxId())
-            || !nullOrBlankEquals(editCreditCardForm.getStreetAddress1(), creditCard.getStreetAddress1())
-            || !nullOrBlankEquals(editCreditCardForm.getStreetAddress2(), creditCard.getStreetAddress2())
-            || !nullOrBlankEquals(editCreditCardForm.getCity(), creditCard.getCity())
-            || !nullOrBlankEquals(editCreditCardForm.getState(), creditCard.getState())
-            || !nullOrBlankEquals(editCreditCardForm.getPostalCode(), creditCard.getPostalCode())
-            || !nullOrBlankEquals(editCreditCardForm.getCountryCode(), creditCard.getCountryCode().getCode())
-            || !nullOrBlankEquals(editCreditCardForm.getDescription(), creditCard.getDescription())
-        ) {
-            // Update rest of the fields
-            CountryCode countryCode = aoConn.getCountryCodes().get(editCreditCardForm.getCountryCode());
-            if(countryCode==null) throw new SQLException("Unable to find CountryCode: "+editCreditCardForm.getCountryCode());
-            creditCard.update(
-                editCreditCardForm.getFirstName(),
-                editCreditCardForm.getLastName(),
-                editCreditCardForm.getCompanyName(),
-                editCreditCardForm.getEmail(),
-                editCreditCardForm.getPhone(),
-                editCreditCardForm.getFax(),
-                editCreditCardForm.getCustomerTaxId(),
-                editCreditCardForm.getStreetAddress1(),
-                editCreditCardForm.getStreetAddress2(),
-                editCreditCardForm.getCity(),
-                editCreditCardForm.getState(),
-                editCreditCardForm.getPostalCode(),
-                countryCode,
-                editCreditCardForm.getDescription()
-            );
-            updatedCardDetails = true;
-        }
-        
         if(!creditCard.getIsActive()) {
             // Reactivate if not active
             creditCard.reactivate();
@@ -171,9 +178,9 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
         request.setAttribute("cardNumber", cardNumber);
         
         // Store which steps were done
+        request.setAttribute("updatedCardDetails", updatedCardDetails ? "true" : "false");
         request.setAttribute("updatedCardNumber", updatedCardNumber ? "true" : "false");
         request.setAttribute("updatedExpirationDate", updatedExpirationDate ? "true" : "false");
-        request.setAttribute("updatedCardDetails", updatedCardDetails ? "true" : "false");
         request.setAttribute("reactivatedCard", reactivatedCard ? "true" : "false");
 
         return mapping.findForward("success");
