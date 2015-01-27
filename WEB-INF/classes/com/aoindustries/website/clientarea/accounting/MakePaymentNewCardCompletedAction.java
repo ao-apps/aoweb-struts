@@ -167,7 +167,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                 false,
                 request.getRemoteAddr(),
                 120,
-                Integer.toString(transID),
+                Integer.toString(transID), // orderNumber
                 Currency.getInstance("USD"),
                 paymentAmount,
                 null,
