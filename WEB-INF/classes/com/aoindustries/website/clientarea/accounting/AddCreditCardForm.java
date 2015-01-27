@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.accounting;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.accounting;
+
 import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.creditcards.TransactionResult;
 import java.io.Serializable;
@@ -44,7 +44,11 @@ public class AddCreditCardForm extends CreditCardForm implements Serializable {
         this.cardNumber = cardNumber;
     }
 
-    public String getExpirationMonth() {
+    public String getMaskedCardNumber() {
+        return CreditCard.maskCreditCardNumber(cardNumber);
+    }
+
+	public String getExpirationMonth() {
         return expirationMonth;
     }
 

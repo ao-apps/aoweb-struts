@@ -1,6 +1,6 @@
 <%-- aoweb-struts: Do not edit --%>
 <%--
-  Copyright 2007-2009 by AO Industries, Inc.,
+  Copyright 2007-2009, 2015 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
@@ -54,6 +54,7 @@
 
                         <bean:define scope="request" name="business" id="business" type="com.aoindustries.aoserv.client.Business" />
                         <bean:define scope="request" name="makePaymentNewCardForm" property="cardNumber" id="cardNumber" type="java.lang.String" />
+                        <bean:define scope="request" name="makePaymentNewCardForm" property="maskedCardNumber" id="maskedCardNumber" type="java.lang.String" />
                         <table cellspacing='0' cellpadding='2'>
                             <tr>
                                 <th style="text-align:left; white-space:nowrap;"><fmt:message key="makePaymentStoredCard.business.prompt" /></th>
@@ -63,7 +64,7 @@
                                 <th style="text-align:left; white-space:nowrap;"><fmt:message key="makePaymentStoredCard.card.prompt" /></th>
                                 <td style="white-space:nowrap">
                                     <%@include file="_credit-card-image.jsp" %>
-                                    <c:out value="${fn:replace(cardNumber, 'X', '*')}"/>
+                                    <c:out value="${fn:replace(maskedCardNumber, 'X', '*')}"/>
                                 </td>
                             </tr>
                             <tr>
