@@ -1,10 +1,10 @@
-package com.aoindustries.website.skintags;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.skintags;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -16,21 +16,21 @@ import java.util.List;
  */
 public class Parent extends Page {
 
-    private final List<Child> children;
+	private final List<Child> children;
 
-    public Parent(String title, String navImageAlt, String description, String author, String copyright, boolean useEncryption, String path, String keywords, Collection<Meta> metas, List<Child> children) {
-        super(title, navImageAlt, description, author, copyright, useEncryption, path, keywords, metas);
-        this.children = children;
-    }
+	public Parent(String title, String navImageAlt, String description, String author, String copyright, String path, String keywords, Collection<Meta> metas, List<Child> children) {
+		super(title, navImageAlt, description, author, copyright, path, keywords, metas);
+		this.children = children;
+	}
 
-    /**
-     * Gets the children of this parent page.
-     */
-    public List<Child> getChildren() {
-        if(children==null) {
-            List<Child> emptyList = Collections.emptyList();
-            return emptyList;
-        }
-        return children;
-    }
+	/**
+	 * Gets the children of this parent page.
+	 */
+	public List<Child> getChildren() {
+		if(children==null) {
+			List<Child> emptyList = Collections.emptyList();
+			return emptyList;
+		}
+		return children;
+	}
 }

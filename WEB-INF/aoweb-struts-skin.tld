@@ -139,13 +139,6 @@
     <example />
   </tag>
   <tag>
-    <description>Provides an encrypt flag to its EncryptAttribute parent tag or the page overall if parent not found.</description>
-    <name>encrypt</name>
-    <tag-class>com.aoindustries.website.skintags.EncryptTag</tag-class>
-    <body-content>scriptless</body-content>
-    <example />
-  </tag>
-  <tag>
     <description>Provides a navImageAlt to its NavImageAltAttribute parent tag or the page overall if parent not found.</description>
     <name>navImageAlt</name>
     <tag-class>com.aoindustries.website.skintags.NavImageAltTag</tag-class>
@@ -206,13 +199,6 @@
       <rtexprvalue>true</rtexprvalue>
       <type>java.lang.String</type>
     </attribute>
-    <attribute>
-      <description>The encrypt flag of the parent.  A nested encrypt tag will override this value.</description>
-      <name>encrypt</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
-    </attribute>
     <example />
   </tag>
   <tag>
@@ -268,13 +254,6 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
       <type>java.lang.String</type>
-    </attribute>
-    <attribute>
-      <description>The encrypt flag of the child.  A nested encrypt tag will override this value.</description>
-      <name>encrypt</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
     </attribute>
     <example />
   </tag>

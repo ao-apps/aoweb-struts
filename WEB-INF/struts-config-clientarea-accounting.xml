@@ -41,7 +41,7 @@
     <action-mappings>
         <action
             path="/index"
-            type="com.aoindustries.website.HttpAction"
+            type="com.aoindustries.website.SkinAction"
         >
             <forward name="success" path="/index.jsp" redirect="false" />
         </action>

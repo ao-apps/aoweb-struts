@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2013 by AO Industries, Inc.,
+ * Copyright 2009-2013, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -22,62 +22,62 @@ import org.apache.struts.action.ActionMapping;
  */
 public class SiteSettingsAction extends Action {
 
-    /**
-     * Resolves the <code>SiteSettings</code>, sets the request attribute "siteSettings", then the subclass execute method is invoked.
-     *
-     * @see #execute(ActionMapping,ActionForm,HttpServletRequest,HttpServletResponse,Locale)
-     */
-    @Override
-    final public ActionForward execute(
-        ActionMapping mapping,
-        ActionForm form,
-        HttpServletRequest request,
-        HttpServletResponse response
-    ) throws Exception {
-        // Resolve the settings
-        SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
-        request.setAttribute(Constants.SITE_SETTINGS, siteSettings);
+	/**
+	 * Resolves the <code>SiteSettings</code>, sets the request attribute "siteSettings", then the subclass execute method is invoked.
+	 *
+	 * @see #execute(ActionMapping,ActionForm,HttpServletRequest,HttpServletResponse,Locale)
+	 */
+	@Override
+	final public ActionForward execute(
+		ActionMapping mapping,
+		ActionForm form,
+		HttpServletRequest request,
+		HttpServletResponse response
+	) throws Exception {
+		// Resolve the settings
+		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
+		request.setAttribute(Constants.SITE_SETTINGS, siteSettings);
 
-        // Start the request tracking
-        boolean canEditResources = siteSettings.getCanEditResources();
-        boolean modifyAllText = false;
-        if(canEditResources) {
-            // Check for cookie
-            Cookie[] cookies = request.getCookies();
-            if(cookies!=null) {
-                for(Cookie cookie : cookies) {
-                    if(
-                        "EditableResourceBundleEditorVisibility".equals(cookie.getName())
-                        && "visible".equals(cookie.getValue())
-                    ) {
-                        modifyAllText = true;
-                        break;
-                    }
-                }
-            }
-            
-        }
-        ResourceBundleMessageResources.setCachedEnabled(!canEditResources);
-        EditableResourceBundle.resetRequest(
-            canEditResources,
-            canEditResources ? (request.isSecure() ? Skin.getDefaultHttpsUrlBase(request) : Skin.getDefaultHttpUrlBase(request))+"set-resource-bundle-value.do" : null,
-            modifyAllText
-        );
+		// Start the request tracking
+		boolean canEditResources = siteSettings.getCanEditResources();
+		boolean modifyAllText = false;
+		if(canEditResources) {
+			// Check for cookie
+			Cookie[] cookies = request.getCookies();
+			if(cookies!=null) {
+				for(Cookie cookie : cookies) {
+					if(
+						"EditableResourceBundleEditorVisibility".equals(cookie.getName())
+						&& "visible".equals(cookie.getValue())
+					) {
+						modifyAllText = true;
+						break;
+					}
+				}
+			}
 
-        return execute(mapping, form, request, response, siteSettings);
-    }
+		}
+		ResourceBundleMessageResources.setCachedEnabled(!canEditResources);
+		EditableResourceBundle.resetRequest(
+			canEditResources,
+			canEditResources ? (Skin.getDefaultUrlBase(request)+"set-resource-bundle-value.do") : null,
+			modifyAllText
+		);
 
-    /**
-     * Once the siteSettings are resolved, this version of the execute method is invoked.
-     * The default implementation of this method simply returns the mapping of "success".
-     */
-    public ActionForward execute(
-        ActionMapping mapping,
-        ActionForm form,
-        HttpServletRequest request,
-        HttpServletResponse response,
-        SiteSettings siteSettings
-    ) throws Exception {
-        return mapping.findForward("success");
-    }
+		return execute(mapping, form, request, response, siteSettings);
+	}
+
+	/**
+	 * Once the siteSettings are resolved, this version of the execute method is invoked.
+	 * The default implementation of this method simply returns the mapping of "success".
+	 */
+	public ActionForward execute(
+		ActionMapping mapping,
+		ActionForm form,
+		HttpServletRequest request,
+		HttpServletResponse response,
+		SiteSettings siteSettings
+	) throws Exception {
+		return mapping.findForward("success");
+	}
 }

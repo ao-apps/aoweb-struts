@@ -1,14 +1,14 @@
-package com.aoindustries.website.clientarea.control.password;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.control.password;
+
 import com.aoindustries.aoserv.client.PasswordChecker;
-import com.aoindustries.website.HttpsAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import com.aoindustries.website.SkinAction;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -23,32 +23,32 @@ import org.apache.struts.action.ActionMessages;
  *
  * @author  AO Industries, Inc.
  */
-public class PasswordEvaluatorCompletedAction extends HttpsAction {
+public class PasswordEvaluatorCompletedAction extends SkinAction {
 
-    public ActionForward executeProtocolAccepted(
-        ActionMapping mapping,
-        ActionForm form,
-        HttpServletRequest request,
-        HttpServletResponse response,
-        SiteSettings siteSettings,
-        Locale locale,
-        Skin skin
-    ) throws Exception {
-        PasswordEvaluatorForm passwordEvaluatorForm = (PasswordEvaluatorForm)form;
+	public ActionForward execute(
+		ActionMapping mapping,
+		ActionForm form,
+		HttpServletRequest request,
+		HttpServletResponse response,
+		SiteSettings siteSettings,
+		Locale locale,
+		Skin skin
+	) throws Exception {
+		PasswordEvaluatorForm passwordEvaluatorForm = (PasswordEvaluatorForm)form;
 
-        ActionMessages errors = passwordEvaluatorForm.validate(mapping, request);
-        if(errors!=null && !errors.isEmpty()) {
-            saveErrors(request, errors);
-            return mapping.findForward("input");
-        }
+		ActionMessages errors = passwordEvaluatorForm.validate(mapping, request);
+		if(errors!=null && !errors.isEmpty()) {
+			saveErrors(request, errors);
+			return mapping.findForward("input");
+		}
 
-        // Evaluate the password
-        String password = passwordEvaluatorForm.getPassword();
-        List<PasswordChecker.Result> results = PasswordChecker.checkPassword(null, password, PasswordChecker.PasswordStrength.STRICT);
-            
-        // Set request values
-        request.setAttribute("results", results);
+		// Evaluate the password
+		String password = passwordEvaluatorForm.getPassword();
+		List<PasswordChecker.Result> results = PasswordChecker.checkPassword(null, password, PasswordChecker.PasswordStrength.STRICT);
 
-        return mapping.findForward("success");
-    }
+		// Set request values
+		request.setAttribute("results", results);
+
+		return mapping.findForward("success");
+	}
 }

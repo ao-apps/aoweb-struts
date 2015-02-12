@@ -41,7 +41,7 @@
     <action-mappings>
         <action
             path="/index"
-            type="com.aoindustries.website.HttpAction"
+            type="com.aoindustries.website.SkinAction"
         >
             <forward name="success" path="/index.jsp" redirect="false" />
         </action>
@@ -83,7 +83,7 @@
         </action>
         <action
             path="/password/index"
-            type="com.aoindustries.website.HttpAction"
+            type="com.aoindustries.website.SkinAction"
         >
             <forward name="success" path="/password/index.jsp" redirect="false" />
         </action>
@@ -92,7 +92,7 @@
             name="passwordEvaluatorForm"
             scope="request"
             validate="false"
-            type="com.aoindustries.website.HttpsAction"
+            type="com.aoindustries.website.SkinAction"
         >
             <forward name="success" path="/password/password-evaluator.jsp" redirect="false" />
         </action>

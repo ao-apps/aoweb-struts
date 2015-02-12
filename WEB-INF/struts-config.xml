@@ -54,7 +54,7 @@
             name="contactForm"
             scope="request"
             validate="false"
-            type="com.aoindustries.website.HttpsAction"
+            type="com.aoindustries.website.SkinAction"
         >
             <forward name="success" path="/contact.jsp" redirect="false" />
         </action>

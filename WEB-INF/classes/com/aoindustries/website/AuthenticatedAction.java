@@ -1,10 +1,10 @@
-package com.aoindustries.website;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import java.io.IOException;
 import java.util.Locale;
@@ -28,92 +28,92 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author  AO Industries, Inc.
  */
-abstract public class AuthenticatedAction extends HttpsAction {
+abstract public class AuthenticatedAction extends SkinAction {
 
-    @Override
-    final public ActionForward executeProtocolAccepted(
-        ActionMapping mapping,
-        ActionForm form,
-        HttpServletRequest request,
-        HttpServletResponse response,
-        SiteSettings siteSettings,
-        Locale locale,
-        Skin skin
-    ) throws Exception {
-        // Handle login
-        AOServConnector aoConn = getAoConn(request, response);
-        if(aoConn==null) {
-            String target = request.getRequestURL().toString();
-            if(!target.endsWith("/login.do")) {
-                String queryString = request.getQueryString();
-                if(queryString!=null) target = target+'?'+queryString;
-                request.getSession().setAttribute(Constants.AUTHENTICATION_TARGET, target);
-            } else {
-                request.getSession().removeAttribute(Constants.AUTHENTICATION_TARGET);
-            }
-            return mapping.findForward("login");
-        }
-        
-        // Set request values
-        request.setAttribute("aoConn", aoConn);
+	@Override
+	final public ActionForward execute(
+		ActionMapping mapping,
+		ActionForm form,
+		HttpServletRequest request,
+		HttpServletResponse response,
+		SiteSettings siteSettings,
+		Locale locale,
+		Skin skin
+	) throws Exception {
+		// Handle login
+		AOServConnector aoConn = getAoConn(request, response);
+		if(aoConn==null) {
+			String target = request.getRequestURL().toString();
+			if(!target.endsWith("/login.do")) {
+				String queryString = request.getQueryString();
+				if(queryString!=null) target = target+'?'+queryString;
+				request.getSession().setAttribute(Constants.AUTHENTICATION_TARGET, target);
+			} else {
+				request.getSession().removeAttribute(Constants.AUTHENTICATION_TARGET);
+			}
+			return mapping.findForward("login");
+		}
 
-        return execute(mapping, form, request, response, siteSettings, locale, skin, aoConn);
-    }
+		// Set request values
+		request.setAttribute("aoConn", aoConn);
 
-    /**
-     * Gets the AOServConnector that represents the actual login id.  This will not change when
-     * the user performs a switch user ("su")..
-     */
-    public static AOServConnector getAuthenticatedAoConn(HttpServletRequest request, HttpServletResponse response) {
-        return (AOServConnector)request.getSession().getAttribute(Constants.AUTHENTICATED_AO_CONN);
-    }
+		return execute(mapping, form, request, response, siteSettings, locale, skin, aoConn);
+	}
 
-    /**
-     * Gets the AOServConnector for the user or <code>null</code> if not logged in.  This also handles the "su" behavior that was
-     * stored in the session by <code>SkinAction</code>.
-     */
-    public static AOServConnector getAoConn(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
-        AOServConnector authenticatedAoConn = getAuthenticatedAoConn(request, response);
-        // Not logged in
-        if(authenticatedAoConn==null) return null;
-        
-        // Is a "su" requested?
-        String su=(String)session.getAttribute(Constants.SU_REQUESTED);
-        if(su!=null) {
-            session.removeAttribute(Constants.SU_REQUESTED);
-            try {
-                AOServConnector aoConn = su.length()==0 ? authenticatedAoConn : authenticatedAoConn.switchUsers(su);
-                session.setAttribute(Constants.AO_CONN, aoConn);
-                return aoConn;
-            } catch(IOException err) {
-                LogFactory.getLogger(session.getServletContext(), AuthenticatedAction.class).log(Level.SEVERE, null, err);
-            }
-        }
+	/**
+	 * Gets the AOServConnector that represents the actual login id.  This will not change when
+	 * the user performs a switch user ("su")..
+	 */
+	public static AOServConnector getAuthenticatedAoConn(HttpServletRequest request, HttpServletResponse response) {
+		return (AOServConnector)request.getSession().getAttribute(Constants.AUTHENTICATED_AO_CONN);
+	}
 
-        // Look for previous effective user
-        AOServConnector aoConn = (AOServConnector)session.getAttribute(Constants.AO_CONN);
-        if(aoConn!=null) return aoConn;
+	/**
+	 * Gets the AOServConnector for the user or <code>null</code> if not logged in.  This also handles the "su" behavior that was
+	 * stored in the session by <code>SkinAction</code>.
+	 */
+	public static AOServConnector getAoConn(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		AOServConnector authenticatedAoConn = getAuthenticatedAoConn(request, response);
+		// Not logged in
+		if(authenticatedAoConn==null) return null;
 
-        // Default effective user to authenticated user
-        session.setAttribute(Constants.AO_CONN, authenticatedAoConn);
-        return authenticatedAoConn;
-    }
+		// Is a "su" requested?
+		String su=(String)session.getAttribute(Constants.SU_REQUESTED);
+		if(su!=null) {
+			session.removeAttribute(Constants.SU_REQUESTED);
+			try {
+				AOServConnector aoConn = su.length()==0 ? authenticatedAoConn : authenticatedAoConn.switchUsers(su);
+				session.setAttribute(Constants.AO_CONN, aoConn);
+				return aoConn;
+			} catch(IOException err) {
+				LogFactory.getLogger(session.getServletContext(), AuthenticatedAction.class).log(Level.SEVERE, null, err);
+			}
+		}
 
-    /**
-     * Once authentication has been handled, this version of the execute method is invoked.
-     * The default implementation of this method simply returns the mapping of "success".
-     */
-    public ActionForward execute(
-        ActionMapping mapping,
-        ActionForm form,
-        HttpServletRequest request,
-        HttpServletResponse response,
-        SiteSettings siteSettings,
-        Locale locale,
-        Skin skin,
-        AOServConnector aoConn
-    ) throws Exception {
-        return mapping.findForward("success");
-    }
+		// Look for previous effective user
+		AOServConnector aoConn = (AOServConnector)session.getAttribute(Constants.AO_CONN);
+		if(aoConn!=null) return aoConn;
+
+		// Default effective user to authenticated user
+		session.setAttribute(Constants.AO_CONN, authenticatedAoConn);
+		return authenticatedAoConn;
+	}
+
+	/**
+	 * Once authentication has been handled, this version of the execute method is invoked.
+	 * The default implementation of this method simply returns the mapping of "success".
+	 */
+	public ActionForward execute(
+		ActionMapping mapping,
+		ActionForm form,
+		HttpServletRequest request,
+		HttpServletResponse response,
+		SiteSettings siteSettings,
+		Locale locale,
+		Skin skin,
+		AOServConnector aoConn
+	) throws Exception {
+		return mapping.findForward("success");
+	}
 }

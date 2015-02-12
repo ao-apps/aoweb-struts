@@ -1,14 +1,14 @@
-package com.aoindustries.website.clientarea.control.password;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.control.password;
+
 import com.aoindustries.aoserv.client.PasswordGenerator;
-import com.aoindustries.website.HttpsAction;
 import com.aoindustries.website.SiteSettings;
 import com.aoindustries.website.Skin;
+import com.aoindustries.website.SkinAction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -23,27 +23,27 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author  AO Industries, Inc.
  */
-public class PasswordGeneratorAction extends HttpsAction {
+public class PasswordGeneratorAction extends SkinAction {
 
-    private static final int NUM_PASSWORDS = 10;
+	private static final int NUM_PASSWORDS = 10;
 
-    @Override
-    public ActionForward executeProtocolAccepted(
-        ActionMapping mapping,
-        ActionForm form,
-        HttpServletRequest request,
-        HttpServletResponse response,
-        SiteSettings siteSettings,
-        Locale locale,
-        Skin skin
-    ) throws Exception {
-        // Generate the passwords
-        List<String> generatedPasswords = new ArrayList<String>(NUM_PASSWORDS);
-        for(int c=0;c<10;c++) generatedPasswords.add(PasswordGenerator.generatePassword());
+	@Override
+	public ActionForward execute(
+		ActionMapping mapping,
+		ActionForm form,
+		HttpServletRequest request,
+		HttpServletResponse response,
+		SiteSettings siteSettings,
+		Locale locale,
+		Skin skin
+	) throws Exception {
+		// Generate the passwords
+		List<String> generatedPasswords = new ArrayList<String>(NUM_PASSWORDS);
+		for(int c=0;c<10;c++) generatedPasswords.add(PasswordGenerator.generatePassword());
 
-        // Set request values
-        request.setAttribute("generatedPasswords", generatedPasswords);
+		// Set request values
+		request.setAttribute("generatedPasswords", generatedPasswords);
 
-        return mapping.findForward("success");
-    }
+		return mapping.findForward("success");
+	}
 }

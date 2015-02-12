@@ -1,10 +1,10 @@
-package com.aoindustries.website;
-
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website;
+
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -24,41 +24,41 @@ import javax.servlet.jsp.JspException;
  */
 public class NoDirectJspFilter implements Filter {
 
-    private ServletContext servletContext;
+	private ServletContext servletContext;
 
-    public void init(FilterConfig config) {
-        servletContext = config.getServletContext();
-    }
+	public void init(FilterConfig config) {
+		servletContext = config.getServletContext();
+	}
 
-    public void doFilter(
-        ServletRequest request,
-        ServletResponse response,
-        FilterChain chain
-    ) throws IOException, ServletException {
-        HttpServletRequest httpRequest = (HttpServletRequest)request;
-        HttpServletResponse httpResponse = (HttpServletResponse)response;
-        String servletPath = httpRequest.getServletPath();
-        if(servletPath.equals("/index.jsp")) {
-            try {
-                SiteSettings siteSettings = SiteSettings.getInstance(servletContext);
-                // Locale locale = LocaleAction.getEffectiveLocale(siteSettings, httpRequest, httpResponse);
-                Skin skin = SkinAction.getSkin(siteSettings, httpRequest, httpResponse);
-                StringBuilder url = new StringBuilder(request.isSecure() ? skin.getHttpsUrlBase(httpRequest) : skin.getHttpUrlBase(httpRequest)).append("index.do");
-                String query = httpRequest.getQueryString();
-                if(query!=null) url.append('?').append(query);
-                httpResponse.setHeader("Location", url.toString());
-                httpResponse.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
-            } catch(JspException err) {
-                throw new ServletException(err);
-            //} catch(SQLException err) {
-            //    throw new ServletException(err);
-            }
-        } else {
-            httpResponse.sendError(HttpServletResponse.SC_NOT_FOUND);
-        }
-    }
+	public void doFilter(
+		ServletRequest request,
+		ServletResponse response,
+		FilterChain chain
+	) throws IOException, ServletException {
+		HttpServletRequest httpRequest = (HttpServletRequest)request;
+		HttpServletResponse httpResponse = (HttpServletResponse)response;
+		String servletPath = httpRequest.getServletPath();
+		if(servletPath.equals("/index.jsp")) {
+			try {
+				SiteSettings siteSettings = SiteSettings.getInstance(servletContext);
+				// Locale locale = LocaleAction.getEffectiveLocale(siteSettings, httpRequest, httpResponse);
+				Skin skin = SkinAction.getSkin(siteSettings, httpRequest, httpResponse);
+				StringBuilder url = new StringBuilder(skin.getUrlBase(httpRequest)).append("index.do");
+				String query = httpRequest.getQueryString();
+				if(query!=null) url.append('?').append(query);
+				httpResponse.setHeader("Location", url.toString());
+				httpResponse.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
+			} catch(JspException err) {
+				throw new ServletException(err);
+			//} catch(SQLException err) {
+			//    throw new ServletException(err);
+			}
+		} else {
+			httpResponse.sendError(HttpServletResponse.SC_NOT_FOUND);
+		}
+	}
 
-    public void destroy() {
-        servletContext = null;
-    }
+	public void destroy() {
+		servletContext = null;
+	}
 }

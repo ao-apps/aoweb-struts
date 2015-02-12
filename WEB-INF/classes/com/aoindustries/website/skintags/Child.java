@@ -1,12 +1,11 @@
-package com.aoindustries.website.skintags;
-
-import java.util.Collection;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.skintags;
+
+import java.util.Collection;
 
 /**
  * Contains the information for a page used as a child.
@@ -15,7 +14,7 @@ import java.util.Collection;
  */
 public class Child extends Page {
 
-    public Child(String title, String navImageAlt, String description, String author, String copyright, boolean useEncryption, String path, String keywords, Collection<Meta> metas) {
-        super(title, navImageAlt, description, author, copyright, useEncryption, path, keywords, metas);
-    }
+	public Child(String title, String navImageAlt, String description, String author, String copyright, String path, String keywords, Collection<Meta> metas) {
+		super(title, navImageAlt, description, author, copyright, path, keywords, metas);
+	}
 }

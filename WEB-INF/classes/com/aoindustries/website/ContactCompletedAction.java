@@ -1,10 +1,10 @@
-package com.aoindustries.website;
-
 /*
- * Copyright 2000-2009 by AO Industries, Inc.,
+ * Copyright 2000-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Language;
 import com.aoindustries.aoserv.client.TicketPriority;
@@ -21,51 +21,51 @@ import org.apache.struts.action.ActionMessages;
 /**
  * @author  AO Industries, Inc.
  */
-public class ContactCompletedAction extends HttpsAction {
+public class ContactCompletedAction extends SkinAction {
 
-    @Override
-    public ActionForward executeProtocolAccepted(
-        ActionMapping mapping,
-        ActionForm form,
-        HttpServletRequest request,
-        HttpServletResponse response,
-        SiteSettings siteSettings,
-        Locale locale,
-        Skin skin
-    ) throws Exception {
-        ContactForm contactForm = (ContactForm)form;
+	@Override
+	public ActionForward execute(
+		ActionMapping mapping,
+		ActionForm form,
+		HttpServletRequest request,
+		HttpServletResponse response,
+		SiteSettings siteSettings,
+		Locale locale,
+		Skin skin
+	) throws Exception {
+		ContactForm contactForm = (ContactForm)form;
 
-        // Validation
-        ActionMessages errors = contactForm.validate(mapping, request);
-        if(errors!=null && !errors.isEmpty()) {
-            saveErrors(request, errors);
-            return mapping.findForward("input");
-        }
+		// Validation
+		ActionMessages errors = contactForm.validate(mapping, request);
+		if(errors!=null && !errors.isEmpty()) {
+			saveErrors(request, errors);
+			return mapping.findForward("input");
+		}
 
-        AOServConnector rootConn = siteSettings.getRootAOServConnector();
-        Language language = rootConn.getLanguages().get(locale.getLanguage());
-        if(language==null) {
-            language = rootConn.getLanguages().get(Language.EN);
-            if(language==null) throw new SQLException("Unable to find Language: "+Language.EN);
-        }
-        TicketType ticketType = rootConn.getTicketTypes().get(TicketType.CONTACT);
-        if(ticketType==null) throw new SQLException("Unable to find TicketType: "+TicketType.CONTACT);
-        TicketPriority clientPriority = rootConn.getTicketPriorities().get(TicketPriority.NORMAL);
-        if(clientPriority==null) throw new SQLException("Unable to find TicketPriority: "+TicketPriority.NORMAL);
-        rootConn.getTickets().addTicket(
-            siteSettings.getBrand(),
-            null,
-            language,
-            null,
-            ticketType,
-            contactForm.getFrom(),
-            contactForm.getSubject(),
-            contactForm.getMessage(),
-            clientPriority,
-            contactForm.getFrom(),
-            ""
-        );
+		AOServConnector rootConn = siteSettings.getRootAOServConnector();
+		Language language = rootConn.getLanguages().get(locale.getLanguage());
+		if(language==null) {
+			language = rootConn.getLanguages().get(Language.EN);
+			if(language==null) throw new SQLException("Unable to find Language: "+Language.EN);
+		}
+		TicketType ticketType = rootConn.getTicketTypes().get(TicketType.CONTACT);
+		if(ticketType==null) throw new SQLException("Unable to find TicketType: "+TicketType.CONTACT);
+		TicketPriority clientPriority = rootConn.getTicketPriorities().get(TicketPriority.NORMAL);
+		if(clientPriority==null) throw new SQLException("Unable to find TicketPriority: "+TicketPriority.NORMAL);
+		rootConn.getTickets().addTicket(
+			siteSettings.getBrand(),
+			null,
+			language,
+			null,
+			ticketType,
+			contactForm.getFrom(),
+			contactForm.getSubject(),
+			contactForm.getMessage(),
+			clientPriority,
+			contactForm.getFrom(),
+			""
+		);
 
-        return mapping.findForward("success");
-    }
+		return mapping.findForward("success");
+	}
 }

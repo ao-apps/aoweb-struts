@@ -1,12 +1,12 @@
 /*
- * Copyright 2007-2013 by AO Industries, Inc.,
+ * Copyright 2007-2013, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 package com.aoindustries.website;
 
 import com.aoindustries.encoding.NewEncodingUtils;
-import com.aoindustries.util.EncodingUtils;
+import static com.aoindustries.encoding.TextInXhtmlAttributeEncoder.encodeTextInXhtmlAttribute;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import com.aoindustries.website.skintags.PageAttributes;
@@ -59,7 +59,7 @@ abstract public class Skin {
 				Language language = languages.get(0);
 				out.append("    <link rel='alternate' hreflang='x-default' href='");
 				String url = language.getUrl();
-				EncodingUtils.encodeXmlAttribute(
+				encodeTextInXhtmlAttribute(
 					resp.encodeURL(
 						NewEncodingUtils.encodeUrlPath(
 							url==null
@@ -74,10 +74,10 @@ abstract public class Skin {
 			// All languages
 			for(Language language : languages) {
 				out.append("    <link rel='alternate' hreflang='");
-				EncodingUtils.encodeXmlAttribute(language.getCode(), out);
+				encodeTextInXhtmlAttribute(language.getCode(), out);
 				out.append("' href='");
 				String url = language.getUrl();
-				EncodingUtils.encodeXmlAttribute(
+				encodeTextInXhtmlAttribute(
 					resp.encodeURL(
 						NewEncodingUtils.encodeUrlPath(
 							url==null
@@ -103,45 +103,33 @@ abstract public class Skin {
 	abstract public String getDisplay(HttpServletRequest req) throws JspException;
 
 	/**
-	 * Gets the prefix for URLs for the SSL server.  This should always end with a /.
+	 * Gets the prefix for URLs for the non-SSL server.  This should always end with a /.
 	 */
-	public static String getDefaultHttpsUrlBase(HttpServletRequest req) throws JspException {
+	public static String getDefaultUrlBase(HttpServletRequest req) throws JspException {
 		int port = req.getServerPort();
 		String contextPath = req.getContextPath();
 		if(port!=80 && port!=443) {
-			// Non-ssl development area
-			return "https://"+req.getServerName()+":11257"+contextPath+"/";
+			if(req.isSecure()) {
+				// SSL development area
+				return "https://"+req.getServerName()+":11257"+contextPath+"/";
+			} else {
+				// Non-SSL development area
+				return "http://"+req.getServerName()+":11156"+contextPath+"/";
+			}
 		} else {
-			return "https://"+req.getServerName()+contextPath+"/";
+			if(req.isSecure()) {
+				return "https://"+req.getServerName()+contextPath+"/";
+			} else {
+				return "http://"+req.getServerName()+contextPath+"/";
+			}
 		}
 	}
 
 	/**
-	 * Gets the prefix for URLs for the SSL server.  This should always end with a /.
+	 * Gets the prefix for URLs for the server.  This should always end with a /.
 	 */
-	public String getHttpsUrlBase(HttpServletRequest req) throws JspException {
-		return getDefaultHttpsUrlBase(req);
-	}
-
-	/**
-	 * Gets the prefix for URLs for the non-SSL server.  This should always end with a /.
-	 */
-	public static String getDefaultHttpUrlBase(HttpServletRequest req) throws JspException {
-		int port = req.getServerPort();
-		String contextPath = req.getContextPath();
-		if(port!=80 && port!=443) {
-			// Non-ssl development area
-			return "http://"+req.getServerName()+":11156"+contextPath+"/";
-		} else {
-			return "http://"+req.getServerName()+contextPath+"/";
-		}
-	}
-
-	/**
-	 * Gets the prefix for URLs for the non-SSL server.  This should always end with a /.
-	 */
-	public String getHttpUrlBase(HttpServletRequest req) throws JspException {
-		return getDefaultHttpUrlBase(req);
+	public String getUrlBase(HttpServletRequest req) throws JspException {
+		return getDefaultUrlBase(req);
 	}
 
 	/**
