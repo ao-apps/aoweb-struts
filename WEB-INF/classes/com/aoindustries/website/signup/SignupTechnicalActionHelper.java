@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2013 by AO Industries, Inc.,
+ * Copyright 2007-2013, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -8,7 +8,7 @@ package com.aoindustries.website.signup;
 import static com.aoindustries.website.signup.ApplicationResources.accessor;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.PasswordGenerator;
-import com.aoindustries.io.ChainWriter;
+import com.aoindustries.encoding.ChainWriter;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.sql.SQLException;

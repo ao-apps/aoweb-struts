@@ -1,11 +1,11 @@
-package com.aoindustries.website.aowebtags;
-
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.io.ChainWriter;
+package com.aoindustries.website.aowebtags;
+
+import com.aoindustries.encoding.ChainWriter;
 import com.aoindustries.util.Sequence;
 import com.aoindustries.util.UnsynchronizedSequence;
 import java.io.IOException;
@@ -20,7 +20,9 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class DateTag extends BodyTagSupport {
 
-    /**
+	private static final long serialVersionUID = 1L;
+
+	/**
      * The request attribute name used to store the sequence.
      */
     private static final String SEQUENCE_REQUEST_ATTRIBUTE_NAME = DateTag.class.getName()+".sequence";

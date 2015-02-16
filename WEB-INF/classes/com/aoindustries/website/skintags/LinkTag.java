@@ -1,12 +1,12 @@
 /*
- * Copyright 2007-2013 by AO Industries, Inc.,
+ * Copyright 2007-2013, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 package com.aoindustries.website.skintags;
 
 import com.aoindustries.encoding.MediaType;
-import com.aoindustries.io.Coercion;
+import com.aoindustries.encoding.Coercion;
 import com.aoindustries.io.buffer.BufferResult;
 import com.aoindustries.taglib.AutoEncodingBufferedTag;
 import com.aoindustries.taglib.HrefAttribute;

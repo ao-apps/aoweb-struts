@@ -1,16 +1,16 @@
-package com.aoindustries.website.signup;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.signup;
+
 import static com.aoindustries.website.signup.ApplicationResources.accessor;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.PackageCategory;
 import com.aoindustries.aoserv.client.PackageDefinition;
-import com.aoindustries.io.ChainWriter;
+import com.aoindustries.encoding.ChainWriter;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -117,7 +117,7 @@ final public class SignupSelectServerActionHelper {
         emailOut.print("    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupSelectServerForm.packageDefinition.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(packageDefinition.getDisplay()).print("</td>\n"
+                     + "        <td>").encodeXhtml(packageDefinition.getDisplay()).print("</td>\n"
                      + "    </tr>\n");
     }
 }

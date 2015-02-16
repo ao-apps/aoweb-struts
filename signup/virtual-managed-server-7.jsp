@@ -5,7 +5,6 @@
   All rights reserved.
 --%>
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
-<%@ page import="com.aoindustries.util.EncodingUtils" %>
 <%@ page import="com.aoindustries.util.StringUtility" %>
 <%@include file="/_taglibs.jsp" %>
 

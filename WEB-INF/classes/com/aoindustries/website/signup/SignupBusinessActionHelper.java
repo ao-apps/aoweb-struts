@@ -1,14 +1,14 @@
-package com.aoindustries.website.signup;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.signup;
+
 import static com.aoindustries.website.signup.ApplicationResources.accessor;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.CountryCode;
-import com.aoindustries.io.ChainWriter;
+import com.aoindustries.encoding.ChainWriter;
 import com.aoindustries.website.SiteSettings;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -109,49 +109,49 @@ final public class SignupBusinessActionHelper {
         emailOut.print("    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupBusinessForm.businessName.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(signupBusinessForm.getBusinessName()).print("</td>\n"
+                     + "        <td>").encodeXhtml(signupBusinessForm.getBusinessName()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupBusinessForm.businessPhone.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(signupBusinessForm.getBusinessPhone()).print("</td>\n"
+                     + "        <td>").encodeXhtml(signupBusinessForm.getBusinessPhone()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupBusinessForm.businessFax.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(signupBusinessForm.getBusinessFax()).print("</td>\n"
+                     + "        <td>").encodeXhtml(signupBusinessForm.getBusinessFax()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupBusinessForm.businessAddress1.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(signupBusinessForm.getBusinessAddress1()).print("</td>\n"
+                     + "        <td>").encodeXhtml(signupBusinessForm.getBusinessAddress1()).print("</td>\n"
                      + "    </tr>\n");
         if(!GenericValidator.isBlankOrNull(signupBusinessForm.getBusinessAddress2())) {
             emailOut.print("    <tr>\n"
                          + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"
                          + "        <td>").print(accessor.getMessage("signupBusinessForm.businessAddress2.prompt")).print("</td>\n"
-                         + "        <td>").encodeHtml(signupBusinessForm.getBusinessAddress2()).print("</td>\n"
+                         + "        <td>").encodeXhtml(signupBusinessForm.getBusinessAddress2()).print("</td>\n"
                          + "    </tr>\n");
         }
         emailOut.print("    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupBusinessForm.businessCity.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(signupBusinessForm.getBusinessCity()).print("</td>\n"
+                     + "        <td>").encodeXhtml(signupBusinessForm.getBusinessCity()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupBusinessForm.businessState.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(signupBusinessForm.getBusinessState()).print("</td>\n"
+                     + "        <td>").encodeXhtml(signupBusinessForm.getBusinessState()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupBusinessForm.businessCountry.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(getBusinessCountry(rootConn, signupBusinessForm)).print("</td>\n"
+                     + "        <td>").encodeXhtml(getBusinessCountry(rootConn, signupBusinessForm)).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupBusinessForm.businessZip.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(signupBusinessForm.getBusinessZip()).print("</td>\n"
+                     + "        <td>").encodeXhtml(signupBusinessForm.getBusinessZip()).print("</td>\n"
                      + "    </tr>\n");
     }
 }

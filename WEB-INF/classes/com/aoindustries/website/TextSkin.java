@@ -10,7 +10,10 @@ import com.aoindustries.aoserv.client.Brand;
 import com.aoindustries.encoding.NewEncodingUtils;
 import static com.aoindustries.encoding.TextInXhtmlEncoder.encodeTextInXhtml;
 import static com.aoindustries.encoding.TextInXhtmlAttributeEncoder.encodeTextInXhtmlAttribute;
-import com.aoindustries.io.ChainWriter;
+import com.aoindustries.encoding.ChainWriter;
+import com.aoindustries.encoding.TextInJavaScriptEncoder;
+import com.aoindustries.encoding.TextInXhtmlEncoder;
+import com.aoindustries.net.UrlUtils;
 import com.aoindustries.util.i18n.EditableResourceBundle;
 import com.aoindustries.website.skintags.Child;
 import com.aoindustries.website.skintags.Meta;
@@ -115,7 +118,7 @@ public class TextSkin extends Skin {
 			String path = pageAttributes.getPath();
 			if(path.startsWith("/")) path=path.substring(1);
 			final String fullPath = urlBase + path;
-			final String encodedFullPath = resp.encodeURL(NewEncodingUtils.encodeUrlPath(fullPath));
+			final String encodedFullPath = resp.encodeURL(UrlUtils.encodeUrlPath(fullPath));
 			ServletContext servletContext = session.getServletContext();
 			SiteSettings settings = SiteSettings.getInstance(servletContext);
 			List<Skin> skins = settings.getSkins();
@@ -310,7 +313,7 @@ public class TextSkin extends Skin {
 						out.print("&#160;<a href='");
 						encodeTextInXhtmlAttribute(
 							resp.encodeURL(
-								NewEncodingUtils.encodeUrlPath(
+								UrlUtils.encodeUrlPath(
 									url==null
 									? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&")+"language="+language.getCode())
 									: url
@@ -339,7 +342,7 @@ public class TextSkin extends Skin {
 						out.print("&#160;<a href='");
 						encodeTextInXhtmlAttribute(
 							resp.encodeURL(
-								NewEncodingUtils.encodeUrlPath(
+								UrlUtils.encodeUrlPath(
 									url==null
 									? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&")+"language="+language.getCode())
 									: url
@@ -393,7 +396,7 @@ public class TextSkin extends Skin {
 				if(parentPath.startsWith("/")) parentPath=parentPath.substring(1);
 				out.print("            <a href='");
 				encodeTextInXhtmlAttribute(
-					resp.encodeURL(urlBase + NewEncodingUtils.encodeUrlPath(parentPath)),
+					resp.encodeURL(urlBase + UrlUtils.encodeUrlPath(parentPath)),
 					out
 				);
 				out.print("'>");
@@ -426,7 +429,7 @@ public class TextSkin extends Skin {
 				if(siblingPath.startsWith("/")) siblingPath=siblingPath.substring(1);
 				out.print("          <a href='");
 				encodeTextInXhtmlAttribute(
-					resp.encodeURL(urlBase + NewEncodingUtils.encodeUrlPath(siblingPath)),
+					resp.encodeURL(urlBase + UrlUtils.encodeUrlPath(siblingPath)),
 					out
 				);
 				out.print("'>");
@@ -459,7 +462,7 @@ public class TextSkin extends Skin {
 				out.print("    <link rel=\"");
 				encodeTextInXhtmlAttribute(link.getRel(), out);
 				out.print("\" href=\"");
-				encodeTextInXhtmlAttribute(NewEncodingUtils.encodeUrlPath(link.getHref()), out);
+				encodeTextInXhtmlAttribute(UrlUtils.encodeUrlPath(link.getHref()), out);
 				out.print("\" type=\"");
 				encodeTextInXhtmlAttribute(link.getType(), out);
 				out.print("\" />\n");
@@ -649,7 +652,13 @@ public class TextSkin extends Skin {
 			out.print("        </td>\n"
 					+ "      </tr>\n"
 					+ "    </table>\n");
-			EditableResourceBundle.printEditableResourceBundleLookups(out, 4, true);
+			EditableResourceBundle.printEditableResourceBundleLookups(
+				TextInJavaScriptEncoder.textInJavaScriptEncoder,
+				TextInXhtmlEncoder.textInXhtmlEncoder,
+				out,
+				4,
+				true
+			);
 			printGoogleAnalyticsTrackPageViewScript(req, out, SiteSettings.getInstance(req.getSession().getServletContext()).getBrand().getAowebStrutsGoogleAnalyticsNewTrackingCode());
 			out.print("  </body>\n");
 		} catch(IOException err) {
@@ -774,7 +783,7 @@ public class TextSkin extends Skin {
 				out.print("  <tr>\n"
 						+ "    <td style=\"white-space:nowrap\"><a class='aoLightLink' href='");
 				encodeTextInXhtmlAttribute(
-					resp.encodeURL(urlBase + NewEncodingUtils.encodeUrlPath(siblingPath)),
+					resp.encodeURL(urlBase + UrlUtils.encodeUrlPath(siblingPath)),
 					out
 				);
 				out.print("'>");

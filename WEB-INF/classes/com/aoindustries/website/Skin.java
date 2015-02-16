@@ -5,8 +5,8 @@
  */
 package com.aoindustries.website;
 
-import com.aoindustries.encoding.NewEncodingUtils;
 import static com.aoindustries.encoding.TextInXhtmlAttributeEncoder.encodeTextInXhtmlAttribute;
+import com.aoindustries.net.UrlUtils;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import com.aoindustries.website.skintags.PageAttributes;
@@ -61,7 +61,7 @@ abstract public class Skin {
 				String url = language.getUrl();
 				encodeTextInXhtmlAttribute(
 					resp.encodeURL(
-						NewEncodingUtils.encodeUrlPath(
+						UrlUtils.encodeUrlPath(
 							url==null
 							? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&")+"language="+language.getCode())
 							: url
@@ -79,7 +79,7 @@ abstract public class Skin {
 				String url = language.getUrl();
 				encodeTextInXhtmlAttribute(
 					resp.encodeURL(
-						NewEncodingUtils.encodeUrlPath(
+						UrlUtils.encodeUrlPath(
 							url==null
 							? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&")+"language="+language.getCode())
 							: url

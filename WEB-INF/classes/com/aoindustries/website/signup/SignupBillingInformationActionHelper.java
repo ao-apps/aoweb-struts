@@ -1,13 +1,13 @@
-package com.aoindustries.website.signup;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.signup;
+
 import static com.aoindustries.website.signup.ApplicationResources.accessor;
 import com.aoindustries.creditcards.CreditCard;
-import com.aoindustries.io.ChainWriter;
+import com.aoindustries.encoding.ChainWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -68,22 +68,22 @@ final public class SignupBillingInformationActionHelper {
         emailOut.print("    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingContact.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(signupBillingInformationForm.getBillingContact()).print("</td>\n"
+                     + "        <td>").encodeXhtml(signupBillingInformationForm.getBillingContact()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingEmail.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(signupBillingInformationForm.getBillingEmail()).print("</td>\n"
+                     + "        <td>").encodeXhtml(signupBillingInformationForm.getBillingEmail()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingCardholderName.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(signupBillingInformationForm.getBillingCardholderName()).print("</td>\n"
+                     + "        <td>").encodeXhtml(signupBillingInformationForm.getBillingCardholderName()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingCardNumber.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(getBillingCardNumber(signupBillingInformationForm)).print("</td>\n"
+                     + "        <td>").encodeXhtml(getBillingCardNumber(signupBillingInformationForm)).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
@@ -93,22 +93,22 @@ final public class SignupBillingInformationActionHelper {
                      + "    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingStreetAddress.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(signupBillingInformationForm.getBillingStreetAddress()).print("</td>\n"
+                     + "        <td>").encodeXhtml(signupBillingInformationForm.getBillingStreetAddress()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingCity.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(signupBillingInformationForm.getBillingCity()).print("</td>\n"
+                     + "        <td>").encodeXhtml(signupBillingInformationForm.getBillingCity()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingState.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(signupBillingInformationForm.getBillingState()).print("</td>\n"
+                     + "        <td>").encodeXhtml(signupBillingInformationForm.getBillingState()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.required")).print("</td>\n"
                      + "        <td>").print(accessor.getMessage("signupBillingInformationForm.billingZip.prompt")).print("</td>\n"
-                     + "        <td>").encodeHtml(signupBillingInformationForm.getBillingZip()).print("</td>\n"
+                     + "        <td>").encodeXhtml(signupBillingInformationForm.getBillingZip()).print("</td>\n"
                      + "    </tr>\n"
                      + "    <tr>\n"
                      + "        <td>").print(accessor.getMessage("signup.notRequired")).print("</td>\n"

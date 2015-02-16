@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2013 by AO Industries, Inc.,
+ * Copyright 2009-2013, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -10,7 +10,7 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Brand;
 import com.aoindustries.aoserv.client.PackageDefinition;
 import com.aoindustries.aoserv.client.validator.HostAddress;
-import com.aoindustries.io.ChainWriter;
+import com.aoindustries.encoding.ChainWriter;
 import com.aoindustries.util.i18n.ThreadLocale;
 import com.aoindustries.website.Mailer;
 import com.aoindustries.website.SiteSettings;
