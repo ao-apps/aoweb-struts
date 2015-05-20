@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.accounting;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.accounting;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.validator.AccountingCode;
 import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
@@ -71,24 +71,24 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
             new AOServConnectorPrincipal(rootConn, aoConn.getThisBusinessAdministrator().getUsername().getUsername()),
             new BusinessGroup(aoConn.getBusinesses().get(AccountingCode.valueOf(accounting)), accounting),
             new CreditCard(
-                null,
-                null,
-                null,
-                null,
-                null,
+                null, // persistenceUniqueId
+                null, // principalName
+                null, // groupName
+                null, // providerId
+                null, // providerUniqueId
                 addCreditCardForm.getCardNumber(),
-                null,
+                null, // maskedCardNumber
                 Byte.parseByte(addCreditCardForm.getExpirationMonth()),
                 Short.parseShort(addCreditCardForm.getExpirationYear()),
-                null,
+                addCreditCardForm.getCardCode(),
                 addCreditCardForm.getFirstName(),
                 addCreditCardForm.getLastName(),
                 addCreditCardForm.getCompanyName(),
-                addCreditCardForm.getEmail(),
-                addCreditCardForm.getPhone(),
-                addCreditCardForm.getFax(),
                 null,
-                addCreditCardForm.getCustomerTaxId(),
+                null,
+                null,
+                null,
+                null,
                 addCreditCardForm.getStreetAddress1(),
                 addCreditCardForm.getStreetAddress2(),
                 addCreditCardForm.getCity(),

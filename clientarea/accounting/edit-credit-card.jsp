@@ -134,27 +134,9 @@
 										</tr>
 										<tr>
 											<td style="white-space:nowrap"><fmt:message key="editCreditCard.required.no" /></td>
-											<td style="white-space:nowrap"><fmt:message key="creditCardForm.email.prompt" /></td>
-											<td style="white-space:nowrap"><html:text property="email" size="32" /></td>
-											<td style="white-space:nowrap"><html:errors bundle="/clientarea/accounting/ApplicationResources" property="email" /></td>
-										</tr>
-										<tr>
-											<td style="white-space:nowrap"><fmt:message key="editCreditCard.required.no" /></td>
-											<td style="white-space:nowrap"><fmt:message key="creditCardForm.phone.prompt" /></td>
-											<td style="white-space:nowrap"><html:text property="phone" size="18" /></td>
-											<td style="white-space:nowrap"><html:errors bundle="/clientarea/accounting/ApplicationResources" property="phone" /></td>
-										</tr>
-										<tr>
-											<td style="white-space:nowrap"><fmt:message key="editCreditCard.required.no" /></td>
-											<td style="white-space:nowrap"><fmt:message key="creditCardForm.fax.prompt" /></td>
-											<td style="white-space:nowrap"><html:text property="fax" size="18" /></td>
-											<td style="white-space:nowrap"><html:errors bundle="/clientarea/accounting/ApplicationResources" property="fax" /></td>
-										</tr>
-										<tr>
-											<td style="white-space:nowrap"><fmt:message key="editCreditCard.required.no" /></td>
-											<td style="white-space:nowrap"><fmt:message key="creditCardForm.customerTaxId.prompt" /></td>
-											<td style="white-space:nowrap"><html:text property="customerTaxId" size="13" /></td>
-											<td style="white-space:nowrap"><html:errors bundle="/clientarea/accounting/ApplicationResources" property="customerTaxId" /></td>
+											<td style="white-space:nowrap"><fmt:message key="editCreditCard.cardCode.prompt" /></td>
+											<td style="white-space:nowrap"><html:text property="cardCode" size="5" /></td>
+											<td style="white-space:nowrap"><html:errors bundle="/clientarea/accounting/ApplicationResources" property="cardCode" /></td>
 										</tr>
 										<tr>
 											<td style="white-space:nowrap"><fmt:message key="editCreditCard.required.yes" /></td>

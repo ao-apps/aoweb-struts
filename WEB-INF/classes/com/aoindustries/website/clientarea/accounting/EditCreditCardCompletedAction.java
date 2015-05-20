@@ -83,10 +83,6 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
             !nullOrBlankEquals(editCreditCardForm.getFirstName(), creditCard.getFirstName())
             || !nullOrBlankEquals(editCreditCardForm.getLastName(), creditCard.getLastName())
             || !nullOrBlankEquals(editCreditCardForm.getCompanyName(), creditCard.getCompanyName())
-            || !nullOrBlankEquals(editCreditCardForm.getEmail(), creditCard.getEmail())
-            || !nullOrBlankEquals(editCreditCardForm.getPhone(), creditCard.getPhone())
-            || !nullOrBlankEquals(editCreditCardForm.getFax(), creditCard.getFax())
-            || !nullOrBlankEquals(editCreditCardForm.getCustomerTaxId(), creditCard.getCustomerTaxId())
             || !nullOrBlankEquals(editCreditCardForm.getStreetAddress1(), creditCard.getStreetAddress1())
             || !nullOrBlankEquals(editCreditCardForm.getStreetAddress2(), creditCard.getStreetAddress2())
             || !nullOrBlankEquals(editCreditCardForm.getCity(), creditCard.getCity())
@@ -106,10 +102,6 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
 			storedCreditCard.setFirstName(editCreditCardForm.getFirstName());
 			storedCreditCard.setLastName(editCreditCardForm.getLastName());
 			storedCreditCard.setCompanyName(editCreditCardForm.getCompanyName());
-			storedCreditCard.setEmail(editCreditCardForm.getEmail());
-			storedCreditCard.setPhone(editCreditCardForm.getPhone());
-			storedCreditCard.setFax(editCreditCardForm.getFax());
-			storedCreditCard.setCustomerTaxId(editCreditCardForm.getCustomerTaxId());
 			storedCreditCard.setStreetAddress1(editCreditCardForm.getStreetAddress1());
 			storedCreditCard.setStreetAddress2(editCreditCardForm.getStreetAddress2());
 			storedCreditCard.setCity(editCreditCardForm.getCity());
@@ -128,6 +120,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
 		String newCardNumber = editCreditCardForm.getCardNumber();
         String newExpirationMonth = editCreditCardForm.getExpirationMonth();
         String newExpirationYear = editCreditCardForm.getExpirationYear();
+		String newCardCode = editCreditCardForm.getCardCode();
         if(!GenericValidator.isBlankOrNull(newCardNumber)) {
             // Update card number and expiration
             // Root connector used to get processor
@@ -140,7 +133,8 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
                 CreditCardFactory.getCreditCard(rootCreditCard),
                 newCardNumber,
                 Byte.parseByte(newExpirationMonth),
-                Short.parseShort(newExpirationYear)
+                Short.parseShort(newExpirationYear),
+				newCardCode
             );
             updatedCardNumber = true;
             updatedExpirationDate = true;

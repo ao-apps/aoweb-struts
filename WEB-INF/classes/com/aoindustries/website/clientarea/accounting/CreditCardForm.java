@@ -25,14 +25,11 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
     private String cardNumber;
     private String expirationMonth;
     private String expirationYear;
+	private String cardCode;
     private String accounting;
     private String firstName;
     private String lastName;
     private String companyName;
-    private String email;
-    private String phone;
-    private String fax;
-    private String customerTaxId;
     private String streetAddress1;
     private String streetAddress2;
     private String city;
@@ -50,14 +47,11 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
         setCardNumber("");
         setExpirationMonth("");
         setExpirationYear("");
+        setCardCode("");
         setAccounting("");
         setFirstName("");
         setLastName("");
         setCompanyName("");
-        setEmail("");
-        setPhone("");
-        setFax("");
-        setCustomerTaxId("");
         setStreetAddress1("");
         setStreetAddress2("");
         setCity("");
@@ -72,7 +66,7 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
     }
 
     public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
+        this.cardNumber = cardNumber==null ? null : cardNumber.trim();
     }
 
     public String getMaskedCardNumber() {
@@ -93,6 +87,14 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
 
     public void setExpirationYear(String expirationYear) {
         this.expirationYear = expirationYear;
+    }
+
+    public String getCardCode() {
+        return cardCode;
+    }
+
+    public void setCardCode(String cardCode) {
+        this.cardCode = cardCode==null ? null : cardCode.trim();
     }
 
 	public String getAccounting() {
@@ -125,38 +127,6 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName==null ? "" : companyName.trim();
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email==null ? "" : email.trim();
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone==null ? "" : phone.trim();
-    }
-
-    public String getFax() {
-        return fax;
-    }
-
-    public void setFax(String fax) {
-        this.fax = fax==null ? "" : fax.trim();
-    }
-
-    public String getCustomerTaxId() {
-        return customerTaxId;
-    }
-
-    public void setCustomerTaxId(String customerTaxId) {
-        this.customerTaxId = customerTaxId==null ? "" : customerTaxId.trim();
     }
 
     public String getStreetAddress1() {
@@ -222,7 +192,6 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
         if(GenericValidator.isBlankOrNull(accounting)) errors.add("accounting", new ActionMessage("creditCardForm.accounting.required"));
         if(GenericValidator.isBlankOrNull(firstName)) errors.add("firstName", new ActionMessage("creditCardForm.firstName.required"));
         if(GenericValidator.isBlankOrNull(lastName)) errors.add("lastName", new ActionMessage("creditCardForm.lastName.required"));
-        if(!GenericValidator.isBlankOrNull(email) && !GenericValidator.isEmail(email)) errors.add("email", new ActionMessage("creditCardForm.email.invalid"));
         if(GenericValidator.isBlankOrNull(streetAddress1)) errors.add("streetAddress1", new ActionMessage("creditCardForm.streetAddress1.required"));
         if(GenericValidator.isBlankOrNull(city)) errors.add("city", new ActionMessage("creditCardForm.city.required"));
         if(GenericValidator.isBlankOrNull(state)) errors.add("state", new ActionMessage("creditCardForm.state.required"));
@@ -245,6 +214,9 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
                 return errors;
             case INVALID_EXPIRATION_DATE:
                 errors.add("expirationDate", new ActionMessage(errorString, false));
+                return errors;
+            case INVALID_CARD_CODE:
+                errors.add("cardCode", new ActionMessage(errorString, false));
                 return errors;
             case INVALID_CARD_NAME:
                 errors.add("firstName", new ActionMessage(errorString, false));

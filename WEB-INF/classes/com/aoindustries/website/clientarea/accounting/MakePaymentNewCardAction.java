@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2013 by AO Industries, Inc.,
+ * Copyright 2007-2013, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -63,9 +63,6 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
             makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(profile.getBillingContact(), locale));
             makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(profile.getBillingContact(), locale));
             makePaymentNewCardForm.setCompanyName(profile.getName());
-            makePaymentNewCardForm.setEmail(profile.getBillingEmail().isEmpty() ? "" : profile.getBillingEmail().get(0));
-            makePaymentNewCardForm.setPhone(profile.getPhone());
-            makePaymentNewCardForm.setFax(profile.getFax());
             makePaymentNewCardForm.setStreetAddress1(profile.getAddress1());
             makePaymentNewCardForm.setStreetAddress2(profile.getAddress2());
             makePaymentNewCardForm.setCity(profile.getCity());
@@ -76,9 +73,6 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
             BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
             makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(thisBA.getName(), locale));
             makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(thisBA.getName(), locale));
-            makePaymentNewCardForm.setEmail(thisBA.getEmail());
-            makePaymentNewCardForm.setPhone(thisBA.getWorkPhone());
-            makePaymentNewCardForm.setFax(thisBA.getFax());
             makePaymentNewCardForm.setStreetAddress1(thisBA.getAddress1());
             makePaymentNewCardForm.setStreetAddress2(thisBA.getAddress2());
             makePaymentNewCardForm.setCity(thisBA.getCity());

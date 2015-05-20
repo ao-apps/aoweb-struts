@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.accounting;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.accounting;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.CreditCard;
@@ -73,10 +73,6 @@ public class EditCreditCardAction extends PermissionAction {
         editCreditCardForm.setFirstName(creditCard.getFirstName());
         editCreditCardForm.setLastName(creditCard.getLastName());
         editCreditCardForm.setCompanyName(creditCard.getCompanyName());
-        editCreditCardForm.setEmail(creditCard.getEmail());
-        editCreditCardForm.setPhone(creditCard.getPhone());
-        editCreditCardForm.setFax(creditCard.getFax());
-        editCreditCardForm.setCustomerTaxId(creditCard.getCustomerTaxId());
         editCreditCardForm.setStreetAddress1(creditCard.getStreetAddress1());
         editCreditCardForm.setStreetAddress2(creditCard.getStreetAddress2());
         editCreditCardForm.setCity(creditCard.getCity());

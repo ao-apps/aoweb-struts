@@ -1,6 +1,6 @@
 <%-- aoweb-struts: Do not edit --%>
 <%--
-  Copyright 2007-2009 by AO Industries, Inc.,
+  Copyright 2007-2009, 2015 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
@@ -69,28 +69,10 @@
         <td style="white-space:nowrap"><html:errors bundle="/clientarea/accounting/ApplicationResources" property="expirationDate" /></td>
     </tr>
     <tr>
-        <td style="white-space:nowrap"><fmt:message key="creditCardForm.required.no" /></td>
-        <th style='white-space:nowrap' align="left"><fmt:message key="creditCardForm.email.prompt" /></th>
-        <td style="white-space:nowrap"><html:text property="email" size="32" /></td>
-        <td style="white-space:nowrap"><html:errors bundle="/clientarea/accounting/ApplicationResources" property="email" /></td>
-    </tr>
-    <tr>
-        <td style="white-space:nowrap"><fmt:message key="creditCardForm.required.no" /></td>
-        <th style='white-space:nowrap' align="left"><fmt:message key="creditCardForm.phone.prompt" /></th>
-        <td style="white-space:nowrap"><html:text property="phone" size="18" /></td>
-        <td style="white-space:nowrap"><html:errors bundle="/clientarea/accounting/ApplicationResources" property="phone" /></td>
-    </tr>
-    <tr>
-        <td style="white-space:nowrap"><fmt:message key="creditCardForm.required.no" /></td>
-        <th style='white-space:nowrap' align="left"><fmt:message key="creditCardForm.fax.prompt" /></th>
-        <td style="white-space:nowrap"><html:text property="fax" size="18" /></td>
-        <td style="white-space:nowrap"><html:errors bundle="/clientarea/accounting/ApplicationResources" property="fax" /></td>
-    </tr>
-    <tr>
-        <td style="white-space:nowrap"><fmt:message key="creditCardForm.required.no" /></td>
-        <th style='white-space:nowrap' align="left"><fmt:message key="creditCardForm.customerTaxId.prompt" /></th>
-        <td style="white-space:nowrap"><html:text property="customerTaxId" size="13" /></td>
-        <td style="white-space:nowrap"><html:errors bundle="/clientarea/accounting/ApplicationResources" property="customerTaxId" /></td>
+        <td style="white-space:nowrap"><fmt:message key="creditCardForm.required.yes" /></td>
+        <th style='white-space:nowrap' align="left"><fmt:message key="creditCardForm.cardCode.prompt" /></th>
+        <td style="white-space:nowrap"><html:text property="cardCode" size="5" /></td>
+        <td style="white-space:nowrap"><html:errors bundle="/clientarea/accounting/ApplicationResources" property="cardCode" /></td>
     </tr>
     <tr>
         <td style="white-space:nowrap"><fmt:message key="creditCardForm.required.yes" /></td>

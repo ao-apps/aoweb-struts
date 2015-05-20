@@ -6,7 +6,7 @@
 package com.aoindustries.website.clientarea.accounting;
 
 import com.aoindustries.creditcards.CreditCard;
-import com.aoindustries.creditcards.TransactionResult;
+import com.aoindustries.lang.LocalizedIllegalArgumentException;
 import java.io.Serializable;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
@@ -44,6 +44,16 @@ public class AddCreditCardForm extends CreditCardForm implements Serializable {
             GenericValidator.isBlankOrNull(expirationMonth)
             || GenericValidator.isBlankOrNull(expirationYear)
         ) errors.add("expirationDate", new ActionMessage("addCreditCardForm.expirationDate.required"));
+        // cardCode
+		String cardCode = getCardCode();
+        if(GenericValidator.isBlankOrNull(cardCode)) errors.add("cardCode", new ActionMessage("addCreditCardForm.cardCode.required"));
+		else {
+			try {
+				CreditCard.validateCardCode(cardCode);
+			} catch(LocalizedIllegalArgumentException e) {
+		        errors.add("cardCode", new ActionMessage(e.getLocalizedMessage(), false));
+			}
+		}
         return errors;
     }
 }

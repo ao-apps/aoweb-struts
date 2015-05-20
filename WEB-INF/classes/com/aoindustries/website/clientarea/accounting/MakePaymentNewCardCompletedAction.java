@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.accounting;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.accounting;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Business;
 import com.aoindustries.aoserv.client.CreditCard;
@@ -90,15 +90,15 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
             null,
             Byte.parseByte(makePaymentNewCardForm.getExpirationMonth()),
             Short.parseShort(makePaymentNewCardForm.getExpirationYear()),
-            null,
+            makePaymentNewCardForm.getCardCode(),
             makePaymentNewCardForm.getFirstName(),
             makePaymentNewCardForm.getLastName(),
             makePaymentNewCardForm.getCompanyName(),
-            makePaymentNewCardForm.getEmail(),
-            makePaymentNewCardForm.getPhone(),
-            makePaymentNewCardForm.getFax(),
+            null, // email
+            null, // phone
+            null, // fax
             null,
-            makePaymentNewCardForm.getCustomerTaxId(),
+            null, // customerTaxId
             makePaymentNewCardForm.getStreetAddress1(),
             makePaymentNewCardForm.getStreetAddress2(),
             makePaymentNewCardForm.getCity(),

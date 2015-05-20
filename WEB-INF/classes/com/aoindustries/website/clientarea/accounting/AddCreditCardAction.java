@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.accounting;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.accounting;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.AOServPermission;
 import com.aoindustries.aoserv.client.Business;
@@ -102,9 +102,6 @@ public class AddCreditCardAction extends PermissionAction {
             addCreditCardForm.setFirstName(getFirstName(profile.getBillingContact(), locale));
             addCreditCardForm.setLastName(getLastName(profile.getBillingContact(), locale));
             addCreditCardForm.setCompanyName(profile.getName());
-            addCreditCardForm.setEmail(profile.getBillingEmail().isEmpty() ? "" : profile.getBillingEmail().get(0));
-            addCreditCardForm.setPhone(profile.getPhone());
-            addCreditCardForm.setFax(profile.getFax());
             addCreditCardForm.setStreetAddress1(profile.getAddress1());
             addCreditCardForm.setStreetAddress2(profile.getAddress2());
             addCreditCardForm.setCity(profile.getCity());
@@ -115,9 +112,6 @@ public class AddCreditCardAction extends PermissionAction {
             BusinessAdministrator thisBA = aoConn.getThisBusinessAdministrator();
             addCreditCardForm.setFirstName(getFirstName(thisBA.getName(), locale));
             addCreditCardForm.setLastName(getLastName(thisBA.getName(), locale));
-            addCreditCardForm.setEmail(thisBA.getEmail());
-            addCreditCardForm.setPhone(thisBA.getWorkPhone());
-            addCreditCardForm.setFax(thisBA.getFax());
             addCreditCardForm.setStreetAddress1(thisBA.getAddress1());
             addCreditCardForm.setStreetAddress2(thisBA.getAddress2());
             addCreditCardForm.setCity(thisBA.getCity());
