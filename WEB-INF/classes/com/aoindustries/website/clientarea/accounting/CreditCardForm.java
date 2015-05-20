@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.accounting;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.accounting;
+
 import com.aoindustries.creditcards.TransactionResult;
 import java.io.Serializable;
 import javax.servlet.http.HttpServletRequest;
@@ -57,10 +57,6 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
         setPostalCode("");
         setCountryCode("");
         setDescription("");
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 
     public String getAccounting() {
