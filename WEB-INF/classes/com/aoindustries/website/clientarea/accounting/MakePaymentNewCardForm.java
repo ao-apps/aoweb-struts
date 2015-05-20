@@ -32,6 +32,7 @@ public class MakePaymentNewCardForm extends AddCreditCardForm implements Seriali
     public MakePaymentNewCardForm() {
     }
 
+	@Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         super.reset(mapping, request);
         setPaymentAmount("");
@@ -56,6 +57,7 @@ public class MakePaymentNewCardForm extends AddCreditCardForm implements Seriali
         this.storeCard = storeCard;
     }
 
+	@Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = super.validate(mapping, request);
         if(errors==null) errors = new ActionErrors();
@@ -81,6 +83,7 @@ public class MakePaymentNewCardForm extends AddCreditCardForm implements Seriali
         return errors;
     }
 
+	@Override
     public ActionErrors mapTransactionError(TransactionResult.ErrorCode errorCode) {
         String errorString = errorCode.toString();
         ActionErrors errors = new ActionErrors();

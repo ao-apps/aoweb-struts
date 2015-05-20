@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.accounting;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2015 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.accounting;
+
 import com.aoindustries.creditcards.CreditCard;
 import java.io.Serializable;
 import javax.servlet.http.HttpServletRequest;
@@ -18,24 +18,19 @@ import org.apache.struts.action.ActionMessage;
  */
 public class EditCreditCardForm extends CreditCardForm implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private String persistenceId;
     private String isActive;
-    private String cardNumber;
-    private String expirationMonth;
-    private String expirationYear;
 
     public EditCreditCardForm() {
     }
 
+	@Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         super.reset(mapping, request);
         setPersistenceId("");
         setIsActive("");
-        setCardNumber("");
-        setExpirationMonth("");
-        setExpirationYear("");
     }
 
     public String getPersistenceId() {
@@ -54,30 +49,7 @@ public class EditCreditCardForm extends CreditCardForm implements Serializable {
         this.isActive = isActive;
     }
 
-    public String getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
-    public String getExpirationMonth() {
-        return expirationMonth;
-    }
-
-    public void setExpirationMonth(String expirationMonth) {
-        this.expirationMonth = expirationMonth;
-    }
-
-    public String getExpirationYear() {
-        return expirationYear;
-    }
-
-    public void setExpirationYear(String expirationYear) {
-        this.expirationYear = expirationYear;
-    }
-
+	@Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = super.validate(mapping, request);
         if(errors==null) errors = new ActionErrors();
@@ -85,12 +57,15 @@ public class EditCreditCardForm extends CreditCardForm implements Serializable {
         if(GenericValidator.isBlankOrNull(persistenceId)) errors.add("persistenceId", new ActionMessage("editCreditCardForm.persistenceId.required"));
 
         // cardNumber
+		String cardNumber = getCardNumber();
         if(
             !GenericValidator.isBlankOrNull(cardNumber)
             && !GenericValidator.isCreditCard(CreditCard.numbersOnly(cardNumber))
         ) errors.add("cardNumber", new ActionMessage("editCreditCardForm.cardNumber.invalid"));
 
         // expirationMonth and expirationYear required when cardNumber provided
+		String expirationMonth = getExpirationMonth();
+		String expirationYear = getExpirationYear();
         if(!GenericValidator.isBlankOrNull(cardNumber)) {
             if(
                 GenericValidator.isBlankOrNull(expirationMonth)

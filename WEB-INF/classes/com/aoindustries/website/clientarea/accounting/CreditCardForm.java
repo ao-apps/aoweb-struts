@@ -5,6 +5,7 @@
  */
 package com.aoindustries.website.clientarea.accounting;
 
+import com.aoindustries.creditcards.CreditCard;
 import com.aoindustries.creditcards.TransactionResult;
 import java.io.Serializable;
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +20,11 @@ import org.apache.struts.action.ActionMessage;
  */
 abstract public class CreditCardForm extends ActionForm implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
+    private String cardNumber;
+    private String expirationMonth;
+    private String expirationYear;
     private String accounting;
     private String firstName;
     private String lastName;
@@ -40,8 +44,12 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
     public CreditCardForm() {
     }
 
+	@Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         super.reset(mapping, request);
+        setCardNumber("");
+        setExpirationMonth("");
+        setExpirationYear("");
         setAccounting("");
         setFirstName("");
         setLastName("");
@@ -59,7 +67,35 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
         setDescription("");
     }
 
-    public String getAccounting() {
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getMaskedCardNumber() {
+        return CreditCard.maskCreditCardNumber(cardNumber);
+    }
+
+	public String getExpirationMonth() {
+        return expirationMonth;
+    }
+
+    public void setExpirationMonth(String expirationMonth) {
+        this.expirationMonth = expirationMonth;
+    }
+
+    public String getExpirationYear() {
+        return expirationYear;
+    }
+
+    public void setExpirationYear(String expirationYear) {
+        this.expirationYear = expirationYear;
+    }
+
+	public String getAccounting() {
         return accounting;
     }
 
@@ -179,6 +215,7 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
         this.description = description==null ? "" : description.trim();
     }
 
+	@Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = super.validate(mapping, request);
         if(errors==null) errors = new ActionErrors();
@@ -203,6 +240,12 @@ abstract public class CreditCardForm extends ActionForm implements Serializable 
         String errorString = errorCode.toString();
         ActionErrors errors = new ActionErrors();
         switch(errorCode) {
+            case INVALID_CARD_NUMBER:
+                errors.add("cardNumber", new ActionMessage(errorString, false));
+                return errors;
+            case INVALID_EXPIRATION_DATE:
+                errors.add("expirationDate", new ActionMessage(errorString, false));
+                return errors;
             case INVALID_CARD_NAME:
                 errors.add("firstName", new ActionMessage(errorString, false));
                 errors.add("lastName", new ActionMessage(errorString, false));
