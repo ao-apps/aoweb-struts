@@ -7,37 +7,39 @@
 <%@ page language="java" buffer="256kb" autoFlush="true" pageEncoding="UTF-8" %>
 <%@include file="/_taglibs.jsp" %>
 
-<c:set var="activePackageDefinitions" value="${siteSettings.rootAOServConnector.thisBusinessAdministrator.username.package.business.activePackageDefinitions}"/>
-<c:if test="${activePackageDefinitions[siteSettings.rootAOServConnector.packageCategories.map['application']]!=null}">
+<c:set var="rootConn" value="${siteSettings.rootAOServConnector}" />
+<c:set var="activePackageDefinitions" value="${rootConn.thisBusinessAdministrator.username['package'].business.activePackageDefinitions}" />
+<c:set var="packageCategories" value="${rootConn.packageCategories.map}" />
+<c:if test="${activePackageDefinitions[packageCategories.application]!=null}">
     <skin:child><%@include file="application.meta.jsp" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[siteSettings.rootAOServConnector.packageCategories.map['virtual']]!=null}">
+<c:if test="${activePackageDefinitions[packageCategories.virtual]!=null}">
     <skin:child><%@include file="virtual-hosting.meta.jsp" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[siteSettings.rootAOServConnector.packageCategories.map['virtual_dedicated']]!=null}">
+<c:if test="${activePackageDefinitions[packageCategories.virtual_dedicated]!=null}">
     <skin:child><%@include file="virtual-dedicated-server.meta.jsp" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[siteSettings.rootAOServConnector.packageCategories.map['virtual_managed']]!=null}">
+<c:if test="${activePackageDefinitions[packageCategories.virtual_managed]!=null}">
     <skin:child><%@include file="virtual-managed-server.meta.jsp" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[siteSettings.rootAOServConnector.packageCategories.map['dedicated']]!=null}">
+<c:if test="${activePackageDefinitions[packageCategories.dedicated]!=null}">
     <skin:child><%@include file="dedicated-server.meta.jsp" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[siteSettings.rootAOServConnector.packageCategories.map['managed']]!=null}">
+<c:if test="${activePackageDefinitions[packageCategories.managed]!=null}">
     <skin:child><%@include file="managed-server.meta.jsp" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[siteSettings.rootAOServConnector.packageCategories.map['aoserv']]!=null}">
+<c:if test="${activePackageDefinitions[packageCategories.aoserv]!=null}">
     <skin:child><%@include file="aoserv.meta.jsp" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[siteSettings.rootAOServConnector.packageCategories.map['backup']]!=null}">
+<c:if test="${activePackageDefinitions[packageCategories.backup]!=null}">
     <skin:child><%@include file="backup.meta.jsp" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[siteSettings.rootAOServConnector.packageCategories.map['colocation']]!=null}">
+<c:if test="${activePackageDefinitions[packageCategories.colocation]!=null}">
     <skin:child><%@include file="colocation.meta.jsp" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[siteSettings.rootAOServConnector.packageCategories.map['reseller']]!=null}">
+<c:if test="${activePackageDefinitions[packageCategories.reseller]!=null}">
     <skin:child><%@include file="reseller.meta.jsp" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[siteSettings.rootAOServConnector.packageCategories.map['sysadmin']]!=null}">
+<c:if test="${activePackageDefinitions[packageCategories.sysadmin]!=null}">
     <skin:child><%@include file="system-administration.meta.jsp" %></skin:child>
 </c:if>
