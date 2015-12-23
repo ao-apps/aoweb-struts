@@ -7,26 +7,26 @@ package com.aoindustries.website;
 
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Brand;
-import com.aoindustries.encoding.NewEncodingUtils;
-import static com.aoindustries.encoding.TextInXhtmlEncoder.encodeTextInXhtml;
-import static com.aoindustries.encoding.TextInXhtmlAttributeEncoder.encodeTextInXhtmlAttribute;
 import com.aoindustries.encoding.ChainWriter;
+import com.aoindustries.encoding.NewEncodingUtils;
 import com.aoindustries.encoding.TextInJavaScriptEncoder;
+import static com.aoindustries.encoding.TextInXhtmlAttributeEncoder.encodeTextInXhtmlAttribute;
 import com.aoindustries.encoding.TextInXhtmlEncoder;
+import static com.aoindustries.encoding.TextInXhtmlEncoder.encodeTextInXhtml;
 import com.aoindustries.net.UrlUtils;
 import com.aoindustries.util.i18n.EditableResourceBundle;
 import com.aoindustries.website.skintags.Child;
 import com.aoindustries.website.skintags.Meta;
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import com.aoindustries.website.skintags.PageAttributes;
 import com.aoindustries.website.skintags.Parent;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Locale;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -152,11 +152,18 @@ public class TextSkin extends Skin {
 				// Skip ROBOTS if not on default skin
 				boolean isRobots = meta.getName().equalsIgnoreCase("ROBOTS");
 				if(!robotsMetaUsed || !isRobots) {
-					out.print("    <meta name=\"");
-					encodeTextInXhtmlAttribute(meta.getName(), out);
-					out.print("\" content=\"");
-					encodeTextInXhtmlAttribute(meta.getContent(), out);
-					out.print("\" />\n");
+					out.print("    <meta");
+					if(meta.getName() != null) {
+						out.print(" name=\"");
+						encodeTextInXhtmlAttribute(meta.getName(), out);
+						out.write('"');
+					}
+					if(meta.getContent() != null) {
+						out.print(" content=\"");
+						encodeTextInXhtmlAttribute(meta.getContent(), out);
+						out.write('"');
+					}
+					out.print(" />\n");
 					if(isRobots) robotsMetaUsed = true;
 				}
 			}
