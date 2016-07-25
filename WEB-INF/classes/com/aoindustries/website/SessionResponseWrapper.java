@@ -1,10 +1,10 @@
-package com.aoindustries.website;
-
 /*
- * Copyright 2007-2009 by AO Industries, Inc.,
+ * Copyright 2007-2009, 2016 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website;
+
 import com.aoindustries.servlet.http.ServletUtil;
 import com.aoindustries.util.WrappedException;
 import java.io.IOException;
@@ -232,7 +232,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                 String authenticationTarget = (String)session.getAttribute(Constants.AUTHENTICATION_TARGET);
                 if(authenticationTarget==null) authenticationTarget = request.getParameter(Constants.AUTHENTICATION_TARGET);
                 //System.err.println("DEBUG: addNoCookieParameters: authenticationTarget="+authenticationTarget);
-                if(authenticationTarget!=null) url = addParamIfMissing(url, Constants.AUTHENTICATION_TARGET, authenticationTarget);
+                if(authenticationTarget!=null) url = addParamIfMissing(url, Constants.AUTHENTICATION_TARGET, authenticationTarget, getCharacterEncoding());
 
                 // Only add the language if there is more than one possibility
                 SiteSettings siteSettings = SiteSettings.getInstance(servletContext);
@@ -246,7 +246,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                         if(!code.equals(defaultLocale.getLanguage())) {
                             for(Skin.Language language : languages) {
                                 if(language.getCode().equals(code)) {
-                                    url = addParamIfMissing(url, "language", code);
+                                    url = addParamIfMissing(url, "language", code, getCharacterEncoding());
                                     break;
                                 }
                             }
@@ -264,7 +264,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                             // Make sure it is one of the allowed skins
                             for(Skin skin : skins) {
                                 if(skin.getName().equals(layout)) {
-                                    url = addParamIfMissing(url, "layout", layout);
+                                    url = addParamIfMissing(url, "layout", layout, getCharacterEncoding());
                                     break;
                                 }
                             }
@@ -273,7 +273,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                 }
                 // Add any "su"
                 String su = (String)session.getAttribute(Constants.SU_REQUESTED);
-                if(su!=null) url = addParamIfMissing(url, "su", su);
+                if(su!=null) url = addParamIfMissing(url, "su", su, getCharacterEncoding());
             } else {
                 //System.err.println("DEBUG: encodeRedirectURL: Not adding parameters to skipped type: "+url);
             }
@@ -284,17 +284,17 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
     /**
      * Adds a parameter if missing.
      */
-    private static String addParamIfMissing(String url, String name, String value) throws UnsupportedEncodingException {
-        String encodedName = URLEncoder.encode(name, "UTF-8");
+    private static String addParamIfMissing(String url, String name, String value, String encoding) throws UnsupportedEncodingException {
+        String encodedName = URLEncoder.encode(name, encoding);
         if(url.indexOf('?')==-1) {
             // No params exist, just add it
-            return url+'?'+encodedName+'='+URLEncoder.encode(value, "UTF-8");
+            return url+'?'+encodedName+'='+URLEncoder.encode(value, encoding);
         }
         if(
             url.indexOf("?"+encodedName+'=')==-1
             && url.indexOf("&"+encodedName+'=')==-1
         ) {
-            return url+'&'+encodedName+'='+URLEncoder.encode(value, "UTF-8");
+            return url+'&'+encodedName+'='+URLEncoder.encode(value, encoding);
         }
         return url;
     }

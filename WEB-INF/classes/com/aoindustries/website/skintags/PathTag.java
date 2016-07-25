@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2013 by AO Industries, Inc.,
+ * Copyright 2007-2013, 2016 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -15,6 +15,7 @@ import com.aoindustries.taglib.AutoEncodingBufferedTag;
 import com.aoindustries.taglib.ParamsAttribute;
 import java.io.IOException;
 import java.io.Writer;
+import javax.servlet.ServletResponse;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspTag;
 
@@ -49,11 +50,13 @@ public class PathTag extends AutoEncodingBufferedTag implements ParamsAttribute 
     }
 
     protected void doTag(BufferResult capturedBody, Writer out) throws IOException {
+		PageContext pageContext = (PageContext)getJspContext();
+		ServletResponse response = pageContext.getResponse();
         String path = capturedBody.trim().toString();
-        path = HttpParametersUtils.addParams(path, params);
+        path = HttpParametersUtils.addParams(path, params, response.getCharacterEncoding());
         JspTag parent = findAncestorWithClass(this, PathAttribute.class);
         if(parent==null) {
-            PageAttributesBodyTag.getPageAttributes((PageContext)getJspContext()).setPath(path);
+            PageAttributesBodyTag.getPageAttributes(pageContext).setPath(path);
         } else {
             PathAttribute pathAttribute = (PathAttribute)parent;
             pathAttribute.setPath(path);

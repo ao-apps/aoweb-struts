@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2013, 2015 by AO Industries, Inc.,
+ * Copyright 2007-2013, 2015, 2016 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -7,11 +7,11 @@ package com.aoindustries.website;
 
 import static com.aoindustries.encoding.TextInXhtmlAttributeEncoder.encodeTextInXhtmlAttribute;
 import com.aoindustries.net.UrlUtils;
-import java.util.Locale;
-import javax.servlet.http.HttpServletRequest;
 import com.aoindustries.website.skintags.PageAttributes;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -64,7 +64,8 @@ abstract public class Skin {
 						UrlUtils.encodeUrlPath(
 							url==null
 							? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&")+"language="+language.getCode())
-							: url
+							: url,
+							resp.getCharacterEncoding()
 						)
 					),
 					out
@@ -82,7 +83,8 @@ abstract public class Skin {
 						UrlUtils.encodeUrlPath(
 							url==null
 							? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&")+"language="+language.getCode())
-							: url
+							: url,
+							resp.getCharacterEncoding()
 						)
 					),
 					out

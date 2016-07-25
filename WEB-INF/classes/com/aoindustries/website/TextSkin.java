@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2013, 2015 by AO Industries, Inc.,
+ * Copyright 2007-2013, 2015, 2016 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -118,14 +118,14 @@ public class TextSkin extends Skin {
 			String path = pageAttributes.getPath();
 			if(path.startsWith("/")) path=path.substring(1);
 			final String fullPath = urlBase + path;
-			final String encodedFullPath = resp.encodeURL(UrlUtils.encodeUrlPath(fullPath));
+			final String encodedFullPath = resp.encodeURL(UrlUtils.encodeUrlPath(fullPath, resp.getCharacterEncoding()));
 			ServletContext servletContext = session.getServletContext();
 			SiteSettings settings = SiteSettings.getInstance(servletContext);
 			List<Skin> skins = settings.getSkins();
 			boolean isOkResponseStatus;
 			{
 				Integer responseStatus = (Integer)req.getAttribute(Constants.HTTP_SERVLET_RESPONSE_STATUS);
-				isOkResponseStatus = responseStatus==null || responseStatus.intValue()==HttpServletResponse.SC_OK;
+				isOkResponseStatus = responseStatus==null || responseStatus==HttpServletResponse.SC_OK;
 			}
 
 			out.print("  <head>\n");
@@ -145,7 +145,7 @@ public class TextSkin extends Skin {
 				out.print(Math.max(60, session.getMaxInactiveInterval()-60));
 				out.print(";URL=");
 				out.print(resp.encodeRedirectURL(urlBase + "session-timeout.do?target="));
-				out.print(URLEncoder.encode(fullPath, "UTF-8"));
+				out.print(URLEncoder.encode(fullPath, resp.getCharacterEncoding()));
 				out.print("\" />\n");
 			}
 			for(Meta meta : pageAttributes.getMetas()) {
@@ -219,7 +219,7 @@ public class TextSkin extends Skin {
 			out.print("' type='text/css' />\n"
 					+ "    <![endif]-->\n");
 			printCssIncludes(resp, out, urlBase);
-			defaultPrintLinks(out, pageAttributes);
+			defaultPrintLinks(out, pageAttributes, resp.getCharacterEncoding());
 			printJavaScriptSources(resp, out, urlBase);
 			out.print("    <script type='text/javascript' src='");
 			encodeTextInXhtmlAttribute(
@@ -323,7 +323,8 @@ public class TextSkin extends Skin {
 								UrlUtils.encodeUrlPath(
 									url==null
 									? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&")+"language="+language.getCode())
-									: url
+									: url,
+									resp.getCharacterEncoding()
 								)
 							),
 							out
@@ -352,7 +353,8 @@ public class TextSkin extends Skin {
 								UrlUtils.encodeUrlPath(
 									url==null
 									? (fullPath+(fullPath.indexOf('?')==-1 ? "?" : "&")+"language="+language.getCode())
-									: url
+									: url,
+									resp.getCharacterEncoding()
 								)
 							),
 							out
@@ -403,7 +405,7 @@ public class TextSkin extends Skin {
 				if(parentPath.startsWith("/")) parentPath=parentPath.substring(1);
 				out.print("            <a href='");
 				encodeTextInXhtmlAttribute(
-					resp.encodeURL(urlBase + UrlUtils.encodeUrlPath(parentPath)),
+					resp.encodeURL(urlBase + UrlUtils.encodeUrlPath(parentPath, resp.getCharacterEncoding())),
 					out
 				);
 				out.print("'>");
@@ -436,7 +438,7 @@ public class TextSkin extends Skin {
 				if(siblingPath.startsWith("/")) siblingPath=siblingPath.substring(1);
 				out.print("          <a href='");
 				encodeTextInXhtmlAttribute(
-					resp.encodeURL(urlBase + UrlUtils.encodeUrlPath(siblingPath)),
+					resp.encodeURL(urlBase + UrlUtils.encodeUrlPath(siblingPath, resp.getCharacterEncoding())),
 					out
 				);
 				out.print("'>");
@@ -456,7 +458,7 @@ public class TextSkin extends Skin {
 		}
 	}
 
-	public static void defaultPrintLinks(JspWriter out, PageAttributes pageAttributes) throws JspException {
+	public static void defaultPrintLinks(JspWriter out, PageAttributes pageAttributes, String encoding) throws JspException {
 		try {
 			for(PageAttributes.Link link : pageAttributes.getLinks()) {
 				String conditionalCommentExpression = link.getConditionalCommentExpression();
@@ -469,7 +471,7 @@ public class TextSkin extends Skin {
 				out.print("    <link rel=\"");
 				encodeTextInXhtmlAttribute(link.getRel(), out);
 				out.print("\" href=\"");
-				encodeTextInXhtmlAttribute(UrlUtils.encodeUrlPath(link.getHref()), out);
+				encodeTextInXhtmlAttribute(UrlUtils.encodeUrlPath(link.getHref(), encoding), out);
 				out.print("\" type=\"");
 				encodeTextInXhtmlAttribute(link.getType(), out);
 				out.print("\" />\n");
@@ -683,7 +685,7 @@ public class TextSkin extends Skin {
 	public static void printGoogleAnalyticsTrackPageViewScript(HttpServletRequest req, Appendable out, String googleAnalyticsNewTrackingCode) throws IOException {
 		if(googleAnalyticsNewTrackingCode!=null) {
 			Integer responseStatus = (Integer)req.getAttribute(Constants.HTTP_SERVLET_RESPONSE_STATUS);
-			boolean isOk = responseStatus==null || responseStatus.intValue()==HttpServletResponse.SC_OK;
+			boolean isOk = responseStatus==null || responseStatus==HttpServletResponse.SC_OK;
 			out.append("    <script type=\"text/javascript\">\n");
 			if(!isOk) out.append("      // <![CDATA[\n");
 			out.append("      try {\n"
@@ -790,7 +792,7 @@ public class TextSkin extends Skin {
 				out.print("  <tr>\n"
 						+ "    <td style=\"white-space:nowrap\"><a class='aoLightLink' href='");
 				encodeTextInXhtmlAttribute(
-					resp.encodeURL(urlBase + UrlUtils.encodeUrlPath(siblingPath)),
+					resp.encodeURL(urlBase + UrlUtils.encodeUrlPath(siblingPath, resp.getCharacterEncoding())),
 					out
 				);
 				out.print("'>");
