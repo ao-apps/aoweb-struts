@@ -142,10 +142,15 @@ public class TextSkin extends Skin {
 			AOServConnector aoConn = AuthenticatedAction.getAoConn(req, resp);
 			if(isOkResponseStatus && aoConn!=null) {
 				out.print("    <meta http-equiv=\"Refresh\" content=\"");
-				out.print(Math.max(60, session.getMaxInactiveInterval()-60));
-				out.print(";URL=");
-				out.print(resp.encodeRedirectURL(urlBase + "session-timeout.do?target="));
-				out.print(URLEncoder.encode(fullPath, resp.getCharacterEncoding()));
+				encodeTextInXhtmlAttribute(Integer.toString(Math.max(60, session.getMaxInactiveInterval()-60)), out);
+				encodeTextInXhtmlAttribute(";URL=", out);
+				encodeTextInXhtmlAttribute(
+					resp.encodeRedirectURL(
+						urlBase
+							+ "session-timeout.do?target=")
+							+ URLEncoder.encode(fullPath, resp.getCharacterEncoding()),
+						out
+				);
 				out.print("\" />\n");
 			}
 			for(Meta meta : pageAttributes.getMetas()) {
