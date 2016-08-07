@@ -1,6 +1,6 @@
 <%-- aoweb-struts: Do not edit --%>
 <%--
-  Copyright 2009, 2015 by AO Industries, Inc.,
+  Copyright 2009, 2015, 2016 by AO Industries, Inc.,
   7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
   All rights reserved.
 --%>
@@ -18,6 +18,6 @@
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%-- AO --%>
-<%@ taglib prefix="ao" uri="http://aoindustries.com/aocode-public-taglib" %>
+<%@ taglib prefix="ao" uri="http://aoindustries.com/ao-taglib" %>
 <%@ taglib prefix="aoweb" uri="/WEB-INF/aoweb-struts-aoweb.tld" %>
 <%@ taglib prefix="skin" uri="/WEB-INF/aoweb-struts-skin.tld" %>
