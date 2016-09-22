@@ -7,8 +7,6 @@ package com.aoindustries.website.skintags;
 
 import com.aoindustries.encoding.MediaType;
 import com.aoindustries.io.buffer.BufferResult;
-import com.aoindustries.net.EmptyParameters;
-import com.aoindustries.net.HttpParameters;
 import com.aoindustries.net.HttpParametersMap;
 import com.aoindustries.net.HttpParametersUtils;
 import com.aoindustries.taglib.AutoEncodingBufferedTag;
@@ -36,11 +34,6 @@ public class PathTag extends AutoEncodingBufferedTag implements ParamsAttribute 
 
     public MediaType getOutputType() {
         return null;
-    }
-
-    @Override
-    public HttpParameters getParams() {
-        return params==null ? EmptyParameters.getInstance() : params;
     }
 
     @Override
