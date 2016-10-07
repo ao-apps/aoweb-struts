@@ -7,3 +7,6 @@
 [submodule "aoweb-struts-api"]
 	path = aoweb-struts-api
 	url = git@github.com:aoindustries/aoweb-struts-api.git
+[submodule "aoweb-struts-core"]
+	path = aoweb-struts-core
+	url = git@github.com:aoindustries/aoweb-struts-core.git
