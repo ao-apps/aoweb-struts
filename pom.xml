@@ -272,7 +272,9 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	</profiles>
 
 	<modules>
+		<!-- TODO
 		<module>aoweb-struts-resources</module>
+		-->
 		<module>aoweb-struts-webapp</module>
 	</modules>
 </project>
