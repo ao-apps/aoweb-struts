@@ -1,0 +1,6 @@
+[submodule "aoweb-struts-resources"]
+	path = aoweb-struts-resources
+	url = git@github.com:aoindustries/aoweb-struts-resources.git
+[submodule "aoweb-struts-webapp"]
+	path = aoweb-struts-webapp
+	url = git@github.com:aoindustries/aoweb-struts-webapp.git
