@@ -4,3 +4,6 @@
 [submodule "aoweb-struts-webapp"]
 	path = aoweb-struts-webapp
 	url = git@github.com:aoindustries/aoweb-struts-webapp.git
+[submodule "aoweb-struts-api"]
+	path = aoweb-struts-api
+	url = git@github.com:aoindustries/aoweb-struts-api.git
