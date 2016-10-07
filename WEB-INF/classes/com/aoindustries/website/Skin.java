@@ -113,10 +113,10 @@ abstract public class Skin {
 		if(port!=80 && port!=443) {
 			if(req.isSecure()) {
 				// SSL development area
-				return "https://"+req.getServerName()+":11257"+contextPath+"/";
+				return "https://"+req.getServerName()+":11156"+contextPath+"/";
 			} else {
 				// Non-SSL development area
-				return "http://"+req.getServerName()+":11156"+contextPath+"/";
+				return "http://"+req.getServerName()+":8081"+contextPath+"/";
 			}
 		} else {
 			if(req.isSecure()) {
