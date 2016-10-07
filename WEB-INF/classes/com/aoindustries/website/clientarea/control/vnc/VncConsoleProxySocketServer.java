@@ -1,10 +1,10 @@
-package com.aoindustries.website.clientarea.control.vnc;
-
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009, 2016 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.website.clientarea.control.vnc;
+
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.Brand;
 import com.aoindustries.aoserv.client.NetBind;
@@ -94,6 +94,8 @@ public class VncConsoleProxySocketServer implements Runnable {
                 Thread.sleep(60000);
             } catch(InterruptedException err) {
                 LogFactory.getLogger(myServletContext, VncConsoleProxySocketServer.class).log(Level.WARNING, null, err);
+				// Restore the interrupted status
+				Thread.currentThread().interrupt();
             }
         }
     }
