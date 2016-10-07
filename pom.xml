@@ -272,7 +272,11 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	</profiles>
 
 	<modules>
+		<module>aoweb-struts-core</module>
 		<module>aoweb-struts-resources</module>
+		<module>aoweb-struts-skin</module>
+		<module>aoweb-struts-skin-taglib</module>
+		<module>aoweb-struts-aoweb-taglib</module>
 		<module>aoweb-struts-webapp</module>
 	</modules>
 </project>
