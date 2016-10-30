@@ -3,6 +3,7 @@ Parent POM for legacy Struts-based site framework with [AOServ Platform](https:/
 
 ## Project Links
 * [Project Home](https://www.aoindustries.com/aoweb-struts/)
+* [Changelog](https://www.aoindustries.com/aoweb-struts/changelog)
 * [Maven Central Repository](https://search.maven.org/#search%7Cgav%7C1%7Cg:%22com.aoindustries%22%20AND%20a:%22aoweb-struts%22)
 * [GitHub](https://github.com/aoindustries/aoweb-struts)
 
