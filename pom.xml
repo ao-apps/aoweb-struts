@@ -55,8 +55,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	</scm>
 
 	<modules>
-		<module>aoweb-struts-core</module>
-		<module>aoweb-struts-resources</module>
-		<module>aoweb-struts-webapp</module>
+		<module>core</module>
+		<module>resources</module>
+		<module>webapp</module>
 	</modules>
 </project>

@@ -10,3 +10,12 @@
 [submodule "aoweb-struts-core"]
 	path = aoweb-struts-core
 	url = git@github.com:aoindustries/aoweb-struts-core.git
+[submodule "core"]
+	path = core
+	url = git@github.com:aoindustries/aoweb-struts-core.git
+[submodule "resources"]
+	path = resources
+	url = git@github.com:aoindustries/aoweb-struts-resources.git
+[submodule "webapp"]
+	path = webapp
+	url = git@github.com:aoindustries/aoweb-struts-webapp.git
