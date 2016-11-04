@@ -42,7 +42,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	</properties>
 
 	<name>AOWeb Struts</name>
-	<url>https://www.aoindustries.com${bookPath}/</url><!-- Can't inherit due to multi-module -->
+	<url>https://aoindustries.com${bookPath}/</url><!-- Can't inherit due to multi-module -->
 	<description>Parent POM for legacy Struts-based site framework with AOServ Platform control panels.</description>
 	<inceptionYear>2007</inceptionYear>
 
