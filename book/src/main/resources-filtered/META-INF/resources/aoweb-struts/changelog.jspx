@@ -1,0 +1,98 @@
+<!--
+aoweb-struts - Parent POM for legacy Struts-based site framework with AOServ Platform control panels.
+Copyright (C) 2016  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
+
+This file is part of aoweb-struts.
+
+aoweb-struts is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+aoweb-struts is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
+-->
+<jsp:root
+	xmlns:ao="https://aoindustries.com/ao-taglib/"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:changelog="https://semanticcms.com/changelog/taglib/"
+	xmlns:core="https://semanticcms.com/core/taglib/"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	version="2.1"
+>
+	<jsp:directive.page language="java" pageEncoding="UTF-8" session="false" />
+	<!-- TODO: https://schema.org/TechArticle on this page -->
+	<core:page
+		title="@{documented.name} Changelog"
+		shortTitle="Changelog"
+		tocLevels="1"
+		datePublished="2016-10-29T22:19:41-0500"
+	>
+		<!-- The current snapshot, unreleased version -->
+		<c:if test="${fn:endsWith('@{com.aoindustries:aoweb-struts:jar.version}', '-SNAPSHOT')}">
+			<changelog:release
+				projectName="@{documented.name}"
+				version="@{com.aoindustries:aoweb-struts:jar.version}"
+				groupId="@{documented.groupId}"
+				artifactId="@{documented.artifactId}"
+				scmUrl="@{documented.scm.url}"
+			>
+				<ul>
+					<li>Adjusted old Ant build.xml for new Maven structure.</li>
+					<li>New <core:link book="/ao-oss-parent" page="/index.jspx" /> POM to simplify <code>pom.xml</code> files.</li>
+					<li>Project documentation moved to per-project book in <ao:a href="https://semanticcms.com/">SemanticCMS</ao:a> format.</li>
+					<li>Added changelog as top-level project link.</li>
+				</ul>
+			</changelog:release>
+		</c:if>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="1.1.0"
+			datePublished="2016-10-20T18:51:00-0500"
+			groupId="@{documented.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{documented.scm.url}"
+		>
+			<ul>
+				<li>Using standard filter set provided by SemanticCMS.</li>
+				<li>Improved Javadoc formatting.</li>
+				<li>Improved README formatting.</li>
+				<li>Working on SemanticCMS integration.</li>
+				<li>shortTitle may now be specified on a per-parent basis, for when
+					the shortTitle only makes sense within the context of that
+					specific parent.  This is useful for navigation items such
+					as breadcrumbs or trees.</li>
+				<li>No more page stack, just show title for current page only.</li>
+				<li>Canonical URLs configured per-book.</li>
+			</ul>
+		</changelog:release>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="1.0.0"
+			datePublished="2016-10-08T01:15:00-0500"
+			groupId="@{documented.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{documented.scm.url}"
+		>
+			<ul>
+				<li>Project moved to GitHub and Maven.</li>
+				<li>Web resources moved to separate jar file to share between projects without
+					having to copy into the web root. Thank you servlets 3.0 for allowing us
+					to no longer copy JSP files between projects with tedious build systems.</li>
+				<li>Moved Java implementation to aoweb-struts-core package.</li>
+				<li>Packaged for compatibility with old Ant build system.</li>
+			</ul>
+		</changelog:release>
+	</core:page>
+</jsp:root>
