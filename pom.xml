@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-aoweb-struts - Parent POM for legacy Struts-based site framework with AOServ Platform control panels.
+aoweb-struts - Aggregator POM for legacy Struts-based site framework with AOServ Platform control panels.
 Copyright (C) 2016  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
@@ -36,14 +36,9 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	<version>1.1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<properties>
-		<javadoc.breadcrumbs><![CDATA[<a target="_top" href="${project.parent.url}">${project.parent.name}</a>
-/ <a target="_top" href="${project.url}">${shortTitle}</a>]]></javadoc.breadcrumbs>
-	</properties>
-
 	<name>AOWeb Struts</name>
-	<url>https://aoindustries.com/${project.artifactId}/</url>
-	<description>Parent POM for legacy Struts-based site framework with AOServ Platform control panels.</description>
+	<url>https://aoindustries.com/aoweb-struts/</url>
+	<description>Aggregator POM for legacy Struts-based site framework with AOServ Platform control panels.</description>
 	<inceptionYear>2007</inceptionYear>
 
 	<scm>

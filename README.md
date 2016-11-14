@@ -1,5 +1,5 @@
 # [<img src="ao-logo.png" alt="AO Logo" width="35" height="40">](https://aoindustries.com/) [AOWeb Struts](https://aoindustries.com/aoweb-struts/)
-Parent POM for legacy Struts-based site framework with [AOServ Platform](https://aoindustries.com/aoserv/) control panels.
+Aggregator POM for legacy Struts-based site framework with [AOServ Platform](https://aoindustries.com/aoserv/) control panels.
 
 ## Project Links
 * [Project Home](https://aoindustries.com/aoweb-struts/)
