@@ -1,4 +1,4 @@
-# [<img src="ao-logo.png" alt="AO Logo" width="35" height="40">](https://aoindustries.com/) [AOWeb Struts](https://aoindustries.com/aoweb-struts/)
+# [<img src="ao-logo.png" alt="AO Logo" width="35" height="40">](https://github.com/aoindustries) [AOWeb Struts](https://github.com/aoindustries/aoweb-struts)
 <p>
 	<a href="https://aoindustries.com/life-cycle#project-current-stable">
 		<img src="https://aoindustries.com/ao-badges/project-current-stable.svg" alt="project: current stable" />
@@ -27,9 +27,9 @@ Aggregator POM for legacy Struts-based site framework with [AOServ Platform](htt
 * [GitHub](https://github.com/aoindustries/aoweb-struts)
 
 ## Modules
-* [AOWeb Struts Core](https://aoindustries.com/aoweb-struts/core/)
-* [AOWeb Struts Resources](https://aoindustries.com/aoweb-struts/resources/)
-* [AOWeb Struts Webapp](https://aoindustries.com/aoweb-struts/webapp/)
+* [AOWeb Struts Core](https://github.com/aoindustries/aoweb-struts-core)
+* [AOWeb Struts Resources](https://github.com/aoindustries/aoweb-struts-resources)
+* [AOWeb Struts Webapp](https://github.com/aoindustries/aoweb-struts-webapp)
 
 ## Contact Us
 For questions or support, please [contact us](https://aoindustries.com/contact):
