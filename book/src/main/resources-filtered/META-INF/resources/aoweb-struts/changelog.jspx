@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoweb-struts - Aggregator POM for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2016, 2017, 2018  AO Industries, Inc.
+Copyright (C) 2016, 2017, 2018, 2019  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -54,7 +54,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				scmUrl="@{documented.scm.url}"
 			>
 				<ul>
-					<li>New version of <core:link book="/aoweb-struts/core" page="/" />.</li>
+					<li>New version of <core:link book="/aoweb-struts/core" page="/index.jspx" />.</li>
 				</ul>
 			</changelog:release>
 		</c:if>
@@ -83,7 +83,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		>
 			<ul>
 				<li>Adjusted old Ant build.xml for new Maven structure.</li>
-				<li>New <core:link book="/ao-oss-parent" page="/" /> POM to simplify <code>pom.xml</code> files.</li>
+				<li>New <core:link book="/ao-oss-parent" page="/index.jspx" /> POM to simplify <code>pom.xml</code> files.</li>
 				<li>Project documentation moved to per-project book in <ao:a href="https://semanticcms.com/">SemanticCMS</ao:a> format.</li>
 				<li>Added changelog as top-level project link.</li>
 			</ul>
