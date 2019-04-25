@@ -37,7 +37,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2016-10-29T22:19:41-0500"
-		dateModified="2018-05-06T13:04:31-0500"
+		dateModified="2019-04-25T01:18:15-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:aoweb-struts:pom.version}" />
@@ -54,7 +54,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				scmUrl="@{documented.scm.url}"
 			>
 				<ul>
-					<li>New version of <core:link book="/aoweb-struts/core" page="/index.jspx" />.</li>
+					<li>Updated version of <core:link book="/ao-oss-parent" page="/index.jspx" />.</li>
 				</ul>
 			</changelog:release>
 		</c:if>
