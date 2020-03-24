@@ -23,7 +23,7 @@ Aggregator POM for legacy Struts-based site framework with [AOServ Platform](htt
 ## Project Links
 * [Project Home](https://aoindustries.com/aoweb-struts/)
 * [Changelog](https://aoindustries.com/aoweb-struts/changelog)
-* [Maven Central Repository](https://search.maven.org/#search%7Cgav%7C1%7Cg:%22com.aoindustries%22%20AND%20a:%22aoweb-struts%22)
+* [Maven Central Repository](https://search.maven.org/artifact/com.aoindustries/aoweb-struts)
 * [GitHub](https://github.com/aoindustries/aoweb-struts)
 
 ## Modules
