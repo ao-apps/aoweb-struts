@@ -45,6 +45,11 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<tag>HEAD</tag>
 	</scm>
 
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/aoindustries/aoweb-struts/issues</url>
+	</issueManagement>
+
 	<modules>
 		<module>book</module>
 		<module>core</module>
