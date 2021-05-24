@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoweb-struts - Aggregator POM for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2016, 2017, 2018, 2019, 2020  AO Industries, Inc.
+Copyright (C) 2016, 2017, 2018, 2019, 2020, 2021  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -36,8 +36,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		title="@{documented.name} Changelog"
 		shortTitle="Changelog"
 		tocLevels="1"
-		datePublished="2016-10-29T22:19:41-0500"
-		dateModified="2020-03-07T06:01:29-0600"
+		datePublished="2016-10-29T22:19:41-05:00"
+		dateModified="2020-03-07T06:01:29-06:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -62,7 +62,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<changelog:release
 			projectName="@{documented.name}"
 			version="2.0.0"
-			datePublished="2019-10-12T23:28:12-0500"
+			datePublished="2019-10-12T23:28:12-05:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
@@ -77,7 +77,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<changelog:release
 			projectName="@{documented.name}"
 			version="1.2.0"
-			datePublished="2019-06-24T10:08:30-0500"
+			datePublished="2019-06-24T10:08:30-05:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
@@ -97,7 +97,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<changelog:release
 			projectName="@{documented.name}"
 			version="1.1.2"
-			datePublished="2017-07-20T12:41:09-0500"
+			datePublished="2017-07-20T12:41:09-05:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
@@ -111,7 +111,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<changelog:release
 			projectName="@{documented.name}"
 			version="1.1.1"
-			datePublished="2016-11-16T03:06:04-0600"
+			datePublished="2016-11-16T03:06:04-06:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
@@ -127,7 +127,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<changelog:release
 			projectName="@{documented.name}"
 			version="1.1.0"
-			datePublished="2016-10-20T18:51:00-0500"
+			datePublished="2016-10-20T18:51:00-05:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
@@ -149,7 +149,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<changelog:release
 			projectName="@{documented.name}"
 			version="1.0.0"
-			datePublished="2016-10-08T01:15:00-0500"
+			datePublished="2016-10-08T01:15:00-05:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
