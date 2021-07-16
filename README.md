@@ -7,6 +7,7 @@
 [![license: LGPL v3](https://aoindustries.com/ao-badges/license-lgpl-3.0.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 
 [![Build](https://github.com/aoindustries/aoweb-struts/workflows/Build/badge.svg?branch=master)](https://github.com/aoindustries/aoweb-struts/actions?query=workflow%3ABuild)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.aoindustries/aoweb-struts/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.aoindustries/aoweb-struts)
 
 Aggregator POM for legacy Struts-based site framework with [AOServ Platform](https://aoindustries.com/aoserv/) control panels.
 
