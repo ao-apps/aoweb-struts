@@ -1,0 +1,104 @@
+<%--
+aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
+Copyright (C) 2007-2009, 2016, 2020, 2021  AO Industries, Inc.
+	support@aoindustries.com
+	7262 Bull Pen Cir
+	Mobile, AL 36695
+
+This file is part of aoweb-struts.
+
+aoweb-struts is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+aoweb-struts is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
+--%>
+<%@ page language="java" pageEncoding="UTF-8" %>
+<%@include file="/_taglibs.inc.jsp" %>
+
+<ao:bundle basename="com.aoindustries.web.struts.signup.i18n.ApplicationResources">
+	<tr>
+		<td><ao:message key="signup.required" /></td>
+		<td><ao:message key="signupTechnicalForm.baName.prompt" /></td>
+		<td><ao:write scope="session" name="signupTechnicalForm" property="baName" /></td>
+	</tr>
+	<tr>
+		<td><ao:message key="signup.notRequired" /></td>
+		<td><ao:message key="signupTechnicalForm.baTitle.prompt" /></td>
+		<td><ao:write scope="session" name="signupTechnicalForm" property="baTitle" /></td>
+	</tr>
+	<tr>
+		<td><ao:message key="signup.required" /></td>
+		<td><ao:message key="signupTechnicalForm.baWorkPhone.prompt" /></td>
+		<td><ao:write scope="session" name="signupTechnicalForm" property="baWorkPhone" /></td>
+	</tr>
+	<tr>
+		<td><ao:message key="signup.notRequired" /></td>
+		<td><ao:message key="signupTechnicalForm.baCellPhone.prompt" /></td>
+		<td><ao:write scope="session" name="signupTechnicalForm" property="baCellPhone" /></td>
+	</tr>
+	<tr>
+		<td><ao:message key="signup.notRequired" /></td>
+		<td><ao:message key="signupTechnicalForm.baHomePhone.prompt" /></td>
+		<td><ao:write scope="session" name="signupTechnicalForm" property="baHomePhone" /></td>
+	</tr>
+	<tr>
+		<td><ao:message key="signup.notRequired" /></td>
+		<td><ao:message key="signupTechnicalForm.baFax.prompt" /></td>
+		<td><ao:write scope="session" name="signupTechnicalForm" property="baFax" /></td>
+	</tr>
+	<tr>
+		<td><ao:message key="signup.required" /></td>
+		<td><ao:message key="signupTechnicalForm.baEmail.prompt" /></td>
+		<td><ao:write scope="session" name="signupTechnicalForm" property="baEmail" /></td>
+	</tr>
+	<tr>
+		<td><ao:message key="signup.notRequired" /></td>
+		<td><ao:message key="signupTechnicalForm.baAddress1.prompt" /></td>
+		<td><ao:write scope="session" name="signupTechnicalForm" property="baAddress1" /></td>
+	</tr>
+	<logic:notEmpty scope="session" name="signupTechnicalForm" property="baAddress2">
+		<tr>
+			<td><ao:message key="signup.notRequired" /></td>
+			<td><ao:message key="signupTechnicalForm.baAddress2.prompt" /></td>
+			<td><ao:write scope="session" name="signupTechnicalForm" property="baAddress2" /></td>
+		</tr>
+	</logic:notEmpty>
+	<tr>
+		<td><ao:message key="signup.notRequired" /></td>
+		<td><ao:message key="signupTechnicalForm.baCity.prompt" /></td>
+		<td><ao:write scope="session" name="signupTechnicalForm" property="baCity" /></td>
+	</tr>
+	<tr>
+		<td><ao:message key="signup.notRequired" /></td>
+		<td><ao:message key="signupTechnicalForm.baState.prompt" /></td>
+		<td><ao:write scope="session" name="signupTechnicalForm" property="baState" /></td>
+	</tr>
+	<tr>
+		<td><ao:message key="signup.notRequired" /></td>
+		<td><ao:message key="signupTechnicalForm.baCountry.prompt" /></td>
+		<td><ao:write scope="request" name="baCountry" /></td>
+	</tr>
+	<tr>
+		<td><ao:message key="signup.notRequired" /></td>
+		<td><ao:message key="signupTechnicalForm.baZip.prompt" /></td>
+		<td><ao:write scope="session" name="signupTechnicalForm" property="baZip" /></td>
+	</tr>
+	<tr>
+		<td><ao:message key="signup.required" /></td>
+		<td><ao:message key="signupTechnicalForm.baUsername.prompt" /></td>
+		<td><ao:write scope="session" name="signupTechnicalForm" property="baUsername" /></td>
+	</tr>
+	<tr>
+		<td><ao:message key="signup.notRequired" /></td>
+		<td><ao:message key="signupTechnicalForm.baPassword.prompt" /></td>
+		<td><ao:write scope="session" name="signupTechnicalForm" property="baPassword" /></td>
+	</tr>
+</ao:bundle>
