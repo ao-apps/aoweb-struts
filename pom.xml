@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-aoweb-struts-webapp - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
+aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
 Copyright (C) 2016, 2017, 2018, 2019, 2020, 2021  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
 
-This file is part of aoweb-struts-webapp.
+This file is part of aoweb-struts.
 
-aoweb-struts-webapp is free software: you can redistribute it and/or modify
+aoweb-struts is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-aoweb-struts-webapp is distributed in the hope that it will be useful,
+aoweb-struts is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
-along with aoweb-struts-webapp.  If not, see <http://www.gnu.org/licenses />.
+along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -29,11 +29,11 @@ along with aoweb-struts-webapp.  If not, see <http://www.gnu.org/licenses />.
 		<relativePath>../../oss/parent/pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.aoindustries</groupId><artifactId>aoweb-struts-webapp</artifactId><version>3.0.0-SNAPSHOT</version>
+	<groupId>com.aoindustries</groupId><artifactId>aoweb-struts</artifactId><version>3.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<properties>
-		<module.name>com.aoindustries.web.struts.webapp</module.name>
+		<module.name>com.aoindustries.web.struts</module.name>
 		<description.html><![CDATA[Template webapp for legacy Struts-based site framework with <a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ Platform</a> control panels.]]></description.html>
 		<!-- TODO: Remove once moved to platform.aoapps.com -->
 		<google.analytics.trackingId>UA-86871646-1</google.analytics.trackingId>
@@ -45,8 +45,8 @@ along with aoweb-struts-webapp.  If not, see <http://www.gnu.org/licenses />.
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
-	<name>AOWeb Struts Webapp</name>
-	<url>https://aoindustries.com/aoweb-struts/webapp/</url>
+	<name>AOWeb Struts</name>
+	<url>https://aoindustries.com/aoweb-struts/</url>
 	<description>Template webapp for legacy Struts-based site framework with AOServ Platform control panels.</description>
 	<inceptionYear>2007</inceptionYear>
 
@@ -74,20 +74,20 @@ along with aoweb-struts-webapp.  If not, see <http://www.gnu.org/licenses />.
 	</developers>
 
 	<scm>
-		<connection>scm:git:git://github.com/aoindustries/aoweb-struts-webapp.git</connection>
-		<developerConnection>scm:git:git@github.com:aoindustries/aoweb-struts-webapp.git</developerConnection>
-		<url>https://github.com/aoindustries/aoweb-struts-webapp</url>
+		<connection>scm:git:git://github.com/aoindustries/aoweb-struts.git</connection>
+		<developerConnection>scm:git:git@github.com:aoindustries/aoweb-struts.git</developerConnection>
+		<url>https://github.com/aoindustries/aoweb-struts</url>
 		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/aoindustries/aoweb-struts-webapp/issues</url>
+		<url>https://github.com/aoindustries/aoweb-struts/issues</url>
 	</issueManagement>
 
 	<ciManagement>
 		<system>GitHub Actions</system>
-		<url>https://github.com/aoindustries/aoweb-struts-webapp/actions</url>
+		<url>https://github.com/aoindustries/aoweb-struts/actions</url>
 	</ciManagement>
 
 	<repositories>
@@ -143,7 +143,7 @@ along with aoweb-struts-webapp.  If not, see <http://www.gnu.org/licenses />.
 			<dependencies>
 				<!-- Own -devel package -->
 				<dependency>
-					<groupId>com.aoindustries</groupId><artifactId>aoweb-struts-webapp-devel</artifactId><version>3.0.0-SNAPSHOT</version>
+					<groupId>com.aoindustries</groupId><artifactId>aoweb-struts-devel</artifactId><version>3.0.0-SNAPSHOT</version>
 					<scope>runtime</scope>
 				</dependency>
 				<!--

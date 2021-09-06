@@ -1,7 +1,7 @@
 <!-- Begin include "struts-config-clientarea-ticket.xml.messageResources" -->
 	<message-resources
 		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
-		parameter="com.aoindustries.web.struts.webapp.i18n.ApplicationResources"
+		parameter="com.aoindustries.web.struts.i18n.ApplicationResources"
 		null="false"
 	/>
 <!-- End include "struts-config-clientarea-ticket.xml.messageResources" -->
