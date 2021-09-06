@@ -41,6 +41,7 @@ module com.aoindustries.web.struts {
 	opens com.aoindustries.web.struts.clientarea.ticket.i18n;
 	opens com.aoindustries.web.struts.clientarea.webmail.i18n;
 	opens com.aoindustries.web.struts.signup.i18n;
+	opens com.aoindustries.web.struts.webapp.i18n;
 	// Direct
 	requires com.aoapps.collections; // <groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId>
 	requires com.aoapps.encoding; // <groupId>com.aoapps</groupId><artifactId>ao-encoding</artifactId>
@@ -73,7 +74,9 @@ module com.aoindustries.web.struts {
 	requires javax.servlet.api; // <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId>
 	requires javax.servlet.jsp.api; // <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId>
 	requires javax.websocket.api; // <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId>
+	requires com.semanticcms.core.taglib; // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId>
 	requires struts.core; // <groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId>
+	requires struts.taglib; // <groupId>org.apache.struts</groupId><artifactId>struts-taglib</artifactId>
 	requires taglibs.standard.spec; // <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec</artifactId>
 	// Java SE
 	requires java.logging;
