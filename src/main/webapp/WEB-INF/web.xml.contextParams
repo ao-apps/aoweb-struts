@@ -1,0 +1,6 @@
+<!-- Begin include "web.xml.contextParams" -->
+	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+		<param-value>com.aoindustries.web.struts.i18n.ApplicationResources</param-value>
+	</context-param>
+<!-- End include "web.xml.contextParams" -->
