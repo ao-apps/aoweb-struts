@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
+Copyright (C) 2009, 2016, 2021  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
+
+This file is part of aoweb-struts.
+
+aoweb-struts is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+aoweb-struts is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
+-->
+
+<!--
+This page is the master template for the struts-config-clientarea-accounting.xml
+file.  If the following files exist, the contents of the file will be
+substituted into the proper place in this file by the build system.
+
+struts-config-clientarea-accounting.xml.messageResources    Additional message resources
+-->
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+"http://struts.apache.org/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+	<!-- ========== Form Bean Definitions =================================== -->
+	<form-beans>
+		<form-bean name="addCreditCardForm" type="com.aoindustries.web.struts.clientarea.accounting.AddCreditCardForm" />
+		<form-bean name="editCreditCardForm" type="com.aoindustries.web.struts.clientarea.accounting.EditCreditCardForm" />
+		<form-bean name="makePaymentStoredCardForm" type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentStoredCardForm" />
+		<form-bean name="makePaymentNewCardForm" type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentNewCardForm" />
+	</form-beans>
+
+	<!-- ========== Global Error Handlers =================================== -->
+	<global-exceptions>
+		<exception key="Exception.message" type="java.lang.Exception" handler="com.aoindustries.web.struts.ExceptionHandler" />
+	</global-exceptions>
+
+	<!-- ========== Global Forward Definitions ============================== -->
+	<global-forwards>
+		<!-- / -->
+		<forward name="exception" module="" path="/exception.inc.jsp" redirect="false" />
+		<forward name="login" module="" path="/login.do" redirect="false" />
+		<forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
+		<!-- /clientarea/accounting -->
+		<forward name="credit-card-manager" path="/credit-card-manager.do" redirect="true" />
+		<forward name="make-payment" path="/make-payment.do" redirect="true" />
+	</global-forwards>
+
+	<!-- ========== Action Mapping Definitions ============================== -->
+	<action-mappings>
+		<action
+			path="/index"
+			type="com.aoindustries.web.struts.SkinAction"
+		>
+			<forward name="success" path="/index.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/credit-card-manager"
+			type="com.aoindustries.web.struts.clientarea.accounting.CreditCardManagerAction"
+		>
+			<forward name="permission-denied" path="/credit-card-manager.inc.jsp" redirect="false" />
+			<forward name="success" path="/credit-card-manager.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/add-credit-card"
+			name="addCreditCardForm"
+			scope="request"
+			validate="false"
+			type="com.aoindustries.web.struts.clientarea.accounting.AddCreditCardAction"
+		>
+			<forward name="permission-denied" path="/add-credit-card.inc.jsp" redirect="false" />
+			<forward name="success" path="/add-credit-card.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/add-credit-card-completed"
+			name="addCreditCardForm"
+			scope="request"
+			validate="false"
+			type="com.aoindustries.web.struts.clientarea.accounting.AddCreditCardCompletedAction"
+		>
+			<forward name="permission-denied" path="/add-credit-card.inc.jsp" redirect="false" />
+			<forward name="input" path="/add-credit-card.inc.jsp" redirect="false" />
+			<forward name="success" path="/add-credit-card-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/delete-credit-card"
+			type="com.aoindustries.web.struts.clientarea.accounting.DeleteCreditCardAction"
+		>
+			<forward name="permission-denied" path="/delete-credit-card.inc.jsp" redirect="false" />
+			<forward name="success" path="/delete-credit-card.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/delete-credit-card-completed"
+			type="com.aoindustries.web.struts.clientarea.accounting.DeleteCreditCardCompletedAction"
+		>
+			<forward name="permission-denied" path="/delete-credit-card-completed.inc.jsp" redirect="false" />
+			<forward name="success" path="/delete-credit-card-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/edit-credit-card"
+			name="editCreditCardForm"
+			scope="request"
+			validate="false"
+			type="com.aoindustries.web.struts.clientarea.accounting.EditCreditCardAction"
+		>
+			<forward name="permission-denied" path="/edit-credit-card.inc.jsp" redirect="false" />
+			<forward name="success" path="/edit-credit-card.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/edit-credit-card-completed"
+			name="editCreditCardForm"
+			scope="request"
+			validate="false"
+			type="com.aoindustries.web.struts.clientarea.accounting.EditCreditCardCompletedAction"
+		>
+			<forward name="permission-denied" path="/edit-credit-card.inc.jsp" redirect="false" />
+			<forward name="input" path="/edit-credit-card.inc.jsp" redirect="false" />
+			<forward name="success" path="/edit-credit-card-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/configure-automatic-billing"
+			type="com.aoindustries.web.struts.clientarea.accounting.ConfigureAutomaticBillingAction"
+		>
+			<forward name="permission-denied" path="/configure-automatic-billing.inc.jsp" redirect="false" />
+			<forward name="success" path="/configure-automatic-billing.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/configure-automatic-billing-completed"
+			type="com.aoindustries.web.struts.clientarea.accounting.ConfigureAutomaticBillingCompletedAction"
+		>
+			<forward name="permission-denied" path="/configure-automatic-billing-completed.inc.jsp" redirect="false" />
+			<forward name="success" path="/configure-automatic-billing-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/make-payment"
+			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentAction"
+		>
+			<forward name="success" path="/make-payment.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/make-payment-select-card"
+			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentSelectCardAction"
+		>
+			<forward name="success" path="/make-payment-select-card.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/make-payment-stored-card"
+			name="makePaymentStoredCardForm"
+			scope="request"
+			validate="false"
+			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentStoredCardAction"
+		>
+			<forward name="success" path="/make-payment-stored-card.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/make-payment-stored-card-completed"
+			name="makePaymentStoredCardForm"
+			scope="request"
+			validate="false"
+			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentStoredCardCompletedAction"
+		>
+			<forward name="input" path="/make-payment-stored-card.inc.jsp" redirect="false" />
+			<forward name="error" path="/make-payment-stored-card-error.inc.jsp" redirect="false" />
+			<forward name="hold" path="/make-payment-stored-card-hold.inc.jsp" redirect="false" />
+			<forward name="declined" path="/make-payment-stored-card-declined.inc.jsp" redirect="false" />
+			<forward name="success" path="/make-payment-stored-card-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/make-payment-new-card"
+			name="makePaymentNewCardForm"
+			scope="request"
+			validate="false"
+			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentNewCardAction"
+		>
+			<forward name="success" path="/make-payment-new-card.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/make-payment-new-card-completed"
+			name="makePaymentNewCardForm"
+			scope="request"
+			validate="false"
+			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentNewCardCompletedAction"
+		>
+			<forward name="input" path="/make-payment-new-card.inc.jsp" redirect="false" />
+			<forward name="error" path="/make-payment-new-card.inc.jsp" redirect="false" />
+			<forward name="hold" path="/make-payment-new-card-hold.inc.jsp" redirect="false" />
+			<forward name="declined" path="/make-payment-new-card.inc.jsp" redirect="false" />
+			<forward name="success" path="/make-payment-new-card-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/**"
+			type="com.aoindustries.web.struts.SkinAction"
+		>
+			<forward name="success" module="" path="/not-found.inc.jsp" redirect="false" />
+		</action>
+	</action-mappings>
+
+	<!-- ========== Controller ============================================== -->
+	<controller
+		nocache="true"
+	/>
+
+	<!-- ========== Message Resources ======================================= -->
+	<message-resources
+		key="/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.i18n.ApplicationResources"
+		null="false"
+	/>
+	<message-resources
+		key="/clientarea/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.clientarea.i18n.ApplicationResources"
+		null="false"
+	/>
+	<message-resources
+		key="/clientarea/accounting/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.clientarea.accounting.i18n.ApplicationResources"
+		null="false"
+	/>
+	<message-resources
+		key="/clientarea/control/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources"
+		null="false"
+	/>
+	<message-resources
+		key="/clientarea/ticket/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.clientarea.ticket.i18n.ApplicationResources"
+		null="false"
+	/>
+	<message-resources
+		key="/clientarea/webmail/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.clientarea.webmail.i18n.ApplicationResources"
+		null="false"
+	/>
+	<message-resources
+		key="/signup/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.signup.i18n.ApplicationResources"
+		null="false"
+	/>
+<!-- Begin include "struts-config-clientarea-accounting.xml.messageResources" -->
+	<message-resources
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.webapp.i18n.ApplicationResources"
+		null="false"
+	/>
+<!-- End include "struts-config-clientarea-accounting.xml.messageResources" -->
+
+	<!-- ========== Validator Plug-In ======================================= -->
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml" />
+	</plug-in>
+</struts-config>

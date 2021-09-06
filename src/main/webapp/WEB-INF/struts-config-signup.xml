@@ -1,0 +1,1323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
+Copyright (C) 2009, 2016, 2019, 2021  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
+
+This file is part of aoweb-struts.
+
+aoweb-struts is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+aoweb-struts is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
+-->
+
+<!--
+This page is the master template for the struts-config-signup.xml file.  If
+the following files exist, the contents of the file will be substituted into
+the proper place in this file by the build system.
+
+struts-config-signup.xml.messageResources Additional message resources
+-->
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+"http://struts.apache.org/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+	<!-- ========== Form Bean Definitions =================================== -->
+	<form-beans>
+		<!-- /signup -->
+		<form-bean name="applicationSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.ApplicationSignupSelectPackageForm" />
+		<form-bean name="aoservSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.AOServSignupSelectPackageForm" />
+		<form-bean name="backupSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.BackupSignupSelectPackageForm" />
+		<form-bean name="colocationSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.ColocationSignupSelectPackageForm" />
+		<form-bean name="dedicatedSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.DedicatedSignupSelectPackageForm" />
+		<form-bean name="dedicatedSignupCustomizeServerForm" type="com.aoindustries.web.struts.signup.DedicatedSignupCustomizeServerForm" />
+		<form-bean name="managedSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.ManagedSignupSelectPackageForm" />
+		<form-bean name="managedSignupCustomizeServerForm" type="com.aoindustries.web.struts.signup.ManagedSignupCustomizeServerForm" />
+		<form-bean name="managedSignupCustomizeManagementForm" type="com.aoindustries.web.struts.signup.SignupCustomizeManagementForm" />
+		<form-bean name="resellerSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.ResellerSignupSelectPackageForm" />
+		<form-bean name="signupDomainForm" type="com.aoindustries.web.struts.signup.SignupDomainForm" />
+		<form-bean name="signupOrganizationForm" type="com.aoindustries.web.struts.signup.SignupOrganizationForm" />
+		<form-bean name="signupTechnicalForm" type="com.aoindustries.web.struts.signup.SignupTechnicalForm" />
+		<form-bean name="signupBillingInformationForm" type="com.aoindustries.web.struts.signup.SignupBillingInformationForm" />
+		<form-bean name="systemAdministrationSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.SystemAdministrationSignupSelectPackageForm" />
+		<form-bean name="virtualHostingSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.VirtualHostingSignupSelectPackageForm" />
+		<form-bean name="virtualDedicatedSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.VirtualDedicatedSignupSelectPackageForm" />
+		<form-bean name="virtualDedicatedSignupCustomizeServerForm" type="com.aoindustries.web.struts.signup.VirtualDedicatedSignupCustomizeServerForm" />
+		<form-bean name="virtualManagedSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.VirtualManagedSignupSelectPackageForm" />
+		<form-bean name="virtualManagedSignupCustomizeServerForm" type="com.aoindustries.web.struts.signup.VirtualManagedSignupCustomizeServerForm" />
+		<form-bean name="virtualManagedSignupCustomizeManagementForm" type="com.aoindustries.web.struts.signup.SignupCustomizeManagementForm" />
+	</form-beans>
+
+	<!-- ========== Global Error Handlers =================================== -->
+	<global-exceptions>
+		<exception key="Exception.message" type="java.lang.Exception" handler="com.aoindustries.web.struts.ExceptionHandler" />
+	</global-exceptions>
+
+	<!-- ========== Global Forward Definitions ============================== -->
+	<global-forwards>
+		<!-- / -->
+		<forward name="exception" module="" path="/exception.inc.jsp" redirect="false" />
+		<forward name="login" module="" path="/login.do" redirect="false" />
+		<forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
+		<!-- /signup -->
+		<forward name="application" path="/application.do" redirect="true" />
+		<forward name="application-completed" path="/application-completed.do" redirect="true" />
+		<forward name="application-2" path="/application-2.do" redirect="true" />
+		<forward name="application-2-completed" path="/application-2-completed.do" redirect="true" />
+		<forward name="application-3" path="/application-3.do" redirect="true" />
+		<forward name="application-3-completed" path="/application-3-completed.do" redirect="true" />
+		<forward name="application-4" path="/application-4.do" redirect="true" />
+		<forward name="application-4-completed" path="/application-4-completed.do" redirect="true" />
+		<forward name="application-5" path="/application-5.do" redirect="true" />
+		<forward name="application-5-completed" path="/application-5-completed.do" redirect="true" />
+		<forward name="application-6" path="/application-6.do" redirect="true" />
+		<forward name="application-6-completed" path="/application-6-completed.do" redirect="true" />
+		<forward name="aoserv" path="/aoserv.do" redirect="true" />
+		<forward name="aoserv-completed" path="/aoserv-completed.do" redirect="true" />
+		<forward name="aoserv-2" path="/aoserv-2.do" redirect="true" />
+		<forward name="aoserv-2-completed" path="/aoserv-2-completed.do" redirect="true" />
+		<forward name="aoserv-3" path="/aoserv-3.do" redirect="true" />
+		<forward name="aoserv-3-completed" path="/aoserv-3-completed.do" redirect="true" />
+		<forward name="aoserv-4" path="/aoserv-4.do" redirect="true" />
+		<forward name="aoserv-4-completed" path="/aoserv-4-completed.do" redirect="true" />
+		<forward name="aoserv-5" path="/aoserv-5.do" redirect="true" />
+		<forward name="aoserv-5-completed" path="/aoserv-5-completed.do" redirect="true" />
+		<forward name="backup" path="/backup.do" redirect="true" />
+		<forward name="backup-completed" path="/backup-completed.do" redirect="true" />
+		<forward name="backup-2" path="/backup-2.do" redirect="true" />
+		<forward name="backup-2-completed" path="/backup-2-completed.do" redirect="true" />
+		<forward name="backup-3" path="/backup-3.do" redirect="true" />
+		<forward name="backup-3-completed" path="/backup-3-completed.do" redirect="true" />
+		<forward name="backup-4" path="/backup-4.do" redirect="true" />
+		<forward name="backup-4-completed" path="/backup-4-completed.do" redirect="true" />
+		<forward name="backup-5" path="/backup-5.do" redirect="true" />
+		<forward name="backup-5-completed" path="/backup-5-completed.do" redirect="true" />
+		<forward name="colocation" path="/colocation.do" redirect="true" />
+		<forward name="colocation-completed" path="/colocation-completed.do" redirect="true" />
+		<forward name="colocation-2" path="/colocation-2.do" redirect="true" />
+		<forward name="colocation-2-completed" path="/colocation-2-completed.do" redirect="true" />
+		<forward name="colocation-3" path="/colocation-3.do" redirect="true" />
+		<forward name="colocation-3-completed" path="/colocation-3-completed.do" redirect="true" />
+		<forward name="colocation-4" path="/colocation-4.do" redirect="true" />
+		<forward name="colocation-4-completed" path="/colocation-4-completed.do" redirect="true" />
+		<forward name="colocation-5" path="/colocation-5.do" redirect="true" />
+		<forward name="colocation-5-completed" path="/colocation-5-completed.do" redirect="true" />
+		<forward name="virtual-dedicated-server" path="/virtual-dedicated-server.do" redirect="true" />
+		<forward name="virtual-dedicated-server-completed" path="/virtual-dedicated-server-completed.do" redirect="true" />
+		<forward name="virtual-dedicated-server-2" path="/virtual-dedicated-server-2.do" redirect="true" />
+		<forward name="virtual-dedicated-server-2-completed" path="/virtual-dedicated-server-2-completed.do" redirect="true" />
+		<forward name="virtual-dedicated-server-3" path="/virtual-dedicated-server-3.do" redirect="true" />
+		<forward name="virtual-dedicated-server-3-completed" path="/virtual-dedicated-server-3-completed.do" redirect="true" />
+		<forward name="virtual-dedicated-server-4" path="/virtual-dedicated-server-4.do" redirect="true" />
+		<forward name="virtual-dedicated-server-4-completed" path="/virtual-dedicated-server-4-completed.do" redirect="true" />
+		<forward name="virtual-dedicated-server-5" path="/virtual-dedicated-server-5.do" redirect="true" />
+		<forward name="virtual-dedicated-server-5-completed" path="/virtual-dedicated-server-5-completed.do" redirect="true" />
+		<forward name="virtual-dedicated-server-6" path="/virtual-dedicated-server-6.do" redirect="true" />
+		<forward name="virtual-dedicated-server-6-completed" path="/virtual-dedicated-server-6-completed.do" redirect="true" />
+		<forward name="virtual-managed-server" path="/virtual-managed-server.do" redirect="true" />
+		<forward name="virtual-managed-server-completed" path="/virtual-managed-server-completed.do" redirect="true" />
+		<forward name="virtual-managed-server-2" path="/virtual-managed-server-2.do" redirect="true" />
+		<forward name="virtual-managed-server-2-completed" path="/virtual-managed-server-2-completed.do" redirect="true" />
+		<forward name="virtual-managed-server-3" path="/virtual-managed-server-3.do" redirect="true" />
+		<forward name="virtual-managed-server-3-completed" path="/virtual-managed-server-3-completed.do" redirect="true" />
+		<forward name="virtual-managed-server-4" path="/virtual-managed-server-4.do" redirect="true" />
+		<forward name="virtual-managed-server-4-completed" path="/virtual-managed-server-4-completed.do" redirect="true" />
+		<forward name="virtual-managed-server-5" path="/virtual-managed-server-5.do" redirect="true" />
+		<forward name="virtual-managed-server-5-completed" path="/virtual-managed-server-5-completed.do" redirect="true" />
+		<forward name="virtual-managed-server-6" path="/virtual-managed-server-6.do" redirect="true" />
+		<forward name="virtual-managed-server-6-completed" path="/virtual-managed-server-6-completed.do" redirect="true" />
+		<forward name="virtual-managed-server-7" path="/virtual-managed-server-7.do" redirect="true" />
+		<forward name="virtual-managed-server-7-completed" path="/virtual-managed-server-7-completed.do" redirect="true" />
+		<forward name="dedicated-server" path="/dedicated-server.do" redirect="true" />
+		<forward name="dedicated-server-completed" path="/dedicated-server-completed.do" redirect="true" />
+		<forward name="dedicated-server-2" path="/dedicated-server-2.do" redirect="true" />
+		<forward name="dedicated-server-2-completed" path="/dedicated-server-2-completed.do" redirect="true" />
+		<forward name="dedicated-server-3" path="/dedicated-server-3.do" redirect="true" />
+		<forward name="dedicated-server-3-completed" path="/dedicated-server-3-completed.do" redirect="true" />
+		<forward name="dedicated-server-4" path="/dedicated-server-4.do" redirect="true" />
+		<forward name="dedicated-server-4-completed" path="/dedicated-server-4-completed.do" redirect="true" />
+		<forward name="dedicated-server-5" path="/dedicated-server-5.do" redirect="true" />
+		<forward name="dedicated-server-5-completed" path="/dedicated-server-5-completed.do" redirect="true" />
+		<forward name="dedicated-server-6" path="/dedicated-server-6.do" redirect="true" />
+		<forward name="dedicated-server-6-completed" path="/dedicated-server-6-completed.do" redirect="true" />
+		<forward name="managed-server" path="/managed-server.do" redirect="true" />
+		<forward name="managed-server-completed" path="/managed-server-completed.do" redirect="true" />
+		<forward name="managed-server-2" path="/managed-server-2.do" redirect="true" />
+		<forward name="managed-server-2-completed" path="/managed-server-2-completed.do" redirect="true" />
+		<forward name="managed-server-3" path="/managed-server-3.do" redirect="true" />
+		<forward name="managed-server-3-completed" path="/managed-server-3-completed.do" redirect="true" />
+		<forward name="managed-server-4" path="/managed-server-4.do" redirect="true" />
+		<forward name="managed-server-4-completed" path="/managed-server-4-completed.do" redirect="true" />
+		<forward name="managed-server-5" path="/managed-server-5.do" redirect="true" />
+		<forward name="managed-server-5-completed" path="/managed-server-5-completed.do" redirect="true" />
+		<forward name="managed-server-6" path="/managed-server-6.do" redirect="true" />
+		<forward name="managed-server-6-completed" path="/managed-server-6-completed.do" redirect="true" />
+		<forward name="managed-server-7" path="/managed-server-7.do" redirect="true" />
+		<forward name="managed-server-7-completed" path="/managed-server-7-completed.do" redirect="true" />
+		<forward name="virtual-hosting" path="/virtual-hosting.do" redirect="true" />
+		<forward name="virtual-hosting-completed" path="/virtual-hosting-completed.do" redirect="true" />
+		<forward name="virtual-hosting-2" path="/virtual-hosting-2.do" redirect="true" />
+		<forward name="virtual-hosting-2-completed" path="/virtual-hosting-2-completed.do" redirect="true" />
+		<forward name="virtual-hosting-3" path="/virtual-hosting-3.do" redirect="true" />
+		<forward name="virtual-hosting-3-completed" path="/virtual-hosting-3-completed.do" redirect="true" />
+		<forward name="virtual-hosting-4" path="/virtual-hosting-4.do" redirect="true" />
+		<forward name="virtual-hosting-4-completed" path="/virtual-hosting-4-completed.do" redirect="true" />
+		<forward name="virtual-hosting-5" path="/virtual-hosting-5.do" redirect="true" />
+		<forward name="virtual-hosting-5-completed" path="/virtual-hosting-5-completed.do" redirect="true" />
+		<forward name="virtual-hosting-6" path="/virtual-hosting-6.do" redirect="true" />
+		<forward name="virtual-hosting-6-completed" path="/virtual-hosting-6-completed.do" redirect="true" />
+		<forward name="reseller" path="/reseller.do" redirect="true" />
+		<forward name="reseller-completed" path="/reseller-completed.do" redirect="true" />
+		<forward name="reseller-2" path="/reseller-2.do" redirect="true" />
+		<forward name="reseller-2-completed" path="/reseller-2-completed.do" redirect="true" />
+		<forward name="reseller-3" path="/reseller-3.do" redirect="true" />
+		<forward name="reseller-3-completed" path="/reseller-3-completed.do" redirect="true" />
+		<forward name="reseller-4" path="/reseller-4.do" redirect="true" />
+		<forward name="reseller-4-completed" path="/reseller-4-completed.do" redirect="true" />
+		<forward name="reseller-5" path="/reseller-5.do" redirect="true" />
+		<forward name="reseller-5-completed" path="/reseller-5-completed.do" redirect="true" />
+		<forward name="system-administration" path="/system-administration.do" redirect="true" />
+		<forward name="system-administration-completed" path="/system-administration-completed.do" redirect="true" />
+		<forward name="system-administration-2" path="/system-administration-2.do" redirect="true" />
+		<forward name="system-administration-2-completed" path="/system-administration-2-completed.do" redirect="true" />
+		<forward name="system-administration-3" path="/system-administration-3.do" redirect="true" />
+		<forward name="system-administration-3-completed" path="/system-administration-3-completed.do" redirect="true" />
+		<forward name="system-administration-4" path="/system-administration-4.do" redirect="true" />
+		<forward name="system-administration-4-completed" path="/system-administration-4-completed.do" redirect="true" />
+		<forward name="system-administration-5" path="/system-administration-5.do" redirect="true" />
+		<forward name="system-administration-5-completed" path="/system-administration-5-completed.do" redirect="true" />
+	</global-forwards>
+
+	<!-- ========== Action Mapping Definitions ============================== -->
+	<action-mappings>
+		<action
+			path="/index"
+			type="com.aoindustries.web.struts.signup.IndexAction"
+		>
+			<forward name="success" path="/index.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/application"
+			name="applicationSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.ApplicationAction"
+		>
+			<forward name="input" path="/application.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/application-completed"
+			name="applicationSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.ApplicationCompletedAction"
+		>
+			<forward name="input" path="/application.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/application-2"
+			name="signupDomainForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Application2Action"
+		>
+			<forward name="input" path="/application-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/application-2-completed"
+			name="signupDomainForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Application2CompletedAction"
+		>
+			<forward name="input" path="/application-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/application-3"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Application3Action"
+		>
+			<forward name="input" path="/application-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/application-3-completed"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Application2CompletedAction"
+		>
+			<forward name="input" path="/application-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/application-4"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Application4Action"
+		>
+			<forward name="input" path="/application-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/application-4-completed"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Application4CompletedAction"
+		>
+			<forward name="input" path="/application-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/application-5"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Application5Action"
+		>
+			<forward name="input" path="/application-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/application-5-completed"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Application5CompletedAction"
+		>
+			<forward name="input" path="/application-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/application-6"
+			type="com.aoindustries.web.struts.signup.Application6Action"
+		>
+			<forward name="input" path="/application-6.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/application-6-completed"
+			type="com.aoindustries.web.struts.signup.Application6CompletedAction"
+		>
+			<forward name="success" path="/application-6-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/aoserv"
+			name="aoservSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.AOServAction"
+		>
+			<forward name="input" path="/aoserv.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/aoserv-completed"
+			name="aoservSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.AOServCompletedAction"
+		>
+			<forward name="input" path="/aoserv.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/aoserv-2"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.AOServ2Action"
+		>
+			<forward name="input" path="/aoserv-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/aoserv-2-completed"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.AOServ2CompletedAction"
+		>
+			<forward name="input" path="/aoserv-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/aoserv-3"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.AOServ3Action"
+		>
+			<forward name="input" path="/aoserv-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/aoserv-3-completed"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.AOServ3CompletedAction"
+		>
+			<forward name="input" path="/aoserv-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/aoserv-4"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.AOServ4Action"
+		>
+			<forward name="input" path="/aoserv-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/aoserv-4-completed"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.AOServ4CompletedAction"
+		>
+			<forward name="input" path="/aoserv-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/aoserv-5"
+			type="com.aoindustries.web.struts.signup.AOServ5Action"
+		>
+			<forward name="input" path="/aoserv-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/aoserv-5-completed"
+			type="com.aoindustries.web.struts.signup.AOServ5CompletedAction"
+		>
+			<forward name="success" path="/aoserv-5-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/backup"
+			name="backupSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.BackupAction"
+		>
+			<forward name="input" path="/backup.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/backup-completed"
+			name="backupSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.BackupCompletedAction"
+		>
+			<forward name="input" path="/backup.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/backup-2"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Backup2Action"
+		>
+			<forward name="input" path="/backup-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/backup-2-completed"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Backup2CompletedAction"
+		>
+			<forward name="input" path="/backup-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/backup-3"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Backup3Action"
+		>
+			<forward name="input" path="/backup-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/backup-3-completed"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Backup3CompletedAction"
+		>
+			<forward name="input" path="/backup-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/backup-4"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Backup4Action"
+		>
+			<forward name="input" path="/backup-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/backup-4-completed"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Backup4CompletedAction"
+		>
+			<forward name="input" path="/backup-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/backup-5"
+			type="com.aoindustries.web.struts.signup.Backup5Action"
+		>
+			<forward name="input" path="/backup-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/backup-5-completed"
+			type="com.aoindustries.web.struts.signup.Backup5CompletedAction"
+		>
+			<forward name="success" path="/backup-5-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/colocation"
+			name="colocationSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.ColocationAction"
+		>
+			<forward name="input" path="/colocation.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/colocation-completed"
+			name="colocationSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.ColocationCompletedAction"
+		>
+			<forward name="input" path="/colocation.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/colocation-2"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Colocation2Action"
+		>
+			<forward name="input" path="/colocation-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/colocation-2-completed"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Colocation2CompletedAction"
+		>
+			<forward name="input" path="/colocation-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/colocation-3"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Colocation3Action"
+		>
+			<forward name="input" path="/colocation-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/colocation-3-completed"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Colocation3CompletedAction"
+		>
+			<forward name="input" path="/colocation-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/colocation-4"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Colocation4Action"
+		>
+			<forward name="input" path="/colocation-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/colocation-4-completed"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Colocation4CompletedAction"
+		>
+			<forward name="input" path="/colocation-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/colocation-5"
+			type="com.aoindustries.web.struts.signup.Colocation5Action"
+		>
+			<forward name="input" path="/colocation-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/colocation-5-completed"
+			type="com.aoindustries.web.struts.signup.Colocation5CompletedAction"
+		>
+			<forward name="success" path="/colocation-5-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-dedicated-server"
+			name="virtualDedicatedSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualDedicatedAction"
+		>
+			<forward name="input" path="/virtual-dedicated-server.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-dedicated-server-completed"
+			name="virtualDedicatedSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualDedicatedCompletedAction"
+		>
+			<forward name="input" path="/virtual-dedicated-server.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-dedicated-server-2"
+			name="virtualDedicatedSignupCustomizeServerForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualDedicated2Action"
+		>
+			<forward name="input" path="/virtual-dedicated-server-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-dedicated-server-2-completed"
+			name="virtualDedicatedSignupCustomizeServerForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualDedicated2CompletedAction"
+		>
+			<forward name="input" path="/virtual-dedicated-server-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-dedicated-server-3"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualDedicated3Action"
+		>
+			<forward name="input" path="/virtual-dedicated-server-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-dedicated-server-3-completed"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualDedicated3CompletedAction"
+		>
+			<forward name="input" path="/virtual-dedicated-server-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-dedicated-server-4"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualDedicated4Action"
+		>
+			<forward name="input" path="/virtual-dedicated-server-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-dedicated-server-4-completed"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualDedicated4CompletedAction"
+		>
+			<forward name="input" path="/virtual-dedicated-server-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-dedicated-server-5"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualDedicated5Action"
+		>
+			<forward name="input" path="/virtual-dedicated-server-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-dedicated-server-5-completed"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualDedicated5CompletedAction"
+		>
+			<forward name="input" path="/virtual-dedicated-server-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-dedicated-server-6"
+			type="com.aoindustries.web.struts.signup.VirtualDedicated6Action"
+		>
+			<forward name="input" path="/virtual-dedicated-server-6.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-dedicated-server-6-completed"
+			type="com.aoindustries.web.struts.signup.VirtualDedicated6CompletedAction"
+		>
+			<forward name="success" path="/virtual-dedicated-server-6-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-managed-server"
+			name="virtualManagedSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualManagedAction"
+		>
+			<forward name="input" path="/virtual-managed-server.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-managed-server-completed"
+			name="virtualManagedSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualManagedCompletedAction"
+		>
+			<forward name="input" path="/virtual-managed-server.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-managed-server-2"
+			name="virtualManagedSignupCustomizeServerForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualManaged2Action"
+		>
+			<forward name="input" path="/virtual-managed-server-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-managed-server-2-completed"
+			name="virtualManagedSignupCustomizeServerForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualManaged2CompletedAction"
+		>
+			<forward name="input" path="/virtual-managed-server-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-managed-server-3"
+			name="virtualManagedSignupCustomizeManagementForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualManaged3Action"
+		>
+			<forward name="input" path="/virtual-managed-server-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-managed-server-3-completed"
+			name="virtualManagedSignupCustomizeManagementForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualManaged3CompletedAction"
+		>
+			<forward name="input" path="/virtual-managed-server-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-managed-server-4"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualManaged4Action"
+		>
+			<forward name="input" path="/virtual-managed-server-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-managed-server-4-completed"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualManaged4CompletedAction"
+		>
+			<forward name="input" path="/virtual-managed-server-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-managed-server-5"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualManaged5Action"
+		>
+			<forward name="input" path="/virtual-managed-server-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-managed-server-5-completed"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualManaged5CompletedAction"
+		>
+			<forward name="input" path="/virtual-managed-server-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-managed-server-6"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualManaged6Action"
+		>
+			<forward name="input" path="/virtual-managed-server-6.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-managed-server-6-completed"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualManaged6CompletedAction"
+		>
+			<forward name="input" path="/virtual-managed-server-6.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-managed-server-7"
+			type="com.aoindustries.web.struts.signup.VirtualManaged7Action"
+		>
+			<forward name="input" path="/virtual-managed-server-7.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-managed-server-7-completed"
+			type="com.aoindustries.web.struts.signup.VirtualManaged7CompletedAction"
+		>
+			<forward name="success" path="/virtual-managed-server-7-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/dedicated-server"
+			name="dedicatedSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.DedicatedAction"
+		>
+			<forward name="input" path="/dedicated-server.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/dedicated-server-completed"
+			name="dedicatedSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.DedicatedCompletedAction"
+		>
+			<forward name="input" path="/dedicated-server.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/dedicated-server-2"
+			name="dedicatedSignupCustomizeServerForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Dedicated2Action"
+		>
+			<forward name="input" path="/dedicated-server-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/dedicated-server-2-completed"
+			name="dedicatedSignupCustomizeServerForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Dedicated2CompletedAction"
+		>
+			<forward name="input" path="/dedicated-server-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/dedicated-server-3"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Dedicated3Action"
+		>
+			<forward name="input" path="/dedicated-server-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/dedicated-server-3-completed"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Dedicated3CompletedAction"
+		>
+			<forward name="input" path="/dedicated-server-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/dedicated-server-4"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Dedicated4Action"
+		>
+			<forward name="input" path="/dedicated-server-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/dedicated-server-4-completed"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Dedicated4CompletedAction"
+		>
+			<forward name="input" path="/dedicated-server-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/dedicated-server-5"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Dedicated5Action"
+		>
+			<forward name="input" path="/dedicated-server-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/dedicated-server-5-completed"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Dedicated5CompletedAction"
+		>
+			<forward name="input" path="/dedicated-server-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/dedicated-server-6"
+			type="com.aoindustries.web.struts.signup.Dedicated6Action"
+		>
+			<forward name="input" path="/dedicated-server-6.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/dedicated-server-6-completed"
+			type="com.aoindustries.web.struts.signup.Dedicated6CompletedAction"
+		>
+			<forward name="success" path="/dedicated-server-6-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/managed-server"
+			name="managedSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.ManagedAction"
+		>
+			<forward name="input" path="/managed-server.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/managed-server-completed"
+			name="managedSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.ManagedCompletedAction"
+		>
+			<forward name="input" path="/managed-server.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/managed-server-2"
+			name="managedSignupCustomizeServerForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Managed2Action"
+		>
+			<forward name="input" path="/managed-server-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/managed-server-2-completed"
+			name="managedSignupCustomizeServerForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Managed2CompletedAction"
+		>
+			<forward name="input" path="/managed-server-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/managed-server-3"
+			name="managedSignupCustomizeManagementForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Managed3Action"
+		>
+			<forward name="input" path="/managed-server-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/managed-server-3-completed"
+			name="managedSignupCustomizeManagementForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Managed3CompletedAction"
+		>
+			<forward name="input" path="/managed-server-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/managed-server-4"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Managed4Action"
+		>
+			<forward name="input" path="/managed-server-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/managed-server-4-completed"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Managed4CompletedAction"
+		>
+			<forward name="input" path="/managed-server-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/managed-server-5"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Managed5Action"
+		>
+			<forward name="input" path="/managed-server-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/managed-server-5-completed"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Managed5CompletedAction"
+		>
+			<forward name="input" path="/managed-server-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/managed-server-6"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Managed6Action"
+		>
+			<forward name="input" path="/managed-server-6.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/managed-server-6-completed"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Managed6CompletedAction"
+		>
+			<forward name="input" path="/managed-server-6.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/managed-server-7"
+			type="com.aoindustries.web.struts.signup.Managed7Action"
+		>
+			<forward name="input" path="/managed-server-7.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/managed-server-7-completed"
+			type="com.aoindustries.web.struts.signup.Managed7CompletedAction"
+		>
+			<forward name="success" path="/managed-server-7-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/reseller"
+			name="resellerSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.ResellerAction"
+		>
+			<forward name="input" path="/reseller.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/reseller-completed"
+			name="resellerSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.ResellerCompletedAction"
+		>
+			<forward name="input" path="/reseller.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/reseller-2"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Reseller2Action"
+		>
+			<forward name="input" path="/reseller-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/reseller-2-completed"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Reseller2CompletedAction"
+		>
+			<forward name="input" path="/reseller-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/reseller-3"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Reseller3Action"
+		>
+			<forward name="input" path="/reseller-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/reseller-3-completed"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Reseller3CompletedAction"
+		>
+			<forward name="input" path="/reseller-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/reseller-4"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Reseller4Action"
+		>
+			<forward name="input" path="/reseller-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/reseller-4-completed"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Reseller4CompletedAction"
+		>
+			<forward name="input" path="/reseller-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/reseller-5"
+			type="com.aoindustries.web.struts.signup.Reseller5Action"
+		>
+			<forward name="input" path="/reseller-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/reseller-5-completed"
+			type="com.aoindustries.web.struts.signup.Reseller5CompletedAction"
+		>
+			<forward name="success" path="/reseller-5-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/system-administration"
+			name="systemAdministrationSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.SystemAdministrationAction"
+		>
+			<forward name="input" path="/system-administration.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/system-administration-completed"
+			name="systemAdministrationSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.SystemAdministrationCompletedAction"
+		>
+			<forward name="input" path="/system-administration.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/system-administration-2"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.SystemAdministration2Action"
+		>
+			<forward name="input" path="/system-administration-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/system-administration-2-completed"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.SystemAdministration2CompletedAction"
+		>
+			<forward name="input" path="/system-administration-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/system-administration-3"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.SystemAdministration3Action"
+		>
+			<forward name="input" path="/system-administration-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/system-administration-3-completed"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.SystemAdministration3CompletedAction"
+		>
+			<forward name="input" path="/system-administration-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/system-administration-4"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.SystemAdministration4Action"
+		>
+			<forward name="input" path="/system-administration-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/system-administration-4-completed"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.SystemAdministration4CompletedAction"
+		>
+			<forward name="input" path="/system-administration-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/system-administration-5"
+			type="com.aoindustries.web.struts.signup.SystemAdministration5Action"
+		>
+			<forward name="input" path="/system-administration-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/system-administration-5-completed"
+			type="com.aoindustries.web.struts.signup.SystemAdministration5CompletedAction"
+		>
+			<forward name="success" path="/system-administration-5-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-hosting"
+			name="virtualHostingSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualHostingAction"
+		>
+			<forward name="input" path="/virtual-hosting.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-hosting-completed"
+			name="virtualHostingSignupSelectPackageForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualHostingCompletedAction"
+		>
+			<forward name="input" path="/virtual-hosting.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/application-2"
+			name="signupDomainForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Application2Action"
+		>
+			<forward name="input" path="/application-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/application-2-completed"
+			name="signupDomainForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.Application2CompletedAction"
+		>
+			<forward name="input" path="/application-2.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-hosting-3"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualHosting3Action"
+		>
+			<forward name="input" path="/virtual-hosting-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-hosting-3-completed"
+			name="signupOrganizationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualHosting3CompletedAction"
+		>
+			<forward name="input" path="/virtual-hosting-3.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-hosting-4"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualHosting4Action"
+		>
+			<forward name="input" path="/virtual-hosting-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-hosting-4-completed"
+			name="signupTechnicalForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualHosting4CompletedAction"
+		>
+			<forward name="input" path="/virtual-hosting-4.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-hosting-5"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualHosting5Action"
+		>
+			<forward name="input" path="/virtual-hosting-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-hosting-5-completed"
+			name="signupBillingInformationForm"
+			scope="session"
+			validate="false"
+			type="com.aoindustries.web.struts.signup.VirtualHosting5CompletedAction"
+		>
+			<forward name="input" path="/virtual-hosting-5.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-hosting-6"
+			type="com.aoindustries.web.struts.signup.VirtualHosting6Action"
+		>
+			<forward name="input" path="/virtual-hosting-6.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/virtual-hosting-6-completed"
+			type="com.aoindustries.web.struts.signup.VirtualHosting6CompletedAction"
+		>
+			<forward name="success" path="/virtual-hosting-6-completed.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/**"
+			type="com.aoindustries.web.struts.SkinAction"
+		>
+			<forward name="success" module="" path="/not-found.inc.jsp" redirect="false" />
+		</action>
+	</action-mappings>
+
+	<!-- ========== Controller ============================================== -->
+	<controller
+		nocache="true"
+	/>
+
+	<!-- ========== Message Resources ======================================= -->
+	<message-resources
+		key="/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.i18n.ApplicationResources"
+		null="false"
+	/>
+	<message-resources
+		key="/clientarea/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.clientarea.i18n.ApplicationResources"
+		null="false"
+	/>
+	<message-resources
+		key="/signup/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.signup.i18n.ApplicationResources"
+		null="false"
+	/>
+<!-- Begin include "struts-config-signup.xml.messageResources" -->
+	<message-resources
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.webapp.i18n.ApplicationResources"
+		null="false"
+	/>
+<!-- End include "struts-config-signup.xml.messageResources" -->
+
+	<!-- ========== Validator Plug-In ======================================= -->
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml" />
+	</plug-in>
+</struts-config>

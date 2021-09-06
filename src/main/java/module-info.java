@@ -41,6 +41,7 @@ module com.aoindustries.web.struts {
 	opens com.aoindustries.web.struts.clientarea.ticket.i18n;
 	opens com.aoindustries.web.struts.clientarea.webmail.i18n;
 	opens com.aoindustries.web.struts.signup.i18n;
+	opens com.aoindustries.web.struts.webapp.i18n;
 	// Direct
 	requires com.aoapps.collections; // <groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId>
 	requires com.aoapps.encoding; // <groupId>com.aoapps</groupId><artifactId>ao-encoding</artifactId>
