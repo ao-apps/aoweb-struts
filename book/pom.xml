@@ -135,11 +135,11 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 						<configuration>
 							<artifactItems>
 								<artifactItem>
-									<groupId>com.aoindustries</groupId><artifactId>aoweb-struts</artifactId><version>3.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
-									<type>war</type>
+									<groupId>com.aoindustries</groupId><artifactId>aoweb-struts</artifactId><version>3.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version><classifier>classes</classifier>
+									<type>jar</type>
 									<includes>
-										WEB-INF/aoweb-struts-aoweb.tld,
-										WEB-INF/aoweb-struts-skin.tld
+										META-INF/aoweb-struts-aoweb.tld,
+										META-INF/aoweb-struts-skin.tld
 									</includes>
 								</artifactItem>
 							</artifactItems>
@@ -148,8 +148,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				</executions>
 				<dependencies>
 					<dependency>
-						<groupId>com.aoindustries</groupId><artifactId>aoweb-struts</artifactId><version>3.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
-						<type>war</type>
+						<groupId>com.aoindustries</groupId><artifactId>aoweb-struts</artifactId><version>3.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version><classifier>classes</classifier>
+						<type>jar</type>
 						<exclusions><exclusion><groupId>*</groupId><artifactId>*</artifactId></exclusion></exclusions>
 					</dependency>
 				</dependencies>
@@ -162,7 +162,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 						<configuration>
 							<resources>
 								<resource>
-									<directory>${project.build.directory}/dependency/WEB-INF</directory>
+									<directory>${project.build.directory}/dependency/META-INF</directory>
 									<includes>
 										<include>aoweb-struts-aoweb.tld</include>
 										<include>aoweb-struts-skin.tld</include>
