@@ -30,9 +30,9 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 --%><%@ taglib prefix="encoding" uri="https://oss.aoapps.com/encoding/taglib/"
 %><%-- AO Taglib
 --%><%@ taglib prefix="ao" uri="https://oss.aoapps.com/taglib/"
-%><%-- AOWeb Struts Core
---%><%@ taglib prefix="aoweb" uri="https://aoindustries.com/aoweb-struts/core/aoweb-taglib/"
-%><%@ taglib prefix="skin" uri="https://aoindustries.com/aoweb-struts/core/skin-taglib/"
+%><%-- AOWeb Struts
+--%><%@ taglib prefix="aoweb" uri="https://aoindustries.com/aoweb-struts/aoweb-taglib/"
+%><%@ taglib prefix="skin" uri="https://aoindustries.com/aoweb-struts/skin-taglib/"
 %><%-- Struts 1.3
 --%><%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"
 %><%@ taglib prefix="html" uri="http://struts.apache.org/tags-html"
