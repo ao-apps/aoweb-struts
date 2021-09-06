@@ -1,4 +1,2 @@
-keystore
-cacerts
-.LCKpom.xml~
-.directory
+/keystore
+/cacerts
