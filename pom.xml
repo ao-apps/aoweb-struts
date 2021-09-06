@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-aoweb-struts - Aggregator POM for legacy Struts-based site framework with AOServ Platform control panels.
+aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
 Copyright (C) 2016, 2017, 2018, 2019, 2020, 2021  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
@@ -45,7 +45,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 
 	<name>AOWeb Struts</name>
 	<url>https://aoindustries.com/aoweb-struts/</url>
-	<description>Aggregator POM for legacy Struts-based site framework with AOServ Platform control panels.</description>
+	<description>Template webapp for legacy Struts-based site framework with AOServ Platform control panels.</description>
 	<inceptionYear>2007</inceptionYear>
 
 	<licenses>

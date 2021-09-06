@@ -14,7 +14,7 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands&metric=security_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands&metric=Security)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands&metric=sqale_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands&metric=Maintainability)
 
-Aggregator POM for legacy Struts-based site framework with [AOServ Platform](https://aoindustries.com/aoserv/) control panels.
+Template webapp for legacy Struts-based site framework with [AOServ Platform](https://aoindustries.com/aoserv/) control panels.
 
 ## Project Links
 * [Project Home](https://aoindustries.com/aoweb-struts/)

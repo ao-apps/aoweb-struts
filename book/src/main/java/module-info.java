@@ -1,5 +1,5 @@
 /*
- * aoweb-struts - Aggregator POM for legacy Struts-based site framework with AOServ Platform control panels.
+ * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
  * Copyright (C) 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
