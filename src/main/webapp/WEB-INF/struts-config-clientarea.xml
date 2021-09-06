@@ -1,104 +1,125 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  aoweb-struts
+aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
+Copyright (C) 2009, 2016, 2021  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
 
-  This page is the master template for the struts-config-clientarea.xml file.
-  If the following files exist, the contents of the file will be substituted
-  into the proper place in this file by the build system.
+This file is part of aoweb-struts.
 
-  struts-config-clientarea.xml.messageResources Additional message resources
+aoweb-struts is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+aoweb-struts is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
+-->
+
+<!--
+This page is the master template for the struts-config-clientarea.xml file.
+If the following files exist, the contents of the file will be substituted
+into the proper place in this file by the build system.
+
+struts-config-clientarea.xml.messageResources Additional message resources
 -->
 <!DOCTYPE struts-config PUBLIC
-          "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
-          "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+"http://struts.apache.org/dtds/struts-config_1_3.dtd">
 
 <struts-config>
-    <!-- ========== Form Bean Definitions =================================== -->
-    <form-beans>
-    </form-beans>
+	<!-- ========== Form Bean Definitions =================================== -->
+	<form-beans>
+	</form-beans>
 
-    <!-- ========== Global Error Handlers =================================== -->
-    <global-exceptions>
-        <exception key="Exception.message" type="java.lang.Exception" handler="com.aoindustries.website.ExceptionHandler" />
-    </global-exceptions>
+	<!-- ========== Global Error Handlers =================================== -->
+	<global-exceptions>
+		<exception key="Exception.message" type="java.lang.Exception" handler="com.aoindustries.web.struts.ExceptionHandler" />
+	</global-exceptions>
 
-    <!-- ========== Global Forward Definitions ============================== -->
-    <global-forwards>
-        <!-- / -->
-        <forward name="exception" module="" path="/exception.jsp" redirect="false" />
-        <forward name="login" module="" path="/login.do" redirect="false" />
-        <forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
-        <!-- /clientarea -->
-    </global-forwards>
+	<!-- ========== Global Forward Definitions ============================== -->
+	<global-forwards>
+		<!-- / -->
+		<forward name="exception" module="" path="/exception.inc.jsp" redirect="false" />
+		<forward name="login" module="" path="/login.do" redirect="false" />
+		<forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
+		<!-- /clientarea -->
+	</global-forwards>
 
-    <!-- ========== Action Mapping Definitions ============================== -->
-    <action-mappings>
-        <action
-            path="/index"
-            type="com.aoindustries.website.SkinAction"
-        >
-            <forward name="success" path="/index.jsp" redirect="false" />
-        </action>
-        <action
-            path="/**"
-            type="com.aoindustries.website.SkinAction"
-        >
-            <forward name="success" module="" path="/not-found.jsp" redirect="false" />
-        </action>
-    </action-mappings>
+	<!-- ========== Action Mapping Definitions ============================== -->
+	<action-mappings>
+		<action
+			path="/index"
+			type="com.aoindustries.web.struts.SkinAction"
+		>
+			<forward name="success" path="/index.inc.jsp" redirect="false" />
+		</action>
+		<action
+			path="/**"
+			type="com.aoindustries.web.struts.SkinAction"
+		>
+			<forward name="success" module="" path="/not-found.inc.jsp" redirect="false" />
+		</action>
+	</action-mappings>
 
-    <!-- ========== Controller ============================================== -->
-    <controller
-        nocache="true"
-    />
+	<!-- ========== Controller ============================================== -->
+	<controller
+		nocache="true"
+	/>
 
-    <!-- ========== Message Resources ======================================= -->
-    <message-resources
-        factory="com.aoindustries.website.struts.ResourceBundleMessageResourcesFactory"
-        parameter="com.aoindustries.website.SiteApplicationResources"
-        null="false"
-    />
-    <message-resources
-        key="/ApplicationResources"
-        factory="com.aoindustries.website.struts.ResourceBundleMessageResourcesFactory"
-        parameter="com.aoindustries.website.ApplicationResources"
-        null="false"
-    />
-    <message-resources
-        key="/clientarea/ApplicationResources"
-        factory="com.aoindustries.website.struts.ResourceBundleMessageResourcesFactory"
-        parameter="com.aoindustries.website.clientarea.ApplicationResources"
-        null="false"
-    />
-    <message-resources
-        key="/clientarea/accounting/ApplicationResources"
-        factory="com.aoindustries.website.struts.ResourceBundleMessageResourcesFactory"
-        parameter="com.aoindustries.website.clientarea.accounting.ApplicationResources"
-        null="false"
-    />
-    <message-resources
-        key="/clientarea/control/ApplicationResources"
-        factory="com.aoindustries.website.struts.ResourceBundleMessageResourcesFactory"
-        parameter="com.aoindustries.website.clientarea.control.ApplicationResources"
-        null="false"
-    />
-    <message-resources
-        key="/clientarea/ticket/ApplicationResources"
-        factory="com.aoindustries.website.struts.ResourceBundleMessageResourcesFactory"
-        parameter="com.aoindustries.website.clientarea.ticket.ApplicationResources"
-        null="false"
-    />
-    <message-resources
-        key="/clientarea/webmail/ApplicationResources"
-        factory="com.aoindustries.website.struts.ResourceBundleMessageResourcesFactory"
-        parameter="com.aoindustries.website.clientarea.webmail.ApplicationResources"
-        null="false"
-    />
+	<!-- ========== Message Resources ======================================= -->
+	<message-resources
+		key="/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.i18n.ApplicationResources"
+		null="false"
+	/>
+	<message-resources
+		key="/clientarea/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.clientarea.i18n.ApplicationResources"
+		null="false"
+	/>
+	<message-resources
+		key="/clientarea/accounting/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.clientarea.accounting.i18n.ApplicationResources"
+		null="false"
+	/>
+	<message-resources
+		key="/clientarea/control/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources"
+		null="false"
+	/>
+	<message-resources
+		key="/clientarea/ticket/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.clientarea.ticket.i18n.ApplicationResources"
+		null="false"
+	/>
+	<message-resources
+		key="/clientarea/webmail/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.clientarea.webmail.i18n.ApplicationResources"
+		null="false"
+	/>
+<!-- Begin include "struts-config-clientarea.xml.messageResources" -->
+	<message-resources
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.webapp.i18n.ApplicationResources"
+		null="false"
+	/>
+<!-- End include "struts-config-clientarea.xml.messageResources" -->
 
-<!-- Include "struts-config-clientarea.xml.messageResources" -->
-
-    <!-- ========== Validator Plug-In ======================================= -->
-    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
-        <set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml" />
-    </plug-in>
+	<!-- ========== Validator Plug-In ======================================= -->
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml" />
+	</plug-in>
 </struts-config>
