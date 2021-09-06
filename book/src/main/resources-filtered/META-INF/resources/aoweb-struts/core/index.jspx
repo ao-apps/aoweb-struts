@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-aoweb-struts-core - Core API for legacy Struts-based site framework with AOServ Platform control panels.
+aoweb-struts-core - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
 Copyright (C) 2016, 2017, 2019, 2020, 2021  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
@@ -66,7 +66,7 @@ along with aoweb-struts-core.  If not, see <http://www.gnu.org/licenses />.
 			<!-- TODO: Remove arg.sonarProjectKey to use default once project relocated -->
 		</header>
 		<p>
-			Core API for legacy Struts-based site framework with <core:link book="/" page="/aoserv/index.jspx" /> control panels.
+			Template webapp for legacy Struts-based site framework with <core:link book="/" page="/aoserv/index.jspx" /> control panels.
 		</p>
 		<section:nav label="Project Links">
 			<ul>

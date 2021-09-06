@@ -17,7 +17,7 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands-core&metric=sqale_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands-core&metric=Maintainability)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands-core&metric=coverage)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands-core&metric=Coverage)
 
-Core API for legacy Struts-based site framework with [AOServ Platform](https://aoindustries.com/aoserv/) control panels.
+Template webapp for legacy Struts-based site framework with [AOServ Platform](https://aoindustries.com/aoserv/) control panels.
 
 ## Project Links
 * [Project Home](https://aoindustries.com/aoweb-struts/core/)

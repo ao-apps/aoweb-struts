@@ -1,5 +1,5 @@
 /*
- * aoweb-struts-core - Core API for legacy Struts-based site framework with AOServ Platform control panels.
+ * aoweb-struts-core - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
  * Copyright (C) 2000-2009, 2015, 2016, 2018, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
