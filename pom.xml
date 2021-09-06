@@ -102,16 +102,4 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 			</snapshots>
 		</repository>
 	</repositories>
-
-	<modules>
-		<module>book</module>
-		<module>core</module>
-		<module>core/book</module>
-		<module>core/devel</module>
-		<module>resources</module>
-		<module>resources/book</module>
-		<module>webapp</module>
-		<module>webapp/book</module>
-		<module>webapp/devel</module>
-	</modules>
 </project>
