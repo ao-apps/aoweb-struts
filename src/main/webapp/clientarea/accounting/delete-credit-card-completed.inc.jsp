@@ -1,48 +1,58 @@
-<%-- aoweb-struts: Do not edit --%>
 <%--
-  Copyright 2007-2009, 2015, 2016 by AO Industries, Inc.,
-  7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
-  All rights reserved.
+aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
+Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021  AO Industries, Inc.
+	support@aoindustries.com
+	7262 Bull Pen Cir
+	Mobile, AL 36695
+
+This file is part of aoweb-struts.
+
+aoweb-struts is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+aoweb-struts is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 <%@ page language="java" pageEncoding="UTF-8" %>
-<%@include file="/_taglibs.jsp" %>
+<%@include file="/_taglibs.inc.jsp" %>
 
-<skin:setContentType />
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html:html lang="true" xhtml="true">
-	<fmt:bundle basename="com.aoindustries.website.clientarea.accounting.ApplicationResources">
-		<skin:path>
-			/clientarea/accounting/delete-credit-card-completed.do
-			<ao:param name="pkey" value="${param['pkey']}"/>
-		</skin:path>
-		<logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="ROBOTS">NOINDEX</skin:meta></logic:equal>
-		<skin:title><fmt:message key="deleteCreditCardCompleted.title" /></skin:title>
-		<skin:navImageAlt><fmt:message key="deleteCreditCardCompleted.navImageAlt" /></skin:navImageAlt>
-		<skin:keywords><fmt:message key="deleteCreditCardCompleted.keywords" /></skin:keywords>
-		<skin:description><fmt:message key="deleteCreditCardCompleted.description" /></skin:description>
-		<%@include file="add-parents.jsp" %>
-		<skin:parent><%@include file="credit-card-manager.meta.jsp" %></skin:parent>
-		<skin:skin>
-			<skin:content width="600">
-				<skin:contentTitle><fmt:message key="deleteCreditCardCompleted.title" /></skin:contentTitle>
-				<skin:contentHorizontalDivider />
-				<skin:contentLine>
-					<logic:present scope="request" name="permissionDenied">
-						<%@include file="../../_permission-denied.jsp" %>
-					</logic:present>
-					<logic:notPresent scope="request" name="permissionDenied">
-						<skin:lightArea>
-							<fmt:message key="deleteCreditCardCompleted.successMessage.title" />
-							<hr />
-							<fmt:message key="deleteCreditCardCompleted.successMessage.text">
-								<fmt:param><c:out value="${fn:toLowerCase(cardNumber)}" /></fmt:param>
-							</fmt:message><br />
-							<br />
-							<html:link action="/credit-card-manager"><fmt:message key="deleteCreditCardCompleted.creditCardManager.link" /></html:link>
-						</skin:lightArea>
-					</logic:notPresent>
-				</skin:contentLine>
-			</skin:content>
-		</skin:skin>
-	</fmt:bundle>
-</html:html>
+<ao:bundle basename="com.aoindustries.web.struts.clientarea.accounting.i18n.ApplicationResources">
+	<skin:path>
+		/clientarea/accounting/delete-credit-card-completed.do
+		<ao:param name="id" value="${param.id}"/>
+	</skin:path>
+	<logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="robots">noindex</skin:meta></logic:equal>
+	<skin:title><ao:message key="deleteCreditCardCompleted.title" /></skin:title>
+	<skin:navImageAlt><ao:message key="deleteCreditCardCompleted.navImageAlt" /></skin:navImageAlt>
+	<skin:keywords><ao:message key="deleteCreditCardCompleted.keywords" /></skin:keywords>
+	<skin:description><ao:message key="deleteCreditCardCompleted.description" /></skin:description>
+	<%@include file="add-parents.inc.jsp" %>
+	<skin:parent><%@include file="credit-card-manager.meta.inc.jsp" %></skin:parent>
+	<skin:skin>
+		<skin:content width="600">
+			<skin:contentTitle><ao:message key="deleteCreditCardCompleted.title" /></skin:contentTitle>
+			<skin:contentHorizontalDivider />
+			<skin:contentLine>
+				<logic:present scope="request" name="permissionDenied">
+					<%@include file="../../_permission-denied.inc.jsp" %>
+				</logic:present>
+				<logic:notPresent scope="request" name="permissionDenied">
+					<skin:lightArea>
+						<b><ao:message key="deleteCreditCardCompleted.successMessage.title" /></b>
+						<ao:hr />
+						<ao:message key="deleteCreditCardCompleted.successMessage.text" ar0="${aoweb:getCardNumberDisplay(cardNumber)}" /><ao:br />
+						<ao:br />
+						<ao:a href="credit-card-manager.do"><ao:message key="deleteCreditCardCompleted.creditCardManager.link" /></ao:a>
+					</skin:lightArea>
+				</logic:notPresent>
+			</skin:contentLine>
+		</skin:content>
+	</skin:skin>
+</ao:bundle>
