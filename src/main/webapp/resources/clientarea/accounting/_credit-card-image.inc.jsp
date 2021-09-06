@@ -1,0 +1,59 @@
+<%--
+aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
+Copyright (C) 2007-2009, 2016, 2019, 2021  AO Industries, Inc.
+	support@aoindustries.com
+	7262 Bull Pen Cir
+	Mobile, AL 36695
+
+This file is part of aoweb-struts.
+
+aoweb-struts is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+aoweb-struts is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
+--%>
+<%@ page language="java" pageEncoding="UTF-8" %>
+<%@include file="/_taglibs.inc.jsp" %>
+
+<%-- The card number string should be provided in an attribute named "cardNumber" --%>
+<ao:bundle basename="com.aoindustries.web.struts.clientarea.accounting.i18n.ApplicationResources">
+	<%-- TODO: Move to a card-type microproject API and shared with ao-payments implementation --%>
+	<c:choose>
+		<%-- TODO: 3? will be unnecessary on ao-payments 2.0 that will store card type directly --%>
+		<c:when test="${
+			fn:startsWith(cardNumber, '34')
+			|| fn:startsWith(cardNumber, '37')
+			|| fn:startsWith(cardNumber, '3?')
+		}">
+			<ao:img src="amex.gif" style="border:1px solid; vertical-align:middle" width="64" height="40" alt="${ao:message('creditCardManager.image.amex.alt')}" />
+		</c:when>
+		<c:when test="${fn:startsWith(cardNumber, '60')}">
+			<ao:img src="discv.gif" style="border:1px solid; vertical-align:middle" width="63" height="40" alt="${ao:message('creditCardManager.image.discv.alt')}" />
+		</c:when>
+		<%-- TODO: 5? will be unnecessary on ao-payments 2.0 that will store card type directly --%>
+		<c:when test="${
+			fn:startsWith(cardNumber, '51')
+			|| fn:startsWith(cardNumber, '52')
+			|| fn:startsWith(cardNumber, '53')
+			|| fn:startsWith(cardNumber, '54')
+			|| fn:startsWith(cardNumber, '55')
+			|| fn:startsWith(cardNumber, '5?')
+		}">
+			<ao:img src="mcard.gif" style="border:1px solid; vertical-align:middle" width="64" height="40" alt="${ao:message('creditCardManager.image.mcard.alt')}" />
+		</c:when>
+		<c:when test="${fn:startsWith(cardNumber, '4')}">
+			<ao:img src="visa.gif" style="border:1px solid; vertical-align:middle" width="64" height="40" alt="${ao:message('creditCardManager.image.visa.alt')}" />
+		</c:when>
+		<c:otherwise>
+			<ao:message key="creditCardManager.creditCard.cardType.unknown" />
+		</c:otherwise>
+	</c:choose>
+</ao:bundle>
