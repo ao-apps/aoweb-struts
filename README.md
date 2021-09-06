@@ -15,12 +15,16 @@
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands&metric=reliability_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands&metric=Reliability)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands&metric=security_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands&metric=Security)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands&metric=sqale_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands&metric=Maintainability)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands&metric=coverage)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands&metric=Coverage)
 
 Template webapp for legacy Struts-based site framework with [AOServ Platform](https://aoindustries.com/aoserv/) control panels.
 
 ## Project Links
 * [Project Home](https://aoindustries.com/aoweb-struts/)
 * [Changelog](https://aoindustries.com/aoweb-struts/changelog)
+* [AOWeb Taglib Reference](https://aoindustries.com/aoweb-struts/aoweb-struts-aoweb.tld/)
+* [Skin Taglib Reference](https://aoindustries.com/aoweb-struts/aoweb-struts-skin.tld/)
+* [API Docs](https://aoindustries.com/aoweb-struts/apidocs/)
 * [Maven Central Repository](https://search.maven.org/artifact/com.aoindustries/aoweb-struts)
 * [GitHub](https://github.com/aoindustries/aoweb-struts)
 
