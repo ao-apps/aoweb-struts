@@ -1,6 +1,6 @@
 <%--
-aoweb-struts-resources - Web resources for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2007-2009, 2016, 2019  AO Industries, Inc.
+aoweb-struts-resources - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
+Copyright (C) 2007-2009, 2016, 2019, 2021  AO Industries, Inc.
 	support@aoindustries.com
 	7262 Bull Pen Cir
 	Mobile, AL 36695

@@ -16,7 +16,7 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands-resources&metric=security_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands-resources&metric=Security)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands-resources&metric=sqale_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands-resources&metric=Maintainability)
 
-Web resources for legacy Struts-based site framework with [AOServ Platform](https://aoindustries.com/aoserv/) control panels.
+Template webapp for legacy Struts-based site framework with [AOServ Platform](https://aoindustries.com/aoserv/) control panels.
 
 ## Project Links
 * [Project Home](https://aoindustries.com/aoweb-struts/resources/)
