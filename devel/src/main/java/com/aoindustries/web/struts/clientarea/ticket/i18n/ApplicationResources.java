@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2021  AO Industries, Inc.
+ * Copyright (C) 2009, 2016, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -20,15 +20,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
  */
-module com.aoindustries.web.struts.devel {
-	exports com.aoindustries.web.struts.i18n;
-	exports com.aoindustries.web.struts.clientarea.i18n;
-	exports com.aoindustries.web.struts.clientarea.accounting.i18n;
-	exports com.aoindustries.web.struts.clientarea.control.i18n;
-	exports com.aoindustries.web.struts.clientarea.ticket.i18n;
-	exports com.aoindustries.web.struts.clientarea.webmail.i18n;
-	exports com.aoindustries.web.struts.signup.i18n;
-	exports com.aoindustries.web.struts.webapp.i18n;
-	// Direct
-	requires com.aoapps.hodgepodge; // <groupId>com.aoapps</groupId><artifactId>ao-hodgepodge</artifactId>
+package com.aoindustries.web.struts.clientarea.ticket.i18n;
+
+import com.aoapps.hodgepodge.i18n.EditableResourceBundle;
+import com.aoapps.hodgepodge.i18n.EditableResourceBundleSet;
+import java.io.File;
+import java.util.Locale;
+
+/**
+ * @author  AO Industries, Inc.
+ */
+public final class ApplicationResources extends EditableResourceBundle {
+
+	static final EditableResourceBundleSet bundleSet = new EditableResourceBundleSet(
+		ApplicationResources.class,
+		Locale.ROOT,
+		Locale.JAPANESE
+	);
+
+	static File getSourceFile(String filename) {
+		return new File(System.getProperty("user.home") + "/maven2/ao/aoweb-struts/src/main/resources/com/aoindustries/web/struts/clientarea/ticket/i18n", filename);
+	}
+
+	public ApplicationResources() {
+		super(Locale.ROOT, bundleSet, getSourceFile("ApplicationResources.properties"));
+	}
 }
