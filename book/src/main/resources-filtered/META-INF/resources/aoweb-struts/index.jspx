@@ -34,12 +34,9 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		title="@{documented.name}"
 		description="@{documented.description}"
 		datePublished="2016-10-17T00:09:00-05:00"
-		dateModified="2021-07-16T03:48:08-05:00"
+		dateModified="2021-09-05T22:20:16-05:00"
 	>
 		<core:child page="changelog.jspx" />
-		<core:child book="/aoweb-struts/core" page="/index.jspx" />
-		<core:child book="/aoweb-struts/resources" page="/index.jspx" />
-		<core:child book="/aoweb-struts/webapp" page="/index.jspx" />
 		<header>
 			<ao:include
 				page="/ao-badges/badges.inc.jspx"
@@ -73,12 +70,5 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<li><ao:a href="@{project.scm.url}">GitHub</ao:a></li>
 			</ul>
 		</section:nav>
-		<section:section label="Modules">
-			<ul>
-				<li><core:link book="/aoweb-struts/core" page="/index.jspx" /></li>
-				<li><core:link book="/aoweb-struts/resources" page="/index.jspx" /></li>
-				<li><core:link book="/aoweb-struts/webapp" page="/index.jspx" /></li>
-			</ul>
-		</section:section>
 	</core:page>
 </jsp:root>
