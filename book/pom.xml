@@ -26,7 +26,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 
 	<parent>
 		<groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId><version>1.17.1-POST-SNAPSHOT</version>
-		<relativePath>../../../oss/parent/pom.xml</relativePath>
+		<relativePath>../../oss/parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>com.aoindustries</groupId><artifactId>aoweb-struts-book</artifactId><version>3.0.0-SNAPSHOT</version>
@@ -119,6 +119,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 						<dependency>com.semanticcms:semanticcms-section-taglib</dependency>
 						<dependency>org.apache.taglibs:taglibs-standard-spec</dependency>
 						<!-- Runtime Direct -->
+						<dependency>com.aoapps:ao-mime-mappings</dependency>
 						<dependency>org.apache.taglibs:taglibs-standard-impl</dependency>
 					</usedDependencies>
 					<ignoredDependencies>
@@ -127,6 +128,52 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 						<dependency>com.aoapps:ao-web-resources-registry</dependency>
 					</ignoredDependencies>
 				</configuration>
+				<executions>
+					<!-- Add a copy of the taglib files from dependencies -->
+					<execution>
+						<id>unpack.tld</id><phase>generate-resources</phase><goals><goal>unpack</goal></goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.aoindustries</groupId><artifactId>aoweb-struts</artifactId><version>3.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+									<type>war</type>
+									<includes>
+										WEB-INF/aoweb-struts-aoweb.tld,
+										WEB-INF/aoweb-struts-skin.tld
+									</includes>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.aoindustries</groupId><artifactId>aoweb-struts</artifactId><version>3.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+						<type>war</type>
+						<exclusions><exclusion><groupId>*</groupId><artifactId>*</artifactId></exclusion></exclusions>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy.tld</id><phase>generate-resources</phase><goals><goal>copy-resources</goal></goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>${project.build.directory}/dependency/WEB-INF</directory>
+									<includes>
+										<include>aoweb-struts-aoweb.tld</include>
+										<include>aoweb-struts-skin.tld</include>
+									</includes>
+								</resource>
+							</resources>
+							<!-- Put into META-INF/resources to be accessible as website content when jar included in WEB-INF/lib -->
+							<outputDirectory>${project.build.directory}/generated-resources/META-INF/resources/aoweb-struts</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -161,8 +208,12 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>com.aoapps</groupId><artifactId>ao-badges</artifactId><version>1.7.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
+				<groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.0.0${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-taglib</artifactId><version>7.0.0${POST-SNAPSHOT}</version>
 			</dependency>
+			<!-- javaee-web-api-bom: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId> -->
 			<dependency>
 				<groupId>com.semanticcms</groupId><artifactId>semanticcms-changelog-taglib</artifactId><version>1.5.0${POST-SNAPSHOT}</version>
 			</dependency>
@@ -171,6 +222,9 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 			</dependency>
 			<dependency>
 				<groupId>com.semanticcms</groupId><artifactId>semanticcms-section-taglib</artifactId><version>1.9.0${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.semanticcms</groupId><artifactId>semanticcms-tag-reference</artifactId><version>1.7.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<!-- javaee-web-api-bom: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec</artifactId> -->
 			<!-- Transitive -->
@@ -205,9 +259,6 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>com.aoapps</groupId><artifactId>ao-io-buffer</artifactId><version>4.0.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.0.0${POST-SNAPSHOT}</version>
-			</dependency>
-			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-net-types</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
@@ -223,10 +274,16 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>com.aoapps</groupId><artifactId>ao-servlet-util</artifactId><version>4.0.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
+				<groupId>com.aoapps</groupId><artifactId>ao-style</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-tempfiles</artifactId><version>3.0.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-tempfiles-servlet</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.aoapps</groupId><artifactId>ao-tld-parser</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-tlds</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
@@ -262,10 +319,13 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>com.semanticcms</groupId><artifactId>semanticcms-section-servlet</artifactId><version>1.11.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<!-- Runtime Direct -->
+			<dependency>
+				<groupId>com.aoapps</groupId><artifactId>ao-mime-mappings</artifactId><version>1.2.0${POST-SNAPSHOT}</version>
+			</dependency>
 			<!-- javaee-web-api-bom: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId> -->
 			<!-- Runtime Transitive -->
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-style</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-javadoc-offline</artifactId><version>3.0.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<!-- BOM -->
 			<dependency>
@@ -282,7 +342,13 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 			<groupId>com.aoapps</groupId><artifactId>ao-badges</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.aoapps</groupId><artifactId>ao-taglib</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.semanticcms</groupId><artifactId>semanticcms-changelog-taglib</artifactId>
@@ -294,9 +360,17 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 			<groupId>com.semanticcms</groupId><artifactId>semanticcms-section-taglib</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.semanticcms</groupId><artifactId>semanticcms-tag-reference</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec</artifactId>
 		</dependency>
 		<!-- Runtime Direct -->
+		<dependency>
+			<!-- Mapping for *.tld -->
+			<groupId>com.aoapps</groupId><artifactId>ao-mime-mappings</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId>
 			<scope>runtime</scope>

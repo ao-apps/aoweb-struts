@@ -36,8 +36,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		title="@{documented.name} Changelog"
 		shortTitle="Changelog"
 		tocLevels="1"
-		datePublished="2016-10-29T22:33:10-05:00"
-		dateModified="2021-06-27T16:13:41-05:00"
+		datePublished="2016-10-29T22:19:41-05:00"
+		dateModified="2021-09-05T22:20:16-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -49,8 +49,18 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				scmUrl="@{project.scm.url}"
 			>
 				<ul>
+					<li>
+						Merged submodules directly into this module.
+						This streamlines development by allowing automatic redeploys.  Furthermore, this project is now used via
+						Maven overlay instead of jar dependencies.
+					</li>
 					<li>Minimum Java version changed from 1.7 to 11.</li>
-					<li>Now supports Java 9+ modules with included <code>module-info.class</code>.</li>
+					<li>
+						Now supports Java 9+ modules.  Due to still having filename-based automatic module dependencies,
+						*-SNAPSHOT versions include <code>module-info.class</code> while releases include the
+						<code>Automatic-Module-Name</code> manifest entry.  To minimize the difference between these
+						modes, <code>module-info.java</code> does not perform any transitive requires.
+					</li>
 					<li>
 						Reduced use of property substitutions in <code>pom.xml</code>.
 						This is to help 3rd-party parsers that fail to perform full Maven-compatible substitutions.
@@ -59,7 +69,58 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 						Now outputting HTML or XHTML based on the current response content type.
 						This should eliminate validator warnings when used as HTML.
 					</li>
+					<li>
+						Now supports skin attributes for <code>serialization</code> (default "auto") and <code>doctype</code> (default "HTML5").
+						Defaulting to doctype "STRICT" until converted to HTML 5.
+					</li>
+					<li>Skins are now responsible for writing the DOCTYPE and html tag, too.</li>
+					<li>Skins now use the new <code>Html</code> instead of <code>JspWriter</code>.</li>
+					<li>HTML email generators use the new <ao:a href="https://oss.aoapps.com/fluent-html/">AO Fluent HTML</ao:a> project.</li>
+					<li>Removed setContentType tag.</li>
+					<li>Removed <code>Skin.getCharacterSet(Locale)</code>, since the default encoding is always <code>UTF-8</code>.</li>
+					<li>
+						<code>SkinTag</code> now sets Struts <code>Globals.XHTML_KEY</code> based on serialization.
+						No need to use the <![CDATA[&lt;html:xhtml /&gt;]]> tag anymore.
+					</li>
+					<li>Added <code><![CDATA[&lt;link rel="author" href="…" /&gt;]]></code> support.</li>
+					<li><code><![CDATA[&lt;skin:contentTitle /&gt;]]></code> is now <code>scriptless</code>.</li>
+					<li>Optimized ServletContext attribute initialization and concurrency.</li>
+					<li>
+						<code>TicketLoggingHandler</code> automatically loaded on start-up via
+						<code>@WebListener</code>.  No more <code>LogFactory</code>.  Now just use
+						<code>Logger.getLogger(…)</code> like normal.
+					</li>
+					<li>Integrated with <ao:a href="https://oss.aoapps.com/web-resources/">AO Web Resources</ao:a>.</li>
+					<li>Added support for <ao:a href="https://developers.google.com/speed/webp">WebP images</ao:a>.</li>
 					<li>Removed support or IE 6, 7, 8, and 9 since all are end-of-life.</li>
+					<li>
+						Added support for Web development file types <code>*.less</code>, <code>*.sass</code>,
+						<code>*.scss</code>, <code>*.css.map</code>, and <code>*.js.map</code>.
+					</li>
+					<li>
+						Cleaned-up use of <code>JspTagException</code> versus <code>JspException</code>.  Generally,
+						methods declare <code>throws JspException</code> while actually throwing instances of
+						<code>JspTagException</code>.  The exception to this is private implementation methods that
+						both declare and throw <code>JspTagException</code>.
+					</li>
+					<li>
+						Split development-only classes into a new sub-project in <code>devel/</code>.  This
+						sub-project is used only for development and is never deployed to artifact repositories.
+					</li>
+					<li>No longer trimming passwords.</li>
+					<li>
+						VNC keystore moved from web resource <code>/WEB-INF/keystore</code> to filesystem
+						resource <code>conf/keystore</code>.  This assumes that Tomcat is running with a working
+						directory containing the <code>conf/</code> folder, which is true on the
+						<ao:a href="https://aoindustries.com/aoserv/">AOServ Platform</ao:a>.  This has two advantages:
+						<ol>
+							<li>The webapp may be deployed as an unexploded WAR file.</li>
+							<li>
+								The keystore may be updated separately from the application.  This is used, for example,
+								by Let's Encrypt renewal hooks.
+							</li>
+						</ol>
+					</li>
 					<li>Updated to <ao:a rel="nofollow" href="https://www.oracle.com/java/technologies/javaee/javaeetechnologies.html#javaee7">Java™ EE 7 Web Profile</ao:a> (Servlet 3.1, JSP 2.3, EL 3.0, and JSTL 1.2).</li>
 					<li>Replaced VNC Java Applet+SSL with JavaScript+WebSocket.</li>
 					<li>
@@ -68,6 +129,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 						<code>X-Robots-Tag: noindex, nofollow</code> for any request that contains any
 						"authenticationTarget" parameter.
 					</li>
+					<li>Implemented automatic newline and tab indentation.</li>
 				</ul>
 			</changelog:release>
 		</c:if>
@@ -75,7 +137,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<changelog:release
 			projectName="@{documented.name}"
 			version="2.0.0"
-			datePublished="2019-10-12T23:08:05-05:00"
+			datePublished="2019-10-12T23:28:12-05:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
@@ -90,22 +152,14 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<changelog:release
 			projectName="@{documented.name}"
 			version="1.2.0"
-			datePublished="2019-06-24T09:37:18-05:00"
+			datePublished="2019-06-24T10:08:30-05:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
 		>
 			<ul>
-				<li>Updated for compatibility with newer <core:link book="/aoserv/client" page="/index.jspx" />.</li>
-				<li>Payment form improvements:
-					<ol>
-						<li>Now only showing the last four digits of bank card numbers, instead of both first four and last four.</li>
-						<li>Now showing card expiration dates within the payment forms.</li>
-						<li>Completely hiding card comments columns and rows when there is nothing to show.</li>
-						<li>Completely hiding card company name rows when there is nothing to show.</li>
-						<li>Added labels for radio inputs to make selection easier.</li>
-					</ol>
-				</li>
+				<li>Updated version of <ao:a href="https://oss.aoapps.com/parent/">AO OSS Parent</ao:a>.</li>
+				<li>Minimum Java version changed from 1.6 to 1.7.</li>
 				<li>Using managed dependencies:
 					<ol>
 						<li>This project uses managed dependencies.</li>
@@ -118,14 +172,13 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<changelog:release
 			projectName="@{documented.name}"
 			version="1.1.2"
-			datePublished="2017-07-20T11:28:36-05:00"
+			datePublished="2017-07-20T12:41:09-05:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
 		>
 			<ul>
-				<li>Updated for new <ao:a href="https://oss.aoapps.com/net-types/">AO Net Types</ao:a> project pulled out of <core:link book="/aoserv/client" page="/index.jspx" />.</li>
-				<li>Updated for validation base moved from <core:link book="/aoserv/client" page="/index.jspx" /> to <ao:a href="https://oss.aoapps.com/lang/">AO Lang</ao:a>.</li>
+				<li>New releases of modules.</li>
 				<li>Updated dependencies.</li>
 			</ul>
 		</changelog:release>
@@ -133,12 +186,13 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<changelog:release
 			projectName="@{documented.name}"
 			version="1.1.1"
-			datePublished="2016-11-16T02:51:26-06:00"
+			datePublished="2016-11-16T03:06:04-06:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
 		>
 			<ul>
+				<li>Adjusted old Ant build.xml for new Maven structure.</li>
 				<li>New <ao:a href="https://oss.aoapps.com/parent/">AO OSS Parent</ao:a> POM to simplify <code>pom.xml</code> files.</li>
 				<li>Project documentation moved to per-project book in <ao:a href="https://semanticcms.com/">SemanticCMS</ao:a> format.</li>
 				<li>Added changelog as top-level project link.</li>
@@ -148,50 +202,29 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<changelog:release
 			projectName="@{documented.name}"
 			version="1.1.0"
-			datePublished="2016-10-20T18:58:00-05:00"
+			datePublished="2016-10-20T18:51:00-05:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
 		>
 			<ul>
+				<li>Using standard filter set provided by SemanticCMS.</li>
 				<li>Improved Javadoc formatting.</li>
 				<li>Improved README formatting.</li>
-				<li>Got the basic redirected placeholder pages in place for SemanticCMS-based content.</li>
+				<li>Working on SemanticCMS integration.</li>
+				<li>shortTitle may now be specified on a per-parent basis, for when
+					the shortTitle only makes sense within the context of that
+					specific parent.  This is useful for navigation items such
+					as breadcrumbs or trees.</li>
+				<li>No more page stack, just show title for current page only.</li>
 				<li>Canonical URLs configured per-book.</li>
 			</ul>
 		</changelog:release>
 
 		<changelog:release
 			projectName="@{documented.name}"
-			version="1.0.2"
-			datePublished="2016-10-11T14:37:00-05:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Using latest releases of dependencies.</li>
-			</ul>
-		</changelog:release>
-
-		<changelog:release
-			projectName="@{documented.name}"
-			version="1.0.1"
-			datePublished="2016-10-11T14:00:00-05:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Include-only JSPs renamed to *.inc.jsp to match SemanticCMS conventions.</li>
-				<li>No book title.</li>
-			</ul>
-		</changelog:release>
-
-		<changelog:release
-			projectName="@{documented.name}"
 			version="1.0.0"
-			datePublished="2016-10-08T01:22:00-05:00"
+			datePublished="2016-10-08T01:15:00-05:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
@@ -201,6 +234,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<li>Web resources moved to separate jar file to share between projects without
 					having to copy into the web root. Thank you servlets 3.0 for allowing us
 					to no longer copy JSP files between projects with tedious build systems.</li>
+				<li>Moved Java implementation to aoweb-struts-core package.</li>
 				<li>Packaged for compatibility with old Ant build system.</li>
 			</ul>
 		</changelog:release>
