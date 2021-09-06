@@ -36,8 +36,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		title="@{documented.name} Changelog"
 		shortTitle="Changelog"
 		tocLevels="1"
-		datePublished="2016-10-29T22:25:38-05:00"
-		dateModified="2021-06-27T16:13:41-05:00"
+		datePublished="2016-10-29T22:19:41-05:00"
+		dateModified="2021-09-05T22:20:16-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -49,6 +49,11 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				scmUrl="@{project.scm.url}"
 			>
 				<ul>
+					<li>
+						Merged submodules directly into this module.
+						This streamlines development by allowing automatic redeploys.  Furthermore, this project is now used via
+						Maven overlay instead of jar dependencies.
+					</li>
 					<li>Minimum Java version changed from 1.7 to 11.</li>
 					<li>
 						Now supports Java 9+ modules.  Due to still having filename-based automatic module dependencies,
@@ -64,7 +69,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 						Now outputting HTML or XHTML based on the current response content type.
 						This should eliminate validator warnings when used as HTML.
 					</li>
-					<li>Now supports skin attributes for <code>serialization</code> (default "auto") and <code>doctype</code> (default "HTML5").</li>
+					<li>
+						Now supports skin attributes for <code>serialization</code> (default "auto") and <code>doctype</code> (default "HTML5").
+						Defaulting to doctype "STRICT" until converted to HTML 5.
+					</li>
 					<li>Skins are now responsible for writing the DOCTYPE and html tag, too.</li>
 					<li>Skins now use the new <code>Html</code> instead of <code>JspWriter</code>.</li>
 					<li>HTML email generators use the new <ao:a href="https://oss.aoapps.com/fluent-html/">AO Fluent HTML</ao:a> project.</li>
@@ -129,7 +137,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<changelog:release
 			projectName="@{documented.name}"
 			version="2.0.0"
-			datePublished="2019-10-12T22:59:07-05:00"
+			datePublished="2019-10-12T23:28:12-05:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
@@ -138,85 +146,20 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<li>Updated for compatibility with <ao:a href="https://oss.aoapps.com/lang/changelog#release-notes-3.0.0">ao-lang-3.0.0</ao:a>.</li>
 				<li>Updated for compatibility with <ao:a href="https://oss.aoapps.com/hodgepodge/changelog#release-notes-3.1.0">aocode-public-3.1.0</ao:a>.</li>
 				<li>Updated for compatibility with <core:link book="/aoserv/client" page="/changelog.jspx" element="release-notes-1.83.1">aoserv-client-1.83.1</core:link>.</li>
-				<li>Cookie names, values, comments, and paths are now URI-encoded.</li>
-				<li>No longer URL rewriting <code>file:</code> and <code>data:</code> URLs.</li>
-				<li>
-					Using new filter <code>EncodeURIFilter</code> which encodes the URL to either
-					<ao:a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</ao:a> US-ASCII format
-					or <ao:a href="https://tools.ietf.org/html/rfc3987">RFC 3987 IRI</ao:a> Unicode format.
-				</li>
-				<li>No longer URL rewriting <code>*.dia</code> URLs.</li>
-				<li>
-					<code>SessionResponseWrapper</code> now supports
-					<ao:a href="https://oss.aoapps.com/servlet-util/apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/Canonical.html">Canonical URLs</ao:a>,
-					with the following behavior:
-					<ol>
-						<li><code>;jsessionid</code> is never used</li>
-						<li><code>language</code> parameter is always added for non-default language</li>
-						<li>
-							All other cookie parameters are skipped, such as <code>authenticationTarget</code>,
-							<code>layout</code>, and <code>su</code>.
-						</li>
-					</ol>
-					This should result in URLs consistent with what search engines see, assuming search engines
-					never supply cookies, never change the layout, and never tried to login or "su".
-				</li>
-				<li>Minimized session creation.</li>
-				<li><code>PermissionAction.getPermissions()</code> changed from <code>List</code> to <code>Set</code>.</li>
-				<li><code>Skin.Language</code> now uses <code>AnyURI</code> instead of <code>String</code> for URLs.</li>
 			</ul>
 		</changelog:release>
 
 		<changelog:release
 			projectName="@{documented.name}"
 			version="1.2.0"
-			datePublished="2019-06-24T09:19:33-05:00"
+			datePublished="2019-06-24T10:08:30-05:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
 		>
 			<ul>
+				<li>Updated version of <ao:a href="https://oss.aoapps.com/parent/">AO OSS Parent</ao:a>.</li>
 				<li>Minimum Java version changed from 1.6 to 1.7.</li>
-				<li>Implemented VNC compatibility for HVM guests on Xen 4.6 on CentOS 7.</li>
-				<li>
-					Aligned the session URL rewriting excluded path extensions to match other projects.
-					The list is now:
-					<ol>
-						<li><code>*.bmp</code> (added this release)</li>
-						<li><code>*.css</code></li>
-						<li><code>*.exe</code> (added this release)</li>
-						<li><code>*.gif</code></li>
-						<li><code>*.ico</code></li>
-						<li><code>*.jpeg</code></li>
-						<li><code>*.jpg</code></li>
-						<li><code>*.js</code></li>
-						<li><code>*.png</code></li>
-						<li><code>*.svg</code> (added this release)</li>
-						<li><code>*.txt</code></li>
-						<li><code>*.zip</code></li>
-					</ol>
-				</li>
-				<li>Payment form improvements:
-					<ol>
-						<li>Passing more values to <ao:a href="https://oss.aoapps.com/payments/api/">underlying payment processing API</ao:a>:
-							<ol type="a">
-								<li><code>principalName</code> from authenticated user</li>
-								<li><code>groupName</code> from account name</li>
-								<li><code>email</code> from account profile's first billing email address</li>
-								<li><code>phone</code> from account profile</li>
-								<li><code>fax</code> from account profile</li>
-							</ol>
-						</li>
-						<li>
-							New function <core:link page="aoweb-struts-aoweb.tld/function-getCardNumberDisplay" />
-							to format masked card numbers for display.
-						</li>
-						<li>
-							New function <core:link page="aoweb-struts-aoweb.tld/function-getExpirationDisplay" />
-							to format expiration dates for display.
-						</li>
-					</ol>
-				</li>
 				<li>Using managed dependencies:
 					<ol>
 						<li>This project uses managed dependencies.</li>
@@ -229,16 +172,13 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<changelog:release
 			projectName="@{documented.name}"
 			version="1.1.2"
-			datePublished="2017-07-20T10:48:22-05:00"
+			datePublished="2017-07-20T12:41:09-05:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
 		>
 			<ul>
-				<li>Updated for new <ao:a href="https://oss.aoapps.com/net-types/">AO Net Types</ao:a> project pulled out of <core:link book="/aoserv/client" page="/index.jspx" />.</li>
-				<li>Updated for validation base moved from <core:link book="/aoserv/client" page="/index.jspx" /> to <ao:a href="https://oss.aoapps.com/lang/">AO Lang</ao:a>.</li>
-				<li>Making more extensive use of self-validating types.</li>
-				<li>Extended network protocol to send randomized command sequences to help ensure stream integrity.</li>
+				<li>New releases of modules.</li>
 				<li>Updated dependencies.</li>
 			</ul>
 		</changelog:release>
@@ -246,80 +186,56 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<changelog:release
 			projectName="@{documented.name}"
 			version="1.1.1"
-			datePublished="2016-11-16T02:42:52-06:00"
+			datePublished="2016-11-16T03:06:04-06:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
 		>
 			<ul>
+				<li>Adjusted old Ant build.xml for new Maven structure.</li>
 				<li>New <ao:a href="https://oss.aoapps.com/parent/">AO OSS Parent</ao:a> POM to simplify <code>pom.xml</code> files.</li>
 				<li>Project documentation moved to per-project book in <ao:a href="https://semanticcms.com/">SemanticCMS</ao:a> format.</li>
 				<li>Added changelog as top-level project link.</li>
-				<li>
-					Taglib tlib-version is now set automatically during build.
-					Unfortunately, we cannot include "-SNAPSHOT" on snapshot builds due to the requirement of "Dewey decimal"
-					for taglib versions.  The unambiguous full version is annotated via comment.
-				</li>
 			</ul>
 		</changelog:release>
 
 		<changelog:release
 			projectName="@{documented.name}"
 			version="1.1.0"
-			datePublished="2016-10-20T18:54:00-05:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Improved Javadoc formatting.</li>
-				<li>Improved README formatting.</li>
-				<li>No more page stack, just show title for current page only.</li>
-			</ul>
-		</changelog:release>
-
-		<changelog:release
-			projectName="@{documented.name}"
-			version="1.0.2"
-			datePublished="2016-10-11T14:35:00-05:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Using latest releases of dependencies.</li>
-			</ul>
-		</changelog:release>
-
-		<changelog:release
-			projectName="@{documented.name}"
-			version="1.0.1"
-			datePublished="2016-10-11T13:55:00-05:00"
+			datePublished="2016-10-20T18:51:00-05:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
 		>
 			<ul>
 				<li>Using standard filter set provided by SemanticCMS.</li>
-				<li>SessionFilter moved from main web.xml to web-fragment.xml,
-					so it can be ordered between other fragments instead of
-					always being top of the filter chain.</li>
+				<li>Improved Javadoc formatting.</li>
+				<li>Improved README formatting.</li>
+				<li>Working on SemanticCMS integration.</li>
+				<li>shortTitle may now be specified on a per-parent basis, for when
+					the shortTitle only makes sense within the context of that
+					specific parent.  This is useful for navigation items such
+					as breadcrumbs or trees.</li>
+				<li>No more page stack, just show title for current page only.</li>
+				<li>Canonical URLs configured per-book.</li>
 			</ul>
 		</changelog:release>
 
 		<changelog:release
 			projectName="@{documented.name}"
 			version="1.0.0"
-			datePublished="2016-10-08T01:20:00-05:00"
+			datePublished="2016-10-08T01:15:00-05:00"
 			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
 		>
 			<ul>
 				<li>Project moved to GitHub and Maven.</li>
+				<li>Web resources moved to separate jar file to share between projects without
+					having to copy into the web root. Thank you servlets 3.0 for allowing us
+					to no longer copy JSP files between projects with tedious build systems.</li>
 				<li>Moved Java implementation to aoweb-struts-core package.</li>
 				<li>Packaged for compatibility with old Ant build system.</li>
-				<li>Storing PageTag on request attribute so can capture across jsp:includes.</li>
 			</ul>
 		</changelog:release>
 	</core:page>

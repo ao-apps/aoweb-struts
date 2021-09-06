@@ -26,7 +26,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 
 	<parent>
 		<groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId><version>1.17.1-POST-SNAPSHOT</version>
-		<relativePath>../../../oss/parent/pom.xml</relativePath>
+		<relativePath>../../oss/parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>com.aoindustries</groupId><artifactId>aoweb-struts-book</artifactId><version>3.0.0-SNAPSHOT</version>
@@ -136,10 +136,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 							<artifactItems>
 								<artifactItem>
 									<groupId>com.aoindustries</groupId><artifactId>aoweb-struts</artifactId><version>3.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
-									<type>jar</type>
+									<type>war</type>
 									<includes>
-										META-INF/aoweb-struts-aoweb.tld,
-										META-INF/aoweb-struts-skin.tld
+										WEB-INF/aoweb-struts-aoweb.tld,
+										WEB-INF/aoweb-struts-skin.tld
 									</includes>
 								</artifactItem>
 							</artifactItems>
@@ -149,7 +149,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<dependencies>
 					<dependency>
 						<groupId>com.aoindustries</groupId><artifactId>aoweb-struts</artifactId><version>3.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
-						<type>jar</type>
+						<type>war</type>
 						<exclusions><exclusion><groupId>*</groupId><artifactId>*</artifactId></exclusion></exclusions>
 					</dependency>
 				</dependencies>
@@ -162,7 +162,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 						<configuration>
 							<resources>
 								<resource>
-									<directory>${project.build.directory}/dependency/META-INF</directory>
+									<directory>${project.build.directory}/dependency/WEB-INF</directory>
 									<includes>
 										<include>aoweb-struts-aoweb.tld</include>
 										<include>aoweb-struts-skin.tld</include>
