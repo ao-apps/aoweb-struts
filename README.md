@@ -1,4 +1,4 @@
-# [<img src="ao-logo.png" alt="AO Logo" width="35" height="40">](https://github.com/aoindustries) [AOWeb Struts](https://github.com/aoindustries/aoweb-struts) / [Resources](https://github.com/aoindustries/aoweb-struts-resources)
+# [<img src="ao-logo.png" alt="AO Logo" width="35" height="40">](https://github.com/aoindustries) [AOWeb Struts](https://github.com/aoindustries/aoweb-struts)
 
 [![project: current stable](https://aoindustries.com/ao-badges/project-current-stable.svg)](https://aoindustries.com/life-cycle#project-current-stable)
 [![management: production](https://aoindustries.com/ao-badges/management-production.svg)](https://aoindustries.com/life-cycle#management-production)
@@ -8,8 +8,8 @@
 [![semantic versioning: 2.0.0](https://aoindustries.com/ao-badges/semver-2.0.0.svg)](http://semver.org/spec/v2.0.0.html)
 [![license: LGPL v3](https://aoindustries.com/ao-badges/license-lgpl-3.0.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 
-[![Build](https://github.com/aoindustries/aoweb-struts-resources/workflows/Build/badge.svg?branch=master)](https://github.com/aoindustries/aoweb-struts-resources/actions?query=workflow%3ABuild)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.aoindustries/aoweb-struts-resources/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.aoindustries/aoweb-struts-resources)
+[![Build](https://github.com/aoindustries/aoweb-struts/workflows/Build/badge.svg?branch=master)](https://github.com/aoindustries/aoweb-struts/actions?query=workflow%3ABuild)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.aoindustries/aoweb-struts/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.aoindustries/aoweb-struts)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands-resources&metric=alert_status)](https://sonarcloud.io/dashboard?branch=master&id=com.aoapps.platform%3Aaoapps-brands-resources)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands-resources&metric=ncloc)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands-resources&metric=ncloc)  
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands-resources&metric=reliability_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands-resources&metric=Reliability)
@@ -19,10 +19,10 @@
 Template webapp for legacy Struts-based site framework with [AOServ Platform](https://aoindustries.com/aoserv/) control panels.
 
 ## Project Links
-* [Project Home](https://aoindustries.com/aoweb-struts/resources/)
-* [Changelog](https://aoindustries.com/aoweb-struts/resources/changelog)
-* [Maven Central Repository](https://search.maven.org/artifact/com.aoindustries/aoweb-struts-resources)
-* [GitHub](https://github.com/aoindustries/aoweb-struts-resources)
+* [Project Home](https://aoindustries.com/aoweb-struts/)
+* [Changelog](https://aoindustries.com/aoweb-struts/changelog)
+* [Maven Central Repository](https://search.maven.org/artifact/com.aoindustries/aoweb-struts)
+* [GitHub](https://github.com/aoindustries/aoweb-struts)
 
 ## Contact Us
 For questions or support, please [contact us](https://aoindustries.com/contact):
