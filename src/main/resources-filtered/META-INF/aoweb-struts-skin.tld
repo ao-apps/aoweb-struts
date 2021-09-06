@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-aoweb-struts-core - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
+aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
 Copyright (C) 2007-2009, 2016, 2017, 2019, 2020, 2021  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
 
-This file is part of aoweb-struts-core.
+This file is part of aoweb-struts.
 
-aoweb-struts-core is free software: you can redistribute it and/or modify
+aoweb-struts is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-aoweb-struts-core is distributed in the hope that it will be useful,
+aoweb-struts is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
-along with aoweb-struts-core.  If not, see <http://www.gnu.org/licenses />.
+along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 -->
 <taglib xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
 	version="2.1">
 	<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-	<!-- dateModified="2021-06-16T13:06:46-05:00" -->
+	<!-- dateModified="2021-09-05T21:51:52-05:00" -->
 	<description><![CDATA[
 		<p>@{description.html}</p>
 		<hr />
@@ -47,7 +47,7 @@ along with aoweb-struts-core.  If not, see <http://www.gnu.org/licenses />.
 		<ul>
 			<li><a href="https://oss.aoapps.com/encoding/taglib/ao-encoding.tld/">AO Encoding Taglib</a></li>
 			<li><a href="https://oss.aoapps.com/taglib/ao.tld/">AO Taglib</a></li>
-			<li><a href="@{project.url}aoweb-struts-skin.tld/">AOWeb Struts Core Skin Taglib</a> (this taglib)</li>
+			<li><a href="@{project.url}aoweb-struts-skin.tld/">AOWeb Struts Skin Taglib</a> (this taglib)</li>
 			<li><a href="https://oss.newmediaworks.com/email-taglib/nmw-email.tld/">NMW Email Taglib</a></li>
 			<li><a href="https://oss.newmediaworks.com/payment-taglib/nmw-payment.tld/">NMW Payment Taglib</a></li>
 			<!-- TODO: nmw-persistence-taglib once open-source, and many others -->
@@ -62,13 +62,13 @@ along with aoweb-struts-core.  If not, see <http://www.gnu.org/licenses />.
 	<uri>@{project.url}skin-taglib/</uri>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-16T13:06:46-05:00" -->
+		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
 		<description><![CDATA[
 			<p>
 				Provides keywords to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
 				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
 				if parent not found.
 			</p>
 		]]></description>
@@ -78,13 +78,13 @@ along with aoweb-struts-core.  If not, see <http://www.gnu.org/licenses />.
 	</tag>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-16T13:06:46-05:00" -->
+		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
 		<description><![CDATA[
 			<p>
 				Provides a description to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
 				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
 				if parent not found.
 			</p>
 		]]></description>
@@ -94,13 +94,13 @@ along with aoweb-struts-core.  If not, see <http://www.gnu.org/licenses />.
 	</tag>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-16T13:06:46-05:00" -->
+		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
 		<description><![CDATA[
 			<p>
 				Provides an author to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
 				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
 				if parent not found.
 			</p>
 		]]></description>
@@ -110,13 +110,13 @@ along with aoweb-struts-core.  If not, see <http://www.gnu.org/licenses />.
 	</tag>
 	<tag>
 		<!-- datePublished="2019-10-29T03:35:08-05:00" -->
-		<!-- dateModified="2021-06-16T13:06:46-05:00" -->
+		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
 		<description><![CDATA[
 			<p>
 				Provides an author href to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
 				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
 				if parent not found.
 			</p>
 		]]></description>
@@ -126,13 +126,13 @@ along with aoweb-struts-core.  If not, see <http://www.gnu.org/licenses />.
 	</tag>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-16T13:06:46-05:00" -->
+		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
 		<description><![CDATA[
 			<p>
 				Provides a copyright to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
 				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
 				if parent not found.
 			</p>
 		]]></description>
@@ -142,13 +142,13 @@ along with aoweb-struts-core.  If not, see <http://www.gnu.org/licenses />.
 	</tag>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-16T13:06:46-05:00" -->
+		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides a path to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
 				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
 				if parent not found.
 			</p>
 			<p>
@@ -168,13 +168,13 @@ along with aoweb-struts-core.  If not, see <http://www.gnu.org/licenses />.
 	</tag>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-16T13:06:46-05:00" -->
+		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
 		<description><![CDATA[
 			<p>
 				Provides a meta to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
 				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
 				if parent not found.
 			</p>
 			<p>
@@ -192,7 +192,7 @@ along with aoweb-struts-core.  If not, see <http://www.gnu.org/licenses />.
 		<attribute>
 			<description><![CDATA[
 				<p>
-					The name of the <a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/Meta.html">meta information</a>.
+					The name of the <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/Meta.html">meta information</a>.
 					A nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-name">&lt;ao:name&gt;</a> tag will override this value.
 				</p>
 			]]></description>
@@ -204,7 +204,7 @@ along with aoweb-struts-core.  If not, see <http://www.gnu.org/licenses />.
 		<attribute>
 			<description><![CDATA[
 				<p>
-					The content of the <a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/Meta.html">meta information</a>.
+					The content of the <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/Meta.html">meta information</a>.
 					A nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-content">&lt;ao:content&gt;</a> tag will override this value.
 					A non-empty body may also provide the content.
 				</p>
@@ -217,10 +217,10 @@ along with aoweb-struts-core.  If not, see <http://www.gnu.org/licenses />.
 	</tag>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-16T13:06:46-05:00" -->
+		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
 		<description><![CDATA[
 			<p>
-				Adds a link tag to <a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageAttributes.html">this page</a>.
+				Adds a link tag to <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">this page</a>.
 				In precedence order, the href may be provided as:
 			</p>
 			<ol>
@@ -282,13 +282,13 @@ along with aoweb-struts-core.  If not, see <http://www.gnu.org/licenses />.
 	</tag>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-16T13:06:46-05:00" -->
+		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
 		<description><![CDATA[
 			<p>
 				Provides a title to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
 				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
 				if parent not found.
 			</p>
 		]]></description>
@@ -298,13 +298,13 @@ along with aoweb-struts-core.  If not, see <http://www.gnu.org/licenses />.
 	</tag>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-16T13:06:46-05:00" -->
+		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
 		<description><![CDATA[
 			<p>
 				Provides a navImageAlt to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
 				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts.core/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
 				if parent not found.
 			</p>
 		]]></description>
