@@ -27,5 +27,5 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	xsi:schemaLocation="https://semanticcms.com/core/servlet/ https://semanticcms.com/core/servlet/books-1.0.xsd"
 	rootBook="/clientarea"
 >
-	<book name="/clientarea" cvsworkDirectory="~/maven2/ao/aoweb-struts/resources/src/main/resources/META-INF/resources/clientarea" />
+	<book name="/clientarea" cvsworkDirectory="~/maven2/ao/aoweb-struts/src/main/webapp/clientarea" />
 </books>

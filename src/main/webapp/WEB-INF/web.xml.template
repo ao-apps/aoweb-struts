@@ -82,12 +82,7 @@ web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
 		<param-value>default</param-value>
 	</context-param>
 
-<!-- Begin include "web.xml.contextParams" -->
-	<context-param>
-		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
-		<param-value>com.aoindustries.web.struts.i18n.ApplicationResources</param-value>
-	</context-param>
-<!-- End include "web.xml.contextParams" -->
+<!-- Include "web.xml.contextParams" -->
 
 	<!-- Action Servlet Configuration -->
 	<servlet>
@@ -117,13 +112,13 @@ web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
 			<param-name>config/signup</param-name>
 			<param-value>/WEB-INF/struts-config-signup.xml</param-value>
 		</init-param>
-<!-- web.xml.strutsInitParams: no template file -->
+<!-- Include "web.xml.strutsInitParams" -->
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 
-<!-- web.xml.servlets: no template file -->
+<!-- Include "web.xml.servlets" -->
 
-<!-- web.xml.servletMappingsPre: no template file -->
+<!-- Include "web.xml.servletMappingsPre" -->
 
 	<!-- Action Servlet Mapping -->
 	<servlet-mapping>
@@ -131,7 +126,7 @@ web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 
-<!-- web.xml.servletMappingsPost: no template file -->
+<!-- Include "web.xml.servletMappingsPost" -->
 
 	<session-config>
 		<session-timeout>61</session-timeout>

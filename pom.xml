@@ -118,6 +118,240 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId><version>2.1.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>substitute-templates</id><phase>generate-sources</phase><goals><goal>run</goal></goals>
+						<configuration>
+							<target xmlns:if="ant:if" xmlns:unless="ant:unless">
+								<mkdir dir="${project.build.directory}/substitute-templates" />
+								<copy todir="${project.build.directory}/substitute-templates">
+									<fileset dir="${project.basedir}/src/main/webapp" includes="WEB-INF/struts-config*.xml.template, WEB-INF/web.xml.template" />
+								</copy>
+								<!-- WEB-INF/struts-config-clientarea-accounting.xml -->
+								<replace
+									file="${project.build.directory}/substitute-templates/WEB-INF/struts-config-clientarea-accounting.xml.template"
+									value="${struts-config-clientarea-accounting.xml.messageResources}"
+									summary="true"
+									failOnNoReplacements="true"
+								>
+									<replacetoken><![CDATA[<!-- Include "struts-config-clientarea-accounting.xml.messageResources" -->]]></replacetoken>
+								</replace>
+								<condition property="struts-config-clientarea-accounting.xml.matches" value="true">
+									<filesmatch
+										file1="${project.build.directory}/substitute-templates/WEB-INF/struts-config-clientarea-accounting.xml.template"
+										file2="${project.basedir}/src/main/webapp/WEB-INF/struts-config-clientarea-accounting.xml"
+									/>
+								</condition>								
+								<copy
+									unless:set="struts-config-clientarea-accounting.xml.matches"
+									file="${project.build.directory}/substitute-templates/WEB-INF/struts-config-clientarea-accounting.xml.template"
+									tofile="${project.basedir}/src/main/webapp/WEB-INF/struts-config-clientarea-accounting.xml"
+								/>
+								<echo
+									if:set="struts-config-clientarea-accounting.xml.matches"
+									message="struts-config-clientarea-accounting.xml unchanged"
+									level="info"
+								/>
+								<!-- WEB-INF/struts-config-clientarea-control.xml -->
+								<replace
+									file="${project.build.directory}/substitute-templates/WEB-INF/struts-config-clientarea-control.xml.template"
+									value="${struts-config-clientarea-control.xml.messageResources}"
+									summary="true"
+									failOnNoReplacements="true"
+								>
+									<replacetoken><![CDATA[<!-- Include "struts-config-clientarea-control.xml.messageResources" -->]]></replacetoken>
+								</replace>
+								<condition property="struts-config-clientarea-control.xml.matches" value="true">
+									<filesmatch
+										file1="${project.build.directory}/substitute-templates/WEB-INF/struts-config-clientarea-control.xml.template"
+										file2="${project.basedir}/src/main/webapp/WEB-INF/struts-config-clientarea-control.xml"
+									/>
+								</condition>								
+								<copy
+									unless:set="struts-config-clientarea-control.xml.matches"
+									file="${project.build.directory}/substitute-templates/WEB-INF/struts-config-clientarea-control.xml.template"
+									tofile="${project.basedir}/src/main/webapp/WEB-INF/struts-config-clientarea-control.xml"
+								/>
+								<echo
+									if:set="struts-config-clientarea-control.xml.matches"
+									message="struts-config-clientarea-control.xml unchanged"
+									level="info"
+								/>
+								<!-- WEB-INF/struts-config-clientarea-ticket.xml -->
+								<replace
+									file="${project.build.directory}/substitute-templates/WEB-INF/struts-config-clientarea-ticket.xml.template"
+									value="${struts-config-clientarea-ticket.xml.messageResources}"
+									summary="true"
+									failOnNoReplacements="true"
+								>
+									<replacetoken><![CDATA[<!-- Include "struts-config-clientarea-ticket.xml.messageResources" -->]]></replacetoken>
+								</replace>
+								<condition property="struts-config-clientarea-ticket.xml.matches" value="true">
+									<filesmatch
+										file1="${project.build.directory}/substitute-templates/WEB-INF/struts-config-clientarea-ticket.xml.template"
+										file2="${project.basedir}/src/main/webapp/WEB-INF/struts-config-clientarea-ticket.xml"
+									/>
+								</condition>								
+								<copy
+									unless:set="struts-config-clientarea-ticket.xml.matches"
+									file="${project.build.directory}/substitute-templates/WEB-INF/struts-config-clientarea-ticket.xml.template"
+									tofile="${project.basedir}/src/main/webapp/WEB-INF/struts-config-clientarea-ticket.xml"
+								/>
+								<echo
+									if:set="struts-config-clientarea-ticket.xml.matches"
+									message="struts-config-clientarea-ticket.xml unchanged"
+									level="info"
+								/>
+								<!-- WEB-INF/struts-config-clientarea.xml -->
+								<replace
+									file="${project.build.directory}/substitute-templates/WEB-INF/struts-config-clientarea.xml.template"
+									value="${struts-config-clientarea.xml.messageResources}"
+									summary="true"
+									failOnNoReplacements="true"
+								>
+									<replacetoken><![CDATA[<!-- Include "struts-config-clientarea.xml.messageResources" -->]]></replacetoken>
+								</replace>
+								<condition property="struts-config-clientarea.xml.matches" value="true">
+									<filesmatch
+										file1="${project.build.directory}/substitute-templates/WEB-INF/struts-config-clientarea.xml.template"
+										file2="${project.basedir}/src/main/webapp/WEB-INF/struts-config-clientarea.xml"
+									/>
+								</condition>								
+								<copy
+									unless:set="struts-config-clientarea.xml.matches"
+									file="${project.build.directory}/substitute-templates/WEB-INF/struts-config-clientarea.xml.template"
+									tofile="${project.basedir}/src/main/webapp/WEB-INF/struts-config-clientarea.xml"
+								/>
+								<echo
+									if:set="struts-config-clientarea.xml.matches"
+									message="struts-config-clientarea.xml unchanged"
+									level="info"
+								/>
+								<!-- WEB-INF/struts-config-signup.xml -->
+								<replace
+									file="${project.build.directory}/substitute-templates/WEB-INF/struts-config-signup.xml.template"
+									value="${struts-config-signup.xml.messageResources}"
+									summary="true"
+									failOnNoReplacements="true"
+								>
+									<replacetoken><![CDATA[<!-- Include "struts-config-signup.xml.messageResources" -->]]></replacetoken>
+								</replace>
+								<condition property="struts-config-signup.xml.matches" value="true">
+									<filesmatch
+										file1="${project.build.directory}/substitute-templates/WEB-INF/struts-config-signup.xml.template"
+										file2="${project.basedir}/src/main/webapp/WEB-INF/struts-config-signup.xml"
+									/>
+								</condition>								
+								<copy
+									unless:set="struts-config-signup.xml.matches"
+									file="${project.build.directory}/substitute-templates/WEB-INF/struts-config-signup.xml.template"
+									tofile="${project.basedir}/src/main/webapp/WEB-INF/struts-config-signup.xml"
+								/>
+								<echo
+									if:set="struts-config-signup.xml.matches"
+									message="struts-config-signup.xml unchanged"
+									level="info"
+								/>
+								<!-- WEB-INF/struts-config.xml -->
+								<replace
+									file="${project.build.directory}/substitute-templates/WEB-INF/struts-config.xml.template"
+									value="${struts-config.xml.actions}"
+									summary="true"
+									failOnNoReplacements="true"
+								>
+									<replacetoken><![CDATA[<!-- Include "struts-config.xml.actions" -->]]></replacetoken>
+								</replace>
+								<replace
+									file="${project.build.directory}/substitute-templates/WEB-INF/struts-config.xml.template"
+									value="${struts-config.xml.messageResources}"
+									summary="true"
+									failOnNoReplacements="true"
+								>
+									<replacetoken><![CDATA[<!-- Include "struts-config.xml.messageResources" -->]]></replacetoken>
+								</replace>
+								<condition property="struts-config.xml.matches" value="true">
+									<filesmatch
+										file1="${project.build.directory}/substitute-templates/WEB-INF/struts-config.xml.template"
+										file2="${project.basedir}/src/main/webapp/WEB-INF/struts-config.xml"
+									/>
+								</condition>								
+								<copy
+									unless:set="struts-config.xml.matches"
+									file="${project.build.directory}/substitute-templates/WEB-INF/struts-config.xml.template"
+									tofile="${project.basedir}/src/main/webapp/WEB-INF/struts-config.xml"
+								/>
+								<echo
+									if:set="struts-config.xml.matches"
+									message="struts-config.xml unchanged"
+									level="info"
+								/>
+								<!-- WEB-INF/web.xml -->
+								<replace
+									file="${project.build.directory}/substitute-templates/WEB-INF/web.xml.template"
+									value="${web.xml.contextParams}"
+									summary="true"
+									failOnNoReplacements="true"
+								>
+									<replacetoken><![CDATA[<!-- Include "web.xml.contextParams" -->]]></replacetoken>
+								</replace>
+								<replace
+									file="${project.build.directory}/substitute-templates/WEB-INF/web.xml.template"
+									value="${web.xml.strutsInitParams}"
+									summary="true"
+									failOnNoReplacements="true"
+								>
+									<replacetoken><![CDATA[<!-- Include "web.xml.strutsInitParams" -->]]></replacetoken>
+								</replace>
+								<replace
+									file="${project.build.directory}/substitute-templates/WEB-INF/web.xml.template"
+									value="${web.xml.servlets}"
+									summary="true"
+									failOnNoReplacements="true"
+								>
+									<replacetoken><![CDATA[<!-- Include "web.xml.servlets" -->]]></replacetoken>
+								</replace>
+								<replace
+									file="${project.build.directory}/substitute-templates/WEB-INF/web.xml.template"
+									value="${web.xml.servletMappingsPre}"
+									summary="true"
+									failOnNoReplacements="true"
+								>
+									<replacetoken><![CDATA[<!-- Include "web.xml.servletMappingsPre" -->]]></replacetoken>
+								</replace>
+								<replace
+									file="${project.build.directory}/substitute-templates/WEB-INF/web.xml.template"
+									value="${web.xml.servletMappingsPost}"
+									summary="true"
+									failOnNoReplacements="true"
+								>
+									<replacetoken><![CDATA[<!-- Include "web.xml.servletMappingsPost" -->]]></replacetoken>
+								</replace>
+								<condition property="web.xml.matches" value="true">
+									<filesmatch
+										file1="${project.build.directory}/substitute-templates/WEB-INF/web.xml.template"
+										file2="${project.basedir}/src/main/webapp/WEB-INF/web.xml"
+									/>
+								</condition>								
+								<copy
+									unless:set="web.xml.matches"
+									file="${project.build.directory}/substitute-templates/WEB-INF/web.xml.template"
+									tofile="${project.basedir}/src/main/webapp/WEB-INF/web.xml"
+								/>
+								<echo
+									if:set="web.xml.matches"
+									message="web.xml unchanged"
+									level="info"
+								/>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
 				<configuration>
 					<usedDependencies>
@@ -131,11 +365,431 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 					</usedDependencies>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<archiveClasses>true</archiveClasses>
+					<warSourceExcludes>
+						<!-- This file only exists so NetBeans knows the path to deploy the application. -->
+						META-INF/context.xml,
+						<!-- Excludes files used in template substitutions -->
+						WEB-INF/struts-config*.xml.actions,
+						WEB-INF/struts-config*.xml.messageResources,
+						WEB-INF/web.xml.contextParams,
+						WEB-INF/web.xml.strutsInitParams,
+						WEB-INF/web.xml.servlets,
+						WEB-INF/web.xml.servletMappingsPre,
+						WEB-INF/web.xml.servletMappingsPost
+					</warSourceExcludes>
+					<packagingExcludes>
+						<!-- META-INF/context.xml is used for local development deployment only -->
+						META-INF/context.xml,
+						<!-- Additional excludes -->
+						aoweb-struts-devel-*.jar
+					</packagingExcludes>
+				</configuration>
+			</plugin>
 			<!-- TODO: Use install-file for pom and javadocs only? -->
 		</plugins>
 	</build>
 
 	<profiles>
+		<!-- WEB-INF/struts-config-clientarea-accounting.xml.messageResources -->
+		<profile>
+			<id>struts-config-clientarea-accounting.xml.messageResources-exists</id>
+			<activation><file><exists>src/main/webapp/WEB-INF/struts-config-clientarea-accounting.xml.messageResources</exists></file></activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>struts-config-clientarea-accounting.xml.messageResources</id><phase>validate</phase><goals><goal>execute</goal></goals>
+								<configuration>
+									<properties>
+										<struts-config-clientarea-accounting.xml.messageResources>${project.basedir}/src/main/webapp/WEB-INF/struts-config-clientarea-accounting.xml.messageResources</struts-config-clientarea-accounting.xml.messageResources>
+									</properties>
+									<source>
+										def file = new File(properties['struts-config-clientarea-accounting.xml.messageResources'])
+										project.properties['struts-config-clientarea-accounting.xml.messageResources'] = file.getText()
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>struts-config-clientarea-accounting.xml.messageResources-missing</id>
+			<activation><file><missing>src/main/webapp/WEB-INF/struts-config-clientarea-accounting.xml.messageResources</missing></file></activation>
+			<properties>
+				<struts-config-clientarea-accounting.xml.messageResources><![CDATA[<!-- struts-config-clientarea-accounting.xml.messageResources: no template file -->]]></struts-config-clientarea-accounting.xml.messageResources>
+			</properties>
+		</profile>
+		<!-- WEB-INF/struts-config-clientarea-control.xml.messageResources -->
+		<profile>
+			<id>struts-config-clientarea-control.xml.messageResources-exists</id>
+			<activation><file><exists>src/main/webapp/WEB-INF/struts-config-clientarea-control.xml.messageResources</exists></file></activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>struts-config-clientarea-control.xml.messageResources</id><phase>validate</phase><goals><goal>execute</goal></goals>
+								<configuration>
+									<properties>
+										<struts-config-clientarea-control.xml.messageResources>${project.basedir}/src/main/webapp/WEB-INF/struts-config-clientarea-control.xml.messageResources</struts-config-clientarea-control.xml.messageResources>
+									</properties>
+									<source>
+										def file = new File(properties['struts-config-clientarea-control.xml.messageResources'])
+										project.properties['struts-config-clientarea-control.xml.messageResources'] = file.getText()
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>struts-config-clientarea-control.xml.messageResources-missing</id>
+			<activation><file><missing>src/main/webapp/WEB-INF/struts-config-clientarea-control.xml.messageResources</missing></file></activation>
+			<properties>
+				<struts-config-clientarea-control.xml.messageResources><![CDATA[<!-- struts-config-clientarea-control.xml.messageResources: no template file -->]]></struts-config-clientarea-control.xml.messageResources>
+			</properties>
+		</profile>
+		<!-- WEB-INF/struts-config-clientarea-ticket.xml.messageResources -->
+		<profile>
+			<id>struts-config-clientarea-ticket.xml.messageResources-exists</id>
+			<activation><file><exists>src/main/webapp/WEB-INF/struts-config-clientarea-ticket.xml.messageResources</exists></file></activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>struts-config-clientarea-ticket.xml.messageResources</id><phase>validate</phase><goals><goal>execute</goal></goals>
+								<configuration>
+									<properties>
+										<struts-config-clientarea-ticket.xml.messageResources>${project.basedir}/src/main/webapp/WEB-INF/struts-config-clientarea-ticket.xml.messageResources</struts-config-clientarea-ticket.xml.messageResources>
+									</properties>
+									<source>
+										def file = new File(properties['struts-config-clientarea-ticket.xml.messageResources'])
+										project.properties['struts-config-clientarea-ticket.xml.messageResources'] = file.getText()
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>struts-config-clientarea-ticket.xml.messageResources-missing</id>
+			<activation><file><missing>src/main/webapp/WEB-INF/struts-config-clientarea-ticket.xml.messageResources</missing></file></activation>
+			<properties>
+				<struts-config-clientarea-ticket.xml.messageResources><![CDATA[<!-- struts-config-clientarea-ticket.xml.messageResources: no template file -->]]></struts-config-clientarea-ticket.xml.messageResources>
+			</properties>
+		</profile>
+		<!-- WEB-INF/struts-config-clientarea.xml.messageResources -->
+		<profile>
+			<id>struts-config-clientarea.xml.messageResources-exists</id>
+			<activation><file><exists>src/main/webapp/WEB-INF/struts-config-clientarea.xml.messageResources</exists></file></activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>struts-config-clientarea.xml.messageResources</id><phase>validate</phase><goals><goal>execute</goal></goals>
+								<configuration>
+									<properties>
+										<struts-config-clientarea.xml.messageResources>${project.basedir}/src/main/webapp/WEB-INF/struts-config-clientarea.xml.messageResources</struts-config-clientarea.xml.messageResources>
+									</properties>
+									<source>
+										def file = new File(properties['struts-config-clientarea.xml.messageResources'])
+										project.properties['struts-config-clientarea.xml.messageResources'] = file.getText()
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>struts-config-clientarea.xml.messageResources-missing</id>
+			<activation><file><missing>src/main/webapp/WEB-INF/struts-config-clientarea.xml.messageResources</missing></file></activation>
+			<properties>
+				<struts-config-clientarea.xml.messageResources><![CDATA[<!-- struts-config-clientarea.xml.messageResources: no template file -->]]></struts-config-clientarea.xml.messageResources>
+			</properties>
+		</profile>
+		<!-- WEB-INF/struts-config-signup.xml.messageResources -->
+		<profile>
+			<id>struts-config-signup.xml.messageResources-exists</id>
+			<activation><file><exists>src/main/webapp/WEB-INF/struts-config-signup.xml.messageResources</exists></file></activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>struts-config-signup.xml.messageResources</id><phase>validate</phase><goals><goal>execute</goal></goals>
+								<configuration>
+									<properties>
+										<struts-config-signup.xml.messageResources>${project.basedir}/src/main/webapp/WEB-INF/struts-config-signup.xml.messageResources</struts-config-signup.xml.messageResources>
+									</properties>
+									<source>
+										def file = new File(properties['struts-config-signup.xml.messageResources'])
+										project.properties['struts-config-signup.xml.messageResources'] = file.getText()
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>struts-config-signup.xml.messageResources-missing</id>
+			<activation><file><missing>src/main/webapp/WEB-INF/struts-config-signup.xml.messageResources</missing></file></activation>
+			<properties>
+				<struts-config-signup.xml.messageResources><![CDATA[<!-- struts-config-signup.xml.messageResources: no template file -->]]></struts-config-signup.xml.messageResources>
+			</properties>
+		</profile>
+		<!-- WEB-INF/struts-config.xml.actions -->
+		<profile>
+			<id>struts-config.xml.actions-exists</id>
+			<activation><file><exists>src/main/webapp/WEB-INF/struts-config.xml.actions</exists></file></activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>struts-config.xml.actions</id><phase>validate</phase><goals><goal>execute</goal></goals>
+								<configuration>
+									<properties>
+										<struts-config.xml.actions>${project.basedir}/src/main/webapp/WEB-INF/struts-config.xml.actions</struts-config.xml.actions>
+									</properties>
+									<source>
+										def file = new File(properties['struts-config.xml.actions'])
+										project.properties['struts-config.xml.actions'] = file.getText()
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>struts-config.xml.actions-missing</id>
+			<activation><file><missing>src/main/webapp/WEB-INF/struts-config.xml.actions</missing></file></activation>
+			<properties>
+				<struts-config.xml.actions><![CDATA[<!-- struts-config.xml.actions: no template file -->]]></struts-config.xml.actions>
+			</properties>
+		</profile>
+		<!-- WEB-INF/struts-config.xml.messageResources -->
+		<profile>
+			<id>struts-config.xml.messageResources-exists</id>
+			<activation><file><exists>src/main/webapp/WEB-INF/struts-config.xml.messageResources</exists></file></activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>struts-config.xml.messageResources</id><phase>validate</phase><goals><goal>execute</goal></goals>
+								<configuration>
+									<properties>
+										<struts-config.xml.messageResources>${project.basedir}/src/main/webapp/WEB-INF/struts-config.xml.messageResources</struts-config.xml.messageResources>
+									</properties>
+									<source>
+										def file = new File(properties['struts-config.xml.messageResources'])
+										project.properties['struts-config.xml.messageResources'] = file.getText()
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>struts-config.xml.messageResources-missing</id>
+			<activation><file><missing>src/main/webapp/WEB-INF/struts-config.xml.messageResources</missing></file></activation>
+			<properties>
+				<struts-config.xml.messageResources><![CDATA[<!-- struts-config.xml.messageResources: no template file -->]]></struts-config.xml.messageResources>
+			</properties>
+		</profile>
+		<!-- WEB-INF/web.xml.contextParams -->
+		<profile>
+			<id>web.xml.contextParams-exists</id>
+			<activation><file><exists>src/main/webapp/WEB-INF/web.xml.contextParams</exists></file></activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>web.xml.contextParams</id><phase>validate</phase><goals><goal>execute</goal></goals>
+								<configuration>
+									<properties>
+										<web.xml.contextParams>${project.basedir}/src/main/webapp/WEB-INF/web.xml.contextParams</web.xml.contextParams>
+									</properties>
+									<source>
+										def file = new File(properties['web.xml.contextParams'])
+										project.properties['web.xml.contextParams'] = file.getText()
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>web.xml.contextParams-missing</id>
+			<activation><file><missing>src/main/webapp/WEB-INF/web.xml.contextParams</missing></file></activation>
+			<properties>
+				<web.xml.contextParams><![CDATA[<!-- web.xml.contextParams: no template file -->]]></web.xml.contextParams>
+			</properties>
+		</profile>
+		<!-- WEB-INF/web.xml.strutsInitParams -->
+		<profile>
+			<id>web.xml.strutsInitParams-exists</id>
+			<activation><file><exists>src/main/webapp/WEB-INF/web.xml.strutsInitParams</exists></file></activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>web.xml.strutsInitParams</id><phase>validate</phase><goals><goal>execute</goal></goals>
+								<configuration>
+									<properties>
+										<web.xml.strutsInitParams>${project.basedir}/src/main/webapp/WEB-INF/web.xml.strutsInitParams</web.xml.strutsInitParams>
+									</properties>
+									<source>
+										def file = new File(properties['web.xml.strutsInitParams'])
+										project.properties['web.xml.strutsInitParams'] = file.getText()
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>web.xml.strutsInitParams-missing</id>
+			<activation><file><missing>src/main/webapp/WEB-INF/web.xml.strutsInitParams</missing></file></activation>
+			<properties>
+				<web.xml.strutsInitParams><![CDATA[<!-- web.xml.strutsInitParams: no template file -->]]></web.xml.strutsInitParams>
+			</properties>
+		</profile>
+		<!-- WEB-INF/web.xml.servlets -->
+		<profile>
+			<id>web.xml.servlets-exists</id>
+			<activation><file><exists>src/main/webapp/WEB-INF/web.xml.servlets</exists></file></activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>web.xml.servlets</id><phase>validate</phase><goals><goal>execute</goal></goals>
+								<configuration>
+									<properties>
+										<web.xml.servlets>${project.basedir}/src/main/webapp/WEB-INF/web.xml.servlets</web.xml.servlets>
+									</properties>
+									<source>
+										def file = new File(properties['web.xml.servlets'])
+										project.properties['web.xml.servlets'] = file.getText()
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>web.xml.servlets-missing</id>
+			<activation><file><missing>src/main/webapp/WEB-INF/web.xml.servlets</missing></file></activation>
+			<properties>
+				<web.xml.servlets><![CDATA[<!-- web.xml.servlets: no template file -->]]></web.xml.servlets>
+			</properties>
+		</profile>
+		<!-- WEB-INF/web.xml.servletMappingsPre -->
+		<profile>
+			<id>web.xml.servletMappingsPre-exists</id>
+			<activation><file><exists>src/main/webapp/WEB-INF/web.xml.servletMappingsPre</exists></file></activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>web.xml.servletMappingsPre</id><phase>validate</phase><goals><goal>execute</goal></goals>
+								<configuration>
+									<properties>
+										<web.xml.servletMappingsPre>${project.basedir}/src/main/webapp/WEB-INF/web.xml.servletMappingsPre</web.xml.servletMappingsPre>
+									</properties>
+									<source>
+										def file = new File(properties['web.xml.servletMappingsPre'])
+										project.properties['web.xml.servletMappingsPre'] = file.getText()
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>web.xml.servletMappingsPre-missing</id>
+			<activation><file><missing>src/main/webapp/WEB-INF/web.xml.servletMappingsPre</missing></file></activation>
+			<properties>
+				<web.xml.servletMappingsPre><![CDATA[<!-- web.xml.servletMappingsPre: no template file -->]]></web.xml.servletMappingsPre>
+			</properties>
+		</profile>
+		<!-- WEB-INF/web.xml.servletMappingsPost -->
+		<profile>
+			<id>web.xml.servletMappingsPost-exists</id>
+			<activation><file><exists>src/main/webapp/WEB-INF/web.xml.servletMappingsPost</exists></file></activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>web.xml.servletMappingsPost</id><phase>validate</phase><goals><goal>execute</goal></goals>
+								<configuration>
+									<properties>
+										<web.xml.servletMappingsPost>${project.basedir}/src/main/webapp/WEB-INF/web.xml.servletMappingsPost</web.xml.servletMappingsPost>
+									</properties>
+									<source>
+										def file = new File(properties['web.xml.servletMappingsPost'])
+										project.properties['web.xml.servletMappingsPost'] = file.getText()
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>web.xml.servletMappingsPost-missing</id>
+			<activation><file><missing>src/main/webapp/WEB-INF/web.xml.servletMappingsPost</missing></file></activation>
+			<properties>
+				<web.xml.servletMappingsPost><![CDATA[<!-- web.xml.servletMappingsPost: no template file -->]]></web.xml.servletMappingsPost>
+			</properties>
+		</profile>
 		<profile>
 			<id>offlineLinks</id><activation><file><exists>src/main/java</exists></file></activation>
 			<build>

@@ -134,7 +134,7 @@ struts-config.xml.messageResources    Additional message resources
 		>
 			<forward name="success" path="/logout.inc.jsp" redirect="false" />
 		</action>
-<!-- struts-config.xml.actions: no template file -->
+<!-- Include "struts-config.xml.actions" -->
 		<action
 			path="/**"
 			type="com.aoindustries.web.struts.SkinAction"
@@ -185,13 +185,7 @@ struts-config.xml.messageResources    Additional message resources
 		parameter="com.aoindustries.web.struts.clientarea.webmail.i18n.ApplicationResources"
 		null="false"
 	/>
-<!-- Begin include "struts-config.xml.messageResources" -->
-	<message-resources
-		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
-		parameter="com.aoindustries.web.struts.webapp.i18n.ApplicationResources"
-		null="false"
-	/>
-<!-- End include "struts-config.xml.messageResources" -->
+<!-- Include "struts-config.xml.messageResources" -->
 
 	<!-- ========== Validator Plug-In ======================================= -->
 	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">

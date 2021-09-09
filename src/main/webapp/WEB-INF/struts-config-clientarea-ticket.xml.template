@@ -23,12 +23,11 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 -->
 
 <!--
-This page is the master template for the struts-config.xml file.  If the
-following files exist, the contents of the file will be substituted into the
-proper place in this file by the build system.
+This page is the master template for the struts-config-clientarea-ticket.xml
+file.  If the following files exist, the contents of the file will be
+substituted into the proper place in this file by the build system.
 
-struts-config.xml.actions             Additional actions
-struts-config.xml.messageResources    Additional message resources
+struts-config-clientarea-ticket.xml.messageResources Additional message resources
 -->
 <!DOCTYPE struts-config PUBLIC
 "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
@@ -37,9 +36,7 @@ struts-config.xml.messageResources    Additional message resources
 <struts-config>
 	<!-- ========== Form Bean Definitions =================================== -->
 	<form-beans>
-		<!-- / -->
-		<form-bean name="contactForm" type="com.aoindustries.web.struts.ContactForm" />
-		<form-bean name="loginForm" type="com.aoindustries.web.struts.LoginForm" />
+		<form-bean name="ticketForm" type="com.aoindustries.web.struts.clientarea.ticket.TicketForm" />
 	</form-beans>
 
 	<!-- ========== Global Error Handlers =================================== -->
@@ -50,96 +47,67 @@ struts-config.xml.messageResources    Additional message resources
 	<!-- ========== Global Forward Definitions ============================== -->
 	<global-forwards>
 		<!-- / -->
-		<forward name="exception" path="/exception.inc.jsp" redirect="false" />
-		<forward name="login" path="/login.do" redirect="false" />
-		<forward name="permission-denied" path="/permission-denied.do" redirect="false" />
+		<forward name="exception" module="" path="/exception.inc.jsp" redirect="false" />
+		<forward name="login" module="" path="/login.do" redirect="false" />
+		<forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
 	</global-forwards>
 
 	<!-- ========== Action Mapping Definitions ============================== -->
 	<action-mappings>
-		<!-- =============== Common =============== -->
 		<action
-			path="/exception"
-			type="com.aoindustries.web.struts.SkinAction"
+			path="/index"
+			type="com.aoindustries.web.struts.clientarea.ticket.IndexAction"
 		>
-			<forward name="success" path="/exception.inc.jsp" redirect="false" />
+			<forward name="success" path="/index.inc.jsp" redirect="false" />
 		</action>
 		<action
-			path="/not-found"
-			type="com.aoindustries.web.struts.SkinAction"
-		>
-			<forward name="success" path="/not-found.inc.jsp" redirect="false" />
-		</action>
-		<action
-			path="/contact"
-			name="contactForm"
+			path="/create"
+			name="ticketForm"
 			scope="request"
 			validate="false"
-			type="com.aoindustries.web.struts.SkinAction"
+			type="com.aoindustries.web.struts.clientarea.ticket.CreateAction"
 		>
-			<forward name="success" path="/contact.inc.jsp" redirect="false" />
+			<forward name="permission-denied" path="/create.inc.jsp" redirect="false" />
+			<forward name="success" path="/create.inc.jsp" redirect="false" />
 		</action>
 		<action
-			path="/contact-completed"
-			name="contactForm"
+			path="/create-completed"
+			name="ticketForm"
 			scope="request"
 			validate="false"
-			type="com.aoindustries.web.struts.ContactCompletedAction"
+			type="com.aoindustries.web.struts.clientarea.ticket.CreateCompletedAction"
 		>
-			<forward name="input" path="/contact.inc.jsp" redirect="false" />
-			<forward name="success" path="/contact-completed.inc.jsp" redirect="false" />
+			<forward name="permission-denied" path="/create.inc.jsp" redirect="false" />
+			<forward name="input" path="/create.inc.jsp" redirect="false" />
+			<forward name="success" path="/create-completed.inc.jsp" redirect="false" />
 		</action>
 		<action
-			path="/login"
-			name="loginForm"
+			path="/edit"
+			name="ticketForm"
 			scope="request"
 			validate="false"
-			type="com.aoindustries.web.struts.LoginAction"
+			type="com.aoindustries.web.struts.clientarea.ticket.EditAction"
 		>
-			<forward name="success" path="/login.inc.jsp" redirect="false" />
+			<forward name="permission-denied" path="/edit.inc.jsp" redirect="false" />
+			<forward name="success" path="/edit.inc.jsp" redirect="false" />
 		</action>
 		<action
-			path="/login-completed"
-			name="loginForm"
+			path="/edit-completed"
+			name="ticketForm"
 			scope="request"
 			validate="false"
-			type="com.aoindustries.web.struts.LoginCompletedAction"
+			type="com.aoindustries.web.struts.clientarea.ticket.EditCompletedAction"
 		>
-			<forward name="input" path="/login.inc.jsp" redirect="false" />
-			<!-- Redirect done directly from Action now: forward name="success" path="/clientarea/index.do" redirect="true" /-->
-			<forward name="failure" path="/login.inc.jsp" redirect="false" />
+			<forward name="permission-denied" path="/edit.inc.jsp" redirect="false" />
+			<forward name="input" path="/edit.inc.jsp" redirect="false" />
+			<forward name="index" path="/index.do" redirect="true" />
+			<forward name="success" path="/edit-completed.inc.jsp" redirect="false" />
 		</action>
-		<action
-			path="/permission-denied"
-			type="com.aoindustries.web.struts.PermissionDeniedAction"
-		/>
-		<action
-			path="/session-timeout"
-			name="loginForm"
-			scope="request"
-			validate="false"
-			type="com.aoindustries.web.struts.SessionTimeoutAction"
-		>
-			<forward name="success" path="/login.inc.jsp" redirect="false" />
-		</action>
-		<action
-			path="/set-resource-bundle-value"
-			type="com.aoindustries.web.struts.SetResourceBundleValueAction"
-		>
-			<forward name="success" path="/set-resource-bundle-value.inc.jsp" redirect="false" />
-		</action>
-		<action
-			path="/logout"
-			type="com.aoindustries.web.struts.LogoutAction"
-		>
-			<forward name="success" path="/logout.inc.jsp" redirect="false" />
-		</action>
-<!-- struts-config.xml.actions: no template file -->
 		<action
 			path="/**"
 			type="com.aoindustries.web.struts.SkinAction"
 		>
-			<forward name="success" path="/not-found.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/not-found.inc.jsp" redirect="false" />
 		</action>
 	</action-mappings>
 
@@ -185,16 +153,10 @@ struts-config.xml.messageResources    Additional message resources
 		parameter="com.aoindustries.web.struts.clientarea.webmail.i18n.ApplicationResources"
 		null="false"
 	/>
-<!-- Begin include "struts-config.xml.messageResources" -->
-	<message-resources
-		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
-		parameter="com.aoindustries.web.struts.webapp.i18n.ApplicationResources"
-		null="false"
-	/>
-<!-- End include "struts-config.xml.messageResources" -->
+<!-- Include "struts-config-clientarea-ticket.xml.messageResources" -->
 
 	<!-- ========== Validator Plug-In ======================================= -->
 	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
-		<set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml,/WEB-INF/validator.xml" />
+		<set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml,/WEB-INF/validator-clientarea-ticket.xml" />
 	</plug-in>
 </struts-config>
