@@ -130,6 +130,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 						"authenticationTarget" parameter.
 					</li>
 					<li>Implemented automatic newline and tab indentation.</li>
+					
+					<li>TODO: On next release, also publish relocations for old aoweb-struts-core, aoweb-struts-resources, and aoweb-struts-webapp.</li>
 				</ul>
 			</changelog:release>
 		</c:if>
