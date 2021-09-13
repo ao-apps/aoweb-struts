@@ -24,7 +24,6 @@ package com.aoindustries.web.struts.signup;
 
 import com.aoindustries.web.struts.Skin;
 import com.aoindustries.web.struts.SkinAction;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -47,7 +46,6 @@ abstract public class VirtualHostingStepAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin
 	) throws Exception {
 		// Clear checkboxes that were not part of the request
@@ -98,7 +96,6 @@ abstract public class VirtualHostingStepAction extends SkinAction {
 			mapping,
 			request,
 			response,
-			locale,
 			skin,
 			signupSelectPackageForm,
 			signupSelectPackageFormComplete,
@@ -136,7 +133,6 @@ abstract public class VirtualHostingStepAction extends SkinAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		VirtualHostingSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,

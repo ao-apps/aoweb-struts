@@ -33,7 +33,6 @@ import com.aoindustries.web.struts.Skin;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,7 +53,6 @@ public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction 
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {

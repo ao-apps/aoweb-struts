@@ -34,7 +34,6 @@ import com.aoindustries.web.struts.Skin;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.Locale;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,7 +55,6 @@ public class EditCompletedAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {

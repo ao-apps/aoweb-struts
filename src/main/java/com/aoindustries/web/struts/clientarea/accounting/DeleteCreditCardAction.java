@@ -29,7 +29,6 @@ import com.aoindustries.web.struts.PermissionAction;
 import com.aoindustries.web.struts.Skin;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.Locale;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,7 +49,6 @@ public class DeleteCreditCardAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {

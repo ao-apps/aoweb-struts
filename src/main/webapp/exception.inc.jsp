@@ -34,7 +34,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 
 	// Set locale request attribute if not yet done
 	if(request.getAttribute(com.aoindustries.web.struts.Constants.LOCALE)==null) {
-		java.util.Locale locale = com.aoindustries.web.struts.LocaleAction.getEffectiveLocale(siteSettings, request, response);
+		java.util.Locale locale = com.aoindustries.web.struts.LocaleFilter.getEffectiveLocale(siteSettings, request, response);
 		request.setAttribute(com.aoindustries.web.struts.Constants.LOCALE, locale);
 	}
 

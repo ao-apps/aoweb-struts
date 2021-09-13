@@ -29,7 +29,6 @@ import com.aoindustries.web.struts.AuthenticatedAction;
 import com.aoindustries.web.struts.Skin;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -49,7 +48,6 @@ public class IndexAction  extends AuthenticatedAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {

@@ -33,7 +33,6 @@ import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.web.struts.SiteSettings;
 import com.aoindustries.web.struts.Skin;
 import java.sql.SQLException;
-import java.util.Locale;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,7 +55,6 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {

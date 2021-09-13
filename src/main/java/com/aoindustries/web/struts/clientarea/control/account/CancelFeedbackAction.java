@@ -28,7 +28,6 @@ import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.web.struts.PermissionAction;
 import com.aoindustries.web.struts.Skin;
 import java.util.Collections;
-import java.util.Locale;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,7 +49,6 @@ public class CancelFeedbackAction  extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {

@@ -70,10 +70,10 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
 		}
 		request.setAttribute(Constants.SITE_SETTINGS, siteSettings);
 
-		// Resolve the Locale, to be compatible with LocaleAction
+		// Resolve the Locale, to be compatible with LocaleFilter
 		Locale locale;
 		try {
-			locale = LocaleAction.getEffectiveLocale(siteSettings, request, response);
+			locale = LocaleFilter.getEffectiveLocale(siteSettings, request, response);
 		} catch(ThreadDeath td) {
 			throw td;
 		} catch(Throwable t) {

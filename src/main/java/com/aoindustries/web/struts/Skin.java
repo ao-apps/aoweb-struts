@@ -110,9 +110,9 @@ abstract public class Skin {
 	abstract public String getName();
 
 	/**
-	 * Gets the display value for this skin in the provided locale.
+	 * Gets the display value for this skin in the response locale.
 	 */
-	abstract public String getDisplay(HttpServletRequest req) throws JspException;
+	abstract public String getDisplay(HttpServletRequest req, HttpServletResponse resp) throws JspException;
 
 	/**
 	 * Gets the prefix for URLs for the non-SSL server.  This should always end with a /.

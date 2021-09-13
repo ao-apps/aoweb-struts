@@ -42,7 +42,6 @@ public class SetResourceBundleValueAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale userLocale,
 		Skin skin
 	) throws Exception {
 		// If disabled, return 404 status

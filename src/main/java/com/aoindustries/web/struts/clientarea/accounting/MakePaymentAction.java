@@ -33,7 +33,6 @@ import com.aoindustries.web.struts.AuthenticatedAction;
 import com.aoindustries.web.struts.Skin;
 import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +54,6 @@ public class MakePaymentAction extends AuthenticatedAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {

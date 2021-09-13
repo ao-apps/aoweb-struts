@@ -30,7 +30,6 @@ import com.aoindustries.web.struts.AuthenticatedAction;
 import com.aoindustries.web.struts.Skin;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -50,7 +49,6 @@ public class AdministratorPasswordSetterCompletedAction extends AuthenticatedAct
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {

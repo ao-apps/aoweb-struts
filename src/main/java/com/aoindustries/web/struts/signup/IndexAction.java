@@ -30,7 +30,6 @@ import com.aoindustries.web.struts.SiteSettings;
 import com.aoindustries.web.struts.Skin;
 import com.aoindustries.web.struts.SkinAction;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -45,7 +44,7 @@ import org.apache.struts.action.ActionMapping;
 public class IndexAction extends SkinAction {
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, Locale locale, Skin skin) throws Exception {
+	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, Skin skin) throws Exception {
 		AOServConnector rootConn = SiteSettings.getInstance(getServlet().getServletContext()).getRootAOServConnector();
 
 		// Determine the active packages per category

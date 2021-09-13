@@ -61,7 +61,6 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
@@ -79,6 +78,7 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
 		}
 
 		// Populate the initial details from the selected account name or authenticated user
+		Locale locale = response.getLocale();
 		Profile profile = account.getProfile();
 		if(profile != null) {
 			makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(profile.getBillingContact(), locale));

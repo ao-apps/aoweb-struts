@@ -23,7 +23,6 @@
 package com.aoindustries.web.struts.signup;
 
 import com.aoindustries.web.struts.Skin;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForward;
@@ -39,7 +38,6 @@ public class SystemAdministration2CompletedAction extends SystemAdministration2A
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		SystemAdministrationSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
@@ -57,7 +55,6 @@ public class SystemAdministration2CompletedAction extends SystemAdministration2A
 				mapping,
 				request,
 				response,
-				locale,
 				skin,
 				signupSelectPackageForm,
 				signupSelectPackageFormComplete,

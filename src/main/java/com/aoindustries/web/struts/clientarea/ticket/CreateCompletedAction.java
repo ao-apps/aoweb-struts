@@ -34,7 +34,6 @@ import com.aoindustries.web.struts.SiteSettings;
 import com.aoindustries.web.struts.Skin;
 import java.sql.SQLException;
 import java.util.Collections;
-import java.util.Locale;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,7 +55,6 @@ public class CreateCompletedAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
@@ -71,7 +69,7 @@ public class CreateCompletedAction extends PermissionAction {
 
 		Account account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(ticketForm.getAccount()));
 		if(account == null) throw new SQLException("Unable to find Account: " + ticketForm.getAccount());
-		Language language = aoConn.getTicket().getLanguage().get(locale.getLanguage());
+		Language language = aoConn.getTicket().getLanguage().get(response.getLocale().getLanguage());
 		if(language == null) {
 			language = aoConn.getTicket().getLanguage().get(Language.EN);
 			if(language==null) throw new SQLException("Unable to find Language: " + Language.EN);

@@ -23,7 +23,6 @@
 package com.aoindustries.web.struts.signup;
 
 import com.aoindustries.web.struts.Skin;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForward;
@@ -39,7 +38,6 @@ public class VirtualDedicated3CompletedAction extends VirtualDedicated3Action {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
@@ -60,7 +58,6 @@ public class VirtualDedicated3CompletedAction extends VirtualDedicated3Action {
 				mapping,
 				request,
 				response,
-				locale,
 				skin,
 				signupSelectPackageForm,
 				signupSelectPackageFormComplete,

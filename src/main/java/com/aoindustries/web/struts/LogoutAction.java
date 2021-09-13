@@ -23,7 +23,6 @@
 package com.aoindustries.web.struts;
 
 import com.aoapps.net.URIEncoder;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -42,7 +41,6 @@ public class LogoutAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin
 	) throws Exception {
 		// Handle logout

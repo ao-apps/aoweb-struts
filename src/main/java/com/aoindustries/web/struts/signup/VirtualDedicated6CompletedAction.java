@@ -27,7 +27,6 @@ import com.aoindustries.aoserv.client.billing.PackageDefinition;
 import com.aoindustries.web.struts.SiteSettings;
 import com.aoindustries.web.struts.Skin;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,7 +45,6 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,

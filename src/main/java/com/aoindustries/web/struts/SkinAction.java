@@ -22,8 +22,8 @@
  */
 package com.aoindustries.web.struts;
 
+import com.aoapps.web.resources.registry.Registry;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,7 +38,7 @@ import org.apache.struts.action.ActionMapping;
  * @author AO Industries, Inc.
  */
 // TODO: Convert to ServletRequestListener, like done in affiliates project
-public class SkinAction extends LocaleAction {
+public class SkinAction extends PageAction {
 
 	/**
 	 * Gets the default skin from the provided list for the provided request.
@@ -112,7 +112,7 @@ public class SkinAction extends LocaleAction {
 	 * Selects the <code>Skin</code>, sets the request attribute "skin", then the subclass execute method is invoked.
 	 * It also stores any {@link Constants#SU} request for later processing by AuthenticatedAction.
 	 *
-	 * @see #execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.util.Locale, com.aoindustries.web.struts.Skin)
+	 * @see #execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.Skin)
 	 */
 	@Override
 	final public ActionForward execute(
@@ -120,7 +120,7 @@ public class SkinAction extends LocaleAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale
+		Registry pageRegistry
 	) throws Exception {
 		// Select Skin
 		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
@@ -133,7 +133,7 @@ public class SkinAction extends LocaleAction {
 			request.getSession().setAttribute(Constants.SU_REQUESTED, su.trim());
 		}
 
-		return execute(mapping, form, request, response, locale, skin);
+		return execute(mapping, form, request, response, skin);
 	}
 
 	/**
@@ -145,7 +145,6 @@ public class SkinAction extends LocaleAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin
 	) throws Exception {
 		return mapping.findForward("success");

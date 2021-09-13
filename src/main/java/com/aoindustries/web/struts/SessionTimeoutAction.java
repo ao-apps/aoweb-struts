@@ -22,7 +22,6 @@
  */
 package com.aoindustries.web.struts;
 
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -42,7 +41,6 @@ public class SessionTimeoutAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin
 	) throws Exception {
 		// Logout, just in case session not actually expired
@@ -63,7 +61,7 @@ public class SessionTimeoutAction extends SkinAction {
 
 		// Set the authenticationMessage
 		MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-		request.setAttribute(Constants.AUTHENTICATION_MESSAGE, applicationResources.getMessage(locale, "SessionTimeoutAction.authenticationMessage"));
+		request.setAttribute(Constants.AUTHENTICATION_MESSAGE, applicationResources.getMessage(response.getLocale(), "SessionTimeoutAction.authenticationMessage"));
 
 		return mapping.findForward("success");
 	}

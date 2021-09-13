@@ -48,7 +48,6 @@ public class ContactCompletedAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin
 	) throws Exception {
 		ContactForm contactForm = (ContactForm)form;
@@ -62,6 +61,7 @@ public class ContactCompletedAction extends SkinAction {
 
 		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
 		AOServConnector rootConn = siteSettings.getRootAOServConnector();
+		Locale locale = response.getLocale();
 		Language language = rootConn.getTicket().getLanguage().get(locale.getLanguage());
 		if(language==null) {
 			language = rootConn.getTicket().getLanguage().get(Language.EN);

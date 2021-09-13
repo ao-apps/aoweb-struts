@@ -26,7 +26,6 @@ import com.aoapps.lang.validation.ValidationException;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.linux.User;
 import java.io.IOException;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -58,7 +57,6 @@ abstract public class AuthenticatedAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin
 	) throws Exception {
 		// Handle login
@@ -81,7 +79,7 @@ abstract public class AuthenticatedAction extends SkinAction {
 		// Set request values
 		request.setAttribute(Constants.AO_CONN, aoConn);
 
-		return execute(mapping, form, request, response, locale, skin, aoConn);
+		return execute(mapping, form, request, response, skin, aoConn);
 	}
 
 	/**
@@ -145,7 +143,6 @@ abstract public class AuthenticatedAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {

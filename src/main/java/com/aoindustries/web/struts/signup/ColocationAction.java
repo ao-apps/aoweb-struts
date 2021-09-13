@@ -27,7 +27,6 @@ import com.aoindustries.aoserv.client.billing.PackageCategory;
 import com.aoindustries.aoserv.client.billing.PackageDefinition;
 import com.aoindustries.web.struts.Skin;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForward;
@@ -44,7 +43,6 @@ public class ColocationAction extends ColocationStepAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		ColocationSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,

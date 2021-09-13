@@ -26,7 +26,6 @@ import com.aoapps.net.URIEncoder;
 import com.aoindustries.aoserv.client.billing.PackageCategory;
 import com.aoindustries.web.struts.Skin;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForward;
@@ -43,7 +42,6 @@ public class DedicatedAction extends DedicatedStepAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		DedicatedSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,

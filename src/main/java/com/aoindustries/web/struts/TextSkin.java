@@ -135,9 +135,8 @@ public class TextSkin extends Skin {
 	}
 
 	@Override
-	public String getDisplay(HttpServletRequest req) throws JspException {
-		Locale locale = LocaleAction.getLocale(req.getServletContext(), req);
-		return RESOURCES.getMessage(locale, "name");
+	public String getDisplay(HttpServletRequest req, HttpServletResponse resp) throws JspException {
+		return RESOURCES.getMessage(resp.getLocale(), "name");
 	}
 
 	/**
@@ -194,7 +193,7 @@ public class TextSkin extends Skin {
 
 			String layout = pageAttributes.getLayout();
 			if(!layout.equals(PageAttributes.LAYOUT_NORMAL)) throw new JspException("TODO: Implement layout: "+layout);
-			Locale locale = LocaleAction.getLocale(servletContext, req);
+			Locale locale = resp.getLocale();
 			String urlBase = getUrlBase(req);
 			String path = pageAttributes.getPath();
 			if(path.startsWith("/")) path=path.substring(1);
@@ -400,7 +399,7 @@ public class TextSkin extends Skin {
 				+ "              "); document.text(RESOURCES.getMessage(locale, "layoutPrompt"))
 				.out.write("<select name=\"layout_selector\" onchange=\"selectLayout(this.form.layout_selector.options[this.form.layout_selector.selectedIndex].value);\">\n");
 				for(Skin skin : skins) {
-					document.option().value(skin.getName()).selected(getName().equals(skin.getName())).__(skin.getDisplay(req));
+					document.option().value(skin.getName()).selected(getName().equals(skin.getName())).__(skin.getDisplay(req, resp));
 				}
 				document.out.write("              </select>\n"
 				+ "            </div></form>"); document.br__();
@@ -959,8 +958,7 @@ public class TextSkin extends Skin {
 		final String popupIdStr = Long.toString(popupId);
 
 		width = trimNullIfEmpty(width);
-		ServletContext servletContext = req.getServletContext();
-		Locale locale = LocaleAction.getLocale(servletContext, req);
+		Locale locale = resp.getLocale();
 
 		document.out.append("<div id=\"aoPopupAnchor_").append(groupIdStr).append('_').append(popupIdStr).append("\" class=\"aoPopupAnchor\">");
 		document.img()
@@ -1073,8 +1071,7 @@ public class TextSkin extends Skin {
 	 * Default implementation of printPopupClose.
 	 */
 	public static void defaultPrintPopupClose(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId, String urlBase) throws JspException, IOException {
-		ServletContext servletContext = req.getServletContext();
-		Locale locale = LocaleAction.getLocale(servletContext, req);
+		Locale locale = resp.getLocale();
 
 		document.img()
 			.clazz("aoPopupClose")

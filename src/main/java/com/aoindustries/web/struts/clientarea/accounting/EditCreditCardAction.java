@@ -37,7 +37,6 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +59,6 @@ public class EditCreditCardAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {

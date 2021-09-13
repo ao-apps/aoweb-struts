@@ -100,7 +100,6 @@ public class AddCreditCardAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
@@ -115,6 +114,7 @@ public class AddCreditCardAction extends PermissionAction {
 		// Populate the initial details from the selected account name or authenticated user
 		Account account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(account_name));
 		if(account == null) throw new SQLException("Unable to find Account: " + account_name);
+		Locale locale = response.getLocale();
 		Profile profile = account.getProfile();
 		if(profile!=null) {
 			addCreditCardForm.setFirstName(getFirstName(profile.getBillingContact(), locale));

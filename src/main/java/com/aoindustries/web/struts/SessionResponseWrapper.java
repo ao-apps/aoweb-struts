@@ -302,7 +302,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 						if(locale!=null) {
 							String code = locale.getLanguage();
 							// Don't add if is the default language
-							Locale defaultLocale = LocaleAction.getDefaultLocale(siteSettings, request);
+							Locale defaultLocale = LocaleFilter.getDefaultLocale(siteSettings, request);
 							if(!code.equals(defaultLocale.getLanguage())) {
 								for(Skin.Language language : languages) {
 									if(language.getCode().equals(code)) {

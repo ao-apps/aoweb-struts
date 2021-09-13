@@ -35,7 +35,6 @@ import com.aoindustries.web.struts.Skin;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,7 +59,6 @@ public class MakePaymentSelectCardAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		AOServConnector aoConn,
 		List<Permission> permissions
@@ -93,7 +91,6 @@ public class MakePaymentSelectCardAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {

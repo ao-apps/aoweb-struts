@@ -22,7 +22,6 @@
  */
 package com.aoindustries.web.struts;
 
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -40,7 +39,6 @@ public class LoginAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin
 	) throws Exception {
 		String target = request.getParameter("target");

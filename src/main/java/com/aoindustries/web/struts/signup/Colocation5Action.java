@@ -25,7 +25,6 @@ package com.aoindustries.web.struts.signup;
 import com.aoindustries.web.struts.Skin;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +41,6 @@ public class Colocation5Action extends ColocationStepAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		ColocationSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,

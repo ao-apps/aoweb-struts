@@ -23,7 +23,6 @@
 package com.aoindustries.web.struts.signup;
 
 import com.aoindustries.web.struts.Skin;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForward;
@@ -39,7 +38,6 @@ public class ColocationCompletedAction extends ColocationAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		ColocationSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
@@ -55,7 +53,6 @@ public class ColocationCompletedAction extends ColocationAction {
 				mapping,
 				request,
 				response,
-				locale,
 				skin,
 				signupSelectPackageForm,
 				signupSelectPackageFormComplete,

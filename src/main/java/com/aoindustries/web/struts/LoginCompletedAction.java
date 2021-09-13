@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -52,7 +51,6 @@ public class LoginCompletedAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin
 	) throws Exception {
 		LoginForm loginForm = (LoginForm)form;
@@ -66,7 +64,6 @@ public class LoginCompletedAction extends SkinAction {
 		User.Name username = User.Name.valueOf(loginForm.getUsername());
 		String password = loginForm.getPassword();
 
-		ServletContext servletContext = getServlet().getServletContext();
 		try {
 			// Get connector
 			AOServConnector aoConn = AOServConnector.getConnector(username, password);
@@ -109,7 +106,9 @@ public class LoginCompletedAction extends SkinAction {
 		} catch(IOException err) {
 			String message=err.getMessage();
 			if(message!=null) {
+				// TODO: Don't use MessageResources
 				MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
+				Locale locale = response.getLocale();
 				if(message.contains("Unable to find Administrator")) message=applicationResources.getMessage(locale, "login.accountNotFound");
 				else if(message.contains("Connection attempted with invalid password")) message=applicationResources.getMessage(locale, "login.badPassword");
 				else if(message.contains("Administrator disabled")) message=applicationResources.getMessage(locale, "accountDisabled");

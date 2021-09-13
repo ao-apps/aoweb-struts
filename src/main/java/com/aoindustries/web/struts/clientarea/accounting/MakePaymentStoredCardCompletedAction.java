@@ -71,7 +71,6 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
@@ -205,7 +204,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
 			rootAccount,
 			aoConn.getCurrentAdministrator(),
 			paymentTransactionType,
-			applicationResources.getMessage(locale, "makePaymentStoredCardCompleted.transaction.description"),
+			applicationResources.getMessage(response.getLocale(), "makePaymentStoredCardCompleted.transaction.description"),
 			1000,
 			paymentAmount.negate(),
 			paymentType,

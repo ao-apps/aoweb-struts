@@ -27,7 +27,6 @@ import com.aoindustries.web.struts.Skin;
 import com.aoindustries.web.struts.SkinAction;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -49,7 +48,6 @@ public class PasswordGeneratorAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Locale locale,
 		Skin skin
 	) throws Exception {
 		// Generate the passwords

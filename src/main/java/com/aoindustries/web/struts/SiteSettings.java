@@ -39,6 +39,7 @@ import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -177,10 +178,15 @@ public class SiteSettings {
 	 *
 	 * The off version is created by filling with black, opacity 25% in gimp 2.
 	 */
-	public List<Skin.Language> getLanguages(HttpServletRequest req) throws IOException, SQLException {
-		HttpSession session = req.getSession(false);
+	public List<Skin.Language> getLanguages(ServletRequest req) throws IOException, SQLException {
+		HttpSession session;
+		if(req instanceof HttpServletRequest) {
+			session = ((HttpServletRequest)req).getSession(false);
+		} else {
+			session = null;
+		}
 		Locale locale = (session == null) ? null : (Locale)session.getAttribute(Globals.LOCALE_KEY);
-		if(locale==null) locale = Locale.getDefault(); // Can't use: LocaleAction.getDefaultLocale(req); due to stack overflow
+		if(locale==null) locale = Locale.getDefault(); // Can't use: LocaleFilter.getDefaultLocale(req); due to stack overflow
 		boolean isUnitedStates = locale.getCountry().equals(Locale.US.getCountry());
 
 		Brand brand = getBrand();
