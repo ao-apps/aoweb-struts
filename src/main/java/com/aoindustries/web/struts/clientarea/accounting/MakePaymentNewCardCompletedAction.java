@@ -45,7 +45,6 @@ import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.AccountGroup;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.web.struts.SiteSettings;
-import com.aoindustries.web.struts.Skin;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -89,7 +88,6 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		MakePaymentNewCardForm makePaymentNewCardForm=(MakePaymentNewCardForm)form;

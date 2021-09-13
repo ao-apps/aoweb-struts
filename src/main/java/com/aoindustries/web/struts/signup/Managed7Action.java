@@ -22,7 +22,6 @@
  */
 package com.aoindustries.web.struts.signup;
 
-import com.aoindustries.web.struts.Skin;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.ServletContext;
@@ -41,7 +40,6 @@ public class Managed7Action extends ManagedStepAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		ManagedSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
 		ManagedSignupCustomizeServerForm signupCustomizeServerForm,

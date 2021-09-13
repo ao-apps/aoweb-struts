@@ -32,7 +32,6 @@ import com.aoindustries.aoserv.client.account.Profile;
 import com.aoindustries.aoserv.client.billing.Currency;
 import com.aoindustries.web.struts.AuthenticatedAction;
 import com.aoindustries.web.struts.SiteSettings;
-import com.aoindustries.web.struts.Skin;
 import com.aoindustries.web.struts.signup.SignupOrganizationActionHelper;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -61,7 +60,6 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		MakePaymentNewCardForm makePaymentNewCardForm = (MakePaymentNewCardForm)form;

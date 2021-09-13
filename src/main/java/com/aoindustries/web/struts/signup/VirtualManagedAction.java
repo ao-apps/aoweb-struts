@@ -42,7 +42,6 @@ public class VirtualManagedAction extends VirtualManagedStepAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
 		VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
@@ -61,7 +60,7 @@ public class VirtualManagedAction extends VirtualManagedStepAction {
 			response.sendRedirect(
 				response.encodeRedirectURL(
 					URIEncoder.encodeURI(
-						skin.getUrlBase(request)
+						Skin.getSkin(request).getUrlBase(request)
 						+ "signup/virtual-managed-server-completed.do?packageDefinition="
 						+ URIEncoder.encodeURIComponent(Integer.toString(servers.get(0).getMinimumConfiguration().getPackageDefinition()))
 					)

@@ -28,7 +28,6 @@ import com.aoindustries.aoserv.client.account.Account;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.ticket.Ticket;
 import com.aoindustries.web.struts.PermissionAction;
-import com.aoindustries.web.struts.Skin;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,7 +48,6 @@ public class EditAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		TicketForm ticketForm = (TicketForm)form;

@@ -324,7 +324,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 							String layout = (String)session.getAttribute(Constants.LAYOUT);
 							if(layout!=null) {
 								// Don't add if is the default layout
-								Skin defaultSkin = SkinAction.getDefaultSkin(skins, request);
+								Skin defaultSkin = Skin.getDefaultSkin(skins, request);
 								if(!layout.equals(defaultSkin.getName())) {
 									// Make sure it is one of the allowed skins
 									for(Skin skin : skins) {

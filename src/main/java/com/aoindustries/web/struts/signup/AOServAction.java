@@ -43,7 +43,6 @@ public class AOServAction extends AOServStepAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
 		SignupOrganizationForm signupOrganizationForm,
@@ -58,7 +57,7 @@ public class AOServAction extends AOServStepAction {
 			response.sendRedirect(
 				response.encodeRedirectURL(
 					URIEncoder.encodeURI(
-						skin.getUrlBase(request)
+						Skin.getSkin(request).getUrlBase(request)
 						+ "signup/aoserv-completed.do?packageDefinition="
 						+ URIEncoder.encodeURIComponent(Integer.toString(packageDefinitions.get(0).getPkey()))
 					)

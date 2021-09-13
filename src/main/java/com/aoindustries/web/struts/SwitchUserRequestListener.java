@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2015, 2016, 2021  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2019, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,32 +22,34 @@
  */
 package com.aoindustries.web.struts;
 
-import com.aoapps.web.resources.registry.Registry;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletRequestEvent;
+import javax.servlet.ServletRequestListener;
+import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
 
 /**
- * @author  AO Industries, Inc.
+ * Stores any {@link Constants#SU} request for later processing by {@link AuthenticatedAction}.
+ *
+ * @author AO Industries, Inc.
  */
-public class LoginAction extends PageAction {
+@WebListener
+public class SwitchUserRequestListener implements ServletRequestListener {
 
 	@Override
-	public ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		Registry pageRegistry
-	) throws Exception {
-		String target = request.getParameter("target");
-		if(target!=null && target.length()>0 && !target.endsWith("/login.do")) {
-			request.getSession().setAttribute(Constants.AUTHENTICATION_TARGET, target);
+	public void requestInitialized(ServletRequestEvent sre) {
+		ServletRequest request = sre.getServletRequest();
+		// Is a switch-user requested?
+		String su = request.getParameter(Constants.SU);
+		if(su != null) {
+			if(request instanceof HttpServletRequest) {
+				((HttpServletRequest)request).getSession().setAttribute(Constants.SU_REQUESTED, su.trim());
+			}
 		}
+	}
 
-		// Return success
-		return mapping.findForward("success");
+	@Override
+	public void requestDestroyed(ServletRequestEvent sre) {
+		// Nothing to do
 	}
 }

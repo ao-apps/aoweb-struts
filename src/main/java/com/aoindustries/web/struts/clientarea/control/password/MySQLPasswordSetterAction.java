@@ -28,7 +28,6 @@ import com.aoindustries.aoserv.client.mysql.Server;
 import com.aoindustries.aoserv.client.mysql.User;
 import com.aoindustries.aoserv.client.mysql.UserServer;
 import com.aoindustries.web.struts.PermissionAction;
-import com.aoindustries.web.struts.Skin;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,7 +51,6 @@ public class MySQLPasswordSetterAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		MySQLPasswordSetterForm mySQLPasswordSetterForm = (MySQLPasswordSetterForm)form;

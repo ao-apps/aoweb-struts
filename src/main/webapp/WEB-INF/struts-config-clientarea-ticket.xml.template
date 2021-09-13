@@ -105,7 +105,7 @@ struts-config-clientarea-ticket.xml.messageResources Additional message resource
 		</action>
 		<action
 			path="/**"
-			type="com.aoindustries.web.struts.SkinAction"
+			type="com.aoindustries.web.struts.PageAction"
 		>
 			<forward name="success" module="" path="/not-found.inc.jsp" redirect="false" />
 		</action>

@@ -22,9 +22,9 @@
  */
 package com.aoindustries.web.struts.clientarea.control.password;
 
+import com.aoapps.web.resources.registry.Registry;
 import com.aoindustries.aoserv.client.password.PasswordGenerator;
-import com.aoindustries.web.struts.Skin;
-import com.aoindustries.web.struts.SkinAction;
+import com.aoindustries.web.struts.PageAction;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +38,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author  AO Industries, Inc.
  */
-public class PasswordGeneratorAction extends SkinAction {
+public class PasswordGeneratorAction extends PageAction {
 
 	private static final int NUM_PASSWORDS = 10;
 
@@ -48,11 +48,13 @@ public class PasswordGeneratorAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin
+		Registry pageRegistry
 	) throws Exception {
 		// Generate the passwords
 		List<String> generatedPasswords = new ArrayList<>(NUM_PASSWORDS);
-		for(int c=0;c<10;c++) generatedPasswords.add(PasswordGenerator.generatePassword());
+		for(int c = 0; c < 10; c++) {
+			generatedPasswords.add(PasswordGenerator.generatePassword());
+		}
 
 		// Set request values
 		request.setAttribute("generatedPasswords", generatedPasswords);

@@ -23,6 +23,7 @@
 package com.aoindustries.web.struts;
 
 import com.aoapps.net.URIEncoder;
+import com.aoapps.web.resources.registry.Registry;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.linux.User;
 import java.io.IOException;
@@ -41,7 +42,7 @@ import org.apache.struts.util.MessageResources;
 /**
  * @author  AO Industries, Inc.
  */
-public class LoginCompletedAction extends SkinAction {
+public class LoginCompletedAction extends PageAction {
 
 	private static final Logger logger = Logger.getLogger(LoginCompletedAction.class.getName());
 
@@ -51,7 +52,7 @@ public class LoginCompletedAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin
+		Registry pageRegistry
 	) throws Exception {
 		LoginForm loginForm = (LoginForm)form;
 
@@ -96,7 +97,7 @@ public class LoginCompletedAction extends SkinAction {
 			response.sendRedirect(
 				response.encodeRedirectURL(
 					URIEncoder.encodeURI(
-						skin.getUrlBase(request) + "clientarea/index.do"
+						Skin.getSkin(request).getUrlBase(request) + "clientarea/index.do"
 					)
 				)
 			);

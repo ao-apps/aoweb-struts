@@ -42,7 +42,6 @@ public class DedicatedAction extends DedicatedStepAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		DedicatedSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
 		DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
@@ -59,7 +58,7 @@ public class DedicatedAction extends DedicatedStepAction {
 			response.sendRedirect(
 				response.encodeRedirectURL(
 					URIEncoder.encodeURI(
-						skin.getUrlBase(request)
+						Skin.getSkin(request).getUrlBase(request)
 						+ "signup/dedicated-server-completed.do?packageDefinition="
 						+ URIEncoder.encodeURIComponent(Integer.toString(servers.get(0).getMinimumConfiguration().getPackageDefinition()))
 					)

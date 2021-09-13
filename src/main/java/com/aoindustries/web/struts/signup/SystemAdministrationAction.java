@@ -43,7 +43,6 @@ public class SystemAdministrationAction extends SystemAdministrationStepAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		SystemAdministrationSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
 		SignupOrganizationForm signupOrganizationForm,
@@ -58,7 +57,7 @@ public class SystemAdministrationAction extends SystemAdministrationStepAction {
 			response.sendRedirect(
 				response.encodeRedirectURL(
 					URIEncoder.encodeURI(
-						skin.getUrlBase(request)
+						Skin.getSkin(request).getUrlBase(request)
 						+ "signup/system-administration-completed.do?packageDefinition="
 						+ URIEncoder.encodeURIComponent(Integer.toString(packageDefinitions.get(0).getPkey()))
 					)

@@ -26,7 +26,6 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.account.Account;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.web.struts.PermissionAction;
-import com.aoindustries.web.struts.Skin;
 import java.util.Collections;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +48,6 @@ public class CancelFeedbackAction  extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		String account_name = request.getParameter("account");

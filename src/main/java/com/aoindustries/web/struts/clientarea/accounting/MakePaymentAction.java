@@ -54,7 +54,6 @@ public class MakePaymentAction extends AuthenticatedAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		TransactionTable transactionTable = aoConn.getBilling().getTransaction();
@@ -99,7 +98,7 @@ public class MakePaymentAction extends AuthenticatedAction {
 				response.sendRedirect(
 					response.encodeRedirectURL(
 						URIEncoder.encodeURI(
-							skin.getUrlBase(request)
+							Skin.getSkin(request).getUrlBase(request)
 							+ "clientarea/accounting/make-payment-select-card.do?account="
 							+ URIEncoder.encodeURIComponent(entry.getKey().getName().toString())
 							+ "&currency="

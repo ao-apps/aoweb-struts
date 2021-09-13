@@ -22,7 +22,6 @@
  */
 package com.aoindustries.web.struts.signup;
 
-import com.aoindustries.web.struts.Skin;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForward;
@@ -38,7 +37,6 @@ public class Reseller2CompletedAction extends Reseller2Action {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		ResellerSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
 		SignupOrganizationForm signupOrganizationForm,
@@ -55,7 +53,6 @@ public class Reseller2CompletedAction extends Reseller2Action {
 				mapping,
 				request,
 				response,
-				skin,
 				signupSelectPackageForm,
 				signupSelectPackageFormComplete,
 				signupOrganizationForm,

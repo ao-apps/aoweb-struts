@@ -27,7 +27,6 @@ import com.aoindustries.aoserv.client.account.Account;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.payment.CreditCard;
 import com.aoindustries.web.struts.PermissionAction;
-import com.aoindustries.web.struts.Skin;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -52,7 +51,6 @@ public class ConfigureAutomaticBillingCompletedAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		// Account must be selected and accessible

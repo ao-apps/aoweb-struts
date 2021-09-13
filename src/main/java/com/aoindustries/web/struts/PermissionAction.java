@@ -54,7 +54,6 @@ abstract public class PermissionAction extends AuthenticatedAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		Set<Permission.Name> permissions = getPermissions();
@@ -67,7 +66,6 @@ abstract public class PermissionAction extends AuthenticatedAction {
 				form,
 				request,
 				response,
-				skin,
 				aoConn,
 				aoPerms
 			);
@@ -88,7 +86,6 @@ abstract public class PermissionAction extends AuthenticatedAction {
 					form,
 					request,
 					response,
-					skin,
 					aoConn,
 					aoPerms
 				);
@@ -96,7 +93,7 @@ abstract public class PermissionAction extends AuthenticatedAction {
 		}
 
 		// All permissions found, consider granted
-		return executePermissionGranted(mapping, form, request, response, skin, aoConn);
+		return executePermissionGranted(mapping, form, request, response, aoConn);
 	}
 
 	/**
@@ -108,7 +105,6 @@ abstract public class PermissionAction extends AuthenticatedAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		return mapping.findForward("success");
@@ -124,7 +120,6 @@ abstract public class PermissionAction extends AuthenticatedAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn,
 		List<Permission> permissions
 	) throws Exception {

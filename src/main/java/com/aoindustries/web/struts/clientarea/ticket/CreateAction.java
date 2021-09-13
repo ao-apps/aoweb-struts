@@ -27,7 +27,6 @@ import com.aoindustries.aoserv.client.account.Administrator;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.ticket.Priority;
 import com.aoindustries.web.struts.PermissionAction;
-import com.aoindustries.web.struts.Skin;
 import java.util.Collections;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +48,6 @@ public class CreateAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		TicketForm ticketForm = (TicketForm)form;

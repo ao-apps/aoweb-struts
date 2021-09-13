@@ -43,7 +43,6 @@ public class VirtualHostingAction extends VirtualHostingStepAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		VirtualHostingSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
 		SignupDomainForm signupDomainForm,
@@ -60,7 +59,7 @@ public class VirtualHostingAction extends VirtualHostingStepAction {
 			response.sendRedirect(
 				response.encodeRedirectURL(
 					URIEncoder.encodeURI(
-						skin.getUrlBase(request)
+						Skin.getSkin(request).getUrlBase(request)
 						+ "signup/virtual-hosting-completed.do?packageDefinition="
 						+ URIEncoder.encodeURIComponent(Integer.toString(packageDefinitions.get(0).getPkey()))
 					)

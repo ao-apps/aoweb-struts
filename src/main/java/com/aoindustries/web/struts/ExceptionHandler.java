@@ -83,10 +83,10 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
 		}
 		request.setAttribute(Constants.LOCALE, locale);
 
-		// Select Skin, to be compatible with SkinAction
+		// Select Skin, to be compatible with Skin.RequestListener
 		Skin skin;
 		try {
-			skin = SkinAction.getSkin(siteSettings, request, response);
+			skin = Skin.getSkin(siteSettings, request);
 		} catch(ThreadDeath td) {
 			throw td;
 		} catch(Throwable t) {

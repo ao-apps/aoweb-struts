@@ -42,7 +42,6 @@ public class VirtualDedicatedAction extends VirtualDedicatedStepAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
 		VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
@@ -59,7 +58,7 @@ public class VirtualDedicatedAction extends VirtualDedicatedStepAction {
 			response.sendRedirect(
 				response.encodeRedirectURL(
 					URIEncoder.encodeURI(
-						skin.getUrlBase(request)
+						Skin.getSkin(request).getUrlBase(request)
 						+ "signup/virtual-dedicated-server-completed.do?packageDefinition="
 						+ URIEncoder.encodeURIComponent(Integer.toString(servers.get(0).getMinimumConfiguration().getPackageDefinition()))
 					)

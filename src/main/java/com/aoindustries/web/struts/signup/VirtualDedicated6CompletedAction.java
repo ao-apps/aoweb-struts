@@ -25,7 +25,6 @@ package com.aoindustries.web.struts.signup;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.billing.PackageDefinition;
 import com.aoindustries.web.struts.SiteSettings;
-import com.aoindustries.web.struts.Skin;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -45,7 +44,6 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
 		VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,

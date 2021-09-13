@@ -25,7 +25,6 @@ package com.aoindustries.web.struts.signup;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.billing.PackageDefinition;
 import com.aoindustries.web.struts.SiteSettings;
-import com.aoindustries.web.struts.Skin;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -45,7 +44,6 @@ public class Managed7CompletedAction extends Managed7Action {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		ManagedSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
 		ManagedSignupCustomizeServerForm signupCustomizeServerForm,

@@ -43,7 +43,6 @@ public class BackupAction extends BackupStepAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		BackupSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
 		SignupOrganizationForm signupOrganizationForm,
@@ -58,7 +57,7 @@ public class BackupAction extends BackupStepAction {
 			response.sendRedirect(
 				response.encodeRedirectURL(
 					URIEncoder.encodeURI(
-						skin.getUrlBase(request)
+						Skin.getSkin(request).getUrlBase(request)
 						+ "signup/backup-completed.do?packageDefinition="
 						+ URIEncoder.encodeURIComponent(Integer.toString(packageDefinitions.get(0).getPkey()))
 					)

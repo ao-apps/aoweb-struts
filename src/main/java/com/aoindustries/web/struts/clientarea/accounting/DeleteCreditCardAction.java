@@ -26,7 +26,6 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.payment.CreditCard;
 import com.aoindustries.web.struts.PermissionAction;
-import com.aoindustries.web.struts.Skin;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
@@ -49,7 +48,6 @@ public class DeleteCreditCardAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		// Make sure the credit card still exists, redirect to credit-card-manager if doesn't

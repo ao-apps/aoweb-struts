@@ -26,7 +26,6 @@ import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.ticket.Status;
 import com.aoindustries.aoserv.client.ticket.Ticket;
 import com.aoindustries.web.struts.AuthenticatedAction;
-import com.aoindustries.web.struts.Skin;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +47,6 @@ public class IndexAction  extends AuthenticatedAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		List<Ticket> tickets = aoConn.getTicket().getTicket().getRows();

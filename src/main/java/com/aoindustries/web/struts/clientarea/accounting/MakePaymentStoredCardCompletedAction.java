@@ -71,7 +71,6 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		MakePaymentStoredCardForm makePaymentStoredCardForm = (MakePaymentStoredCardForm)form;
@@ -98,7 +97,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
 		if(idString.isEmpty()) {
 			StringBuilder href = new StringBuilder();
 			href
-				.append(skin.getUrlBase(request))
+				.append(Skin.getSkin(request).getUrlBase(request))
 				.append("clientarea/accounting/make-payment-new-card.do?account=")
 				.append(URIEncoder.encodeURIComponent(request.getParameter("account")));
 			String currency = request.getParameter("currency");

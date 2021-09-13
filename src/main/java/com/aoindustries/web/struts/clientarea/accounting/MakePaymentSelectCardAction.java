@@ -59,14 +59,13 @@ public class MakePaymentSelectCardAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn,
 		List<Permission> permissions
 	) throws Exception {
 		// Redirect when they don't have permissions to retrieve stored cards
 		StringBuilder href = new StringBuilder();
 		href
-			.append(skin.getUrlBase(request))
+			.append(Skin.getSkin(request).getUrlBase(request))
 			.append("clientarea/accounting/make-payment-new-card.do?account=")
 			.append(URIEncoder.encodeURIComponent(request.getParameter("account")));
 		String currency = request.getParameter("currency");
@@ -91,7 +90,6 @@ public class MakePaymentSelectCardAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		Account account;
@@ -118,7 +116,7 @@ public class MakePaymentSelectCardAction extends PermissionAction {
 			// Redirect to new card if none stored
 			StringBuilder href = new StringBuilder();
 			href
-				.append(skin.getUrlBase(request))
+				.append(Skin.getSkin(request).getUrlBase(request))
 				.append("clientarea/accounting/make-payment-new-card.do?account=")
 				.append(URIEncoder.encodeURIComponent(request.getParameter("account")));
 			if(currency != null) {

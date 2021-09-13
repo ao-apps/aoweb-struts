@@ -23,6 +23,7 @@
 package com.aoindustries.web.struts;
 
 import com.aoapps.net.URIEncoder;
+import com.aoapps.web.resources.registry.Registry;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -33,7 +34,7 @@ import org.apache.struts.action.ActionMapping;
 /**
  * @author  AO Industries, Inc.
  */
-public class LogoutAction extends SkinAction {
+public class LogoutAction extends PageAction {
 
 	@Override
 	public ActionForward execute(
@@ -41,7 +42,7 @@ public class LogoutAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin
+		Registry pageRegistry
 	) throws Exception {
 		// Handle logout
 		HttpSession session = request.getSession(false);

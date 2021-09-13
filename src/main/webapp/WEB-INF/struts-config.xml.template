@@ -60,13 +60,13 @@ struts-config.xml.messageResources    Additional message resources
 		<!-- =============== Common =============== -->
 		<action
 			path="/exception"
-			type="com.aoindustries.web.struts.SkinAction"
+			type="com.aoindustries.web.struts.PageAction"
 		>
 			<forward name="success" path="/exception.inc.jsp" redirect="false" />
 		</action>
 		<action
 			path="/not-found"
-			type="com.aoindustries.web.struts.SkinAction"
+			type="com.aoindustries.web.struts.PageAction"
 		>
 			<forward name="success" path="/not-found.inc.jsp" redirect="false" />
 		</action>
@@ -75,7 +75,7 @@ struts-config.xml.messageResources    Additional message resources
 			name="contactForm"
 			scope="request"
 			validate="false"
-			type="com.aoindustries.web.struts.SkinAction"
+			type="com.aoindustries.web.struts.PageAction"
 		>
 			<forward name="success" path="/contact.inc.jsp" redirect="false" />
 		</action>
@@ -137,7 +137,7 @@ struts-config.xml.messageResources    Additional message resources
 <!-- Include "struts-config.xml.actions" -->
 		<action
 			path="/**"
-			type="com.aoindustries.web.struts.SkinAction"
+			type="com.aoindustries.web.struts.PageAction"
 		>
 			<forward name="success" path="/not-found.inc.jsp" redirect="false" />
 		</action>

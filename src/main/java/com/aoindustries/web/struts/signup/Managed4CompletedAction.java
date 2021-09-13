@@ -22,7 +22,6 @@
  */
 package com.aoindustries.web.struts.signup;
 
-import com.aoindustries.web.struts.Skin;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForward;
@@ -38,7 +37,6 @@ public class Managed4CompletedAction extends Managed4Action {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		ManagedSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
 		ManagedSignupCustomizeServerForm signupCustomizeServerForm,
@@ -61,7 +59,6 @@ public class Managed4CompletedAction extends Managed4Action {
 				mapping,
 				request,
 				response,
-				skin,
 				signupSelectPackageForm,
 				signupSelectPackageFormComplete,
 				signupCustomizeServerForm,

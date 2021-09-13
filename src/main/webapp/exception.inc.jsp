@@ -27,20 +27,20 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%
 	// Set siteSettings request attribute if not yet done
 	com.aoindustries.web.struts.SiteSettings siteSettings = (com.aoindustries.web.struts.SiteSettings)request.getAttribute(com.aoindustries.web.struts.Constants.SITE_SETTINGS);
-	if(siteSettings==null) {
+	if(siteSettings == null) {
 		siteSettings = com.aoindustries.web.struts.SiteSettings.getInstance(getServletContext());
 		request.setAttribute(com.aoindustries.web.struts.Constants.SITE_SETTINGS, siteSettings);
 	}
 
 	// Set locale request attribute if not yet done
-	if(request.getAttribute(com.aoindustries.web.struts.Constants.LOCALE)==null) {
+	if(request.getAttribute(com.aoindustries.web.struts.Constants.LOCALE) == null) {
 		java.util.Locale locale = com.aoindustries.web.struts.LocaleFilter.getEffectiveLocale(siteSettings, request, response);
 		request.setAttribute(com.aoindustries.web.struts.Constants.LOCALE, locale);
 	}
 
 	// Set the skin request attribute if not yet done
-	if(request.getAttribute(com.aoindustries.web.struts.Constants.SKIN)==null) {
-		com.aoindustries.web.struts.Skin skin = com.aoindustries.web.struts.SkinAction.getSkin(siteSettings, request, response);
+	if(request.getAttribute(com.aoindustries.web.struts.Constants.SKIN) == null) {
+		com.aoindustries.web.struts.Skin skin = com.aoindustries.web.struts.Skin.getSkin(siteSettings, request);
 		request.setAttribute(com.aoindustries.web.struts.Constants.SKIN, skin);
 	}
 %>

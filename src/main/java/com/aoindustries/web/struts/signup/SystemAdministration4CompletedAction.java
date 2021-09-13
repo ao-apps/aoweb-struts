@@ -22,7 +22,6 @@
  */
 package com.aoindustries.web.struts.signup;
 
-import com.aoindustries.web.struts.Skin;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -39,7 +38,6 @@ public class SystemAdministration4CompletedAction extends SystemAdministration4A
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		SystemAdministrationSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
 		SignupOrganizationForm signupOrganizationForm,
@@ -59,7 +57,6 @@ public class SystemAdministration4CompletedAction extends SystemAdministration4A
 				mapping,
 				request,
 				response,
-				skin,
 				signupSelectPackageForm,
 				signupSelectPackageFormComplete,
 				signupOrganizationForm,

@@ -22,9 +22,9 @@
  */
 package com.aoindustries.web.struts.clientarea.control.password;
 
+import com.aoapps.web.resources.registry.Registry;
 import com.aoindustries.aoserv.client.password.PasswordChecker;
-import com.aoindustries.web.struts.Skin;
-import com.aoindustries.web.struts.SkinAction;
+import com.aoindustries.web.struts.PageAction;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +38,7 @@ import org.apache.struts.action.ActionMessages;
  *
  * @author  AO Industries, Inc.
  */
-public class PasswordEvaluatorCompletedAction extends SkinAction {
+public class PasswordEvaluatorCompletedAction extends PageAction {
 
 	@Override
 	public ActionForward execute(
@@ -46,7 +46,7 @@ public class PasswordEvaluatorCompletedAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin
+		Registry pageRegistry
 	) throws Exception {
 		PasswordEvaluatorForm passwordEvaluatorForm = (PasswordEvaluatorForm)form;
 

@@ -23,6 +23,7 @@
 package com.aoindustries.web.struts;
 
 import com.aoapps.net.Email;
+import com.aoapps.web.resources.registry.Registry;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.ticket.Language;
 import com.aoindustries.aoserv.client.ticket.Priority;
@@ -40,7 +41,7 @@ import org.apache.struts.action.ActionMessages;
 /**
  * @author  AO Industries, Inc.
  */
-public class ContactCompletedAction extends SkinAction {
+public class ContactCompletedAction extends PageAction {
 
 	@Override
 	public ActionForward execute(
@@ -48,7 +49,7 @@ public class ContactCompletedAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin
+		Registry pageRegistry
 	) throws Exception {
 		ContactForm contactForm = (ContactForm)form;
 

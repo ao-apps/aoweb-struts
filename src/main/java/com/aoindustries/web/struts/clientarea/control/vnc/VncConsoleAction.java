@@ -27,7 +27,6 @@ import com.aoindustries.aoserv.client.infrastructure.VirtualServer;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.schema.AoservProtocol;
 import com.aoindustries.web.struts.PermissionAction;
-import com.aoindustries.web.struts.Skin;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -51,7 +50,6 @@ public class VncConsoleAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		List<VirtualServer> virtualServers = aoConn.getInfrastructure().getVirtualServer().getRows();

@@ -32,7 +32,6 @@ import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.AccountGroup;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.web.struts.SiteSettings;
-import com.aoindustries.web.struts.Skin;
 import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,7 +54,6 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		AddCreditCardForm addCreditCardForm=(AddCreditCardForm)form;

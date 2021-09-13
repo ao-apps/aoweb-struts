@@ -22,7 +22,6 @@
  */
 package com.aoindustries.web.struts.signup;
 
-import com.aoindustries.web.struts.Skin;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -39,7 +38,6 @@ public class VirtualManaged6CompletedAction extends VirtualManaged6Action {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
 		VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
@@ -65,7 +63,6 @@ public class VirtualManaged6CompletedAction extends VirtualManaged6Action {
 				mapping,
 				request,
 				response,
-				skin,
 				signupSelectPackageForm,
 				signupSelectPackageFormComplete,
 				signupCustomizeServerForm,

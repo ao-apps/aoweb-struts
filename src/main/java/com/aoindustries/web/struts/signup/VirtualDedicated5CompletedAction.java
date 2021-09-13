@@ -22,7 +22,6 @@
  */
 package com.aoindustries.web.struts.signup;
 
-import com.aoindustries.web.struts.Skin;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -39,7 +38,6 @@ public class VirtualDedicated5CompletedAction extends VirtualDedicated5Action {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
 		VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
@@ -62,7 +60,6 @@ public class VirtualDedicated5CompletedAction extends VirtualDedicated5Action {
 				mapping,
 				request,
 				response,
-				skin,
 				signupSelectPackageForm,
 				signupSelectPackageFormComplete,
 				signupCustomizeServerForm,

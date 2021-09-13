@@ -31,7 +31,6 @@ import com.aoindustries.aoserv.creditcards.CreditCardFactory;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.web.struts.PermissionAction;
 import com.aoindustries.web.struts.SiteSettings;
-import com.aoindustries.web.struts.Skin;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Set;
@@ -54,7 +53,6 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		// Make sure the credit card still exists, redirect to credit-card-manager if doesn't

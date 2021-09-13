@@ -56,13 +56,13 @@ struts-config-clientarea.xml.messageResources Additional message resources
 	<action-mappings>
 		<action
 			path="/index"
-			type="com.aoindustries.web.struts.SkinAction"
+			type="com.aoindustries.web.struts.PageAction"
 		>
 			<forward name="success" path="/index.inc.jsp" redirect="false" />
 		</action>
 		<action
 			path="/**"
-			type="com.aoindustries.web.struts.SkinAction"
+			type="com.aoindustries.web.struts.PageAction"
 		>
 			<forward name="success" module="" path="/not-found.inc.jsp" redirect="false" />
 		</action>

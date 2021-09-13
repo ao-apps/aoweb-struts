@@ -1278,7 +1278,7 @@ struts-config-signup.xml.messageResources Additional message resources
 		</action>
 		<action
 			path="/**"
-			type="com.aoindustries.web.struts.SkinAction"
+			type="com.aoindustries.web.struts.PageAction"
 		>
 			<forward name="success" module="" path="/not-found.inc.jsp" redirect="false" />
 		</action>

@@ -40,8 +40,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletRequestEvent;
+import javax.servlet.ServletRequestListener;
+import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 
 /**
@@ -51,6 +56,124 @@ import javax.servlet.jsp.JspException;
  */
 // TODO: Throw IOException on most/all methods where is given a writer, then won't need so many exception conversions in implementations.
 abstract public class Skin {
+
+	/**
+	 * Gets the default skin from the provided list for the provided request.
+	 * Blackberry and Lynx will default to {@link TextSkin#NAME} if in the list, otherwise
+	 * the first skin is selected.
+	 */
+	public static Skin getDefaultSkin(List<Skin> skins, ServletRequest req) {
+		// Lynx and BlackBerry default to text
+		String agent;
+		if(req instanceof HttpServletRequest) {
+			agent = ((HttpServletRequest)req).getHeader("user-agent");
+		} else {
+			agent = null;
+		}
+		if(
+			agent!=null
+			&& (
+				agent.toLowerCase().contains("lynx")
+				|| agent.startsWith("BlackBerry")
+			)
+		) {
+			for(Skin skin : skins) {
+				if(skin.getName().equals(TextSkin.NAME)) return skin;
+			}
+		}
+		// Use the first as the default
+		return skins.get(0);
+	}
+
+	/**
+	 * Gets the skin for the current request.
+	 *
+	 * <ol>
+	 *   <li>If the skin is already set in the request attribute {@link Constants#SKIN}, uses the current setting.</li>
+	 *   <li>If the parameter {@link Constants#LAYOUT} exists, it will get the class name for the skin from the servlet parameters and set the skin.</li>
+	 *   <li>If the parameter {@link Constants#LAYOUT} doesn't exist and a skin has been selected, then it returns the current skin.</li>
+	 *   <li>Sets the skin from the servlet parameters.</li>
+	 *   <li>Sets the {@link Constants#LAYOUT} in the session.</li>
+	 *   <li>Stores the skin in request attribute {@link Constants#SKIN}.</li>
+	 * </ol>
+	 */
+	public static Skin getSkin(SiteSettings settings, ServletRequest req) {
+		{
+			Skin skin = (Skin)req.getAttribute(Constants.SKIN);
+			if(skin != null) return skin;
+		}
+
+		List<Skin> skins = settings.getSkins();
+
+		HttpSession session;
+		if(req instanceof HttpServletRequest) {
+			// TODO: Avoid creating session and don't store in session for default layout?
+			session = ((HttpServletRequest)req).getSession();
+		} else {
+			session = null;
+		}
+
+		String layout = req.getParameter(Constants.LAYOUT);
+		// Trim and set to null if empty
+		if(layout != null && (layout = layout.trim()).isEmpty()) layout = null;
+		if(layout != null) {
+			// Match against possibilities
+			for(Skin skin : skins) {
+				if(skin.getName().equals(layout)) {
+					if(session != null) session.setAttribute(Constants.LAYOUT, layout);
+					req.setAttribute(Constants.SKIN, skin);
+					return skin;
+				}
+			}
+		}
+
+		// Try to reuse the currently selected skin
+		layout = (session == null) ? null : (String)session.getAttribute(Constants.LAYOUT);
+		if(layout != null) {
+			// Match against possibilities
+			for(Skin skin : skins) {
+				if(skin.getName().equals(layout)) {
+					if(session != null) session.setAttribute(Constants.LAYOUT, layout);
+					req.setAttribute(Constants.SKIN, skin);
+					return skin;
+				}
+			}
+		}
+		Skin skin = getDefaultSkin(skins, req);
+		if(session != null) session.setAttribute(Constants.LAYOUT, skin.getName());
+		req.setAttribute(Constants.SKIN, skin);
+		return skin;
+	}
+
+	/**
+	 * Gets the skin for the current request while {@linkplain SiteSettings#getInstance(javax.servlet.ServletContext) resolving site settings}.
+	 *
+	 * @see  SiteSettings#getInstance(javax.servlet.ServletContext)
+	 * @see  #getSkin(com.aoindustries.web.struts.SiteSettings, javax.servlet.ServletRequest)
+	 */
+	public static Skin getSkin(ServletRequest req) {
+		return getSkin(SiteSettings.getInstance(req.getServletContext()), req);
+	}
+
+	/**
+	 * Resolves the current {@link Skin} and sets the request param {@link Constants#SKIN}.
+	 *
+	 * @author AO Industries, Inc.
+	 */
+	@WebListener
+	public static class RequestListener implements ServletRequestListener {
+
+		@Override
+		public void requestInitialized(ServletRequestEvent sre) {
+			// Select Skin
+			getSkin(SiteSettings.getInstance(sre.getServletContext()), sre.getServletRequest());
+		}
+
+		@Override
+		public void requestDestroyed(ServletRequestEvent sre) {
+			// Nothing to do
+		}
+	}
 
 	/**
 	 * Directional references.

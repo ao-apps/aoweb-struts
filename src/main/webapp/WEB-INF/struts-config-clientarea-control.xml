@@ -62,7 +62,7 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 	<action-mappings>
 		<action
 			path="/index"
-			type="com.aoindustries.web.struts.SkinAction"
+			type="com.aoindustries.web.struts.PageAction"
 		>
 			<forward name="success" path="/index.inc.jsp" redirect="false" />
 		</action>
@@ -104,7 +104,7 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 		</action>
 		<action
 			path="/password/index"
-			type="com.aoindustries.web.struts.SkinAction"
+			type="com.aoindustries.web.struts.PageAction"
 		>
 			<forward name="success" path="/password/index.inc.jsp" redirect="false" />
 		</action>
@@ -113,7 +113,7 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			name="passwordEvaluatorForm"
 			scope="request"
 			validate="false"
-			type="com.aoindustries.web.struts.SkinAction"
+			type="com.aoindustries.web.struts.PageAction"
 		>
 			<forward name="success" path="/password/password-evaluator.inc.jsp" redirect="false" />
 		</action>
@@ -245,7 +245,7 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 		</action>
 		<action
 			path="/**"
-			type="com.aoindustries.web.struts.SkinAction"
+			type="com.aoindustries.web.struts.PageAction"
 		>
 			<forward name="success" module="" path="/not-found.inc.jsp" redirect="false" />
 		</action>

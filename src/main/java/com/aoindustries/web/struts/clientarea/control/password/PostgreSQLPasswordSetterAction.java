@@ -28,7 +28,6 @@ import com.aoindustries.aoserv.client.postgresql.Server;
 import com.aoindustries.aoserv.client.postgresql.User;
 import com.aoindustries.aoserv.client.postgresql.UserServer;
 import com.aoindustries.web.struts.PermissionAction;
-import com.aoindustries.web.struts.Skin;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,7 +51,6 @@ public class PostgreSQLPasswordSetterAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		PostgreSQLPasswordSetterForm postgreSQLPasswordSetterForm = (PostgreSQLPasswordSetterForm)form;

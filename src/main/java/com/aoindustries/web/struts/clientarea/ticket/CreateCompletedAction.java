@@ -31,7 +31,6 @@ import com.aoindustries.aoserv.client.ticket.Priority;
 import com.aoindustries.aoserv.client.ticket.TicketType;
 import com.aoindustries.web.struts.PermissionAction;
 import com.aoindustries.web.struts.SiteSettings;
-import com.aoindustries.web.struts.Skin;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Set;
@@ -55,7 +54,6 @@ public class CreateCompletedAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		TicketForm ticketForm = (TicketForm)form;

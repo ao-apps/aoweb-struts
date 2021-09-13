@@ -30,7 +30,6 @@ import com.aoindustries.aoserv.client.account.Profile;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.web.struts.PermissionAction;
 import com.aoindustries.web.struts.SiteSettings;
-import com.aoindustries.web.struts.Skin;
 import com.aoindustries.web.struts.signup.SignupOrganizationActionHelper;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -100,7 +99,6 @@ public class AddCreditCardAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		AddCreditCardForm addCreditCardForm=(AddCreditCardForm)form;

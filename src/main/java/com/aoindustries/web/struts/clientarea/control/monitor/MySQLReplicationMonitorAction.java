@@ -31,7 +31,6 @@ import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.mysql.Server;
 import com.aoindustries.web.struts.PermissionAction;
 import com.aoindustries.web.struts.SiteSettings;
-import com.aoindustries.web.struts.Skin;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -60,7 +59,6 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		MessageResources controlApplicationResources = (MessageResources)request.getAttribute("/clientarea/control/ApplicationResources");

@@ -23,12 +23,13 @@
 package com.aoindustries.web.struts.signup;
 
 import com.aoapps.net.URIEncoder;
+import com.aoapps.web.resources.registry.Registry;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.billing.PackageCategory;
 import com.aoindustries.aoserv.client.billing.PackageDefinition;
+import com.aoindustries.web.struts.PageAction;
 import com.aoindustries.web.struts.SiteSettings;
 import com.aoindustries.web.struts.Skin;
-import com.aoindustries.web.struts.SkinAction;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -41,10 +42,16 @@ import org.apache.struts.action.ActionMapping;
 /**
  * @author  AO Industries, Inc.
  */
-public class IndexAction extends SkinAction {
+public class IndexAction extends PageAction {
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, Skin skin) throws Exception {
+	public ActionForward execute(
+		ActionMapping mapping,
+		ActionForm form,
+		HttpServletRequest request,
+		HttpServletResponse response,
+		Registry pageRegistry
+	) throws Exception {
 		AOServConnector rootConn = SiteSettings.getInstance(getServlet().getServletContext()).getRootAOServConnector();
 
 		// Determine the active packages per category
@@ -56,7 +63,7 @@ public class IndexAction extends SkinAction {
 		}
 		// 301 redirect when only one package category is available
 		if(categories.size()==1) {
-			String urlBase = skin.getUrlBase(request);
+			String urlBase = Skin.getSkin(request).getUrlBase(request);
 			String categoryName = categories.keySet().iterator().next().getName();
 			if(PackageCategory.AOSERV.equals(categoryName)) {
 				response.sendRedirect(

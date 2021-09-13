@@ -27,7 +27,6 @@ import com.aoindustries.aoserv.client.account.Administrator;
 import com.aoindustries.aoserv.client.linux.User;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.web.struts.AuthenticatedAction;
-import com.aoindustries.web.struts.Skin;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +48,6 @@ public class AdministratorPasswordSetterCompletedAction extends AuthenticatedAct
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		AdministratorPasswordSetterForm administratorPasswordSetterForm = (AdministratorPasswordSetterForm)form;

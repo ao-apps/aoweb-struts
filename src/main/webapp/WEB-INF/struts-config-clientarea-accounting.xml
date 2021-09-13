@@ -62,7 +62,7 @@ struts-config-clientarea-accounting.xml.messageResources    Additional message r
 	<action-mappings>
 		<action
 			path="/index"
-			type="com.aoindustries.web.struts.SkinAction"
+			type="com.aoindustries.web.struts.PageAction"
 		>
 			<forward name="success" path="/index.inc.jsp" redirect="false" />
 		</action>
@@ -201,7 +201,7 @@ struts-config-clientarea-accounting.xml.messageResources    Additional message r
 		</action>
 		<action
 			path="/**"
-			type="com.aoindustries.web.struts.SkinAction"
+			type="com.aoindustries.web.struts.PageAction"
 		>
 			<forward name="success" module="" path="/not-found.inc.jsp" redirect="false" />
 		</action>

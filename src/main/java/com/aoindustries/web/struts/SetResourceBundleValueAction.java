@@ -23,6 +23,7 @@
 package com.aoindustries.web.struts;
 
 import com.aoapps.hodgepodge.i18n.ModifiableResourceBundle;
+import com.aoapps.web.resources.registry.Registry;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +35,7 @@ import org.apache.struts.action.ActionMapping;
 /**
  * @author  AO Industries, Inc.
  */
-public class SetResourceBundleValueAction extends SkinAction {
+public class SetResourceBundleValueAction extends PageAction {
 
 	@Override
 	public ActionForward execute(
@@ -42,7 +43,7 @@ public class SetResourceBundleValueAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin
+		Registry pageRegistry
 	) throws Exception {
 		// If disabled, return 404 status
 		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());

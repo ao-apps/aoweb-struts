@@ -22,8 +22,8 @@
  */
 package com.aoindustries.web.struts.signup;
 
-import com.aoindustries.web.struts.Skin;
-import com.aoindustries.web.struts.SkinAction;
+import com.aoapps.web.resources.registry.Registry;
+import com.aoindustries.web.struts.PageAction;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -35,7 +35,7 @@ import org.apache.struts.action.ActionMessages;
 /**
  * @author  AO Industries, Inc.
  */
-abstract public class ManagedStepAction extends SkinAction {
+abstract public class ManagedStepAction extends PageAction {
 
 	/**
 	 * Initializes the step details.
@@ -46,7 +46,7 @@ abstract public class ManagedStepAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin
+		Registry pageRegistry
 	) throws Exception {
 		// Clear checkboxes that were not part of the request
 		clearCheckboxes(request, form);
@@ -103,7 +103,6 @@ abstract public class ManagedStepAction extends SkinAction {
 			mapping,
 			request,
 			response,
-			skin,
 			signupSelectPackageForm,
 			signupSelectPackageFormComplete,
 			signupCustomizeServerForm,
@@ -142,7 +141,6 @@ abstract public class ManagedStepAction extends SkinAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		ManagedSignupSelectPackageForm signupSelectPackageForm,
 		boolean signupSelectPackageFormComplete,
 		ManagedSignupCustomizeServerForm signupCustomizeServerForm,

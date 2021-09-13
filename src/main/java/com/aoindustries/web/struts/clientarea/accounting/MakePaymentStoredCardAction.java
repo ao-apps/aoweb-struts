@@ -58,7 +58,6 @@ public class MakePaymentStoredCardAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn,
 		List<Permission> permissions
 	) throws Exception {
@@ -66,7 +65,7 @@ public class MakePaymentStoredCardAction extends PermissionAction {
 		String currency = request.getParameter("currency");
 		StringBuilder href = new StringBuilder();
 		href
-			.append(skin.getUrlBase(request))
+			.append(Skin.getSkin(request).getUrlBase(request))
 			.append("clientarea/accounting/make-payment-new-card.do?account=")
 			.append(URIEncoder.encodeURIComponent(request.getParameter("account")));
 		if(!GenericValidator.isBlankOrNull(currency)) {
@@ -90,7 +89,6 @@ public class MakePaymentStoredCardAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		MakePaymentStoredCardForm makePaymentStoredCardForm = (MakePaymentStoredCardForm)form;
@@ -117,7 +115,7 @@ public class MakePaymentStoredCardAction extends PermissionAction {
 		if(idString.isEmpty()) {
 			StringBuilder href = new StringBuilder();
 			href
-				.append(skin.getUrlBase(request))
+				.append(Skin.getSkin(request).getUrlBase(request))
 				.append("clientarea/accounting/make-payment-new-card.do?account=")
 				.append(URIEncoder.encodeURIComponent(request.getParameter("account")));
 			if(currency != null) {

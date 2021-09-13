@@ -23,6 +23,7 @@
 package com.aoindustries.web.struts;
 
 import com.aoapps.lang.validation.ValidationException;
+import com.aoapps.web.resources.registry.Registry;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.linux.User;
 import java.io.IOException;
@@ -47,7 +48,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author  AO Industries, Inc.
  */
-abstract public class AuthenticatedAction extends SkinAction {
+abstract public class AuthenticatedAction extends PageAction {
 
 	private static final Logger logger = Logger.getLogger(AuthenticatedAction.class.getName());
 
@@ -57,7 +58,7 @@ abstract public class AuthenticatedAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin
+		Registry pageRegistry
 	) throws Exception {
 		// Handle login
 		AOServConnector aoConn = getAoConn(request, response);
@@ -79,7 +80,7 @@ abstract public class AuthenticatedAction extends SkinAction {
 		// Set request values
 		request.setAttribute(Constants.AO_CONN, aoConn);
 
-		return execute(mapping, form, request, response, skin, aoConn);
+		return execute(mapping, form, request, response, aoConn);
 	}
 
 	/**
@@ -93,7 +94,7 @@ abstract public class AuthenticatedAction extends SkinAction {
 
 	/**
 	 * Gets the AOServConnector for the user or <code>null</code> if not logged in.
-	 * This also handles the {@link Constants#SU} behavior that was stored in the session by <code>SkinAction</code>.
+	 * This also handles the {@link Constants#SU} behavior that was stored in the session by {@link SwitchUserRequestListener}.
 	 */
 	public static AOServConnector getAoConn(HttpServletRequest request, HttpServletResponse response) {
 		AOServConnector authenticatedAoConn = getAuthenticatedAoConn(request, response);
@@ -143,7 +144,6 @@ abstract public class AuthenticatedAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		Skin skin,
 		AOServConnector aoConn
 	) throws Exception {
 		return mapping.findForward("success");
