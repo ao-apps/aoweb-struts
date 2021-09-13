@@ -191,11 +191,12 @@ public class SiteSettings {
 				languages.add(
 					new Skin.Language(
 						Locale.ENGLISH.getLanguage(),
-						"/ApplicationResources", "TextSkin.language.en_US.alt",
-						"/ApplicationResources", "TextSkin.language.en_US.flag.on.src",
-						"/ApplicationResources", "TextSkin.language.en_US.flag.off.src",
-						"/ApplicationResources", "TextSkin.language.en_US.flag.width",
-						"/ApplicationResources", "TextSkin.language.en_US.flag.height",
+						TextSkin.RESOURCES,
+						"/ApplicationResources", "language.en_US.alt",
+						"/ApplicationResources", "language.en_US.flag.on.src",
+						"/ApplicationResources", "language.en_US.flag.off.src",
+						"/ApplicationResources", "language.en_US.flag.width",
+						"/ApplicationResources", "language.en_US.flag.height",
 						null
 					)
 				);
@@ -203,11 +204,12 @@ public class SiteSettings {
 				languages.add(
 					new Skin.Language(
 						Locale.ENGLISH.getLanguage(),
-						"/ApplicationResources", "TextSkin.language.en.alt",
-						"/ApplicationResources", "TextSkin.language.en.flag.on.src",
-						"/ApplicationResources", "TextSkin.language.en.flag.off.src",
-						"/ApplicationResources", "TextSkin.language.en.flag.width",
-						"/ApplicationResources", "TextSkin.language.en.flag.height",
+						TextSkin.RESOURCES,
+						"/ApplicationResources", "language.en.alt",
+						"/ApplicationResources", "language.en.flag.on.src",
+						"/ApplicationResources", "language.en.flag.off.src",
+						"/ApplicationResources", "language.en.flag.width",
+						"/ApplicationResources", "language.en.flag.height",
 						null
 					)
 				);
@@ -217,11 +219,12 @@ public class SiteSettings {
 			languages.add(
 				new Skin.Language(
 					Locale.JAPANESE.getLanguage(),
-					"/ApplicationResources", "TextSkin.language.ja.alt",
-					"/ApplicationResources", "TextSkin.language.ja.flag.on.src",
-					"/ApplicationResources", "TextSkin.language.ja.flag.off.src",
-					"/ApplicationResources", "TextSkin.language.ja.flag.width",
-					"/ApplicationResources", "TextSkin.language.ja.flag.height",
+					TextSkin.RESOURCES,
+					"/ApplicationResources", "language.ja.alt",
+					"/ApplicationResources", "language.ja.flag.on.src",
+					"/ApplicationResources", "language.ja.flag.off.src",
+					"/ApplicationResources", "language.ja.flag.width",
+					"/ApplicationResources", "language.ja.flag.height",
 					null
 				)
 			);

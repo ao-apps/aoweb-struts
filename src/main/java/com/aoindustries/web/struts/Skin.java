@@ -43,7 +43,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
-import org.apache.struts.util.MessageResources;
 
 /**
  * One look-and-feel for the website.
@@ -389,6 +388,7 @@ abstract public class Skin {
 
 	public static class Language {
 		private final String code;
+		private final com.aoapps.lang.i18n.Resources resources;
 		private final String displayResourcesKey;
 		private final String displayKey;
 		private final String flagOnSrcResourcesKey;
@@ -406,6 +406,7 @@ abstract public class Skin {
 		 */
 		public Language(
 			String code,
+			com.aoapps.lang.i18n.Resources resources,
 			String displayResourcesKey,
 			String displayKey,
 			String flagOnSrcResourcesKey,
@@ -419,6 +420,7 @@ abstract public class Skin {
 			AnyURI uri
 		) {
 			this.code = code;
+			this.resources = resources;
 			this.displayResourcesKey = displayResourcesKey;
 			this.displayKey = displayKey;
 			this.flagOnSrcResourcesKey = flagOnSrcResourcesKey;
@@ -437,33 +439,23 @@ abstract public class Skin {
 		}
 
 		public String getDisplay(HttpServletRequest req, Locale locale) throws JspException {
-			MessageResources applicationResources = (MessageResources)req.getAttribute(displayResourcesKey);
-			if(applicationResources==null) throw new JspException("Unable to load resources: "+displayResourcesKey);
-			return applicationResources.getMessage(locale, displayKey);
+			return resources.getMessage(locale, displayKey);
 		}
 
 		public String getFlagOnSrc(HttpServletRequest req, Locale locale) throws JspException {
-			MessageResources applicationResources = (MessageResources)req.getAttribute(flagOnSrcResourcesKey);
-			if(applicationResources==null) throw new JspException("Unable to load resources: "+flagOnSrcResourcesKey);
-			return applicationResources.getMessage(locale, flagOnSrcKey);
+			return resources.getMessage(locale, flagOnSrcKey);
 		}
 
 		public String getFlagOffSrc(HttpServletRequest req, Locale locale) throws JspException {
-			MessageResources applicationResources = (MessageResources)req.getAttribute(flagOffSrcResourcesKey);
-			if(applicationResources==null) throw new JspException("Unable to load resources: "+flagOffSrcResourcesKey);
-			return applicationResources.getMessage(locale, flagOffSrcKey);
+			return resources.getMessage(locale, flagOffSrcKey);
 		}
 
 		public int getFlagWidth(HttpServletRequest req, Locale locale) throws JspException {
-			MessageResources applicationResources = (MessageResources)req.getAttribute(flagWidthResourcesKey);
-			if(applicationResources==null) throw new JspException("Unable to load resources: "+flagWidthResourcesKey);
-			return Integer.parseInt(applicationResources.getMessage(locale, flagWidthKey));
+			return Integer.parseInt(resources.getMessage(locale, flagWidthKey));
 		}
 
 		public int getFlagHeight(HttpServletRequest req, Locale locale) throws JspException {
-			MessageResources applicationResources = (MessageResources)req.getAttribute(flagHeightResourcesKey);
-			if(applicationResources==null) throw new JspException("Unable to load resources: "+flagHeightResourcesKey);
-			return Integer.parseInt(applicationResources.getMessage(locale, flagHeightKey));
+			return Integer.parseInt(resources.getMessage(locale, flagHeightKey));
 		}
 
 		/**

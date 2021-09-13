@@ -69,6 +69,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -77,7 +78,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
-import org.apache.struts.util.MessageResources;
 
 /**
  * The skin for the home page of the site.
@@ -96,6 +96,8 @@ public class TextSkin extends Skin {
 	public static final Group.Name RESOURCE_GROUP = new Group.Name(TextSkin.class.getName());
 
 	public static final Style TEXTSKIN_CSS = new Style("/textskin/textskin.css");
+
+	static final com.aoapps.lang.i18n.Resources RESOURCES = com.aoapps.lang.i18n.Resources.getResources(ResourceBundle::getBundle, TextSkin.class);
 
 	@WebListener
 	public static class Initializer implements ServletContextListener {
@@ -135,9 +137,7 @@ public class TextSkin extends Skin {
 	@Override
 	public String getDisplay(HttpServletRequest req) throws JspException {
 		Locale locale = LocaleAction.getLocale(req.getServletContext(), req);
-		MessageResources applicationResources = (MessageResources)req.getAttribute("/ApplicationResources");
-		if(applicationResources==null) throw new JspException("Unable to load resources: /ApplicationResources");
-		return applicationResources.getMessage(locale, "TextSkin.name");
+		return RESOURCES.getMessage(locale, "name");
 	}
 
 	/**
@@ -171,12 +171,6 @@ public class TextSkin extends Skin {
 	public void printFavIcon(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, String urlBase) throws JspException, IOException {
 	}
 
-	public static MessageResources getMessageResources(HttpServletRequest req) throws JspException {
-		MessageResources resources = (MessageResources)req.getAttribute("/ApplicationResources");
-		if(resources==null) throw new JspException("Unable to load resources: /ApplicationResources");
-		return resources;
-	}
-
 	@Override
 	public void configureResources(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, Registry requestRegistry, PageAttributes page) {
 		super.configureResources(servletContext, req, resp, requestRegistry, page);
@@ -201,7 +195,6 @@ public class TextSkin extends Skin {
 			String layout = pageAttributes.getLayout();
 			if(!layout.equals(PageAttributes.LAYOUT_NORMAL)) throw new JspException("TODO: Implement layout: "+layout);
 			Locale locale = LocaleAction.getLocale(servletContext, req);
-			MessageResources applicationResources = getMessageResources(req);
 			String urlBase = getUrlBase(req);
 			String path = pageAttributes.getPath();
 			if(path.startsWith("/")) path=path.substring(1);
@@ -352,7 +345,7 @@ public class TextSkin extends Skin {
 			printLogo(req, resp, document, urlBase);
 			if(aoConn != null) {
 				document.out.write("          "); document.hr__().out.write("\n"
-				+ "          "); document.text(applicationResources.getMessage(locale, "TextSkin.logoutPrompt"))
+				+ "          "); document.text(RESOURCES.getMessage(locale, "logoutPrompt"))
 				.out.write("<form style=\"display:inline\" id=\"logout_form\" method=\"post\" action=\"");
 				encodeTextInXhtmlAttribute(
 					resp.encodeURL(
@@ -365,11 +358,11 @@ public class TextSkin extends Skin {
 				document.out.write("\"><div style=\"display:inline;\">");
 				document.input().hidden().name("target").value(fullPath).__()
 				// Variant that takes ResourceBundle?
-				.input().submit__(applicationResources.getMessage(locale, "TextSkin.logoutButtonLabel"))
+				.input().submit__(RESOURCES.getMessage(locale, "logoutButtonLabel"))
 				.out.write("</div></form>\n");
 			} else {
 				document.out.write("          "); document.hr__().out.write("\n"
-				+ "          "); document.text(applicationResources.getMessage(locale, "TextSkin.loginPrompt"))
+				+ "          "); document.text(RESOURCES.getMessage(locale, "loginPrompt"))
 				.out.write("<form style=\"display:inline\" id=\"login_form\" method=\"post\" action=\"");
 				encodeTextInXhtmlAttribute(
 					resp.encodeURL(
@@ -384,7 +377,7 @@ public class TextSkin extends Skin {
 				if(path.startsWith("clientarea/")) {
 					document.input().hidden().name("target").value(fullPath).__();
 				}
-				document.input().submit__(applicationResources.getMessage(locale, "TextSkin.loginButtonLabel"))
+				document.input().submit__(RESOURCES.getMessage(locale, "loginButtonLabel"))
 				.out.write("</div></form>\n");
 			}
 			document.hr__()
@@ -404,7 +397,7 @@ public class TextSkin extends Skin {
 					script.append('}');
 				}).__()
 				.out.write("            <form action=\"\" style=\"display:inline\"><div style=\"display:inline\">\n"
-				+ "              "); document.text(applicationResources.getMessage(locale, "TextSkin.layoutPrompt"))
+				+ "              "); document.text(RESOURCES.getMessage(locale, "layoutPrompt"))
 				.out.write("<select name=\"layout_selector\" onchange=\"selectLayout(this.form.layout_selector.options[this.form.layout_selector.selectedIndex].value);\">\n");
 				for(Skin skin : skins) {
 					document.option().value(skin.getName()).selected(getName().equals(skin.getName())).__(skin.getDisplay(req));
@@ -508,7 +501,7 @@ public class TextSkin extends Skin {
 			document.out.write("          </div>\n"
 			+ "          "); document.hr__().out.write("\n"
 			// Display the parents
-			+ "          <b>"); document.text(applicationResources.getMessage(locale, "TextSkin.currentLocation")).out.write("</b>"); document.br__().out.write("\n"
+			+ "          <b>"); document.text(RESOURCES.getMessage(locale, "currentLocation")).out.write("</b>"); document.br__().out.write("\n"
 			+ "          <div style=\"white-space:nowrap\">\n");
 			List<Parent> parents = pageAttributes.getParents();
 			for(Parent parent : parents) {
@@ -533,7 +526,7 @@ public class TextSkin extends Skin {
 			.out.write("</a>"); document.br__().out.write("\n"
 			+ "          </div>\n"
 			+ "          "); document.hr__().out.write("\n"
-			+ "          <b>"); document.text(applicationResources.getMessage(locale, "TextSkin.relatedPages")).out.write("</b>"); document.br__().out.write("\n"
+			+ "          <b>"); document.text(RESOURCES.getMessage(locale, "relatedPages")).out.write("</b>"); document.br__().out.write("\n"
 			// Display the siblings
 			+ "          <div style=\"white-space:nowrap\">\n");
 			List<Child> siblings = pageAttributes.getChildren();
@@ -968,7 +961,6 @@ public class TextSkin extends Skin {
 		width = trimNullIfEmpty(width);
 		ServletContext servletContext = req.getServletContext();
 		Locale locale = LocaleAction.getLocale(servletContext, req);
-		MessageResources applicationResources = getMessageResources(req);
 
 		document.out.append("<div id=\"aoPopupAnchor_").append(groupIdStr).append('_').append(popupIdStr).append("\" class=\"aoPopupAnchor\">");
 		document.img()
@@ -977,12 +969,12 @@ public class TextSkin extends Skin {
 				resp.encodeURL(
 					URIEncoder.encodeURI(
 						urlBase
-						+ applicationResources.getMessage(locale, "TextSkin.popup.src")
+						+ RESOURCES.getMessage(locale, "popup.src")
 					)
 				)
-			).alt(applicationResources.getMessage(locale, "TextSkin.popup.alt"))
-			.width(Integer.parseInt(applicationResources.getMessage(locale, "TextSkin.popup.width")))
-			.height(Integer.parseInt(applicationResources.getMessage(locale, "TextSkin.popup.height")))
+			).alt(RESOURCES.getMessage(locale, "popup.alt"))
+			.width(Integer.parseInt(RESOURCES.getMessage(locale, "popup.width")))
+			.height(Integer.parseInt(RESOURCES.getMessage(locale, "popup.height")))
 			.onmouseover(onmouseover -> onmouseover
 				.append("popupGroupTimer")
 				.append(groupIdStr)
@@ -1083,19 +1075,18 @@ public class TextSkin extends Skin {
 	public static void defaultPrintPopupClose(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId, String urlBase) throws JspException, IOException {
 		ServletContext servletContext = req.getServletContext();
 		Locale locale = LocaleAction.getLocale(servletContext, req);
-		MessageResources applicationResources = getMessageResources(req);
 
 		document.img()
 			.clazz("aoPopupClose")
 			.src(
 				resp.encodeURL(
 					URIEncoder.encodeURI(
-						urlBase + applicationResources.getMessage(locale, "TextSkin.popupClose.src")
+						urlBase + RESOURCES.getMessage(locale, "popupClose.src")
 					)
 				)
-			).alt(applicationResources.getMessage(locale, "TextSkin.popupClose.alt"))
-			.width(Integer.parseInt(applicationResources.getMessage(locale, "TextSkin.popupClose.width")))
-			.height(Integer.parseInt(applicationResources.getMessage(locale, "TextSkin.popupClose.height")))
+			).alt(RESOURCES.getMessage(locale, "popupClose.alt"))
+			.width(Integer.parseInt(RESOURCES.getMessage(locale, "popupClose.width")))
+			.height(Integer.parseInt(RESOURCES.getMessage(locale, "popupClose.height")))
 			.onclick("popupGroupHideAllDetails" + groupId + "();")
 		.__();
 	}
