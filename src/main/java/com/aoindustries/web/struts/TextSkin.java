@@ -307,7 +307,11 @@ public class TextSkin extends Skin {
 			configureResources(servletContext, req, resp, requestRegistry, pageAttributes);
 			// Configure page resources
 			Registry pageRegistry = RegistryEE.Page.get(req);
-			if(pageRegistry == null) throw new JspException("page-scope registry not found.  PageAction.execute(…) invoked?");
+			if(pageRegistry == null) {
+				// Create a new page-scope registry
+				pageRegistry = new Registry();
+				RegistryEE.Page.set(req, pageRegistry);
+			}
 			// Render links
 			Renderer.get(servletContext).renderStyles(
 				req,
