@@ -77,6 +77,8 @@ module com.aoindustries.web.struts {
 	requires com.semanticcms.core.taglib; // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId>
 	requires struts.core; // <groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId>
 	requires struts.taglib; // <groupId>org.apache.struts</groupId><artifactId>struts-taglib</artifactId>
+	requires struts2.convention.plugin; // <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId>
+	requires struts2.core; // <groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId>
 	requires taglibs.standard.spec; // <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec</artifactId>
 	// Java SE
 	requires java.logging;
