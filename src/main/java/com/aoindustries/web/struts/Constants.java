@@ -89,6 +89,7 @@ public class Constants {
 	/**
 	 * The request key used to store the current <code>Locale</code>.
 	 */
+	// TODO: Do not store in request, use response locale instead
 	public static final String LOCALE = "locale";
 
 	/**
