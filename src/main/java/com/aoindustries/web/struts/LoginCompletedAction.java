@@ -52,7 +52,6 @@ public class LoginCompletedAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin
 	) throws Exception {

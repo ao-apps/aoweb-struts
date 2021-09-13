@@ -23,7 +23,6 @@
 package com.aoindustries.web.struts.clientarea.control.password;
 
 import com.aoindustries.aoserv.client.password.PasswordChecker;
-import com.aoindustries.web.struts.SiteSettings;
 import com.aoindustries.web.struts.Skin;
 import com.aoindustries.web.struts.SkinAction;
 import java.util.List;
@@ -48,7 +47,6 @@ public class PasswordEvaluatorCompletedAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin
 	) throws Exception {

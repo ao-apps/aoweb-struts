@@ -22,6 +22,7 @@
  */
 package com.aoindustries.web.struts;
 
+import com.aoapps.web.resources.registry.Registry;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -45,7 +46,7 @@ import org.apache.struts.action.ActionMapping;
  * @author AO Industries, Inc.
  */
 // TODO: Is it possible to convert to ServletRequestListener?
-public class LocaleAction extends SiteSettingsAction {
+public class LocaleAction extends PageAction {
 
 	private static final Logger logger = Logger.getLogger(LocaleAction.class.getName());
 
@@ -71,7 +72,7 @@ public class LocaleAction extends SiteSettingsAction {
 	/**
 	 * Selects the <code>Locale</code>, sets the request attribute "locale", then the subclass execute method is invoked.
 	 *
-	 * @see #execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.SiteSettings, java.util.Locale)
+	 * @see #execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.util.Locale)
 	 */
 	@Override
 	final public ActionForward execute(
@@ -79,13 +80,14 @@ public class LocaleAction extends SiteSettingsAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings
+		Registry pageRegistry
 	) throws Exception {
 		// Resolve the locale
+		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
 		Locale locale = getEffectiveLocale(siteSettings, request, response);
 		request.setAttribute(Constants.LOCALE, locale);
 
-		return execute(mapping, form, request, response, siteSettings, locale);
+		return execute(mapping, form, request, response, locale);
 	}
 
 	/**
@@ -157,7 +159,6 @@ public class LocaleAction extends SiteSettingsAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale
 	) throws Exception {
 		return mapping.findForward("success");

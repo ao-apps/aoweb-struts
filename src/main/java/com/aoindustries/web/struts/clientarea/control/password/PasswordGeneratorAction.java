@@ -23,7 +23,6 @@
 package com.aoindustries.web.struts.clientarea.control.password;
 
 import com.aoindustries.aoserv.client.password.PasswordGenerator;
-import com.aoindustries.web.struts.SiteSettings;
 import com.aoindustries.web.struts.Skin;
 import com.aoindustries.web.struts.SkinAction;
 import java.util.ArrayList;
@@ -50,7 +49,6 @@ public class PasswordGeneratorAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin
 	) throws Exception {

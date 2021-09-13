@@ -22,7 +22,6 @@
  */
 package com.aoindustries.web.struts.signup;
 
-import com.aoindustries.web.struts.SiteSettings;
 import com.aoindustries.web.struts.Skin;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +39,6 @@ public class Dedicated3CompletedAction extends Dedicated3Action {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		DedicatedSignupSelectPackageForm signupSelectPackageForm,
@@ -62,7 +60,6 @@ public class Dedicated3CompletedAction extends Dedicated3Action {
 				mapping,
 				request,
 				response,
-				siteSettings,
 				locale,
 				skin,
 				signupSelectPackageForm,

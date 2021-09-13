@@ -112,7 +112,7 @@ public class SkinAction extends LocaleAction {
 	 * Selects the <code>Skin</code>, sets the request attribute "skin", then the subclass execute method is invoked.
 	 * It also stores any {@link Constants#SU} request for later processing by AuthenticatedAction.
 	 *
-	 * @see #execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.SiteSettings, java.util.Locale, com.aoindustries.web.struts.Skin)
+	 * @see #execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.util.Locale, com.aoindustries.web.struts.Skin)
 	 */
 	@Override
 	final public ActionForward execute(
@@ -120,10 +120,10 @@ public class SkinAction extends LocaleAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale
 	) throws Exception {
 		// Select Skin
+		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
 		Skin skin = getSkin(siteSettings, request, response);
 		request.setAttribute(Constants.SKIN, skin);
 
@@ -133,7 +133,7 @@ public class SkinAction extends LocaleAction {
 			request.getSession().setAttribute(Constants.SU_REQUESTED, su.trim());
 		}
 
-		return execute(mapping, form, request, response, siteSettings, locale, skin);
+		return execute(mapping, form, request, response, locale, skin);
 	}
 
 	/**
@@ -145,7 +145,6 @@ public class SkinAction extends LocaleAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin
 	) throws Exception {

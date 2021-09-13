@@ -22,7 +22,6 @@
  */
 package com.aoindustries.web.struts.signup;
 
-import com.aoindustries.web.struts.SiteSettings;
 import com.aoindustries.web.struts.Skin;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +40,6 @@ public class Colocation3Action extends ColocationStepAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		ColocationSignupSelectPackageForm signupSelectPackageForm,

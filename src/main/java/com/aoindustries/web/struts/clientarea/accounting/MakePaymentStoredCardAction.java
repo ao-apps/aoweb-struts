@@ -31,7 +31,6 @@ import com.aoindustries.aoserv.client.billing.Currency;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.payment.CreditCard;
 import com.aoindustries.web.struts.PermissionAction;
-import com.aoindustries.web.struts.SiteSettings;
 import com.aoindustries.web.struts.Skin;
 import java.util.Collections;
 import java.util.List;
@@ -60,7 +59,6 @@ public class MakePaymentStoredCardAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		AOServConnector aoConn,
@@ -94,7 +92,6 @@ public class MakePaymentStoredCardAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		AOServConnector aoConn

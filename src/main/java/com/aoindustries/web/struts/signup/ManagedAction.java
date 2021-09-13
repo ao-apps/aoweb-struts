@@ -24,7 +24,6 @@ package com.aoindustries.web.struts.signup;
 
 import com.aoapps.net.URIEncoder;
 import com.aoindustries.aoserv.client.billing.PackageCategory;
-import com.aoindustries.web.struts.SiteSettings;
 import com.aoindustries.web.struts.Skin;
 import java.util.List;
 import java.util.Locale;
@@ -44,7 +43,6 @@ public class ManagedAction extends ManagedStepAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		ManagedSignupSelectPackageForm signupSelectPackageForm,

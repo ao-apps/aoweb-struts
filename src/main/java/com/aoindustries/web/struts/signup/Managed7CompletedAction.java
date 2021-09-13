@@ -29,7 +29,6 @@ import com.aoindustries.web.struts.Skin;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -47,7 +46,6 @@ public class Managed7CompletedAction extends Managed7Action {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		ManagedSignupSelectPackageForm signupSelectPackageForm,
@@ -85,7 +83,7 @@ public class Managed7CompletedAction extends Managed7Action {
 
 		// Used later
 		ActionServlet myServlet = getServlet();
-		ServletContext servletContext = myServlet.getServletContext();
+		SiteSettings siteSettings = SiteSettings.getInstance(myServlet.getServletContext());
 		AOServConnector rootConn = siteSettings.getRootAOServConnector();
 		PackageDefinition packageDefinition = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
 
@@ -105,7 +103,6 @@ public class Managed7CompletedAction extends Managed7Action {
 			request,
 			pkey,
 			statusKey,
-			siteSettings,
 			packageDefinition,
 			signupCustomizeServerForm,
 			signupCustomizeManagementForm,
@@ -120,7 +117,6 @@ public class Managed7CompletedAction extends Managed7Action {
 			request,
 			pkey,
 			statusKey,
-			siteSettings,
 			packageDefinition,
 			signupCustomizeServerForm,
 			signupCustomizeManagementForm,

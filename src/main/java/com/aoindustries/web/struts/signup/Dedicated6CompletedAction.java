@@ -47,7 +47,6 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		DedicatedSignupSelectPackageForm signupSelectPackageForm,
@@ -82,6 +81,7 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
 		// Used later
 		ActionServlet myServlet = getServlet();
 		ServletContext servletContext = myServlet.getServletContext();
+		SiteSettings siteSettings = SiteSettings.getInstance(myServlet.getServletContext());
 		AOServConnector rootConn = siteSettings.getRootAOServConnector();
 		PackageDefinition packageDefinition = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
 
@@ -100,7 +100,6 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
 			request,
 			pkey,
 			statusKey,
-			siteSettings,
 			packageDefinition,
 			signupCustomizeServerForm,
 			null,
@@ -115,7 +114,6 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
 			request,
 			pkey,
 			statusKey,
-			siteSettings,
 			packageDefinition,
 			signupCustomizeServerForm,
 			null,

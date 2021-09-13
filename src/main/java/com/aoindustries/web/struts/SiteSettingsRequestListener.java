@@ -25,47 +25,38 @@ package com.aoindustries.web.struts;
 import com.aoapps.hodgepodge.i18n.EditableResourceBundle;
 import com.aoapps.servlet.http.Cookies;
 import com.aoapps.servlet.http.HttpServletUtil;
-import com.aoapps.web.resources.registry.Registry;
 import com.aoindustries.web.struts.struts.ResourceBundleMessageResources;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletRequestEvent;
+import javax.servlet.ServletRequestListener;
+import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
 
 /**
- * Resolves the current SiteSettings, sets the request param siteSettings, and calls subclass implementation.
+ * Resolves the current {@link SiteSettings}, sets the request param {@link Constants#SITE_SETTINGS}, and enables
+ * resource editor on the current request {@link SiteSettings#getCanEditResources() when enabled}.
  *
  * @author AO Industries, Inc.
  */
-// TODO: Convert to ServletRequestListener
-public class SiteSettingsAction extends PageAction {
+@WebListener
+public class SiteSettingsRequestListener implements ServletRequestListener {
 
-	/**
-	 * Resolves the <code>SiteSettings</code>, sets the request attribute "siteSettings", then the subclass execute method is invoked.
-	 *
-	 * @see #execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.SiteSettings)
-	 */
 	@Override
-	final public ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		Registry pageRegistry
-	) throws Exception {
+	public void requestInitialized(ServletRequestEvent sre) {
 		// Resolve the settings
-		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
+		SiteSettings siteSettings = SiteSettings.getInstance(sre.getServletContext());
+		ServletRequest request = sre.getServletRequest();
 		request.setAttribute(Constants.SITE_SETTINGS, siteSettings);
 
 		// Start the request tracking
-		boolean canEditResources = siteSettings.getCanEditResources();
+		boolean canEditResources = (request instanceof HttpServletRequest) && siteSettings.getCanEditResources();
 		EditableResourceBundle.ThreadSettings threadSettings;
 		if(canEditResources) {
+			HttpServletRequest httpRequest = (HttpServletRequest)request;
 			// Check for cookie
-			boolean modifyAllText = "visible".equals(Cookies.getCookie(request, "EditableResourceBundleEditorVisibility")); // TODO: "EditableResourceBundleEditorVisibility" should be a constant?
+			boolean modifyAllText = "visible".equals(Cookies.getCookie(httpRequest, "EditableResourceBundleEditorVisibility")); // TODO: "EditableResourceBundleEditorVisibility" should be a constant?
 			threadSettings = new EditableResourceBundle.ThreadSettings(
-				HttpServletUtil.getAbsoluteURL(request, "/set-resource-bundle-value.do"),
+				HttpServletUtil.getAbsoluteURL(httpRequest, "/set-resource-bundle-value.do"),
 				EditableResourceBundle.ThreadSettings.Mode.MARKUP,
 				modifyAllText
 			);
@@ -74,21 +65,10 @@ public class SiteSettingsAction extends PageAction {
 		}
 		ResourceBundleMessageResources.setCachedEnabled(!canEditResources);
 		EditableResourceBundle.setThreadSettings(threadSettings);
-
-		return execute(mapping, form, request, response, siteSettings);
 	}
 
-	/**
-	 * Once the siteSettings are resolved, this version of the execute method is invoked.
-	 * The default implementation of this method simply returns the mapping of "success".
-	 */
-	public ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		SiteSettings siteSettings
-	) throws Exception {
-		return mapping.findForward("success");
+	@Override
+	public void requestDestroyed(ServletRequestEvent sre) {
+		// Nothing to do
 	}
 }

@@ -27,7 +27,6 @@ import com.aoindustries.aoserv.client.account.Administrator;
 import com.aoindustries.aoserv.client.account.User;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.web.struts.AuthenticatedAction;
-import com.aoindustries.web.struts.SiteSettings;
 import com.aoindustries.web.struts.Skin;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,7 +51,6 @@ public class AdministratorPasswordSetterAction extends AuthenticatedAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		AOServConnector aoConn

@@ -56,7 +56,6 @@ public class CreateCompletedAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
@@ -81,6 +80,7 @@ public class CreateCompletedAction extends PermissionAction {
 		if(ticketType == null) throw new SQLException("Unable to find TicketType: " + TicketType.SUPPORT);
 		Priority clientPriority = aoConn.getTicket().getPriority().get(ticketForm.getClientPriority());
 		if(clientPriority == null) throw new SQLException("Unable to find TicketPriority: " + ticketForm.getClientPriority());
+		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
 		int pkey = aoConn.getTicket().getTicket().addTicket(
 			siteSettings.getBrand(),
 			account,

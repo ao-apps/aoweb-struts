@@ -29,7 +29,6 @@ import com.aoindustries.web.struts.Skin;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -47,7 +46,6 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
@@ -81,7 +79,7 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
 
 		// Used later
 		ActionServlet myServlet = getServlet();
-		ServletContext servletContext = myServlet.getServletContext();
+		SiteSettings siteSettings = SiteSettings.getInstance(myServlet.getServletContext());
 		AOServConnector rootConn = siteSettings.getRootAOServConnector();
 		PackageDefinition packageDefinition = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
 
@@ -100,7 +98,6 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
 			request,
 			pkey,
 			statusKey,
-			siteSettings,
 			packageDefinition,
 			signupCustomizeServerForm,
 			null,
@@ -115,7 +112,6 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
 			request,
 			pkey,
 			statusKey,
-			siteSettings,
 			packageDefinition,
 			signupCustomizeServerForm,
 			null,

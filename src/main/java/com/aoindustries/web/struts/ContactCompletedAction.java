@@ -48,7 +48,6 @@ public class ContactCompletedAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin
 	) throws Exception {
@@ -61,6 +60,7 @@ public class ContactCompletedAction extends SkinAction {
 			return mapping.findForward("input");
 		}
 
+		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
 		AOServConnector rootConn = siteSettings.getRootAOServConnector();
 		Language language = rootConn.getTicket().getLanguage().get(locale.getLanguage());
 		if(language==null) {

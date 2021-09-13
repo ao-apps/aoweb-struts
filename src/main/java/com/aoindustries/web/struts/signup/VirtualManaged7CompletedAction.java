@@ -46,7 +46,6 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
@@ -84,6 +83,7 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
 
 		// Used later
 		ActionServlet myServlet = getServlet();
+		SiteSettings siteSettings = SiteSettings.getInstance(myServlet.getServletContext());
 		AOServConnector rootConn = siteSettings.getRootAOServConnector();
 		PackageDefinition packageDefinition = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
 
@@ -103,7 +103,6 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
 			request,
 			pkey,
 			statusKey,
-			siteSettings,
 			packageDefinition,
 			signupCustomizeServerForm,
 			signupCustomizeManagementForm,
@@ -118,7 +117,6 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
 			request,
 			pkey,
 			statusKey,
-			siteSettings,
 			packageDefinition,
 			signupCustomizeServerForm,
 			signupCustomizeManagementForm,

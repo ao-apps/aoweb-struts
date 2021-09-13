@@ -74,14 +74,14 @@ final public class MinimalConfirmationCompletedActionHelper {
 		HttpServletRequest request,
 		String pkey,
 		String statusKey,
-		SiteSettings siteSettings,
 		PackageDefinition packageDefinition,
 		SignupOrganizationForm signupOrganizationForm,
 		SignupTechnicalForm signupTechnicalForm,
 		SignupBillingInformationForm signupBillingInformationForm
 	) {
 		try {
-			sendSummaryEmail(servlet, pkey, statusKey, siteSettings.getBrand().getAowebStrutsSignupAdminAddress(), siteSettings, packageDefinition, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm);
+			SiteSettings siteSettings = SiteSettings.getInstance(servlet.getServletContext());
+			sendSummaryEmail(servlet, pkey, statusKey, siteSettings.getBrand().getAowebStrutsSignupAdminAddress(), packageDefinition, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm);
 		} catch(ThreadDeath td) {
 			throw td;
 		} catch(Throwable t) {
@@ -97,7 +97,6 @@ final public class MinimalConfirmationCompletedActionHelper {
 		HttpServletRequest request,
 		String pkey,
 		String statusKey,
-		SiteSettings siteSettings,
 		PackageDefinition packageDefinition,
 		SignupOrganizationForm signupOrganizationForm,
 		SignupTechnicalForm signupTechnicalForm,
@@ -111,7 +110,7 @@ final public class MinimalConfirmationCompletedActionHelper {
 		Iterator<String> I=addresses.iterator();
 		while(I.hasNext()) {
 			String address=I.next();
-			boolean success = sendSummaryEmail(servlet, pkey, statusKey, address, siteSettings, packageDefinition, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm);
+			boolean success = sendSummaryEmail(servlet, pkey, statusKey, address, packageDefinition, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm);
 			if(success) successAddresses.add(address);
 			else failureAddresses.add(address);
 		}
@@ -130,7 +129,6 @@ final public class MinimalConfirmationCompletedActionHelper {
 		String pkey,
 		String statusKey,
 		String recipient,
-		SiteSettings siteSettings,
 		PackageDefinition packageDefinition,
 		SignupOrganizationForm signupOrganizationForm,
 		SignupTechnicalForm signupTechnicalForm,
@@ -138,7 +136,7 @@ final public class MinimalConfirmationCompletedActionHelper {
 	) {
 		try {
 			String subject = PACKAGE_RESOURCES.getMessage("serverConfirmationCompleted.email.subject", pkey);
-	
+
 			// Find the locale and related resource bundles
 			Locale userLocale = ThreadLocale.get();
 			String charset = AnyDocument.ENCODING.name(); // TODO: US-ASCII with automatic entity encoding
@@ -205,6 +203,7 @@ final public class MinimalConfirmationCompletedActionHelper {
 			+ "    </td></tr>\n"
 			+ "    <tr><th colspan=\"3\">"); document.text(PACKAGE_RESOURCES.getMessage("steps.selectPackage.label")); document.out.write("</th></tr>\n");
 			SignupSelectPackageActionHelper.writeEmailConfirmation(document, packageDefinition);
+			SiteSettings siteSettings = SiteSettings.getInstance(servlet.getServletContext());
 			AOServConnector rootConn = siteSettings.getRootAOServConnector();
 			document.out.write("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
 			+ "    <tr><th colspan=\"3\">"); document.text(PACKAGE_RESOURCES.getMessage("steps.organizationInfo.label")); document.out.write("</th></tr>\n");

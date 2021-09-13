@@ -22,7 +22,6 @@
  */
 package com.aoindustries.web.struts.signup;
 
-import com.aoindustries.web.struts.SiteSettings;
 import com.aoindustries.web.struts.Skin;
 import com.aoindustries.web.struts.SkinAction;
 import java.util.Locale;
@@ -48,7 +47,6 @@ abstract public class ManagedStepAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin
 	) throws Exception {
@@ -107,7 +105,6 @@ abstract public class ManagedStepAction extends SkinAction {
 			mapping,
 			request,
 			response,
-			siteSettings,
 			locale,
 			skin,
 			signupSelectPackageForm,
@@ -148,7 +145,6 @@ abstract public class ManagedStepAction extends SkinAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		ManagedSignupSelectPackageForm signupSelectPackageForm,

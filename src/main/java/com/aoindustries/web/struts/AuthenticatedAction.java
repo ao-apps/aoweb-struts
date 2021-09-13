@@ -58,7 +58,6 @@ abstract public class AuthenticatedAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin
 	) throws Exception {
@@ -82,7 +81,7 @@ abstract public class AuthenticatedAction extends SkinAction {
 		// Set request values
 		request.setAttribute(Constants.AO_CONN, aoConn);
 
-		return execute(mapping, form, request, response, siteSettings, locale, skin, aoConn);
+		return execute(mapping, form, request, response, locale, skin, aoConn);
 	}
 
 	/**
@@ -146,7 +145,6 @@ abstract public class AuthenticatedAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		AOServConnector aoConn

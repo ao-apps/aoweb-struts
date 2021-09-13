@@ -89,7 +89,6 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
@@ -159,6 +158,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
 		);
 
 		// Perform the transaction
+		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
 		AOServConnector rootConn = siteSettings.getRootAOServConnector();
 
 		// 1) Pick a processor

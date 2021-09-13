@@ -55,7 +55,6 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
@@ -75,6 +74,7 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
 		String cardNumber = creditCard.getCardInfo();
 
 		// Lookup the card in the root connector (to get access to the processor)
+		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
 		AOServConnector rootConn = siteSettings.getRootAOServConnector();
 		CreditCard rootCreditCard = rootConn.getPayment().getCreditCard().get(creditCard.getId());
 		if(rootCreditCard == null) throw new SQLException("Unable to find CreditCard: " + creditCard.getId());

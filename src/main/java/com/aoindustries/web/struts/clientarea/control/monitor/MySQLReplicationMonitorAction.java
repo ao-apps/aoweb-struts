@@ -61,7 +61,6 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
@@ -69,6 +68,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 		MessageResources controlApplicationResources = (MessageResources)request.getAttribute("/clientarea/control/ApplicationResources");
 		if(controlApplicationResources==null) throw new JspException("Unable to load resources: /clientarea/control/ApplicationResources");
 
+		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
 		AOServConnector rootConn = siteSettings.getRootAOServConnector();
 
 		List<MySQLServerRow> mysqlServerRows = new ArrayList<>();

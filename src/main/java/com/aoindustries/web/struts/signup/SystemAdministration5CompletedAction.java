@@ -46,7 +46,6 @@ public class SystemAdministration5CompletedAction extends SystemAdministration5A
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		SystemAdministrationSignupSelectPackageForm signupSelectPackageForm,
@@ -76,6 +75,7 @@ public class SystemAdministration5CompletedAction extends SystemAdministration5A
 
 		// Used later
 		ActionServlet myServlet = getServlet();
+		SiteSettings siteSettings = SiteSettings.getInstance(myServlet.getServletContext());
 		AOServConnector rootConn = siteSettings.getRootAOServConnector();
 		PackageDefinition packageDefinition = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
 
@@ -93,7 +93,6 @@ public class SystemAdministration5CompletedAction extends SystemAdministration5A
 			request,
 			pkey,
 			statusKey,
-			siteSettings,
 			packageDefinition,
 			signupOrganizationForm,
 			signupTechnicalForm,
@@ -106,7 +105,6 @@ public class SystemAdministration5CompletedAction extends SystemAdministration5A
 			request,
 			pkey,
 			statusKey,
-			siteSettings,
 			packageDefinition,
 			signupOrganizationForm,
 			signupTechnicalForm,

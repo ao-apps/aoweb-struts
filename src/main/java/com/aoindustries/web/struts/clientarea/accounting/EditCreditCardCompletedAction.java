@@ -56,7 +56,6 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
@@ -100,6 +99,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
 		boolean reactivatedCard = false;
 
 		// Root connector used to get processor
+		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
 		AOServConnector rootConn = siteSettings.getRootAOServConnector();
 		CreditCard rootCreditCard = rootConn.getPayment().getCreditCard().get(creditCard.getPkey());
 		if(rootCreditCard == null) throw new SQLException("Unable to find CreditCard: " + creditCard.getPkey());

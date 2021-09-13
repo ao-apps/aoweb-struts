@@ -22,7 +22,6 @@
  */
 package com.aoindustries.web.struts.signup;
 
-import com.aoindustries.web.struts.SiteSettings;
 import com.aoindustries.web.struts.Skin;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -43,7 +42,6 @@ public class VirtualManaged7Action extends VirtualManagedStepAction {
 		ActionMapping mapping,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		VirtualManagedSignupSelectPackageForm signupSelectPackageForm,

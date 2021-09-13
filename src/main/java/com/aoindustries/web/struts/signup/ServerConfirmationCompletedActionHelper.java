@@ -191,7 +191,6 @@ final public class ServerConfirmationCompletedActionHelper {
 		HttpServletRequest request,
 		String pkey,
 		String statusKey,
-		SiteSettings siteSettings,
 		PackageDefinition packageDefinition,
 		SignupCustomizeServerForm signupCustomizeServerForm,
 		SignupCustomizeManagementForm signupCustomizeManagementForm,
@@ -200,7 +199,8 @@ final public class ServerConfirmationCompletedActionHelper {
 		SignupBillingInformationForm signupBillingInformationForm
 	) {
 		try {
-			sendSummaryEmail(servlet, request, pkey, statusKey, siteSettings.getBrand().getAowebStrutsSignupAdminAddress(), siteSettings, packageDefinition, signupCustomizeServerForm, signupCustomizeManagementForm, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm);
+			SiteSettings siteSettings = SiteSettings.getInstance(servlet.getServletContext());
+			sendSummaryEmail(servlet, request, pkey, statusKey, siteSettings.getBrand().getAowebStrutsSignupAdminAddress(), packageDefinition, signupCustomizeServerForm, signupCustomizeManagementForm, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm);
 		} catch(ThreadDeath td) {
 			throw td;
 		} catch(Throwable t) {
@@ -216,7 +216,6 @@ final public class ServerConfirmationCompletedActionHelper {
 		HttpServletRequest request,
 		String pkey,
 		String statusKey,
-		SiteSettings siteSettings,
 		PackageDefinition packageDefinition,
 		SignupCustomizeServerForm signupCustomizeServerForm,
 		SignupCustomizeManagementForm signupCustomizeManagementForm,
@@ -232,7 +231,7 @@ final public class ServerConfirmationCompletedActionHelper {
 		Iterator<String> I=addresses.iterator();
 		while(I.hasNext()) {
 			String address=I.next();
-			boolean success = sendSummaryEmail(servlet, request, pkey, statusKey, address, siteSettings, packageDefinition, signupCustomizeServerForm, signupCustomizeManagementForm, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm);
+			boolean success = sendSummaryEmail(servlet, request, pkey, statusKey, address, packageDefinition, signupCustomizeServerForm, signupCustomizeManagementForm, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm);
 			if(success) successAddresses.add(address);
 			else failureAddresses.add(address);
 		}
@@ -252,7 +251,6 @@ final public class ServerConfirmationCompletedActionHelper {
 		String pkey,
 		String statusKey,
 		String recipient,
-		SiteSettings siteSettings,
 		PackageDefinition packageDefinition,
 		SignupCustomizeServerForm signupCustomizeServerForm,
 		SignupCustomizeManagementForm signupCustomizeManagementForm,
@@ -331,6 +329,7 @@ final public class ServerConfirmationCompletedActionHelper {
 			SignupSelectServerActionHelper.writeEmailConfirmation(document, packageDefinition);
 			document.out.write("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
 			+ "    <tr><th colspan=\"3\">"); document.text(PACKAGE_RESOURCES.getMessage("steps.customizeServer.label")); document.out.write("</th></tr>\n");
+			SiteSettings siteSettings = SiteSettings.getInstance(servlet.getServletContext());
 			AOServConnector rootConn = siteSettings.getRootAOServConnector();
 			SignupCustomizeServerActionHelper.writeEmailConfirmation(request, document, rootConn, packageDefinition, signupCustomizeServerForm);
 			if(signupCustomizeManagementForm!=null) {

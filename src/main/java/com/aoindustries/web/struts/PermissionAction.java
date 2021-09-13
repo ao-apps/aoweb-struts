@@ -55,7 +55,6 @@ abstract public class PermissionAction extends AuthenticatedAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
@@ -70,7 +69,6 @@ abstract public class PermissionAction extends AuthenticatedAction {
 				form,
 				request,
 				response,
-				siteSettings,
 				locale,
 				skin,
 				aoConn,
@@ -93,7 +91,6 @@ abstract public class PermissionAction extends AuthenticatedAction {
 					form,
 					request,
 					response,
-					siteSettings,
 					locale,
 					skin,
 					aoConn,
@@ -103,7 +100,7 @@ abstract public class PermissionAction extends AuthenticatedAction {
 		}
 
 		// All permissions found, consider granted
-		return executePermissionGranted(mapping, form, request, response, siteSettings, locale, skin, aoConn);
+		return executePermissionGranted(mapping, form, request, response, locale, skin, aoConn);
 	}
 
 	/**
@@ -115,7 +112,6 @@ abstract public class PermissionAction extends AuthenticatedAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
@@ -133,7 +129,6 @@ abstract public class PermissionAction extends AuthenticatedAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		AOServConnector aoConn,

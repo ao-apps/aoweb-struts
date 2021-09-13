@@ -56,7 +56,6 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale locale,
 		Skin skin,
 		AOServConnector aoConn
@@ -84,6 +83,7 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
 		}
 
 		// Get the credit card processor for the root connector of this website
+		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
 		AOServConnector rootConn = siteSettings.getRootAOServConnector();
 		CreditCardProcessor creditCardProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootConn);
 		if(creditCardProcessor==null) throw new SQLException("Unable to find enabled CreditCardProcessor for root connector");

@@ -42,11 +42,11 @@ public class SetResourceBundleValueAction extends SkinAction {
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
-		SiteSettings siteSettings,
 		Locale userLocale,
 		Skin skin
 	) throws Exception {
 		// If disabled, return 404 status
+		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
 		if(!siteSettings.getCanEditResources()) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return null;

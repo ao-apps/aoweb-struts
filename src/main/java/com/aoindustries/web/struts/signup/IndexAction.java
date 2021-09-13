@@ -45,7 +45,7 @@ import org.apache.struts.action.ActionMapping;
 public class IndexAction extends SkinAction {
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, SiteSettings siteSettings, Locale locale, Skin skin) throws Exception {
+	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, Locale locale, Skin skin) throws Exception {
 		AOServConnector rootConn = SiteSettings.getInstance(getServlet().getServletContext()).getRootAOServConnector();
 
 		// Determine the active packages per category

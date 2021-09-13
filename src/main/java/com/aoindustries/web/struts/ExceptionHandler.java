@@ -59,7 +59,7 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
 			// Do nothing, neither exception exists
 		}
 
-		// Resolve the SiteSettings, to be compatible with SiteSettingsAction
+		// Resolve the SiteSettings, to be compatible with SiteSettingsRequestListener
 		SiteSettings siteSettings;
 		try {
 			siteSettings = SiteSettings.getInstance(servletContext);
