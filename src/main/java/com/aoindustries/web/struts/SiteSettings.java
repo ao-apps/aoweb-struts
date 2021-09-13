@@ -27,7 +27,7 @@ import com.aoapps.lang.exception.ConfigurationException;
 import com.aoapps.lang.exception.WrappedException;
 import com.aoapps.lang.validation.ValidationException;
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.linux.User;
+import com.aoindustries.aoserv.client.account.User;
 import com.aoindustries.aoserv.client.reseller.Brand;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -52,7 +52,7 @@ import org.apache.struts.Globals;
 public class SiteSettings {
 
 	// <editor-fold desc="Instance Selection">
-	
+
 	private static final String INIT_PARAM_NAME = SiteSettings.class.getName() + ".classname";
 
 	private static final String APPLICATION_ATTRIBUTE = SiteSettings.class.getName();
@@ -71,7 +71,6 @@ public class SiteSettings {
 
 	/**
 	 * Gets the proper settings instance as configured in the web.xml file.
-	 * This allows 
 	 */
 	public static SiteSettings getInstance(ServletContext servletContext) {
 		SiteSettings settings = (SiteSettings)servletContext.getAttribute(APPLICATION_ATTRIBUTE);
@@ -106,7 +105,7 @@ public class SiteSettings {
 
 	/**
 	 * Gets the unmodifiable list of skins supported by this site.
-	 * 
+	 *
 	 * The first one in the list will be used as the default skin, except
 	 * if Text mode is determined as the default, then any skin named {@link TextSkin#NAME}
 	 * will be the default if available.
