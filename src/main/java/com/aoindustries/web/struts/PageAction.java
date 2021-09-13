@@ -38,7 +38,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @see  PageServlet
  */
-abstract public class PageAction extends Action {
+public class PageAction extends Action {
 
 	/**
 	 * Creates the page-scope registry, if not already present, then invokes
@@ -63,12 +63,15 @@ abstract public class PageAction extends Action {
 
 	/**
 	 * Once the page registry is set resolved, this version of the execute method is invoked.
+	 * By default, returns mapping for "success".
 	 */
-	abstract public ActionForward execute(
+	public ActionForward execute(
 		ActionMapping mapping,
 		ActionForm form,
 		HttpServletRequest request,
 		HttpServletResponse response,
 		Registry pageRegistry
-	) throws Exception;
+	) throws Exception {
+		return mapping.findForward("success");
+	}
 }
