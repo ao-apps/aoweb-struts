@@ -39,6 +39,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 %><c:if test="${encoding:getSerialization() == 'XML'}"><html:xhtml
 /></c:if><%@ taglib prefix="logic" uri="http://struts.apache.org/tags-logic"
 %><%@ taglib prefix="nested" uri="http://struts.apache.org/tags-nested"
+%><%-- Struts 2:
+--%><%@ taglib prefix="s" uri="/struts-tags"
 %><%-- SemanticCMS
 --%><%@ taglib prefix="core" uri="https://semanticcms.com/core/taglib/"
 %>
