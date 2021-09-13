@@ -54,6 +54,9 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<!-- com.aoindustries is on original Sonatype Nexus Repository Manager -->
 		<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 
+		<!-- Struts 2 -->
+		<struts.devMode>false</struts.devMode>
+
 		<!-- Dependenceis -->
 		<struts2.version>2.5.26</struts2.version>
 	</properties>
@@ -1111,6 +1114,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<profile>
 			<!-- Features only enabled during development time -->
 			<id>development</id>
+			<properties>
+				<!-- Struts 2 -->
+				<struts.devMode>true</struts.devMode>
+			</properties>
 			<dependencies>
 				<!-- Struts 2 Debugging: https://struts.apache.org/getting-started/debugging-struts.html -->
 				<dependency>
