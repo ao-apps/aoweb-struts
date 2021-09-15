@@ -1120,9 +1120,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 			<properties>
 				<!-- Struts 2 -->
 				<struts.devMode>true</struts.devMode>
-				<log4j2.struts2.level>debug</log4j2.struts2.level>
-				<log4j2.xwork2.level>debug</log4j2.xwork2.level>
-				<log4j2.root.level>warn</log4j2.root.level>
+				<log4j2.struts2.level>info</log4j2.struts2.level>
+				<log4j2.xwork2.level>info</log4j2.xwork2.level>
 			</properties>
 			<dependencies>
 				<!-- Struts 2 Debugging: https://struts.apache.org/getting-started/debugging-struts.html -->
