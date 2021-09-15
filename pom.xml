@@ -1113,6 +1113,20 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				</plugins>
 			</build>
 		</profile>
+		<!-- Do not archive classes in "skip-war" profile -->
+		<profile>
+			<id>skip-war</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId><artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<archiveClasses>false</archiveClasses>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 		<profile>
 			<!-- Features only enabled during development time -->
 			<id>development</id>
