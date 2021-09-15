@@ -309,6 +309,14 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 								</replace>
 								<replace
 									file="${project.build.directory}/substitute-templates/WEB-INF/web.xml.template"
+									value="${web.xml.struts2Mappings}"
+									summary="true"
+									failOnNoReplacements="true"
+								>
+									<replacetoken><![CDATA[<!-- Include "web.xml.struts2Mappings" -->]]></replacetoken>
+								</replace>
+								<replace
+									file="${project.build.directory}/substitute-templates/WEB-INF/web.xml.template"
 									value="${web.xml.strutsInitParams}"
 									summary="true"
 									failOnNoReplacements="true"
@@ -387,6 +395,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 						WEB-INF/struts-config*.xml.actions,
 						WEB-INF/struts-config*.xml.messageResources,
 						WEB-INF/web.xml.contextParams,
+						WEB-INF/web.xml.struts2Mappings,
 						WEB-INF/web.xml.strutsInitParams,
 						WEB-INF/web.xml.servlets,
 						WEB-INF/web.xml.servletMappingsPre,
@@ -667,6 +676,39 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 			<activation><file><missing>src/main/webapp/WEB-INF/web.xml.contextParams</missing></file></activation>
 			<properties>
 				<web.xml.contextParams><![CDATA[<!-- web.xml.contextParams: no template file -->]]></web.xml.contextParams>
+			</properties>
+		</profile>
+		<!-- WEB-INF/web.xml.struts2Mappings -->
+		<profile>
+			<id>web.xml.struts2Mappings-exists</id>
+			<activation><file><exists>src/main/webapp/WEB-INF/web.xml.struts2Mappings</exists></file></activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>web.xml.struts2Mappings</id><phase>validate</phase><goals><goal>execute</goal></goals>
+								<configuration>
+									<properties>
+										<web.xml.struts2Mappings>${project.basedir}/src/main/webapp/WEB-INF/web.xml.struts2Mappings</web.xml.struts2Mappings>
+									</properties>
+									<source>
+										def file = new File(properties['web.xml.struts2Mappings'])
+										project.properties['web.xml.struts2Mappings'] = file.getText()
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>web.xml.struts2Mappings-missing</id>
+			<activation><file><missing>src/main/webapp/WEB-INF/web.xml.struts2Mappings</missing></file></activation>
+			<properties>
+				<web.xml.struts2Mappings><![CDATA[<!-- web.xml.struts2Mappings: no template file -->]]></web.xml.struts2Mappings>
 			</properties>
 		</profile>
 		<!-- WEB-INF/web.xml.strutsInitParams -->
