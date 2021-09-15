@@ -69,7 +69,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	</filter>
 	<filter-mapping>
 		<filter-name>struts2</filter-name>
+		<!-- Static Content: https://struts.apache.org/core-developers/static-content.html -->
 		<url-pattern>/static/*</url-pattern>
+		<!-- Struts 2 Debugging: https://struts.apache.org/getting-started/debugging-struts.html -->
+		<url-pattern>/config-browser/*</url-pattern>
 		<!-- Only handle *.do for Struts 1 compatibility -->
 		<!-- TODO: Once all actions are Struts 2: <url-pattern>*.do</url-pattern> -->
 		<!-- During Struts 1 to Struts 2 conversion, every action is listed: -->
