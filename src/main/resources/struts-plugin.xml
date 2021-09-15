@@ -26,9 +26,21 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
   "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
 	<!-- Changing extension to *.do for Struts 1 compatibility -->
-	<!-- TODO: Once everything converted to Struts 2, change this to be an empty value and add 301 redirects from *.do -->
 	<constant name="struts.action.extension" value="do" />
+
+	<!-- https://struts.apache.org/security/ -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="false" />
+
+	<!-- Disable package-based locators, only scanning the specifically listed packages -->
+	<constant name="struts.convention.package.locators.disable" value="true" />
+
+	<!-- The list of specific packages to scan.  Each branded site will add to this list -->
+	<constant name="struts.convention.action.packages" value="com.aoindustries.web.struts" />
 
 	<!-- See https://struts.apache.org/plugins/convention/#actions-in-jar-files -->
 	<constant name="struts.convention.action.includeJars" value=".*?/aoweb-struts.*?jar(!/)?" />
+
+	<!-- Avoid ClassNotFound problem in Tomcat 9.0 -->
+	<constant name="struts.convention.exclude.parentClassLoader" value="false" />
 </struts>

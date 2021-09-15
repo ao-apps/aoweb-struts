@@ -31,6 +31,13 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	<!-- <display-name>@{project.name} @{project.version}</display-name> -->
 	<description>@{project.description}</description>
 
+	<ordering>
+		<after>
+			<!-- Sets up the cache for the request. -->
+			<name>com.semanticcms:semanticcms-core-servlet</name>
+		</after>
+	</ordering>
+
 	<!-- Filter to write selective values into URL when cookies disabled for SEO purposes. -->
 	<filter>
 		<filter-name>com.aoindustries.web.struts.SessionFilter</filter-name>
@@ -55,4 +62,16 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
 
+	<!-- Struts 2 Configuration -->
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/static/*</url-pattern>
+		<!-- Only handle *.do for Struts 1 compatibility -->
+		<!-- TODO: Once all actions are Struts 2: <url-pattern>*.do</url-pattern> -->
+		<!-- During Struts 1 to Struts 2 conversion, every action is listed: -->
+	</filter-mapping>
 </web-fragment>
