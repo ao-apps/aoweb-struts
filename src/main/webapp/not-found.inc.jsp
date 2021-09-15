@@ -40,7 +40,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 
 	// Set the skin request attribute if not yet done
 	if(request.getAttribute(com.aoindustries.web.struts.Constants.SKIN) == null) {
-		com.aoindustries.web.struts.Skin skin = com.aoindustries.web.struts.Skin.Skin(siteSettings, request);
+		com.aoindustries.web.struts.Skin skin = com.aoindustries.web.struts.Skin.getSkin(siteSettings, request);
 		request.setAttribute(com.aoindustries.web.struts.Constants.SKIN, skin);
 	}
 %>
