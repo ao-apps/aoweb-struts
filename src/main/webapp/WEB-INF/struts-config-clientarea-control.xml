@@ -53,7 +53,7 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 	<!-- ========== Global Forward Definitions ============================== -->
 	<global-forwards>
 		<!-- / -->
-		<forward name="exception" module="" path="/exception.inc.jsp" redirect="false" />
+		<forward name="exception" module="" path="/WEB-INF/content/exception.jsp" redirect="false" />
 		<forward name="login" module="" path="/login.do" redirect="false" />
 		<forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
 	</global-forwards>
@@ -64,14 +64,14 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			path="/index"
 			type="com.aoindustries.web.struts.PageAction"
 		>
-			<forward name="success" path="/index.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/index.jsp" redirect="false" />
 		</action>
 		<action
 			path="/account/cancel"
 			type="com.aoindustries.web.struts.clientarea.control.account.CancelAction"
 		>
-			<forward name="permission-denied" path="/account/cancel.inc.jsp" redirect="false" />
-			<forward name="success" path="/account/cancel.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/account/cancel.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/account/cancel.jsp" redirect="false" />
 		</action>
 		<action
 			path="/account/cancel-feedback"
@@ -80,9 +80,9 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.control.account.CancelFeedbackAction"
 		>
-			<forward name="permission-denied" path="/account/cancel-feedback.inc.jsp" redirect="false" />
-			<forward name="invalid-account" path="/account/cancel.do" redirect="true" />
-			<forward name="success" path="/account/cancel-feedback.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/account/cancel-feedback.jsp" redirect="false" />
+			<forward name="invalid-account" path="/clientarea/control/account/cancel.do" redirect="true" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/account/cancel-feedback.jsp" redirect="false" />
 		</action>
 		<action
 			path="/account/cancel-feedback-completed"
@@ -91,22 +91,22 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.control.account.CancelFeedbackCompletedAction"
 		>
-			<forward name="permission-denied" path="/account/cancel-feedback-completed.inc.jsp" redirect="false" />
-			<forward name="invalid-account" path="/account/cancel.do" redirect="true" />
-			<forward name="success" path="/account/cancel-feedback-completed.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/account/cancel-feedback-completed.jsp" redirect="false" />
+			<forward name="invalid-account" path="/clientarea/control/account/cancel.do" redirect="true" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/account/cancel-feedback-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/monitor/mysql-replication-monitor"
 			type="com.aoindustries.web.struts.clientarea.control.monitor.MySQLReplicationMonitorAction"
 		>
-			<forward name="permission-denied" path="/monitor/mysql-replication-monitor.inc.jsp" redirect="false" />
-			<forward name="success" path="/monitor/mysql-replication-monitor.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/monitor/mysql-replication-monitor.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/monitor/mysql-replication-monitor.jsp" redirect="false" />
 		</action>
 		<action
 			path="/password/index"
 			type="com.aoindustries.web.struts.PageAction"
 		>
-			<forward name="success" path="/password/index.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/password/index.jsp" redirect="false" />
 		</action>
 		<action
 			path="/password/password-evaluator"
@@ -115,7 +115,7 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			validate="false"
 			type="com.aoindustries.web.struts.PageAction"
 		>
-			<forward name="success" path="/password/password-evaluator.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/password/password-evaluator.jsp" redirect="false" />
 		</action>
 		<action
 			path="/password/password-evaluator-completed"
@@ -124,14 +124,14 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.control.password.PasswordEvaluatorCompletedAction"
 		>
-			<forward name="input" path="/password/password-evaluator.inc.jsp" redirect="false" />
-			<forward name="success" path="/password/password-evaluator.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/clientarea/control/password/password-evaluator.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/password/password-evaluator.jsp" redirect="false" />
 		</action>
 		<action
 			path="/password/password-generator"
 			type="com.aoindustries.web.struts.clientarea.control.password.PasswordGeneratorAction"
 		>
-			<forward name="success" path="/password/password-generator.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/password/password-generator.jsp" redirect="false" />
 		</action>
 		<action
 			path="/password/administrator-password-setter"
@@ -140,7 +140,7 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.control.password.AdministratorPasswordSetterAction"
 		>
-			<forward name="success" path="/password/administrator-password-setter.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/password/administrator-password-setter.jsp" redirect="false" />
 		</action>
 		<action
 			path="/password/administrator-password-setter-completed"
@@ -149,8 +149,8 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.control.password.AdministratorPasswordSetterCompletedAction"
 		>
-			<forward name="input" path="/password/administrator-password-setter.inc.jsp" redirect="false" />
-			<forward name="success" path="/password/administrator-password-setter.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/clientarea/control/password/administrator-password-setter.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/password/administrator-password-setter.jsp" redirect="false" />
 		</action>
 		<action
 			path="/password/linux-account-password-setter"
@@ -159,8 +159,8 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.control.password.LinuxAccountPasswordSetterAction"
 		>
-			<forward name="permission-denied" path="/password/linux-account-password-setter.inc.jsp" redirect="false" />
-			<forward name="success" path="/password/linux-account-password-setter.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/password/linux-account-password-setter.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/password/linux-account-password-setter.jsp" redirect="false" />
 		</action>
 		<action
 			path="/password/linux-account-password-setter-completed"
@@ -169,9 +169,9 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.control.password.LinuxAccountPasswordSetterCompletedAction"
 		>
-			<forward name="permission-denied" path="/password/linux-account-password-setter.inc.jsp" redirect="false" />
-			<forward name="input" path="/password/linux-account-password-setter.inc.jsp" redirect="false" />
-			<forward name="success" path="/password/linux-account-password-setter.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/password/linux-account-password-setter.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/clientarea/control/password/linux-account-password-setter.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/password/linux-account-password-setter.jsp" redirect="false" />
 		</action>
 		<action
 			path="/password/mysql-password-setter"
@@ -180,8 +180,8 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.control.password.MySQLPasswordSetterAction"
 		>
-			<forward name="permission-denied" path="/password/mysql-password-setter.inc.jsp" redirect="false" />
-			<forward name="success" path="/password/mysql-password-setter.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/password/mysql-password-setter.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/password/mysql-password-setter.jsp" redirect="false" />
 		</action>
 		<action
 			path="/password/mysql-password-setter-completed"
@@ -190,9 +190,9 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.control.password.MySQLPasswordSetterCompletedAction"
 		>
-			<forward name="input" path="/password/mysql-password-setter.inc.jsp" redirect="false" />
-			<forward name="permission-denied" path="/password/mysql-password-setter.inc.jsp" redirect="false" />
-			<forward name="success" path="/password/mysql-password-setter.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/clientarea/control/password/mysql-password-setter.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/password/mysql-password-setter.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/password/mysql-password-setter.jsp" redirect="false" />
 		</action>
 		<action
 			path="/password/postgresql-password-setter"
@@ -201,8 +201,8 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.control.password.PostgreSQLPasswordSetterAction"
 		>
-			<forward name="permission-denied" path="/password/postgresql-password-setter.inc.jsp" redirect="false" />
-			<forward name="success" path="/password/postgresql-password-setter.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/password/postgresql-password-setter.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/password/postgresql-password-setter.jsp" redirect="false" />
 		</action>
 		<action
 			path="/password/postgresql-password-setter-completed"
@@ -211,9 +211,9 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.control.password.PostgreSQLPasswordSetterCompletedAction"
 		>
-			<forward name="permission-denied" path="/password/postgresql-password-setter.inc.jsp" redirect="false" />
-			<forward name="input" path="/password/postgresql-password-setter.inc.jsp" redirect="false" />
-			<forward name="success" path="/password/postgresql-password-setter.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/password/postgresql-password-setter.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/clientarea/control/password/postgresql-password-setter.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/password/postgresql-password-setter.jsp" redirect="false" />
 		</action>
 		<action
 			path="/password/global-password-setter"
@@ -222,8 +222,8 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.control.password.GlobalPasswordSetterAction"
 		>
-			<forward name="permission-denied" path="/password/global-password-setter.inc.jsp" redirect="false" />
-			<forward name="success" path="/password/global-password-setter.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/password/global-password-setter.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/password/global-password-setter.jsp" redirect="false" />
 		</action>
 		<action
 			path="/password/global-password-setter-completed"
@@ -232,22 +232,22 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.control.password.GlobalPasswordSetterCompletedAction"
 		>
-			<forward name="permission-denied" path="/password/global-password-setter.inc.jsp" redirect="false" />
-			<forward name="input" path="/password/global-password-setter.inc.jsp" redirect="false" />
-			<forward name="success" path="/password/global-password-setter.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/password/global-password-setter.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/clientarea/control/password/global-password-setter.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/password/global-password-setter.jsp" redirect="false" />
 		</action>
 		<action
 			path="/vnc/vnc-console"
 			type="com.aoindustries.web.struts.clientarea.control.vnc.VncConsoleAction"
 		>
-			<forward name="permission-denied" path="/vnc/vnc-console.inc.jsp" redirect="false" />
-			<forward name="success" path="/vnc/vnc-console.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/vnc/vnc-console.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/vnc/vnc-console.jsp" redirect="false" />
 		</action>
 		<action
 			path="/**"
 			type="com.aoindustries.web.struts.PageAction"
 		>
-			<forward name="success" module="" path="/not-found.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/not-found.jsp" redirect="false" />
 		</action>
 	</action-mappings>
 

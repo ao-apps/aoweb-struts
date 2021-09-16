@@ -50,7 +50,7 @@ struts-config.xml.messageResources    Additional message resources
 	<!-- ========== Global Forward Definitions ============================== -->
 	<global-forwards>
 		<!-- / -->
-		<forward name="exception" path="/exception.inc.jsp" redirect="false" />
+		<forward name="exception" path="/WEB-INF/content/exception.jspf" redirect="false" />
 		<forward name="login" path="/login.do" redirect="false" />
 		<forward name="permission-denied" path="/permission-denied.do" redirect="false" />
 	</global-forwards>
@@ -62,13 +62,13 @@ struts-config.xml.messageResources    Additional message resources
 			path="/exception"
 			type="com.aoindustries.web.struts.PageAction"
 		>
-			<forward name="success" path="/exception.inc.jsp" redirect="false" />
+			<forward name="success" path="/WEB-INF/content/exception.jsp" redirect="false" />
 		</action>
 		<action
 			path="/not-found"
 			type="com.aoindustries.web.struts.PageAction"
 		>
-			<forward name="success" path="/not-found.inc.jsp" redirect="false" />
+			<forward name="success" path="/WEB-INF/content/not-found.jsp" redirect="false" />
 		</action>
 		<action
 			path="/contact"
@@ -77,7 +77,7 @@ struts-config.xml.messageResources    Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.PageAction"
 		>
-			<forward name="success" path="/contact.inc.jsp" redirect="false" />
+			<forward name="success" path="/WEB-INF/content/contact.jsp" redirect="false" />
 		</action>
 		<action
 			path="/contact-completed"
@@ -86,8 +86,8 @@ struts-config.xml.messageResources    Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.ContactCompletedAction"
 		>
-			<forward name="input" path="/contact.inc.jsp" redirect="false" />
-			<forward name="success" path="/contact-completed.inc.jsp" redirect="false" />
+			<forward name="input" path="/WEB-INF/content/contact.jsp" redirect="false" />
+			<forward name="success" path="/WEB-INF/content/contact-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/login"
@@ -96,7 +96,7 @@ struts-config.xml.messageResources    Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.LoginAction"
 		>
-			<forward name="success" path="/login.inc.jsp" redirect="false" />
+			<forward name="success" path="/WEB-INF/content/login.jsp" redirect="false" />
 		</action>
 		<action
 			path="/login-completed"
@@ -105,9 +105,9 @@ struts-config.xml.messageResources    Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.LoginCompletedAction"
 		>
-			<forward name="input" path="/login.inc.jsp" redirect="false" />
+			<forward name="input" path="/WEB-INF/content/login.jsp" redirect="false" />
 			<!-- Redirect done directly from Action now: forward name="success" path="/clientarea/index.do" redirect="true" /-->
-			<forward name="failure" path="/login.inc.jsp" redirect="false" />
+			<forward name="failure" path="/WEB-INF/content/login.jsp" redirect="false" />
 		</action>
 		<action
 			path="/permission-denied"
@@ -120,26 +120,26 @@ struts-config.xml.messageResources    Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.SessionTimeoutAction"
 		>
-			<forward name="success" path="/login.inc.jsp" redirect="false" />
+			<forward name="success" path="/WEB-INF/content/login.jsp" redirect="false" />
 		</action>
 		<action
 			path="/set-resource-bundle-value"
 			type="com.aoindustries.web.struts.SetResourceBundleValueAction"
 		>
-			<forward name="success" path="/set-resource-bundle-value.inc.jsp" redirect="false" />
+			<forward name="success" path="/WEB-INF/content/set-resource-bundle-value.jsp" redirect="false" />
 		</action>
 		<action
 			path="/logout"
 			type="com.aoindustries.web.struts.LogoutAction"
 		>
-			<forward name="success" path="/logout.inc.jsp" redirect="false" />
+			<forward name="success" path="/WEB-INF/content/logout.jsp" redirect="false" />
 		</action>
 <!-- Include "struts-config.xml.actions" -->
 		<action
 			path="/**"
 			type="com.aoindustries.web.struts.PageAction"
 		>
-			<forward name="success" path="/not-found.inc.jsp" redirect="false" />
+			<forward name="success" path="/WEB-INF/content/not-found.jsp" redirect="false" />
 		</action>
 	</action-mappings>
 

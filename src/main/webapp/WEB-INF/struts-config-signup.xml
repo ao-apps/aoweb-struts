@@ -68,136 +68,136 @@ struts-config-signup.xml.messageResources Additional message resources
 	<!-- ========== Global Forward Definitions ============================== -->
 	<global-forwards>
 		<!-- / -->
-		<forward name="exception" module="" path="/exception.inc.jsp" redirect="false" />
+		<forward name="exception" module="" path="/WEB-INF/content/exception.jsp" redirect="false" />
 		<forward name="login" module="" path="/login.do" redirect="false" />
 		<forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
 		<!-- /signup -->
-		<forward name="application" path="/application.do" redirect="true" />
-		<forward name="application-completed" path="/application-completed.do" redirect="true" />
-		<forward name="application-2" path="/application-2.do" redirect="true" />
-		<forward name="application-2-completed" path="/application-2-completed.do" redirect="true" />
-		<forward name="application-3" path="/application-3.do" redirect="true" />
-		<forward name="application-3-completed" path="/application-3-completed.do" redirect="true" />
-		<forward name="application-4" path="/application-4.do" redirect="true" />
-		<forward name="application-4-completed" path="/application-4-completed.do" redirect="true" />
-		<forward name="application-5" path="/application-5.do" redirect="true" />
-		<forward name="application-5-completed" path="/application-5-completed.do" redirect="true" />
-		<forward name="application-6" path="/application-6.do" redirect="true" />
-		<forward name="application-6-completed" path="/application-6-completed.do" redirect="true" />
-		<forward name="aoserv" path="/aoserv.do" redirect="true" />
-		<forward name="aoserv-completed" path="/aoserv-completed.do" redirect="true" />
-		<forward name="aoserv-2" path="/aoserv-2.do" redirect="true" />
-		<forward name="aoserv-2-completed" path="/aoserv-2-completed.do" redirect="true" />
-		<forward name="aoserv-3" path="/aoserv-3.do" redirect="true" />
-		<forward name="aoserv-3-completed" path="/aoserv-3-completed.do" redirect="true" />
-		<forward name="aoserv-4" path="/aoserv-4.do" redirect="true" />
-		<forward name="aoserv-4-completed" path="/aoserv-4-completed.do" redirect="true" />
-		<forward name="aoserv-5" path="/aoserv-5.do" redirect="true" />
-		<forward name="aoserv-5-completed" path="/aoserv-5-completed.do" redirect="true" />
-		<forward name="backup" path="/backup.do" redirect="true" />
-		<forward name="backup-completed" path="/backup-completed.do" redirect="true" />
-		<forward name="backup-2" path="/backup-2.do" redirect="true" />
-		<forward name="backup-2-completed" path="/backup-2-completed.do" redirect="true" />
-		<forward name="backup-3" path="/backup-3.do" redirect="true" />
-		<forward name="backup-3-completed" path="/backup-3-completed.do" redirect="true" />
-		<forward name="backup-4" path="/backup-4.do" redirect="true" />
-		<forward name="backup-4-completed" path="/backup-4-completed.do" redirect="true" />
-		<forward name="backup-5" path="/backup-5.do" redirect="true" />
-		<forward name="backup-5-completed" path="/backup-5-completed.do" redirect="true" />
-		<forward name="colocation" path="/colocation.do" redirect="true" />
-		<forward name="colocation-completed" path="/colocation-completed.do" redirect="true" />
-		<forward name="colocation-2" path="/colocation-2.do" redirect="true" />
-		<forward name="colocation-2-completed" path="/colocation-2-completed.do" redirect="true" />
-		<forward name="colocation-3" path="/colocation-3.do" redirect="true" />
-		<forward name="colocation-3-completed" path="/colocation-3-completed.do" redirect="true" />
-		<forward name="colocation-4" path="/colocation-4.do" redirect="true" />
-		<forward name="colocation-4-completed" path="/colocation-4-completed.do" redirect="true" />
-		<forward name="colocation-5" path="/colocation-5.do" redirect="true" />
-		<forward name="colocation-5-completed" path="/colocation-5-completed.do" redirect="true" />
-		<forward name="virtual-dedicated-server" path="/virtual-dedicated-server.do" redirect="true" />
-		<forward name="virtual-dedicated-server-completed" path="/virtual-dedicated-server-completed.do" redirect="true" />
-		<forward name="virtual-dedicated-server-2" path="/virtual-dedicated-server-2.do" redirect="true" />
-		<forward name="virtual-dedicated-server-2-completed" path="/virtual-dedicated-server-2-completed.do" redirect="true" />
-		<forward name="virtual-dedicated-server-3" path="/virtual-dedicated-server-3.do" redirect="true" />
-		<forward name="virtual-dedicated-server-3-completed" path="/virtual-dedicated-server-3-completed.do" redirect="true" />
-		<forward name="virtual-dedicated-server-4" path="/virtual-dedicated-server-4.do" redirect="true" />
-		<forward name="virtual-dedicated-server-4-completed" path="/virtual-dedicated-server-4-completed.do" redirect="true" />
-		<forward name="virtual-dedicated-server-5" path="/virtual-dedicated-server-5.do" redirect="true" />
-		<forward name="virtual-dedicated-server-5-completed" path="/virtual-dedicated-server-5-completed.do" redirect="true" />
-		<forward name="virtual-dedicated-server-6" path="/virtual-dedicated-server-6.do" redirect="true" />
-		<forward name="virtual-dedicated-server-6-completed" path="/virtual-dedicated-server-6-completed.do" redirect="true" />
-		<forward name="virtual-managed-server" path="/virtual-managed-server.do" redirect="true" />
-		<forward name="virtual-managed-server-completed" path="/virtual-managed-server-completed.do" redirect="true" />
-		<forward name="virtual-managed-server-2" path="/virtual-managed-server-2.do" redirect="true" />
-		<forward name="virtual-managed-server-2-completed" path="/virtual-managed-server-2-completed.do" redirect="true" />
-		<forward name="virtual-managed-server-3" path="/virtual-managed-server-3.do" redirect="true" />
-		<forward name="virtual-managed-server-3-completed" path="/virtual-managed-server-3-completed.do" redirect="true" />
-		<forward name="virtual-managed-server-4" path="/virtual-managed-server-4.do" redirect="true" />
-		<forward name="virtual-managed-server-4-completed" path="/virtual-managed-server-4-completed.do" redirect="true" />
-		<forward name="virtual-managed-server-5" path="/virtual-managed-server-5.do" redirect="true" />
-		<forward name="virtual-managed-server-5-completed" path="/virtual-managed-server-5-completed.do" redirect="true" />
-		<forward name="virtual-managed-server-6" path="/virtual-managed-server-6.do" redirect="true" />
-		<forward name="virtual-managed-server-6-completed" path="/virtual-managed-server-6-completed.do" redirect="true" />
-		<forward name="virtual-managed-server-7" path="/virtual-managed-server-7.do" redirect="true" />
-		<forward name="virtual-managed-server-7-completed" path="/virtual-managed-server-7-completed.do" redirect="true" />
-		<forward name="dedicated-server" path="/dedicated-server.do" redirect="true" />
-		<forward name="dedicated-server-completed" path="/dedicated-server-completed.do" redirect="true" />
-		<forward name="dedicated-server-2" path="/dedicated-server-2.do" redirect="true" />
-		<forward name="dedicated-server-2-completed" path="/dedicated-server-2-completed.do" redirect="true" />
-		<forward name="dedicated-server-3" path="/dedicated-server-3.do" redirect="true" />
-		<forward name="dedicated-server-3-completed" path="/dedicated-server-3-completed.do" redirect="true" />
-		<forward name="dedicated-server-4" path="/dedicated-server-4.do" redirect="true" />
-		<forward name="dedicated-server-4-completed" path="/dedicated-server-4-completed.do" redirect="true" />
-		<forward name="dedicated-server-5" path="/dedicated-server-5.do" redirect="true" />
-		<forward name="dedicated-server-5-completed" path="/dedicated-server-5-completed.do" redirect="true" />
-		<forward name="dedicated-server-6" path="/dedicated-server-6.do" redirect="true" />
-		<forward name="dedicated-server-6-completed" path="/dedicated-server-6-completed.do" redirect="true" />
-		<forward name="managed-server" path="/managed-server.do" redirect="true" />
-		<forward name="managed-server-completed" path="/managed-server-completed.do" redirect="true" />
-		<forward name="managed-server-2" path="/managed-server-2.do" redirect="true" />
-		<forward name="managed-server-2-completed" path="/managed-server-2-completed.do" redirect="true" />
-		<forward name="managed-server-3" path="/managed-server-3.do" redirect="true" />
-		<forward name="managed-server-3-completed" path="/managed-server-3-completed.do" redirect="true" />
-		<forward name="managed-server-4" path="/managed-server-4.do" redirect="true" />
-		<forward name="managed-server-4-completed" path="/managed-server-4-completed.do" redirect="true" />
-		<forward name="managed-server-5" path="/managed-server-5.do" redirect="true" />
-		<forward name="managed-server-5-completed" path="/managed-server-5-completed.do" redirect="true" />
-		<forward name="managed-server-6" path="/managed-server-6.do" redirect="true" />
-		<forward name="managed-server-6-completed" path="/managed-server-6-completed.do" redirect="true" />
-		<forward name="managed-server-7" path="/managed-server-7.do" redirect="true" />
-		<forward name="managed-server-7-completed" path="/managed-server-7-completed.do" redirect="true" />
-		<forward name="virtual-hosting" path="/virtual-hosting.do" redirect="true" />
-		<forward name="virtual-hosting-completed" path="/virtual-hosting-completed.do" redirect="true" />
-		<forward name="virtual-hosting-2" path="/virtual-hosting-2.do" redirect="true" />
-		<forward name="virtual-hosting-2-completed" path="/virtual-hosting-2-completed.do" redirect="true" />
-		<forward name="virtual-hosting-3" path="/virtual-hosting-3.do" redirect="true" />
-		<forward name="virtual-hosting-3-completed" path="/virtual-hosting-3-completed.do" redirect="true" />
-		<forward name="virtual-hosting-4" path="/virtual-hosting-4.do" redirect="true" />
-		<forward name="virtual-hosting-4-completed" path="/virtual-hosting-4-completed.do" redirect="true" />
-		<forward name="virtual-hosting-5" path="/virtual-hosting-5.do" redirect="true" />
-		<forward name="virtual-hosting-5-completed" path="/virtual-hosting-5-completed.do" redirect="true" />
-		<forward name="virtual-hosting-6" path="/virtual-hosting-6.do" redirect="true" />
-		<forward name="virtual-hosting-6-completed" path="/virtual-hosting-6-completed.do" redirect="true" />
-		<forward name="reseller" path="/reseller.do" redirect="true" />
-		<forward name="reseller-completed" path="/reseller-completed.do" redirect="true" />
-		<forward name="reseller-2" path="/reseller-2.do" redirect="true" />
-		<forward name="reseller-2-completed" path="/reseller-2-completed.do" redirect="true" />
-		<forward name="reseller-3" path="/reseller-3.do" redirect="true" />
-		<forward name="reseller-3-completed" path="/reseller-3-completed.do" redirect="true" />
-		<forward name="reseller-4" path="/reseller-4.do" redirect="true" />
-		<forward name="reseller-4-completed" path="/reseller-4-completed.do" redirect="true" />
-		<forward name="reseller-5" path="/reseller-5.do" redirect="true" />
-		<forward name="reseller-5-completed" path="/reseller-5-completed.do" redirect="true" />
-		<forward name="system-administration" path="/system-administration.do" redirect="true" />
-		<forward name="system-administration-completed" path="/system-administration-completed.do" redirect="true" />
-		<forward name="system-administration-2" path="/system-administration-2.do" redirect="true" />
-		<forward name="system-administration-2-completed" path="/system-administration-2-completed.do" redirect="true" />
-		<forward name="system-administration-3" path="/system-administration-3.do" redirect="true" />
-		<forward name="system-administration-3-completed" path="/system-administration-3-completed.do" redirect="true" />
-		<forward name="system-administration-4" path="/system-administration-4.do" redirect="true" />
-		<forward name="system-administration-4-completed" path="/system-administration-4-completed.do" redirect="true" />
-		<forward name="system-administration-5" path="/system-administration-5.do" redirect="true" />
-		<forward name="system-administration-5-completed" path="/system-administration-5-completed.do" redirect="true" />
+		<forward name="application" path="/signup/application.do" redirect="true" />
+		<forward name="application-completed" path="/signup/application-completed.do" redirect="true" />
+		<forward name="application-2" path="/signup/application-2.do" redirect="true" />
+		<forward name="application-2-completed" path="/signup/application-2-completed.do" redirect="true" />
+		<forward name="application-3" path="/signup/application-3.do" redirect="true" />
+		<forward name="application-3-completed" path="/signup/application-3-completed.do" redirect="true" />
+		<forward name="application-4" path="/signup/application-4.do" redirect="true" />
+		<forward name="application-4-completed" path="/signup/application-4-completed.do" redirect="true" />
+		<forward name="application-5" path="/signup/application-5.do" redirect="true" />
+		<forward name="application-5-completed" path="/signup/application-5-completed.do" redirect="true" />
+		<forward name="application-6" path="/signup/application-6.do" redirect="true" />
+		<forward name="application-6-completed" path="/signup/application-6-completed.do" redirect="true" />
+		<forward name="aoserv" path="/signup/aoserv.do" redirect="true" />
+		<forward name="aoserv-completed" path="/signup/aoserv-completed.do" redirect="true" />
+		<forward name="aoserv-2" path="/signup/aoserv-2.do" redirect="true" />
+		<forward name="aoserv-2-completed" path="/signup/aoserv-2-completed.do" redirect="true" />
+		<forward name="aoserv-3" path="/signup/aoserv-3.do" redirect="true" />
+		<forward name="aoserv-3-completed" path="/signup/aoserv-3-completed.do" redirect="true" />
+		<forward name="aoserv-4" path="/signup/aoserv-4.do" redirect="true" />
+		<forward name="aoserv-4-completed" path="/signup/aoserv-4-completed.do" redirect="true" />
+		<forward name="aoserv-5" path="/signup/aoserv-5.do" redirect="true" />
+		<forward name="aoserv-5-completed" path="/signup/aoserv-5-completed.do" redirect="true" />
+		<forward name="backup" path="/signup/backup.do" redirect="true" />
+		<forward name="backup-completed" path="/signup/backup-completed.do" redirect="true" />
+		<forward name="backup-2" path="/signup/backup-2.do" redirect="true" />
+		<forward name="backup-2-completed" path="/signup/backup-2-completed.do" redirect="true" />
+		<forward name="backup-3" path="/signup/backup-3.do" redirect="true" />
+		<forward name="backup-3-completed" path="/signup/backup-3-completed.do" redirect="true" />
+		<forward name="backup-4" path="/signup/backup-4.do" redirect="true" />
+		<forward name="backup-4-completed" path="/signup/backup-4-completed.do" redirect="true" />
+		<forward name="backup-5" path="/signup/backup-5.do" redirect="true" />
+		<forward name="backup-5-completed" path="/signup/backup-5-completed.do" redirect="true" />
+		<forward name="colocation" path="/signup/colocation.do" redirect="true" />
+		<forward name="colocation-completed" path="/signup/colocation-completed.do" redirect="true" />
+		<forward name="colocation-2" path="/signup/colocation-2.do" redirect="true" />
+		<forward name="colocation-2-completed" path="/signup/colocation-2-completed.do" redirect="true" />
+		<forward name="colocation-3" path="/signup/colocation-3.do" redirect="true" />
+		<forward name="colocation-3-completed" path="/signup/colocation-3-completed.do" redirect="true" />
+		<forward name="colocation-4" path="/signup/colocation-4.do" redirect="true" />
+		<forward name="colocation-4-completed" path="/signup/colocation-4-completed.do" redirect="true" />
+		<forward name="colocation-5" path="/signup/colocation-5.do" redirect="true" />
+		<forward name="colocation-5-completed" path="/signup/colocation-5-completed.do" redirect="true" />
+		<forward name="virtual-dedicated-server" path="/signup/virtual-dedicated-server.do" redirect="true" />
+		<forward name="virtual-dedicated-server-completed" path="/signup/virtual-dedicated-server-completed.do" redirect="true" />
+		<forward name="virtual-dedicated-server-2" path="/signup/virtual-dedicated-server-2.do" redirect="true" />
+		<forward name="virtual-dedicated-server-2-completed" path="/signup/virtual-dedicated-server-2-completed.do" redirect="true" />
+		<forward name="virtual-dedicated-server-3" path="/signup/virtual-dedicated-server-3.do" redirect="true" />
+		<forward name="virtual-dedicated-server-3-completed" path="/signup/virtual-dedicated-server-3-completed.do" redirect="true" />
+		<forward name="virtual-dedicated-server-4" path="/signup/virtual-dedicated-server-4.do" redirect="true" />
+		<forward name="virtual-dedicated-server-4-completed" path="/signup/virtual-dedicated-server-4-completed.do" redirect="true" />
+		<forward name="virtual-dedicated-server-5" path="/signup/virtual-dedicated-server-5.do" redirect="true" />
+		<forward name="virtual-dedicated-server-5-completed" path="/signup/virtual-dedicated-server-5-completed.do" redirect="true" />
+		<forward name="virtual-dedicated-server-6" path="/signup/virtual-dedicated-server-6.do" redirect="true" />
+		<forward name="virtual-dedicated-server-6-completed" path="/signup/virtual-dedicated-server-6-completed.do" redirect="true" />
+		<forward name="virtual-managed-server" path="/signup/virtual-managed-server.do" redirect="true" />
+		<forward name="virtual-managed-server-completed" path="/signup/virtual-managed-server-completed.do" redirect="true" />
+		<forward name="virtual-managed-server-2" path="/signup/virtual-managed-server-2.do" redirect="true" />
+		<forward name="virtual-managed-server-2-completed" path="/signup/virtual-managed-server-2-completed.do" redirect="true" />
+		<forward name="virtual-managed-server-3" path="/signup/virtual-managed-server-3.do" redirect="true" />
+		<forward name="virtual-managed-server-3-completed" path="/signup/virtual-managed-server-3-completed.do" redirect="true" />
+		<forward name="virtual-managed-server-4" path="/signup/virtual-managed-server-4.do" redirect="true" />
+		<forward name="virtual-managed-server-4-completed" path="/signup/virtual-managed-server-4-completed.do" redirect="true" />
+		<forward name="virtual-managed-server-5" path="/signup/virtual-managed-server-5.do" redirect="true" />
+		<forward name="virtual-managed-server-5-completed" path="/signup/virtual-managed-server-5-completed.do" redirect="true" />
+		<forward name="virtual-managed-server-6" path="/signup/virtual-managed-server-6.do" redirect="true" />
+		<forward name="virtual-managed-server-6-completed" path="/signup/virtual-managed-server-6-completed.do" redirect="true" />
+		<forward name="virtual-managed-server-7" path="/signup/virtual-managed-server-7.do" redirect="true" />
+		<forward name="virtual-managed-server-7-completed" path="/signup/virtual-managed-server-7-completed.do" redirect="true" />
+		<forward name="dedicated-server" path="/signup/dedicated-server.do" redirect="true" />
+		<forward name="dedicated-server-completed" path="/signup/dedicated-server-completed.do" redirect="true" />
+		<forward name="dedicated-server-2" path="/signup/dedicated-server-2.do" redirect="true" />
+		<forward name="dedicated-server-2-completed" path="/signup/dedicated-server-2-completed.do" redirect="true" />
+		<forward name="dedicated-server-3" path="/signup/dedicated-server-3.do" redirect="true" />
+		<forward name="dedicated-server-3-completed" path="/signup/dedicated-server-3-completed.do" redirect="true" />
+		<forward name="dedicated-server-4" path="/signup/dedicated-server-4.do" redirect="true" />
+		<forward name="dedicated-server-4-completed" path="/signup/dedicated-server-4-completed.do" redirect="true" />
+		<forward name="dedicated-server-5" path="/signup/dedicated-server-5.do" redirect="true" />
+		<forward name="dedicated-server-5-completed" path="/signup/dedicated-server-5-completed.do" redirect="true" />
+		<forward name="dedicated-server-6" path="/signup/dedicated-server-6.do" redirect="true" />
+		<forward name="dedicated-server-6-completed" path="/signup/dedicated-server-6-completed.do" redirect="true" />
+		<forward name="managed-server" path="/signup/managed-server.do" redirect="true" />
+		<forward name="managed-server-completed" path="/signup/managed-server-completed.do" redirect="true" />
+		<forward name="managed-server-2" path="/signup/managed-server-2.do" redirect="true" />
+		<forward name="managed-server-2-completed" path="/signup/managed-server-2-completed.do" redirect="true" />
+		<forward name="managed-server-3" path="/signup/managed-server-3.do" redirect="true" />
+		<forward name="managed-server-3-completed" path="/signup/managed-server-3-completed.do" redirect="true" />
+		<forward name="managed-server-4" path="/signup/managed-server-4.do" redirect="true" />
+		<forward name="managed-server-4-completed" path="/signup/managed-server-4-completed.do" redirect="true" />
+		<forward name="managed-server-5" path="/signup/managed-server-5.do" redirect="true" />
+		<forward name="managed-server-5-completed" path="/signup/managed-server-5-completed.do" redirect="true" />
+		<forward name="managed-server-6" path="/signup/managed-server-6.do" redirect="true" />
+		<forward name="managed-server-6-completed" path="/signup/managed-server-6-completed.do" redirect="true" />
+		<forward name="managed-server-7" path="/signup/managed-server-7.do" redirect="true" />
+		<forward name="managed-server-7-completed" path="/signup/managed-server-7-completed.do" redirect="true" />
+		<forward name="virtual-hosting" path="/signup/virtual-hosting.do" redirect="true" />
+		<forward name="virtual-hosting-completed" path="/signup/virtual-hosting-completed.do" redirect="true" />
+		<forward name="virtual-hosting-2" path="/signup/virtual-hosting-2.do" redirect="true" />
+		<forward name="virtual-hosting-2-completed" path="/signup/virtual-hosting-2-completed.do" redirect="true" />
+		<forward name="virtual-hosting-3" path="/signup/virtual-hosting-3.do" redirect="true" />
+		<forward name="virtual-hosting-3-completed" path="/signup/virtual-hosting-3-completed.do" redirect="true" />
+		<forward name="virtual-hosting-4" path="/signup/virtual-hosting-4.do" redirect="true" />
+		<forward name="virtual-hosting-4-completed" path="/signup/virtual-hosting-4-completed.do" redirect="true" />
+		<forward name="virtual-hosting-5" path="/signup/virtual-hosting-5.do" redirect="true" />
+		<forward name="virtual-hosting-5-completed" path="/signup/virtual-hosting-5-completed.do" redirect="true" />
+		<forward name="virtual-hosting-6" path="/signup/virtual-hosting-6.do" redirect="true" />
+		<forward name="virtual-hosting-6-completed" path="/signup/virtual-hosting-6-completed.do" redirect="true" />
+		<forward name="reseller" path="/signup/reseller.do" redirect="true" />
+		<forward name="reseller-completed" path="/signup/reseller-completed.do" redirect="true" />
+		<forward name="reseller-2" path="/signup/reseller-2.do" redirect="true" />
+		<forward name="reseller-2-completed" path="/signup/reseller-2-completed.do" redirect="true" />
+		<forward name="reseller-3" path="/signup/reseller-3.do" redirect="true" />
+		<forward name="reseller-3-completed" path="/signup/reseller-3-completed.do" redirect="true" />
+		<forward name="reseller-4" path="/signup/reseller-4.do" redirect="true" />
+		<forward name="reseller-4-completed" path="/signup/reseller-4-completed.do" redirect="true" />
+		<forward name="reseller-5" path="/signup/reseller-5.do" redirect="true" />
+		<forward name="reseller-5-completed" path="/signup/reseller-5-completed.do" redirect="true" />
+		<forward name="system-administration" path="/signup/system-administration.do" redirect="true" />
+		<forward name="system-administration-completed" path="/signup/system-administration-completed.do" redirect="true" />
+		<forward name="system-administration-2" path="/signup/system-administration-2.do" redirect="true" />
+		<forward name="system-administration-2-completed" path="/signup/system-administration-2-completed.do" redirect="true" />
+		<forward name="system-administration-3" path="/signup/system-administration-3.do" redirect="true" />
+		<forward name="system-administration-3-completed" path="/signup/system-administration-3-completed.do" redirect="true" />
+		<forward name="system-administration-4" path="/signup/system-administration-4.do" redirect="true" />
+		<forward name="system-administration-4-completed" path="/signup/system-administration-4-completed.do" redirect="true" />
+		<forward name="system-administration-5" path="/signup/system-administration-5.do" redirect="true" />
+		<forward name="system-administration-5-completed" path="/signup/system-administration-5-completed.do" redirect="true" />
 	</global-forwards>
 
 	<!-- ========== Action Mapping Definitions ============================== -->
@@ -206,7 +206,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			path="/index"
 			type="com.aoindustries.web.struts.signup.IndexAction"
 		>
-			<forward name="success" path="/index.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/signup/index.jsp" redirect="false" />
 		</action>
 		<action
 			path="/application"
@@ -215,7 +215,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.ApplicationAction"
 		>
-			<forward name="input" path="/application.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/application.jsp" redirect="false" />
 		</action>
 		<action
 			path="/application-completed"
@@ -224,7 +224,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.ApplicationCompletedAction"
 		>
-			<forward name="input" path="/application.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/application.jsp" redirect="false" />
 		</action>
 		<action
 			path="/application-2"
@@ -233,7 +233,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Application2Action"
 		>
-			<forward name="input" path="/application-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/application-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/application-2-completed"
@@ -242,7 +242,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Application2CompletedAction"
 		>
-			<forward name="input" path="/application-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/application-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/application-3"
@@ -251,7 +251,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Application3Action"
 		>
-			<forward name="input" path="/application-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/application-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/application-3-completed"
@@ -260,7 +260,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Application2CompletedAction"
 		>
-			<forward name="input" path="/application-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/application-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/application-4"
@@ -269,7 +269,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Application4Action"
 		>
-			<forward name="input" path="/application-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/application-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/application-4-completed"
@@ -278,7 +278,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Application4CompletedAction"
 		>
-			<forward name="input" path="/application-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/application-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/application-5"
@@ -287,7 +287,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Application5Action"
 		>
-			<forward name="input" path="/application-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/application-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/application-5-completed"
@@ -296,19 +296,19 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Application5CompletedAction"
 		>
-			<forward name="input" path="/application-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/application-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/application-6"
 			type="com.aoindustries.web.struts.signup.Application6Action"
 		>
-			<forward name="input" path="/application-6.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/application-6.jsp" redirect="false" />
 		</action>
 		<action
 			path="/application-6-completed"
 			type="com.aoindustries.web.struts.signup.Application6CompletedAction"
 		>
-			<forward name="success" path="/application-6-completed.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/signup/application-6-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/aoserv"
@@ -317,7 +317,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.AOServAction"
 		>
-			<forward name="input" path="/aoserv.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/aoserv.jsp" redirect="false" />
 		</action>
 		<action
 			path="/aoserv-completed"
@@ -326,7 +326,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.AOServCompletedAction"
 		>
-			<forward name="input" path="/aoserv.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/aoserv.jsp" redirect="false" />
 		</action>
 		<action
 			path="/aoserv-2"
@@ -335,7 +335,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.AOServ2Action"
 		>
-			<forward name="input" path="/aoserv-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/aoserv-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/aoserv-2-completed"
@@ -344,7 +344,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.AOServ2CompletedAction"
 		>
-			<forward name="input" path="/aoserv-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/aoserv-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/aoserv-3"
@@ -353,7 +353,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.AOServ3Action"
 		>
-			<forward name="input" path="/aoserv-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/aoserv-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/aoserv-3-completed"
@@ -362,7 +362,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.AOServ3CompletedAction"
 		>
-			<forward name="input" path="/aoserv-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/aoserv-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/aoserv-4"
@@ -371,7 +371,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.AOServ4Action"
 		>
-			<forward name="input" path="/aoserv-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/aoserv-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/aoserv-4-completed"
@@ -380,19 +380,19 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.AOServ4CompletedAction"
 		>
-			<forward name="input" path="/aoserv-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/aoserv-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/aoserv-5"
 			type="com.aoindustries.web.struts.signup.AOServ5Action"
 		>
-			<forward name="input" path="/aoserv-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/aoserv-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/aoserv-5-completed"
 			type="com.aoindustries.web.struts.signup.AOServ5CompletedAction"
 		>
-			<forward name="success" path="/aoserv-5-completed.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/signup/aoserv-5-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/backup"
@@ -401,7 +401,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.BackupAction"
 		>
-			<forward name="input" path="/backup.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/backup.jsp" redirect="false" />
 		</action>
 		<action
 			path="/backup-completed"
@@ -410,7 +410,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.BackupCompletedAction"
 		>
-			<forward name="input" path="/backup.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/backup.jsp" redirect="false" />
 		</action>
 		<action
 			path="/backup-2"
@@ -419,7 +419,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Backup2Action"
 		>
-			<forward name="input" path="/backup-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/backup-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/backup-2-completed"
@@ -428,7 +428,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Backup2CompletedAction"
 		>
-			<forward name="input" path="/backup-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/backup-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/backup-3"
@@ -437,7 +437,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Backup3Action"
 		>
-			<forward name="input" path="/backup-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/backup-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/backup-3-completed"
@@ -446,7 +446,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Backup3CompletedAction"
 		>
-			<forward name="input" path="/backup-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/backup-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/backup-4"
@@ -455,7 +455,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Backup4Action"
 		>
-			<forward name="input" path="/backup-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/backup-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/backup-4-completed"
@@ -464,19 +464,19 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Backup4CompletedAction"
 		>
-			<forward name="input" path="/backup-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/backup-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/backup-5"
 			type="com.aoindustries.web.struts.signup.Backup5Action"
 		>
-			<forward name="input" path="/backup-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/backup-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/backup-5-completed"
 			type="com.aoindustries.web.struts.signup.Backup5CompletedAction"
 		>
-			<forward name="success" path="/backup-5-completed.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/signup/backup-5-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/colocation"
@@ -485,7 +485,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.ColocationAction"
 		>
-			<forward name="input" path="/colocation.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/colocation.jsp" redirect="false" />
 		</action>
 		<action
 			path="/colocation-completed"
@@ -494,7 +494,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.ColocationCompletedAction"
 		>
-			<forward name="input" path="/colocation.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/colocation.jsp" redirect="false" />
 		</action>
 		<action
 			path="/colocation-2"
@@ -503,7 +503,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Colocation2Action"
 		>
-			<forward name="input" path="/colocation-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/colocation-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/colocation-2-completed"
@@ -512,7 +512,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Colocation2CompletedAction"
 		>
-			<forward name="input" path="/colocation-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/colocation-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/colocation-3"
@@ -521,7 +521,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Colocation3Action"
 		>
-			<forward name="input" path="/colocation-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/colocation-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/colocation-3-completed"
@@ -530,7 +530,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Colocation3CompletedAction"
 		>
-			<forward name="input" path="/colocation-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/colocation-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/colocation-4"
@@ -539,7 +539,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Colocation4Action"
 		>
-			<forward name="input" path="/colocation-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/colocation-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/colocation-4-completed"
@@ -548,19 +548,19 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Colocation4CompletedAction"
 		>
-			<forward name="input" path="/colocation-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/colocation-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/colocation-5"
 			type="com.aoindustries.web.struts.signup.Colocation5Action"
 		>
-			<forward name="input" path="/colocation-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/colocation-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/colocation-5-completed"
 			type="com.aoindustries.web.struts.signup.Colocation5CompletedAction"
 		>
-			<forward name="success" path="/colocation-5-completed.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/signup/colocation-5-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-dedicated-server"
@@ -569,7 +569,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualDedicatedAction"
 		>
-			<forward name="input" path="/virtual-dedicated-server.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-dedicated-server.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-dedicated-server-completed"
@@ -578,7 +578,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualDedicatedCompletedAction"
 		>
-			<forward name="input" path="/virtual-dedicated-server.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-dedicated-server.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-dedicated-server-2"
@@ -587,7 +587,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualDedicated2Action"
 		>
-			<forward name="input" path="/virtual-dedicated-server-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-dedicated-server-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-dedicated-server-2-completed"
@@ -596,7 +596,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualDedicated2CompletedAction"
 		>
-			<forward name="input" path="/virtual-dedicated-server-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-dedicated-server-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-dedicated-server-3"
@@ -605,7 +605,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualDedicated3Action"
 		>
-			<forward name="input" path="/virtual-dedicated-server-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-dedicated-server-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-dedicated-server-3-completed"
@@ -614,7 +614,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualDedicated3CompletedAction"
 		>
-			<forward name="input" path="/virtual-dedicated-server-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-dedicated-server-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-dedicated-server-4"
@@ -623,7 +623,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualDedicated4Action"
 		>
-			<forward name="input" path="/virtual-dedicated-server-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-dedicated-server-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-dedicated-server-4-completed"
@@ -632,7 +632,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualDedicated4CompletedAction"
 		>
-			<forward name="input" path="/virtual-dedicated-server-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-dedicated-server-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-dedicated-server-5"
@@ -641,7 +641,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualDedicated5Action"
 		>
-			<forward name="input" path="/virtual-dedicated-server-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-dedicated-server-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-dedicated-server-5-completed"
@@ -650,19 +650,19 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualDedicated5CompletedAction"
 		>
-			<forward name="input" path="/virtual-dedicated-server-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-dedicated-server-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-dedicated-server-6"
 			type="com.aoindustries.web.struts.signup.VirtualDedicated6Action"
 		>
-			<forward name="input" path="/virtual-dedicated-server-6.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-dedicated-server-6.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-dedicated-server-6-completed"
 			type="com.aoindustries.web.struts.signup.VirtualDedicated6CompletedAction"
 		>
-			<forward name="success" path="/virtual-dedicated-server-6-completed.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/signup/virtual-dedicated-server-6-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-managed-server"
@@ -671,7 +671,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualManagedAction"
 		>
-			<forward name="input" path="/virtual-managed-server.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-managed-server.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-managed-server-completed"
@@ -680,7 +680,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualManagedCompletedAction"
 		>
-			<forward name="input" path="/virtual-managed-server.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-managed-server.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-managed-server-2"
@@ -689,7 +689,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualManaged2Action"
 		>
-			<forward name="input" path="/virtual-managed-server-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-managed-server-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-managed-server-2-completed"
@@ -698,7 +698,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualManaged2CompletedAction"
 		>
-			<forward name="input" path="/virtual-managed-server-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-managed-server-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-managed-server-3"
@@ -707,7 +707,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualManaged3Action"
 		>
-			<forward name="input" path="/virtual-managed-server-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-managed-server-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-managed-server-3-completed"
@@ -716,7 +716,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualManaged3CompletedAction"
 		>
-			<forward name="input" path="/virtual-managed-server-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-managed-server-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-managed-server-4"
@@ -725,7 +725,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualManaged4Action"
 		>
-			<forward name="input" path="/virtual-managed-server-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-managed-server-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-managed-server-4-completed"
@@ -734,7 +734,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualManaged4CompletedAction"
 		>
-			<forward name="input" path="/virtual-managed-server-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-managed-server-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-managed-server-5"
@@ -743,7 +743,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualManaged5Action"
 		>
-			<forward name="input" path="/virtual-managed-server-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-managed-server-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-managed-server-5-completed"
@@ -752,7 +752,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualManaged5CompletedAction"
 		>
-			<forward name="input" path="/virtual-managed-server-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-managed-server-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-managed-server-6"
@@ -761,7 +761,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualManaged6Action"
 		>
-			<forward name="input" path="/virtual-managed-server-6.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-managed-server-6.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-managed-server-6-completed"
@@ -770,19 +770,19 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualManaged6CompletedAction"
 		>
-			<forward name="input" path="/virtual-managed-server-6.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-managed-server-6.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-managed-server-7"
 			type="com.aoindustries.web.struts.signup.VirtualManaged7Action"
 		>
-			<forward name="input" path="/virtual-managed-server-7.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-managed-server-7.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-managed-server-7-completed"
 			type="com.aoindustries.web.struts.signup.VirtualManaged7CompletedAction"
 		>
-			<forward name="success" path="/virtual-managed-server-7-completed.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/signup/virtual-managed-server-7-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/dedicated-server"
@@ -791,7 +791,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.DedicatedAction"
 		>
-			<forward name="input" path="/dedicated-server.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/dedicated-server.jsp" redirect="false" />
 		</action>
 		<action
 			path="/dedicated-server-completed"
@@ -800,7 +800,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.DedicatedCompletedAction"
 		>
-			<forward name="input" path="/dedicated-server.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/dedicated-server.jsp" redirect="false" />
 		</action>
 		<action
 			path="/dedicated-server-2"
@@ -809,7 +809,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Dedicated2Action"
 		>
-			<forward name="input" path="/dedicated-server-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/dedicated-server-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/dedicated-server-2-completed"
@@ -818,7 +818,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Dedicated2CompletedAction"
 		>
-			<forward name="input" path="/dedicated-server-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/dedicated-server-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/dedicated-server-3"
@@ -827,7 +827,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Dedicated3Action"
 		>
-			<forward name="input" path="/dedicated-server-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/dedicated-server-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/dedicated-server-3-completed"
@@ -836,7 +836,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Dedicated3CompletedAction"
 		>
-			<forward name="input" path="/dedicated-server-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/dedicated-server-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/dedicated-server-4"
@@ -845,7 +845,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Dedicated4Action"
 		>
-			<forward name="input" path="/dedicated-server-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/dedicated-server-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/dedicated-server-4-completed"
@@ -854,7 +854,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Dedicated4CompletedAction"
 		>
-			<forward name="input" path="/dedicated-server-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/dedicated-server-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/dedicated-server-5"
@@ -863,7 +863,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Dedicated5Action"
 		>
-			<forward name="input" path="/dedicated-server-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/dedicated-server-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/dedicated-server-5-completed"
@@ -872,19 +872,19 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Dedicated5CompletedAction"
 		>
-			<forward name="input" path="/dedicated-server-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/dedicated-server-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/dedicated-server-6"
 			type="com.aoindustries.web.struts.signup.Dedicated6Action"
 		>
-			<forward name="input" path="/dedicated-server-6.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/dedicated-server-6.jsp" redirect="false" />
 		</action>
 		<action
 			path="/dedicated-server-6-completed"
 			type="com.aoindustries.web.struts.signup.Dedicated6CompletedAction"
 		>
-			<forward name="success" path="/dedicated-server-6-completed.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/signup/dedicated-server-6-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/managed-server"
@@ -893,7 +893,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.ManagedAction"
 		>
-			<forward name="input" path="/managed-server.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/managed-server.jsp" redirect="false" />
 		</action>
 		<action
 			path="/managed-server-completed"
@@ -902,7 +902,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.ManagedCompletedAction"
 		>
-			<forward name="input" path="/managed-server.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/managed-server.jsp" redirect="false" />
 		</action>
 		<action
 			path="/managed-server-2"
@@ -911,7 +911,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Managed2Action"
 		>
-			<forward name="input" path="/managed-server-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/managed-server-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/managed-server-2-completed"
@@ -920,7 +920,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Managed2CompletedAction"
 		>
-			<forward name="input" path="/managed-server-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/managed-server-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/managed-server-3"
@@ -929,7 +929,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Managed3Action"
 		>
-			<forward name="input" path="/managed-server-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/managed-server-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/managed-server-3-completed"
@@ -938,7 +938,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Managed3CompletedAction"
 		>
-			<forward name="input" path="/managed-server-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/managed-server-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/managed-server-4"
@@ -947,7 +947,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Managed4Action"
 		>
-			<forward name="input" path="/managed-server-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/managed-server-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/managed-server-4-completed"
@@ -956,7 +956,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Managed4CompletedAction"
 		>
-			<forward name="input" path="/managed-server-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/managed-server-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/managed-server-5"
@@ -965,7 +965,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Managed5Action"
 		>
-			<forward name="input" path="/managed-server-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/managed-server-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/managed-server-5-completed"
@@ -974,7 +974,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Managed5CompletedAction"
 		>
-			<forward name="input" path="/managed-server-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/managed-server-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/managed-server-6"
@@ -983,7 +983,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Managed6Action"
 		>
-			<forward name="input" path="/managed-server-6.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/managed-server-6.jsp" redirect="false" />
 		</action>
 		<action
 			path="/managed-server-6-completed"
@@ -992,19 +992,19 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Managed6CompletedAction"
 		>
-			<forward name="input" path="/managed-server-6.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/managed-server-6.jsp" redirect="false" />
 		</action>
 		<action
 			path="/managed-server-7"
 			type="com.aoindustries.web.struts.signup.Managed7Action"
 		>
-			<forward name="input" path="/managed-server-7.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/managed-server-7.jsp" redirect="false" />
 		</action>
 		<action
 			path="/managed-server-7-completed"
 			type="com.aoindustries.web.struts.signup.Managed7CompletedAction"
 		>
-			<forward name="success" path="/managed-server-7-completed.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/signup/managed-server-7-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/reseller"
@@ -1013,7 +1013,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.ResellerAction"
 		>
-			<forward name="input" path="/reseller.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/reseller.jsp" redirect="false" />
 		</action>
 		<action
 			path="/reseller-completed"
@@ -1022,7 +1022,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.ResellerCompletedAction"
 		>
-			<forward name="input" path="/reseller.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/reseller.jsp" redirect="false" />
 		</action>
 		<action
 			path="/reseller-2"
@@ -1031,7 +1031,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Reseller2Action"
 		>
-			<forward name="input" path="/reseller-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/reseller-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/reseller-2-completed"
@@ -1040,7 +1040,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Reseller2CompletedAction"
 		>
-			<forward name="input" path="/reseller-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/reseller-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/reseller-3"
@@ -1049,7 +1049,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Reseller3Action"
 		>
-			<forward name="input" path="/reseller-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/reseller-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/reseller-3-completed"
@@ -1058,7 +1058,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Reseller3CompletedAction"
 		>
-			<forward name="input" path="/reseller-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/reseller-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/reseller-4"
@@ -1067,7 +1067,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Reseller4Action"
 		>
-			<forward name="input" path="/reseller-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/reseller-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/reseller-4-completed"
@@ -1076,19 +1076,19 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Reseller4CompletedAction"
 		>
-			<forward name="input" path="/reseller-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/reseller-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/reseller-5"
 			type="com.aoindustries.web.struts.signup.Reseller5Action"
 		>
-			<forward name="input" path="/reseller-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/reseller-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/reseller-5-completed"
 			type="com.aoindustries.web.struts.signup.Reseller5CompletedAction"
 		>
-			<forward name="success" path="/reseller-5-completed.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/signup/reseller-5-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/system-administration"
@@ -1097,7 +1097,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.SystemAdministrationAction"
 		>
-			<forward name="input" path="/system-administration.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/system-administration.jsp" redirect="false" />
 		</action>
 		<action
 			path="/system-administration-completed"
@@ -1106,7 +1106,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.SystemAdministrationCompletedAction"
 		>
-			<forward name="input" path="/system-administration.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/system-administration.jsp" redirect="false" />
 		</action>
 		<action
 			path="/system-administration-2"
@@ -1115,7 +1115,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.SystemAdministration2Action"
 		>
-			<forward name="input" path="/system-administration-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/system-administration-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/system-administration-2-completed"
@@ -1124,7 +1124,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.SystemAdministration2CompletedAction"
 		>
-			<forward name="input" path="/system-administration-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/system-administration-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/system-administration-3"
@@ -1133,7 +1133,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.SystemAdministration3Action"
 		>
-			<forward name="input" path="/system-administration-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/system-administration-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/system-administration-3-completed"
@@ -1142,7 +1142,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.SystemAdministration3CompletedAction"
 		>
-			<forward name="input" path="/system-administration-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/system-administration-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/system-administration-4"
@@ -1151,7 +1151,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.SystemAdministration4Action"
 		>
-			<forward name="input" path="/system-administration-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/system-administration-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/system-administration-4-completed"
@@ -1160,19 +1160,19 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.SystemAdministration4CompletedAction"
 		>
-			<forward name="input" path="/system-administration-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/system-administration-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/system-administration-5"
 			type="com.aoindustries.web.struts.signup.SystemAdministration5Action"
 		>
-			<forward name="input" path="/system-administration-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/system-administration-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/system-administration-5-completed"
 			type="com.aoindustries.web.struts.signup.SystemAdministration5CompletedAction"
 		>
-			<forward name="success" path="/system-administration-5-completed.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/signup/system-administration-5-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-hosting"
@@ -1181,7 +1181,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualHostingAction"
 		>
-			<forward name="input" path="/virtual-hosting.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-hosting.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-hosting-completed"
@@ -1190,7 +1190,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualHostingCompletedAction"
 		>
-			<forward name="input" path="/virtual-hosting.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-hosting.jsp" redirect="false" />
 		</action>
 		<action
 			path="/application-2"
@@ -1199,7 +1199,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Application2Action"
 		>
-			<forward name="input" path="/application-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/application-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/application-2-completed"
@@ -1208,7 +1208,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.Application2CompletedAction"
 		>
-			<forward name="input" path="/application-2.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/application-2.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-hosting-3"
@@ -1217,7 +1217,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualHosting3Action"
 		>
-			<forward name="input" path="/virtual-hosting-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-hosting-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-hosting-3-completed"
@@ -1226,7 +1226,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualHosting3CompletedAction"
 		>
-			<forward name="input" path="/virtual-hosting-3.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-hosting-3.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-hosting-4"
@@ -1235,7 +1235,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualHosting4Action"
 		>
-			<forward name="input" path="/virtual-hosting-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-hosting-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-hosting-4-completed"
@@ -1244,7 +1244,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualHosting4CompletedAction"
 		>
-			<forward name="input" path="/virtual-hosting-4.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-hosting-4.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-hosting-5"
@@ -1253,7 +1253,7 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualHosting5Action"
 		>
-			<forward name="input" path="/virtual-hosting-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-hosting-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-hosting-5-completed"
@@ -1262,25 +1262,25 @@ struts-config-signup.xml.messageResources Additional message resources
 			validate="false"
 			type="com.aoindustries.web.struts.signup.VirtualHosting5CompletedAction"
 		>
-			<forward name="input" path="/virtual-hosting-5.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-hosting-5.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-hosting-6"
 			type="com.aoindustries.web.struts.signup.VirtualHosting6Action"
 		>
-			<forward name="input" path="/virtual-hosting-6.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/signup/virtual-hosting-6.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-hosting-6-completed"
 			type="com.aoindustries.web.struts.signup.VirtualHosting6CompletedAction"
 		>
-			<forward name="success" path="/virtual-hosting-6-completed.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/signup/virtual-hosting-6-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/**"
 			type="com.aoindustries.web.struts.PageAction"
 		>
-			<forward name="success" module="" path="/not-found.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/not-found.jsp" redirect="false" />
 		</action>
 	</action-mappings>
 

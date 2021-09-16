@@ -46,7 +46,7 @@ struts-config-clientarea.xml.messageResources Additional message resources
 	<!-- ========== Global Forward Definitions ============================== -->
 	<global-forwards>
 		<!-- / -->
-		<forward name="exception" module="" path="/exception.inc.jsp" redirect="false" />
+		<forward name="exception" module="" path="/WEB-INF/content/exception.jsp" redirect="false" />
 		<forward name="login" module="" path="/login.do" redirect="false" />
 		<forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
 		<!-- /clientarea -->
@@ -58,13 +58,13 @@ struts-config-clientarea.xml.messageResources Additional message resources
 			path="/index"
 			type="com.aoindustries.web.struts.PageAction"
 		>
-			<forward name="success" path="/index.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/index.jsp" redirect="false" />
 		</action>
 		<action
 			path="/**"
 			type="com.aoindustries.web.struts.PageAction"
 		>
-			<forward name="success" module="" path="/not-found.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/not-found.jsp" redirect="false" />
 		</action>
 	</action-mappings>
 

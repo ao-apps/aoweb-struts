@@ -50,12 +50,12 @@ struts-config-clientarea-accounting.xml.messageResources    Additional message r
 	<!-- ========== Global Forward Definitions ============================== -->
 	<global-forwards>
 		<!-- / -->
-		<forward name="exception" module="" path="/exception.inc.jsp" redirect="false" />
+		<forward name="exception" module="" path="/WEB-INF/content/exception.jsp" redirect="false" />
 		<forward name="login" module="" path="/login.do" redirect="false" />
 		<forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
 		<!-- /clientarea/accounting -->
-		<forward name="credit-card-manager" path="/credit-card-manager.do" redirect="true" />
-		<forward name="make-payment" path="/make-payment.do" redirect="true" />
+		<forward name="credit-card-manager" path="/clientarea/accounting/credit-card-manager.do" redirect="true" />
+		<forward name="make-payment" path="/clientarea/accounting/make-payment.do" redirect="true" />
 	</global-forwards>
 
 	<!-- ========== Action Mapping Definitions ============================== -->
@@ -64,14 +64,14 @@ struts-config-clientarea-accounting.xml.messageResources    Additional message r
 			path="/index"
 			type="com.aoindustries.web.struts.PageAction"
 		>
-			<forward name="success" path="/index.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/index.jsp" redirect="false" />
 		</action>
 		<action
 			path="/credit-card-manager"
 			type="com.aoindustries.web.struts.clientarea.accounting.CreditCardManagerAction"
 		>
-			<forward name="permission-denied" path="/credit-card-manager.inc.jsp" redirect="false" />
-			<forward name="success" path="/credit-card-manager.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/credit-card-manager.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/credit-card-manager.jsp" redirect="false" />
 		</action>
 		<action
 			path="/add-credit-card"
@@ -80,8 +80,8 @@ struts-config-clientarea-accounting.xml.messageResources    Additional message r
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.accounting.AddCreditCardAction"
 		>
-			<forward name="permission-denied" path="/add-credit-card.inc.jsp" redirect="false" />
-			<forward name="success" path="/add-credit-card.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/add-credit-card.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/add-credit-card.jsp" redirect="false" />
 		</action>
 		<action
 			path="/add-credit-card-completed"
@@ -90,23 +90,23 @@ struts-config-clientarea-accounting.xml.messageResources    Additional message r
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.accounting.AddCreditCardCompletedAction"
 		>
-			<forward name="permission-denied" path="/add-credit-card.inc.jsp" redirect="false" />
-			<forward name="input" path="/add-credit-card.inc.jsp" redirect="false" />
-			<forward name="success" path="/add-credit-card-completed.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/add-credit-card.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/clientarea/accounting/add-credit-card.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/add-credit-card-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/delete-credit-card"
 			type="com.aoindustries.web.struts.clientarea.accounting.DeleteCreditCardAction"
 		>
-			<forward name="permission-denied" path="/delete-credit-card.inc.jsp" redirect="false" />
-			<forward name="success" path="/delete-credit-card.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/delete-credit-card.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/delete-credit-card.jsp" redirect="false" />
 		</action>
 		<action
 			path="/delete-credit-card-completed"
 			type="com.aoindustries.web.struts.clientarea.accounting.DeleteCreditCardCompletedAction"
 		>
-			<forward name="permission-denied" path="/delete-credit-card-completed.inc.jsp" redirect="false" />
-			<forward name="success" path="/delete-credit-card-completed.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/delete-credit-card-completed.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/delete-credit-card-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/edit-credit-card"
@@ -115,8 +115,8 @@ struts-config-clientarea-accounting.xml.messageResources    Additional message r
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.accounting.EditCreditCardAction"
 		>
-			<forward name="permission-denied" path="/edit-credit-card.inc.jsp" redirect="false" />
-			<forward name="success" path="/edit-credit-card.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
 		</action>
 		<action
 			path="/edit-credit-card-completed"
@@ -125,35 +125,35 @@ struts-config-clientarea-accounting.xml.messageResources    Additional message r
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.accounting.EditCreditCardCompletedAction"
 		>
-			<forward name="permission-denied" path="/edit-credit-card.inc.jsp" redirect="false" />
-			<forward name="input" path="/edit-credit-card.inc.jsp" redirect="false" />
-			<forward name="success" path="/edit-credit-card-completed.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/edit-credit-card-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/configure-automatic-billing"
 			type="com.aoindustries.web.struts.clientarea.accounting.ConfigureAutomaticBillingAction"
 		>
-			<forward name="permission-denied" path="/configure-automatic-billing.inc.jsp" redirect="false" />
-			<forward name="success" path="/configure-automatic-billing.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/configure-automatic-billing.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/configure-automatic-billing.jsp" redirect="false" />
 		</action>
 		<action
 			path="/configure-automatic-billing-completed"
 			type="com.aoindustries.web.struts.clientarea.accounting.ConfigureAutomaticBillingCompletedAction"
 		>
-			<forward name="permission-denied" path="/configure-automatic-billing-completed.inc.jsp" redirect="false" />
-			<forward name="success" path="/configure-automatic-billing-completed.inc.jsp" redirect="false" />
+			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/configure-automatic-billing-completed.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/configure-automatic-billing-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/make-payment"
 			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentAction"
 		>
-			<forward name="success" path="/make-payment.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment.jsp" redirect="false" />
 		</action>
 		<action
 			path="/make-payment-select-card"
 			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentSelectCardAction"
 		>
-			<forward name="success" path="/make-payment-select-card.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-select-card.jsp" redirect="false" />
 		</action>
 		<action
 			path="/make-payment-stored-card"
@@ -162,7 +162,7 @@ struts-config-clientarea-accounting.xml.messageResources    Additional message r
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentStoredCardAction"
 		>
-			<forward name="success" path="/make-payment-stored-card.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card.jsp" redirect="false" />
 		</action>
 		<action
 			path="/make-payment-stored-card-completed"
@@ -171,11 +171,11 @@ struts-config-clientarea-accounting.xml.messageResources    Additional message r
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentStoredCardCompletedAction"
 		>
-			<forward name="input" path="/make-payment-stored-card.inc.jsp" redirect="false" />
-			<forward name="error" path="/make-payment-stored-card-error.inc.jsp" redirect="false" />
-			<forward name="hold" path="/make-payment-stored-card-hold.inc.jsp" redirect="false" />
-			<forward name="declined" path="/make-payment-stored-card-declined.inc.jsp" redirect="false" />
-			<forward name="success" path="/make-payment-stored-card-completed.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card.jsp" redirect="false" />
+			<forward name="error" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card-error.jsp" redirect="false" />
+			<forward name="hold" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card-hold.jsp" redirect="false" />
+			<forward name="declined" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card-declined.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/make-payment-new-card"
@@ -184,7 +184,7 @@ struts-config-clientarea-accounting.xml.messageResources    Additional message r
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentNewCardAction"
 		>
-			<forward name="success" path="/make-payment-new-card.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
 		</action>
 		<action
 			path="/make-payment-new-card-completed"
@@ -193,17 +193,17 @@ struts-config-clientarea-accounting.xml.messageResources    Additional message r
 			validate="false"
 			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentNewCardCompletedAction"
 		>
-			<forward name="input" path="/make-payment-new-card.inc.jsp" redirect="false" />
-			<forward name="error" path="/make-payment-new-card.inc.jsp" redirect="false" />
-			<forward name="hold" path="/make-payment-new-card-hold.inc.jsp" redirect="false" />
-			<forward name="declined" path="/make-payment-new-card.inc.jsp" redirect="false" />
-			<forward name="success" path="/make-payment-new-card-completed.inc.jsp" redirect="false" />
+			<forward name="input" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
+			<forward name="error" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
+			<forward name="hold" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card-hold.jsp" redirect="false" />
+			<forward name="declined" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/**"
 			type="com.aoindustries.web.struts.PageAction"
 		>
-			<forward name="success" module="" path="/not-found.inc.jsp" redirect="false" />
+			<forward name="success" module="" path="/WEB-INF/content/not-found.jsp" redirect="false" />
 		</action>
 	</action-mappings>
 
