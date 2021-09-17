@@ -33,10 +33,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 			|| fn:startsWith(cardNumber, '37')
 			|| fn:startsWith(cardNumber, '3?')
 		}">
-			<ao:img src="amex.gif" style="border:1px solid; vertical-align:middle" width="64" height="40" alt="${ao:message('creditCardManager.image.amex.alt')}" />
+			<ao:img src="/clientarea/accounting/amex.gif" style="border:1px solid; vertical-align:middle" width="64" height="40" alt="${ao:message('creditCardManager.image.amex.alt')}" />
 		</c:when>
 		<c:when test="${fn:startsWith(cardNumber, '60')}">
-			<ao:img src="discv.gif" style="border:1px solid; vertical-align:middle" width="63" height="40" alt="${ao:message('creditCardManager.image.discv.alt')}" />
+			<ao:img src="/clientarea/accounting/discv.gif" style="border:1px solid; vertical-align:middle" width="63" height="40" alt="${ao:message('creditCardManager.image.discv.alt')}" />
 		</c:when>
 		<%-- TODO: 5? will be unnecessary on ao-payments 2.0 that will store card type directly --%>
 		<c:when test="${
@@ -47,10 +47,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 			|| fn:startsWith(cardNumber, '55')
 			|| fn:startsWith(cardNumber, '5?')
 		}">
-			<ao:img src="mcard.gif" style="border:1px solid; vertical-align:middle" width="64" height="40" alt="${ao:message('creditCardManager.image.mcard.alt')}" />
+			<ao:img src="/clientarea/accounting/mcard.gif" style="border:1px solid; vertical-align:middle" width="64" height="40" alt="${ao:message('creditCardManager.image.mcard.alt')}" />
 		</c:when>
 		<c:when test="${fn:startsWith(cardNumber, '4')}">
-			<ao:img src="visa.gif" style="border:1px solid; vertical-align:middle" width="64" height="40" alt="${ao:message('creditCardManager.image.visa.alt')}" />
+			<ao:img src="/clientarea/accounting/visa.gif" style="border:1px solid; vertical-align:middle" width="64" height="40" alt="${ao:message('creditCardManager.image.visa.alt')}" />
 		</c:when>
 		<c:otherwise>
 			<ao:message key="creditCardManager.creditCard.cardType.unknown" />
