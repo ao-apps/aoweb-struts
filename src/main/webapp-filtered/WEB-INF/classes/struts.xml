@@ -28,4 +28,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	<constant name="struts.devMode" value="@{struts.devMode}" />
 	<constant name="struts.configuration.xml.reload" value="@{struts.devMode}" />
 	<constant name="struts.convention.classes.reload" value="@{struts.devMode}" />
+
+	<!-- No reload needed at Struts level, since underlying in-context translation tools already reload as-needed. -->
+	<constant name="struts.i18n.reload" value="false" />
 </struts>
