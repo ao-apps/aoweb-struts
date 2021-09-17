@@ -38,7 +38,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 							<tbody>
 								<tr>
 									<th><ao:message key="steps.selectPackage.label" /></th>
-									<td style="text-align:right"><ao:a class="aoLightLink" href='${actionPrefix}.do'><ao:message key="serverConfirmation.edit.link" /></ao:a></td>
+									<td style="text-align:right"><ao:a class="aoLightLink" href='/signup/${actionPrefix}.do'><ao:message key="serverConfirmation.edit.link" /></ao:a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -52,7 +52,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 							<tbody>
 								<tr>
 									<th><ao:message key="steps.organizationInfo.label" /></th>
-									<td style="text-align:right"><ao:a class="aoLightLink" href='${actionPrefix}-2.do'><ao:message key="serverConfirmation.edit.link" /></ao:a></td>
+									<td style="text-align:right"><ao:a class="aoLightLink" href='/signup/${actionPrefix}-2.do'><ao:message key="serverConfirmation.edit.link" /></ao:a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -66,7 +66,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 							<tbody>
 								<tr>
 									<th><ao:message key="steps.technicalInfo.label" /></th>
-									<td style="text-align:right"><ao:a class="aoLightLink" href='${actionPrefix}-3.do'><ao:message key="serverConfirmation.edit.link" /></ao:a></td>
+									<td style="text-align:right"><ao:a class="aoLightLink" href='/signup/${actionPrefix}-3.do'><ao:message key="serverConfirmation.edit.link" /></ao:a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -80,7 +80,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 							<tbody>
 								<tr>
 									<th><ao:message key="steps.billingInformation.label" /></th>
-									<td style="text-align:right"><ao:a class="aoLightLink" href='${actionPrefix}-4.do'><ao:message key="serverConfirmation.edit.link" /></ao:a></td>
+									<td style="text-align:right"><ao:a class="aoLightLink" href='/signup/${actionPrefix}-4.do'><ao:message key="serverConfirmation.edit.link" /></ao:a></td>
 								</tr>
 							</tbody>
 						</table>

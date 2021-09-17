@@ -49,12 +49,12 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 									<td style="text-align:center">
 										<c:choose>
 											<c:when test="${param.all}">
-												<ao:a href="cancel.do">
+												<ao:a href="/clientarea/control/account/cancel.do">
 													<ao:message key="account.cancel.link.showActive" />
 												</ao:a>
 											</c:when>
 											<c:otherwise>
-												<ao:a href="cancel.do?all=true">
+												<ao:a href="/clientarea/control/account/cancel.do?all=true">
 													<ao:message key="account.cancel.link.showAll" />
 												</ao:a>
 											</c:otherwise>
@@ -162,12 +162,12 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 										</skin:lightArea>
 										<c:choose>
 											<c:when test="${param.all}">
-												<ao:a href="cancel.do">
+												<ao:a href="/clientarea/control/account/cancel.do">
 													<ao:message key="account.cancel.link.showActive" />
 												</ao:a>
 											</c:when>
 											<c:otherwise>
-												<ao:a href="cancel.do?all=true">
+												<ao:a href="/clientarea/control/account/cancel.do?all=true">
 													<ao:message key="account.cancel.link.showAll" />
 												</ao:a>
 											</c:otherwise>

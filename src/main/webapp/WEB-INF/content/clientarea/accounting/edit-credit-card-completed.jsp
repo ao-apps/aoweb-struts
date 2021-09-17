@@ -99,7 +99,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 								<li><ao:message key="editCreditCardCompleted.successMessage.nothingChanged" /></li>
 							</logic:notPresent>
 						</ul>
-						<ao:a href="credit-card-manager.do"><ao:message key="editCreditCardCompleted.creditCardManager.link" /></ao:a>
+						<ao:a href="/clientarea/accounting/credit-card-manager.do"><ao:message key="editCreditCardCompleted.creditCardManager.link" /></ao:a>
 					</skin:lightArea>
 				</logic:notPresent>
 			</skin:contentLine>

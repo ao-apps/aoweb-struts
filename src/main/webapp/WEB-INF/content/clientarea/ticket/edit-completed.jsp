@@ -68,7 +68,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 								<li><ao:message key="edit-completed.nothingChanged" /></li>
 							</logic:equal>
 						</ul>
-						<ao:message key="edit-completed.index.backTo" /><ao:a href="index.do"><ao:message key="edit-completed.index.link" /></ao:a>
+						<ao:message key="edit-completed.index.backTo" /><ao:a href="/clientarea/ticket/index.do"><ao:message key="edit-completed.index.link" /></ao:a>
 					</skin:lightArea>
 				</logic:notPresent>
 			</skin:contentLine>

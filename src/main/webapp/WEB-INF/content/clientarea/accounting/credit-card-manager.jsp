@@ -126,7 +126,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 																<%-- Handle the no-currencies case --%>
 																<div>
 																	<ao:a
-																		href="make-payment-stored-card.do"
+																		href="/clientarea/accounting/make-payment-stored-card.do"
 																		param.account="${accountAndCreditCards.account.name}"
 																		param.id="${creditCard.id}"
 																	>
@@ -138,7 +138,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 																<c:forEach var="currency" items="${currencies}">
 																	<div>
 																		<ao:a
-																			href="make-payment-stored-card.do"
+																			href="/clientarea/accounting/make-payment-stored-card.do"
 																			param.account="${accountAndCreditCards.account.name}"
 																			param.currency="${currency.currencyCode}"
 																			param.id="${creditCard.id}"
@@ -158,7 +158,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 														</ao:choose>
 													</td>
 													<td style="white-space:nowrap">
-														<ao:a href="edit-credit-card.do" param.persistenceId="${creditCard.pkey}">
+														<ao:a href="/clientarea/accounting/edit-credit-card.do" param.persistenceId="${creditCard.pkey}">
 															<logic:equal name="creditCard" property="isActive" value="true">
 																<ao:message key="creditCardManager.edit.link" />
 															</logic:equal>
@@ -168,7 +168,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 														</ao:a>
 													</td>
 													<td style="white-space:nowrap">
-														<ao:a href="delete-credit-card.do" param.id="${creditCard.id}">
+														<ao:a href="/clientarea/accounting/delete-credit-card.do" param.id="${creditCard.id}">
 															<ao:message key="creditCardManager.delete.link" />
 														</ao:a>
 													</td>
@@ -189,12 +189,12 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 												</logic:equal>
 											</logic:equal>
 											<td style='white-space:nowrap' colspan="${fn:escapeXml(8 + (hasDescription ? 1 : 0))}">
-												<ao:a href="add-credit-card.do" param.account="${accountAndCreditCards.account.name}">
+												<ao:a href="/clientarea/accounting/add-credit-card.do" param.account="${accountAndCreditCards.account.name}">
 													<ao:message key="creditCardManager.addCreditCard.link" />
 												</ao:a>
 												<logic:equal name="accountAndCreditCards" property="hasActiveCard" value="true">
 													|
-													<ao:a href="configure-automatic-billing.do" param.account="${accountAndCreditCards.account.name}">
+													<ao:a href="/clientarea/accounting/configure-automatic-billing.do" param.account="${accountAndCreditCards.account.name}">
 														<ao:message key="creditCardManager.configureAutomaticBilling.link" />
 													</ao:a>
 												</logic:equal>

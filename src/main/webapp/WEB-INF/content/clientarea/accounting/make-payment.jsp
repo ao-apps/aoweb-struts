@@ -73,7 +73,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 											<ao:when test="#{fn:length(entry.value.currencies) == 0}">
 												<%-- Handle the no-currencies case --%>
 												<div>
-													<ao:a href="make-payment-select-card.do" param.account="${account.name}">
+													<ao:a href="/clientarea/accounting/make-payment-select-card.do" param.account="${account.name}">
 														<ao:message key="makePayment.makePayment.link" />
 													</ao:a>
 												</div>
@@ -81,7 +81,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 											<ao:otherwise>
 												<c:forEach var="currency" items="${entry.value.currencies}">
 													<div>
-														<ao:a href="make-payment-select-card.do" param.account="${account.name}" param.currency="${currency.currencyCode}">
+														<ao:a href="/clientarea/accounting/make-payment-select-card.do" param.account="${account.name}" param.currency="${currency.currencyCode}">
 															<ao:message key="makePayment.makePayment.link" />
 														</ao:a>
 													</div>

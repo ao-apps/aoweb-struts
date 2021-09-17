@@ -34,7 +34,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 			<skin:contentHorizontalDivider />
 			<skin:contentLine>
 				<div style="text-align:left; padding-top:10px; padding-bottom:10px">
-					<ao:a href="create.do"><ao:message key="index.link.create" /></ao:a>
+					<ao:a href="/clientarea/ticket/create.do"><ao:message key="index.link.create" /></ao:a>
 				</div>
 				<skin:lightArea>
 					<table class="ao-spread">
@@ -62,7 +62,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 							<tbody>
 								<logic:iterate name="tickets" id="ticket" type="com.aoindustries.aoserv.client.ticket.Ticket">
 									<skin:lightDarkTableRow pageAttributeId="isDark">
-										<td style="white-space:nowrap"><ao:a href="edit.do" param.pkey="${ticket.pkey}"><ao:write name="ticket" property="pkey" /></ao:a></td>
+										<td style="white-space:nowrap"><ao:a href="/clientarea/ticket/edit.do" param.pkey="${ticket.pkey}"><ao:write name="ticket" property="pkey" /></ao:a></td>
 										<td style="white-space:nowrap">
 											<logic:equal name="ticket" property="status.status" value="<%= com.aoindustries.aoserv.client.ticket.Status.CLOSED %>">
 												<logic:equal name="isDark" value="true">
@@ -133,7 +133,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 					</table>
 				</skin:lightArea>
 				<div style="text-align:left; padding-top:10px; padding-bottom:10px">
-					<ao:a href="create.do"><ao:message key="index.link.create" /></ao:a>
+					<ao:a href="/clientarea/ticket/create.do"><ao:message key="index.link.create" /></ao:a>
 				</div>
 			</skin:contentLine>
 		</ao:bundle>

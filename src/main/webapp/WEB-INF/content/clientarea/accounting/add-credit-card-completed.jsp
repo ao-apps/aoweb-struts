@@ -47,7 +47,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 						<ao:message key="addCreditCardCompleted.successMessage.text" arg0="${aoweb:getCardNumberDisplay(cardNumber)}" /><ao:br />
 						<ao:br />
 						<%-- TODO: Link to make payment here --%>
-						<ao:a href="credit-card-manager.do"><ao:message key="addCreditCardCompleted.creditCardManager.link" /></ao:a>
+						<ao:a href="/clientarea/accounting/credit-card-manager.do"><ao:message key="addCreditCardCompleted.creditCardManager.link" /></ao:a>
 					</skin:lightArea>
 				</logic:notPresent>
 			</skin:contentLine>

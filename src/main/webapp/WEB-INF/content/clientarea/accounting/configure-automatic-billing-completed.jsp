@@ -55,7 +55,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 						</logic:notPresent>
 						<ao:br />
 						<ao:br />
-						<ao:a href="credit-card-manager.do"><ao:message key="configureAutomaticBillingCompleted.creditCardManager.link" /></ao:a>
+						<ao:a href="/clientarea/accounting/credit-card-manager.do"><ao:message key="configureAutomaticBillingCompleted.creditCardManager.link" /></ao:a>
 					</skin:lightArea>
 				</logic:notPresent>
 			</skin:contentLine>

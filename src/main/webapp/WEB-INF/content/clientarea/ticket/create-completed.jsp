@@ -41,7 +41,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 				<logic:notPresent scope="request" name="permissionDenied">
 					<skin:lightArea>
 						<ao:message type="xhtml" key="create-completed.message" />
-						<ao:a href="edit.do" param.pkey="${requestScope.pkey}"><ao:write scope="request" name="pkey" /></ao:a>
+						<ao:a href="/clientarea/ticket/edit.do" param.pkey="${requestScope.pkey}"><ao:write scope="request" name="pkey" /></ao:a>
 					</skin:lightArea>
 				</logic:notPresent>
 			</skin:contentLine>
