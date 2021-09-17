@@ -49,7 +49,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 				<bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="virtual-managed-server" />
 				<%@include file="managed-server-steps.jspf" %>
 				<ao:br />
-				<form action="<ao:url>virtual-managed-server-7-completed.do</ao:url>" method="post">
+				<form action="<ao:url>/signup/virtual-managed-server-7-completed.do</ao:url>" method="post">
 					<%@include file="managed-server-confirmation.jspf" %>
 				</form>
 			</skin:contentLine>

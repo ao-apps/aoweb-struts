@@ -48,7 +48,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 				<bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="virtual-dedicated-server" />
 				<%@include file="dedicated-server-steps.jspf" %>
 				<ao:br />
-				<form action="<ao:url>virtual-dedicated-server-6-completed.do</ao:url>" method="post">
+				<form action="<ao:url>/signup/virtual-dedicated-server-6-completed.do</ao:url>" method="post">
 					<%@include file="dedicated-server-confirmation.jspf" %>
 				</form>
 			</skin:contentLine>

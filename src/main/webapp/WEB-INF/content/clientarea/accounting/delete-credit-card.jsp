@@ -45,7 +45,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 				</logic:present>
 				<logic:notPresent scope="request" name="permissionDenied">
 					<bean:define scope="request" name="creditCard" id="creditCard" type="com.aoindustries.aoserv.client.payment.CreditCard" />
-					<form method="post" action="<ao:url>delete-credit-card-completed.do</ao:url>"><div>
+					<form method="post" action="<ao:url>/clientarea/accounting/delete-credit-card-completed.do</ao:url>"><div>
 						<ao:input type="hidden" name="id" value="${creditCard.id}" />
 						<skin:lightArea>
 							<b><ao:message key="deleteCreditCard.confirmation.title" /></b>

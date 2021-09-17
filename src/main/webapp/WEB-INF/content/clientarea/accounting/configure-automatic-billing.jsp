@@ -44,7 +44,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 					<%@include file="../../permission-denied.jspf" %>
 				</logic:present>
 				<logic:notPresent scope="request" name="permissionDenied">
-					<form id="configurationAutomaticBillingForm" method="post" action="<ao:url>configure-automatic-billing-completed.do</ao:url>"><div>
+					<form id="configurationAutomaticBillingForm" method="post" action="<ao:url>/clientarea/accounting/configure-automatic-billing-completed.do</ao:url>"><div>
 						<ao:input name="account" type="hidden" value="${param.account}" />
 						<skin:lightArea>
 							<b><ao:message key="configureAutomaticBilling.cardList.title" /></b>

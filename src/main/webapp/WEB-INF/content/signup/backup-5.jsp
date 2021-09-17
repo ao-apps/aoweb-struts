@@ -47,7 +47,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 				<bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="backup" />
 				<%@include file="minimal-steps.jspf" %>
 				<ao:br />
-				<form action="<ao:url>backup-5-completed.do</ao:url>" method="post">
+				<form action="<ao:url>/signup/backup-5-completed.do</ao:url>" method="post">
 					<%@include file="minimal-confirmation.jspf" %>
 				</form>
 			</skin:contentLine>

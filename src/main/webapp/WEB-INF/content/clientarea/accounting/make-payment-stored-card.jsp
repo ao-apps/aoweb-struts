@@ -44,7 +44,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 			<skin:contentTitle><ao:message key="makePayment.title" /></skin:contentTitle>
 			<skin:contentHorizontalDivider />
 			<skin:contentLine>
-				<html:form action="make-payment-stored-card-completed">
+				<html:form action="/make-payment-stored-card-completed">
 					<div>
 						<html:hidden property="id" />
 						<skin:lightArea>

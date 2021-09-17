@@ -23,7 +23,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<ao:form method="post" action="make-payment-stored-card.do">
+<ao:form method="post" action="/clientarea/accounting/make-payment-stored-card.do">
 	<div>
 		<ao:input name="account" type="hidden" value="${param.account}" />
 		<c:if test="${!empty param.currency}">
