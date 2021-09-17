@@ -74,7 +74,6 @@ public class MakePaymentAction extends AuthenticatedAction {
 				// Remove all zero balances
 				// This is useful when an account changes currencies and have paid their bill in old currency
 				accountBalance = accountBalance.removeZeros();
-				assert !accountBalance.isEmpty();
 
 				if(account.getCanceled() == null) {
 					// Add all currencies, as zero, for all current monthly charges (including billParent sub accounts)
