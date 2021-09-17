@@ -31,6 +31,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	<!-- https://struts.apache.org/security/ -->
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 	<constant name="struts.ognl.allowStaticMethodAccess" value="false" />
+	<constant name="struts.ognl.expressionMaxLength" value="100" />
 
 	<!-- Disable package-based locators, only scanning the specifically listed packages -->
 	<constant name="struts.convention.package.locators.disable" value="true" />
