@@ -53,7 +53,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 			<skin:contentHorizontalDivider />
 			<skin:contentLine>
 				<logic:present scope="request" name="permissionDenied">
-					<%@include file="../../_permission-denied.jspf" %>
+					<%@include file="../../permission-denied.jspf" %>
 				</logic:present>
 				<logic:notPresent scope="request" name="permissionDenied">
 					<html:javascript staticJavascript='false' bundle="/clientarea/ticket/ApplicationResources" formName="ticketForm" />
