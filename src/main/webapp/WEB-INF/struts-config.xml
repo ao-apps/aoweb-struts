@@ -128,12 +128,6 @@ struts-config.xml.messageResources    Additional message resources
 		>
 			<forward name="success" path="/WEB-INF/content/set-resource-bundle-value.jsp" redirect="false" />
 		</action>
-		<action
-			path="/logout"
-			type="com.aoindustries.web.struts.LogoutAction"
-		>
-			<forward name="success" path="/WEB-INF/content/logout.jsp" redirect="false" />
-		</action>
 <!-- struts-config.xml.actions: no template file -->
 		<action
 			path="/**"

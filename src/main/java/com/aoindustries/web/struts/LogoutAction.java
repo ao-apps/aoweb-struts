@@ -23,27 +23,23 @@
 package com.aoindustries.web.struts;
 
 import com.aoapps.net.URIEncoder;
-import com.aoapps.web.resources.registry.Registry;
+import com.opensymphony.xwork2.ActionSupport;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
+import org.apache.struts2.ServletActionContext;
 
 /**
  * @author  AO Industries, Inc.
  */
-public class LogoutAction extends PageAction {
+public class LogoutAction extends ActionSupport {
+
+	private static final long serialVersionUID = 1L;
 
 	@Override
-	public ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		Registry pageRegistry
-	) throws Exception {
+	public String execute() throws Exception {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
 		// Handle logout
 		HttpSession session = request.getSession(false);
 		if(session != null) {
@@ -55,7 +51,7 @@ public class LogoutAction extends PageAction {
 
 		// Try redirect
 		String target = request.getParameter("target");
-		if(target!=null && target.length()>0) {
+		if(target != null && target.length()>0) {
 			response.sendRedirect(
 				response.encodeRedirectURL(
 					URIEncoder.encodeURI(
@@ -66,6 +62,6 @@ public class LogoutAction extends PageAction {
 			return null;
 		}
 
-		return mapping.findForward("success");
+		return SUCCESS;
 	}
 }

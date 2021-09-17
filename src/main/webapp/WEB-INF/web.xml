@@ -136,6 +136,7 @@ web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
 		<!-- Only handle *.do for Struts 1 compatibility -->
 		<!-- TODO: Once all actions are Struts 2: <url-pattern>*.do</url-pattern> -->
 		<!-- During Struts 1 to Struts 2 conversion, every action is listed: -->
+		<url-pattern>/logout.do</url-pattern>
 <!-- web.xml.struts2Mappings: no template file -->
 	</filter-mapping>
 
