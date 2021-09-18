@@ -23,8 +23,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<aoweb:exists path="/WEB-INF/content/add-parents.inc.jsp"><jsp:include page="/WEB-INF/content/add-parents.inc.jsp" /></aoweb:exists>
-<%@include file="contact.meta.inc.jsp" %>
+<%@include file="add-parents.jspf" %>
+<%@include file="contact.meta.jspf" %>
 <skin:skin onload="document.forms['contactForm'].from.select(); document.forms['contactForm'].from.focus();">
 	<skin:content colspans="3" width="600">
 		<ao:bundle basename="com.aoindustries.web.struts.i18n.ApplicationResources">

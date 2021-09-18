@@ -23,7 +23,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<%@include file="add-parents.inc.jsp" %>
+<%@include file="add-parents.jspf" %>
 <ao:bundle basename="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources">
 	<skin:path>/clientarea/control/account/cancel-feedback-completed.do?account=${ao:encodeURIComponent(account.name)}</skin:path>
 	<logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="robots">noindex</skin:meta></logic:equal>

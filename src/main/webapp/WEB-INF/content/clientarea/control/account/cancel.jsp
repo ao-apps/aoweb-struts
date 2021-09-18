@@ -26,8 +26,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page import="com.aoapps.lang.i18n.Money" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<%@include file="add-parents.inc.jsp" %>
-<%@include file="cancel.meta.inc.jsp" %>
+<%@include file="add-parents.jspf" %>
+<%@include file="cancel.meta.jspf" %>
 <skin:skin>
 	<skin:content width="600">
 		<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources">

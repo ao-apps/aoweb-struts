@@ -33,8 +33,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 	<skin:navImageAlt><ao:message key="deleteCreditCardCompleted.navImageAlt" /></skin:navImageAlt>
 	<skin:keywords><ao:message key="deleteCreditCardCompleted.keywords" /></skin:keywords>
 	<skin:description><ao:message key="deleteCreditCardCompleted.description" /></skin:description>
-	<%@include file="add-parents.inc.jsp" %>
-	<skin:parent><%@include file="credit-card-manager.meta.inc.jsp" %></skin:parent>
+	<%@include file="add-parents.jspf" %>
+	<skin:parent><%@include file="credit-card-manager.meta.jspf" %></skin:parent>
 	<skin:skin>
 		<skin:content width="600">
 			<skin:contentTitle><ao:message key="deleteCreditCardCompleted.title" /></skin:contentTitle>

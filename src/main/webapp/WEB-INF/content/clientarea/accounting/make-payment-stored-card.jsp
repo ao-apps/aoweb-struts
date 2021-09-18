@@ -38,7 +38,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 	<skin:navImageAlt><ao:message key="makePayment.navImageAlt" /></skin:navImageAlt>
 	<skin:keywords><ao:message key="makePayment.keywords" /></skin:keywords>
 	<skin:description><ao:message key="makePayment.description" /></skin:description>
-	<%@include file="add-parents.inc.jsp" %>
+	<%@include file="add-parents.jspf" %>
 	<skin:skin onload="document.forms['makePaymentStoredCardForm'].paymentAmount.select(); document.forms['makePaymentStoredCardForm'].paymentAmount.focus();">
 		<skin:content width="600">
 			<skin:contentTitle><ao:message key="makePayment.title" /></skin:contentTitle>

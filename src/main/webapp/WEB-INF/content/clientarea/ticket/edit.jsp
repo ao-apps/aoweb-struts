@@ -24,7 +24,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
 <ao:bundle basename="com.aoindustries.web.struts.clientarea.ticket.i18n.ApplicationResources">
-	<%@include file="add-parents.inc.jsp" %>
+	<%@include file="add-parents.jspf" %>
 	<skin:path>
 		/clientarea/ticket/edit.do
 		<ao:param name="pkey" value="${ticket.pkey}" />

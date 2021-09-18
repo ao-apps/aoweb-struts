@@ -23,8 +23,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<%@include file="add-parents.inc.jsp" %>
-<%@include file="create.meta.inc.jsp" %>
+<%@include file="add-parents.jspf" %>
+<%@include file="create.meta.jspf" %>
 <skin:skin onload="document.forms['ticketForm'].summary.select(); document.forms['ticketForm'].summary.focus();">
 	<skin:content>
 		<ao:bundle basename="com.aoindustries.web.struts.clientarea.ticket.i18n.ApplicationResources">

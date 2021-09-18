@@ -23,10 +23,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<skin:child><%@include file="password-evaluator.meta.inc.jsp" %></skin:child>
-<skin:child><%@include file="password-generator.meta.inc.jsp" %></skin:child>
-<skin:child><%@include file="administrator-password-setter.meta.inc.jsp" %></skin:child>
-<skin:child><%@include file="linux-account-password-setter.meta.inc.jsp" %></skin:child>
-<skin:child><%@include file="mysql-password-setter.meta.inc.jsp" %></skin:child>
-<skin:child><%@include file="postgresql-password-setter.meta.inc.jsp" %></skin:child>
-<skin:child><%@include file="global-password-setter.meta.inc.jsp" %></skin:child>
+<skin:child><%@include file="password-evaluator.meta.jspf" %></skin:child>
+<skin:child><%@include file="password-generator.meta.jspf" %></skin:child>
+<skin:child><%@include file="administrator-password-setter.meta.jspf" %></skin:child>
+<skin:child><%@include file="linux-account-password-setter.meta.jspf" %></skin:child>
+<skin:child><%@include file="mysql-password-setter.meta.jspf" %></skin:child>
+<skin:child><%@include file="postgresql-password-setter.meta.jspf" %></skin:child>
+<skin:child><%@include file="global-password-setter.meta.jspf" %></skin:child>

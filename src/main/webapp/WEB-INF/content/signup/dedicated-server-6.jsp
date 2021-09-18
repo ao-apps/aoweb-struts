@@ -29,7 +29,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 	<skin:navImageAlt><ao:message key="dedicated.navImageAlt" /></skin:navImageAlt>
 	<skin:keywords><ao:message key="dedicated.keywords" /></skin:keywords>
 	<skin:description><ao:message key="dedicated.description" /></skin:description>
-	<%@include file="add-parents.inc.jsp" %>
+	<%@include file="add-parents.jspf" %>
 	<skin:skin>
 		<skin:content width="600">
 			<skin:contentTitle><ao:message key="dedicated.title" /></skin:contentTitle>

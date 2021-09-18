@@ -1,6 +1,6 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2007-2009, 2016, 2021  AO Industries, Inc.
+Copyright (C) 2007-2009, 2016, 2019, 2021  AO Industries, Inc.
 	support@aoindustries.com
 	7262 Bull Pen Cir
 	Mobile, AL 36695
@@ -23,13 +23,6 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<aoweb:exists path="/WEB-INF/content/clientarea/control/password/add-parents.override.inc.jsp">
-	<jsp:include page="/WEB-INF/content/clientarea/control/password/add-parents.override.inc.jsp" />
-</aoweb:exists>
-<aoweb:notExists path="/WEB-INF/content/clientarea/control/password/add-parents.override.inc.jsp">
-	<%@include file="../add-parents.inc.jsp" %>
-	<skin:parent>
-		<%@include file="index.meta.inc.jsp" %>
-		<%@include file="index.children.inc.jsp" %>
-	</skin:parent>
-</aoweb:notExists>
+<skin:child><%@include file="cancel.meta.jspf" %></skin:child>
+<skin:child><%@include file="disable.meta.jspf" %></skin:child>
+<skin:child><%@include file="profiles.meta.jspf" %></skin:child>

@@ -23,8 +23,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<%@include file="../add-parents.inc.jsp" %>
-<skin:parent>
-	<%@include file="index.meta.inc.jsp" %>
-	<%@include file="index.children.inc.jsp" %>
-</skin:parent>
+<skin:child><%@include file="mrtg.meta.jspf" %></skin:child>
+<skin:child><%@include file="all-mrtg.meta.jspf" %></skin:child>
+<skin:child><%@include file="backup.meta.jspf" %></skin:child>
+<skin:child><%@include file="failover.meta.jspf" %></skin:child>
+<skin:child><%@include file="mysql-replication-monitor.meta.jspf" %></skin:child>

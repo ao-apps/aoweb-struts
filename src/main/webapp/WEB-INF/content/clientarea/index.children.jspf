@@ -23,11 +23,6 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<aoweb:exists path="/WEB-INF/content/clientarea/accounting/index.children.override.inc.jsp">
-	<jsp:include page="/WEB-INF/content/clientarea/accounting/index.children.override.inc.jsp" />
-</aoweb:exists>
-<aoweb:notExists path="/WEB-INF/content/clientarea/accounting/index.children.override.inc.jsp">
-	<%--<skin:child><%@include file="account-history.meta.inc.jsp" %></skin:child>--%>
-	<skin:child><%@include file="credit-card-manager.meta.inc.jsp" %></skin:child>
-	<skin:child><%@include file="make-payment.meta.inc.jsp" %></skin:child>
-</aoweb:notExists>
+<skin:child><%@include file="control/index.meta.jspf" %></skin:child>
+<skin:child><%@include file="accounting/index.meta.jspf" %></skin:child>
+<skin:child><%@include file="ticket/index.meta.jspf" %></skin:child>

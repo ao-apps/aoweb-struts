@@ -30,7 +30,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 	<skin:navImageAlt><ao:message key="login.navImageAlt" /></skin:navImageAlt>
 	<skin:keywords><ao:message key="login.keywords" /></skin:keywords>
 	<skin:description><ao:message key="login.description" /></skin:description>
-	<aoweb:exists path="/WEB-INF/content/add-parents.inc.jsp"><jsp:include page="/WEB-INF/content/add-parents.inc.jsp" /></aoweb:exists>
+	<%@include file="add-parents.jspf" %>
 	<skin:skin onload="document.forms['loginForm'].username.focus(); document.forms['loginForm'].username.select();">
 		<skin:content width="600">
 			<skin:contentTitle><ao:message key="login.title" /></skin:contentTitle>

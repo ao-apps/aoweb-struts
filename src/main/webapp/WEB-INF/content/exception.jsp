@@ -50,7 +50,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 	<skin:navImageAlt><ao:message key="exception.navImageAlt" /></skin:navImageAlt>
 	<skin:keywords><ao:message key="exception.keywords" /></skin:keywords>
 	<skin:description><ao:message key="exception.description" /></skin:description>
-	<aoweb:exists path="/WEB-INF/content/add-parents.inc.jsp"><jsp:include page="/WEB-INF/content/add-parents.inc.jsp" /></aoweb:exists>
+	<%@include file="add-parents.jspf" %>
 	<skin:skin>
 		<skin:content width="600">
 			<skin:contentTitle><ao:message key="exception.title" /></skin:contentTitle>

@@ -23,8 +23,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<%@include file="add-parents.inc.jsp" %>
-<%@include file="colocation.meta.inc.jsp" %>
+<%@include file="add-parents.jspf" %>
+<%@include file="colocation.meta.jspf" %>
 <skin:skin>
 	<skin:content width="600">
 		<ao:bundle basename="com.aoindustries.web.struts.signup.i18n.ApplicationResources">

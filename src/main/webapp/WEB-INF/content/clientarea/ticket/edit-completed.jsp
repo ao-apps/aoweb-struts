@@ -23,7 +23,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<%@include file="add-parents.inc.jsp" %>
+<%@include file="add-parents.jspf" %>
 <ao:bundle basename="com.aoindustries.web.struts.clientarea.ticket.i18n.ApplicationResources">
 	<skin:path>
 		/clientarea/ticket/edit.do

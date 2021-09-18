@@ -23,17 +23,12 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<aoweb:exists path="/WEB-INF/content/clientarea/accounting/security-policy.override.inc.jsp">
-	<jsp:include page="/WEB-INF/content/clientarea/accounting/security-policy.override.inc.jsp" />
-</aoweb:exists>
-<aoweb:notExists path="/WEB-INF/content/clientarea/accounting/security-policy.override.inc.jsp">
-	<ao:br />
-	<skin:lightArea width="500">
-		<ao:bundle basename="com.aoindustries.web.struts.clientarea.accounting.i18n.ApplicationResources">
-			<b><ao:message key="securityPolicy.securityNotice.title" /></b>
-			<ao:hr />
-			<%-- TODO: Should make a per-provider notice based on root-level account --%>
-			<ao:message type="xhtml" key="securityPolicy.securityNotice.body" />
-		</ao:bundle>
-	</skin:lightArea>
-</aoweb:notExists>
+<ao:br />
+<skin:lightArea width="500">
+	<ao:bundle basename="com.aoindustries.web.struts.clientarea.accounting.i18n.ApplicationResources">
+		<b><ao:message key="securityPolicy.securityNotice.title" /></b>
+		<ao:hr />
+		<%-- TODO: Should make a per-provider notice based on root-level account --%>
+		<ao:message type="xhtml" key="securityPolicy.securityNotice.body" />
+	</ao:bundle>
+</skin:lightArea>

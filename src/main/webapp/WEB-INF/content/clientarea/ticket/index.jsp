@@ -24,9 +24,9 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page import="com.aoindustries.aoserv.client.ticket.Ticket" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<%@include file="../add-parents.inc.jsp" %>
-<%@include file="index.meta.inc.jsp" %>
-<%@include file="index.children.inc.jsp" %>
+<%@include file="../add-parents.jspf" %>
+<%@include file="index.meta.jspf" %>
+<%@include file="index.children.jspf" %>
 <skin:skin>
 	<skin:content width="600">
 		<ao:bundle basename="com.aoindustries.web.struts.clientarea.ticket.i18n.ApplicationResources">
