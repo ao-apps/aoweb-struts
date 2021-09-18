@@ -36,6 +36,11 @@ public class LogoutAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
 
+	private String target;
+	public void setTarget(String target) {
+		this.target = target;
+	}
+
 	@Override
 	public String execute() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -50,8 +55,8 @@ public class LogoutAction extends ActionSupport {
 		}
 
 		// Try redirect
-		String target = request.getParameter("target");
-		if(target != null && target.length()>0) {
+		if(target != null && !target.isEmpty()) {
+			// TODO: Open Redirection Vulnerability
 			response.sendRedirect(
 				response.encodeRedirectURL(
 					URIEncoder.encodeURI(
