@@ -54,8 +54,8 @@ struts-config-clientarea-accounting.xml.messageResources    Additional message r
 		<forward name="login" module="" path="/login.do" redirect="false" />
 		<forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
 		<!-- /clientarea/accounting -->
-		<forward name="credit-card-manager" path="/clientarea/accounting/credit-card-manager.do" redirect="true" />
-		<forward name="make-payment" path="/clientarea/accounting/make-payment.do" redirect="true" />
+		<forward name="credit-card-manager" path="/credit-card-manager.do" redirect="true" />
+		<forward name="make-payment" path="/make-payment.do" redirect="true" />
 	</global-forwards>
 
 	<!-- ========== Action Mapping Definitions ============================== -->

@@ -106,7 +106,7 @@ struts-config.xml.messageResources    Additional message resources
 			type="com.aoindustries.web.struts.LoginCompletedAction"
 		>
 			<forward name="input" path="/WEB-INF/content/login.jsp" redirect="false" />
-			<!-- Redirect done directly from Action now: forward name="success" path="/clientarea/index.do" redirect="true" /-->
+			<!-- Redirect done directly from Action now: forward name="success" module="/clientarea" path="/index.do" redirect="true" /-->
 			<forward name="failure" path="/WEB-INF/content/login.jsp" redirect="false" />
 		</action>
 		<action

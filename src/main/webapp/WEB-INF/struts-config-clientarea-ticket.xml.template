@@ -100,7 +100,7 @@ struts-config-clientarea-ticket.xml.messageResources Additional message resource
 		>
 			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/ticket/edit.jsp" redirect="false" />
 			<forward name="input" module="" path="/WEB-INF/content/clientarea/ticket/edit.jsp" redirect="false" />
-			<forward name="index" path="/clientarea/ticket/index.do" redirect="true" />
+			<forward name="index" path="/index.do" redirect="true" />
 			<forward name="success" module="" path="/WEB-INF/content/clientarea/ticket/edit-completed.jsp" redirect="false" />
 		</action>
 		<action

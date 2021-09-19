@@ -81,7 +81,7 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			type="com.aoindustries.web.struts.clientarea.control.account.CancelFeedbackAction"
 		>
 			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/account/cancel-feedback.jsp" redirect="false" />
-			<forward name="invalid-account" path="/clientarea/control/account/cancel.do" redirect="true" />
+			<forward name="invalid-account" path="/account/cancel.do" redirect="true" />
 			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/account/cancel-feedback.jsp" redirect="false" />
 		</action>
 		<action
@@ -92,7 +92,7 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 			type="com.aoindustries.web.struts.clientarea.control.account.CancelFeedbackCompletedAction"
 		>
 			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/account/cancel-feedback-completed.jsp" redirect="false" />
-			<forward name="invalid-account" path="/clientarea/control/account/cancel.do" redirect="true" />
+			<forward name="invalid-account" path="/account/cancel.do" redirect="true" />
 			<forward name="success" module="" path="/WEB-INF/content/clientarea/control/account/cancel-feedback-completed.jsp" redirect="false" />
 		</action>
 		<action
