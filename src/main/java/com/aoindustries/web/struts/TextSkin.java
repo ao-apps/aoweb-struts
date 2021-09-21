@@ -97,7 +97,7 @@ public class TextSkin extends Skin {
 
 	public static final Style TEXTSKIN_CSS = new Style("/textskin/textskin.css");
 
-	static final com.aoapps.lang.i18n.Resources RESOURCES = com.aoapps.lang.i18n.Resources.getResources(TextSkin.class, ResourceBundle::getBundle);
+	static final com.aoapps.lang.i18n.Resources RESOURCES = com.aoapps.lang.i18n.Resources.getResources(ResourceBundle::getBundle, TextSkin.class);
 
 	@WebListener
 	public static class Initializer implements ServletContextListener {
