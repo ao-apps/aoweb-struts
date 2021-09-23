@@ -47,7 +47,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 			onload = "";
 		}
 	%>
-	<skin:skin onload="<%= onload %>">
+	<skin:skin formtype="struts1" onload="<%= onload %>">
 		<skin:content>
 			<skin:contentTitle><ao:message key="edit.title" /></skin:contentTitle>
 			<skin:contentHorizontalDivider />

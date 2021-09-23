@@ -25,7 +25,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 
 <%@include file="add-parents.jspf" %>
 <%@include file="contact.meta.jspf" %>
-<skin:skin onload="document.forms['contactForm'].from.select(); document.forms['contactForm'].from.focus();">
+<skin:skin formtype="struts1" onload="document.forms['contactForm'].from.select(); document.forms['contactForm'].from.focus();">
 	<skin:content colspans="3" width="600">
 		<ao:bundle basename="com.aoindustries.web.struts.i18n.ApplicationResources">
 			<skin:contentTitle><ao:message key="contact.title" /></skin:contentTitle>

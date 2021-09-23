@@ -49,7 +49,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 	<skin:description><ao:message key="editCreditCard.description" /></skin:description>
 	<%@include file="add-parents.jspf" %>
 	<skin:parent><%@include file="credit-card-manager.meta.jspf" %></skin:parent>
-	<skin:skin>
+	<skin:skin formtype="struts1">
 		<skin:content width="600">
 			<skin:contentTitle>
 				<logic:notEqual name="editCreditCardForm" property="isActive" value="false">

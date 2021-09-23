@@ -26,6 +26,7 @@ import com.aoapps.encoding.Doctype;
 import com.aoapps.encoding.Serialization;
 import com.aoapps.taglib.HtmlTag;
 import com.aoindustries.web.struts.Constants;
+import com.aoindustries.web.struts.Formtype;
 import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
 import java.util.ArrayList;
 import java.util.List;
@@ -137,6 +138,27 @@ public class SkinTagTEI extends TagExtraInfo {
 						)
 					)
 				);
+			}
+		}
+		Object formtypeAttr = data.getAttribute("formtype");
+		if(
+			formtypeAttr != null
+			&& formtypeAttr != TagData.REQUEST_TIME_VALUE
+		) {
+			String formtype = ((String)formtypeAttr).trim(); // TODO: normalizeFormtype
+			if(!formtype.isEmpty() && !"none".equalsIgnoreCase(formtype)) {
+				try {
+					Formtype.valueOf(formtype.toUpperCase(Locale.ROOT));
+				} catch(IllegalArgumentException e) {
+					messages.add(
+						new ValidationMessage(
+							data.getId(),
+							PACKAGE_RESOURCES.getMessage(
+								"skintags.SkinTagTEI.validate.formtype.invalid"
+							)
+						)
+					);
+				}
 			}
 		}
 		return messages.isEmpty() ? null : messages.toArray(new ValidationMessage[messages.size()]);

@@ -25,7 +25,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 
 <%@include file="add-parents.jspf" %>
 <%@include file="system-administration.meta.jspf" %>
-<skin:skin>
+<skin:skin formtype="struts1">
 	<skin:content width="600">
 		<ao:bundle basename="com.aoindustries.web.struts.signup.i18n.ApplicationResources">
 			<skin:contentTitle><ao:message key="system-administration.title" /></skin:contentTitle>

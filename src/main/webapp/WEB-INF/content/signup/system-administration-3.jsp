@@ -30,7 +30,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 	<skin:keywords><ao:message key="system-administration.keywords" /></skin:keywords>
 	<skin:description><ao:message key="system-administration.description" /></skin:description>
 	<%@include file="add-parents.jspf" %>
-	<skin:skin>
+	<skin:skin formtype="struts1">
 		<skin:content width="600">
 			<skin:contentTitle><ao:message key="system-administration.title" /></skin:contentTitle>
 			<skin:contentHorizontalDivider />

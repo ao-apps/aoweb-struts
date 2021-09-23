@@ -31,7 +31,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 	<skin:keywords><ao:message key="login.keywords" /></skin:keywords>
 	<skin:description><ao:message key="login.description" /></skin:description>
 	<%@include file="add-parents.jspf" %>
-	<skin:skin onload="document.forms['loginForm'].username.focus(); document.forms['loginForm'].username.select();">
+	<skin:skin formtype="struts1" onload="document.forms['loginForm'].username.focus(); document.forms['loginForm'].username.select();">
 		<skin:content width="600">
 			<skin:contentTitle><ao:message key="login.title" /></skin:contentTitle>
 			<skin:contentHorizontalDivider />

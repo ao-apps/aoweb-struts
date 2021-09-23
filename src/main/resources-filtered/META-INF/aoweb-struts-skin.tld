@@ -506,7 +506,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	</tag>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-14T02:28:24-05:00" -->
+		<!-- dateModified="2021-09-23T07:02:20-05:00" -->
 		<description><![CDATA[
 			<p>
 				Sets up the request and response, then writes all of the HTML
@@ -629,7 +629,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 			<description><![CDATA[
 				<p>
 					Each page may request a specific layout from the skin implementation.  The currently
-					support values are:
+					supported values are:
 				</p>
 				<ul>
 					<li>
@@ -644,6 +644,30 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				</ul>
 			]]></description>
 			<name>layout</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[
+				<p>
+					The type of form used in the page.  The currently supported values are:
+				</p>
+				<ul>
+					<li>
+						<code>none</code> (the default) - This page does not require any resources in the head.
+					</li>
+					<li>
+						<code>struts1</code> - Adds <code>/struts1/commons-validator-1.3.1-compress.js</code> to
+						<code>&lt;head&gt;</code> for Struts 1.
+					</li>
+					<li>
+						<code>struts2</code> - <a href="https://struts.apache.org/tag-developers/head-tag.html"><code>&lt;s:head /&gt;</a> within
+						<code>&lt;head&gt;</code> for <a href="https://struts.apache.org/">Struts 2</a>.
+					</li>
+				</ul>
+			]]></description>
+			<name>formtype</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.String</type>

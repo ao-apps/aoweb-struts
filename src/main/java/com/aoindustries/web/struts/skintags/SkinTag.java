@@ -33,6 +33,7 @@ import com.aoapps.servlet.ServletUtil;
 import com.aoapps.servlet.jsp.LocalizedJspTagException;
 import com.aoapps.taglib.HtmlTag;
 import com.aoindustries.web.struts.Constants;
+import com.aoindustries.web.struts.Formtype;
 import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
 import com.aoindustries.web.struts.Skin;
 import java.io.IOException;
@@ -133,6 +134,16 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
 		this.layout = layout.trim();
 	}
 
+	private Formtype formtype;
+	public void setFormtype(String formtype) {
+		if(formtype == null) {
+			this.formtype = null;
+		} else {
+			formtype = formtype.trim();
+			this.formtype = (formtype.isEmpty() || "none".equalsIgnoreCase(formtype)) ? null : Formtype.valueOf(formtype.toUpperCase(Locale.ROOT));
+		}
+	}
+
 	private String onload;
 	public void setOnload(String onload) {
 		this.onload = onload;
@@ -154,6 +165,7 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
 		autonli = null;
 		indent = null;
 		layout = "normal";
+		formtype = null;
 		onload = null;
 		oldSerialization = null;
 		setSerialization = false;
@@ -169,6 +181,7 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
 	public int doStartTag(PageAttributes pageAttributes) throws JspException, IOException {
 		try {
 			pageAttributes.setLayout(layout);
+			pageAttributes.setFormtype(formtype);
 			pageAttributes.setOnload(onload);
 
 			ServletContext servletContext = pageContext.getServletContext();

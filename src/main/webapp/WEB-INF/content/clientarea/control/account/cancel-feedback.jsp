@@ -31,7 +31,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 	<skin:navImageAlt><ao:message key="cancel.navImageAlt" /></skin:navImageAlt>
 	<skin:keywords><ao:message key="cancel.keywords" /></skin:keywords>
 	<skin:description><ao:message key="cancel.description" /></skin:description>
-	<skin:skin>
+	<skin:skin formtype="struts1">
 		<skin:content width="600">
 			<skin:contentTitle><ao:message key="cancel.title" /></skin:contentTitle>
 			<skin:contentHorizontalDivider />

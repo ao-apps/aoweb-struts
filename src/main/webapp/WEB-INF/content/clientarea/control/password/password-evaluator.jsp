@@ -25,7 +25,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 
 <%@include file="add-parents.jspf" %>
 <%@include file="password-evaluator.meta.jspf" %>
-<skin:skin onload="document.forms.passwordEvaluatorForm.password.select(); document.forms.passwordEvaluatorForm.password.focus();">
+<skin:skin formtype="struts1" onload="document.forms.passwordEvaluatorForm.password.select(); document.forms.passwordEvaluatorForm.password.focus();">
 	<skin:content width="600">
 		<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.password.i18n.ApplicationResources">
 			<skin:contentTitle><ao:message key="passwordEvaluator.title" /></skin:contentTitle>

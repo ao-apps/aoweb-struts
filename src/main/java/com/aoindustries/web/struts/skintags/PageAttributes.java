@@ -24,6 +24,7 @@ package com.aoindustries.web.struts.skintags;
 
 import com.aoapps.lang.LocalizedIllegalArgumentException;
 import com.aoapps.lang.Strings;
+import com.aoindustries.web.struts.Formtype;
 import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -93,6 +94,7 @@ public class PageAttributes {
 	private List<Parent> parents;
 	private List<Child> children;
 	private String layout;
+	private Formtype formtype;
 	private String onload;
 
 	public PageAttributes() {
@@ -238,6 +240,17 @@ public class PageAttributes {
 	public void setLayout(String layout) {
 		if(layout.equals(LAYOUT_NORMAL) || layout.equals(LAYOUT_MINIMAL)) this.layout = layout;
 		else throw new LocalizedIllegalArgumentException(PACKAGE_RESOURCES, "skintags.PageAttributes.setLayout.invalid");
+	}
+
+	public Formtype getFormtype() {
+		return formtype;
+	}
+
+	/**
+	 * @param  formtype  Includes appropriate content in the head based on the type of form.
+	 */
+	public void setFormtype(Formtype formtype) {
+		this.formtype = formtype;
 	}
 
 	public String getOnload() {

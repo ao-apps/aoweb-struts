@@ -326,13 +326,8 @@ public class TextSkin extends Skin {
 
 			defaultPrintLinks(servletContext, req, resp, document, pageAttributes);
 			printJavaScriptSources(req, resp, document, urlBase);
-			document.script().src(
-				resp.encodeURL(
-					URIEncoder.encodeURI(
-						urlBase + "commons-validator-1.3.1-compress.js"
-					)
-				)
-			).__();
+			Formtype formtype = pageAttributes.getFormtype();
+			if(formtype != null) formtype.doHead(servletContext, req, resp, document);
 			printFavIcon(req, resp, document, urlBase);
 			// TODO: Canonical?
 			document.out.write("  </head>\n"
