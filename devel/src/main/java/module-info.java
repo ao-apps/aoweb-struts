@@ -31,4 +31,6 @@ module com.aoindustries.web.struts.devel {
 	exports com.aoindustries.web.struts.webapp.i18n;
 	// Direct
 	requires com.aoapps.hodgepodge; // <groupId>com.aoapps</groupId><artifactId>ao-hodgepodge</artifactId>
+	// Java SE
+	requires java.logging;
 }
