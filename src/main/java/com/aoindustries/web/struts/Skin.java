@@ -512,15 +512,10 @@ abstract public class Skin {
 	public static class Language {
 		private final String code;
 		private final com.aoapps.lang.i18n.Resources resources;
-		private final String displayResourcesKey;
 		private final String displayKey;
-		private final String flagOnSrcResourcesKey;
 		private final String flagOnSrcKey;
-		private final String flagOffSrcResourcesKey;
 		private final String flagOffSrcKey;
-		private final String flagWidthResourcesKey;
 		private final String flagWidthKey;
-		private final String flagHeightResourcesKey;
 		private final String flagHeightKey;
 		private final AnyURI uri;
 
@@ -530,29 +525,19 @@ abstract public class Skin {
 		public Language(
 			String code,
 			com.aoapps.lang.i18n.Resources resources,
-			String displayResourcesKey,
 			String displayKey,
-			String flagOnSrcResourcesKey,
 			String flagOnSrcKey,
-			String flagOffSrcResourcesKey,
 			String flagOffSrcKey,
-			String flagWidthResourcesKey,
 			String flagWidthKey,
-			String flagHeightResourcesKey,
 			String flagHeightKey,
 			AnyURI uri
 		) {
 			this.code = code;
 			this.resources = resources;
-			this.displayResourcesKey = displayResourcesKey;
 			this.displayKey = displayKey;
-			this.flagOnSrcResourcesKey = flagOnSrcResourcesKey;
 			this.flagOnSrcKey = flagOnSrcKey;
-			this.flagOffSrcResourcesKey = flagOffSrcResourcesKey;
 			this.flagOffSrcKey = flagOffSrcKey;
-			this.flagWidthResourcesKey = flagWidthResourcesKey;
 			this.flagWidthKey = flagWidthKey;
-			this.flagHeightResourcesKey = flagHeightResourcesKey;
 			this.flagHeightKey = flagHeightKey;
 			this.uri = uri;
 		}

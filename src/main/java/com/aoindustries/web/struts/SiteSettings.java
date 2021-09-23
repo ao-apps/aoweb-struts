@@ -197,11 +197,11 @@ public class SiteSettings {
 					new Skin.Language(
 						Locale.ENGLISH.getLanguage(),
 						TextSkin.RESOURCES,
-						"/ApplicationResources", "language.en_US.alt",
-						"/ApplicationResources", "language.en_US.flag.on.src",
-						"/ApplicationResources", "language.en_US.flag.off.src",
-						"/ApplicationResources", "language.en_US.flag.width",
-						"/ApplicationResources", "language.en_US.flag.height",
+						"language.en_US.alt",
+						"language.en_US.flag.on.src",
+						"language.en_US.flag.off.src",
+						"language.en_US.flag.width",
+						"language.en_US.flag.height",
 						null
 					)
 				);
@@ -210,11 +210,11 @@ public class SiteSettings {
 					new Skin.Language(
 						Locale.ENGLISH.getLanguage(),
 						TextSkin.RESOURCES,
-						"/ApplicationResources", "language.en.alt",
-						"/ApplicationResources", "language.en.flag.on.src",
-						"/ApplicationResources", "language.en.flag.off.src",
-						"/ApplicationResources", "language.en.flag.width",
-						"/ApplicationResources", "language.en.flag.height",
+						"language.en.alt",
+						"language.en.flag.on.src",
+						"language.en.flag.off.src",
+						"language.en.flag.width",
+						"language.en.flag.height",
 						null
 					)
 				);
@@ -225,11 +225,11 @@ public class SiteSettings {
 				new Skin.Language(
 					Locale.JAPANESE.getLanguage(),
 					TextSkin.RESOURCES,
-					"/ApplicationResources", "language.ja.alt",
-					"/ApplicationResources", "language.ja.flag.on.src",
-					"/ApplicationResources", "language.ja.flag.off.src",
-					"/ApplicationResources", "language.ja.flag.width",
-					"/ApplicationResources", "language.ja.flag.height",
+					"language.ja.alt",
+					"language.ja.flag.on.src",
+					"language.ja.flag.off.src",
+					"language.ja.flag.width",
+					"language.ja.flag.height",
 					null
 				)
 			);

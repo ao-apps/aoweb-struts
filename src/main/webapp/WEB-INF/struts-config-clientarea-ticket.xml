@@ -118,45 +118,9 @@ struts-config-clientarea-ticket.xml.messageResources Additional message resource
 
 	<!-- ========== Message Resources ======================================= -->
 	<message-resources
-		key="/ApplicationResources"
-		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
-		parameter="com.aoindustries.web.struts.i18n.ApplicationResources"
-		null="false"
-	/>
-	<message-resources
-		key="/clientarea/ApplicationResources"
-		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
-		parameter="com.aoindustries.web.struts.clientarea.i18n.ApplicationResources"
-		null="false"
-	/>
-	<message-resources
-		key="/clientarea/accounting/ApplicationResources"
-		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
-		parameter="com.aoindustries.web.struts.clientarea.accounting.i18n.ApplicationResources"
-		null="false"
-	/>
-	<message-resources
-		key="/clientarea/control/ApplicationResources"
-		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
-		parameter="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources"
-		null="false"
-	/>
-	<message-resources
-		key="/clientarea/control/password/ApplicationResources"
-		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
-		parameter="com.aoindustries.web.struts.clientarea.control.password.i18n.ApplicationResources"
-		null="false"
-	/>
-	<message-resources
 		key="/clientarea/ticket/ApplicationResources"
 		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
 		parameter="com.aoindustries.web.struts.clientarea.ticket.i18n.ApplicationResources"
-		null="false"
-	/>
-	<message-resources
-		key="/clientarea/webmail/ApplicationResources"
-		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
-		parameter="com.aoindustries.web.struts.clientarea.webmail.i18n.ApplicationResources"
 		null="false"
 	/>
 <!-- Begin include "struts-config-clientarea-ticket.xml.messageResources" -->

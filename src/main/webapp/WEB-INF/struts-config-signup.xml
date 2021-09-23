@@ -1291,18 +1291,6 @@ struts-config-signup.xml.messageResources Additional message resources
 
 	<!-- ========== Message Resources ======================================= -->
 	<message-resources
-		key="/ApplicationResources"
-		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
-		parameter="com.aoindustries.web.struts.i18n.ApplicationResources"
-		null="false"
-	/>
-	<message-resources
-		key="/clientarea/ApplicationResources"
-		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
-		parameter="com.aoindustries.web.struts.clientarea.i18n.ApplicationResources"
-		null="false"
-	/>
-	<message-resources
 		key="/signup/ApplicationResources"
 		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
 		parameter="com.aoindustries.web.struts.signup.i18n.ApplicationResources"
