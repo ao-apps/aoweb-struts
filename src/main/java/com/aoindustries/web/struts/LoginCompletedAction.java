@@ -27,7 +27,7 @@ import com.aoapps.web.resources.registry.Registry;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.linux.User;
 import java.io.IOException;
-import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +37,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessages;
-import org.apache.struts.util.MessageResources;
 
 /**
  * @author  AO Industries, Inc.
@@ -45,6 +44,9 @@ import org.apache.struts.util.MessageResources;
 public class LoginCompletedAction extends PageAction {
 
 	private static final Logger logger = Logger.getLogger(LoginCompletedAction.class.getName());
+
+	private static final com.aoapps.lang.i18n.Resources RESOURCES =
+		com.aoapps.lang.i18n.Resources.getResources(ResourceBundle::getBundle, LoginCompletedAction.class);
 
 	@Override
 	public ActionForward execute(
@@ -107,13 +109,15 @@ public class LoginCompletedAction extends PageAction {
 		} catch(IOException err) {
 			String message=err.getMessage();
 			if(message!=null) {
-				// TODO: Don't use MessageResources
-				MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-				Locale locale = response.getLocale();
-				if(message.contains("Unable to find Administrator")) message=applicationResources.getMessage(locale, "login.accountNotFound");
-				else if(message.contains("Connection attempted with invalid password")) message=applicationResources.getMessage(locale, "login.badPassword");
-				else if(message.contains("Administrator disabled")) message=applicationResources.getMessage(locale, "accountDisabled");
-				else message=null;
+				if(message.contains("Unable to find Administrator")) {
+					message = RESOURCES.getMessage("accountNotFound");
+				} else if(message.contains("Connection attempted with invalid password")) {
+					message = RESOURCES.getMessage("badPassword");
+				} else if(message.contains("Administrator disabled")) {
+					message = RESOURCES.getMessage("accountDisabled");
+				} else {
+					message=null;
+				}
 			}
 			if(message!=null) request.setAttribute(Constants.AUTHENTICATION_MESSAGE, message);
 			else logger.log(Level.SEVERE, null, err);

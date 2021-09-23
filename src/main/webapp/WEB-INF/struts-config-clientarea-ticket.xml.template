@@ -142,12 +142,6 @@ struts-config-clientarea-ticket.xml.messageResources Additional message resource
 		null="false"
 	/>
 	<message-resources
-		key="/clientarea/control/monitor/ApplicationResources"
-		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
-		parameter="com.aoindustries.web.struts.clientarea.control.monitor.i18n.ApplicationResources"
-		null="false"
-	/>
-	<message-resources
 		key="/clientarea/control/password/ApplicationResources"
 		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
 		parameter="com.aoindustries.web.struts.clientarea.control.password.i18n.ApplicationResources"

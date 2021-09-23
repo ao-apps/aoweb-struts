@@ -23,6 +23,7 @@
 package com.aoindustries.web.struts.clientarea.accounting;
 
 import com.aoapps.lang.i18n.Money;
+import com.aoapps.lang.i18n.Resources;
 import com.aoapps.lang.validation.ValidationException;
 import com.aoapps.net.URIEncoder;
 import com.aoapps.payments.AuthorizationResult;
@@ -49,6 +50,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
@@ -56,7 +58,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessages;
-import org.apache.struts.util.MessageResources;
 
 /**
  * Payment from stored credit card.
@@ -64,6 +65,9 @@ import org.apache.struts.util.MessageResources;
  * @author  AO Industries, Inc.
  */
 public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardAction {
+
+	static final Resources RESOURCES =
+		Resources.getResources(ResourceBundle::getBundle, MakePaymentStoredCardCompletedAction.class);
 
 	@Override
 	final public ActionForward executePermissionGranted(
@@ -162,7 +166,6 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
 		if(rootAccount == null) throw new SQLException("Unable to find Account: " + account.getName());
 		TransactionType paymentTransactionType = rootConn.getBilling().getTransactionType().get(TransactionType.PAYMENT);
 		if(paymentTransactionType == null) throw new SQLException("Unable to find TransactionType: " + TransactionType.PAYMENT);
-		MessageResources applicationResources = (MessageResources)request.getAttribute("/clientarea/accounting/ApplicationResources");
 		String cardInfo = creditCard.getCardInfo();
 		PaymentType paymentType;
 		{
@@ -203,7 +206,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
 			rootAccount,
 			aoConn.getCurrentAdministrator(),
 			paymentTransactionType,
-			applicationResources.getMessage(response.getLocale(), "makePaymentStoredCardCompleted.transaction.description"),
+			RESOURCES.getMessage("transaction.description"),
 			1000,
 			paymentAmount.negate(),
 			paymentType,
@@ -246,7 +249,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
 					null, // merchantEmail
 					null, // invoiceNumber
 					null, // purchaseOrderNumber
-					applicationResources.getMessage(Locale.US, "makePaymentStoredCardCompleted.transaction.description") // description
+					RESOURCES.getMessage(Locale.US, "transaction.description") // description
 				),
 				CreditCardFactory.getCreditCard(rootCreditCard)
 			);
@@ -278,7 +281,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
 					null, // merchantEmail
 					null, // invoiceNumber
 					null, // purchaseOrderNumber
-					applicationResources.getMessage(Locale.US, "makePaymentStoredCardCompleted.transaction.description") // description
+					RESOURCES.getMessage(Locale.US, "transaction.description") // description
 				),
 				CreditCardFactory.getCreditCard(rootCreditCard)
 			);

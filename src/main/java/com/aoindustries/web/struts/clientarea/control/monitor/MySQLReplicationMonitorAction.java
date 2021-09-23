@@ -22,6 +22,7 @@
  */
 package com.aoindustries.web.struts.clientarea.control.monitor;
 
+import com.aoapps.lang.i18n.Resources;
 import com.aoapps.net.DomainName;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.backup.BackupPartition;
@@ -37,14 +38,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspException;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.util.MessageResources;
 
 /**
  * Retrieves the mysql slave statuses.
@@ -52,6 +52,9 @@ import org.apache.struts.util.MessageResources;
  * @author  AO Industries, Inc.
  */
 public class MySQLReplicationMonitorAction extends PermissionAction {
+
+	private static final Resources RESOURCES =
+		Resources.getResources(ResourceBundle::getBundle, MySQLReplicationMonitorAction.class);
 
 	@Override
 	public ActionForward executePermissionGranted(
@@ -61,9 +64,6 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 		HttpServletResponse response,
 		AOServConnector aoConn
 	) throws Exception {
-		MessageResources monitorApplicationResources = (MessageResources)request.getAttribute("/clientarea/control/monitor/ApplicationResources");
-		if(monitorApplicationResources==null) throw new JspException("Unable to load resources: /clientarea/control/monitor/ApplicationResources");
-
 		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
 		AOServConnector rootConn = siteSettings.getRootAOServConnector();
 
@@ -111,7 +111,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 								new ReplicationRow(
 									true,
 									slave,
-									monitorApplicationResources.getMessage("mysqlReplicationMonitor.slaveNotRunning")
+									RESOURCES.getMessage("slaveNotRunning")
 								)
 							);
 						} else {
@@ -147,7 +147,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 							new ReplicationRow(
 								true,
 								slave,
-								monitorApplicationResources.getMessage("mysqlReplicationMonitor.sqlException", err.getMessage())
+								RESOURCES.getMessage("sqlException", err.getMessage())
 							)
 						);
 					} catch(IOException err) {
@@ -155,7 +155,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 							new ReplicationRow(
 								true,
 								slave,
-								monitorApplicationResources.getMessage("mysqlReplicationMonitor.ioException", err.getMessage())
+								RESOURCES.getMessage("ioException", err.getMessage())
 							)
 						);
 					}
@@ -169,7 +169,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 						mysqlServerRow = new MySQLServerRow(
 							mysqlServer.getVersion().getVersion(),
 							server.toString(),
-							monitorApplicationResources.getMessage("mysqlReplicationMonitor.masterNotRunning"),
+							RESOURCES.getMessage("masterNotRunning"),
 							replications
 						);
 					} else {
@@ -186,7 +186,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 					mysqlServerRow = new MySQLServerRow(
 						mysqlServer.getVersion().getVersion(),
 						server.toString(),
-						monitorApplicationResources.getMessage("mysqlReplicationMonitor.sqlException", err.getMessage()),
+						RESOURCES.getMessage("sqlException", err.getMessage()),
 						replications
 					);
 				} catch(IOException err) {
@@ -194,7 +194,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 					mysqlServerRow = new MySQLServerRow(
 						mysqlServer.getVersion().getVersion(),
 						server.toString(),
-						monitorApplicationResources.getMessage("mysqlReplicationMonitor.ioException", err.getMessage()),
+						RESOURCES.getMessage("ioException", err.getMessage()),
 						replications
 					);
 				}

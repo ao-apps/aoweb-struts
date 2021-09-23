@@ -23,18 +23,21 @@
 package com.aoindustries.web.struts;
 
 import com.aoapps.web.resources.registry.Registry;
+import java.util.ResourceBundle;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.util.MessageResources;
 
 /**
  * @author  AO Industries, Inc.
  */
 public class SessionTimeoutAction extends PageAction {
+
+	private static final com.aoapps.lang.i18n.Resources RESOURCES =
+		com.aoapps.lang.i18n.Resources.getResources(ResourceBundle::getBundle, SessionTimeoutAction.class);
 
 	@Override
 	public ActionForward execute(
@@ -61,8 +64,7 @@ public class SessionTimeoutAction extends PageAction {
 		}
 
 		// Set the authenticationMessage
-		MessageResources applicationResources = (MessageResources)request.getAttribute("/ApplicationResources");
-		request.setAttribute(Constants.AUTHENTICATION_MESSAGE, applicationResources.getMessage(response.getLocale(), "SessionTimeoutAction.authenticationMessage"));
+		request.setAttribute(Constants.AUTHENTICATION_MESSAGE, RESOURCES.getMessage("authenticationMessage"));
 
 		return mapping.findForward("success");
 	}

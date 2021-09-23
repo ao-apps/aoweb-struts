@@ -56,7 +56,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessages;
-import org.apache.struts.util.MessageResources;
 
 /**
  * Payment from stored credit card.
@@ -169,7 +168,6 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
 		if(rootAccount == null) throw new SQLException("Unable to find Account: " + account.getName());
 		TransactionType paymentTransactionType = rootConn.getBilling().getTransactionType().get(TransactionType.PAYMENT);
 		if(paymentTransactionType == null) throw new SQLException("Unable to find TransactionType: " + TransactionType.PAYMENT);
-		MessageResources applicationResources = (MessageResources)request.getAttribute("/clientarea/accounting/ApplicationResources");
 		String cardInfo = com.aoapps.payments.CreditCard.maskCreditCardNumber(cardNumber);
 		PaymentType paymentType;
 		{
@@ -209,7 +207,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
 			rootAccount,
 			aoConn.getCurrentAdministrator(),
 			paymentTransactionType,
-			applicationResources.getMessage(response.getLocale(), "makePaymentStoredCardCompleted.transaction.description"),
+			MakePaymentStoredCardCompletedAction.RESOURCES.getMessage("transaction.description"),
 			1000,
 			paymentAmount.negate(),
 			paymentType,
@@ -255,7 +253,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
 					null, // merchantEmail
 					null, // invoiceNumber
 					null, // purchaseOrderNumber
-					applicationResources.getMessage(Locale.US, "makePaymentStoredCardCompleted.transaction.description") // description
+					MakePaymentStoredCardCompletedAction.RESOURCES.getMessage(Locale.US, "transaction.description") // description
 				),
 				newCreditCard
 			);
@@ -287,7 +285,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
 					null, // merchantEmail
 					null, // invoiceNumber
 					null, // purchaseOrderNumber
-					applicationResources.getMessage(Locale.US, "makePaymentStoredCardCompleted.transaction.description") // description
+					MakePaymentStoredCardCompletedAction.RESOURCES.getMessage(Locale.US, "transaction.description") // description
 				),
 				newCreditCard
 			);
