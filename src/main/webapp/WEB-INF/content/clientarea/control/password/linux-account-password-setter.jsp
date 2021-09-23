@@ -74,15 +74,15 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 												</logic:greaterThan>
 												<td><html:password size="20" property='<%= "newPasswords[" + index + "]" %>' /></td>
 												<td style="white-space:nowrap">
-													<html:errors bundle="/clientarea/control/ApplicationResources" property='<%= "newPasswords[" + index + "].newPasswords" %>' />
-													<html:messages id="message" message="true" bundle="/clientarea/control/ApplicationResources" property='<%= "newPasswords[" + index + "].newPasswords" %>'>
+													<html:errors bundle="/clientarea/control/password/ApplicationResources" property='<%= "newPasswords[" + index + "].newPasswords" %>' />
+													<html:messages id="message" message="true" bundle="/clientarea/control/password/ApplicationResources" property='<%= "newPasswords[" + index + "].newPasswords" %>'>
 														<ao:write name="message" /><ao:br />
 													</html:messages>
 												</td>
 												<td><html:password size="20" property='<%= "confirmPasswords[" + index + "]" %>' /></td>
 												<td style="white-space:nowrap">
-													<html:errors bundle="/clientarea/control/ApplicationResources" property='<%= "confirmPasswords[" + index + "].confirmPasswords" %>' />
-													<html:messages id="message" message="true" bundle="/clientarea/control/ApplicationResources" property='<%= "confirmPasswords[" + index + "].confirmPasswords" %>'>
+													<html:errors bundle="/clientarea/control/password/ApplicationResources" property='<%= "confirmPasswords[" + index + "].confirmPasswords" %>' />
+													<html:messages id="message" message="true" bundle="/clientarea/control/password/ApplicationResources" property='<%= "confirmPasswords[" + index + "].confirmPasswords" %>'>
 														<ao:write name="message" /><ao:br />
 													</html:messages>
 												</td>

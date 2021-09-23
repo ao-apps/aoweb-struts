@@ -31,13 +31,13 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 			<skin:contentTitle><ao:message key="passwordEvaluator.title" /></skin:contentTitle>
 			<skin:contentHorizontalDivider />
 			<skin:contentLine align="center">
-				<html:javascript staticJavascript='false' bundle="/clientarea/control/ApplicationResources" formName="passwordEvaluatorForm" />
+				<html:javascript staticJavascript='false' bundle="/clientarea/control/password/ApplicationResources" formName="passwordEvaluatorForm" />
 				<skin:lightArea align="left">
 					<html:form action="/password/password-evaluator-completed" onsubmit="return validatePasswordEvaluatorForm(this);">
 						<div>
 							<b><ao:message key="passwordEvaluator.prompt" /></b>
 							<ao:hr />
-							<ao:message key="passwordEvaluator.field.password.prompt" /><html:password size="16" property="password" /> <html:errors bundle="/clientarea/control/ApplicationResources" property="password" />
+							<ao:message key="passwordEvaluator.field.password.prompt" /><html:password size="16" property="password" /> <html:errors bundle="/clientarea/control/password/ApplicationResources" property="password" />
 							<logic:present scope="request" name="results">
 								<ao:br /><ao:br />
 								<table class="ao-spread">
