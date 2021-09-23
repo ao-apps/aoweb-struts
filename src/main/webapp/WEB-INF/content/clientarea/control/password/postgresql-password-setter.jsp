@@ -27,8 +27,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@include file="postgresql-password-setter.meta.jspf" %>
 <skin:skin>
 	<skin:content width="600">
-		<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources">
-			<skin:contentTitle><ao:message key="password.postgreSQLPasswordSetter.title" /></skin:contentTitle>
+		<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.password.i18n.ApplicationResources">
+			<skin:contentTitle><ao:message key="postgreSQLPasswordSetter.title" /></skin:contentTitle>
 			<skin:contentHorizontalDivider />
 			<skin:contentLine>
 				<logic:present scope="request" name="permissionDenied">
@@ -36,7 +36,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 				</logic:present>
 				<logic:notPresent scope="request" name="permissionDenied">
 					<logic:empty scope="request" name="postgreSQLPasswordSetterForm" property="packages">
-						<b><ao:message key="password.postgreSQLPasswordSetter.noAccounts" /></b>
+						<b><ao:message key="postgreSQLPasswordSetter.noAccounts" /></b>
 					</logic:empty>
 					<logic:notEmpty scope="request" name="postgreSQLPasswordSetterForm" property="packages">
 						<html:form action="/password/postgresql-password-setter-completed">
@@ -46,19 +46,19 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 										<tr>
 											<bean:size scope="request" name="aoConn" property="billing.Package.map" id="packagesSize" />
 											<logic:greaterThan name="packagesSize" value="1">
-												<th><ao:message key="password.postgreSQLPasswordSetter.header.package" /></th>
+												<th><ao:message key="postgreSQLPasswordSetter.header.package" /></th>
 											</logic:greaterThan>
-											<th><ao:message key="password.postgreSQLPasswordSetter.header.username" /></th>
+											<th><ao:message key="postgreSQLPasswordSetter.header.username" /></th>
 											<bean:size scope="request" name="aoConn" property="postgresql.Server.map" id="postgresServersSize" />
 											<logic:greaterThan name="postgresServersSize" value="1">
-												<th><ao:message key="password.postgreSQLPasswordSetter.header.postgreSQLServer" /></th>
+												<th><ao:message key="postgreSQLPasswordSetter.header.postgreSQLServer" /></th>
 											</logic:greaterThan>
 											<bean:size scope="request" name="aoConn" property="linux.Server.map" id="serversSize" />
 											<logic:greaterThan name="serversSize" value="1">
-												<th><ao:message key="password.postgreSQLPasswordSetter.header.server" /></th>
+												<th><ao:message key="postgreSQLPasswordSetter.header.server" /></th>
 											</logic:greaterThan>
-											<th colspan='2'><ao:message key="password.postgreSQLPasswordSetter.header.newPassword" /></th>
-											<th><ao:message key="password.postgreSQLPasswordSetter.header.confirmPassword" /></th>
+											<th colspan='2'><ao:message key="postgreSQLPasswordSetter.header.newPassword" /></th>
+											<th><ao:message key="postgreSQLPasswordSetter.header.confirmPassword" /></th>
 											<th>&#160;</th>
 										</tr>
 									</thead>
@@ -98,7 +98,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 										</logic:iterate>
 									</tbody>
 									<tfoot>
-										<tr><td colspan="8" style="text-align:center"><ao:input type="submit" value="${ao:message('password.postgreSQLPasswordSetter.field.submit.label')}" /></td></tr>
+										<tr><td colspan="8" style="text-align:center"><ao:input type="submit" value="${ao:message('postgreSQLPasswordSetter.field.submit.label')}" /></td></tr>
 									</tfoot>
 								</table>
 							</skin:lightArea>

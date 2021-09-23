@@ -119,7 +119,7 @@ public class LinuxAccountPasswordSetterForm extends ActionForm implements Serial
 				String newPassword = newPasswords.get(c);
 				String confirmPassword = confirmPasswords.get(c);
 				if(!newPassword.equals(confirmPassword)) {
-					errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.linuxAccountPasswordSetter.field.confirmPasswords.mismatch"));
+					errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("linuxAccountPasswordSetter.field.confirmPasswords.mismatch"));
 				} else {
 					if(newPassword.length()>0) {
 						User.Name username = User.Name.valueOf(usernames.get(c));

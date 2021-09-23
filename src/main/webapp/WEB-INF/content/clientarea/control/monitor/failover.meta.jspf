@@ -23,9 +23,9 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources">
+<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.monitor.i18n.ApplicationResources">
 	<skin:path>/clientarea/control/monitor/FileFailoverMonitor.ao</skin:path>
-	<skin:title><ao:message key="monitor.fileFailoverMonitor.title" /></skin:title>
-	<skin:navImageAlt><ao:message key="monitor.fileFailoverMonitor.navImageAlt" /></skin:navImageAlt>
-	<skin:description><ao:message key="monitor.fileFailoverMonitor.description" /></skin:description>
+	<skin:title><ao:message key="fileFailoverMonitor.title" /></skin:title>
+	<skin:navImageAlt><ao:message key="fileFailoverMonitor.navImageAlt" /></skin:navImageAlt>
+	<skin:description><ao:message key="fileFailoverMonitor.description" /></skin:description>
 </ao:bundle>

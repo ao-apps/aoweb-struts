@@ -61,8 +61,8 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 		HttpServletResponse response,
 		AOServConnector aoConn
 	) throws Exception {
-		MessageResources controlApplicationResources = (MessageResources)request.getAttribute("/clientarea/control/ApplicationResources");
-		if(controlApplicationResources==null) throw new JspException("Unable to load resources: /clientarea/control/ApplicationResources");
+		MessageResources monitorApplicationResources = (MessageResources)request.getAttribute("/clientarea/control/monitor/ApplicationResources");
+		if(monitorApplicationResources==null) throw new JspException("Unable to load resources: /clientarea/control/monitor/ApplicationResources");
 
 		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
 		AOServConnector rootConn = siteSettings.getRootAOServConnector();
@@ -111,7 +111,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 								new ReplicationRow(
 									true,
 									slave,
-									controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.slaveNotRunning")
+									monitorApplicationResources.getMessage("mysqlReplicationMonitor.slaveNotRunning")
 								)
 							);
 						} else {
@@ -147,7 +147,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 							new ReplicationRow(
 								true,
 								slave,
-								controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.sqlException", err.getMessage())
+								monitorApplicationResources.getMessage("mysqlReplicationMonitor.sqlException", err.getMessage())
 							)
 						);
 					} catch(IOException err) {
@@ -155,7 +155,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 							new ReplicationRow(
 								true,
 								slave,
-								controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.ioException", err.getMessage())
+								monitorApplicationResources.getMessage("mysqlReplicationMonitor.ioException", err.getMessage())
 							)
 						);
 					}
@@ -169,7 +169,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 						mysqlServerRow = new MySQLServerRow(
 							mysqlServer.getVersion().getVersion(),
 							server.toString(),
-							controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.masterNotRunning"),
+							monitorApplicationResources.getMessage("mysqlReplicationMonitor.masterNotRunning"),
 							replications
 						);
 					} else {
@@ -186,7 +186,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 					mysqlServerRow = new MySQLServerRow(
 						mysqlServer.getVersion().getVersion(),
 						server.toString(),
-						controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.sqlException", err.getMessage()),
+						monitorApplicationResources.getMessage("mysqlReplicationMonitor.sqlException", err.getMessage()),
 						replications
 					);
 				} catch(IOException err) {
@@ -194,7 +194,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 					mysqlServerRow = new MySQLServerRow(
 						mysqlServer.getVersion().getVersion(),
 						server.toString(),
-						controlApplicationResources.getMessage("monitor.mysqlReplicationMonitor.ioException", err.getMessage()),
+						monitorApplicationResources.getMessage("mysqlReplicationMonitor.ioException", err.getMessage()),
 						replications
 					);
 				}

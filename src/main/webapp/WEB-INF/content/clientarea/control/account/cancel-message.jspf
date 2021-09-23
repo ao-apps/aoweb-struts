@@ -23,6 +23,6 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources">
-	<ao:message type="xhtml" key="account.cancel.message" />
+<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.account.i18n.ApplicationResources">
+	<ao:message type="xhtml" key="cancel.message" />
 </ao:bundle>

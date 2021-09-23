@@ -23,9 +23,9 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources">
+<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.monitor.i18n.ApplicationResources">
 	<skin:path>/clientarea/control/monitor/BackupMonitor.ao</skin:path>
-	<skin:title><ao:message key="monitor.backupMonitor.title" /></skin:title>
-	<skin:navImageAlt><ao:message key="monitor.backupMonitor.navImageAlt" /></skin:navImageAlt>
-	<skin:description><ao:message key="monitor.backupMonitor.description" /></skin:description>
+	<skin:title><ao:message key="backupMonitor.title" /></skin:title>
+	<skin:navImageAlt><ao:message key="backupMonitor.navImageAlt" /></skin:navImageAlt>
+	<skin:description><ao:message key="backupMonitor.description" /></skin:description>
 </ao:bundle>

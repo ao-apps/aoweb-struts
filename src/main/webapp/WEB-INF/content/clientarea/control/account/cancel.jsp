@@ -30,8 +30,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@include file="cancel.meta.jspf" %>
 <skin:skin>
 	<skin:content width="600">
-		<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources">
-			<skin:contentTitle><ao:message key="account.cancel.title" /></skin:contentTitle>
+		<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.account.i18n.ApplicationResources">
+			<skin:contentTitle><ao:message key="cancel.title" /></skin:contentTitle>
 			<skin:contentHorizontalDivider />
 			<skin:contentLine>
 				<logic:present scope="request" name="permissionDenied">
@@ -50,12 +50,12 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 										<c:choose>
 											<c:when test="${param.all}">
 												<ao:a href="/clientarea/control/account/cancel.do">
-													<ao:message key="account.cancel.link.showActive" />
+													<ao:message key="cancel.link.showActive" />
 												</ao:a>
 											</c:when>
 											<c:otherwise>
 												<ao:a href="/clientarea/control/account/cancel.do?all=true">
-													<ao:message key="account.cancel.link.showAll" />
+													<ao:message key="cancel.link.showAll" />
 												</ao:a>
 											</c:otherwise>
 										</c:choose>
@@ -63,17 +63,17 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 											<table class="ao-no-border">
 												<thead>
 													<tr>
-														<th rowspan="2"><ao:message key="account.cancel.header.accountName" /></th>
-														<th rowspan="2"><ao:message key="account.cancel.header.parent" /></th>
-														<th colspan="2"><ao:message key="account.cancel.header.totalMonthlyCharges" /></th>
-														<th rowspan="2"><ao:message key="account.cancel.header.accountBalance" /></th>
-														<th rowspan="2"><ao:message key="account.cancel.header.created" /></th>
-														<th rowspan="2"><ao:message key="account.cancel.header.canceled" /></th>
-														<th rowspan="2"><ao:message key="account.cancel.header.actions" /></th>
+														<th rowspan="2"><ao:message key="cancel.header.accountName" /></th>
+														<th rowspan="2"><ao:message key="cancel.header.parent" /></th>
+														<th colspan="2"><ao:message key="cancel.header.totalMonthlyCharges" /></th>
+														<th rowspan="2"><ao:message key="cancel.header.accountBalance" /></th>
+														<th rowspan="2"><ao:message key="cancel.header.created" /></th>
+														<th rowspan="2"><ao:message key="cancel.header.canceled" /></th>
+														<th rowspan="2"><ao:message key="cancel.header.actions" /></th>
 													</tr>
 													<tr>
-														<th><ao:message key="account.cancel.header.totalMonthlyCharges.source" /></th>
-														<th><ao:message key="account.cancel.header.totalMonthlyCharges.billedTo" /></th>
+														<th><ao:message key="cancel.header.totalMonthlyCharges.source" /></th>
+														<th><ao:message key="cancel.header.totalMonthlyCharges.billedTo" /></th>
 													</tr>
 												</thead>
 												<tbody>
@@ -83,10 +83,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 																<td>
 																	<logic:notEmpty name="account" property="profile">
 																		<bean:define name="account" property="profile" id="bp" type="com.aoindustries.aoserv.client.account.Profile" />
-																		<ao:message key="account.cancel.field.organizationNameAndAccountName" arg0="${account.profile.name}" arg1="${account.name}" />
+																		<ao:message key="cancel.field.organizationNameAndAccountName" arg0="${account.profile.name}" arg1="${account.name}" />
 																	</logic:notEmpty>
 																	<logic:empty name="account" property="profile">
-																		<ao:message key="account.cancel.field.accountName" arg0="${account.name}" />
+																		<ao:message key="cancel.field.accountName" arg0="${account.name}" />
 																	</logic:empty>
 																</td>
 																<td>
@@ -94,10 +94,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 																		<bean:define name="account" property="parent" id="parent" type="com.aoindustries.aoserv.client.account.Account" />
 																		<logic:notEmpty name="parent" property="profile">
 																			<bean:define name="parent" property="profile" id="parentBP" type="com.aoindustries.aoserv.client.account.Profile" />
-																			<ao:message key="account.cancel.field.organizationNameAndAccountName" arg0="${parentBP.name}" arg1="${parent.name}" />
+																			<ao:message key="cancel.field.organizationNameAndAccountName" arg0="${parentBP.name}" arg1="${parent.name}" />
 																		</logic:notEmpty>
 																		<logic:empty name="parent" property="profile">
-																			<ao:message key="account.cancel.field.accountName" arg0="${parent.name}" />
+																			<ao:message key="cancel.field.accountName" arg0="${parent.name}" />
 																		</logic:empty>
 																	</logic:notEmpty>
 																</td>
@@ -106,7 +106,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 																	<% if(totalMonthlyRate != null) { %>
 																		<% for(Money monthlyRate : totalMonthlyRate) { %>
 																			<div>
-																				<ao:message key="account.cancel.field.totalMonthlyRate" arg0="<%= monthlyRate %>" />
+																				<ao:message key="cancel.field.totalMonthlyRate" arg0="<%= monthlyRate %>" />
 																			</div>
 																		<% } %>
 																	<% } %>
@@ -116,7 +116,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 																	<% if(billingMonthlyRate != null && !billingMonthlyRate.isEmpty()) { %>
 																		<% for(Money monthlyRate : billingMonthlyRate) { %>
 																			<div>
-																				<ao:message key="account.cancel.field.totalMonthlyRate" arg0="<%= monthlyRate %>" />
+																				<ao:message key="cancel.field.totalMonthlyRate" arg0="<%= monthlyRate %>" />
 																			</div>
 																		<% } %>
 																	<% } else { %>
@@ -131,11 +131,11 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 																		<%-- TODO: Link from cancel / account balance to make-payment --%>
 																		<% if(balance.getUnscaledValue() < 0) { %>
 																			<div>
-																				<ao:message key="account.cancel.field.balance.credit" arg0="<%= balance.negate() %>" />
+																				<ao:message key="cancel.field.balance.credit" arg0="<%= balance.negate() %>" />
 																			</div>
 																		<% } else if(balance.getUnscaledValue() > 0) { %>
 																			<div style="color:red"><strong>
-																				<ao:message key="account.cancel.field.balance.debt" arg0="<%= balance %>" />
+																				<ao:message key="cancel.field.balance.debt" arg0="<%= balance %>" />
 																			</strong></div>
 																		<% } %>
 																	<% } %>
@@ -150,7 +150,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 																<td>
 																	<% if(account.canCancel()) { %>
 																		<ao:a href="/clientarea/control/account/cancel-feedback.do" param.account="${account.name}">
-																			<ao:message key="account.cancel.field.link.cancel" />
+																			<ao:message key="cancel.field.link.cancel" />
 																		</ao:a>
 																	<% } %>
 																</td>
@@ -163,12 +163,12 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 										<c:choose>
 											<c:when test="${param.all}">
 												<ao:a href="/clientarea/control/account/cancel.do">
-													<ao:message key="account.cancel.link.showActive" />
+													<ao:message key="cancel.link.showActive" />
 												</ao:a>
 											</c:when>
 											<c:otherwise>
 												<ao:a href="/clientarea/control/account/cancel.do?all=true">
-													<ao:message key="account.cancel.link.showAll" />
+													<ao:message key="cancel.link.showAll" />
 												</ao:a>
 											</c:otherwise>
 										</c:choose>

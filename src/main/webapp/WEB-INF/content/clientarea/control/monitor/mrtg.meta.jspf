@@ -23,9 +23,9 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources">
+<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.monitor.i18n.ApplicationResources">
 	<skin:path>/clientarea/control/monitor/MRTG.ao</skin:path>
-	<skin:title><ao:message key="monitor.mrtg.title" /></skin:title>
-	<skin:navImageAlt><ao:message key="monitor.mrtg.navImageAlt" /></skin:navImageAlt>
-	<skin:description><ao:message key="monitor.mrtg.description" /></skin:description>
+	<skin:title><ao:message key="mrtg.title" /></skin:title>
+	<skin:navImageAlt><ao:message key="mrtg.navImageAlt" /></skin:navImageAlt>
+	<skin:description><ao:message key="mrtg.description" /></skin:description>
 </ao:bundle>

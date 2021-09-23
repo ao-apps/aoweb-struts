@@ -27,11 +27,11 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@include file="password-generator.meta.jspf" %>
 <skin:skin>
 	<skin:content width="600">
-		<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources">
-			<skin:contentTitle><ao:message key="password.passwordGenerator.title" /></skin:contentTitle>
+		<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.password.i18n.ApplicationResources">
+			<skin:contentTitle><ao:message key="passwordGenerator.title" /></skin:contentTitle>
 			<skin:contentHorizontalDivider />
 			<skin:contentLine>
-				<ao:message key="password.passwordGenerator.followingMayUse" /><ao:br />
+				<ao:message key="passwordGenerator.followingMayUse" /><ao:br />
 				<ao:br />
 				<code>
 					<logic:iterate name="generatedPasswords" id="generatedPassword">

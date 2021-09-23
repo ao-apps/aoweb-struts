@@ -28,8 +28,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@include file="index.children.jspf" %>
 <skin:skin>
 	<skin:content width="600">
-		<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources">
-			<skin:contentTitle><ao:message key="password.index.title" /></skin:contentTitle>
+		<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.password.i18n.ApplicationResources">
+			<skin:contentTitle><ao:message key="index.title" /></skin:contentTitle>
 			<skin:contentHorizontalDivider />
 			<skin:contentLine>
 				<skin:autoIndex />

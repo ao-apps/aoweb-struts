@@ -83,7 +83,7 @@ public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction 
 				UserServer lsa = la.getLinuxServerAccount(server);
 				if(lsa==null) throw new SQLException("Unable to find UserServer: "+username+" on "+hostname);
 				lsa.setPassword(newPassword);
-				messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.linuxAccountPasswordSetter.field.confirmPasswords.passwordReset"));
+				messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("linuxAccountPasswordSetter.field.confirmPasswords.passwordReset"));
 				newPasswords.set(c, "");
 				confirmPasswords.set(c, "");
 			}

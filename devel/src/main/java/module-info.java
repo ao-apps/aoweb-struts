@@ -25,6 +25,15 @@ module com.aoindustries.web.struts.devel {
 	exports com.aoindustries.web.struts.clientarea.i18n;
 	exports com.aoindustries.web.struts.clientarea.accounting.i18n;
 	exports com.aoindustries.web.struts.clientarea.control.i18n;
+	exports com.aoindustries.web.struts.clientarea.control.account.i18n;
+	exports com.aoindustries.web.struts.clientarea.control.admin.i18n;
+	exports com.aoindustries.web.struts.clientarea.control.database.i18n;
+	exports com.aoindustries.web.struts.clientarea.control.email.i18n;
+	exports com.aoindustries.web.struts.clientarea.control.httpd.i18n;
+	exports com.aoindustries.web.struts.clientarea.control.linux.i18n;
+	exports com.aoindustries.web.struts.clientarea.control.monitor.i18n;
+	exports com.aoindustries.web.struts.clientarea.control.password.i18n;
+	exports com.aoindustries.web.struts.clientarea.control.vnc.i18n;
 	exports com.aoindustries.web.struts.clientarea.ticket.i18n;
 	exports com.aoindustries.web.struts.clientarea.webmail.i18n;
 	exports com.aoindustries.web.struts.signup.i18n;

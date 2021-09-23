@@ -128,7 +128,7 @@ public class MySQLPasswordSetterForm extends ActionForm implements Serializable 
 				String newPassword = newPasswords.get(c);
 				String confirmPassword = confirmPasswords.get(c);
 				if(!newPassword.equals(confirmPassword)) {
-					errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.mySQLPasswordSetter.field.confirmPasswords.mismatch"));
+					errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("mySQLPasswordSetter.field.confirmPasswords.mismatch"));
 				} else {
 					if(newPassword.length()>0) {
 						User.Name username = User.Name.valueOf(usernames.get(c));

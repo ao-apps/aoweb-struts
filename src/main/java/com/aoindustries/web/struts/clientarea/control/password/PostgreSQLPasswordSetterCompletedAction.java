@@ -85,7 +85,7 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
 				UserServer psu = ps.getPostgresServerUser(username);
 				if(psu==null) throw new SQLException("Unable to find UserServer: "+username+" on "+serverName+" on "+hostname);
 				psu.setPassword(newPassword);
-				messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.postgreSQLPasswordSetter.field.confirmPasswords.passwordReset"));
+				messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("postgreSQLPasswordSetter.field.confirmPasswords.passwordReset"));
 				newPasswords.set(c, "");
 				confirmPasswords.set(c, "");
 			}

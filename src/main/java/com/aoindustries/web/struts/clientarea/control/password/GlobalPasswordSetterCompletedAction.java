@@ -73,7 +73,7 @@ public class GlobalPasswordSetterCompletedAction extends PermissionAction {
 				User un = aoConn.getAccount().getUser().get(username);
 				if(un == null) throw new SQLException("Unable to find Username: " + username);
 				un.setPassword(newPassword);
-				messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.globalPasswordSetter.field.confirmPasswords.passwordReset"));
+				messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("globalPasswordSetter.field.confirmPasswords.passwordReset"));
 				newPasswords.set(c, "");
 				confirmPasswords.set(c, "");
 			}

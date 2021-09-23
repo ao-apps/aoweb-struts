@@ -38,6 +38,15 @@ module com.aoindustries.web.struts {
 	opens com.aoindustries.web.struts.clientarea.i18n;
 	opens com.aoindustries.web.struts.clientarea.accounting.i18n;
 	opens com.aoindustries.web.struts.clientarea.control.i18n;
+	opens com.aoindustries.web.struts.clientarea.control.account.i18n;
+	opens com.aoindustries.web.struts.clientarea.control.admin.i18n;
+	opens com.aoindustries.web.struts.clientarea.control.database.i18n;
+	opens com.aoindustries.web.struts.clientarea.control.email.i18n;
+	opens com.aoindustries.web.struts.clientarea.control.httpd.i18n;
+	opens com.aoindustries.web.struts.clientarea.control.linux.i18n;
+	opens com.aoindustries.web.struts.clientarea.control.monitor.i18n;
+	opens com.aoindustries.web.struts.clientarea.control.password.i18n;
+	opens com.aoindustries.web.struts.clientarea.control.vnc.i18n;
 	opens com.aoindustries.web.struts.clientarea.ticket.i18n;
 	opens com.aoindustries.web.struts.clientarea.webmail.i18n;
 	opens com.aoindustries.web.struts.signup.i18n;

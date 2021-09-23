@@ -27,8 +27,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@include file="mysql-replication-monitor.meta.jspf" %>
 <skin:skin>
 	<skin:content width="600">
-		<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources">
-			<skin:contentTitle><ao:message key="monitor.mysqlReplicationMonitor.title" /></skin:contentTitle>
+		<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.monitor.i18n.ApplicationResources">
+			<skin:contentTitle><ao:message key="mysqlReplicationMonitor.title" /></skin:contentTitle>
 			<skin:contentHorizontalDivider />
 			<skin:contentLine>
 				<logic:present scope="request" name="permissionDenied">
@@ -36,24 +36,24 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 				</logic:present>
 				<logic:notPresent scope="request" name="permissionDenied">
 					<skin:lightArea>
-						<b><ao:message key="monitor.mysqlReplicationMonitor.main.label" /></b>
+						<b><ao:message key="mysqlReplicationMonitor.main.label" /></b>
 						<ao:hr />
 						<table class="ao-no-border">
 							<thead>
 								<tr>
-									<th style="white-space:pre"><ao:message key="monitor.mysqlReplicationMonitor.header.version" /></th>
-									<th style="white-space:pre"><ao:message key="monitor.mysqlReplicationMonitor.header.master" /></th>
-									<th style="white-space:pre"><ao:message key="monitor.mysqlReplicationMonitor.header.masterLogFile" /></th>
-									<th style="white-space:pre"><ao:message key="monitor.mysqlReplicationMonitor.header.masterLogPos" /></th>
-									<th style="white-space:pre"><ao:message key="monitor.mysqlReplicationMonitor.header.slave" /></th>
-									<th style="white-space:pre"><ao:message key="monitor.mysqlReplicationMonitor.header.secondsBehindMaster" /></th>
-									<th style="white-space:pre"><ao:message key="monitor.mysqlReplicationMonitor.header.slaveIOState" /></th>
-									<th style="white-space:pre"><ao:message key="monitor.mysqlReplicationMonitor.header.slaveLogFile" /></th>
-									<th style="white-space:pre"><ao:message key="monitor.mysqlReplicationMonitor.header.slaveLogPos" /></th>
-									<th style="white-space:pre"><ao:message key="monitor.mysqlReplicationMonitor.header.slaveIORunning" /></th>
-									<th style="white-space:pre"><ao:message key="monitor.mysqlReplicationMonitor.header.slaveSQLRunning" /></th>
-									<th style="white-space:pre"><ao:message key="monitor.mysqlReplicationMonitor.header.lastErrno" /></th>
-									<th style="white-space:pre"><ao:message key="monitor.mysqlReplicationMonitor.header.lastError" /></th>
+									<th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.version" /></th>
+									<th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.master" /></th>
+									<th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.masterLogFile" /></th>
+									<th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.masterLogPos" /></th>
+									<th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.slave" /></th>
+									<th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.secondsBehindMaster" /></th>
+									<th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.slaveIOState" /></th>
+									<th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.slaveLogFile" /></th>
+									<th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.slaveLogPos" /></th>
+									<th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.slaveIORunning" /></th>
+									<th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.slaveSQLRunning" /></th>
+									<th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.lastErrno" /></th>
+									<th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.lastError" /></th>
 								</tr>
 							</thead>
 							<tbody>

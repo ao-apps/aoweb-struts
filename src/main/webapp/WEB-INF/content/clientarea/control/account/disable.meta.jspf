@@ -23,10 +23,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources">
+<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.account.i18n.ApplicationResources">
 	<skin:path>/clientarea/control/account/Disable.ao</skin:path>
-	<skin:title><ao:message key="account.disable.title" /></skin:title>
-	<skin:navImageAlt><ao:message key="account.disable.navImageAlt" /></skin:navImageAlt>
-	<skin:keywords><ao:message key="account.disable.keywords" /></skin:keywords>
-	<skin:description><ao:message key="account.disable.description" /></skin:description>
+	<skin:title><ao:message key="disable.title" /></skin:title>
+	<skin:navImageAlt><ao:message key="disable.navImageAlt" /></skin:navImageAlt>
+	<skin:keywords><ao:message key="disable.keywords" /></skin:keywords>
+	<skin:description><ao:message key="disable.description" /></skin:description>
 </ao:bundle>

@@ -80,7 +80,7 @@ public class AdministratorPasswordSetterCompletedAction extends AuthenticatedAct
 				Administrator ba = aoConn.getAccount().getAdministrator().get(username);
 				if(ba == null) throw new SQLException("Unable to find Administrator: " + username);
 				ba.setPassword(newPassword);
-				messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.administratorPasswordSetter.field.confirmPasswords.passwordReset"));
+				messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("administratorPasswordSetter.field.confirmPasswords.passwordReset"));
 				newPasswords.set(c, "");
 				confirmPasswords.set(c, "");
 			}

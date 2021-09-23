@@ -85,7 +85,7 @@ public class MySQLPasswordSetterCompletedAction extends PermissionAction {
 				UserServer msu = ms.getMySQLServerUser(username);
 				if(msu==null) throw new SQLException("Unable to find UserServer: "+username+" on "+serverName+" on "+hostname);
 				msu.setPassword(newPassword);
-				messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.mySQLPasswordSetter.field.confirmPasswords.passwordReset"));
+				messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("mySQLPasswordSetter.field.confirmPasswords.passwordReset"));
 				newPasswords.set(c, "");
 				confirmPasswords.set(c, "");
 			}

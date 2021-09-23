@@ -24,16 +24,16 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
 <%@include file="add-parents.jspf" %>
-<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources">
+<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.account.i18n.ApplicationResources">
 	<skin:path>/clientarea/control/account/cancel-feedback-completed.do?account=${ao:encodeURIComponent(account.name)}</skin:path>
 	<logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="robots">noindex</skin:meta></logic:equal>
-	<skin:title><ao:message key="account.cancel.title" /></skin:title>
-	<skin:navImageAlt><ao:message key="account.cancel.navImageAlt" /></skin:navImageAlt>
-	<skin:keywords><ao:message key="account.cancel.keywords" /></skin:keywords>
-	<skin:description><ao:message key="account.cancel.description" /></skin:description>
+	<skin:title><ao:message key="cancel.title" /></skin:title>
+	<skin:navImageAlt><ao:message key="cancel.navImageAlt" /></skin:navImageAlt>
+	<skin:keywords><ao:message key="cancel.keywords" /></skin:keywords>
+	<skin:description><ao:message key="cancel.description" /></skin:description>
 	<skin:skin>
 		<skin:content width="600">
-			<skin:contentTitle><ao:message key="account.cancel.title" /></skin:contentTitle>
+			<skin:contentTitle><ao:message key="cancel.title" /></skin:contentTitle>
 			<skin:contentHorizontalDivider />
 			<skin:contentLine>
 				<logic:present scope="request" name="permissionDenied">
@@ -41,9 +41,9 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 				</logic:present>
 				<logic:notPresent scope="request" name="permissionDenied">
 					<skin:lightArea>
-						<b><ao:message key="account.cancel-feedback-completed.title" /></b>
+						<b><ao:message key="cancel-feedback-completed.title" /></b>
 						<hr />
-						<ao:message key="account.cancel-feedback-completed.text" arg0="${account.name}" />
+						<ao:message key="cancel-feedback-completed.text" arg0="${account.name}" />
 					</skin:lightArea>
 				</logic:notPresent>
 			</skin:contentLine>

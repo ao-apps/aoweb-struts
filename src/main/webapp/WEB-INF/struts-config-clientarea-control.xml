@@ -282,6 +282,18 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 		null="false"
 	/>
 	<message-resources
+		key="/clientarea/control/monitor/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.clientarea.control.monitor.i18n.ApplicationResources"
+		null="false"
+	/>
+	<message-resources
+		key="/clientarea/control/password/ApplicationResources"
+		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+		parameter="com.aoindustries.web.struts.clientarea.control.password.i18n.ApplicationResources"
+		null="false"
+	/>
+	<message-resources
 		key="/clientarea/ticket/ApplicationResources"
 		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
 		parameter="com.aoindustries.web.struts.clientarea.ticket.i18n.ApplicationResources"
@@ -303,6 +315,6 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
 
 	<!-- ========== Validator Plug-In ======================================= -->
 	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
-		<set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml,/WEB-INF/validator-clientarea-control.xml" />
+		<set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml,/WEB-INF/validator-clientarea-control-password.xml" />
 	</plug-in>
 </struts-config>

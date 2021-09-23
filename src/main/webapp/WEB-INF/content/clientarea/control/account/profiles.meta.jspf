@@ -23,10 +23,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.i18n.ApplicationResources">
+<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.account.i18n.ApplicationResources">
 	<skin:path>/clientarea/control/account/Profiles.ao</skin:path>
-	<skin:title><ao:message key="account.profiles.title" /></skin:title>
-	<skin:navImageAlt><ao:message key="account.profiles.navImageAlt" /></skin:navImageAlt>
-	<skin:keywords><ao:message key="account.profiles.keywords" /></skin:keywords>
-	<skin:description><ao:message key="account.profiles.description" /></skin:description>
+	<skin:title><ao:message key="profiles.title" /></skin:title>
+	<skin:navImageAlt><ao:message key="profiles.navImageAlt" /></skin:navImageAlt>
+	<skin:keywords><ao:message key="profiles.keywords" /></skin:keywords>
+	<skin:description><ao:message key="profiles.description" /></skin:description>
 </ao:bundle>

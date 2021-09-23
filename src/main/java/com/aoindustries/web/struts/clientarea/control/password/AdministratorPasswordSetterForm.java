@@ -109,7 +109,7 @@ public class AdministratorPasswordSetterForm extends ActionForm implements Seria
 				String newPassword = newPasswords.get(c);
 				String confirmPassword = confirmPasswords.get(c);
 				if(!newPassword.equals(confirmPassword)) {
-					errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("password.administratorPasswordSetter.field.confirmPasswords.mismatch"));
+					errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("administratorPasswordSetter.field.confirmPasswords.mismatch"));
 				} else {
 					if(newPassword.length()>0) {
 						String username = usernames.get(c);
