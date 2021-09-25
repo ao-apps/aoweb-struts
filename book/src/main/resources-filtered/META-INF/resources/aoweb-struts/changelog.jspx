@@ -37,7 +37,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2016-10-29T22:19:41-05:00"
-		dateModified="2021-09-25T16:06:57-05:00"
+		dateModified="2021-09-25T17:41:48-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -124,10 +124,17 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 					<li>Updated to <ao:a rel="nofollow" href="https://www.oracle.com/java/technologies/javaee/javaeetechnologies.html#javaee7">Java™ EE 7 Web Profile</ao:a> (Servlet 3.1, JSP 2.3, EL 3.0, and JSTL 1.2).</li>
 					<li>Replaced VNC Java Applet+SSL with JavaScript+WebSocket.</li>
 					<li>
-						Search engines are spiraling off target due to the "authenticationTarget" being rewritten into
-						the URL for clients with cookies disabled.  A servlet filter now sets a header
-						<code>X-Robots-Tag: noindex, nofollow</code> for any request that contains any
-						"authenticationTarget" parameter.
+						<p>
+							Search engines are spiraling off target due to the "authenticationTarget" being rewritten into
+							the URL for clients with cookies disabled.  A servlet filter now sets a header
+							<code>X-Robots-Tag: noindex, nofollow</code> for any request that contains any
+							"authenticationTarget" parameter.
+						</p>
+						<p>
+							Furthermore, "authenticationTarget" is no longer written into URL parameters, and the parameter
+							is no longer used after login.  "authenticationTarget" is only taken from session, which also
+							has security benefits (bad form to allow user-supplied redirects).
+						</p>
 					</li>
 					<li>Implemented automatic newline and tab indentation.</li>
 					<li>

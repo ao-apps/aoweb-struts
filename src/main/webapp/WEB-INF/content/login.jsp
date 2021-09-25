@@ -44,11 +44,6 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 					</b>
 					<ao:hr />
 					<html:form action="/login-completed" onsubmit="return validateLoginForm(this);" style="display:inline;"><div><%-- display:inline for IE6 only --%>
-						<%-- Add the authenticationTarget to the form because the new session could expire before they login and lost their target --%>
-						<c:set var="authenticationTarget" value="${sessionScope.authenticationTarget}" />
-						<c:if test="${!empty authenticationTarget}">
-							<ao:input type="hidden" name="authenticationTarget" value="${authenticationTarget}" />
-						</c:if>
 						<table class="ao-no-border">
 							<tbody>
 								<tr>

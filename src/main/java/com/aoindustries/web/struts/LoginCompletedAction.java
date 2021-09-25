@@ -78,11 +78,9 @@ public class LoginCompletedAction extends PageAction {
 			session.setAttribute(Constants.AO_CONN, aoConn);
 
 			// Try redirect
-			String target = (String)session.getAttribute(Constants.AUTHENTICATION_TARGET);   // Get from session
+			String target = (String)session.getAttribute(Constants.AUTHENTICATION_TARGET);
 			if(target != null) {
 				session.removeAttribute(Constants.AUTHENTICATION_TARGET);
-			} else {
-				target = request.getParameter(Constants.AUTHENTICATION_TARGET); // With no cookies will be encoded in URL
 			}
 			if(target!=null && target.length()>0) {
 				response.sendRedirect(

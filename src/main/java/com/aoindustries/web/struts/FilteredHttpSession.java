@@ -120,11 +120,13 @@ public class FilteredHttpSession implements HttpSession {
 			// These names are always allowed
 			if(
 				!Constants.AUTHENTICATION_TARGET.equals(name)
-				&& !Globals.LOCALE_KEY.equals(name)
 				&& !Constants.LAYOUT.equals(name)
 				&& !Constants.SU_REQUESTED.equals(name)
 				&& !Constants.AO_CONN.equals(name)
 				&& !Constants.AUTHENTICATED_AO_CONN.equals(name)
+				// Struts 1
+				&& !Globals.LOCALE_KEY.equals(name)
+				// TODO: Is there a Struts 2 locale key?
 				// JSTL 1.1
 				&& !"javax.servlet.jsp.jstl.fmt.request.charset".equals(name)
 				&& !"javax.servlet.jsp.jstl.fmt.locale.session".equals(name)

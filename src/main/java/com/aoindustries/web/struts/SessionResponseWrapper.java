@@ -65,6 +65,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 		this.request = request;
 		this.response = response;
 		// When the request has any Constants.AUTHENTICATION_TARGET parameter, set noindex headers
+		// This is to clean-up old URLs in crawlers; "authenticationTarget" is no longer written into URLs.
 		if(request.getParameter(Constants.AUTHENTICATION_TARGET) != null) {
 			if(!response.containsHeader(ROBOTS_HEADER_NAME)) {
 				response.setHeader(ROBOTS_HEADER_NAME, ROBOTS_HEADER_VALUE);
@@ -228,10 +229,11 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 					while(attributeNames.hasMoreElements()) {
 						String name = attributeNames.nextElement();
 						if(
-							!Constants.AUTHENTICATION_TARGET.equals(name)
-							&& !Globals.LOCALE_KEY.equals(name)
-							&& !Constants.LAYOUT.equals(name)
+							!Constants.LAYOUT.equals(name)
 							&& !Constants.SU_REQUESTED.equals(name)
+							// Struts 1
+							&& !Globals.LOCALE_KEY.equals(name)
+							// TODO: Is there a Struts 2 locale key?
 							// JSTL 1.1
 							&& !"javax.servlet.jsp.jstl.fmt.request.charset".equals(name) // TODO: Use constants from somewhere
 							&& !"javax.servlet.jsp.jstl.fmt.locale.session".equals(name)  // TODO: Use constants from somewhere
@@ -242,7 +244,8 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 						) {
 							// These will always trigger jsessionid
 							if(
-								Constants.AO_CONN.equals(name)
+								Constants.AUTHENTICATION_TARGET.equals(name)
+								|| Constants.AO_CONN.equals(name)
 								|| Constants.AUTHENTICATED_AO_CONN.equals(name)
 							) {
 								whyNeedsJsessionid = name;
@@ -280,20 +283,6 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 
 				URIParameters splitURIParameters = null;
 				MutableURIParameters cookieParams = null;
-
-				if(!canonical) {
-					// Add the Constants.AUTHENTICATION_TARGET if needed
-					String authenticationTarget = (session == null) ? null : (String)session.getAttribute(Constants.AUTHENTICATION_TARGET);
-					if(authenticationTarget==null) authenticationTarget = request.getParameter(Constants.AUTHENTICATION_TARGET);
-					//System.err.println("DEBUG: addNoCookieParameters: authenticationTarget="+authenticationTarget);
-					if(authenticationTarget != null) {
-						if(splitURIParameters == null) splitURIParameters = URIParametersUtils.of(iri.getQueryString());
-						if(!splitURIParameters.getParameterMap().containsKey(Constants.AUTHENTICATION_TARGET)) {
-							if(cookieParams == null) cookieParams = new URIParametersMap();
-							cookieParams.add(Constants.AUTHENTICATION_TARGET, authenticationTarget);
-						}
-					}
-				}
 
 				if(session != null) {
 					// Only add the language if there is more than one possibility
