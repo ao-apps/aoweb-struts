@@ -25,7 +25,10 @@ package com.aoindustries.web.struts.skintags;
 import com.aoapps.encoding.MediaType;
 import com.aoapps.encoding.taglib.EncodingBufferedTag;
 import com.aoapps.io.buffer.BufferResult;
+import com.aoapps.net.URIParametersMap;
+import com.aoapps.net.URIParametersUtils;
 import com.aoapps.taglib.HrefAttribute;
+import com.aoapps.taglib.ParamsAttribute;
 import com.aoapps.taglib.RelAttribute;
 import com.aoapps.taglib.TypeAttribute;
 import java.io.IOException;
@@ -40,6 +43,7 @@ public class LinkTag extends EncodingBufferedTag
 	implements
 		RelAttribute,
 		HrefAttribute,
+		ParamsAttribute,
 		TypeAttribute
 {
 
@@ -50,11 +54,12 @@ public class LinkTag extends EncodingBufferedTag
 
 	@Override
 	public MediaType getOutputType() {
-		return MediaType.XHTML;
+		return null;
 	}
 
 	private String rel;
 	private String href;
+	private URIParametersMap params;
 	private String type;
 
 	public LinkTag() {
@@ -64,6 +69,7 @@ public class LinkTag extends EncodingBufferedTag
 	private void init() {
 		rel = null;
 		href = null;
+		params = null;
 		type = null;
 	}
 
@@ -78,6 +84,12 @@ public class LinkTag extends EncodingBufferedTag
 	}
 
 	@Override
+	public void addParam(String name, Object value) {
+		if(params == null) params = new URIParametersMap();
+		params.add(name, value);
+	}
+
+	@Override
 	public void setType(String type) {
 		this.type = type;
 	}
@@ -87,6 +99,7 @@ public class LinkTag extends EncodingBufferedTag
 		String myHref = href;
 		assert capturedBody.trim() == capturedBody : "URLs should have already been trimmed";
 		if(myHref == null) myHref = capturedBody.toString();
+		myHref = URIParametersUtils.addParams(myHref, params);
 		PageAttributesBodyTag.getPageAttributes(
 			(PageContext)getJspContext()
 		).addLink(

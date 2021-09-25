@@ -219,7 +219,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	</tag>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-09-25T03:26:20-05:00" -->
+		<!-- dateModified="2021-09-25T15:23:29-05:00" -->
 		<description><![CDATA[
 			<p>
 				Adds a link tag to <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">this page</a>.
@@ -233,6 +233,13 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 					or <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 IRI</a>.
 				</li>
 			</ol>
+			<p>
+				Parameters must be properly URL encoded but not XML encoded (with &amp; instead of &amp;amp;).
+				The path before the first ? will be encoded by this tag.  The preferred approach is to add any
+				necessary parameters using nested
+				<a href="https://oss.aoapps.com/taglib/ao.tld/tag-param">&lt;ao:param&gt;</a> and
+				<a href="https://oss.aoapps.com/taglib/ao.tld/tag-params">&lt;ao:params&gt;</a> tags.
+			</p>
 			<p>
 				Please note, that any links to stylesheets here are never optimized.  Please
 				prefer the <a href="https://oss.aoapps.com/web-resources/taglib/">AO Web Resources Taglib</a>.

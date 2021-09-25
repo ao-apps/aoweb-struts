@@ -37,7 +37,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2016-10-29T22:19:41-05:00"
-		dateModified="2021-09-25T03:26:20-05:00"
+		dateModified="2021-09-25T15:23:29-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -139,7 +139,12 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 							<li><core:link page="aoweb-struts-skin.tld/tag-path" /></li>
 						</ul>
 					</li>
-					
+					<li>
+						<core:link page="aoweb-struts-skin.tld/tag-link" /> now supports nested
+						<ao:a href="https://oss.aoapps.com/taglib/ao.tld/tag-param"><![CDATA[&lt;ao:param&gt;]]></ao:a> and
+						<ao:a href="https://oss.aoapps.com/taglib/ao.tld/tag-params"><![CDATA[&lt;ao:params&gt;]]></ao:a>.
+					</li>
+
 					<li>TODO: On next release, also publish relocations for old aoweb-struts-core, aoweb-struts-resources, and aoweb-struts-webapp.</li>
 				</ul>
 			</changelog:release>
