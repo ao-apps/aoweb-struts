@@ -25,7 +25,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 
 <%@include file="add-parents.jspf" %>
 <ao:bundle basename="com.aoindustries.web.struts.clientarea.control.account.i18n.ApplicationResources">
-	<skin:path>/clientarea/control/account/cancel-feedback-completed.do?account=${ao:encodeURIComponent(account.name)}</skin:path>
+	<skin:path>
+		/clientarea/control/account/cancel-feedback-completed.do
+		<ao:param name="account" value="${account.name}"/>
+	</skin:path>
 	<logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="robots">noindex</skin:meta></logic:equal>
 	<skin:title><ao:message key="cancel.title" /></skin:title>
 	<skin:navImageAlt><ao:message key="cancel.navImageAlt" /></skin:navImageAlt>
