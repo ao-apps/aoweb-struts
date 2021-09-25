@@ -718,7 +718,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 						<code>&lt;head&gt;</code> for Struts 1.
 					</li>
 					<li>
-						<code>struts2</code> - <a href="https://struts.apache.org/tag-developers/head-tag.html"><code>&lt;s:head /&gt;</a> within
+						<code>struts2</code> - <a href="https://struts.apache.org/tag-developers/head-tag.html"><code>&lt;s:head /&gt;</code></a> within
 						<code>&lt;head&gt;</code> for <a href="https://struts.apache.org/">Struts 2</a>.
 					</li>
 				</ul>
