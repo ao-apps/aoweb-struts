@@ -66,6 +66,7 @@ public class LinkTag extends EncodingBufferedTag
 	private String rel;
 	private String href;
 	private URIParametersMap params;
+	// TODO: canonical, absolute, addLastModified?
 	private String type;
 
 	public LinkTag() {

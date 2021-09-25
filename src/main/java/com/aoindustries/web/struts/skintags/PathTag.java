@@ -46,6 +46,7 @@ import javax.servlet.jsp.tagext.DynamicAttributes;
 public class PathTag extends EncodingBufferedTag implements ParamsAttribute, DynamicAttributes {
 
 	private URIParametersMap params;
+	// TODO: canonical, absolute, addLastModified?
 
 	@Override
 	public MediaType getContentType() {
