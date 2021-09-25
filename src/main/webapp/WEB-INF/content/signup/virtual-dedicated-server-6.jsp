@@ -37,11 +37,11 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 			<skin:contentLine>
 				<ao:script>
 					function selectStep(step) {
-							 if(step=="virtual-dedicated-server")   window.location.href=<ao:url>virtual-dedicated-server.do</ao:url>;
-						else if(step=="virtual-dedicated-server-2") window.location.href=<ao:url>virtual-dedicated-server-2.do</ao:url>;
-						else if(step=="virtual-dedicated-server-3") window.location.href=<ao:url>virtual-dedicated-server-3.do</ao:url>;
-						else if(step=="virtual-dedicated-server-4") window.location.href=<ao:url>virtual-dedicated-server-4.do</ao:url>;
-						else if(step=="virtual-dedicated-server-5") window.location.href=<ao:url>virtual-dedicated-server-5.do</ao:url>;
+						/**/ if(step=="virtual-dedicated-server")   window.location.href=<ao:url>/signup/virtual-dedicated-server.do</ao:url>;
+						else if(step=="virtual-dedicated-server-2") window.location.href=<ao:url>/signup/virtual-dedicated-server-2.do</ao:url>;
+						else if(step=="virtual-dedicated-server-3") window.location.href=<ao:url>/signup/virtual-dedicated-server-3.do</ao:url>;
+						else if(step=="virtual-dedicated-server-4") window.location.href=<ao:url>/signup/virtual-dedicated-server-4.do</ao:url>;
+						else if(step=="virtual-dedicated-server-5") window.location.href=<ao:url>/signup/virtual-dedicated-server-5.do</ao:url>;
 					}
 				</ao:script>
 				<bean:define toScope="request" type="java.lang.String" id="stepNumber" value="6" />

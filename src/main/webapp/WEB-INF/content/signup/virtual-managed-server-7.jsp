@@ -37,12 +37,12 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 			<skin:contentLine>
 				<ao:script>
 					function selectStep(step) {
-							 if(step=="virtual-managed-server")   window.location.href=<ao:url>virtual-managed-server.do</ao:url>;
-						else if(step=="virtual-managed-server-2") window.location.href=<ao:url>virtual-managed-server-2.do</ao:url>;
-						else if(step=="virtual-managed-server-3") window.location.href=<ao:url>virtual-managed-server-3.do</ao:url>;
-						else if(step=="virtual-managed-server-4") window.location.href=<ao:url>virtual-managed-server-4.do</ao:url>;
-						else if(step=="virtual-managed-server-5") window.location.href=<ao:url>virtual-managed-server-5.do</ao:url>;
-						else if(step=="virtual-managed-server-6") window.location.href=<ao:url>virtual-managed-server-6.do</ao:url>;
+						/**/ if(step=="virtual-managed-server")   window.location.href=<ao:url>/signup/virtual-managed-server.do</ao:url>;
+						else if(step=="virtual-managed-server-2") window.location.href=<ao:url>/signup/virtual-managed-server-2.do</ao:url>;
+						else if(step=="virtual-managed-server-3") window.location.href=<ao:url>/signup/virtual-managed-server-3.do</ao:url>;
+						else if(step=="virtual-managed-server-4") window.location.href=<ao:url>/signup/virtual-managed-server-4.do</ao:url>;
+						else if(step=="virtual-managed-server-5") window.location.href=<ao:url>/signup/virtual-managed-server-5.do</ao:url>;
+						else if(step=="virtual-managed-server-6") window.location.href=<ao:url>/signup/virtual-managed-server-6.do</ao:url>;
 					}
 				</ao:script>
 				<bean:define toScope="request" type="java.lang.String" id="stepNumber" value="7" />

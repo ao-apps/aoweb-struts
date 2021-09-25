@@ -37,10 +37,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 			<skin:contentLine>
 				<ao:script>
 					function selectStep(step) {
-							 if(step=="reseller")   window.location.href=<ao:url>reseller.do</ao:url>;
-						else if(step=="reseller-2") window.location.href=<ao:url>reseller-2.do</ao:url>;
-						else if(step=="reseller-3") window.location.href=<ao:url>reseller-3.do</ao:url>;
-						else if(step=="reseller-4") window.location.href=<ao:url>reseller-4.do</ao:url>;
+						/**/ if(step=="reseller")   window.location.href=<ao:url>/signup/reseller.do</ao:url>;
+						else if(step=="reseller-2") window.location.href=<ao:url>/signup/reseller-2.do</ao:url>;
+						else if(step=="reseller-3") window.location.href=<ao:url>/signup/reseller-3.do</ao:url>;
+						else if(step=="reseller-4") window.location.href=<ao:url>/signup/reseller-4.do</ao:url>;
 					}
 				</ao:script>
 				<bean:define toScope="request" type="java.lang.String" id="stepNumber" value="5" />

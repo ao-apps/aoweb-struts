@@ -105,7 +105,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 											<ao:input type="submit" value="${ao:message('deleteCreditCard.field.submit.label')}" />
 											&#160;&#160;&#160;
 											<ao:input type="button" value="${ao:message('deleteCreditCard.field.cancel.label')}">
-												<ao:onclick>window.location.href=<ao:url>credit-card-manager.do</ao:url>;</ao:onclick>
+												<ao:onclick>window.location.href=<ao:url>/clientarea/accounting/credit-card-manager.do</ao:url>;</ao:onclick>
 											</ao:input>
 										</td>
 									</tr>

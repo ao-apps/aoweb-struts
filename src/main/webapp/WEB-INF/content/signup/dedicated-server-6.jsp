@@ -37,11 +37,11 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 			<skin:contentLine>
 				<ao:script>
 					function selectStep(step) {
-							 if(step=="dedicated-server")   window.location.href=<ao:url>dedicated-server.do</ao:url>;
-						else if(step=="dedicated-server-2") window.location.href=<ao:url>dedicated-server-2.do</ao:url>;
-						else if(step=="dedicated-server-3") window.location.href=<ao:url>dedicated-server-3.do</ao:url>;
-						else if(step=="dedicated-server-4") window.location.href=<ao:url>dedicated-server-4.do</ao:url>;
-						else if(step=="dedicated-server-5") window.location.href=<ao:url>dedicated-server-5.do</ao:url>;
+						/**/ if(step=="dedicated-server")   window.location.href=<ao:url>/signup/dedicated-server.do</ao:url>;
+						else if(step=="dedicated-server-2") window.location.href=<ao:url>/signup/dedicated-server-2.do</ao:url>;
+						else if(step=="dedicated-server-3") window.location.href=<ao:url>/signup/dedicated-server-3.do</ao:url>;
+						else if(step=="dedicated-server-4") window.location.href=<ao:url>/signup/dedicated-server-4.do</ao:url>;
+						else if(step=="dedicated-server-5") window.location.href=<ao:url>/signup/dedicated-server-5.do</ao:url>;
 					}
 				</ao:script>
 				<bean:define toScope="request" type="java.lang.String" id="stepNumber" value="6" />
