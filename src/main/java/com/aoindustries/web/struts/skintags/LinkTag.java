@@ -45,8 +45,7 @@ public class LinkTag extends EncodingBufferedTag
 
 	@Override
 	public MediaType getContentType() {
-		return MediaType.TEXT;
-		// TODO: Find a way to validate content only after trimming, then use: return MediaType.URL;
+		return MediaType.URL;
 	}
 
 	@Override
@@ -86,7 +85,8 @@ public class LinkTag extends EncodingBufferedTag
 	@Override
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 		String myHref = href;
-		if(myHref==null) myHref = capturedBody.trim().toString();
+		assert capturedBody.trim() == capturedBody : "URLs should have already been trimmed";
+		if(myHref == null) myHref = capturedBody.toString();
 		PageAttributesBodyTag.getPageAttributes(
 			(PageContext)getJspContext()
 		).addLink(

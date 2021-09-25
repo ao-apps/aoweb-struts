@@ -44,8 +44,7 @@ public class PathTag extends EncodingBufferedTag implements ParamsAttribute {
 
 	@Override
 	public MediaType getContentType() {
-		return MediaType.TEXT;
-		// TODO: Find a way to validate content only after trimming, then use: return MediaType.URL;
+		return MediaType.URL;
 	}
 
 	@Override
@@ -62,7 +61,8 @@ public class PathTag extends EncodingBufferedTag implements ParamsAttribute {
 	@Override
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 		PageContext pageContext = (PageContext)getJspContext();
-		String path = capturedBody.trim().toString();
+		assert capturedBody.trim() == capturedBody : "URLs should have already been trimmed";
+		String path = capturedBody.toString();
 		path = URIParametersUtils.addParams(path, params);
 		PageTag pageTag = PageTag.getPageTag(pageContext.getRequest());
 		if(pageTag==null) {
