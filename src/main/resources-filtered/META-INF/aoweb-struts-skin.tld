@@ -180,8 +180,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				for the parameter value.
 			</p>
 			<p>
-				Nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-param">&lt;ao:param&gt;</a> or
-				<a href="@{project.url}]]>&tld;<![CDATA[/tag-params">&lt;ao:params&gt;</a> tags will
+				Nested <a href="@{project.url}aoweb-struts-skin.tld/tag-param">&lt;ao:param&gt;</a> or
+				<a href="@{project.url}aoweb-struts-skin.tld/tag-params">&lt;ao:params&gt;</a> tags will
 				add parameters after any provided as attributes.
 			</p>
 		]]></description>
@@ -279,8 +279,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				for the parameter value.
 			</p>
 			<p>
-				Nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-param">&lt;ao:param&gt;</a> or
-				<a href="@{project.url}]]>&tld;<![CDATA[/tag-params">&lt;ao:params&gt;</a> tags will
+				Nested <a href="@{project.url}aoweb-struts-skin.tld/tag-param">&lt;ao:param&gt;</a> or
+				<a href="@{project.url}aoweb-struts-skin.tld/tag-params">&lt;ao:params&gt;</a> tags will
 				add parameters after any provided as attributes.
 			</p>
 			<p>
