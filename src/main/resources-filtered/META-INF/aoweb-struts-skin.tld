@@ -142,7 +142,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	</tag>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-09-25T03:26:20-05:00" -->
+		<!-- dateModified="2021-09-25T16:06:57-05:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides a path to its
@@ -162,6 +162,27 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				necessary parameters using nested
 				<a href="https://oss.aoapps.com/taglib/ao.tld/tag-param">&lt;ao:param&gt;</a> and
 				<a href="https://oss.aoapps.com/taglib/ao.tld/tag-params">&lt;ao:params&gt;</a> tags.
+			</p>
+			<p>
+				Any attribute that has no namespace and begins with <code>param.</code> is added to the URL as a parameter.
+				The parameter name is the part of the attribute name following <code>param.</code>.
+			</p>
+			<p>
+				When a parameter value is <code>null</code> it is not added.
+				If the value is an
+				<a rel="nofollow" href="@{javadoc.link.javase}java/lang/Iterable.html">Iterable</a>,
+				<a rel="nofollow" href="@{javadoc.link.javase}java/util/Iterator.html">Iterator</a>,
+				<a rel="nofollow" href="@{javadoc.link.javase}java/util/Enumeration.html">Enumeration</a>,
+				or array, then each non-null element is coerced to
+				<a rel="nofollow" href="@{javadoc.link.javase}java/lang/String.html">String</a> as a separate
+				parameter in iteration order.  Otherwise, the value itself is
+				coerced to <a rel="nofollow" href="@{javadoc.link.javase}java/lang/String.html">String</a>
+				for the parameter value.
+			</p>
+			<p>
+				Nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-param">&lt;ao:param&gt;</a> or
+				<a href="@{project.url}]]>&tld;<![CDATA[/tag-params">&lt;ao:params&gt;</a> tags will
+				add parameters after any provided as attributes.
 			</p>
 		]]></description>
 		<name>path</name>
@@ -219,7 +240,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	</tag>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-09-25T15:23:29-05:00" -->
+		<!-- dateModified="2021-09-25T16:06:57-05:00" -->
 		<description><![CDATA[
 			<p>
 				Adds a link tag to <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">this page</a>.
@@ -239,6 +260,27 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				necessary parameters using nested
 				<a href="https://oss.aoapps.com/taglib/ao.tld/tag-param">&lt;ao:param&gt;</a> and
 				<a href="https://oss.aoapps.com/taglib/ao.tld/tag-params">&lt;ao:params&gt;</a> tags.
+			</p>
+			<p>
+				Any attribute that has no namespace and begins with <code>param.</code> is added to the URL as a parameter.
+				The parameter name is the part of the attribute name following <code>param.</code>.
+			</p>
+			<p>
+				When a parameter value is <code>null</code> it is not added.
+				If the value is an
+				<a rel="nofollow" href="@{javadoc.link.javase}java/lang/Iterable.html">Iterable</a>,
+				<a rel="nofollow" href="@{javadoc.link.javase}java/util/Iterator.html">Iterator</a>,
+				<a rel="nofollow" href="@{javadoc.link.javase}java/util/Enumeration.html">Enumeration</a>,
+				or array, then each non-null element is coerced to
+				<a rel="nofollow" href="@{javadoc.link.javase}java/lang/String.html">String</a> as a separate
+				parameter in iteration order.  Otherwise, the value itself is
+				coerced to <a rel="nofollow" href="@{javadoc.link.javase}java/lang/String.html">String</a>
+				for the parameter value.
+			</p>
+			<p>
+				Nested <a href="@{project.url}]]>&tld;<![CDATA[/tag-param">&lt;ao:param&gt;</a> or
+				<a href="@{project.url}]]>&tld;<![CDATA[/tag-params">&lt;ao:params&gt;</a> tags will
+				add parameters after any provided as attributes.
 			</p>
 			<p>
 				Please note, that any links to stylesheets here are never optimized.  Please

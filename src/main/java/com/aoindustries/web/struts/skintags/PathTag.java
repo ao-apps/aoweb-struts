@@ -27,18 +27,23 @@ import com.aoapps.encoding.taglib.EncodingBufferedTag;
 import com.aoapps.io.buffer.BufferResult;
 import com.aoapps.net.URIParametersMap;
 import com.aoapps.net.URIParametersUtils;
+import com.aoapps.taglib.AttributeUtils;
+import com.aoapps.taglib.ParamUtils;
 import com.aoapps.taglib.ParamsAttribute;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.DynamicAttributes;
 
 /**
  * Sets the path for a page or its PathAttribute parent.
  *
  * @author  AO Industries, Inc.
  */
-public class PathTag extends EncodingBufferedTag implements ParamsAttribute {
+public class PathTag extends EncodingBufferedTag implements ParamsAttribute, DynamicAttributes {
 
 	private URIParametersMap params;
 
@@ -56,6 +61,17 @@ public class PathTag extends EncodingBufferedTag implements ParamsAttribute {
 	public void addParam(String name, Object value) {
 		if(params == null) params = new URIParametersMap();
 		params.add(name, value);
+	}
+
+	/**
+	 * @see  ParamUtils#addDynamicAttribute(java.lang.String, java.lang.String, java.lang.Object, java.util.List, com.aoapps.taglib.ParamsAttribute)
+	 */
+	@Override
+	public void setDynamicAttribute(String uri, String localName, Object value) throws JspException {
+		List<String> expectedPatterns = new ArrayList<>();
+		if(!ParamUtils.addDynamicAttribute(uri, localName, value, expectedPatterns, this)) {
+			throw AttributeUtils.newDynamicAttributeFailedException(uri, localName, value, expectedPatterns);
+		}
 	}
 
 	@Override

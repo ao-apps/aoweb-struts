@@ -27,14 +27,19 @@ import com.aoapps.encoding.taglib.EncodingBufferedTag;
 import com.aoapps.io.buffer.BufferResult;
 import com.aoapps.net.URIParametersMap;
 import com.aoapps.net.URIParametersUtils;
+import com.aoapps.taglib.AttributeUtils;
 import com.aoapps.taglib.HrefAttribute;
+import com.aoapps.taglib.ParamUtils;
 import com.aoapps.taglib.ParamsAttribute;
 import com.aoapps.taglib.RelAttribute;
 import com.aoapps.taglib.TypeAttribute;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.DynamicAttributes;
 
 /**
  * @author  AO Industries, Inc.
@@ -44,7 +49,8 @@ public class LinkTag extends EncodingBufferedTag
 		RelAttribute,
 		HrefAttribute,
 		ParamsAttribute,
-		TypeAttribute
+		TypeAttribute,
+		DynamicAttributes
 {
 
 	@Override
@@ -92,6 +98,17 @@ public class LinkTag extends EncodingBufferedTag
 	@Override
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	/**
+	 * @see  ParamUtils#addDynamicAttribute(java.lang.String, java.lang.String, java.lang.Object, java.util.List, com.aoapps.taglib.ParamsAttribute)
+	 */
+	@Override
+	public void setDynamicAttribute(String uri, String localName, Object value) throws JspException {
+		List<String> expectedPatterns = new ArrayList<>();
+		if(!ParamUtils.addDynamicAttribute(uri, localName, value, expectedPatterns, this)) {
+			throw AttributeUtils.newDynamicAttributeFailedException(uri, localName, value, expectedPatterns);
+		}
 	}
 
 	@Override
