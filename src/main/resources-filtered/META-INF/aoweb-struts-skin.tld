@@ -188,6 +188,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<name>path</name>
 		<tag-class>com.aoindustries.web.struts.skintags.PathTag</tag-class>
 		<body-content>scriptless</body-content>
+		<dynamic-attributes>true</dynamic-attributes>
 	</tag>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
@@ -333,6 +334,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.String</type>
 		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
 	</tag>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
