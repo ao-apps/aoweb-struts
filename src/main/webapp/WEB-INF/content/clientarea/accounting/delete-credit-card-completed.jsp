@@ -47,7 +47,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 					<skin:lightArea>
 						<b><ao:message key="deleteCreditCardCompleted.successMessage.title" /></b>
 						<ao:hr />
-						<ao:message key="deleteCreditCardCompleted.successMessage.text" ar0="${aoweb:getCardNumberDisplay(cardNumber)}" /><ao:br />
+						<ao:message key="deleteCreditCardCompleted.successMessage.text" arg0="${aoweb:getCardNumberDisplay(cardNumber)}" /><ao:br />
 						<ao:br />
 						<ao:a href="/clientarea/accounting/credit-card-manager.do"><ao:message key="deleteCreditCardCompleted.creditCardManager.link" /></ao:a>
 					</skin:lightArea>
