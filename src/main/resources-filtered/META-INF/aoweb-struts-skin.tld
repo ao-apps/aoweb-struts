@@ -142,7 +142,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	</tag>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-09-25T16:06:57-05:00" -->
+		<!-- dateModified="2021-09-25T23:27:50-05:00" -->
 		<description><![CDATA[
 			<p class="semanticcms-tag-reference-summary">
 				Provides a path to its
@@ -150,8 +150,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				parent tag or the
 				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
 				if parent not found.
-				The body of this tag, after trimming, is valid <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a>
-				or <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 IRI</a>.
+				The body of this tag, after trimming, is valid <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
+				or <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a>.
 			</p>
 			<p>
 				The path is relative to the root of the application.
@@ -241,7 +241,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	</tag>
 	<tag>
 		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-09-25T16:06:57-05:00" -->
+		<!-- dateModified="2021-09-25T23:27:50-05:00" -->
 		<description><![CDATA[
 			<p>
 				Adds a link tag to <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">this page</a>.
@@ -251,8 +251,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<li>Nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-href">&lt;ao:href&gt;</a> tag</li>
 				<li>href attribute</li>
 				<li>
-					The body of this tag, after trimming, is valid <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a>
-					or <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 IRI</a>.
+					The body of this tag, after trimming, is valid <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
+					or <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a>.
 				</li>
 			</ol>
 			<p>
