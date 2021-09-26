@@ -229,7 +229,8 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 					while(attributeNames.hasMoreElements()) {
 						String name = attributeNames.nextElement();
 						if(
-							!Constants.LAYOUT.equals(name)
+							!Constants.TARGETS.equals(name)
+							&& !Constants.LAYOUT.equals(name)
 							&& !Constants.SU_REQUESTED.equals(name)
 							// Struts 1
 							&& !Globals.LOCALE_KEY.equals(name)
