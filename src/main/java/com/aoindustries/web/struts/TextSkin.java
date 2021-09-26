@@ -263,6 +263,8 @@ public class TextSkin extends Skin {
 			// TODO: Review HTML 4/HTML 5 differences from here
 			// If this is an authenticated page, redirect to session timeout after one hour
 			AOServConnector aoConn = AuthenticatedAction.getAoConn(req, resp);
+			// Do this before getting session, since session may be conditionally created by path in LoginAction
+			String target = LoginAction.addTarget(() -> req.getSession(), fullPath);
 			HttpSession session = req.getSession(false);
 			//if(session == null) session = req.getSession(false); // Get again, just in case of authentication
 			if(isOkResponseStatus && aoConn != null && session != null) {
@@ -272,9 +274,14 @@ public class TextSkin extends Skin {
 					content.write(
 						resp.encodeRedirectURL(
 							URIEncoder.encodeURI(
-								urlBase
-								+ "session-timeout.do?target="
-								+ URIEncoder.encodeURIComponent(fullPath)
+								target == null ? (
+									urlBase
+									+ "session-timeout.do"
+								) : (
+									urlBase
+									+ "session-timeout.do?target="
+									+ URIEncoder.encodeURIComponent(target)
+								)
 							)
 						)
 					);
@@ -354,7 +361,7 @@ public class TextSkin extends Skin {
 					document.out
 				);
 				document.out.write("\"><div style=\"display:inline;\">");
-				document.input().hidden().name("target").value(fullPath).__()
+				if(target != null) document.input().hidden().name("target").value(target).__()
 				// Variant that takes ResourceBundle?
 				.input().submit__(RESOURCES.getMessage(locale, "logoutButtonLabel"))
 				.out.write("</div></form>\n");
@@ -371,9 +378,9 @@ public class TextSkin extends Skin {
 					document.out
 				);
 				document.out.write("\"><div style=\"display:inline\">");
-				// Only include the target when they are not in the /clientarea/ part of the site
-				if(path.startsWith("clientarea/")) {
-					document.input().hidden().name("target").value(fullPath).__();
+				// Only include the target when they are in the /clientarea/ part of the site
+				if(path.startsWith("clientarea/") && target != null) {
+					document.input().hidden().name("target").value(target).__();
 				}
 				document.input().submit__(RESOURCES.getMessage(locale, "loginButtonLabel"))
 				.out.write("</div></form>\n");

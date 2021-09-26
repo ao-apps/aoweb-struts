@@ -180,7 +180,12 @@ web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
 <!-- Include "web.xml.servletMappingsPost" -->
 
 	<session-config>
-		<session-timeout>61</session-timeout>
+		<!--
+			Application performs authentication timeout at 60 minutes via Refresh header.  However, session still
+			maintains "targets", which is mappings from random identifiers to redirect URLs.  Keep the session longer
+			to allow time for re-login without losing targets.
+		-->
+		<session-timeout>120</session-timeout>
 	</session-config>
 
 	<welcome-file-list>

@@ -52,19 +52,18 @@ public class LogoutAction extends ActionSupport {
 			session.removeAttribute(Constants.AUTHENTICATED_AO_CONN);
 			session.removeAttribute(Constants.AUTHENTICATION_TARGET);
 			session.removeAttribute(Constants.SU_REQUESTED);
-		}
-
-		// Try redirect
-		if(target != null && !target.isEmpty()) {
-			// TODO: Open Redirection Vulnerability
-			response.sendRedirect(
-				response.encodeRedirectURL(
-					URIEncoder.encodeURI(
-						target
+			// Try redirect
+			String targetUrl = LoginAction.getTargetUrl(session, target);
+			if(targetUrl != null) {
+				response.sendRedirect(
+					response.encodeRedirectURL(
+						URIEncoder.encodeURI(
+							targetUrl
+						)
 					)
-				)
-			);
-			return null;
+				);
+				return null;
+			}
 		}
 
 		return SUCCESS;

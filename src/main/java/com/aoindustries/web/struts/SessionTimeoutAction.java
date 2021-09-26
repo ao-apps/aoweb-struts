@@ -54,13 +54,12 @@ public class SessionTimeoutAction extends PageAction {
 			session.removeAttribute(Constants.AUTHENTICATED_AO_CONN);
 			session.removeAttribute(Constants.AUTHENTICATION_TARGET);
 			session.removeAttribute(Constants.SU_REQUESTED);
-		}
-
-		// Save the target so authentication will return to the previous page
-		String target = request.getParameter("target");
-		if(target!=null && target.length()>0 && !target.endsWith("/login.do")) {
-			if(session == null) session = request.getSession();
-			session.setAttribute(Constants.AUTHENTICATION_TARGET, target);
+			// Save the target so authentication will return to the previous page
+			String target = request.getParameter("target");
+			String targetUrl = LoginAction.getTargetUrl(session, target);
+			if(targetUrl != null) {
+				session.setAttribute(Constants.AUTHENTICATION_TARGET, targetUrl);
+			}
 		}
 
 		// Set the authenticationMessage

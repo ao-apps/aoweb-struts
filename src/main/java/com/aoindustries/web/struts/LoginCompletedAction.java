@@ -82,7 +82,7 @@ public class LoginCompletedAction extends PageAction {
 			if(target != null) {
 				session.removeAttribute(Constants.AUTHENTICATION_TARGET);
 			}
-			if(target!=null && target.length()>0) {
+			if(target != null && !target.isEmpty()) {
 				response.sendRedirect(
 					response.encodeRedirectURL(
 						URIEncoder.encodeURI(

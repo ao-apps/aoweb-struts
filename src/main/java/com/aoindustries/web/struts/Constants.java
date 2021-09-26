@@ -55,6 +55,13 @@ public class Constants {
 	public static final String AUTHENTICATION_TARGET = "authenticationTarget";
 
 	/**
+	 * The session key that stores the set of targets that have been recently seen.
+	 * Targets are given to the client by ID, and the associated URL is stored here.
+	 * This is to prevent cross-site redirect attacks.
+	 */
+	public static final String TARGETS = "targets";
+
+	/**
 	 * The request key used for switch-user.
 	 */
 	public static final String SU = "su";

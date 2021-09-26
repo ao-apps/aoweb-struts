@@ -120,6 +120,7 @@ public class FilteredHttpSession implements HttpSession {
 			// These names are always allowed
 			if(
 				!Constants.AUTHENTICATION_TARGET.equals(name)
+				&& !Constants.TARGETS.equals(name)
 				&& !Constants.LAYOUT.equals(name)
 				&& !Constants.SU_REQUESTED.equals(name)
 				&& !Constants.AO_CONN.equals(name)
