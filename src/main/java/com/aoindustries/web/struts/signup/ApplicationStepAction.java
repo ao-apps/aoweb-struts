@@ -68,11 +68,11 @@ abstract public class ApplicationStepAction extends PageAction {
 
 		HttpSession session = request.getSession();
 
-		ApplicationSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, ApplicationSignupSelectPackageForm.class, "applicationSignupSelectPackageForm");
-		SignupDomainForm signupDomainForm = SignupHelper.getSessionActionForm(servlet, session, SignupDomainForm.class, "signupDomainForm");
-		SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(servlet, session, SignupOrganizationForm.class, "signupOrganizationForm");
-		SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.class, "signupTechnicalForm");
-		SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.class, "signupBillingInformationForm");
+		ApplicationSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, ApplicationSignupSelectPackageForm.SESSION_ATTRIBUTE, ApplicationSignupSelectPackageForm::new);
+		SignupDomainForm signupDomainForm = SignupHelper.getSessionActionForm(servlet, session, SignupDomainForm.SESSION_ATTRIBUTE, SignupDomainForm::new);
+		SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(servlet, session, SignupOrganizationForm.SESSION_ATTRIBUTE, SignupOrganizationForm::new);
+		SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.SESSION_ATTRIBUTE, SignupTechnicalForm::new);
+		SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.SESSION_ATTRIBUTE, SignupBillingInformationForm::new);
 
 		ActionMessages signupSelectPackageFormErrors = signupSelectPackageForm.validate(mapping, request);
 		ActionMessages signupDomainFormErrors = signupDomainForm.validate(mapping, request);

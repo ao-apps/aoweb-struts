@@ -65,7 +65,7 @@ public class ContentLineTag extends BodyTagSupport {
 
 			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
 			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-			SkinTag.getSkin(pageContext).startContentLine(
+			SkinTag.getSkin(req).startContentLine(
 				req,
 				resp,
 				new DocumentEE(
@@ -91,7 +91,7 @@ public class ContentLineTag extends BodyTagSupport {
 		try {
 			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
 			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-			SkinTag.getSkin(pageContext).endContentLine(
+			SkinTag.getSkin(req).endContentLine(
 				req,
 				resp,
 				new DocumentEE(

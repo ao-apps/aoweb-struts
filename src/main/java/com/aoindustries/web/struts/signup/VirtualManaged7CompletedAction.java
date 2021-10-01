@@ -123,11 +123,9 @@ public class VirtualManaged7CompletedAction extends VirtualManaged7Action {
 
 		// Clear virtualManaged signup-specific forms from the session
 		HttpSession session = request.getSession(false);
-		if(session != null) {
-			session.removeAttribute("virtualManagedSignupSelectPackageForm");
-			session.removeAttribute("virtualManagedSignupCustomizeServerForm");
-			session.removeAttribute("virtualManagedSignupCustomizeManagementForm");
-		}
+		VirtualManagedSignupSelectPackageForm.SESSION_ATTRIBUTE.context(session).remove();
+		VirtualManagedSignupCustomizeServerForm.SESSION_ATTRIBUTE.context(session).remove();
+		SignupCustomizeManagementForm.VIRTUAL_MANAGED_SESSION_ATTRIBUTE.context(session).remove();
 
 		return mapping.findForward("success");
 	}

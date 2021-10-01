@@ -47,7 +47,7 @@ abstract public class AuthenticatedServlet extends HttpServlet {
 	) throws IOException {
 		// Must be logged in
 		HttpSession session = request.getSession(false);
-		AOServConnector aoConn = (session == null) ? null : (AOServConnector)session.getAttribute(Constants.AO_CONN);
+		AOServConnector aoConn = Constants.AO_CONN.context(session).get();
 		if(aoConn == null) {
 			// Save target for later
 			String target = request.getRequestURL().toString();
@@ -55,11 +55,9 @@ abstract public class AuthenticatedServlet extends HttpServlet {
 				String queryString = request.getQueryString();
 				if(queryString!=null) target = target+'?'+queryString;
 				if(session == null) session = request.getSession();
-				session.setAttribute(Constants.AUTHENTICATION_TARGET, target);
+				Constants.AUTHENTICATION_TARGET.context(session).set(target);
 			} else {
-				if(session != null) {
-					session.removeAttribute(Constants.AUTHENTICATION_TARGET);
-				}
+				Constants.AUTHENTICATION_TARGET.context(session).remove();
 			}
 
 			int port = request.getServerPort();

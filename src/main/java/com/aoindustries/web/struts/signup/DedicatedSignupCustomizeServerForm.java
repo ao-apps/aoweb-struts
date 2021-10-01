@@ -22,6 +22,7 @@
  */
 package com.aoindustries.web.struts.signup;
 
+import com.aoapps.servlet.attribute.ScopeEE;
 import java.io.Serializable;
 
 /**
@@ -29,10 +30,13 @@ import java.io.Serializable;
  */
 public class DedicatedSignupCustomizeServerForm extends SignupCustomizeServerForm implements Serializable {
 
+	public static final ScopeEE.Session.Attribute<DedicatedSignupCustomizeServerForm> SESSION_ATTRIBUTE =
+		ScopeEE.SESSION.attribute("dedicatedSignupCustomizeServerForm");
+
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected String getSignupSelectPackageFormName() {
-		return "dedicatedSignupSelectPackageForm";
+	protected ScopeEE.Session.Attribute<DedicatedSignupSelectPackageForm> getSignupSelectPackageFormName() {
+		return DedicatedSignupSelectPackageForm.SESSION_ATTRIBUTE;
 	}
 }

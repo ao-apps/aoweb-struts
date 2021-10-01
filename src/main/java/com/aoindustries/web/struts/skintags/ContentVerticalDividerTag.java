@@ -64,7 +64,7 @@ public class ContentVerticalDividerTag extends TagSupport {
 			ContentLineTag contentLineTag = JspTagUtils.requireAncestor(TAG_NAME, this, ContentLineTag.TAG_NAME, ContentLineTag.class);
 			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
 			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-			SkinTag.getSkin(pageContext).printContentVerticalDivider(
+			SkinTag.getSkin(req).printContentVerticalDivider(
 				req,
 				resp,
 				new DocumentEE(

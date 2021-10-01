@@ -394,7 +394,7 @@ public class TextSkin extends Skin {
 						script.append("  if(layout==").text(skin.getName()).append(") window.top.location.href=").text(
 							resp.encodeURL(
 								new AnyURI(fullPath)
-									.addEncodedParameter(Constants.LAYOUT, URIEncoder.encodeURIComponent(skin.getName()))
+									.addEncodedParameter(Constants.LAYOUT.getName(), URIEncoder.encodeURIComponent(skin.getName()))
 									.toASCIIString()
 							)
 						).append(";\n");

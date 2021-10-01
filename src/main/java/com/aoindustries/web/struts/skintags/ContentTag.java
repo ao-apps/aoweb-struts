@@ -69,7 +69,7 @@ public class ContentTag extends PageAttributesBodyTag {
 	public int doStartTag(PageAttributes pageAttributes) throws JspException, IOException {
 		HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
 		HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-		SkinTag.getSkin(pageContext).startContent(
+		SkinTag.getSkin(req).startContent(
 			req,
 			resp,
 			new DocumentEE(
@@ -92,7 +92,8 @@ public class ContentTag extends PageAttributesBodyTag {
 		try {
 			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
 			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-			SkinTag.getSkin(pageContext).endContent(req,
+			SkinTag.getSkin(req).endContent(
+				req,
 				resp,
 				new DocumentEE(
 					pageContext.getServletContext(),

@@ -33,7 +33,7 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Resolves the current {@link SiteSettings}, sets the request param {@link Constants#SITE_SETTINGS}, and enables
+ * Resolves the current {@link SiteSettings}, sets the request attribute {@link Constants#SITE_SETTINGS}, and enables
  * resource editor on the current request {@link SiteSettings#getCanEditResources() when enabled}.
  *
  * @author AO Industries, Inc.
@@ -46,7 +46,7 @@ public class SiteSettingsRequestListener implements ServletRequestListener {
 		// Resolve the settings
 		SiteSettings siteSettings = SiteSettings.getInstance(sre.getServletContext());
 		ServletRequest request = sre.getServletRequest();
-		request.setAttribute(Constants.SITE_SETTINGS, siteSettings);
+		Constants.SITE_SETTINGS.context(request).set(siteSettings);
 
 		// Start the request tracking
 		boolean canEditResources = (request instanceof HttpServletRequest) && siteSettings.getCanEditResources();

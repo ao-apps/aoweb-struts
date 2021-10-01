@@ -121,7 +121,7 @@ public class SkinTagTEI extends TagExtraInfo {
 				);
 			}
 		}
-		Object layoutAttr = data.getAttribute(Constants.LAYOUT);
+		Object layoutAttr = data.getAttribute(Constants.LAYOUT.getName());
 		if(
 			layoutAttr != null
 			&& layoutAttr != TagData.REQUEST_TIME_VALUE

@@ -24,6 +24,7 @@ package com.aoindustries.web.struts.skintags;
 
 import com.aoapps.lang.LocalizedIllegalArgumentException;
 import com.aoapps.lang.Strings;
+import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoindustries.web.struts.Formtype;
 import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
 import java.util.ArrayList;
@@ -48,7 +49,8 @@ public class PageAttributes {
 	/**
 	 * The following key is used to store the objects in the page attributes.
 	 */
-	public static final String REQUEST_ATTRIBUTE = "pageAttributes";
+	public static final ScopeEE.Request.Attribute<PageAttributes> REQUEST_ATTRIBUTE =
+		ScopeEE.REQUEST.attribute("pageAttributes");
 
 	public static class Link {
 
@@ -148,6 +150,7 @@ public class PageAttributes {
 		this.copyright = copyright;
 	}
 
+	@SuppressWarnings("ReturnOfCollectionOrArrayField") // Returning unmodifiable
 	public List<Meta> getMetas() {
 		if(metas==null) return Collections.emptyList();
 		if(unmodifiableMetas==null) unmodifiableMetas = Collections.unmodifiableList(metas);
@@ -167,6 +170,7 @@ public class PageAttributes {
 	 * prefer the {@link com.aoapps.web.resources.servlet.RegistryEE.Page page-scope web resource registry}.
 	 * </p>
 	 */
+	@SuppressWarnings("ReturnOfCollectionOrArrayField") // Returning unmodifiable
 	public List<Link> getLinks() {
 		if(links==null) return Collections.emptyList();
 		if(unmodifiableLinks==null) unmodifiableLinks = Collections.unmodifiableList(links);

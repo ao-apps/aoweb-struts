@@ -99,7 +99,7 @@ abstract public class Skin {
 	 */
 	public static Skin getSkin(SiteSettings settings, ServletRequest req) {
 		{
-			Skin skin = (Skin)req.getAttribute(Constants.SKIN);
+			Skin skin = Constants.SKIN.context(req).get();
 			if(skin != null) return skin;
 		}
 
@@ -110,38 +110,39 @@ abstract public class Skin {
 			// TODO: Avoid creating session and don't store in session for default layout?
 			session = ((HttpServletRequest)req).getSession();
 		} else {
+			assert req != null;
 			session = null;
 		}
 
-		String layout = req.getParameter(Constants.LAYOUT);
+		String layout = req.getParameter(Constants.LAYOUT.getName());
 		// Trim and set to null if empty
 		if(layout != null && (layout = layout.trim()).isEmpty()) layout = null;
 		if(layout != null) {
 			// Match against possibilities
 			for(Skin skin : skins) {
 				if(skin.getName().equals(layout)) {
-					if(session != null) session.setAttribute(Constants.LAYOUT, layout);
-					req.setAttribute(Constants.SKIN, skin);
+					if(session != null) Constants.LAYOUT.context(session).set(layout);
+					Constants.SKIN.context(req).set(skin);
 					return skin;
 				}
 			}
 		}
 
 		// Try to reuse the currently selected skin
-		layout = (session == null) ? null : (String)session.getAttribute(Constants.LAYOUT);
+		layout = Constants.LAYOUT.context(session).get();
 		if(layout != null) {
 			// Match against possibilities
 			for(Skin skin : skins) {
 				if(skin.getName().equals(layout)) {
-					if(session != null) session.setAttribute(Constants.LAYOUT, layout);
-					req.setAttribute(Constants.SKIN, skin);
+					if(session != null) Constants.LAYOUT.context(session).set(layout);
+					Constants.SKIN.context(req).set(skin);
 					return skin;
 				}
 			}
 		}
 		Skin skin = getDefaultSkin(skins, req);
-		if(session != null) session.setAttribute(Constants.LAYOUT, skin.getName());
-		req.setAttribute(Constants.SKIN, skin);
+		if(session != null) Constants.LAYOUT.context(session).set(skin.getName());
+		Constants.SKIN.context(req).set(skin);
 		return skin;
 	}
 

@@ -59,7 +59,7 @@ public class WhiteAreaTag extends PageAttributesBodyTag {
 	public int doStartTag(PageAttributes pageAttributes) throws JspException, IOException {
 		HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
 		HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-		whiteArea = SkinTag.getSkin(pageContext).beginWhiteArea(
+		whiteArea = SkinTag.getSkin(req).beginWhiteArea(
 			req,
 			resp,
 			new DocumentEE(
@@ -81,9 +81,10 @@ public class WhiteAreaTag extends PageAttributesBodyTag {
 	public int doEndTag(PageAttributes pageAttributes) throws JspException, IOException {
 		try {
 			assert whiteArea != null;
+			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
 			whiteArea.getDocument().setOut(pageContext.getOut());
-			SkinTag.getSkin(pageContext).endWhiteArea(
-				(HttpServletRequest)pageContext.getRequest(),
+			SkinTag.getSkin(req).endWhiteArea(
+				req,
 				(HttpServletResponse)pageContext.getResponse(),
 				whiteArea
 			);

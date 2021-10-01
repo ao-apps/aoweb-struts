@@ -82,7 +82,7 @@ public class ContentHorizontalDividerTag extends TagSupport {
 
 			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
 			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-			SkinTag.getSkin(pageContext).printContentHorizontalDivider(
+			SkinTag.getSkin(req).printContentHorizontalDivider(
 				req,
 				resp,
 				new DocumentEE(

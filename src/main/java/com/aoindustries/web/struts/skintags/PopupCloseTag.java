@@ -58,7 +58,7 @@ public class PopupCloseTag extends TagSupport {
 
 			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
 			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-			SkinTag.getSkin(pageContext).printPopupClose(
+			SkinTag.getSkin(req).printPopupClose(
 				req,
 				resp,
 				new DocumentEE(

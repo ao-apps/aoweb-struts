@@ -26,6 +26,7 @@ import com.aoapps.lang.exception.WrappedException;
 import com.aoapps.lang.validation.ValidationException;
 import com.aoapps.lang.validation.ValidationResult;
 import com.aoapps.net.Email;
+import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.account.User;
 import com.aoindustries.web.struts.SessionActionForm;
@@ -45,6 +46,9 @@ import org.apache.struts.action.ActionServlet;
  * @author  AO Industries, Inc.
  */
 public class SignupTechnicalForm extends ActionForm implements Serializable, SessionActionForm {
+
+	public static final ScopeEE.Session.Attribute<SignupTechnicalForm> SESSION_ATTRIBUTE =
+		ScopeEE.SESSION.attribute("signupTechnicalForm");
 
 	private static final long serialVersionUID = 1L;
 

@@ -29,7 +29,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionServlet;
@@ -83,8 +82,6 @@ public class AOServ5CompletedAction extends AOServ5Action {
 		String pkey = (String)request.getAttribute("pkey");
 		String statusKey = (String)request.getAttribute("statusKey");
 
-		//Locale userLocale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
-
 		// Send confirmation email to support
 		MinimalConfirmationCompletedActionHelper.sendSupportSummaryEmail(
 			myServlet,
@@ -110,10 +107,7 @@ public class AOServ5CompletedAction extends AOServ5Action {
 		);
 
 		// Clear aoserv signup-specific forms from the session
-		HttpSession session = request.getSession(false);
-		if(session != null) {
-			session.removeAttribute("aoservSignupSelectPackageForm");
-		}
+		AOServSignupSelectPackageForm.SESSION_ATTRIBUTE.context(request.getSession(false)).remove();
 
 		return mapping.findForward("success");
 	}

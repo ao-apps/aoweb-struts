@@ -24,6 +24,7 @@ package com.aoindustries.web.struts.signup;
 
 import com.aoapps.collections.AutoGrowArrayList;
 import com.aoapps.lang.exception.WrappedException;
+import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.billing.PackageDefinition;
 import com.aoindustries.aoserv.client.billing.PackageDefinitionLimit;
@@ -143,8 +144,8 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
 			PackageDefinition pd = null;
 			if(rootConn!=null) {
 				HttpSession session = request.getSession(false);
-				SignupSelectPackageForm signupSelectPackageForm = (session == null) ? null : (SignupSelectPackageForm)session.getAttribute(getSignupSelectPackageFormName());
-				if(signupSelectPackageForm!=null) {
+				SignupSelectPackageForm signupSelectPackageForm = getSignupSelectPackageFormName().context(session).get();
+				if(signupSelectPackageForm != null) {
 					pd = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
 				}
 			}
@@ -205,5 +206,5 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
 		return false;
 	}
 
-	protected abstract String getSignupSelectPackageFormName();
+	protected abstract ScopeEE.Session.Attribute<? extends SignupSelectPackageForm> getSignupSelectPackageFormName();
 }

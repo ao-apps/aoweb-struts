@@ -66,7 +66,7 @@ public class ContentTitleTag extends EncodingBufferedTag {
 			totalColspan += colspans[c];
 		}
 
-		SkinTag.getSkin(pageContext).printContentTitle(
+		SkinTag.getSkin(req).printContentTitle(
 			req,
 			resp,
 			new DocumentEE(

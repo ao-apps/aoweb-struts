@@ -25,6 +25,7 @@ package com.aoindustries.web.struts.skintags;
 import com.aoapps.html.servlet.DocumentEE;
 import com.aoapps.lang.util.Sequence;
 import com.aoapps.lang.util.UnsynchronizedSequence;
+import com.aoapps.servlet.attribute.ScopeEE;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,7 +47,8 @@ public class PopupGroupTag extends BodyTagSupport {
 	/**
 	 * The request attribute name used to store the sequence.
 	 */
-	private static final String SEQUENCE_REQUEST_ATTRIBUTE = PopupGroupTag.class.getName()+".sequence";
+	private static final ScopeEE.Request.Attribute<Sequence> SEQUENCE_REQUEST_ATTRIBUTE =
+		ScopeEE.REQUEST.attribute(PopupGroupTag.class.getName() + ".sequence");
 
 	private static final long serialVersionUID = 1L;
 
@@ -61,10 +63,10 @@ public class PopupGroupTag extends BodyTagSupport {
 		try {
 			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
 			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-			Sequence sequence = (Sequence)req.getAttribute(SEQUENCE_REQUEST_ATTRIBUTE);
-			if(sequence==null) req.setAttribute(SEQUENCE_REQUEST_ATTRIBUTE, sequence = new UnsynchronizedSequence());
-			sequenceId = sequence.getNextSequenceValue();
-			SkinTag.getSkin(pageContext).beginPopupGroup(
+			sequenceId = SEQUENCE_REQUEST_ATTRIBUTE.context(req)
+				.computeIfAbsent(__ -> new UnsynchronizedSequence())
+				.getNextSequenceValue();
+			SkinTag.getSkin(req).beginPopupGroup(
 				req,
 				resp,
 				new DocumentEE(
@@ -88,7 +90,7 @@ public class PopupGroupTag extends BodyTagSupport {
 		try {
 			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
 			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-			SkinTag.getSkin(pageContext).endPopupGroup(
+			SkinTag.getSkin(req).endPopupGroup(
 				req,
 				resp,
 				new DocumentEE(

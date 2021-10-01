@@ -118,10 +118,8 @@ public class VirtualDedicated6CompletedAction extends VirtualDedicated6Action {
 
 		// Clear virtualDedicated signup-specific forms from the session
 		HttpSession session = request.getSession(false);
-		if(session != null) {
-			session.removeAttribute("virtualDedicatedSignupSelectPackageForm");
-			session.removeAttribute("virtualDedicatedSignupCustomizeServerForm");
-		}
+		VirtualDedicatedSignupSelectPackageForm.SESSION_ATTRIBUTE.context(session).remove();
+		VirtualDedicatedSignupCustomizeServerForm.SESSION_ATTRIBUTE.context(session).remove();
 
 		return mapping.findForward("success");
 	}

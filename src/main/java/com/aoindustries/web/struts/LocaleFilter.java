@@ -23,6 +23,7 @@
 package com.aoindustries.web.struts;
 
 import com.aoapps.lang.i18n.ThreadLocale;
+import com.aoapps.servlet.attribute.AttributeEE;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -37,8 +38,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.jstl.core.Config;
-import org.apache.struts.Globals;
 
 /**
  * Resolves the current {@link Locale}, optionally changing it with any language parameters, and sets the request param
@@ -62,7 +61,7 @@ public class LocaleFilter implements Filter {
 			// Resolve the locale
 			SiteSettings siteSettings = SiteSettings.getInstance(servletContext);
 			Locale locale = getEffectiveLocale(siteSettings, request, response);
-			request.setAttribute(Constants.LOCALE, locale);
+			Constants.LOCALE.context(request).set(locale);
 
 			Locale oldLocale = ThreadLocale.get();
 			try {
@@ -101,7 +100,7 @@ public class LocaleFilter implements Filter {
 			session = null;
 		}
 		List<Skin.Language> languages = siteSettings.getLanguages(request);
-		Locale locale = (session == null) ? null : (Locale)session.getAttribute(Globals.LOCALE_KEY);
+		Locale locale = Globals.LOCALE_KEY.context(session).get();
 		String language = request.getParameter(Constants.LANGUAGE);
 		if(language!=null && (language=language.trim()).length()>0) {
 			// Make sure is a supported language
@@ -110,8 +109,8 @@ public class LocaleFilter implements Filter {
 				if(code.equals(language)) {
 					locale = locale==null ? new Locale(code) : new Locale(code, locale.getCountry(), locale.getVariant());
 					if(session != null) {
-						session.setAttribute(Globals.LOCALE_KEY, locale);
-						Config.set(session, Config.FMT_LOCALE, locale);
+						Globals.LOCALE_KEY.context(session).set(locale);
+						AttributeEE.Jstl.FMT_LOCALE.context(session).set(locale);
 					}
 					response.setLocale(locale);
 					return locale;
@@ -126,8 +125,8 @@ public class LocaleFilter implements Filter {
 					// Current value is from session and is OK
 					response.setLocale(locale);
 					// Make sure the JSTL value matches
-					if(session != null && !locale.equals(Config.get(session, Config.FMT_LOCALE))) {
-						Config.set(session, Config.FMT_LOCALE, locale);
+					if(session != null && !locale.equals(AttributeEE.Jstl.FMT_LOCALE.context(session).get())) {
+						AttributeEE.Jstl.FMT_LOCALE.context(session).set(locale);
 					}
 					return locale;
 				}
@@ -136,8 +135,8 @@ public class LocaleFilter implements Filter {
 		// Return the default
 		locale = getDefaultLocale(languages);
 		if(session != null) {
-			session.setAttribute(Globals.LOCALE_KEY, locale);
-			Config.set(session, Config.FMT_LOCALE, locale);
+			Globals.LOCALE_KEY.context(session).set(locale);
+			AttributeEE.Jstl.FMT_LOCALE.context(session).set(locale);
 		}
 		response.setLocale(locale);
 		return locale;

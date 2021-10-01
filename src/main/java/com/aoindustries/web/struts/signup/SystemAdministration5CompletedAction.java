@@ -108,10 +108,7 @@ public class SystemAdministration5CompletedAction extends SystemAdministration5A
 		);
 
 		// Clear system administration signup-specific forms from the session
-		HttpSession session = request.getSession(false);
-		if(session != null) {
-			session.removeAttribute("systemAdministrationSignupSelectPackageForm");
-		}
+		SystemAdministrationSignupSelectPackageForm.SESSION_ATTRIBUTE.context(request.getSession(false)).remove();
 
 		return mapping.findForward("success");
 	}

@@ -22,11 +22,11 @@
  */
 package com.aoindustries.web.struts.skintags;
 
+import com.aoapps.servlet.attribute.ScopeEE;
 import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
@@ -36,23 +36,23 @@ public class LightDarkTableRowTag extends BodyTagSupport {
 
 	private static final long serialVersionUID = 1L;
 
-	private String pageAttributeId;
+	private ScopeEE.Page.Attribute<Boolean> pageAttributeId;
 
 	public LightDarkTableRowTag() {
 		init();
 	}
 
 	public String getPageAttributeId() {
-		return pageAttributeId;
+		return (pageAttributeId == null) ? null : pageAttributeId.getName();
 	}
 
 	public void setPageAttributeId(String pageAttributeId) {
-		this.pageAttributeId = pageAttributeId;
+		this.pageAttributeId = (pageAttributeId == null) ? null : ScopeEE.PAGE.attribute(pageAttributeId);
 	}
 
 	private void init() {
 		// Always start with a light row
-		pageAttributeId = "LightDarkTableRowTag.isDark";
+		pageAttributeId = ScopeEE.PAGE.attribute("LightDarkTableRowTag.isDark");
 	}
 
 	@Override
@@ -60,8 +60,7 @@ public class LightDarkTableRowTag extends BodyTagSupport {
 		try {
 			JspWriter out = pageContext.getOut();
 			out.write("<tr class=\"");
-			Boolean isDark = (Boolean)pageContext.getAttribute(pageAttributeId, PageContext.PAGE_SCOPE);
-			if(isDark==null) pageContext.setAttribute(pageAttributeId, isDark = Boolean.FALSE, PageContext.PAGE_SCOPE);
+			boolean isDark = pageAttributeId.context(pageContext).computeIfAbsent(__ -> false);
 			out.write(isDark ? "aoDarkRow" : "aoLightRow");
 			out.write("\">");
 			return EVAL_BODY_INCLUDE;
@@ -73,9 +72,8 @@ public class LightDarkTableRowTag extends BodyTagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		try {
-			Boolean isDark = (Boolean)pageContext.getAttribute(pageAttributeId, PageContext.PAGE_SCOPE);
-			if(isDark==null) isDark = Boolean.FALSE;
-			pageContext.setAttribute(pageAttributeId, !isDark, PageContext.PAGE_SCOPE);
+			boolean isDark = pageAttributeId.context(pageContext).computeIfAbsent(__ -> false);
+			pageAttributeId.context(pageContext).set(!isDark);
 			pageContext.getOut().write("</tr>");
 			return EVAL_PAGE;
 		} catch(IOException err) {

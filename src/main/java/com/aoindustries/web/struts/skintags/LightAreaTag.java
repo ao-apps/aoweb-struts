@@ -59,7 +59,7 @@ public class LightAreaTag extends PageAttributesBodyTag {
 	public int doStartTag(PageAttributes pageAttributes) throws JspException, IOException {
 		HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
 		HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-		lightArea = SkinTag.getSkin(pageContext).beginLightArea(
+		lightArea = SkinTag.getSkin(req).beginLightArea(
 			req,
 			resp,
 			new DocumentEE(
@@ -80,10 +80,11 @@ public class LightAreaTag extends PageAttributesBodyTag {
 	@Override
 	public int doEndTag(PageAttributes pageAttributes) throws JspException, IOException {
 		try {
+			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
 			assert lightArea != null;
 			lightArea.getDocument().setOut(pageContext.getOut());
-			SkinTag.getSkin(pageContext).endLightArea(
-				(HttpServletRequest)pageContext.getRequest(),
+			SkinTag.getSkin(req).endLightArea(
+				req,
 				(HttpServletResponse)pageContext.getResponse(),
 				lightArea
 			);

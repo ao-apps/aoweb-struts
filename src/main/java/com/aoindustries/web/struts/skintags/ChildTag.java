@@ -50,7 +50,7 @@ public class ChildTag extends PageTag {
 		Collection<Meta> metas
 	) throws JspException, IOException {
 		Child child = new Child(title, navImageAlt, description, author, authorHref, copyright, path, keywords, metas);
-		Stack<ParentTag> stack = (Stack)pageContext.getRequest().getAttribute(ParentTag.STACK_REQUEST_ATTRIBUTE);
+		Stack<ParentTag> stack = ParentTag.STACK_REQUEST_ATTRIBUTE.context(pageContext.getRequest()).get();
 		if(stack==null || stack.isEmpty()) {
 			PageAttributesBodyTag.getPageAttributes(pageContext).addChild(child);
 		} else {

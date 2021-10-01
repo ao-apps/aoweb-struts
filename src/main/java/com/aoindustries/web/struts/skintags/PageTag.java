@@ -22,6 +22,8 @@
  */
 package com.aoindustries.web.struts.skintags;
 
+import com.aoapps.lang.attribute.Attribute;
+import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoapps.servlet.jsp.LocalizedJspTagException;
 import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
 import java.io.IOException;
@@ -45,13 +47,14 @@ abstract public class PageTag extends BodyTagSupport {
 	 * Request-scope attribute containing the current page, used to find the
 	 * parent PageTag.
 	 */
-	static final String PAGE_TAG_ATTRIBUTE = PageTag.class.getName();
+	private static final ScopeEE.Request.Attribute<PageTag> PAGE_TAG_ATTRIBUTE =
+		ScopeEE.REQUEST.attribute(PageTag.class.getName());
 
 	/**
 	 * Gets the current page tag (parent or child).
 	 */
 	static PageTag getPageTag(ServletRequest request) {
-		return (PageTag)request.getAttribute(PAGE_TAG_ATTRIBUTE);
+		return PAGE_TAG_ATTRIBUTE.context(request).get();
 	}
 
 	private String title;
@@ -80,13 +83,11 @@ abstract public class PageTag extends BodyTagSupport {
 		metas = null;
 	}
 
-	private Object oldPageTag;
+	private Attribute.OldValue oldPageTag;
 
 	@Override
 	public int doStartTag() throws JspException {
-		ServletRequest request = pageContext.getRequest();
-		oldPageTag = request.getAttribute(PAGE_TAG_ATTRIBUTE);
-		request.setAttribute(PAGE_TAG_ATTRIBUTE, this);
+		oldPageTag = PAGE_TAG_ATTRIBUTE.context(pageContext.getRequest()).init(this);
 		return EVAL_BODY_BUFFERED;
 	}
 
@@ -142,7 +143,7 @@ abstract public class PageTag extends BodyTagSupport {
 		} catch(IOException e) {
 			throw new JspTagException(e);
 		} finally {
-			request.setAttribute(PAGE_TAG_ATTRIBUTE, oldPageTag);
+			if(oldPageTag != null) oldPageTag.close();
 			init();
 		}
 	}

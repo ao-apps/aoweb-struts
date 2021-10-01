@@ -25,7 +25,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId><version>1.17.2-POST-SNAPSHOT</version>
+		<groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId><version>1.17.3-SNAPSHOT</version>
 		<relativePath>../oss/parent/pom.xml</relativePath>
 	</parent>
 
@@ -1016,7 +1016,6 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 											<includes>element-list, package-list</includes>
 											<outputDirectory>${project.build.directory}/offlineLinks/org.apache.struts/struts2-core</outputDirectory>
 										</artifactItem>
-										<!-- ao-javadoc-offline: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec</artifactId> -->
 									</artifactItems>
 								</configuration>
 							</execution>
@@ -1157,7 +1156,6 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 									<url>https://struts.apache.org/maven/struts2-core/apidocs/</url>
 									<location>${project.build.directory}/offlineLinks/org.apache.struts/struts2-core</location>
 								</offlineLink>
-								<!-- ao-javadoc-offline: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec</artifactId> -->
 							</offlineLinks>
 						</configuration>
 					</plugin>
@@ -1209,7 +1207,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				</dependency>
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-encoding-servlet-devel</artifactId> -->
 				<dependency>
-					<groupId>com.aoapps</groupId><artifactId>ao-encoding-taglib-devel</artifactId><version>3.0.0-POST-SNAPSHOT</version>
+					<groupId>com.aoapps</groupId><artifactId>ao-encoding-taglib-devel</artifactId><version>3.0.1-SNAPSHOT</version>
 					<scope>runtime</scope>
 				</dependency>
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-devel</artifactId> -->
@@ -1225,11 +1223,11 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				</dependency>
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-io-buffer-devel</artifactId> -->
 				<dependency>
-					<groupId>com.aoapps</groupId><artifactId>ao-lang-devel</artifactId><version>5.0.1-POST-SNAPSHOT</version>
+					<groupId>com.aoapps</groupId><artifactId>ao-lang-devel</artifactId><version>5.1.0-SNAPSHOT</version>
 					<scope>runtime</scope>
 				</dependency>
 				<dependency>
-					<groupId>com.aoapps</groupId><artifactId>ao-net-types-devel</artifactId><version>2.0.1-POST-SNAPSHOT</version>
+					<groupId>com.aoapps</groupId><artifactId>ao-net-types-devel</artifactId><version>2.0.2-SNAPSHOT</version>
 					<scope>runtime</scope>
 				</dependency>
 				<dependency>
@@ -1240,7 +1238,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-filter-devel</artifactId> -->
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-last-modified-devel</artifactId> -->
 				<dependency>
-					<groupId>com.aoapps</groupId><artifactId>ao-servlet-util-devel</artifactId><version>4.0.0-POST-SNAPSHOT</version>
+					<groupId>com.aoapps</groupId><artifactId>ao-servlet-util-devel</artifactId><version>5.0.0-SNAPSHOT</version>
 					<scope>runtime</scope>
 				</dependency>
 				<dependency>
@@ -1249,7 +1247,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				</dependency>
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-style-devel</artifactId> -->
 				<dependency>
-					<groupId>com.aoapps</groupId><artifactId>ao-taglib-devel</artifactId><version>7.1.0-POST-SNAPSHOT</version>
+					<groupId>com.aoapps</groupId><artifactId>ao-taglib-devel</artifactId><version>7.1.1-SNAPSHOT</version>
 					<scope>runtime</scope>
 				</dependency>
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-tempfiles-servlet-devel</artifactId> -->
@@ -1257,7 +1255,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-web-resources-renderer-devel</artifactId> -->
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-web-resources-servlet-devel</artifactId> -->
 				<dependency>
-					<groupId>com.aoindustries</groupId><artifactId>aoserv-client-devel</artifactId><version>1.86.0-POST-SNAPSHOT</version>
+					<groupId>com.aoindustries</groupId><artifactId>aoserv-client-devel</artifactId><version>1.87.1-SNAPSHOT</version>
 					<scope>runtime</scope>
 				</dependency>
 				<!-- No -devel: <groupId>com.aoindustries</groupId><artifactId>aoserv-credit-cards-devel</artifactId> -->
@@ -1268,14 +1266,13 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<!-- No -devel: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api-devel</artifactId> -->
 				<!-- No -devel: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api-devel</artifactId> -->
 				<dependency>
-					<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib-devel</artifactId><version>1.15.0-POST-SNAPSHOT</version>
+					<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib-devel</artifactId><version>1.15.1-SNAPSHOT</version>
 					<scope>runtime</scope>
 				</dependency>
 				<!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts-core-devel</artifactId> -->
 				<!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts-taglib-devel</artifactId> -->
 				<!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId> -->
 				<!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId> -->
-				<!-- No -devel: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec-devel</artifactId> -->
 				<!-- Transitive -->
 				<!-- No -devel: <groupId>javax.activation</groupId><artifactId>activation-devel</artifactId> -->
 				<!-- No -devel: <groupId>antlr</groupId><artifactId>antlr-devel</artifactId> -->
@@ -1290,10 +1287,11 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<!-- No -devel: <groupId>joda-time</groupId><artifactId>joda-time-devel</artifactId> -->
 				<!-- No -devel: <groupId>oro</groupId><artifactId>oro-devel</artifactId> -->
 				<!-- No -devel: <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-model-devel</artifactId> -->
+				<!-- No -devel: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec-devel</artifactId> -->
 				<!-- Runtime Direct -->
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings-devel</artifactId> -->
 				<dependency>
-					<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet-devel</artifactId><version>1.18.0-POST-SNAPSHOT</version>
+					<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet-devel</artifactId><version>1.18.1-SNAPSHOT</version>
 					<scope>runtime</scope>
 				</dependency>
 				<!-- No -devel: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl-devel</artifactId> -->
@@ -1338,16 +1336,16 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<dependencies>
 			<!-- Direct -->
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId><version>3.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-encoding</artifactId><version>6.0.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-encoding-servlet</artifactId><version>4.0.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-encoding-servlet</artifactId><version>4.1.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-encoding-taglib</artifactId><version>3.0.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-encoding-taglib</artifactId><version>3.0.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-fluent-html</artifactId><version>0.5.0${POST-SNAPSHOT}</version>
@@ -1356,7 +1354,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>com.aoapps</groupId><artifactId>ao-fluent-html-any</artifactId><version>0.5.3${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-fluent-html-servlet</artifactId><version>0.5.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-fluent-html-servlet</artifactId><version>0.5.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-fluent-html-util</artifactId><version>0.5.0${POST-SNAPSHOT}</version>
@@ -1368,10 +1366,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>com.aoapps</groupId><artifactId>ao-io-buffer</artifactId><version>4.0.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.0.1${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.1.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-net-types</artifactId><version>2.0.1${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-net-types</artifactId><version>2.0.2-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-payments-api</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
@@ -1380,37 +1378,37 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>com.aoapps</groupId><artifactId>ao-security</artifactId><version>3.0.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-servlet-filter</artifactId><version>3.0.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-servlet-filter</artifactId><version>3.0.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-servlet-last-modified</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-servlet-last-modified</artifactId><version>2.0.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-servlet-util</artifactId><version>4.0.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-servlet-util</artifactId><version>5.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-sql</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-style</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-style</artifactId><version>2.0.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-taglib</artifactId><version>7.1.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-taglib</artifactId><version>7.1.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-tempfiles-servlet</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-tempfiles-servlet</artifactId><version>3.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-web-resources-registry</artifactId><version>0.4.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-web-resources-renderer</artifactId><version>0.4.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-web-resources-renderer</artifactId><version>0.5.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-web-resources-servlet</artifactId><version>0.4.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-web-resources-servlet</artifactId><version>0.5.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>aoserv-client</artifactId><version>1.86.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoindustries</groupId><artifactId>aoserv-client</artifactId><version>1.87.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoindustries</groupId><artifactId>aoserv-credit-cards</artifactId><version>2.2.0${POST-SNAPSHOT}</version>
@@ -1424,11 +1422,20 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 			<dependency>
 				<groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><version>1.6.2</version>
 			</dependency>
-			<!-- javaee-web-api-bom: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId> -->
-			<!-- javaee-web-api-bom: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId> -->
-			<!-- javaee-web-api-bom: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId> -->
 			<dependency>
-				<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><version>1.15.0${POST-SNAPSHOT}</version>
+				<groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><version>3.1.0</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId><version>2.3.3</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId><version>1.1</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><version>1.15.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId><version>${struts-core.version}</version>
@@ -1442,7 +1449,6 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 			<dependency>
 				<groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId><version>${struts2.version}</version>
 			</dependency>
-			<!-- javaee-web-api-bom: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec</artifactId> -->
 			<!-- Transitive -->
 			<dependency>
 				<groupId>javax.activation</groupId><artifactId>activation</artifactId><version>1.1.1</version>
@@ -1499,6 +1505,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>org.javassist</groupId><artifactId>javassist</artifactId><version>3.28.0-GA</version>
 			</dependency>
 			<dependency>
+				<groupId>javax.el</groupId><artifactId>javax.el-api</artifactId><version>3.0.0</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
 				<groupId>joda-time</groupId><artifactId>joda-time</artifactId><version>2.10.10</version>
 			</dependency>
 			<dependency>
@@ -1511,8 +1521,9 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>oro</groupId><artifactId>oro</artifactId><version>2.0.8</version>
 			</dependency>
 			<dependency>
-				<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-model</artifactId><version>1.14.0${POST-SNAPSHOT}</version>
+				<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-model</artifactId><version>1.14.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
+			<!-- javaee-web-api-bom: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec</artifactId> -->
 			<!-- Runtime Direct -->
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-mime-mappings</artifactId><version>1.2.0${POST-SNAPSHOT}</version>
@@ -1521,7 +1532,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId><version>2.14.1</version>
 			</dependency>
 			<dependency>
-				<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet</artifactId><version>1.18.0${POST-SNAPSHOT}</version>
+				<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet</artifactId><version>1.18.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<!-- javaee-web-api-bom: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId> -->
 			<!-- Runtime Transitive -->
@@ -1533,7 +1544,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 			</dependency>
 			<!-- BOM -->
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom</artifactId><version>7.0.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom</artifactId><version>7.0.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -1652,9 +1663,6 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		</dependency>
 		<dependency>
 			<groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec</artifactId>
 		</dependency>
 		<!-- Runtime Direct -->
 		<dependency>

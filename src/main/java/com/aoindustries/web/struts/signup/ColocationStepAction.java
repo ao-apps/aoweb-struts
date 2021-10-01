@@ -67,10 +67,10 @@ abstract public class ColocationStepAction extends PageAction {
 
 		HttpSession session = request.getSession();
 
-		ColocationSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, ColocationSignupSelectPackageForm.class, "colocationSignupSelectPackageForm");
-		SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(servlet, session, SignupOrganizationForm.class, "signupOrganizationForm");
-		SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.class, "signupTechnicalForm");
-		SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.class, "signupBillingInformationForm");
+		ColocationSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, ColocationSignupSelectPackageForm.SESSION_ATTRIBUTE, ColocationSignupSelectPackageForm::new);
+		SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(servlet, session, SignupOrganizationForm.SESSION_ATTRIBUTE, SignupOrganizationForm::new);
+		SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.SESSION_ATTRIBUTE, SignupTechnicalForm::new);
+		SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.SESSION_ATTRIBUTE, SignupBillingInformationForm::new);
 
 		ActionMessages signupSelectPackageFormErrors = signupSelectPackageForm.validate(mapping, request);
 		ActionMessages signupOrganizationFormErrors = signupOrganizationForm.validate(mapping, request);

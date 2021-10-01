@@ -26,6 +26,7 @@ import com.aoapps.lang.Strings;
 import com.aoapps.lang.exception.ConfigurationException;
 import com.aoapps.lang.exception.WrappedException;
 import com.aoapps.lang.validation.ValidationException;
+import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.account.User;
 import com.aoindustries.aoserv.client.reseller.Brand;
@@ -43,7 +44,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import org.apache.struts.Globals;
 
 /**
  * Provides site-wide settings.
@@ -56,7 +56,8 @@ public class SiteSettings {
 
 	private static final String INIT_PARAM_NAME = SiteSettings.class.getName() + ".classname";
 
-	private static final String APPLICATION_ATTRIBUTE = SiteSettings.class.getName();
+	private static final ScopeEE.Application.Attribute<SiteSettings> APPLICATION_ATTRIBUTE =
+		ScopeEE.APPLICATION.attribute(SiteSettings.class.getName());
 
 	@WebListener
 	public static class Initializer implements ServletContextListener {
@@ -74,25 +75,22 @@ public class SiteSettings {
 	 * Gets the proper settings instance as configured in the web.xml file.
 	 */
 	public static SiteSettings getInstance(ServletContext servletContext) {
-		SiteSettings settings = (SiteSettings)servletContext.getAttribute(APPLICATION_ATTRIBUTE);
-		if(settings == null) {
+		return APPLICATION_ATTRIBUTE.context(servletContext).computeIfAbsent(__ -> {
 			String classname = Strings.trimNullIfEmpty(servletContext.getInitParameter(INIT_PARAM_NAME));
 			if(classname == null || classname.equals(SiteSettings.class.getName())) {
-				settings = new SiteSettings(servletContext);
+				return new SiteSettings(servletContext);
 			} else {
 				// Create through reflection
 				try {
 					Class<? extends SiteSettings> clazz = Class.forName(classname).asSubclass(SiteSettings.class);
 					Constructor<? extends SiteSettings> constructor = clazz.getConstructor(ServletContext.class);
-					settings = constructor.newInstance(servletContext);
+					return constructor.newInstance(servletContext);
 					// TODO: Review all other uses of individual exception types
 				} catch(ReflectiveOperationException err) {
 					throw new RuntimeException("classname=" + classname, err);
 				}
 			}
-			servletContext.setAttribute(APPLICATION_ATTRIBUTE, settings);
-		}
-		return settings;
+		});
 	}
 
 	private final ServletContext servletContext;
@@ -185,7 +183,7 @@ public class SiteSettings {
 		} else {
 			session = null;
 		}
-		Locale locale = (session == null) ? null : (Locale)session.getAttribute(Globals.LOCALE_KEY);
+		Locale locale = Globals.LOCALE_KEY.context(session).get();
 		if(locale==null) locale = Locale.getDefault(); // Can't use: LocaleFilter.getDefaultLocale(req); due to stack overflow
 		boolean isUnitedStates = locale.getCountry().equals(Locale.US.getCountry());
 

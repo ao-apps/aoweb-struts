@@ -108,10 +108,7 @@ public class Colocation5CompletedAction extends Colocation5Action {
 		);
 
 		// Clear colocation signup-specific forms from the session
-		HttpSession session = request.getSession(false);
-		if(session != null) {
-			session.removeAttribute("colocationSignupSelectPackageForm");
-		}
+		ColocationSignupSelectPackageForm.SESSION_ATTRIBUTE.context(request.getSession(false)).remove();
 
 		return mapping.findForward("success");
 	}

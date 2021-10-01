@@ -123,11 +123,9 @@ public class Managed7CompletedAction extends Managed7Action {
 
 		// Clear managed signup-specific forms from the session
 		HttpSession session = request.getSession(false);
-		if(session != null) {
-			session.removeAttribute("managedSignupSelectPackageForm");
-			session.removeAttribute("managedSignupCustomizeServerForm");
-			session.removeAttribute("managedSignupCustomizeManagementForm");
-		}
+		ManagedSignupSelectPackageForm.SESSION_ATTRIBUTE.context(session).remove();
+		ManagedSignupCustomizeServerForm.SESSION_ATTRIBUTE.context(session).remove();
+		SignupCustomizeManagementForm.MANAGED_SESSION_ATTRIBUTE.context(session).remove();
 
 		return mapping.findForward("success");
 	}

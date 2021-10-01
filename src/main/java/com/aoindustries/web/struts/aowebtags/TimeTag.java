@@ -28,6 +28,7 @@ import com.aoapps.html.servlet.DocumentEE;
 import com.aoapps.html.servlet.Union_Palpable_Phrasing;
 import com.aoapps.lang.util.Sequence;
 import com.aoapps.lang.util.UnsynchronizedSequence;
+import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoapps.servlet.jsp.tagext.JspTagUtils;
 import com.aoapps.sql.SQLUtility;
 import java.io.CharArrayWriter;
@@ -48,7 +49,8 @@ public class TimeTag extends BodyTagSupport {
 	/**
 	 * The request attribute name used to store the sequence.
 	 */
-	private static final String SEQUENCE_REQUEST_ATTRIBUTE = TimeTag.class.getName() + ".sequence";
+	private static final ScopeEE.Request.Attribute<Sequence> SEQUENCE_REQUEST_ATTRIBUTE =
+		ScopeEE.REQUEST.attribute(TimeTag.class.getName() + ".sequence");
 
 	/**
 	 * Writes a JavaScript script tag that a time in the user's locale.
@@ -161,8 +163,8 @@ public class TimeTag extends BodyTagSupport {
 					false  // Do not add extra indentation to JSP
 				);
 				// Resolve the sequence
-				Sequence sequence = (Sequence)request.getAttribute(SEQUENCE_REQUEST_ATTRIBUTE);
-				if(sequence == null) request.setAttribute(SEQUENCE_REQUEST_ATTRIBUTE, sequence = new UnsynchronizedSequence());
+				Sequence sequence = SEQUENCE_REQUEST_ATTRIBUTE.context(request)
+					.computeIfAbsent(__ -> new UnsynchronizedSequence());
 				// Resolve the scriptOut
 				Optional<ScriptGroupTag> scriptGroupTag = JspTagUtils.findAncestor(this, ScriptGroupTag.class);
 				if(scriptGroupTag.isPresent()) {

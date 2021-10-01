@@ -120,10 +120,8 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
 
 		// Clear dedicated signup-specific forms from the session
 		HttpSession session = request.getSession(false);
-		if(session != null) {
-			session.removeAttribute("dedicatedSignupSelectPackageForm");
-			session.removeAttribute("dedicatedSignupCustomizeServerForm");
-		}
+		DedicatedSignupSelectPackageForm.SESSION_ATTRIBUTE.context(session).remove();
+		DedicatedSignupCustomizeServerForm.SESSION_ATTRIBUTE.context(session).remove();
 
 		return mapping.findForward("success");
 	}

@@ -74,14 +74,11 @@ public class LoginCompletedAction extends PageAction {
 
 			// Store in session
 			HttpSession session = request.getSession();
-			session.setAttribute(Constants.AUTHENTICATED_AO_CONN, aoConn);
-			session.setAttribute(Constants.AO_CONN, aoConn);
+			Constants.AUTHENTICATED_AO_CONN.context(session).set(aoConn);
+			Constants.AO_CONN.context(session).set(aoConn);
 
 			// Try redirect
-			String target = (String)session.getAttribute(Constants.AUTHENTICATION_TARGET);
-			if(target != null) {
-				session.removeAttribute(Constants.AUTHENTICATION_TARGET);
-			}
+			String target = Constants.AUTHENTICATION_TARGET.context(session).replace(null);
 			if(target != null && !target.isEmpty()) {
 				response.sendRedirect(
 					response.encodeRedirectURL(
@@ -117,8 +114,11 @@ public class LoginCompletedAction extends PageAction {
 					message=null;
 				}
 			}
-			if(message!=null) request.setAttribute(Constants.AUTHENTICATION_MESSAGE, message);
-			else logger.log(Level.SEVERE, null, err);
+			if(message != null) {
+				Constants.AUTHENTICATION_MESSAGE.context(request).set(message);
+			} else {
+				logger.log(Level.SEVERE, null, err);
+			}
 			return mapping.findForward("failure");
 		}
 	}

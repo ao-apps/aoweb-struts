@@ -123,7 +123,7 @@ abstract public class PermissionAction extends AuthenticatedAction {
 		AOServConnector aoConn,
 		List<Permission> permissions
 	) throws Exception {
-		request.setAttribute(Constants.PERMISSION_DENIED, permissions);
+		Constants.PERMISSION_DENIED.context(request).set(permissions);
 		return mapping.findForward("permission-denied");
 	}
 

@@ -23,7 +23,7 @@
 package com.aoindustries.web.struts.skintags;
 
 import java.io.IOException;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.PageContext;
@@ -41,17 +41,12 @@ abstract public class PageAttributesBodyTag extends BodyTagSupport {
 	public PageAttributesBodyTag() {
 	}
 
-	static PageAttributes getPageAttributes(HttpServletRequest request) {
-		PageAttributes pageAttributes = (PageAttributes)request.getAttribute(PageAttributes.REQUEST_ATTRIBUTE);
-		if(pageAttributes == null) {
-			pageAttributes = new PageAttributes();
-			request.setAttribute(PageAttributes.REQUEST_ATTRIBUTE, pageAttributes);
-		}
-		return pageAttributes;
+	static PageAttributes getPageAttributes(ServletRequest request) {
+		return PageAttributes.REQUEST_ATTRIBUTE.context(request).computeIfAbsent(__ -> new PageAttributes());
 	}
 
 	static PageAttributes getPageAttributes(PageContext pageContext) {
-		return getPageAttributes((HttpServletRequest)pageContext.getRequest());
+		return getPageAttributes(pageContext.getRequest());
 	}
 
 	/**

@@ -25,6 +25,7 @@ package com.aoindustries.web.struts.skintags;
 import com.aoapps.html.servlet.DocumentEE;
 import com.aoapps.lang.util.Sequence;
 import com.aoapps.lang.util.UnsynchronizedSequence;
+import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoapps.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +48,8 @@ public class PopupTag extends BodyTagSupport {
 	/**
 	 * The request attribute name used to store the sequence.
 	 */
-	private static final String SEQUENCE_REQUEST_ATTRIBUTE = PopupTag.class.getName() + ".sequence";
+	private static final ScopeEE.Request.Attribute<Sequence> SEQUENCE_REQUEST_ATTRIBUTE =
+		ScopeEE.REQUEST.attribute(PopupTag.class.getName() + ".sequence");
 
 	private static final long serialVersionUID = 1L;
 
@@ -67,13 +69,13 @@ public class PopupTag extends BodyTagSupport {
 	public int doStartTag() throws JspException {
 		try {
 			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-			Sequence sequence = (Sequence)req.getAttribute(SEQUENCE_REQUEST_ATTRIBUTE);
-			if(sequence==null) req.setAttribute(SEQUENCE_REQUEST_ATTRIBUTE, sequence = new UnsynchronizedSequence());
-			sequenceId = sequence.getNextSequenceValue();
+			sequenceId = SEQUENCE_REQUEST_ATTRIBUTE.context(req)
+				.computeIfAbsent(__ -> new UnsynchronizedSequence())
+				.getNextSequenceValue();
 			// Look for containing popupGroup
 			PopupGroupTag popupGroupTag = JspTagUtils.requireAncestor(TAG_NAME, this, PopupGroupTag.TAG_NAME, PopupGroupTag.class);
 			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-			SkinTag.getSkin(pageContext).beginPopup(
+			SkinTag.getSkin(req).beginPopup(
 				req,
 				resp,
 				new DocumentEE(
@@ -101,7 +103,7 @@ public class PopupTag extends BodyTagSupport {
 			PopupGroupTag popupGroupTag = JspTagUtils.requireAncestor(TAG_NAME, this, PopupGroupTag.TAG_NAME, PopupGroupTag.class);
 			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
 			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-			SkinTag.getSkin(pageContext).endPopup(
+			SkinTag.getSkin(req).endPopup(
 				req,
 				resp,
 				new DocumentEE(

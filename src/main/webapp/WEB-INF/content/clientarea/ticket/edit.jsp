@@ -35,7 +35,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 	<skin:description><ao:message key="edit.description" /></skin:description>
 
 	<%
-		org.apache.struts.action.ActionMessages errors = (org.apache.struts.action.ActionMessages)request.getAttribute(org.apache.struts.Globals.ERROR_KEY);
+		org.apache.struts.action.ActionMessages errors = com.aoindustries.web.struts.Globals.ERROR_KEY.context(request).get();
 		String onload;
 		if(errors==null) {
 			onload = "";

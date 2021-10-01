@@ -23,6 +23,7 @@
 package com.aoindustries.web.struts;
 
 import com.aoapps.security.Identifier;
+import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoapps.web.resources.registry.Registry;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -61,6 +62,9 @@ public class LoginAction extends PageAction {
 		}
 	}
 
+	private static final ScopeEE.Session.Attribute<LinkedList<Target>> TARGETS_ATTR =
+		ScopeEE.SESSION.attribute(Constants.TARGETS);
+
 	/**
 	 * Adds a target to the user session.
 	 *
@@ -73,13 +77,8 @@ public class LoginAction extends PageAction {
 		Identifier id = new Identifier();
 		Target target = new Target(id, targetUrl);
 		HttpSession hs = session.get();
-		synchronized(hs) {
-			@SuppressWarnings("unchecked")
-			LinkedList<Target> targets = (LinkedList<Target>)hs.getAttribute(Constants.TARGETS);
-			if(targets == null) {
-				targets = new LinkedList<>();
-				hs.setAttribute(Constants.TARGETS, targets);
-			}
+		LinkedList<Target> targets = TARGETS_ATTR.context(hs).computeIfAbsent(__ -> new LinkedList<>());
+		synchronized(targets) {
 			while(targets.size() >= MAX_TARGETS) {
 				targets.removeLast();
 			}
@@ -104,10 +103,9 @@ public class LoginAction extends PageAction {
 				}
 				return null;
 			}
-			synchronized(session) {
-				@SuppressWarnings("unchecked")
-				LinkedList<Target> targets = (LinkedList<Target>)session.getAttribute(Constants.TARGETS);
-				if(targets != null) {
+			LinkedList<Target> targets = TARGETS_ATTR.context(session).get();
+			if(targets != null) {
+				synchronized(targets) {
 					for(Target t : targets) {
 						if(t.id.equals(id)) {
 							return t.targetUrl;
@@ -133,7 +131,7 @@ public class LoginAction extends PageAction {
 			String targetUrl = getTargetUrl(session, target);
 			if(targetUrl != null) {
 				assert !targetUrl.endsWith("/login.do");
-				session.setAttribute(Constants.AUTHENTICATION_TARGET, targetUrl);
+				Constants.AUTHENTICATION_TARGET.context(session).set(targetUrl);
 			}
 		}
 

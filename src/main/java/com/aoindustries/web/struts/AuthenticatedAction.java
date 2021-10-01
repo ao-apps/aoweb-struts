@@ -23,6 +23,7 @@
 package com.aoindustries.web.struts;
 
 import com.aoapps.lang.validation.ValidationException;
+import com.aoapps.servlet.attribute.AttributeEE;
 import com.aoapps.web.resources.registry.Registry;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.linux.User;
@@ -67,18 +68,15 @@ abstract public class AuthenticatedAction extends PageAction {
 			if(!target.endsWith("/login.do")) {
 				String queryString = request.getQueryString();
 				if(queryString!=null) target = target+'?'+queryString;
-				request.getSession().setAttribute(Constants.AUTHENTICATION_TARGET, target);
+				Constants.AUTHENTICATION_TARGET.context(request.getSession()).set(target);
 			} else {
-				HttpSession session = request.getSession(false);
-				if(session != null) {
-					session.removeAttribute(Constants.AUTHENTICATION_TARGET);
-				}
+				Constants.AUTHENTICATION_TARGET.context(request.getSession(false)).remove();
 			}
 			return mapping.findForward("login");
 		}
 
 		// Set request values
-		request.setAttribute(Constants.AO_CONN, aoConn);
+		Constants.AO_CONN.context(request).set(aoConn);
 
 		return execute(mapping, form, request, response, aoConn);
 	}
@@ -88,8 +86,7 @@ abstract public class AuthenticatedAction extends PageAction {
 	 * the user performs a switch user ({@link Constants#SU})..
 	 */
 	public static AOServConnector getAuthenticatedAoConn(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession(false);
-		return (session == null) ? null : (AOServConnector)session.getAttribute(Constants.AUTHENTICATED_AO_CONN);
+		return Constants.AUTHENTICATED_AO_CONN.context(request.getSession(false)).get();
 	}
 
 	/**
@@ -103,9 +100,10 @@ abstract public class AuthenticatedAction extends PageAction {
 
 		HttpSession session = request.getSession();
 		// Is a switch-user requested?
-		String su = (String)session.getAttribute(Constants.SU_REQUESTED);
+		AttributeEE.Session<String> suRequestedAttribute = Constants.SU_REQUESTED.context(session);
+		String su = suRequestedAttribute.get();
 		if(su != null) {
-			session.removeAttribute(Constants.SU_REQUESTED);
+			suRequestedAttribute.remove();
 			try {
 				AOServConnector aoConn;
 				if(su.isEmpty()) {
@@ -119,7 +117,7 @@ abstract public class AuthenticatedAction extends PageAction {
 						aoConn = authenticatedAoConn;
 					}
 				}
-				session.setAttribute(Constants.AO_CONN, aoConn);
+				Constants.AO_CONN.context(session).set(aoConn);
 				return aoConn;
 			} catch(IOException err) {
 				logger.log(Level.SEVERE, null, err);
@@ -127,11 +125,11 @@ abstract public class AuthenticatedAction extends PageAction {
 		}
 
 		// Look for previous effective user
-		AOServConnector aoConn = (AOServConnector)session.getAttribute(Constants.AO_CONN);
+		AOServConnector aoConn = Constants.AO_CONN.context(session).get();
 		if(aoConn!=null) return aoConn;
 
 		// Default effective user to authenticated user
-		session.setAttribute(Constants.AO_CONN, authenticatedAoConn);
+		Constants.AO_CONN.context(session).set(authenticatedAoConn);
 		return authenticatedAoConn;
 	}
 

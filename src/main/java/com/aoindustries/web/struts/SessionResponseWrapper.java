@@ -29,6 +29,8 @@ import com.aoapps.net.URIParameters;
 import com.aoapps.net.URIParametersMap;
 import com.aoapps.net.URIParametersUtils;
 import com.aoapps.net.URIParser;
+import com.aoapps.servlet.attribute.AttributeEE;
+import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoapps.servlet.http.Canonical;
 import com.aoapps.servlet.http.HttpServletUtil;
 import com.aoapps.tempfiles.servlet.TempFileContextEE;
@@ -45,7 +47,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
-import org.apache.struts.Globals;
 
 /**
  * @author  AO Industries, Inc.
@@ -66,7 +67,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 		this.response = response;
 		// When the request has any Constants.AUTHENTICATION_TARGET parameter, set noindex headers
 		// This is to clean-up old URLs in crawlers; "authenticationTarget" is no longer written into URLs.
-		if(request.getParameter(Constants.AUTHENTICATION_TARGET) != null) {
+		if(request.getParameter(Constants.AUTHENTICATION_TARGET.getName()) != null) {
 			if(!response.containsHeader(ROBOTS_HEADER_NAME)) {
 				response.setHeader(ROBOTS_HEADER_NAME, ROBOTS_HEADER_VALUE);
 			}
@@ -230,24 +231,24 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 						String name = attributeNames.nextElement();
 						if(
 							!Constants.TARGETS.equals(name)
-							&& !Constants.LAYOUT.equals(name)
-							&& !Constants.SU_REQUESTED.equals(name)
+							&& !Constants.LAYOUT.getName().equals(name)
+							&& !Constants.SU_REQUESTED.getName().equals(name)
 							// Struts 1
-							&& !Globals.LOCALE_KEY.equals(name)
+							&& !Globals.LOCALE_KEY.getName().equals(name)
 							// TODO: Is there a Struts 2 locale key?
-							// JSTL 1.1
-							&& !"javax.servlet.jsp.jstl.fmt.request.charset".equals(name) // TODO: Use constants from somewhere
-							&& !"javax.servlet.jsp.jstl.fmt.locale.session".equals(name)  // TODO: Use constants from somewhere
+							// JSTL 1.2
+							&& !ScopeEE.Session.REQUEST_CHAR_SET.getName().equals(name)
+							&& !AttributeEE.Jstl.FMT_LOCALE.context((HttpSession)null).getName().equals(name)
 							// Allow session-based temporary file context
-							&& !TempFileContextEE.SESSION_ATTRIBUTE.equals(name)
+							&& !TempFileContextEE.SESSION_ATTRIBUTE.getName().equals(name)
 							// Allow session-based web resource registry
-							&& !RegistryEE.Session.SESSION_ATTRIBUTE.equals(name)
+							&& !RegistryEE.Session.SESSION_ATTRIBUTE.getName().equals(name)
 						) {
 							// These will always trigger jsessionid
 							if(
-								Constants.AUTHENTICATION_TARGET.equals(name)
-								|| Constants.AO_CONN.equals(name)
-								|| Constants.AUTHENTICATED_AO_CONN.equals(name)
+								Constants.AUTHENTICATION_TARGET.getName().equals(name)
+								|| Constants.AO_CONN.getName().equals(name)
+								|| Constants.AUTHENTICATED_AO_CONN.getName().equals(name)
 							) {
 								whyNeedsJsessionid = name;
 								break;
@@ -288,7 +289,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 				if(session != null) {
 					// Only add the language if there is more than one possibility
 					if(languages.size()>1) {
-						Locale locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
+						Locale locale = Globals.LOCALE_KEY.context(session).get();
 						if(locale!=null) {
 							String code = locale.getLanguage();
 							// Don't add if is the default language
@@ -311,7 +312,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 						// Only add the layout if there is more than one possibility
 						List<Skin> skins = siteSettings.getSkins();
 						if(skins.size()>1) {
-							String layout = (String)session.getAttribute(Constants.LAYOUT);
+							String layout = Constants.LAYOUT.context(session).get();
 							if(layout!=null) {
 								// Don't add if is the default layout
 								Skin defaultSkin = Skin.getDefaultSkin(skins, request);
@@ -320,9 +321,9 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 									for(Skin skin : skins) {
 										if(skin.getName().equals(layout)) {
 											if(splitURIParameters == null) splitURIParameters = URIParametersUtils.of(iri.getQueryString());
-											if(!splitURIParameters.getParameterMap().containsKey(Constants.LAYOUT)) {
+											if(!splitURIParameters.getParameterMap().containsKey(Constants.LAYOUT.getName())) {
 												if(cookieParams == null) cookieParams = new URIParametersMap();
-												cookieParams.add(Constants.LAYOUT, layout);
+												cookieParams.add(Constants.LAYOUT.getName(), layout);
 											}
 											break;
 										}
@@ -331,7 +332,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 							}
 						}
 						// Add any switch-user
-						String su = (String)session.getAttribute(Constants.SU_REQUESTED);
+						String su = Constants.SU_REQUESTED.context(session).get();
 						if(su != null && !su.isEmpty()) {
 							if(splitURIParameters == null) splitURIParameters = URIParametersUtils.of(iri.getQueryString());
 							if(!splitURIParameters.getParameterMap().containsKey(Constants.SU)) {

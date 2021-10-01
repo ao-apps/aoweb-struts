@@ -29,7 +29,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionServlet;
@@ -108,10 +107,7 @@ public class Backup5CompletedAction extends Backup5Action {
 		);
 
 		// Clear backup signup-specific forms from the session
-		HttpSession session = request.getSession(false);
-		if(session != null) {
-			session.removeAttribute("backupSignupSelectPackageForm");
-		}
+		BackupSignupSelectPackageForm.SESSION_ATTRIBUTE.context(request.getSession(false)).remove();
 
 		return mapping.findForward("success");
 	}

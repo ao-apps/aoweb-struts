@@ -34,6 +34,7 @@ import com.aoapps.servlet.jsp.LocalizedJspTagException;
 import com.aoapps.taglib.HtmlTag;
 import com.aoindustries.web.struts.Constants;
 import com.aoindustries.web.struts.Formtype;
+import com.aoindustries.web.struts.Globals;
 import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
 import com.aoindustries.web.struts.Skin;
 import java.io.IOException;
@@ -45,9 +46,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.TryCatchFinally;
-import org.apache.struts.Globals;
 
 /**
  * Writes the skin header and footer.
@@ -57,11 +56,11 @@ import org.apache.struts.Globals;
 public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
 
 	/**
-	 * Gets the current skin from the session.  It is assumed the skin is already set.  Will throw an exception if not available.
+	 * Gets the current skin from the request.  It is assumed the skin is already set.  Will throw an exception if not available.
 	 */
-	public static Skin getSkin(PageContext pageContext) throws JspException {
-		Skin skin = (Skin)pageContext.getAttribute(Constants.SKIN, PageContext.REQUEST_SCOPE);
-		if(skin==null) {
+	public static Skin getSkin(ServletRequest request) throws JspException {
+		Skin skin = Constants.SKIN.context(request).get();
+		if(skin == null) {
 			throw new LocalizedJspTagException(PACKAGE_RESOURCES, "skintags.unableToFindSkinInRequest");
 		}
 		return skin;
@@ -230,18 +229,14 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
 			ServletUtil.setContentType(response, serialization.getContentType(), AnyDocument.ENCODING.name());
 
 			// Set the response locale from the Struts locale
-			Locale locale = (Locale)pageContext.getSession().getAttribute(Globals.LOCALE_KEY);
+			Locale locale = Globals.LOCALE_KEY.context(pageContext.getSession()).get();
 			response.setLocale(locale);
 
 			// Set the Struts XHTML mode by Serialization
-			pageContext.setAttribute(
-				Globals.XHTML_KEY,
-				Boolean.toString(serialization == Serialization.XML),
-	            PageContext.PAGE_SCOPE
-			);
+			Globals.XHTML_KEY.context(pageContext).set(Boolean.toString(serialization == Serialization.XML));
 
 			// Start the skin
-			SkinTag.getSkin(pageContext).startSkin(
+			SkinTag.getSkin(request).startSkin(
 				request,
 				response,
 				new DocumentEE(servletContext, request, response, pageContext.getOut(), autonli, indent),
@@ -258,7 +253,7 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
 	public int doEndTag(PageAttributes pageAttributes) throws JspException, IOException {
 		HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
 		HttpServletResponse response = (HttpServletResponse)pageContext.getResponse();
-		SkinTag.getSkin(pageContext).endSkin(
+		SkinTag.getSkin(request).endSkin(
 			request,
 			response,
 			new DocumentEE(pageContext.getServletContext(), request, response, pageContext.getOut(), autonli, indent),

@@ -22,6 +22,7 @@
  */
 package com.aoindustries.web.struts.skintags;
 
+import com.aoapps.servlet.attribute.ScopeEE;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,7 +41,8 @@ public class ParentTag extends PageTag {
 
 	private static final long serialVersionUID = 1L;
 
-	static final String STACK_REQUEST_ATTRIBUTE = ParentTag.class.getName() + ".stack";
+	static final ScopeEE.Request.Attribute<Stack<ParentTag>> STACK_REQUEST_ATTRIBUTE =
+		ScopeEE.REQUEST.attribute(ParentTag.class.getName() + ".stack");
 
 	private List<Child> children;
 
@@ -51,11 +53,9 @@ public class ParentTag extends PageTag {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public int doStartTag() throws JspException {
 		ServletRequest request = pageContext.getRequest();
-		Stack<ParentTag> stack = (Stack)request.getAttribute(STACK_REQUEST_ATTRIBUTE);
-		if(stack==null) request.setAttribute(STACK_REQUEST_ATTRIBUTE, stack = new Stack<>());
+		Stack<ParentTag> stack = STACK_REQUEST_ATTRIBUTE.context(request).computeIfAbsent(__ -> new Stack<>());
 		stack.push(this);
 		return super.doStartTag();
 	}
@@ -89,7 +89,7 @@ public class ParentTag extends PageTag {
 		String keywords,
 		Collection<Meta> metas
 	) throws JspException, IOException {
-		Stack<ParentTag> stack = (Stack)pageContext.getRequest().getAttribute(STACK_REQUEST_ATTRIBUTE);
+		Stack<ParentTag> stack = STACK_REQUEST_ATTRIBUTE.context(pageContext.getRequest()).get();
 		if(stack!=null && !stack.isEmpty() && stack.peek()==this) stack.pop();
 
 		PageAttributesBodyTag.getPageAttributes(pageContext).addParent(

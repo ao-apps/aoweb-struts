@@ -26,22 +26,22 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 <%@include file="/WEB-INF/taglibs.jspf" %>
 <%
 	// Set siteSettings request attribute if not yet done
-	com.aoindustries.web.struts.SiteSettings siteSettings = (com.aoindustries.web.struts.SiteSettings)request.getAttribute(com.aoindustries.web.struts.Constants.SITE_SETTINGS);
+	com.aoindustries.web.struts.SiteSettings siteSettings = com.aoindustries.web.struts.Constants.SITE_SETTINGS.context(request).get();
 	if(siteSettings == null) {
 		siteSettings = com.aoindustries.web.struts.SiteSettings.getInstance(getServletContext());
-		request.setAttribute(com.aoindustries.web.struts.Constants.SITE_SETTINGS, siteSettings);
+		com.aoindustries.web.struts.Constants.SITE_SETTINGS.context(request).set(siteSettings);
 	}
 
 	// Set locale request attribute if not yet done
-	if(request.getAttribute(com.aoindustries.web.struts.Constants.LOCALE) == null) {
+	if(com.aoindustries.web.struts.Constants.LOCALE.context(request).get() == null) {
 		java.util.Locale locale = com.aoindustries.web.struts.LocaleFilter.getEffectiveLocale(siteSettings, request, response);
-		request.setAttribute(com.aoindustries.web.struts.Constants.LOCALE, locale);
+		com.aoindustries.web.struts.Constants.LOCALE.context(request).set(locale);
 	}
 
 	// Set the skin request attribute if not yet done
-	if(request.getAttribute(com.aoindustries.web.struts.Constants.SKIN) == null) {
+	if(com.aoindustries.web.struts.Constants.SKIN.context(request).get() == null) {
 		com.aoindustries.web.struts.Skin skin = com.aoindustries.web.struts.Skin.getSkin(siteSettings, request);
-		request.setAttribute(com.aoindustries.web.struts.Constants.SKIN, skin);
+		com.aoindustries.web.struts.Constants.SKIN.context(request).set(skin);
 	}
 %>
 <ao:bundle basename="com.aoindustries.web.struts.i18n.ApplicationResources">

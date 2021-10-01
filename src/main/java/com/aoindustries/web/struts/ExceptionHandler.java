@@ -29,7 +29,6 @@ import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.Globals;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -50,7 +49,7 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
 		// There are two sources for exceptions, not sure if these are the same because the original exception from a bean access in JSP is lost
 		// 1) The exception passed in here
 		// 2) Globals.EXCEPTION_KEY
-		Throwable globalsException = (Throwable)request.getAttribute(Globals.EXCEPTION_KEY);
+		Throwable globalsException = Globals.EXCEPTION_KEY.context(request).get();
 		if(exception!=null) {
 			if(globalsException!=null) logger.log(Level.SEVERE, null, new WrappedExceptions(exception, globalsException));
 			else logger.log(Level.SEVERE, null, exception);
@@ -68,7 +67,7 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
 			// Use default settings
 			siteSettings = new SiteSettings(servletContext);
 		}
-		request.setAttribute(Constants.SITE_SETTINGS, siteSettings);
+		Constants.SITE_SETTINGS.context(request).set(siteSettings);
 
 		// Resolve the Locale, to be compatible with LocaleFilter
 		Locale locale;
@@ -81,7 +80,7 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
 			// Use default locale
 			locale = Locale.getDefault();
 		}
-		request.setAttribute(Constants.LOCALE, locale);
+		Constants.LOCALE.context(request).set(locale);
 
 		// Select Skin, to be compatible with Skin.RequestListener
 		Skin skin;
@@ -94,7 +93,7 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
 			// Use text skin
 			skin = TextSkin.getInstance();
 		}
-		request.setAttribute(Constants.SKIN, skin);
+		Constants.SKIN.context(request).set(skin);
 
 		if(exception!=null && exception!=globalsException) request.setAttribute("exception", exception);
 

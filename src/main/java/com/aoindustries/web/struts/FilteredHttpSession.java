@@ -22,11 +22,12 @@
  */
 package com.aoindustries.web.struts;
 
+import com.aoapps.servlet.attribute.AttributeEE;
+import com.aoapps.servlet.attribute.ScopeEE;
 import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
 import java.util.Enumeration;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import org.apache.struts.Globals;
 
 /**
  * Filters setAttribute to make sure all session objects are precisely as
@@ -119,18 +120,18 @@ public class FilteredHttpSession implements HttpSession {
 		if(value!=null) {
 			// These names are always allowed
 			if(
-				!Constants.AUTHENTICATION_TARGET.equals(name)
+				!Constants.AUTHENTICATION_TARGET.getName().equals(name)
 				&& !Constants.TARGETS.equals(name)
-				&& !Constants.LAYOUT.equals(name)
-				&& !Constants.SU_REQUESTED.equals(name)
-				&& !Constants.AO_CONN.equals(name)
-				&& !Constants.AUTHENTICATED_AO_CONN.equals(name)
+				&& !Constants.LAYOUT.getName().equals(name)
+				&& !Constants.SU_REQUESTED.getName().equals(name)
+				&& !Constants.AO_CONN.getName().equals(name)
+				&& !Constants.AUTHENTICATED_AO_CONN.getName().equals(name)
 				// Struts 1
-				&& !Globals.LOCALE_KEY.equals(name)
+				&& !Globals.LOCALE_KEY.getName().equals(name)
 				// TODO: Is there a Struts 2 locale key?
-				// JSTL 1.1
-				&& !"javax.servlet.jsp.jstl.fmt.request.charset".equals(name)
-				&& !"javax.servlet.jsp.jstl.fmt.locale.session".equals(name)
+				// JSTL 1.2
+				&& !ScopeEE.Session.REQUEST_CHAR_SET.getName().equals(name)
+				&& !AttributeEE.Jstl.FMT_LOCALE.context((HttpSession)null).getName().equals(name)
 				// Must be an SessionActionForm if none of the above
 				&& !(value instanceof SessionActionForm)
 			) {

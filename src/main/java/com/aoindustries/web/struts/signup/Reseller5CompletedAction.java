@@ -108,10 +108,7 @@ public class Reseller5CompletedAction extends Reseller5Action {
 		);
 
 		// Clear reseller signup-specific forms from the session
-		HttpSession session = request.getSession(false);
-		if(session != null) {
-			session.removeAttribute("resellerSignupSelectPackageForm");
-		}
+		ResellerSignupSelectPackageForm.SESSION_ATTRIBUTE.context(request.getSession(false)).remove();
 
 		return mapping.findForward("success");
 	}

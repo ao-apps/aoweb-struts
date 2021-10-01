@@ -22,6 +22,7 @@
  */
 package com.aoindustries.web.struts.signup;
 
+import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoindustries.web.struts.SessionActionForm;
 import java.io.Serializable;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +36,9 @@ import org.apache.struts.action.ActionMessage;
  * @author  AO Industries, Inc.
  */
 public class SignupOrganizationForm extends ActionForm implements Serializable, SessionActionForm {
+
+	public static final ScopeEE.Session.Attribute<SignupOrganizationForm> SESSION_ATTRIBUTE =
+		ScopeEE.SESSION.attribute("signupOrganizationForm");
 
 	private static final long serialVersionUID = 1L;
 

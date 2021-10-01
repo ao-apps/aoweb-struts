@@ -41,6 +41,15 @@ public class LogoutAction extends ActionSupport {
 		this.target = target;
 	}
 
+	public static void logout(HttpSession session) {
+		if(session != null) {
+			Constants.AO_CONN.context(session).remove();
+			Constants.AUTHENTICATED_AO_CONN.context(session).remove();
+			Constants.AUTHENTICATION_TARGET.context(session).remove();
+			Constants.SU_REQUESTED.context(session).remove();
+		}
+	}
+
 	@Override
 	public String execute() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -48,10 +57,7 @@ public class LogoutAction extends ActionSupport {
 		// Handle logout
 		HttpSession session = request.getSession(false);
 		if(session != null) {
-			session.removeAttribute(Constants.AO_CONN);
-			session.removeAttribute(Constants.AUTHENTICATED_AO_CONN);
-			session.removeAttribute(Constants.AUTHENTICATION_TARGET);
-			session.removeAttribute(Constants.SU_REQUESTED);
+			logout(session);
 			// Try redirect
 			String targetUrl = LoginAction.getTargetUrl(session, target);
 			if(targetUrl != null) {

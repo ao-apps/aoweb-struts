@@ -50,20 +50,17 @@ public class SessionTimeoutAction extends PageAction {
 		// Logout, just in case session not actually expired
 		HttpSession session = request.getSession(false);
 		if(session != null) {
-			session.removeAttribute(Constants.AO_CONN);
-			session.removeAttribute(Constants.AUTHENTICATED_AO_CONN);
-			session.removeAttribute(Constants.AUTHENTICATION_TARGET);
-			session.removeAttribute(Constants.SU_REQUESTED);
+			LogoutAction.logout(session);
 			// Save the target so authentication will return to the previous page
 			String target = request.getParameter("target");
 			String targetUrl = LoginAction.getTargetUrl(session, target);
 			if(targetUrl != null) {
-				session.setAttribute(Constants.AUTHENTICATION_TARGET, targetUrl);
+				Constants.AUTHENTICATION_TARGET.context(session).set(targetUrl);
 			}
 		}
 
 		// Set the authenticationMessage
-		request.setAttribute(Constants.AUTHENTICATION_MESSAGE, RESOURCES.getMessage("authenticationMessage"));
+		Constants.AUTHENTICATION_MESSAGE.context(request).set(RESOURCES.getMessage("authenticationMessage"));
 
 		return mapping.findForward("success");
 	}

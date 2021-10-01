@@ -22,6 +22,7 @@
  */
 package com.aoindustries.web.struts.signup;
 
+import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoindustries.aoserv.client.billing.PackageCategory;
 import java.io.Serializable;
 
@@ -29,6 +30,9 @@ import java.io.Serializable;
  * @author  AO Industries, Inc.
  */
 public class AOServSignupSelectPackageForm extends SignupSelectPackageForm implements Serializable {
+
+	public static final ScopeEE.Session.Attribute<AOServSignupSelectPackageForm> SESSION_ATTRIBUTE =
+		ScopeEE.SESSION.attribute("aoservSignupSelectPackageForm");
 
 	private static final long serialVersionUID = 1L;
 

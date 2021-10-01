@@ -22,7 +22,10 @@
  */
 package com.aoindustries.web.struts.signup;
 
+import com.aoapps.servlet.attribute.AttributeEE;
+import com.aoapps.servlet.attribute.ScopeEE;
 import java.lang.reflect.InvocationTargetException;
+import java.util.function.Supplier;
 import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionServlet;
@@ -44,12 +47,16 @@ final public class SignupHelper {
 	 * the session will create the form, set its servlet, and add it to the
 	 * session.
 	 */
-	public static <T extends ActionForm> T getSessionActionForm(ActionServlet servlet, HttpSession session, Class<T> clazz, String name) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-		Object existing = session.getAttribute(name);
-		if(existing!=null) return clazz.cast(existing);
-		T form = clazz.getConstructor().newInstance();
-		form.setServlet(servlet);
-		session.setAttribute(name, form);
-		return form;
+	public static <T extends ActionForm> T getSessionActionForm(
+		ActionServlet servlet,
+		HttpSession session,
+		ScopeEE.Session.Attribute<T> attribute,
+		Supplier<T> factory
+	) {
+		return attribute.context(session).computeIfAbsent(__ -> {
+			T form = factory.get();
+			form.setServlet(servlet);
+			return form;
+		});
 	}
 }

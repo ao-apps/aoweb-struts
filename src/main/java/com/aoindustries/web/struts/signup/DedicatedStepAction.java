@@ -68,11 +68,11 @@ abstract public class DedicatedStepAction extends PageAction {
 
 		HttpSession session = request.getSession();
 
-		DedicatedSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, DedicatedSignupSelectPackageForm.class, "dedicatedSignupSelectPackageForm");
-		DedicatedSignupCustomizeServerForm signupCustomizeServerForm = SignupHelper.getSessionActionForm(servlet, session, DedicatedSignupCustomizeServerForm.class, "dedicatedSignupCustomizeServerForm");
-		SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(servlet, session, SignupOrganizationForm.class, "signupOrganizationForm");
-		SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.class, "signupTechnicalForm");
-		SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.class, "signupBillingInformationForm");
+		DedicatedSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, DedicatedSignupSelectPackageForm.SESSION_ATTRIBUTE, DedicatedSignupSelectPackageForm::new);
+		DedicatedSignupCustomizeServerForm signupCustomizeServerForm = SignupHelper.getSessionActionForm(servlet, session, DedicatedSignupCustomizeServerForm.SESSION_ATTRIBUTE, DedicatedSignupCustomizeServerForm::new);
+		SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(servlet, session, SignupOrganizationForm.SESSION_ATTRIBUTE, SignupOrganizationForm::new);
+		SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.SESSION_ATTRIBUTE, SignupTechnicalForm::new);
+		SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.SESSION_ATTRIBUTE, SignupBillingInformationForm::new);
 
 		ActionMessages signupSelectPackageFormErrors = signupSelectPackageForm.validate(mapping, request);
 		ActionMessages signupCustomizeServerFormErrors = signupCustomizeServerForm.validate(mapping, request);
