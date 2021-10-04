@@ -79,75 +79,75 @@ public class SignupOrganizationForm extends ActionForm implements Serializable, 
 		;
 	}
 
-	final public String getOrganizationName() {
+	public final String getOrganizationName() {
 		return organizationName;
 	}
 
-	final public void setOrganizationName(String organizationName) {
+	public final void setOrganizationName(String organizationName) {
 		this.organizationName = organizationName.trim();
 	}
 
-	final public String getOrganizationPhone() {
+	public final String getOrganizationPhone() {
 		return organizationPhone;
 	}
 
-	final public void setOrganizationPhone(String organizationPhone) {
+	public final void setOrganizationPhone(String organizationPhone) {
 		this.organizationPhone = organizationPhone.trim();
 	}
 
-	final public String getOrganizationFax() {
+	public final String getOrganizationFax() {
 		return organizationFax;
 	}
 
-	final public void setOrganizationFax(String organizationFax) {
+	public final void setOrganizationFax(String organizationFax) {
 		this.organizationFax = organizationFax.trim();
 	}
 
-	final public String getOrganizationAddress1() {
+	public final String getOrganizationAddress1() {
 		return organizationAddress1;
 	}
 
-	final public void setOrganizationAddress1(String organizationAddress1) {
+	public final void setOrganizationAddress1(String organizationAddress1) {
 		this.organizationAddress1 = organizationAddress1.trim();
 	}
 
-	final public String getOrganizationAddress2() {
+	public final String getOrganizationAddress2() {
 		return organizationAddress2;
 	}
 
-	final public void setOrganizationAddress2(String organizationAddress2) {
+	public final void setOrganizationAddress2(String organizationAddress2) {
 		this.organizationAddress2 = organizationAddress2.trim();
 	}
 
-	final public String getOrganizationCity() {
+	public final String getOrganizationCity() {
 		return organizationCity;
 	}
 
-	final public void setOrganizationCity(String organizationCity) {
+	public final void setOrganizationCity(String organizationCity) {
 		this.organizationCity = organizationCity.trim();
 	}
 
-	final public String getOrganizationState() {
+	public final String getOrganizationState() {
 		return organizationState;
 	}
 
-	final public void setOrganizationState(String organizationState) {
+	public final void setOrganizationState(String organizationState) {
 		this.organizationState = organizationState.trim();
 	}
 
-	final public String getOrganizationCountry() {
+	public final String getOrganizationCountry() {
 		return organizationCountry;
 	}
 
-	final public void setOrganizationCountry(String organizationCountry) {
+	public final void setOrganizationCountry(String organizationCountry) {
 		this.organizationCountry = organizationCountry.trim();
 	}
 
-	final public String getOrganizationZip() {
+	public final String getOrganizationZip() {
 		return organizationZip;
 	}
 
-	final public void setOrganizationZip(String organizationZip) {
+	public final void setOrganizationZip(String organizationZip) {
 		this.organizationZip = organizationZip.trim();
 	}
 

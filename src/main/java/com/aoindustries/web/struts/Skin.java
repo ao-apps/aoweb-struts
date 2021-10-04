@@ -55,7 +55,7 @@ import javax.servlet.jsp.JspException;
  * @author  AO Industries, Inc.
  */
 // TODO: Throw IOException on most/all methods where is given a writer, then won't need so many exception conversions in implementations.
-abstract public class Skin {
+public abstract class Skin {
 
 	/**
 	 * Gets the default skin from the provided list for the provided request.
@@ -231,12 +231,12 @@ abstract public class Skin {
 	/**
 	 * Gets the name of this skin.
 	 */
-	abstract public String getName();
+	public abstract String getName();
 
 	/**
 	 * Gets the display value for this skin in the response locale.
 	 */
-	abstract public String getDisplay(HttpServletRequest req, HttpServletResponse resp) throws JspException;
+	public abstract String getDisplay(HttpServletRequest req, HttpServletResponse resp) throws JspException;
 
 	/**
 	 * Gets the prefix for URLs for the non-SSL server.  This should always end with a /.
@@ -277,42 +277,42 @@ abstract public class Skin {
 	 * @see SerializationEE#get(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest)
 	 * @see DoctypeEE#get(javax.servlet.ServletContext, javax.servlet.ServletRequest)
 	 */
-	abstract public void startSkin(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, PageAttributes pageAttributes) throws JspException, IOException;
+	public abstract void startSkin(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, PageAttributes pageAttributes) throws JspException, IOException;
 
 	/**
 	 * Starts the content area of a page.  The content area provides additional features such as a nice border, and vertical and horizontal dividers.
 	 */
-	abstract public void startContent(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, PageAttributes pageAttributes, int[] colspans, String width) throws JspException, IOException;
+	public abstract void startContent(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, PageAttributes pageAttributes, int[] colspans, String width) throws JspException, IOException;
 
 	/**
 	 * Prints an entire content line including the provided title.  The colspan should match the total colspan in startContent for proper appearance
 	 */
-	abstract public void printContentTitle(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, String title, int colspan) throws JspException, IOException;
+	public abstract void printContentTitle(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, String title, int colspan) throws JspException, IOException;
 
 	/**
 	 * Starts one line of content with the initial colspan set to the provided colspan.
 	 */
-	abstract public void startContentLine(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, int colspan, String align, String width) throws JspException, IOException;
+	public abstract void startContentLine(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, int colspan, String align, String width) throws JspException, IOException;
 
 	/**
 	 * Starts one line of content with the initial colspan set to the provided colspan.
 	 */
-	abstract public void printContentVerticalDivider(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, boolean visible, int colspan, int rowspan, String align, String width) throws JspException, IOException;
+	public abstract void printContentVerticalDivider(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, boolean visible, int colspan, int rowspan, String align, String width) throws JspException, IOException;
 
 	/**
 	 * Ends one line of content.
 	 */
-	abstract public void endContentLine(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, int rowspan, boolean endsInternal) throws JspException, IOException;
+	public abstract void endContentLine(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, int rowspan, boolean endsInternal) throws JspException, IOException;
 
 	/**
 	 * Prints a horizontal divider of the provided colspans.
 	 */
-	abstract public void printContentHorizontalDivider(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, int[] colspansAndDirections, boolean endsInternal) throws JspException, IOException;
+	public abstract void printContentHorizontalDivider(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, int[] colspansAndDirections, boolean endsInternal) throws JspException, IOException;
 
 	/**
 	 * Ends the content area of a page.
 	 */
-	abstract public void endContent(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, PageAttributes pageAttributes, int[] colspans) throws JspException, IOException;
+	public abstract void endContent(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, PageAttributes pageAttributes, int[] colspans) throws JspException, IOException;
 
 	/**
 	 * Writes all of the HTML following the content of the page,
@@ -324,7 +324,7 @@ abstract public class Skin {
 	 * @see SerializationEE#get(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest)
 	 * @see DoctypeEE#get(javax.servlet.ServletContext, javax.servlet.ServletRequest)
 	 */
-	abstract public void endSkin(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, PageAttributes pageAttributes) throws JspException, IOException;
+	public abstract void endSkin(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, PageAttributes pageAttributes) throws JspException, IOException;
 
 	/**
 	 * Begins a lighter colored area of the site.
@@ -336,7 +336,7 @@ abstract public class Skin {
 	 *          This is also given to {@link #endLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)}
 	 *          to finish the area.
 	 */
-	abstract public <
+	public abstract <
 		PC extends FlowContent<PC>,
 		__ extends FlowContent<__>
 	> __ beginLightArea(
@@ -354,7 +354,7 @@ abstract public class Skin {
 	 * @param  lightArea  The {@link FlowContent} that was returned by
 	 *               {@link #beginLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)}.
 	 */
-	abstract public void endLightArea(
+	public abstract void endLightArea(
 		HttpServletRequest req,
 		HttpServletResponse resp,
 		FlowContent<?> lightArea
@@ -428,7 +428,7 @@ abstract public class Skin {
 	 *          This is also given to {@link #endWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)}
 	 *          to finish the area.
 	 */
-	abstract public <
+	public abstract <
 		PC extends FlowContent<PC>,
 		__ extends FlowContent<__>
 	> __ beginWhiteArea(
@@ -446,7 +446,7 @@ abstract public class Skin {
 	 * @param  whiteArea  The {@link FlowContent} that was returned by
 	 *               {@link #beginWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)}.
 	 */
-	abstract public void endWhiteArea(
+	public abstract void endWhiteArea(
 		HttpServletRequest req,
 		HttpServletResponse resp,
 		FlowContent<?> whiteArea
@@ -579,30 +579,30 @@ abstract public class Skin {
 	/**
 	 * Prints the auto index of all the page siblings.
 	 */
-	abstract public void printAutoIndex(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, PageAttributes pageAttributes) throws JspException, IOException;
+	public abstract void printAutoIndex(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, PageAttributes pageAttributes) throws JspException, IOException;
 
 	/**
 	 * Begins a popup group.
 	 */
-	abstract public void beginPopupGroup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId) throws JspException, IOException;
+	public abstract void beginPopupGroup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId) throws JspException, IOException;
 
 	/**
 	 * Ends a popup group.
 	 */
-	abstract public void endPopupGroup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId) throws JspException, IOException;
+	public abstract void endPopupGroup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId) throws JspException, IOException;
 
 	/**
 	 * Begins a popup that is in a popup group.
 	 */
-	abstract public void beginPopup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId, String width) throws JspException, IOException;
+	public abstract void beginPopup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId, String width) throws JspException, IOException;
 
 	/**
 	 * Prints a popup close link/image/button for a popup that is part of a popup group.
 	 */
-	abstract public void printPopupClose(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId) throws JspException, IOException;
+	public abstract void printPopupClose(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId) throws JspException, IOException;
 
 	/**
 	 * Ends a popup that is in a popup group.
 	 */
-	abstract public void endPopup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId, String width) throws JspException, IOException;
+	public abstract void endPopup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId, String width) throws JspException, IOException;
 }

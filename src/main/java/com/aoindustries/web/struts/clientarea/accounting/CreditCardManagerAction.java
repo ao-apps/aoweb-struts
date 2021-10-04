@@ -98,9 +98,9 @@ public class CreditCardManagerAction extends PermissionAction {
 
 	public static class AccountAndCreditCards {
 
-		final private Account account;
-		final private List<CreditCard> creditCards;
-		final private boolean hasActiveCard;
+		private final Account account;
+		private final List<CreditCard> creditCards;
+		private final boolean hasActiveCard;
 
 		private AccountAndCreditCards(Account account, List<CreditCard> creditCards, boolean hasActiveCard) {
 			this.account = account;

@@ -34,7 +34,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  AO Industries, Inc.
  */
-abstract public class PageAttributesBodyTag extends BodyTagSupport {
+public abstract class PageAttributesBodyTag extends BodyTagSupport {
 
 	private static final long serialVersionUID = 1L;
 

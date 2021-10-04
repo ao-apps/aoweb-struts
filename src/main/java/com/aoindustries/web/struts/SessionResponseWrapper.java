@@ -58,8 +58,8 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 	private static final String ROBOTS_HEADER_NAME = "X-Robots-Tag";
 	private static final String ROBOTS_HEADER_VALUE = "noindex, nofollow";
 
-	final private HttpServletRequest request;
-	final private HttpServletResponse response;
+	private final HttpServletRequest request;
+	private final HttpServletResponse response;
 
 	public SessionResponseWrapper(HttpServletRequest request, HttpServletResponse response) {
 		super(response);

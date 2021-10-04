@@ -39,7 +39,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author  AO Industries, Inc.
  */
-final public class SignupBillingInformationActionHelper {
+public final class SignupBillingInformationActionHelper {
 
 	/**
 	 * Make no instances.

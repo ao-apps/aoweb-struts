@@ -32,7 +32,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  *
  * @author  AO Industries, Inc.
  */
-abstract public class PageAttributesTag extends TagSupport {
+public abstract class PageAttributesTag extends TagSupport {
 
 	private static final long serialVersionUID = 1L;
 

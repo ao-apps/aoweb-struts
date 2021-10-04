@@ -58,19 +58,19 @@ public class SignupDomainForm extends ActionForm implements Serializable, Sessio
 		;
 	}
 
-	final public String getChoice() {
+	public final String getChoice() {
 		return choice;
 	}
 
-	final public void setChoice(String choice) {
+	public final void setChoice(String choice) {
 		this.choice = choice;
 	}
 
-	final public String getDomain() {
+	public final String getDomain() {
 		return domain;
 	}
 
-	final public void setDomain(String domain) {
+	public final void setDomain(String domain) {
 		this.domain = domain.trim();
 	}
 

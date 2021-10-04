@@ -46,7 +46,7 @@ public class PageAction extends Action {
 	 * The registry if left on the request to be available to any forwarding target.
 	 */
 	@Override
-	final public ActionForward execute(
+	public final ActionForward execute(
 		ActionMapping mapping,
 		ActionForm form,
 		HttpServletRequest request,

@@ -388,16 +388,16 @@ public class ServerConfiguration {
 		);
 	}
 
-	final private int packageDefinition;
-	final private String name;
-	final private String power;
-	final private String cpu;
-	final private String ram;
-	final private String sataController;
-	final private String scsiController;
-	final private String disk;
-	final private Money setup;
-	final private Monies monthly;
+	private final int packageDefinition;
+	private final String name;
+	private final String power;
+	private final String cpu;
+	private final String ram;
+	private final String sataController;
+	private final String scsiController;
+	private final String disk;
+	private final Money setup;
+	private final Monies monthly;
 
 	public ServerConfiguration(
 		int packageDefinition,

@@ -49,7 +49,7 @@ import org.apache.struts.action.ActionMapping;
 public class MakePaymentAction extends AuthenticatedAction {
 
 	@Override
-	final public ActionForward execute(
+	public final ActionForward execute(
 		ActionMapping mapping,
 		ActionForm form,
 		HttpServletRequest request,

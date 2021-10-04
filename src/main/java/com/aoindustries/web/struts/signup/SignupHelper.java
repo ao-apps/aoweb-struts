@@ -35,7 +35,7 @@ import org.apache.struts.action.ActionServlet;
  *
  * @author  AO Industries, Inc.
  */
-final public class SignupHelper {
+public final class SignupHelper {
 
 	/**
 	 * Make no instances.

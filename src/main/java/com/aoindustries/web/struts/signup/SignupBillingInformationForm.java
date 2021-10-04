@@ -100,99 +100,99 @@ public class SignupBillingInformationForm extends ActionForm implements Serializ
 	}
 	 */
 
-	final public String getBillingContact() {
+	public final String getBillingContact() {
 		return billingContact;
 	}
 
-	final public void setBillingContact(String billingContact) {
+	public final void setBillingContact(String billingContact) {
 		this.billingContact = billingContact.trim();
 	}
 
-	final public String getBillingEmail() {
+	public final String getBillingEmail() {
 		return billingEmail;
 	}
 
-	final public void setBillingEmail(String billingEmail) {
+	public final void setBillingEmail(String billingEmail) {
 		this.billingEmail = billingEmail.trim();
 	}
 
-	final public boolean getBillingUseMonthly() {
+	public final boolean getBillingUseMonthly() {
 		return billingUseMonthly;
 	}
 
-	final public void setBillingUseMonthly(boolean billingUseMonthly) {
+	public final void setBillingUseMonthly(boolean billingUseMonthly) {
 		this.billingUseMonthly = billingUseMonthly;
 	}
 
-	final public boolean getBillingPayOneYear() {
+	public final boolean getBillingPayOneYear() {
 		return billingPayOneYear;
 	}
 
-	final public void setBillingPayOneYear(boolean billingPayOneYear) {
+	public final void setBillingPayOneYear(boolean billingPayOneYear) {
 		this.billingPayOneYear = billingPayOneYear;
 	}
 
-	final public String getBillingCardholderName() {
+	public final String getBillingCardholderName() {
 		return billingCardholderName;
 	}
 
-	final public void setBillingCardholderName(String billingCardholderName) {
+	public final void setBillingCardholderName(String billingCardholderName) {
 		this.billingCardholderName = billingCardholderName.trim();
 	}
 
-	final public String getBillingCardNumber() {
+	public final String getBillingCardNumber() {
 		return billingCardNumber;
 	}
 
-	final public void setBillingCardNumber(String billingCardNumber) {
+	public final void setBillingCardNumber(String billingCardNumber) {
 		this.billingCardNumber = billingCardNumber.trim();
 	}
 
-	final public String getBillingExpirationMonth() {
+	public final String getBillingExpirationMonth() {
 		return billingExpirationMonth;
 	}
 
-	final public void setBillingExpirationMonth(String billingExpirationMonth) {
+	public final void setBillingExpirationMonth(String billingExpirationMonth) {
 		this.billingExpirationMonth = billingExpirationMonth.trim();
 	}
 
-	final public String getBillingExpirationYear() {
+	public final String getBillingExpirationYear() {
 		return billingExpirationYear;
 	}
 
-	final public void setBillingExpirationYear(String billingExpirationYear) {
+	public final void setBillingExpirationYear(String billingExpirationYear) {
 		this.billingExpirationYear = billingExpirationYear.trim();
 	}
 
-	final public String getBillingStreetAddress() {
+	public final String getBillingStreetAddress() {
 		return billingStreetAddress;
 	}
 
-	final public void setBillingStreetAddress(String billingStreetAddress) {
+	public final void setBillingStreetAddress(String billingStreetAddress) {
 		this.billingStreetAddress = billingStreetAddress.trim();
 	}
 
-	final public String getBillingCity() {
+	public final String getBillingCity() {
 		return billingCity;
 	}
 
-	final public void setBillingCity(String billingCity) {
+	public final void setBillingCity(String billingCity) {
 		this.billingCity = billingCity.trim();
 	}
 
-	final public String getBillingState() {
+	public final String getBillingState() {
 		return billingState;
 	}
 
-	final public void setBillingState(String billingState) {
+	public final void setBillingState(String billingState) {
 		this.billingState = billingState.trim();
 	}
 
-	final public String getBillingZip() {
+	public final String getBillingZip() {
 		return billingZip;
 	}
 
-	final public void setBillingZip(String billingZip) {
+	public final void setBillingZip(String billingZip) {
 		this.billingZip = billingZip.trim();
 	}
 

@@ -41,7 +41,7 @@ import org.apache.commons.validator.GenericValidator;
  *
  * @author  AO Industries, Inc.
  */
-final public class SignupOrganizationActionHelper {
+public final class SignupOrganizationActionHelper {
 
 	/**
 	 * Make no instances.
@@ -89,8 +89,8 @@ final public class SignupOrganizationActionHelper {
 
 	public static class CountryOption {
 
-		final private String code;
-		final private String name;
+		private final String code;
+		private final String name;
 
 		private CountryOption(String code, String name) {
 			this.code = code;

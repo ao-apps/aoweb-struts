@@ -41,7 +41,7 @@ import javax.mail.internet.MimeMessage;
  *
  * @author  AO Industries, Inc.
  */
-final public class Mailer {
+public final class Mailer {
 
 	private static final Object mailerLock = new Object();
 

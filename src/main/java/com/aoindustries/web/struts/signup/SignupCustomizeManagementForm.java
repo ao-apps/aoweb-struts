@@ -68,51 +68,51 @@ public class SignupCustomizeManagementForm extends ActionForm implements Seriali
 		;
 	}
 
-	final public int getBackupOnsiteOption() {
+	public final int getBackupOnsiteOption() {
 		return backupOnsiteOption;
 	}
 
-	final public void setBackupOnsiteOption(int backupOnsiteOption) {
+	public final void setBackupOnsiteOption(int backupOnsiteOption) {
 		this.backupOnsiteOption = backupOnsiteOption;
 	}
 
-	final public int getBackupOffsiteOption() {
+	public final int getBackupOffsiteOption() {
 		return backupOffsiteOption;
 	}
 
-	final public void setBackupOffsiteOption(int backupOffsiteOption) {
+	public final void setBackupOffsiteOption(int backupOffsiteOption) {
 		this.backupOffsiteOption = backupOffsiteOption;
 	}
 
-	final public String getBackupDvdOption() {
+	public final String getBackupDvdOption() {
 		return backupDvdOption;
 	}
 
-	final public void setBackupDvdOption(String backupDvdOption) {
+	public final void setBackupDvdOption(String backupDvdOption) {
 		this.backupDvdOption = backupDvdOption;
 	}
 
-	final public int getDistributionScanOption() {
+	public final int getDistributionScanOption() {
 		return distributionScanOption;
 	}
 
-	final public void setDistributionScanOption(int distributionScanOption) {
+	public final void setDistributionScanOption(int distributionScanOption) {
 		this.distributionScanOption = distributionScanOption;
 	}
 
-	final public int getFailoverOption() {
+	public final int getFailoverOption() {
 		return failoverOption;
 	}
 
-	final public void setFailoverOption(int failoverOption) {
+	public final void setFailoverOption(int failoverOption) {
 		this.failoverOption = failoverOption;
 	}
 
-	final public String getFormCompleted() {
+	public final String getFormCompleted() {
 		return formCompleted;
 	}
 
-	final public void setFormCompleted(String formCompleted) {
+	public final void setFormCompleted(String formCompleted) {
 		this.formCompleted = formCompleted;
 	}
 }

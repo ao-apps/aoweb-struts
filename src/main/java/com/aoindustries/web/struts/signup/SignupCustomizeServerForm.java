@@ -45,7 +45,7 @@ import org.apache.struts.action.ActionServlet;
 /**
  * @author  AO Industries, Inc.
  */
-abstract public class SignupCustomizeServerForm extends ActionForm implements Serializable, SessionActionForm {
+public abstract class SignupCustomizeServerForm extends ActionForm implements Serializable, SessionActionForm {
 
 	private static final long serialVersionUID = 1L;
 
@@ -77,51 +77,51 @@ abstract public class SignupCustomizeServerForm extends ActionForm implements Se
 		;
 	}
 
-	final public int getPowerOption() {
+	public final int getPowerOption() {
 		return powerOption;
 	}
 
-	final public void setPowerOption(int powerOption) {
+	public final void setPowerOption(int powerOption) {
 		this.powerOption = powerOption;
 	}
 
-	final public int getCpuOption() {
+	public final int getCpuOption() {
 		return cpuOption;
 	}
 
-	final public void setCpuOption(int cpuOption) {
+	public final void setCpuOption(int cpuOption) {
 		this.cpuOption = cpuOption;
 	}
 
-	final public int getRamOption() {
+	public final int getRamOption() {
 		return ramOption;
 	}
 
-	final public void setRamOption(int ramOption) {
+	public final void setRamOption(int ramOption) {
 		this.ramOption = ramOption;
 	}
 
-	final public int getSataControllerOption() {
+	public final int getSataControllerOption() {
 		return sataControllerOption;
 	}
 
-	final public void setSataControllerOption(int sataControllerOption) {
+	public final void setSataControllerOption(int sataControllerOption) {
 		this.sataControllerOption = sataControllerOption;
 	}
 
-	final public int getScsiControllerOption() {
+	public final int getScsiControllerOption() {
 		return scsiControllerOption;
 	}
 
-	final public void setScsiControllerOption(int scsiControllerOption) {
+	public final void setScsiControllerOption(int scsiControllerOption) {
 		this.scsiControllerOption = scsiControllerOption;
 	}
 
-	final public List<String> getDiskOptions() {
+	public final List<String> getDiskOptions() {
 		return diskOptions;
 	}
 
-	final public void setDiskOptions(List<String> diskOptions) {
+	public final void setDiskOptions(List<String> diskOptions) {
 		this.diskOptions = diskOptions;
 	}
 

@@ -35,7 +35,7 @@ import org.apache.struts.action.ActionMessage;
 /**
  * @author  AO Industries, Inc.
  */
-abstract public class CreditCardForm extends ActionForm implements Serializable {
+public abstract class CreditCardForm extends ActionForm implements Serializable {
 
 	private static final long serialVersionUID = 2L;
 

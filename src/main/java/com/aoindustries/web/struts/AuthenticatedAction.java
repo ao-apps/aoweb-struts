@@ -49,12 +49,12 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author  AO Industries, Inc.
  */
-abstract public class AuthenticatedAction extends PageAction {
+public abstract class AuthenticatedAction extends PageAction {
 
 	private static final Logger logger = Logger.getLogger(AuthenticatedAction.class.getName());
 
 	@Override
-	final public ActionForward execute(
+	public final ActionForward execute(
 		ActionMapping mapping,
 		ActionForm form,
 		HttpServletRequest request,

@@ -107,123 +107,123 @@ public class SignupTechnicalForm extends ActionForm implements Serializable, Ses
 		;
 	}
 
-	final public String getBaName() {
+	public final String getBaName() {
 		return baName;
 	}
 
-	final public void setBaName(String baName) {
+	public final void setBaName(String baName) {
 		this.baName = baName.trim();
 	}
 
-	final public String getBaTitle() {
+	public final String getBaTitle() {
 		return baTitle;
 	}
 
-	final public void setBaTitle(String baTitle) {
+	public final void setBaTitle(String baTitle) {
 		this.baTitle = baTitle.trim();
 	}
 
-	final public String getBaWorkPhone() {
+	public final String getBaWorkPhone() {
 		return baWorkPhone;
 	}
 
-	final public void setBaWorkPhone(String baWorkPhone) {
+	public final void setBaWorkPhone(String baWorkPhone) {
 		this.baWorkPhone = baWorkPhone.trim();
 	}
 
-	final public String getBaCellPhone() {
+	public final String getBaCellPhone() {
 		return baCellPhone;
 	}
 
-	final public void setBaCellPhone(String baCellPhone) {
+	public final void setBaCellPhone(String baCellPhone) {
 		this.baCellPhone = baCellPhone.trim();
 	}
 
-	final public String getBaHomePhone() {
+	public final String getBaHomePhone() {
 		return baHomePhone;
 	}
 
-	final public void setBaHomePhone(String baHomePhone) {
+	public final void setBaHomePhone(String baHomePhone) {
 		this.baHomePhone = baHomePhone.trim();
 	}
 
-	final public String getBaFax() {
+	public final String getBaFax() {
 		return baFax;
 	}
 
-	final public void setBaFax(String baFax) {
+	public final void setBaFax(String baFax) {
 		this.baFax = baFax.trim();
 	}
 
-	final public String getBaEmail() {
+	public final String getBaEmail() {
 		return baEmail;
 	}
 
-	final public void setBaEmail(String baEmail) {
+	public final void setBaEmail(String baEmail) {
 		this.baEmail = baEmail.trim();
 	}
 
-	final public String getBaAddress1() {
+	public final String getBaAddress1() {
 		return baAddress1;
 	}
 
-	final public void setBaAddress1(String baAddress1) {
+	public final void setBaAddress1(String baAddress1) {
 		this.baAddress1 = baAddress1.trim();
 	}
 
-	final public String getBaAddress2() {
+	public final String getBaAddress2() {
 		return baAddress2;
 	}
 
-	final public void setBaAddress2(String baAddress2) {
+	public final void setBaAddress2(String baAddress2) {
 		this.baAddress2 = baAddress2.trim();
 	}
 
-	final public String getBaCity() {
+	public final String getBaCity() {
 		return baCity;
 	}
 
-	final public void setBaCity(String baCity) {
+	public final void setBaCity(String baCity) {
 		this.baCity = baCity.trim();
 	}
 
-	final public String getBaState() {
+	public final String getBaState() {
 		return baState;
 	}
 
-	final public void setBaState(String baState) {
+	public final void setBaState(String baState) {
 		this.baState = baState.trim();
 	}
 
-	final public String getBaCountry() {
+	public final String getBaCountry() {
 		return baCountry;
 	}
 
-	final public void setBaCountry(String baCountry) {
+	public final void setBaCountry(String baCountry) {
 		this.baCountry = baCountry.trim();
 	}
 
-	final public String getBaZip() {
+	public final String getBaZip() {
 		return baZip;
 	}
 
-	final public void setBaZip(String baZip) {
+	public final void setBaZip(String baZip) {
 		this.baZip = baZip.trim();
 	}
 
-	final public String getBaUsername() {
+	public final String getBaUsername() {
 		return baUsername;
 	}
 
-	final public void setBaUsername(String baUsername) {
+	public final void setBaUsername(String baUsername) {
 		this.baUsername = baUsername.trim();
 	}
 
-	final public String getBaPassword() {
+	public final String getBaPassword() {
 		return baPassword;
 	}
 
-	final public void setBaPassword(String baPassword) {
+	public final void setBaPassword(String baPassword) {
 		this.baPassword = baPassword;
 	}
 

@@ -259,13 +259,13 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 
 	public static class MySQLServerRow {
 
-		final private String version;
-		final private String master;
-		final private List<ReplicationRow> replications;
+		private final String version;
+		private final String master;
+		private final List<ReplicationRow> replications;
 		private boolean error = false;
-		final private String lineError;
-		final private String masterLogFile;
-		final private String masterLogPos;
+		private final String lineError;
+		private final String masterLogFile;
+		private final String masterLogPos;
 
 		private MySQLServerRow(String version, String master, String lineError, List<ReplicationRow> replications) {
 			this.version = version;
@@ -318,17 +318,17 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
 
 	public static class ReplicationRow {
 
-		final private boolean error;
-		final private DomainName slave;
-		final private String lineError;
-		final private String slaveIOState;
-		final private String slaveLogFile;
-		final private String slaveLogPos;
-		final private String slaveIORunning;
-		final private String slaveSQLRunning;
-		final private String lastErrno;
-		final private String lastError;
-		final private String secondsBehindMaster;
+		private final boolean error;
+		private final DomainName slave;
+		private final String lineError;
+		private final String slaveIOState;
+		private final String slaveLogFile;
+		private final String slaveLogPos;
+		private final String slaveIORunning;
+		private final String slaveSQLRunning;
+		private final String lastErrno;
+		private final String lastError;
+		private final String secondsBehindMaster;
 
 		private ReplicationRow(boolean error, DomainName slave, String lineError) {
 			this.error = error;

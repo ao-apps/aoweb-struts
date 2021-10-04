@@ -45,7 +45,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author  AO Industries, Inc.
  */
-final public class SignupSelectPackageActionHelper {
+public final class SignupSelectPackageActionHelper {
 
 	/**
 	 * Make no instances.

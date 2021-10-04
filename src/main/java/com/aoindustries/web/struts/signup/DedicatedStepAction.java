@@ -35,13 +35,13 @@ import org.apache.struts.action.ActionMessages;
 /**
  * @author  AO Industries, Inc.
  */
-abstract public class DedicatedStepAction extends PageAction {
+public abstract class DedicatedStepAction extends PageAction {
 
 	/**
 	 * Initializes the step details.
 	 */
 	@Override
-	final public ActionForward execute(
+	public final ActionForward execute(
 		ActionMapping mapping,
 		ActionForm form,
 		HttpServletRequest request,

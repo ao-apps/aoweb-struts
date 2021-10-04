@@ -36,12 +36,12 @@ import javax.servlet.http.HttpSession;
  *
  * @author  AO Industries, Inc.
  */
-abstract public class AuthenticatedServlet extends HttpServlet {
+public abstract class AuthenticatedServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	final public void doGet(
+	public final void doGet(
 		HttpServletRequest request,
 		HttpServletResponse response
 	) throws IOException {
@@ -80,7 +80,7 @@ abstract public class AuthenticatedServlet extends HttpServlet {
 		}
 	}
 
-	abstract public void doGet(
+	public abstract void doGet(
 		HttpServletRequest request,
 		HttpServletResponse response,
 		AOServConnector aoConn

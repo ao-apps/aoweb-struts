@@ -39,7 +39,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author  AO Industries, Inc.
  */
-abstract public class PageTag extends BodyTagSupport {
+public abstract class PageTag extends BodyTagSupport {
 
 	private static final long serialVersionUID = 1L;
 
@@ -148,7 +148,7 @@ abstract public class PageTag extends BodyTagSupport {
 		}
 	}
 
-	abstract protected int doEndTag(
+	protected abstract int doEndTag(
 		String title,
 		String navImageAlt,
 		String description,

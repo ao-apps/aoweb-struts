@@ -30,7 +30,7 @@ import java.util.Collections;
  *
  * @author  AO Industries, Inc.
  */
-abstract public class Page {
+public abstract class Page {
 
 	private final String title;
 	private final String navImageAlt;

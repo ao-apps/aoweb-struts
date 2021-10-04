@@ -42,7 +42,7 @@ import org.apache.struts.action.ActionServlet;
 /**
  * @author  AO Industries, Inc.
  */
-abstract public class SignupSelectPackageForm extends ActionForm implements Serializable, SessionActionForm {
+public abstract class SignupSelectPackageForm extends ActionForm implements Serializable, SessionActionForm {
 
 	private static final long serialVersionUID = 1L;
 
@@ -61,7 +61,7 @@ abstract public class SignupSelectPackageForm extends ActionForm implements Seri
 		return packageDefinition;
 	}
 
-	final public void setPackageDefinition(int packageDefinition) {
+	public final void setPackageDefinition(int packageDefinition) {
 		this.packageDefinition = packageDefinition;
 	}
 
@@ -88,5 +88,5 @@ abstract public class SignupSelectPackageForm extends ActionForm implements Seri
 		}
 	}
 
-	abstract protected String getPackageCategory();
+	protected abstract String getPackageCategory();
 }

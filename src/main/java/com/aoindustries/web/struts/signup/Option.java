@@ -33,9 +33,9 @@ public class Option {
 	public static final Comparator<Option> priceComparator =
 		(pdl1, pdl2) -> pdl1.getPriceDifference().compareTo(pdl2.getPriceDifference());
 
-	final private int packageDefinitionLimit;
-	final private String display;
-	final private Monies priceDifference;
+	private final int packageDefinitionLimit;
+	private final String display;
+	private final Monies priceDifference;
 
 	public Option(
 		int packageDefinitionLimit,

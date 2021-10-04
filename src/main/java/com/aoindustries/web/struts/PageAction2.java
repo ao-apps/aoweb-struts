@@ -36,7 +36,7 @@ import org.apache.struts2.ServletActionContext;
  *
  * @see  PageServlet
  */
-abstract public class PageAction2 extends ActionSupport {
+public abstract class PageAction2 extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
 
@@ -61,7 +61,7 @@ abstract public class PageAction2 extends ActionSupport {
 	/**
 	 * Once the page registry is set resolved, this version of the execute method is invoked.
 	 */
-	abstract public String execute(
+	public abstract String execute(
 		Registry pageRegistry
 	) throws Exception;
 }

@@ -82,7 +82,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
 
 	@Override
 	@SuppressWarnings({"UseSpecificCatch", "TooBroadCatch"})
-	final public ActionForward execute(
+	public final ActionForward execute(
 		ActionMapping mapping,
 		ActionForm form,
 		HttpServletRequest request,

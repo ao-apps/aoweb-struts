@@ -45,7 +45,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author  AO Industries, Inc.
  */
-final public class SignupSelectServerActionHelper {
+public final class SignupSelectServerActionHelper {
 
 	/**
 	 * Make no instances.
@@ -90,8 +90,8 @@ final public class SignupSelectServerActionHelper {
 	}
 
 	public static class Host {
-		final private ServerConfiguration minimumConfiguration;
-		final private ServerConfiguration maximumConfiguration;
+		private final ServerConfiguration minimumConfiguration;
+		private final ServerConfiguration maximumConfiguration;
 
 		private Host(
 			ServerConfiguration minimumConfiguration,

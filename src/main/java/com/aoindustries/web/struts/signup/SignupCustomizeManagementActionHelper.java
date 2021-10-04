@@ -48,7 +48,7 @@ import org.apache.commons.validator.GenericValidator;
  *
  * @author  AO Industries, Inc.
  */
-final public class SignupCustomizeManagementActionHelper {
+public final class SignupCustomizeManagementActionHelper {
 
 	/**
 	 * Make no instances.

@@ -60,7 +60,7 @@ import org.apache.struts.action.ActionServlet;
 /**
  * @author  AO Industries, Inc.
  */
-final public class MinimalConfirmationCompletedActionHelper {
+public final class MinimalConfirmationCompletedActionHelper {
 
 	/**
 	 * Make no instances.

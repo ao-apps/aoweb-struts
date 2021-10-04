@@ -41,7 +41,7 @@ import org.apache.commons.validator.GenericValidator;
  *
  * @author  AO Industries, Inc.
  */
-final public class SignupTechnicalActionHelper {
+public final class SignupTechnicalActionHelper {
 
 	private static final int NUM_PASSWORD_OPTIONS = 16;
 

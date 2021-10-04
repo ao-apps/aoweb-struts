@@ -54,7 +54,7 @@ public class MakePaymentSelectCardAction extends PermissionAction {
 	 * When permission denied, redirect straight to the new card step.
 	 */
 	@Override
-	final public ActionForward executePermissionDenied(
+	public final ActionForward executePermissionDenied(
 		ActionMapping mapping,
 		ActionForm form,
 		HttpServletRequest request,
@@ -85,7 +85,7 @@ public class MakePaymentSelectCardAction extends PermissionAction {
 	}
 
 	@Override
-	final public ActionForward executePermissionGranted(
+	public final ActionForward executePermissionGranted(
 		ActionMapping mapping,
 		ActionForm form,
 		HttpServletRequest request,

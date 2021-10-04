@@ -46,10 +46,10 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author  AO Industries, Inc.
  */
-abstract public class PermissionAction extends AuthenticatedAction {
+public abstract class PermissionAction extends AuthenticatedAction {
 
 	@Override
-	final public ActionForward execute(
+	public final ActionForward execute(
 		ActionMapping mapping,
 		ActionForm form,
 		HttpServletRequest request,
@@ -132,5 +132,5 @@ abstract public class PermissionAction extends AuthenticatedAction {
 	 *
 	 * @see  Permission
 	 */
-	abstract public Set<Permission.Name> getPermissions();
+	public abstract Set<Permission.Name> getPermissions();
 }

@@ -70,7 +70,7 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
 		Resources.getResources(ResourceBundle::getBundle, MakePaymentStoredCardCompletedAction.class);
 
 	@Override
-	final public ActionForward executePermissionGranted(
+	public final ActionForward executePermissionGranted(
 		ActionMapping mapping,
 		ActionForm form,
 		HttpServletRequest request,

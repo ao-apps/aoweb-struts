@@ -69,7 +69,7 @@ import org.apache.struts.action.ActionServlet;
  *
  * @author  AO Industries, Inc.
  */
-final public class ServerConfirmationCompletedActionHelper {
+public final class ServerConfirmationCompletedActionHelper {
 
 	/**
 	 * Make no instances.
