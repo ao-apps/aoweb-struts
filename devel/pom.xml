@@ -69,20 +69,20 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 	</developers>
 
 	<scm>
-		<connection>scm:git:git://github.com/aoindustries/aoweb-struts.git</connection>
-		<developerConnection>scm:git:git@github.com:aoindustries/aoweb-struts.git</developerConnection>
-		<url>https://github.com/aoindustries/aoweb-struts</url>
+		<connection>scm:git:git://github.com/ao-apps/aoweb-struts.git</connection>
+		<developerConnection>scm:git:git@github.com:ao-apps/aoweb-struts.git</developerConnection>
+		<url>https://github.com/ao-apps/aoweb-struts</url>
 		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/aoindustries/aoweb-struts/issues</url>
+		<url>https://github.com/ao-apps/aoweb-struts/issues</url>
 	</issueManagement>
 
 	<ciManagement>
 		<system>GitHub Actions</system>
-		<url>https://github.com/aoindustries/aoweb-struts/actions</url>
+		<url>https://github.com/ao-apps/aoweb-struts/actions</url>
 	</ciManagement>
 
 	<repositories>
