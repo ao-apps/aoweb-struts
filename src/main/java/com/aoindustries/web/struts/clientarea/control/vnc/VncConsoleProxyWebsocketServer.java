@@ -145,8 +145,11 @@ public class VncConsoleProxyWebsocketServer {
 	}
 
 	private final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-	@SuppressWarnings("VolatileArrayField")
-	private volatile byte[] challenge;
+
+	/**
+	 * The current challenge, synchronized on "this".
+	 */
+	private byte[] challenge;
 
 	@OnMessage
 	public void onMessage(byte[] message, Session session) throws IOException, SQLException, InterruptedException {
@@ -177,10 +180,12 @@ public class VncConsoleProxyWebsocketServer {
 				auth[2] = 0;
 				auth[3] = 2;
 				// VNC Authentication
-				assert challenge == null;
-				challenge = new byte[16];
-				AOServConnector.getSecureRandom().nextBytes(challenge);
-				System.arraycopy(challenge, 0, auth, 4, 16);
+				synchronized(this) {
+					assert challenge == null;
+					challenge = new byte[16];
+					AOServConnector.getSecureRandom().nextBytes(challenge);
+					System.arraycopy(challenge, 0, auth, 4, 16);
+				}
 				authFuture = session.getAsyncRemote().sendBinary(ByteBuffer.wrap(auth));
 				phase = Phase.Auth;
 			}
@@ -205,7 +210,10 @@ public class VncConsoleProxyWebsocketServer {
 				for(VirtualServer vs : rootConn.getInfrastructure().getVirtualServer().getRows()) {
 					String vncPassword = vs.getVncPassword();
 					if(vncPassword!=null && !vncPassword.equals(AoservProtocol.FILTERED)) {
-						byte[] expectedResponse = desCipher(challenge, vncPassword);
+						byte[] expectedResponse;
+						synchronized(this) {
+							expectedResponse = desCipher(challenge, vncPassword);
+						}
 						if(Arrays.equals(response, expectedResponse)) {
 							virtualServer = vs;
 							break;
@@ -285,12 +293,13 @@ public class VncConsoleProxyWebsocketServer {
 							);
 						}
 						// VNC Authentication
+						byte[] daemonChallenge = new byte[16];
 						for(int c=0;c<16;c++) {
 							int b = daemonIn.read();
 							if(b == -1) throw new EOFException("EOF from daemonIn");
-							challenge[c] = (byte)b;
+							daemonChallenge[c] = (byte)b;
 						}
-						response = desCipher(challenge, virtualServer.getVncPassword());
+						response = desCipher(daemonChallenge, virtualServer.getVncPassword());
 						daemonOut.write(response);
 						daemonOut.flush();
 						if(
