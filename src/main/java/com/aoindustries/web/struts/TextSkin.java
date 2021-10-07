@@ -264,7 +264,7 @@ public class TextSkin extends Skin {
 			// If this is an authenticated page, redirect to session timeout after one hour
 			AOServConnector aoConn = AuthenticatedAction.getAoConn(req, resp);
 			// Do this before getting session, since session may be conditionally created by path in LoginAction
-			String target = LoginAction.addTarget(() -> req.getSession(), fullPath);
+			String target = LoginAction.addTarget(req::getSession, fullPath);
 			HttpSession session = req.getSession(false);
 			//if(session == null) session = req.getSession(false); // Get again, just in case of authentication
 			if(isOkResponseStatus && aoConn != null && session != null) {
