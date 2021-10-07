@@ -79,6 +79,7 @@ module com.aoindustries.web.struts {
 	requires com.aoindustries.aoserv.client; // <groupId>com.aoindustries</groupId><artifactId>aoserv-client</artifactId>
 	requires com.aoindustries.aoserv.payments; // <groupId>com.aoindustries</groupId><artifactId>aoserv-credit-cards</artifactId>
 	requires com.aoindustries.aoserv.daemon.client; // <groupId>com.aoindustries</groupId><artifactId>aoserv-daemon-client</artifactId>
+	requires org.apache.commons.collections4; // <groupId>org.apache.commons</groupId><artifactId>commons-collections4</artifactId>
 	requires commons.validator; // <groupId>commons-validator</groupId><artifactId>commons-validator</artifactId>
 	requires java.mail; // <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId>
 	requires javax.servlet.api; // <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId>

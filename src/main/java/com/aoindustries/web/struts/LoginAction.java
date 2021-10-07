@@ -25,14 +25,14 @@ package com.aoindustries.web.struts;
 import com.aoapps.security.Identifier;
 import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoapps.web.resources.registry.Registry;
-import java.io.Serializable;
-import java.util.LinkedList;
+import java.util.Map;
 import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.collections4.map.LRUMap;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -49,20 +49,7 @@ public class LoginAction extends PageAction {
 	 */
 	private static final int MAX_TARGETS = 100;
 
-	private static class Target implements Serializable {
-
-		private static final long serialVersionUID = 1L;
-
-		private final Identifier id;
-		private final String targetUrl;
-
-		private Target(Identifier id, String targetUrl) {
-			this.id = id;
-			this.targetUrl = targetUrl;
-		}
-	}
-
-	private static final ScopeEE.Session.Attribute<LinkedList<Target>> TARGETS_ATTR =
+	private static final ScopeEE.Session.Attribute<Map<String, Identifier>> TARGETS_ATTR =
 		ScopeEE.SESSION.attribute(Constants.TARGETS);
 
 	/**
@@ -74,15 +61,11 @@ public class LoginAction extends PageAction {
 		if(targetUrl.endsWith("/login.do")) {
 			return null;
 		}
-		Identifier id = new Identifier();
-		Target target = new Target(id, targetUrl);
+		Identifier id;
 		HttpSession hs = session.get();
-		LinkedList<Target> targets = TARGETS_ATTR.context(hs).computeIfAbsent(__ -> new LinkedList<>());
+		Map<String, Identifier> targets = TARGETS_ATTR.context(hs).computeIfAbsent(__ -> new LRUMap<>(MAX_TARGETS));
 		synchronized(targets) {
-			while(targets.size() >= MAX_TARGETS) {
-				targets.removeLast();
-			}
-			targets.addFirst(target);
+			id = targets.computeIfAbsent(targetUrl, __ -> new Identifier());
 		}
 		return id.toString();
 	}
@@ -103,12 +86,13 @@ public class LoginAction extends PageAction {
 				}
 				return null;
 			}
-			LinkedList<Target> targets = TARGETS_ATTR.context(session).get();
+			Map<String, Identifier> targets = TARGETS_ATTR.context(session).get();
 			if(targets != null) {
 				synchronized(targets) {
-					for(Target t : targets) {
-						if(t.id.equals(id)) {
-							return t.targetUrl;
+					// Sequential scan is OK since lookup by ID is rare - login time only
+					for(Map.Entry<String, Identifier> e : targets.entrySet()) {
+						if(e.getValue().equals(id)) {
+							return e.getKey();
 						}
 					}
 				}

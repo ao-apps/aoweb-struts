@@ -61,6 +61,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<log4j2.root.level>info</log4j2.root.level>
 
 		<!-- Dependenceis -->
+		<commons-collections4.version>4.4</commons-collections4.version>
 		<struts2.version>2.5.26</struts2.version>
 	</properties>
 
@@ -991,6 +992,11 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 											<outputDirectory>${project.build.directory}/offlineLinks/com.aoindustries/aoserv-daemon-client</outputDirectory>
 										</artifactItem>
 										<artifactItem>
+											<groupId>org.apache.commons</groupId><artifactId>commons-collections4</artifactId><classifier>javadoc</classifier>
+											<includes>element-list, package-list</includes>
+											<outputDirectory>${project.build.directory}/offlineLinks/org.apache.commons/commons-collections4</outputDirectory>
+										</artifactItem>
+										<artifactItem>
 											<groupId>commons-validator</groupId><artifactId>commons-validator</artifactId><classifier>javadoc</classifier>
 											<includes>element-list, package-list</includes>
 											<outputDirectory>${project.build.directory}/offlineLinks/commons-validator/commons-validator</outputDirectory>
@@ -1135,6 +1141,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 									<location>${project.build.directory}/offlineLinks/com.aoindustries/aoserv-daemon-client</location>
 								</offlineLink>
 								<offlineLink>
+									<url>https://commons.apache.org/proper/commons-collections/javadocs/api-${commons-collections4.version}/</url>
+									<location>${project.build.directory}/offlineLinks/org.apache.commons/commons-collections4</location>
+								</offlineLink>
+								<offlineLink>
 									<url>https://commons.apache.org/proper/commons-validator/apidocs/</url>
 									<location>${project.build.directory}/offlineLinks/commons-validator/commons-validator</location>
 								</offlineLink>
@@ -1260,6 +1270,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				</dependency>
 				<!-- No -devel: <groupId>com.aoindustries</groupId><artifactId>aoserv-credit-cards-devel</artifactId> -->
 				<!-- No -devel: <groupId>com.aoindustries</groupId><artifactId>aoserv-daemon-client-devel</artifactId> -->
+				<!-- No -devel: <groupId>org.apache.commons</groupId><artifactId>commons-collections4-devel</artifactId> -->
 				<!-- No -devel: <groupId>commons-validator</groupId><artifactId>commons-validator-devel</artifactId> -->
 				<!-- No -devel: <groupId>com.sun.mail</groupId><artifactId>javax.mail-devel</artifactId> -->
 				<!-- No -devel: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api-devel</artifactId> -->
@@ -1415,6 +1426,9 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 			</dependency>
 			<dependency>
 				<groupId>com.aoindustries</groupId><artifactId>aoserv-daemon-client</artifactId><version>1.85.0${POST-SNAPSHOT}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId><artifactId>commons-collections4</artifactId><version>${commons-collections4.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-validator</groupId><artifactId>commons-validator</artifactId><version>1.7</version>
@@ -1633,6 +1647,9 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		</dependency>
 		<dependency>
 			<groupId>com.aoindustries</groupId><artifactId>aoserv-daemon-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId><artifactId>commons-collections4</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-validator</groupId><artifactId>commons-validator</artifactId>
