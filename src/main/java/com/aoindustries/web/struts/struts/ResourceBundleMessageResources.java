@@ -67,7 +67,7 @@ public class ResourceBundleMessageResources extends MessageResources implements 
 	}
 
 	@Override
-	public String getMessage(Locale locale, String key, Object args[]) {
+	public String getMessage(Locale locale, String key, Object[] args) {
 		String message = super.getMessage(locale, key, args);
 		if(!cachedEnabled) {
 			synchronized(formats) {
