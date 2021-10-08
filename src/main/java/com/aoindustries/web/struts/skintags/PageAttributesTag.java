@@ -36,7 +36,7 @@ public abstract class PageAttributesTag extends TagSupport {
 
 	private static final long serialVersionUID = 1L;
 
-	public PageAttributesTag() {
+	protected PageAttributesTag() {
 	}
 
 	/**

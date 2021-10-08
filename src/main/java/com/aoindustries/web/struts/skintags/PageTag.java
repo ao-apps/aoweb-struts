@@ -67,7 +67,7 @@ public abstract class PageTag extends BodyTagSupport {
 	private String keywords;
 	private Collection<Meta> metas;
 
-	public PageTag() {
+	protected PageTag() {
 		init(); // TODO: Switch to TryCatchFinally style, review all
 	}
 

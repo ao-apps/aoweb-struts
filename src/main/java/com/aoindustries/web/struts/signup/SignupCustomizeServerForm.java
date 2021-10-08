@@ -56,7 +56,7 @@ public abstract class SignupCustomizeServerForm extends ActionForm implements Se
 	private int scsiControllerOption;
 	private List<String> diskOptions;
 
-	public SignupCustomizeServerForm() {
+	protected SignupCustomizeServerForm() {
 		setPowerOption(-1);
 		setCpuOption(-1);
 		setRamOption(-1);

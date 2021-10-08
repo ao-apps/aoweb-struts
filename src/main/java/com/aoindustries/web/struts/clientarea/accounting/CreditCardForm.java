@@ -55,7 +55,7 @@ public abstract class CreditCardForm extends ActionForm implements Serializable 
 	private String countryCode;
 	private String description;
 
-	public CreditCardForm() {
+	protected CreditCardForm() {
 	}
 
 	@Override

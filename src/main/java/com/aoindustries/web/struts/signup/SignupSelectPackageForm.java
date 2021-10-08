@@ -48,7 +48,7 @@ public abstract class SignupSelectPackageForm extends ActionForm implements Seri
 
 	private int packageDefinition;
 
-	public SignupSelectPackageForm() {
+	protected SignupSelectPackageForm() {
 		setPackageDefinition(-1);
 	}
 
