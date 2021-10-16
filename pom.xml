@@ -1228,7 +1228,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-servlet-devel</artifactId> -->
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-util-devel</artifactId> -->
 				<dependency>
-					<groupId>com.aoapps</groupId><artifactId>ao-hodgepodge-devel</artifactId><version>5.0.1-SNAPSHOT</version>
+					<groupId>com.aoapps</groupId><artifactId>ao-hodgepodge-devel</artifactId><version>5.0.1-POST-SNAPSHOT</version>
 					<scope>runtime</scope>
 				</dependency>
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-io-buffer-devel</artifactId> -->
@@ -1371,7 +1371,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>com.aoapps</groupId><artifactId>ao-fluent-html-util</artifactId><version>0.5.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-hodgepodge</artifactId><version>5.0.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+				<groupId>com.aoapps</groupId><artifactId>ao-hodgepodge</artifactId><version>5.0.1${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-io-buffer</artifactId><version>4.0.0${POST-SNAPSHOT}</version>
