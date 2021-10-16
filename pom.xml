@@ -1277,7 +1277,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<!-- No -devel: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api-devel</artifactId> -->
 				<!-- No -devel: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api-devel</artifactId> -->
 				<dependency>
-					<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib-devel</artifactId><version>1.15.1-SNAPSHOT</version>
+					<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib-devel</artifactId><version>1.15.1-POST-SNAPSHOT</version>
 					<scope>runtime</scope>
 				</dependency>
 				<!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts-core-devel</artifactId> -->
@@ -1449,7 +1449,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><version>1.15.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+				<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><version>1.15.1${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId><version>${struts-core.version}</version>
