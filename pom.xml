@@ -1237,7 +1237,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 					<scope>runtime</scope>
 				</dependency>
 				<dependency>
-					<groupId>com.aoapps</groupId><artifactId>ao-net-types-devel</artifactId><version>2.0.2-SNAPSHOT</version>
+					<groupId>com.aoapps</groupId><artifactId>ao-net-types-devel</artifactId><version>2.0.2-POST-SNAPSHOT</version>
 					<scope>runtime</scope>
 				</dependency>
 				<dependency>
@@ -1380,7 +1380,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.1.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-net-types</artifactId><version>2.0.2-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+				<groupId>com.aoapps</groupId><artifactId>ao-net-types</artifactId><version>2.0.2${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-payments-api</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
