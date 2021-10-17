@@ -26,7 +26,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 
 	<parent>
 		<groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId><version>1.17.4-POST-SNAPSHOT</version>
-		<relativePath>../../../oss/parent/pom.xml</relativePath>
+		<relativePath>../../oss/parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>com.aoindustries</groupId><artifactId>aoweb-struts-devel</artifactId><version>3.0.0-SNAPSHOT</version>
