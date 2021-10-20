@@ -25,7 +25,6 @@ package com.aoindustries.web.struts;
 import com.aoapps.web.resources.registry.Registry;
 import com.aoapps.web.resources.servlet.PageServlet;
 import com.aoapps.web.resources.servlet.RegistryEE;
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;

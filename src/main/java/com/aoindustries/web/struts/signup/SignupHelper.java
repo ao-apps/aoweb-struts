@@ -22,9 +22,7 @@
  */
 package com.aoindustries.web.struts.signup;
 
-import com.aoapps.servlet.attribute.AttributeEE;
 import com.aoapps.servlet.attribute.ScopeEE;
-import java.lang.reflect.InvocationTargetException;
 import java.util.function.Supplier;
 import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForm;
