@@ -228,9 +228,9 @@ public final class ServerConfirmationCompletedActionHelper {
 		addresses.add(signupBillingInformationForm.getBillingEmail());
 		Set<String> successAddresses = new HashSet<>();
 		Set<String> failureAddresses = new HashSet<>();
-		Iterator<String> I=addresses.iterator();
-		while(I.hasNext()) {
-			String address=I.next();
+		Iterator<String> iter = addresses.iterator();
+		while(iter.hasNext()) {
+			String address = iter.next();
 			boolean success = sendSummaryEmail(servlet, request, pkey, statusKey, address, packageDefinition, signupCustomizeServerForm, signupCustomizeManagementForm, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm);
 			if(success) successAddresses.add(address);
 			else failureAddresses.add(address);

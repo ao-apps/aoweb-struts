@@ -267,9 +267,9 @@ public final class SignupCustomizeServerActionHelper {
 			formDiskOptions.remove(formDiskOptions.size() - 1);
 		}
 		for(int c=0;c<formDiskOptions.size();c++) {
-			String S = formDiskOptions.get(c);
-			if(S != null && S.length()>0 && !S.equals("-1")) {
-				int pkey = Integer.parseInt(S);
+			String s = formDiskOptions.get(c);
+			if(s != null && s.length() > 0 && !s.equals("-1")) {
+				int pkey = Integer.parseInt(s);
 				PackageDefinitionLimit pdl = rootConn.getBilling().getPackageDefinitionLimit().get(pkey);
 				if(pdl == null || !packageDefinition.equals(pdl.getPackageDefinition())) formDiskOptions.set(c, "-1");
 			}

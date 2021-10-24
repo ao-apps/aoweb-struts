@@ -200,9 +200,9 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
 	/**
 	 * Considers two strings equal, where null and "" are considered equal.
 	 */
-	private static boolean nullOrBlankEquals(String S1, String S2) {
-		if(S1==null) S1="";
-		if(S2==null) S2="";
-		return S1.equals(S2);
+	private static boolean nullOrBlankEquals(String s1, String s2) {
+		if(s1 == null) s1 = "";
+		if(s2 == null) s2 = "";
+		return s1.equals(s2);
 	}
 }

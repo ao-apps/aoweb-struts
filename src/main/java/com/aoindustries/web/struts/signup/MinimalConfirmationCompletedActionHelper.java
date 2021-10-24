@@ -107,9 +107,9 @@ public final class MinimalConfirmationCompletedActionHelper {
 		addresses.add(signupBillingInformationForm.getBillingEmail());
 		Set<String> successAddresses = new HashSet<>();
 		Set<String> failureAddresses = new HashSet<>();
-		Iterator<String> I=addresses.iterator();
-		while(I.hasNext()) {
-			String address=I.next();
+		Iterator<String> iter = addresses.iterator();
+		while(iter.hasNext()) {
+			String address = iter.next();
 			boolean success = sendSummaryEmail(servlet, pkey, statusKey, address, packageDefinition, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm);
 			if(success) successAddresses.add(address);
 			else failureAddresses.add(address);

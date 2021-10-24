@@ -62,10 +62,10 @@ public class VncConsoleProxySocketServer implements Runnable {
 	}
 
 	public void destroy() {
-		Thread T = this.thread;
-		if(T != null) {
+		Thread t = this.thread;
+		if(t != null) {
 			this.thread = null;
-			T.interrupt();
+			t.interrupt();
 		}
 	}
 
