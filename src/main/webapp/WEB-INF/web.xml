@@ -90,14 +90,6 @@ web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
 	</context-param>
 <!-- End include "web.xml.contextParams" -->
 
-	<!-- Sets up the cache for the request. -->
-	<filter-mapping>
-		<filter-name>com.semanticcms.core.servlet.CacheFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>ERROR</dispatcher>
-	</filter-mapping>
-
 	<!-- Filter to write selective values into URL when cookies disabled for SEO purposes. -->
 	<filter>
 		<filter-name>com.aoindustries.web.struts.SessionFilter</filter-name>
@@ -122,9 +114,37 @@ web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
 
-	<!-- Filter to remove .jspx and .jsp file extensions -->
+	<!-- Sets up the cache for the request. -->
+	<!--
+		Mapped here instead of relying on semanticcms-core-servlet:/META-INF/web-fragment.xml
+		so SemanticCMS pages work within Struts 2 actions.
+	-->
 	<filter-mapping>
-		<filter-name>com.aoapps.servlet.filter.HideJspExtensionFilter</filter-name>
+		<filter-name>com.semanticcms.core.servlet.CacheFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+
+	<!-- Filter to remove .jspx and .jsp file extensions -->
+	<!--
+		Filter also defined here instead of relying on semanticcms-core-taglib:/META-INF/web-fragment.xml
+		so SemanticCMS pages work within Struts 2 actions.
+	-->
+	<filter>
+		<filter-name>com.aoapps.servlet.filter.HideJspExtensionFilter-before-struts-2</filter-name>
+		<filter-class>com.aoapps.servlet.filter.HideJspExtensionFilter</filter-class>
+		<init-param>
+			<description><![CDATA[
+				Do not rewrite the <code>*.inc.jspx</code> or <code>*.inc.jsp</code> files
+				because the rewritting would allow bypass of the forced 404 above.
+			]]></description>
+			<param-name>noRewritePatterns</param-name>
+			<param-value>*.inc.jspx, *.inc.jsp, /WEB-INF/*</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>com.aoapps.servlet.filter.HideJspExtensionFilter-before-struts-2</filter-name>
 		<url-pattern>*.do</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>ERROR</dispatcher>
