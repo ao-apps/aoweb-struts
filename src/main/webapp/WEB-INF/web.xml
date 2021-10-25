@@ -122,6 +122,14 @@ web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
 
+	<!-- Filter to remove .jspx and .jsp file extensions -->
+	<filter-mapping>
+		<filter-name>com.aoapps.servlet.filter.HideJspExtensionFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+
 	<!-- Struts 2 Configuration -->
 	<filter>
 		<filter-name>struts2</filter-name>
