@@ -39,7 +39,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 			keywords="${ao:message('index.keywords')}"
 		>
 			<!-- TODO children via include allowing override -->
-			<c:if test="${core:getCaptureLevel()==null}">
+			<c:if test="${core:getCaptureLevel()==null and empty param.view}">
 				<ao:redirect page="index.do" statusCode="301" />
 			</c:if>
 		</core:page>
