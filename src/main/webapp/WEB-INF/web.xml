@@ -244,6 +244,10 @@ web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
 		<location>/WEB-INF/content/forbidden.jsp</location>
 	</error-page>
 	<error-page>
+		<exception-type>java.lang.SecurityException</exception-type>
+		<location>/WEB-INF/content/forbidden.jsp</location>
+	</error-page>
+	<error-page>
 		<error-code>404</error-code>
 		<location>/WEB-INF/content/not-found.jsp</location>
 	</error-page>
