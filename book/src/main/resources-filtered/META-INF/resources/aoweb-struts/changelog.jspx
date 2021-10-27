@@ -37,7 +37,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2016-10-29T22:19:41-05:00"
-		dateModified="2021-09-25T23:27:50-05:00"
+		dateModified="2021-10-27T03:52:40-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -161,6 +161,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 						<core:link page="aoweb-struts-skin.tld/tag-link" /> and
 						<core:link page="aoweb-struts-skin.tld/tag-path" /> now support param.* dynamic attributes.
 					</li>
+					<li>Added 401, 403, 503, and catch-all error handlers.</li>
 
 					<li>TODO: On next release, also publish relocations for old aoweb-struts-core, aoweb-struts-resources, and aoweb-struts-webapp.</li>
 				</ul>

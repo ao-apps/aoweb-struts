@@ -159,7 +159,11 @@ web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
 		<!-- Only handle *.do for Struts 1 compatibility -->
 		<!-- TODO: Once all actions are Struts 2: <url-pattern>*.do</url-pattern> -->
 		<!-- During Struts 1 to Struts 2 conversion, every action is listed: -->
+		<url-pattern>/exception.do</url-pattern>
+		<url-pattern>/forbidden.do</url-pattern>
 		<url-pattern>/logout.do</url-pattern>
+		<url-pattern>/not-found.do</url-pattern>
+		<url-pattern>/unauthorized.do</url-pattern>
 <!-- Include "web.xml.struts2Mappings" -->
 	</filter-mapping>
 
@@ -227,16 +231,27 @@ web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
 
 	<!-- Error Pages -->
 	<error-page>
+		<error-code>401</error-code>
+		<location>/WEB-INF/content/unauthorized.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/WEB-INF/content/forbidden.jsp</location>
+	</error-page>
+	<error-page>
 		<error-code>404</error-code>
-		<location>/not-found.do</location>
+		<location>/WEB-INF/content/not-found.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/exception.do</location>
+		<location>/WEB-INF/content/exception.jsp</location>
 	</error-page>
 	<error-page>
-		<exception-type>java.lang.Exception</exception-type>
-		<location>/exception.do</location>
+		<error-code>503</error-code>
+		<location>/WEB-INF/content/exception.jsp</location>
+	</error-page>
+	<error-page>
+		<location>/WEB-INF/content/exception.jsp</location>
 	</error-page>
 
 	<!-- No external resources:

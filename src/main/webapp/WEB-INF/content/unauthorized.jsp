@@ -1,6 +1,6 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021  AO Industries, Inc.
+Copyright (C) 2021  AO Industries, Inc.
 	support@aoindustries.com
 	7262 Bull Pen Cir
 	Mobile, AL 36695
@@ -22,16 +22,10 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 --%><%@ page language="java" pageEncoding="UTF-8"
 %><%@ page isErrorPage="true"
 %><%@include file="/WEB-INF/taglibs.jspf"
-%><c:set var="code" value="${
-	empty requestScope['javax.servlet.error.status_code'] or requestScope['javax.servlet.error.status_code'] le 0
-		? 500 : requestScope['javax.servlet.error.status_code']
-}" /><%
+%><%
 	if(exception != null) log(null, exception);
 	// Set the error status
-	if(!response.isCommitted()) {
-		Object code = pageContext.getAttribute("code");
-		response.setStatus((code instanceof Integer) ? (Integer)code : Integer.parseInt(code.toString()));
-	}
+	if(!response.isCommitted()) response.setStatus(HttpServletResponse. SC_UNAUTHORIZED);
 
 	// Set siteSettings request attribute if not yet done
 	com.aoindustries.web.struts.SiteSettings siteSettings = com.aoindustries.web.struts.Constants.SITE_SETTINGS.context(request).get();
@@ -53,17 +47,17 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 	}
 %>
 <ao:bundle basename="com.aoindustries.web.struts.i18n.ApplicationResources">
-	<skin:path>/exception.do</skin:path>
-	<skin:title><ao:message key="exception.title" arg0="${pageScope.code}" /></skin:title>
-	<skin:navImageAlt><ao:message key="exception.navImageAlt" /></skin:navImageAlt>
-	<skin:description><ao:message key="exception.description" /></skin:description>
+	<skin:path>/unauthorized.do</skin:path>
+	<skin:title><ao:message key="unauthorized.title" /></skin:title>
+	<skin:navImageAlt><ao:message key="unauthorized.navImageAlt" /></skin:navImageAlt>
+	<skin:description><ao:message key="unauthorized.description" /></skin:description>
 	<%@include file="add-parents.jspf" %>
 	<skin:skin>
 		<skin:content width="600">
-			<skin:contentTitle><ao:message key="exception.title" arg0="${pageScope.code}" /></skin:contentTitle>
+			<skin:contentTitle><ao:message key="unauthorized.title" /></skin:contentTitle>
 			<skin:contentHorizontalDivider />
 			<skin:contentLine>
-				<ao:message key="exception.description" /><ao:br />
+				<ao:message key="unauthorized.description" /><ao:br />
 				<ao:br />
 				<%@include file="error-data.jspf" %>
 			</skin:contentLine>

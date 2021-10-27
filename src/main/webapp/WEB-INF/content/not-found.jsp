@@ -19,12 +19,14 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
---%>
-<%@ page language="java" pageEncoding="UTF-8" %>
-<%@ page isErrorPage="true" %>
-<% response.setStatus(HttpServletResponse.SC_NOT_FOUND); %>
-<%@include file="/WEB-INF/taglibs.jspf" %>
-<%
+--%><%@ page language="java" pageEncoding="UTF-8"
+%><%@ page isErrorPage="true"
+%><%@include file="/WEB-INF/taglibs.jspf"
+%><%
+	if(exception != null) log(null, exception);
+	// Set the error status
+	if(!response.isCommitted()) response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+
 	// Set siteSettings request attribute if not yet done
 	com.aoindustries.web.struts.SiteSettings siteSettings = com.aoindustries.web.struts.Constants.SITE_SETTINGS.context(request).get();
 	if(siteSettings == null) {
@@ -48,7 +50,6 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 	<skin:path>/not-found.do</skin:path>
 	<skin:title><ao:message key="notFound.title" /></skin:title>
 	<skin:navImageAlt><ao:message key="notFound.navImageAlt" /></skin:navImageAlt>
-	<skin:keywords><ao:message key="notFound.keywords" /></skin:keywords>
 	<skin:description><ao:message key="notFound.description" /></skin:description>
 	<%@include file="add-parents.jspf" %>
 	<skin:skin>
@@ -56,53 +57,9 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
 			<skin:contentTitle><ao:message key="notFound.title" /></skin:contentTitle>
 			<skin:contentHorizontalDivider />
 			<skin:contentLine>
-				<ao:message key="notFound.message" /><ao:br />
+				<ao:message key="notFound.description" /><ao:br />
 				<ao:br />
-				<logic:equal scope="request" name="siteSettings" property="exceptionShowError" value="true">
-					<%-- Error Data --%>
-					<logic:present name="javax.servlet.jsp.jspPageContext" property="errorData">
-						<skin:lightArea>
-							<b><ao:message key="exception.jspException.title" /></b>
-							<ao:hr />
-							<table class="ao-grid">
-								<tbody>
-									<tr>
-										<th style='white-space:nowrap; text-align:left'><ao:message key="exception.servletName.header" /></th>
-										<td style="white-space:nowrap"><ao:write name="javax.servlet.jsp.jspPageContext" property="errorData.servletName" /></td>
-									</tr>
-									<tr>
-										<th style='white-space:nowrap; text-align:left'><ao:message key="exception.requestURI.header" /></th>
-										<td style="white-space:nowrap"><ao:write name="javax.servlet.jsp.jspPageContext" property="errorData.requestURI" /></td>
-									</tr>
-									<tr>
-										<th style='white-space:nowrap; text-align:left'><ao:message key="exception.statusCode.header" /></th>
-										<td style="white-space:nowrap"><ao:write name="javax.servlet.jsp.jspPageContext" property="errorData.statusCode" /></td>
-									</tr>
-									<tr>
-										<th style='white-space:nowrap; text-align:left'><ao:message key="exception.throwable.header" /></th>
-										<td style="white-space:nowrap">
-											<logic:notEmpty name="javax.servlet.jsp.jspPageContext" property="errorData.throwable">
-												<pre><ao:getStackTraces name="javax.servlet.jsp.jspPageContext" property="errorData.throwable" /></pre>
-											</logic:notEmpty>
-											<logic:empty name="javax.servlet.jsp.jspPageContext" property="errorData.throwable">
-												&#160;
-											</logic:empty>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</skin:lightArea><ao:br />
-						<ao:br />
-					</logic:present>
-					<%-- Servlet Exception --%>
-					<logic:notEmpty name="javax.servlet.jsp.jspPageContext" property="exception">
-						<skin:lightArea>
-							<b><ao:message key="exception.servletException.title" /></b>
-							<ao:hr />
-							<pre><ao:getStackTraces name="javax.servlet.jsp.jspPageContext" property="exception" /></pre>
-						</skin:lightArea>
-					</logic:notEmpty>
-				</logic:equal>
+				<%@include file="error-data.jspf" %>
 			</skin:contentLine>
 		</skin:content>
 	</skin:skin>

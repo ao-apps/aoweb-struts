@@ -59,18 +59,6 @@ struts-config.xml.messageResources    Additional message resources
 	<action-mappings>
 		<!-- =============== Common =============== -->
 		<action
-			path="/exception"
-			type="com.aoindustries.web.struts.PageAction"
-		>
-			<forward name="success" path="/WEB-INF/content/exception.jsp" redirect="false" />
-		</action>
-		<action
-			path="/not-found"
-			type="com.aoindustries.web.struts.PageAction"
-		>
-			<forward name="success" path="/WEB-INF/content/not-found.jsp" redirect="false" />
-		</action>
-		<action
 			path="/contact"
 			name="contactForm"
 			scope="request"

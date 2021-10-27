@@ -1,0 +1,103 @@
+<%--
+aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
+Copyright (C) 2021  AO Industries, Inc.
+	support@aoindustries.com
+	7262 Bull Pen Cir
+	Mobile, AL 36695
+
+This file is part of aoweb-struts.
+
+aoweb-struts is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+aoweb-struts is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
+--%><%@ page language="java" pageEncoding="UTF-8"
+%><%@ page isErrorPage="true"
+%><%@include file="/WEB-INF/taglibs.jspf"
+%>
+<c:if test="${siteSettings.exceptionShowError}">
+	<ao:bundle basename="com.aoindustries.web.struts.i18n.ApplicationResources">
+		<%-- Error Data --%>
+		<c:set var="errorData" value="" />
+		<c:catch>
+			<%-- NullPointerException when not available --%>
+			<c:set var="errorData" value="${pageContext.errorData}" />
+		</c:catch>
+		<c:if test="${!empty errorData}">
+			<skin:lightArea>
+				<b><ao:message key="error-data.jspException.title" /></b>
+				<ao:hr />
+				<table class="ao-grid">
+					<tbody>
+						<tr>
+							<th style='white-space:nowrap; text-align:left'><ao:message key="error-data.servletName.header" /></th>
+							<td style="white-space:nowrap"><ao:out value="${errorData.servletName}" /></td>
+						</tr>
+						<tr>
+							<th style='white-space:nowrap; text-align:left'><ao:message key="error-data.requestURI.header" /></th>
+							<td style="white-space:nowrap"><ao:out value="${errorData.requestURI}" /></td>
+						</tr>
+						<tr>
+							<th style='white-space:nowrap; text-align:left'><ao:message key="error-data.statusCode.header" /></th>
+							<td style="white-space:nowrap"><ao:out value="${errorData.statusCode}" /></td>
+						</tr>
+						<tr>
+							<th style='white-space:nowrap; text-align:left'><ao:message key="error-data.throwable.header" /></th>
+							<td style="white-space:nowrap">
+								<c:if test="${!empty errorData.throwable}">
+									<pre><ao:getStackTraces scope="page" name="errorData" property="throwable" /></pre>
+								</c:if>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</skin:lightArea><ao:br />
+			<ao:br />
+		</c:if>
+		<%-- Struts 1 Exceptions --%>
+		<c:if test="${
+			   !empty              requestScope.exception
+			&& (empty errorData || requestScope.exception != errorData.throwable)
+		}">
+			<skin:lightArea>
+				<b><ao:message key="error-data.strutsException.title" /></b>
+				<ao:hr />
+				<pre><ao:getStackTraces scope="request" name="exception" /></pre>
+			</skin:lightArea><ao:br />
+			<ao:br />
+		</c:if>
+		<c:if test="${
+			   !empty              requestScope['org.apache.struts.action.EXCEPTION']
+			&& (empty errorData || requestScope['org.apache.struts.action.EXCEPTION'] != errorData.throwable)
+			&&                     requestScope['org.apache.struts.action.EXCEPTION'] != requestScope.exception
+		}">
+			<skin:lightArea>
+				<b><ao:message key="error-data.strutsException.title" /></b>
+				<ao:hr />
+				<pre><ao:getStackTraces scope="request" name="org.apache.struts.action.EXCEPTION" /></pre>
+			</skin:lightArea><ao:br />
+			<ao:br />
+		</c:if>
+		<%-- Servlet Exception --%>
+		<c:if test="${
+			   !empty              pageContext.exception
+			&& (empty errorData || pageContext.exception != errorData.throwable)
+			&&                     pageContext.exception != requestScope.exception
+			&&                     pageContext.exception != requestScope['org.apache.struts.action.EXCEPTION']
+		}">
+			<skin:lightArea>
+				<b><ao:message key="error-data.servletException.title" /></b>
+				<ao:hr />
+				<pre><ao:getStackTraces name="javax.servlet.jsp.jspPageContext" property="exception" /></pre>
+			</skin:lightArea>
+		</c:if>
+	</ao:bundle>
+</c:if>
