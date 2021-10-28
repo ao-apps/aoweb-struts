@@ -85,6 +85,24 @@ web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
 
 <!-- Include "web.xml.contextParams" -->
 
+	<!-- Require all session attributes to be Serializable -->
+	<!-- TODO: Make session objects Serializable: <distributable /> -->
+
+	<session-config>
+		<!--
+			Application performs authentication timeout at 60 minutes via Refresh header.  However, session still
+			maintains "targets", which is mappings from random identifiers to redirect URLs.  Keep the session longer
+			to allow time for re-login without losing targets.
+		-->
+		<session-timeout>120</session-timeout>
+		<cookie-config>
+			<http-only>true</http-only>
+			<secure>@{session.cookie.secure}</secure>
+		</cookie-config>
+		<!-- Block any servlet container URL rewriting -->
+		<tracking-mode>COOKIE</tracking-mode>
+	</session-config>
+
 	<!-- Filter to write selective values into URL when cookies disabled for SEO purposes. -->
 	<filter>
 		<filter-name>com.aoindustries.web.struts.SessionFilter</filter-name>
@@ -210,15 +228,6 @@ web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
 	</servlet-mapping>
 
 <!-- Include "web.xml.servletMappingsPost" -->
-
-	<session-config>
-		<!--
-			Application performs authentication timeout at 60 minutes via Refresh header.  However, session still
-			maintains "targets", which is mappings from random identifiers to redirect URLs.  Keep the session longer
-			to allow time for re-login without losing targets.
-		-->
-		<session-timeout>120</session-timeout>
-	</session-config>
 
 	<welcome-file-list>
 		<!-- index.jspx before index.html for apidocs views -->

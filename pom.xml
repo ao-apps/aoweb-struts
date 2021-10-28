@@ -54,13 +54,16 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		<!-- com.aoindustries is on original Sonatype Nexus Repository Manager -->
 		<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 
+		<!-- Require secure session cookies in production -->
+		<session.cookie.secure>true</session.cookie.secure>
+
 		<!-- Struts 2 -->
 		<struts.devMode>false</struts.devMode>
 		<log4j2.struts2.level>warn</log4j2.struts2.level>
 		<log4j2.xwork2.level>warn</log4j2.xwork2.level>
 		<log4j2.root.level>info</log4j2.root.level>
 
-		<!-- Dependenceis -->
+		<!-- Dependencies -->
 		<commons-collections4.version>4.4</commons-collections4.version>
 		<struts2.version>2.5.26</struts2.version>
 	</properties>
@@ -1190,6 +1193,8 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 			<!-- Features only enabled during development time -->
 			<id>development</id>
 			<properties>
+				<!-- Allow unsecure session cookies in development -->
+				<session.cookie.secure>false</session.cookie.secure>
 				<!-- Struts 2 -->
 				<struts.devMode>true</struts.devMode>
 				<log4j2.struts2.level>info</log4j2.struts2.level>
