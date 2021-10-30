@@ -37,7 +37,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2016-10-29T22:19:41-05:00"
-		dateModified="2021-10-28T02:26:31-05:00"
+		dateModified="2021-10-29T03:58:47-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -163,6 +163,7 @@ along with aoweb-struts.  If not, see <http://www.gnu.org/licenses />.
 					</li>
 					<li>Added 401, 403, 503, and catch-all error handlers.</li>
 					<li>Require secure session cookies in production.</li>
+					<li>Now properly restoring Thread interrupted state on <code>InterruptedException</code>.</li>
 
 					<li>TODO: On next release, also publish relocations for old aoweb-struts-core, aoweb-struts-resources, and aoweb-struts-webapp.</li>
 				</ul>

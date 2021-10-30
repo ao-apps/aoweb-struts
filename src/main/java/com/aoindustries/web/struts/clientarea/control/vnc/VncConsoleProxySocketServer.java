@@ -74,7 +74,7 @@ public class VncConsoleProxySocketServer implements Runnable {
 	public void run() {
 		Thread currentThread = Thread.currentThread();
 		ServletContext myServletContext = this.servletContext;
-		while(currentThread==this.thread) {
+		while(currentThread == this.thread && !currentThread.isInterrupted()) {
 			try {
 				SiteSettings siteSettings = SiteSettings.getInstance(myServletContext);
 				Brand brand = siteSettings.getBrand();
@@ -99,7 +99,7 @@ public class VncConsoleProxySocketServer implements Runnable {
 				SSLServerSocketFactory socketFactory = ctx.getServerSocketFactory();
 				//SSLServerSocketFactory socketFactory = (SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
 				try (SSLServerSocket SS = (SSLServerSocket)socketFactory.createServerSocket(vncBind.getPort().getPort(), 50, inetAddress)) {
-					while(currentThread==this.thread) {
+					while(currentThread == this.thread && !currentThread.isInterrupted()) {
 						Socket socket = SS.accept();
 						socket.setKeepAlive(true);
 						new VncConsoleProxySocketHandler(servletContext, rootConn, socket);
@@ -110,13 +110,15 @@ public class VncConsoleProxySocketServer implements Runnable {
 			} catch(Throwable t) {
 				logger.log(Level.SEVERE, null, t);
 			}
-			if(currentThread==this.thread) {
+			if(currentThread == this.thread && !currentThread.isInterrupted()) {
 				try {
 					Thread.sleep(60000);
 				} catch(InterruptedException err) {
-					if(currentThread==this.thread) {
+					if(currentThread == this.thread) {
 						logger.log(Level.WARNING, null, err);
 					}
+					// Restore the interrupted status
+					currentThread.interrupt();
 				}
 			}
 		}

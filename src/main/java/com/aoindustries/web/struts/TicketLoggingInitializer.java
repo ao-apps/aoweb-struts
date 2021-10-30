@@ -114,12 +114,18 @@ public class TicketLoggingInitializer implements ServletContextListener {
 			(thread = new Thread(
 				() -> {
 					Thread currentThread = Thread.currentThread();
-					while(thread == currentThread) {
+					while(thread == currentThread && !currentThread.isInterrupted()) {
 						try {
 							if(DEBUG) servletContext.log("Sleeping 10 seconds in Thread to try again");
 							Thread.sleep(10000);
 							installer.call();
 							thread = null;
+						} catch(InterruptedException ie) {
+							if(thread == currentThread) {
+								ErrorPrinter.printStackTraces(ie, System.err);
+							}
+							// Restore the interrupted status
+							currentThread.interrupt();
 						} catch(Exception e2) {
 							if(thread == currentThread) {
 								ErrorPrinter.printStackTraces(e2, System.err);
