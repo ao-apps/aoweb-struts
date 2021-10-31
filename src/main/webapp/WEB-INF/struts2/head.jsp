@@ -18,7 +18,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
-along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
+along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 --%><%--
 
 Calls Struts 2 <s:head />, used for skins with formtype="struts2".

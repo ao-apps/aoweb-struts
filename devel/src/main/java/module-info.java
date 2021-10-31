@@ -18,7 +18,7 @@
  * GNU Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with aoweb-struts.  If not, see <http://www.gnu.org/licenses/>.
+ * along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
  */
 module com.aoindustries.web.struts.devel {
 	exports com.aoindustries.web.struts.i18n;
