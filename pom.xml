@@ -1253,7 +1253,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-filter-devel</artifactId> -->
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-last-modified-devel</artifactId> -->
 				<dependency>
-					<groupId>com.aoapps</groupId><artifactId>ao-servlet-util-devel</artifactId><version>5.0.0-POST-SNAPSHOT</version>
+					<groupId>com.aoapps</groupId><artifactId>ao-servlet-util-devel</artifactId><version>5.0.1-SNAPSHOT</version>
 					<scope>runtime</scope>
 				</dependency>
 				<dependency>
@@ -1394,13 +1394,13 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 				<groupId>com.aoapps</groupId><artifactId>ao-security</artifactId><version>3.0.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-servlet-filter</artifactId><version>3.0.1${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-servlet-filter</artifactId><version>3.0.2-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-servlet-last-modified</artifactId><version>2.0.1${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-servlet-util</artifactId><version>5.0.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-servlet-util</artifactId><version>5.0.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-sql</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
