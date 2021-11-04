@@ -72,10 +72,10 @@ public class VncConsoleProxyWebsocketServer {
 
 	private static final Logger logger = Logger.getLogger(VncConsoleProxyWebsocketServer.class.getName());
 
+	private static ServletContext servletContext;
+
 	@WebListener
 	public static class Initializer implements ServletContextListener {
-
-		private static ServletContext servletContext;
 
 		@Override
 		public void contextInitialized(ServletContextEvent event) {
@@ -205,7 +205,8 @@ public class VncConsoleProxyWebsocketServer {
 				byte[] response = new byte[16];
 				System.arraycopy(bytes, 0, response, 0, 16);
 				VirtualServer virtualServer = null;
-				SiteSettings siteSettings = SiteSettings.getInstance(Initializer.servletContext);
+				if(servletContext != null) throw new IllegalStateException("ServletContext not initialized by " + Initializer.class.getName());
+				SiteSettings siteSettings = SiteSettings.getInstance(servletContext);
 				AOServConnector rootConn = siteSettings.getRootAOServConnector();
 				for(VirtualServer vs : rootConn.getInfrastructure().getVirtualServer().getRows()) {
 					String vncPassword = vs.getVncPassword();
