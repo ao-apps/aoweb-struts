@@ -42,11 +42,6 @@ public class AddCreditCardForm extends CreditCardForm implements Serializable {
 	}
 
 	@Override
-	public void reset(ActionMapping mapping, HttpServletRequest request) {
-		super.reset(mapping, request);
-	}
-
-	@Override
 	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
 		ActionErrors errors = super.validate(mapping, request);
 		if(errors==null) errors = new ActionErrors();
