@@ -147,7 +147,7 @@ public final class DesCipher {
 		cookey( kn, KnL );
 	}
 
-	private void cookey( int[] raw, int KnL[] ) {
+	private void cookey( int[] raw, int[] KnL ) {
 		int raw0, raw1;
 		int rawi, KnLi;
 		int i;
