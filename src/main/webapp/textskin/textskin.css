@@ -36,10 +36,12 @@ img {
 .aoDarkRow {
 	background-color: #e0e0e0;
 }
+/* No styles:
 .aoDarkLink {
 }
 .aoLightLink {
 }
+ */
 .error {
 	color: red;
 }
