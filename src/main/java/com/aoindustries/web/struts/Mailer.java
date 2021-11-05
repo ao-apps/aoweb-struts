@@ -41,14 +41,12 @@ import javax.mail.internet.MimeMessage;
  *
  * @author  AO Industries, Inc.
  */
-public final class Mailer {
+public abstract class Mailer {
+
+	/** Make no instances. */
+	private Mailer() {throw new AssertionError();}
 
 	private static final Object mailerLock = new Object();
-
-	/**
-	 * Make no instances.
-	 */
-	private Mailer() {}
 
 	/**
 	 * Sends an email.

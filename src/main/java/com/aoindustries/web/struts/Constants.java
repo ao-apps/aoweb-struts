@@ -34,10 +34,10 @@ import java.util.Locale;
  *
  * @author  AO Industries, Inc.
  */
-public class Constants {
+public abstract class Constants {
 
-	private Constants() {
-	}
+	/** Make no instances. */
+	private Constants() {throw new AssertionError();}
 
 	/**
 	 * The session key that stores when a {@link #SU} has been requested.

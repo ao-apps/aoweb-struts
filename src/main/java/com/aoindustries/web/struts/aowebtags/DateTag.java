@@ -137,9 +137,6 @@ public class DateTag extends BodyTagSupport {
 
 	private static final long serialVersionUID = 1L;
 
-	public DateTag() {
-	}
-
 	@Override
 	public int doStartTag() throws JspException {
 		return EVAL_BODY_BUFFERED;

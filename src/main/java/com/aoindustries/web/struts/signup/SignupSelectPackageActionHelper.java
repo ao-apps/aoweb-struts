@@ -45,12 +45,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author  AO Industries, Inc.
  */
-public final class SignupSelectPackageActionHelper {
+public abstract class SignupSelectPackageActionHelper {
 
-	/**
-	 * Make no instances.
-	 */
-	private SignupSelectPackageActionHelper() {}
+	/** Make no instances. */
+	private SignupSelectPackageActionHelper() {throw new AssertionError();}
 
 	public static void setRequestAttributes(
 		ServletContext servletContext,

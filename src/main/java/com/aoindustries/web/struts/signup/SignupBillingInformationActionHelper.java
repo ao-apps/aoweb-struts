@@ -39,12 +39,10 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author  AO Industries, Inc.
  */
-public final class SignupBillingInformationActionHelper {
+public abstract class SignupBillingInformationActionHelper {
 
-	/**
-	 * Make no instances.
-	 */
-	private SignupBillingInformationActionHelper() {}
+	/** Make no instances. */
+	private SignupBillingInformationActionHelper() {throw new AssertionError();}
 
 	public static void setRequestAttributes(HttpServletRequest request) {
 		setBillingExpirationYearsRequestAttribute(request);

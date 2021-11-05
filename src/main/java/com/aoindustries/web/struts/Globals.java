@@ -32,10 +32,10 @@ import org.apache.struts.action.ActionMessages;
  *
  * @author  AO Industries, Inc.
  */
-public class Globals {
+public abstract class Globals {
 
-	private Globals() {
-	}
+	/** Make no instances. */
+	private Globals() {throw new AssertionError();}
 
 	/**
 	 * The Struts 1 action errors.

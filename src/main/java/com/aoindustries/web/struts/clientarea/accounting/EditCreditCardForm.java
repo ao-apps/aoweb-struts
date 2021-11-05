@@ -41,9 +41,6 @@ public class EditCreditCardForm extends CreditCardForm implements Serializable {
 	private String persistenceId;
 	private String isActive;
 
-	public EditCreditCardForm() {
-	}
-
 	@Override
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
 		super.reset(mapping, request);

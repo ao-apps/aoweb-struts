@@ -53,9 +53,6 @@ public class MakePaymentStoredCardForm extends ActionForm implements Serializabl
 	private String id;
 	private String paymentAmount;
 
-	public MakePaymentStoredCardForm() {
-	}
-
 	@Override
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
 		super.reset(mapping, request);

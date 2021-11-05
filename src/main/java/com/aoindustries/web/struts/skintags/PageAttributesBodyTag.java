@@ -39,6 +39,7 @@ public abstract class PageAttributesBodyTag extends BodyTagSupport {
 	private static final long serialVersionUID = 1L;
 
 	protected PageAttributesBodyTag() {
+		// Do nothing
 	}
 
 	static PageAttributes getPageAttributes(ServletRequest request) {

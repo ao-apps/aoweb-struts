@@ -56,9 +56,6 @@ public class MakePaymentNewCardForm extends AddCreditCardForm implements Seriali
 	 */
 	private String storeCard;
 
-	public MakePaymentNewCardForm() {
-	}
-
 	@Override
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
 		super.reset(mapping, request);

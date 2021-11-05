@@ -37,9 +37,6 @@ public class AutoIndexTag extends TagSupport {
 
 	private static final long serialVersionUID = 1L;
 
-	public AutoIndexTag() {
-	}
-
 	@Override
 	public int doStartTag() throws JspException {
 		try {

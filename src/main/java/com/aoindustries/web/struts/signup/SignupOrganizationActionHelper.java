@@ -41,12 +41,10 @@ import org.apache.commons.validator.GenericValidator;
  *
  * @author  AO Industries, Inc.
  */
-public final class SignupOrganizationActionHelper {
+public abstract class SignupOrganizationActionHelper {
 
-	/**
-	 * Make no instances.
-	 */
-	private SignupOrganizationActionHelper() {}
+	/** Make no instances. */
+	private SignupOrganizationActionHelper() {throw new AssertionError();}
 
 	public static void setRequestAttributes(
 		ServletContext servletContext,

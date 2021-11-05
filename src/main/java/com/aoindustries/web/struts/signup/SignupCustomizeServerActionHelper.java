@@ -48,12 +48,10 @@ import org.apache.commons.validator.GenericValidator;
  *
  * @author  AO Industries, Inc.
  */
-public final class SignupCustomizeServerActionHelper {
+public abstract class SignupCustomizeServerActionHelper {
 
-	/**
-	 * Make no instances.
-	 */
-	private SignupCustomizeServerActionHelper() {}
+	/** Make no instances. */
+	private SignupCustomizeServerActionHelper() {throw new AssertionError();}
 
 	public static void setRequestAttributes(
 		ServletContext servletContext,

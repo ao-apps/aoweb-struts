@@ -38,9 +38,6 @@ public class AddCreditCardForm extends CreditCardForm implements Serializable {
 
 	private static final long serialVersionUID = 2L;
 
-	public AddCreditCardForm() {
-	}
-
 	@Override
 	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
 		ActionErrors errors = super.validate(mapping, request);

@@ -55,6 +55,7 @@ public class SessionFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig config) {
+		// Do nothing
 	}
 
 	@Override
@@ -83,5 +84,6 @@ public class SessionFilter implements Filter {
 
 	@Override
 	public void destroy() {
+		// Do nothing
 	}
 }

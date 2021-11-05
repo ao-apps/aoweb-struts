@@ -56,6 +56,7 @@ public abstract class CreditCardForm extends ActionForm implements Serializable 
 	private String description;
 
 	protected CreditCardForm() {
+		// Do nothing
 	}
 
 	@Override

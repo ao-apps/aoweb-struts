@@ -139,9 +139,6 @@ public class TimeTag extends BodyTagSupport {
 
 	private static final long serialVersionUID = 1L;
 
-	public TimeTag() {
-	}
-
 	@Override
 	public int doStartTag() throws JspException {
 		return EVAL_BODY_BUFFERED;

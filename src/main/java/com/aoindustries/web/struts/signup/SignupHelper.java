@@ -33,12 +33,10 @@ import org.apache.struts.action.ActionServlet;
  *
  * @author  AO Industries, Inc.
  */
-public final class SignupHelper {
+public abstract class SignupHelper {
 
-	/**
-	 * Make no instances.
-	 */
-	private SignupHelper() {}
+	/** Make no instances. */
+	private SignupHelper() {throw new AssertionError();}
 
 	/**
 	 * Gets the form of the provided class from the session.  If it is not in

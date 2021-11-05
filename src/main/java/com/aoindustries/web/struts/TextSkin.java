@@ -127,7 +127,9 @@ public class TextSkin extends Skin {
 		return instance;
 	}
 
-	protected TextSkin() {}
+	protected TextSkin() {
+		// Do nothing
+	}
 
 	@Override
 	public String getName() {
@@ -150,24 +152,28 @@ public class TextSkin extends Skin {
 	 * Prints the search form, if any exists.
 	 */
 	public void printSearch(HttpServletRequest req, HttpServletResponse resp, DocumentEE document) throws JspException, IOException {
+		// Do nothing
 	}
 
 	/**
 	 * Prints the common pages area, which is at the top of the site.
 	 */
 	public void printCommonPages(HttpServletRequest req, HttpServletResponse resp, DocumentEE document) throws JspException, IOException {
+		// Do nothing
 	}
 
 	/**
 	 * Prints the lines for any JavaScript sources.
 	 */
 	public void printJavaScriptSources(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, String urlBase) throws JspException, IOException {
+		// Do nothing
 	}
 
 	/**
 	 * Prints the line for the favicon.
 	 */
 	public void printFavIcon(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, String urlBase) throws JspException, IOException {
+		// Do nothing
 	}
 
 	@Override
@@ -877,6 +883,7 @@ public class TextSkin extends Skin {
 	 * Prints content below the related pages area on the left.
 	 */
 	public void printBelowRelatedPages(HttpServletRequest req, DocumentEE document) throws JspException, IOException {
+		// Do nothing
 	}
 
 	/**

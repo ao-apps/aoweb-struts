@@ -60,12 +60,10 @@ import org.apache.struts.action.ActionServlet;
 /**
  * @author  AO Industries, Inc.
  */
-public final class MinimalConfirmationCompletedActionHelper {
+public abstract class MinimalConfirmationCompletedActionHelper {
 
-	/**
-	 * Make no instances.
-	 */
-	private MinimalConfirmationCompletedActionHelper() {}
+	/** Make no instances. */
+	private MinimalConfirmationCompletedActionHelper() {throw new AssertionError();}
 
 	// TODO: Have this generate a ticket instead, with full details.  Remove "all except bank card numbers" in other places once done.
 	@SuppressWarnings({"UseSpecificCatch", "TooBroadCatch"})

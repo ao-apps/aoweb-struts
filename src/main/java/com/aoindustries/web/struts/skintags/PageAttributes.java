@@ -99,9 +99,6 @@ public class PageAttributes {
 	private Formtype formtype;
 	private String onload;
 
-	public PageAttributes() {
-	}
-
 	public String getPath() {
 		return path;
 	}

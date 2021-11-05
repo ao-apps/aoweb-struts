@@ -69,12 +69,10 @@ import org.apache.struts.action.ActionServlet;
  *
  * @author  AO Industries, Inc.
  */
-public final class ServerConfirmationCompletedActionHelper {
+public abstract class ServerConfirmationCompletedActionHelper {
 
-	/**
-	 * Make no instances.
-	 */
-	private ServerConfirmationCompletedActionHelper() {}
+	/** Make no instances. */
+	private ServerConfirmationCompletedActionHelper() {throw new AssertionError();}
 
 	public static void addOptions(Map<String, String> options, SignupCustomizeServerForm signupCustomizeServerForm) {
 		// Power option

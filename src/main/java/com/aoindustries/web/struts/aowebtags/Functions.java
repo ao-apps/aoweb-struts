@@ -32,10 +32,10 @@ import java.util.Currency;
  *
  * @author  AO Industries, Inc.
  */
-public class Functions {
+public abstract class Functions {
 
-	private Functions() {
-	}
+	/** Make no instances. */
+	private Functions() {throw new AssertionError();}
 
 	/**
 	 * @see  CreditCard#getCardNumberDisplay(java.lang.String)

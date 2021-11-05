@@ -55,9 +55,6 @@ public class PopupGroupTag extends BodyTagSupport {
 	@SuppressWarnings("PackageVisibleField")
 	long sequenceId;
 
-	public PopupGroupTag() {
-	}
-
 	@Override
 	public int doStartTag() throws JspException {
 		try {

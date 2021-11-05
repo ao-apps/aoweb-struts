@@ -44,9 +44,6 @@ public class PopupCloseTag extends TagSupport {
 
 	private static final long serialVersionUID = 1L;
 
-	public PopupCloseTag() {
-	}
-
 	@Override
 	public int doStartTag() throws JspException {
 		try {

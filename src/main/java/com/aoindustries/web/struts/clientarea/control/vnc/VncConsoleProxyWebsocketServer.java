@@ -85,6 +85,7 @@ public class VncConsoleProxyWebsocketServer {
 
 		@Override
 		public void contextDestroyed(ServletContextEvent event) {
+			// Do nothing
 		}
 	}
 
