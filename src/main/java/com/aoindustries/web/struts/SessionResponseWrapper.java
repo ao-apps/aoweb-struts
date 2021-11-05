@@ -152,12 +152,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 		}
 	}
 
-	/**
-	 * @deprecated  Please use encodeURL.
-	 *
-	 * @see  #encodeURL(String)
-	 */
-	@Deprecated
+	@Deprecated(forRemoval = false)
 	@Override
 	public String encodeUrl(String url) {
 		return encode(url, false);
@@ -168,12 +163,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 		return encode(url, false);
 	}
 
-	/**
-	 * @deprecated  Please use encodeRedirectURL.
-	 *
-	 * @see  #encodeRedirectURL(String)
-	 */
-	@Deprecated
+	@Deprecated(forRemoval = false)
 	@Override
 	public String encodeRedirectUrl(String url) {
 		return encode(url, true);

@@ -55,7 +55,7 @@ public abstract class PageAttributesBodyTag extends BodyTagSupport {
 	 *
 	 * @see  #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)
 	 */
-	@Deprecated
+	@Deprecated(forRemoval = false)
 	@Override
 	public int doStartTag() throws JspException {
 		try {
@@ -74,7 +74,7 @@ public abstract class PageAttributesBodyTag extends BodyTagSupport {
 	 *
 	 * @see  #doAfterBody(com.aoindustries.web.struts.skintags.PageAttributes)
 	 * /
-	@Deprecated
+	@Deprecated(forRemoval = false)
 	public int doAfterBody() throws JspException {
 		return doAfterBody(getPageAttributes());
 	}
@@ -88,7 +88,7 @@ public abstract class PageAttributesBodyTag extends BodyTagSupport {
 	 *
 	 * @see  #doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)
 	 */
-	@Deprecated
+	@Deprecated(forRemoval = false)
 	@Override
 	public int doEndTag() throws JspException {
 		try {

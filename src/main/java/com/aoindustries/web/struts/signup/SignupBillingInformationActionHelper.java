@@ -65,7 +65,7 @@ public abstract class SignupBillingInformationActionHelper {
 	 *
 	 * @deprecated  Please call CreditCard.maskCreditCardNumber directly.
 	 */
-	@Deprecated
+	@Deprecated(forRemoval = true)
 	public static String hideCreditCardNumber(String number) {
 		return CreditCard.maskCreditCardNumber(number);
 	}

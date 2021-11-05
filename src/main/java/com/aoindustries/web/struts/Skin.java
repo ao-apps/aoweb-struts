@@ -244,7 +244,7 @@ public abstract class Skin {
 	 * @deprecated  Please use {@link HttpServletUtil#getAbsoluteURL(javax.servlet.http.HttpServletRequest, java.lang.String)}
 	 *              as {@code HttpServletUtil.getAbsoluteURL(req, "/")}.
 	 */
-	@Deprecated
+	@Deprecated(forRemoval = true)
 	public static String getDefaultUrlBase(HttpServletRequest req) {
 		return HttpServletUtil.getAbsoluteURL(req, "/");
 	}

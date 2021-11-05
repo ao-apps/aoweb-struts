@@ -74,10 +74,7 @@ public class FilteredHttpSession implements HttpSession {
 		return wrapped.getMaxInactiveInterval();
 	}
 
-	/**
-	 * @deprecated
-	 */
-	@Deprecated
+	@Deprecated(forRemoval = false)
 	@Override
 	public javax.servlet.http.HttpSessionContext getSessionContext() {
 		return wrapped.getSessionContext();
@@ -88,10 +85,7 @@ public class FilteredHttpSession implements HttpSession {
 		return wrapped.getAttribute(name);
 	}
 
-	/**
-	 * @deprecated
-	 */
-	@Deprecated
+	@Deprecated(forRemoval = false)
 	@Override
 	public Object getValue(String name) {
 		return wrapped.getValue(name);
@@ -102,10 +96,7 @@ public class FilteredHttpSession implements HttpSession {
 		return wrapped.getAttributeNames();
 	}
 
-	/**
-	 * @deprecated
-	 */
-	@Deprecated
+	@Deprecated(forRemoval = false)
 	@Override
 	public String[] getValueNames() {
 		return wrapped.getValueNames();
@@ -146,10 +137,7 @@ public class FilteredHttpSession implements HttpSession {
 		wrapped.setAttribute(name, value);
 	}
 
-	/**
-	 * @deprecated
-	 */
-	@Deprecated
+	@Deprecated(forRemoval = false)
 	@Override
 	public void putValue(String name, Object value) {
 		checkSessionAttribute(name, value);
@@ -161,10 +149,7 @@ public class FilteredHttpSession implements HttpSession {
 		wrapped.removeAttribute(name);
 	}
 
-	/**
-	 * @deprecated
-	 */
-	@Deprecated
+	@Deprecated(forRemoval = false)
 	@Override
 	public void removeValue(String name) {
 		wrapped.removeValue(name);

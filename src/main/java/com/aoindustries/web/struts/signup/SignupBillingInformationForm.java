@@ -231,7 +231,7 @@ public class SignupBillingInformationForm extends ActionForm implements Serializ
 	/**
 	 * @deprecated  Please call CreditCard.numbersOnly directly.
 	 */
-	@Deprecated
+	@Deprecated(forRemoval = true)
 	public static String numbersOnly(String s) {
 		return CreditCard.numbersOnly(s);
 	}

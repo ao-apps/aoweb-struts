@@ -45,7 +45,7 @@ public abstract class PageAttributesTag extends TagSupport {
 	 *
 	 * @see  #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)
 	 */
-	@Deprecated
+	@Deprecated(forRemoval = false)
 	@Override
 	public int doStartTag() throws JspException {
 		try {
@@ -64,7 +64,7 @@ public abstract class PageAttributesTag extends TagSupport {
 	 *
 	 * @see  #doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)
 	 */
-	@Deprecated
+	@Deprecated(forRemoval = false)
 	@Override
 	public int doEndTag() throws JspException {
 		try {
