@@ -206,7 +206,7 @@ public class VncConsoleProxyWebsocketServer {
 				byte[] response = new byte[16];
 				System.arraycopy(bytes, 0, response, 0, 16);
 				VirtualServer virtualServer = null;
-				if(servletContext != null) throw new IllegalStateException("ServletContext not initialized by " + Initializer.class.getName());
+				if(servletContext == null) throw new IllegalStateException("ServletContext not initialized by " + Initializer.class.getName());
 				SiteSettings siteSettings = SiteSettings.getInstance(servletContext);
 				AOServConnector rootConn = siteSettings.getRootAOServConnector();
 				for(VirtualServer vs : rootConn.getInfrastructure().getVirtualServer().getRows()) {
