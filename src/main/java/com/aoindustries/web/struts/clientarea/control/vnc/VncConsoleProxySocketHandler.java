@@ -115,14 +115,34 @@ public class VncConsoleProxySocketHandler {
 					// Protocol Version handshake
 					socketOut.write(protocolVersion_3_3);
 					socketOut.flush();
-					for(int c=0; c<protocolVersion_3_3.length; c++) {
-						int b = socketIn.read();
-						if(b == -1) throw new EOFException("EOF from socketIn");
+					try {
+						for(int c=0; c<protocolVersion_3_3.length; c++) {
+							int b = socketIn.read();
+							if(b == -1) throw new EOFException("EOF from socketIn");
+							if(
+								protocolVersion_3_3[c]!=b
+								&& protocolVersion_3_5[c]!=b // Accept 3.5 but treat as 3.3
+								&& protocolVersion_3_8[c]!=b // Accept 3.8 but treat as 3.3
+							) throw new IOException("Mismatched protocolVersion from VNC client through socket: #"+c+": "+(char)b);
+						}
+					} catch(SSLHandshakeException err) {
+						String message = err.getMessage();
+						Level level;
 						if(
-							protocolVersion_3_3[c]!=b
-							&& protocolVersion_3_5[c]!=b // Accept 3.5 but treat as 3.3
-							&& protocolVersion_3_8[c]!=b // Accept 3.8 but treat as 3.3
-						) throw new IOException("Mismatched protocolVersion from VNC client through socket: #"+c+": "+(char)b);
+							// Do not routinely log messages that are normal due to monitoring simply connecting only
+							!(
+								// Java 11
+								"Remote host terminated the handshake".equals(message)
+								// Java 8
+								|| "Remote host closed connection during handshake".equals(message)
+							)
+						) {
+							level = Level.FINE;
+						} else {
+							level = Level.SEVERE;
+						}
+						logger.log(level, null, err);
+						return;
 					}
 					// Security type
 					socketOut.write(0);
@@ -302,14 +322,6 @@ public class VncConsoleProxySocketHandler {
 					}
 				} catch(SocketException err) {
 					// Do not log any socket exceptions
-				} catch(SSLHandshakeException err) {
-					String message = err.getMessage();
-					if(
-						!"Remote host closed connection during handshake".equals(message)
-						&& !"Remote host terminated the handshake".equals(message)
-					) {
-						logger.log(Level.INFO, null, err);
-					}
 				} catch(ThreadDeath td) {
 					throw td;
 				} catch(InterruptedException e) {
