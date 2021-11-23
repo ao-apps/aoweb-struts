@@ -109,9 +109,15 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 	</issueManagement>
 
 	<ciManagement>
+		<system>Jenkins</system>
+		<url>https://jenkins.aoindustries.com/job/ao/job/aoweb-struts/</url>
+	</ciManagement>
+	<!-- Only one allowed in POM:
+	<ciManagement>
 		<system>GitHub Actions</system>
 		<url>https://github.com/ao-apps/aoweb-struts/actions</url>
 	</ciManagement>
+	-->
 
 	<repositories>
 		<!-- Repository required here, too, so can find parent -->
@@ -130,6 +136,15 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.sonatype.ossindex.maven</groupId><artifactId>ossindex-maven-plugin</artifactId>
+				<configuration>
+					<!-- TODO: Upgrade to Struts 2 -->
+					<excludeCoordinates>
+						<exclude><groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId><version>${struts-core.version}</version></exclude>
+					</excludeCoordinates>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId><version>2.1.1</version>
 			</plugin>
@@ -413,7 +428,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 					</packagingExcludes>
 				</configuration>
 			</plugin>
-			<!-- TODO: Use install-file for pom and javadocs only? -->
 		</plugins>
 	</build>
 
@@ -1004,17 +1018,17 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 											<includes>element-list, package-list</includes>
 											<outputDirectory>${project.build.directory}/offlineLinks/commons-validator/commons-validator</outputDirectory>
 										</artifactItem>
-										<!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId> -->
-										<!-- ao-javadoc-offline: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId> -->
-										<!-- ao-javadoc-offline: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId> -->
-										<!-- ao-javadoc-offline: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId> -->
-										<!-- JSP Only: <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId> -->
+										<!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><classifier>javadoc</classifier> -->
+										<!-- ao-javadoc-offline: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><classifier>javadoc</classifier> -->
+										<!-- ao-javadoc-offline: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId><classifier>javadoc</classifier> -->
+										<!-- ao-javadoc-offline: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId><classifier>javadoc</classifier> -->
+										<!-- JSP Only: <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><classifier>javadoc</classifier> -->
 										<artifactItem>
 											<groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId><classifier>javadoc</classifier>
 											<includes>element-list, package-list</includes>
 											<outputDirectory>${project.build.directory}/offlineLinks/org.apache.struts/struts-core</outputDirectory>
 										</artifactItem>
-										<!-- JSP Only: <groupId>org.apache.struts</groupId><artifactId>struts-taglib</artifactId> -->
+										<!-- JSP Only: <groupId>org.apache.struts</groupId><artifactId>struts-taglib</artifactId><classifier>javadoc</classifier> -->
 										<artifactItem>
 											<groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId><classifier>javadoc</classifier>
 											<includes>element-list, package-list</includes>
@@ -1151,16 +1165,16 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 									<url>https://commons.apache.org/proper/commons-validator/apidocs/</url>
 									<location>${project.build.directory}/offlineLinks/commons-validator/commons-validator</location>
 								</offlineLink>
-								<!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId> -->
-								<!-- ao-javadoc-offline: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId> -->
-								<!-- ao-javadoc-offline: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId> -->
-								<!-- ao-javadoc-offline: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId> -->
-								<!-- JSP Only: <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId> -->
+								<!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><classifier>javadoc</classifier> -->
+								<!-- ao-javadoc-offline: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><classifier>javadoc</classifier> -->
+								<!-- ao-javadoc-offline: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId><classifier>javadoc</classifier> -->
+								<!-- ao-javadoc-offline: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId><classifier>javadoc</classifier> -->
+								<!-- JSP Only: <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><classifier>javadoc</classifier> -->
 								<offlineLink>
 									<url>https://tool.oschina.net/uploads/apidocs/struts-${struts-core.version}/</url>
 									<location>${project.build.directory}/offlineLinks/org.apache.struts/struts-core</location>
 								</offlineLink>
-								<!-- JSP Only: <groupId>org.apache.struts</groupId><artifactId>struts-taglib</artifactId> -->
+								<!-- JSP Only: <groupId>org.apache.struts</groupId><artifactId>struts-taglib</artifactId><classifier>javadoc</classifier> -->
 								<offlineLink>
 									<url>https://struts.apache.org/maven/struts2-plugins/struts2-convention-plugin/apidocs/</url>
 									<location>${project.build.directory}/offlineLinks/org.apache.struts/struts2-convention-plugin</location>
@@ -1317,6 +1331,22 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 				<!-- BOM -->
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom-devel</artifactId> -->
 			</dependencies>
+		</profile>
+		<profile>
+			<id>jenkins-deploy</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId><artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<!-- Already substituted -->
+								<id>substitute-templates</id><phase>none</phase>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 		<profile>
 			<id>release</id>
