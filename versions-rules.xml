@@ -42,8 +42,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 		</rule>
 		<rule groupId="ognl" artifactId="ognl" comparisonMethod="maven">
 			<ignoreVersions>
-				<!-- Stay on 3.1.* for at least Struts 2.5.26-->
+				<!-- Stay on 3.1.* for at least Struts 2.5.27 -->
 				<ignoreVersion type="regex">3\.2(\..*)?</ignoreVersion>
+				<ignoreVersion type="regex">3\.3(\..*)?</ignoreVersion>
 			</ignoreVersions>
 		</rule>
 	</rules>
