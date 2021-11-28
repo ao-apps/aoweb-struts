@@ -65,7 +65,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 
 		<!-- Dependencies -->
 		<commons-collections4.version>4.4</commons-collections4.version>
-		<struts2.version>2.5.26</struts2.version>
+		<struts2.version>2.5.27</struts2.version>
 	</properties>
 
 	<name>AOWeb Struts</name>
@@ -1564,7 +1564,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 				<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.14.1</version>
 			</dependency>
 			<dependency>
-				<groupId>ognl</groupId><artifactId>ognl</artifactId><version>3.1.29</version>
+				<groupId>ognl</groupId><artifactId>ognl</artifactId><version>3.3.0</version>
 			</dependency>
 			<dependency>
 				<groupId>oro</groupId><artifactId>oro</artifactId><version>2.0.8</version>
