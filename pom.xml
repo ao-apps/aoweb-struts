@@ -65,7 +65,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 
 		<!-- Dependencies -->
 		<commons-collections4.version>4.4</commons-collections4.version>
-		<struts2.version>2.5.27</struts2.version>
+		<struts2.version>2.5.28</struts2.version>
 	</properties>
 
 	<name>AOWeb Struts</name>
