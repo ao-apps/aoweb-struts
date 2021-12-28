@@ -37,7 +37,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2016-10-29T22:19:41-05:00"
-		dateModified="2021-10-29T03:58:47-05:00"
+		dateModified="2021-12-27T18:21:23-06:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -92,7 +92,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 					</li>
 					<li>Integrated with <ao:a href="https://oss.aoapps.com/web-resources/">AO Web Resources</ao:a>.</li>
 					<li>Added support for <ao:a href="https://developers.google.com/speed/webp">WebP images</ao:a>.</li>
-					<li>Removed support or IE 6, 7, 8, and 9 since all are end-of-life.</li>
+					<li>Removed support for IE 6, 7, 8, and 9 since all are end-of-life.</li>
 					<li>
 						Added support for Web development file types <code>*.less</code>, <code>*.sass</code>,
 						<code>*.scss</code>, <code>*.css.map</code>, and <code>*.js.map</code>.
