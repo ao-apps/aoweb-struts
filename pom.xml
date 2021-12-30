@@ -1561,7 +1561,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 				<groupId>joda-time</groupId><artifactId>joda-time</artifactId><version>2.10.13</version>
 			</dependency>
 			<dependency>
-				<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.17.0</version>
+				<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.17.1</version>
 			</dependency>
 			<dependency>
 				<groupId>ognl</groupId><artifactId>ognl</artifactId><version>3.1.29</version>
@@ -1578,7 +1578,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 				<groupId>com.aoapps</groupId><artifactId>ao-mime-mappings</artifactId><version>1.2.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId><version>2.17.0</version>
+				<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId><version>2.17.1</version>
 			</dependency>
 			<dependency>
 				<groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet</artifactId><version>1.18.2-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
