@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2016, 2017, 2018, 2019, 2020, 2021  AO Industries, Inc.
+Copyright (C) 2016, 2017, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -37,7 +37,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2016-10-29T22:19:41-05:00"
-		dateModified="2021-12-27T18:21:23-06:00"
+		dateModified="2022-02-08T13:10:39-06:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -164,6 +164,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 					<li>Added 401, 403, 503, and catch-all error handlers.</li>
 					<li>Require secure session cookies in production.</li>
 					<li>Now properly restoring Thread interrupted state on <code>InterruptedException</code>.</li>
+					<li>Removed backup package category and related signup forms.</li>
 
 					<li>TODO: On next release, also publish relocations for old aoweb-struts-core, aoweb-struts-resources, and aoweb-struts-webapp.</li>
 				</ul>
