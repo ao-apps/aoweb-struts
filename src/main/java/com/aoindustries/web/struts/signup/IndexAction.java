@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2009, 2015, 2016, 2018, 2019, 2021  AO Industries, Inc.
+ * Copyright (C) 2009, 2015, 2016, 2018, 2019, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -80,26 +80,6 @@ public class IndexAction extends PageAction {
 					response.encodeRedirectURL(
 						URIEncoder.encodeURI(
 							urlBase + "signup/application.do"
-						)
-					)
-				);
-				return null;
-			}
-			if(PackageCategory.BACKUP.equals(categoryName)) {
-				response.sendRedirect(
-					response.encodeRedirectURL(
-						URIEncoder.encodeURI(
-							urlBase + "signup/backup.do"
-						)
-					)
-				);
-				return null;
-			}
-			if(PackageCategory.COLOCATION.equals(categoryName)) {
-				response.sendRedirect(
-					response.encodeRedirectURL(
-						URIEncoder.encodeURI(
-							urlBase + "signup/colocation.do"
 						)
 					)
 				);

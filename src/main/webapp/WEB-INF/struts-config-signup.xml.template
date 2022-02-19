@@ -39,8 +39,6 @@ struts-config-signup.xml.messageResources Additional message resources
 		<!-- /signup -->
 		<form-bean name="applicationSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.ApplicationSignupSelectPackageForm" />
 		<form-bean name="aoservSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.AOServSignupSelectPackageForm" />
-		<form-bean name="backupSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.BackupSignupSelectPackageForm" />
-		<form-bean name="colocationSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.ColocationSignupSelectPackageForm" />
 		<form-bean name="dedicatedSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.DedicatedSignupSelectPackageForm" />
 		<form-bean name="dedicatedSignupCustomizeServerForm" type="com.aoindustries.web.struts.signup.DedicatedSignupCustomizeServerForm" />
 		<form-bean name="managedSignupSelectPackageForm" type="com.aoindustries.web.struts.signup.ManagedSignupSelectPackageForm" />
@@ -94,26 +92,6 @@ struts-config-signup.xml.messageResources Additional message resources
 		<forward name="aoserv-4-completed" path="/aoserv-4-completed.do" redirect="true" />
 		<forward name="aoserv-5" path="/aoserv-5.do" redirect="true" />
 		<forward name="aoserv-5-completed" path="/aoserv-5-completed.do" redirect="true" />
-		<forward name="backup" path="/backup.do" redirect="true" />
-		<forward name="backup-completed" path="/backup-completed.do" redirect="true" />
-		<forward name="backup-2" path="/backup-2.do" redirect="true" />
-		<forward name="backup-2-completed" path="/backup-2-completed.do" redirect="true" />
-		<forward name="backup-3" path="/backup-3.do" redirect="true" />
-		<forward name="backup-3-completed" path="/backup-3-completed.do" redirect="true" />
-		<forward name="backup-4" path="/backup-4.do" redirect="true" />
-		<forward name="backup-4-completed" path="/backup-4-completed.do" redirect="true" />
-		<forward name="backup-5" path="/backup-5.do" redirect="true" />
-		<forward name="backup-5-completed" path="/backup-5-completed.do" redirect="true" />
-		<forward name="colocation" path="/colocation.do" redirect="true" />
-		<forward name="colocation-completed" path="/colocation-completed.do" redirect="true" />
-		<forward name="colocation-2" path="/colocation-2.do" redirect="true" />
-		<forward name="colocation-2-completed" path="/colocation-2-completed.do" redirect="true" />
-		<forward name="colocation-3" path="/colocation-3.do" redirect="true" />
-		<forward name="colocation-3-completed" path="/colocation-3-completed.do" redirect="true" />
-		<forward name="colocation-4" path="/colocation-4.do" redirect="true" />
-		<forward name="colocation-4-completed" path="/colocation-4-completed.do" redirect="true" />
-		<forward name="colocation-5" path="/colocation-5.do" redirect="true" />
-		<forward name="colocation-5-completed" path="/colocation-5-completed.do" redirect="true" />
 		<forward name="virtual-dedicated-server" path="/virtual-dedicated-server.do" redirect="true" />
 		<forward name="virtual-dedicated-server-completed" path="/virtual-dedicated-server-completed.do" redirect="true" />
 		<forward name="virtual-dedicated-server-2" path="/virtual-dedicated-server-2.do" redirect="true" />
@@ -393,90 +371,6 @@ struts-config-signup.xml.messageResources Additional message resources
 			type="com.aoindustries.web.struts.signup.AOServ5CompletedAction"
 		>
 			<forward name="success" module="" path="/WEB-INF/content/signup/aoserv-5-completed.jsp" redirect="false" />
-		</action>
-		<action
-			path="/colocation"
-			name="colocationSignupSelectPackageForm"
-			scope="session"
-			validate="false"
-			type="com.aoindustries.web.struts.signup.ColocationAction"
-		>
-			<forward name="input" module="" path="/WEB-INF/content/signup/colocation.jsp" redirect="false" />
-		</action>
-		<action
-			path="/colocation-completed"
-			name="colocationSignupSelectPackageForm"
-			scope="session"
-			validate="false"
-			type="com.aoindustries.web.struts.signup.ColocationCompletedAction"
-		>
-			<forward name="input" module="" path="/WEB-INF/content/signup/colocation.jsp" redirect="false" />
-		</action>
-		<action
-			path="/colocation-2"
-			name="signupOrganizationForm"
-			scope="session"
-			validate="false"
-			type="com.aoindustries.web.struts.signup.Colocation2Action"
-		>
-			<forward name="input" module="" path="/WEB-INF/content/signup/colocation-2.jsp" redirect="false" />
-		</action>
-		<action
-			path="/colocation-2-completed"
-			name="signupOrganizationForm"
-			scope="session"
-			validate="false"
-			type="com.aoindustries.web.struts.signup.Colocation2CompletedAction"
-		>
-			<forward name="input" module="" path="/WEB-INF/content/signup/colocation-2.jsp" redirect="false" />
-		</action>
-		<action
-			path="/colocation-3"
-			name="signupTechnicalForm"
-			scope="session"
-			validate="false"
-			type="com.aoindustries.web.struts.signup.Colocation3Action"
-		>
-			<forward name="input" module="" path="/WEB-INF/content/signup/colocation-3.jsp" redirect="false" />
-		</action>
-		<action
-			path="/colocation-3-completed"
-			name="signupTechnicalForm"
-			scope="session"
-			validate="false"
-			type="com.aoindustries.web.struts.signup.Colocation3CompletedAction"
-		>
-			<forward name="input" module="" path="/WEB-INF/content/signup/colocation-3.jsp" redirect="false" />
-		</action>
-		<action
-			path="/colocation-4"
-			name="signupBillingInformationForm"
-			scope="session"
-			validate="false"
-			type="com.aoindustries.web.struts.signup.Colocation4Action"
-		>
-			<forward name="input" module="" path="/WEB-INF/content/signup/colocation-4.jsp" redirect="false" />
-		</action>
-		<action
-			path="/colocation-4-completed"
-			name="signupBillingInformationForm"
-			scope="session"
-			validate="false"
-			type="com.aoindustries.web.struts.signup.Colocation4CompletedAction"
-		>
-			<forward name="input" module="" path="/WEB-INF/content/signup/colocation-4.jsp" redirect="false" />
-		</action>
-		<action
-			path="/colocation-5"
-			type="com.aoindustries.web.struts.signup.Colocation5Action"
-		>
-			<forward name="input" module="" path="/WEB-INF/content/signup/colocation-5.jsp" redirect="false" />
-		</action>
-		<action
-			path="/colocation-5-completed"
-			type="com.aoindustries.web.struts.signup.Colocation5CompletedAction"
-		>
-			<forward name="success" module="" path="/WEB-INF/content/signup/colocation-5-completed.jsp" redirect="false" />
 		</action>
 		<action
 			path="/virtual-dedicated-server"
