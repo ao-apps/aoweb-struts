@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2021  AO Industries, Inc.
+ * Copyright (C) 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -32,7 +32,7 @@ import org.apache.struts.action.ActionMessages;
  *
  * @author  AO Industries, Inc.
  */
-public abstract class Globals {
+public final class Globals {
 
 	/** Make no instances. */
 	private Globals() {throw new AssertionError();}

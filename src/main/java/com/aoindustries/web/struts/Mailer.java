@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2017, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2017, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -41,7 +41,7 @@ import javax.mail.internet.MimeMessage;
  *
  * @author  AO Industries, Inc.
  */
-public abstract class Mailer {
+public final class Mailer {
 
 	/** Make no instances. */
 	private Mailer() {throw new AssertionError();}

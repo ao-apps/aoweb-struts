@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2009, 2016, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2009, 2016, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
  *
  * @author  AO Industries, Inc.
  */
-public abstract class Resources {
+public final class Resources {
 
 	/** Make no instances. */
 	private Resources() {throw new AssertionError();}

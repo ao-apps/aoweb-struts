@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2019, 2021  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2019, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -34,7 +34,7 @@ import java.util.Locale;
  *
  * @author  AO Industries, Inc.
  */
-public abstract class Constants {
+public final class Constants {
 
 	/** Make no instances. */
 	private Constants() {throw new AssertionError();}
