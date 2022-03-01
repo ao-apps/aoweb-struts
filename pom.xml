@@ -1231,7 +1231,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 				<!-- Direct -->
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-collections-devel</artifactId> -->
 				<dependency>
-					<groupId>com.aoapps</groupId><artifactId>ao-encoding-devel</artifactId><version>6.0.0-POST-SNAPSHOT</version>
+					<groupId>com.aoapps</groupId><artifactId>ao-encoding-devel</artifactId><version>6.0.1-POST-SNAPSHOT</version>
 					<scope>runtime</scope>
 				</dependency>
 				<!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-encoding-servlet-devel</artifactId> -->
@@ -1385,7 +1385,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 				<groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId><version>3.0.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-encoding</artifactId><version>6.0.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-encoding</artifactId><version>6.0.1${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-encoding-servlet</artifactId><version>4.1.0${POST-SNAPSHOT}</version>
