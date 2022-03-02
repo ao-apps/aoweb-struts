@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2019, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -239,8 +239,8 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
 			SkinTag.getSkin(request).startSkin(
 				request,
 				response,
-				new DocumentEE(servletContext, request, response, pageContext.getOut(), autonli, indent),
-				pageAttributes
+				pageAttributes,
+				new DocumentEE(servletContext, request, response, pageContext.getOut(), autonli, indent)
 			);
 
 			return EVAL_BODY_INCLUDE;
@@ -256,8 +256,8 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
 		SkinTag.getSkin(request).endSkin(
 			request,
 			response,
-			new DocumentEE(pageContext.getServletContext(), request, response, pageContext.getOut(), autonli, indent),
-			pageAttributes
+			pageAttributes,
+			new DocumentEE(pageContext.getServletContext(), request, response, pageContext.getOut(), autonli, indent)
 		);
 		return EVAL_PAGE;
 	}

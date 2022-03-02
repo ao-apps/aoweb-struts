@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,8 +22,10 @@
  */
 package com.aoindustries.web.struts.skintags;
 
+import com.aoapps.html.servlet.ContentEE;
 import com.aoapps.html.servlet.DocumentEE;
 import com.aoapps.lang.Strings;
+import com.aoindustries.web.struts.Skin;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -54,6 +56,7 @@ public class ContentTag extends PageAttributesBodyTag {
 	private String colspans;
 	private int[] colspansParsed;
 	private String width;
+	private ContentEE<?> content;
 
 	public ContentTag() {
 		init();
@@ -63,15 +66,17 @@ public class ContentTag extends PageAttributesBodyTag {
 		colspans = "1";
 		colspansParsed = new int[] {1};
 		width = null;
+		content = null;
 	}
 
 	@Override
 	public int doStartTag(PageAttributes pageAttributes) throws JspException, IOException {
 		HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
 		HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-		SkinTag.getSkin(req).startContent(
+		content = SkinTag.getSkin(req).startContent(
 			req,
 			resp,
+			pageAttributes,
 			new DocumentEE(
 				pageContext.getServletContext(),
 				req,
@@ -80,7 +85,6 @@ public class ContentTag extends PageAttributesBodyTag {
 				false, // Do not add extra newlines to JSP
 				false  // Do not add extra indentation to JSP
 			),
-			pageAttributes,
 			colspansParsed,
 			width
 		);
@@ -91,19 +95,13 @@ public class ContentTag extends PageAttributesBodyTag {
 	public int doEndTag(PageAttributes pageAttributes) throws JspException, IOException {
 		try {
 			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+			assert content != null;
+			content.getDocument().setOut(pageContext.getOut());
 			SkinTag.getSkin(req).endContent(
 				req,
-				resp,
-				new DocumentEE(
-					pageContext.getServletContext(),
-					req,
-					resp,
-					pageContext.getOut(),
-					false, // Do not add extra newlines to JSP
-					false  // Do not add extra indentation to JSP
-				),
+				(HttpServletResponse)pageContext.getResponse(),
 				pageAttributes,
+				content,
 				colspansParsed
 			);
 			return EVAL_PAGE;
@@ -132,5 +130,15 @@ public class ContentTag extends PageAttributesBodyTag {
 
 	public void setWidth(String width) {
 		this.width = width;
+	}
+
+	/**
+	 * Gets the {@link ContentEE} that was returned from {@link Skin#startContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, com.aoindustries.web.struts.skintags.PageAttributes, int[], java.lang.String)}.
+	 *
+	 * @throws IllegalStateException when not inside {@link #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)} and no content set
+	 */
+	ContentEE<?> getContent() throws IllegalStateException {
+		if(content == null) throw new IllegalStateException();
+		return content;
 	}
 }

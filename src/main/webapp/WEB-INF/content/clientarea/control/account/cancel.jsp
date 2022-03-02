@@ -1,6 +1,6 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2003-2013, 2015, 2016, 2018, 2019, 2020, 2021  AO Industries, Inc.
+Copyright (C) 2003-2013, 2015, 2016, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
 	support@aoindustries.com
 	7262 Bull Pen Cir
 	Mobile, AL 36695
@@ -59,7 +59,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 												</ao:a>
 											</c:otherwise>
 										</c:choose>
-										<skin:lightArea>
+										<skin:lightArea align="left">
 											<table class="ao-no-border">
 												<thead>
 													<tr>

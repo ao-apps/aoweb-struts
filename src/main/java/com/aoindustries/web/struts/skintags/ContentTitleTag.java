@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -24,7 +24,7 @@ package com.aoindustries.web.struts.skintags;
 
 import com.aoapps.encoding.MediaType;
 import com.aoapps.encoding.taglib.EncodingBufferedTag;
-import com.aoapps.html.servlet.DocumentEE;
+import com.aoapps.html.servlet.ContentEE;
 import com.aoapps.io.buffer.BufferResult;
 import com.aoapps.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
@@ -55,9 +55,9 @@ public class ContentTitleTag extends EncodingBufferedTag {
 	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
 		PageContext pageContext = (PageContext)getJspContext();
 		HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-		HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
 		String title = capturedBody.trim().toString();
 
+		// TODO: Should we instead set request attributes instead of tag ancestors?  This would allow tag interaction across include boundaries.
 		ContentTag contentTag = JspTagUtils.requireAncestor(TAG_NAME, this, ContentTag.TAG_NAME, ContentTag.class);
 
 		int[] colspans = contentTag.getColspansParsed();
@@ -66,17 +66,12 @@ public class ContentTitleTag extends EncodingBufferedTag {
 			totalColspan += colspans[c];
 		}
 
-		SkinTag.getSkin(req).printContentTitle(
+		ContentEE<?> content = contentTag.getContent();
+		content.getDocument().setOut(pageContext.getOut());
+		SkinTag.getSkin(req).contentTitle(
 			req,
-			resp,
-			new DocumentEE(
-				pageContext.getServletContext(),
-				req,
-				resp,
-				pageContext.getOut(),
-				false, // Do not add extra newlines to JSP
-				false  // Do not add extra indentation to JSP
-			),
+			(HttpServletResponse)pageContext.getResponse(),
+			content,
 			title,
 			totalColspan
 		);

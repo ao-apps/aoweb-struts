@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,9 +22,12 @@
  */
 package com.aoindustries.web.struts.skintags;
 
-import com.aoapps.html.servlet.DocumentEE;
+import com.aoapps.html.servlet.ContentEE;
+import com.aoapps.html.servlet.FlowContent;
 import com.aoapps.servlet.jsp.tagext.JspTagUtils;
+import com.aoindustries.web.struts.Skin;
 import java.io.IOException;
+import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
@@ -45,37 +48,33 @@ public class ContentLineTag extends BodyTagSupport {
 	private String width;
 	private boolean endsInternal;
 	private int lastRowSpan;
+	private FlowContent<?> contentLine;
 
 	public ContentLineTag() {
 		init();
 	}
 
 	private void init() {
-		this.colspan = 1;
-		this.align = null;
-		this.width = null;
-		this.endsInternal = false;
-		this.lastRowSpan = 1;
+		colspan = 1;
+		align = null;
+		width = null;
+		endsInternal = false;
+		lastRowSpan = 1;
+		contentLine = null;
 	}
 
 	@Override
 	public int doStartTag() throws JspException {
 		try {
-			JspTagUtils.requireAncestor(TAG_NAME, this, ContentTag.TAG_NAME, ContentTag.class);
+			ContentTag contentTag = JspTagUtils.requireAncestor(TAG_NAME, this, ContentTag.TAG_NAME, ContentTag.class);
 
 			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-			SkinTag.getSkin(req).startContentLine(
+			ContentEE<?> content = contentTag.getContent();
+			content.getDocument().setOut(pageContext.getOut());
+			contentLine = SkinTag.getSkin(req).startContentLine(
 				req,
-				resp,
-				new DocumentEE(
-					pageContext.getServletContext(),
-					req,
-					resp,
-					pageContext.getOut(),
-					false, // Do not add extra newlines to JSP
-					false  // Do not add extra indentation to JSP
-				),
+				(HttpServletResponse)pageContext.getResponse(),
+				content,
 				colspan,
 				align,
 				width
@@ -90,18 +89,12 @@ public class ContentLineTag extends BodyTagSupport {
 	public int doEndTag() throws JspException {
 		try {
 			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+			assert contentLine != null;
+			contentLine.getDocument().setOut(pageContext.getOut());
 			SkinTag.getSkin(req).endContentLine(
 				req,
-				resp,
-				new DocumentEE(
-					pageContext.getServletContext(),
-					req,
-					resp,
-					pageContext.getOut(),
-					false, // Do not add extra newlines to JSP
-					false  // Do not add extra indentation to JSP
-				),
+				(HttpServletResponse)pageContext.getResponse(),
+				contentLine,
 				lastRowSpan,
 				endsInternal
 			);
@@ -150,5 +143,27 @@ public class ContentLineTag extends BodyTagSupport {
 	 */
 	void setLastRowSpan(int lastRowSpan) {
 		this.lastRowSpan = lastRowSpan;
+	}
+
+	/**
+	 * Gets the {@link FlowContent} that was returned from {@link Skin#startContentLine(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)}.
+	 *
+	 * @throws IllegalStateException when not inside {@link #doStartTag()} and no content set
+	 */
+	@SuppressWarnings("unchecked")
+	<__ extends FlowContent<__>> __ getContentLine() throws IllegalStateException {
+		if(contentLine == null) throw new IllegalStateException();
+		return (__)contentLine;
+	}
+
+	/**
+	 * Called from {@link ContentVerticalDividerTag} when the current content line is replaced by
+	 * {@link Skin#contentVerticalDivider(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.DocumentEE, boolean, int, int, java.lang.String, java.lang.String)}.
+	 *
+	 * @throws IllegalStateException when not inside {@link #doStartTag()} and no content set
+	 */
+	void setContentLine(FlowContent<?> contentLine) throws IllegalStateException {
+		if(this.contentLine == null) throw new IllegalStateException();
+		this.contentLine = Objects.requireNonNull(contentLine);
 	}
 }

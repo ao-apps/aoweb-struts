@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2013, 2015, 2016, 2018, 2019, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2007-2013, 2015, 2016, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -36,11 +36,13 @@ import com.aoapps.html.any.AnyLINK;
 import com.aoapps.html.any.AnyMETA;
 import com.aoapps.html.any.AnySCRIPT;
 import com.aoapps.html.any.AnySTYLE;
+import com.aoapps.html.servlet.ContentEE;
 import com.aoapps.html.servlet.DocumentEE;
 import com.aoapps.html.servlet.FlowContent;
 import com.aoapps.html.servlet.TABLE_c;
 import com.aoapps.html.servlet.TD_c;
 import com.aoapps.html.servlet.TR_c;
+import com.aoapps.html.servlet.Union_Metadata_Phrasing;
 import com.aoapps.html.util.GoogleAnalytics;
 import com.aoapps.html.util.ImagePreload;
 import static com.aoapps.lang.Strings.trimNullIfEmpty;
@@ -184,7 +186,7 @@ public class TextSkin extends Skin {
 
 	@Override
 	// TODO: uncomment once only expected deprecated remains: @SuppressWarnings("deprecation")
-	public void startSkin(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, PageAttributes pageAttributes) throws JspException, IOException {
+	public void startSkin(HttpServletRequest req, HttpServletResponse resp, PageAttributes pageAttributes, DocumentEE document) throws JspException, IOException {
 		try {
 			ServletContext servletContext = req.getServletContext();
 			SiteSettings settings = SiteSettings.getInstance(servletContext);
@@ -352,7 +354,7 @@ public class TextSkin extends Skin {
 			document.out.write(">\n"
 			+ "    <table cellspacing=\"10\" cellpadding=\"0\">\n"
 			+ "      <tr>\n"
-			+ "        <td valign=\"top\">\n");
+			+ "        <td style=\"vertical-align:top\">\n");
 			printLogo(req, resp, document, urlBase);
 			if(aoConn != null) {
 				document.out.write("          "); document.hr__().out.write("\n"
@@ -564,18 +566,18 @@ public class TextSkin extends Skin {
 			document.hr__();
 			printBelowRelatedPages(req, document);
 			document.out.write("        </td>\n"
-			+ "        <td valign=\"top\">\n");
+			+ "        <td style=\"vertical-align:top\">\n");
 			printCommonPages(req, resp, document);
 		} catch(SQLException err) {
 			throw new JspException(err);
 		}
 	}
 
-	public static void defaultPrintLinks(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, DocumentEE document, PageAttributes pageAttributes) throws JspException, IOException {
+	public static void defaultPrintLinks(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, Union_Metadata_Phrasing<?> meta, PageAttributes pageAttributes) throws JspException, IOException {
 		for(PageAttributes.Link link : pageAttributes.getLinks()) {
 			String href = link.getHref();
 			String rel = link.getRel();
-			document.link()
+			meta.link()
 				.rel(rel)
 				.href(href == null ? null :
 					LastModifiedUtil.buildURL(
@@ -596,136 +598,211 @@ public class TextSkin extends Skin {
 	}
 
 	@Override
-	public void startContent(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, PageAttributes pageAttributes, int[] colspans, String width) throws JspException, IOException {
+	public <
+		PC extends FlowContent<PC>,
+		__ extends ContentEE<__>
+	> __ startContent(
+		HttpServletRequest req,
+		HttpServletResponse resp,
+		PageAttributes pageAttributes,
+		PC pc,
+		int[] contentColumnSpans,
+		String width
+	) throws JspException, IOException {
 		width = trimNullIfEmpty(width);
-		document.out.write("          <table class=\"ao-packed\"");
-		if(width != null) {
-			document.out.write(" style=\""); appendWidthStyle(width, document.out); document.out.write('"');
+		final int totalColumns;
+		{
+			int totalColumns_ = 0;
+			for(int c = 0; c < contentColumnSpans.length; c++) {
+				if(c > 0) totalColumns_++;
+				totalColumns_ += contentColumnSpans[c];
+			}
+			totalColumns = totalColumns_;
 		}
-		document.out.write(">\n"
-		+ "            <tr>\n");
-		int totalColumns = 0;
-		for(int c = 0; c < colspans.length; c++) {
-			if(c > 0) totalColumns++;
-			totalColumns += colspans[c];
-		}
-		document.out.write("              <td");
-		if(totalColumns != 1) document.out.append(" colspan=\"").append(Integer.toString(totalColumns)).append('"');
-		document.out.write('>'); document.hr__().out.write("</td>\n"
-		+ "            </tr>\n");
+		TABLE_c<PC> table = pc.table()
+			.clazz("ao-packed")
+			.style(getWidthStyle(width))
+		._c()
+			.tr__(tr -> tr
+				.td().colspan(totalColumns).__(td -> td
+					.hr__()
+				)
+			);
+		@SuppressWarnings("unchecked")
+		__ content = (__)table;
+		return content;
 	}
 
 	@Override
-	public void printContentTitle(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, String title, int colspan) throws JspException, IOException {
-		startContentLine(req, resp, document, colspan, "center", null);
-		document.h1__(title);
-		endContentLine(req, resp, document, 1, false);
+	public void contentTitle(
+		HttpServletRequest req,
+		HttpServletResponse resp,
+		ContentEE<?> content,
+		String title,
+		int contentColumns
+	) throws JspException, IOException {
+		FlowContent<?> contentLine = startContentLine(req, resp, content, contentColumns, "center", null);
+		contentLine.h1__(title);
+		endContentLine(req, resp, contentLine);
 	}
 
 	@Override
-	public void startContentLine(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, int colspan, String align, String width) throws JspException, IOException {
+	public <__ extends FlowContent<__>> __ startContentLine(
+		HttpServletRequest req,
+		HttpServletResponse resp,
+		ContentEE<?> content,
+		int colspan,
+		String align,
+		String width
+	) throws JspException, IOException {
+		@SuppressWarnings("unchecked")
+		TABLE_c<?> table = (TABLE_c)content;
 		align = trimNullIfEmpty(align);
 		width = trimNullIfEmpty(width);
-		document.out.write("            <tr>\n"
-		+ "              <td");
-		if(align != null || width != null) {
-			document.out.write(" style=\"");
-			if(align != null) {
-				document.out.write("text-align:");
-				encodeTextInXhtmlAttribute(align, document.out);
-			}
-			if(width != null) {
-				if(align != null) document.out.write(';');
-				appendWidthStyle(width, document.out);
-			}
-			document.out.write('"');
-		}
-		document.out.write(" valign=\"top\"");
-		if(colspan != 1) document.out.append(" colspan=\"").append(Integer.toString(colspan)).append('"');
-		document.out.write('>');
+		TD_c<? extends TR_c<? extends TABLE_c<?>>> td = table.tr_c()
+			.td()
+				.style(
+					align == null ? null : "text-align:" + align,
+					getWidthStyle(width),
+					"vertical-align:top"
+				)
+				.colspan(colspan)
+			._c();
+		@SuppressWarnings("unchecked")
+		__ contentLine = (__)td;
+		return contentLine;
 	}
 
 	@Override
-	public void printContentVerticalDivider(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, boolean visible, int colspan, int rowspan, String align, String width) throws JspException, IOException {
+	public <__ extends FlowContent<__>> __ contentVerticalDivider(
+		HttpServletRequest req,
+		HttpServletResponse resp,
+		FlowContent<?> contentLine,
+		boolean visible,
+		int colspan,
+		int rowspan,
+		String align,
+		String width
+	) throws JspException, IOException {
+		@SuppressWarnings("unchecked")
+		TD_c<? extends TR_c<? extends TABLE_c<?>>> td = (TD_c)contentLine;
 		align = trimNullIfEmpty(align);
 		width = trimNullIfEmpty(width);
-		document.out.write("              </td>\n");
-		if(visible) document.out.write("              <td>&#160;</td>\n");
-		document.out.write("              <td");
-		if(align != null || width != null) {
-			document.out.write(" style=\"");
-			if(align != null) {
-				document.out.write("text-align:");
-				encodeTextInXhtmlAttribute(align, document.out);
-			}
-			if(width != null) {
-				if(align != null) document.out.write(';');
-				appendWidthStyle(width, document.out);
-			}
-			document.out.write('"');
-		}
-		document.out.write(" valign=\"top\"");
-		if(colspan != 1) document.out.append(" colspan=\"").append(Integer.toString(colspan)).append('"');
-		if(rowspan != 1) document.out.append(" rowspan=\"").append(Integer.toString(rowspan)).append('"');
-		document.out.write('>');
+		TR_c<? extends TABLE_c<?>> tr = td.__();
+		if(visible) tr.td__('\u00A0');
+		TD_c<? extends TR_c<? extends TABLE_c<?>>> newTd = tr.td()
+			.style(
+				align == null ? null : "text-align:" + align,
+				getWidthStyle(width),
+				"vertical-align:top"
+			)
+			.colspan(colspan)
+			.rowspan(rowspan)
+		._c();
+		@SuppressWarnings("unchecked")
+		__ newContentLine = (__)newTd;
+		return newContentLine;
 	}
 
 	@Override
-	public void endContentLine(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, int rowspan, boolean endsInternal) throws JspException, IOException {
-		document.out.write("              </td>\n"
-		+ "            </tr>\n");
+	public void endContentLine(
+		HttpServletRequest req,
+		HttpServletResponse resp,
+		FlowContent<?> contentLine,
+		int rowspan,
+		boolean endsInternal
+	) throws JspException, IOException {
+		@SuppressWarnings("unchecked")
+		TD_c<? extends TR_c<? extends TABLE_c<?>>> td = (TD_c)contentLine;
+				td
+			.__()
+		.__();
 	}
 
 	@Override
-	public void printContentHorizontalDivider(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, int[] colspansAndDirections, boolean endsInternal) throws JspException, IOException {
-		document.out.write("            <tr>\n");
-		for(int c = 0; c < colspansAndDirections.length; c += 2) {
-			if(c > 0) {
-				int direction = colspansAndDirections[c - 1];
-				switch(direction) {
-					case UP:
-						document.out.write("              <td>&#160;</td>\n");
-						break;
-					case DOWN:
-						document.out.write("              <td>&#160;</td>\n");
-						break;
-					case UP_AND_DOWN:
-						document.out.write("              <td>&#160;</td>\n");
-						break;
-					default: throw new IllegalArgumentException("Unknown direction: " + direction);
+	public void contentHorizontalDivider(
+		HttpServletRequest req,
+		HttpServletResponse resp,
+		ContentEE<?> content,
+		int[] colspansAndDirections,
+		boolean endsInternal
+	) throws JspException, IOException {
+		@SuppressWarnings("unchecked")
+		TABLE_c<?> table = (TABLE_c)content;
+		table.tr__(tr -> {
+			for(int c = 0; c < colspansAndDirections.length; c += 2) {
+				if(c > 0) {
+					int direction = colspansAndDirections[c - 1];
+					switch(direction) {
+						case UP:
+							tr.td__('\u00A0');
+							break;
+						case DOWN:
+							tr.td__('\u00A0');
+							break;
+						case UP_AND_DOWN:
+							tr.td__('\u00A0');
+							break;
+						default: throw new IllegalArgumentException("Unknown direction: " + direction);
+					}
 				}
+				int colspan = colspansAndDirections[c];
+				tr.td()
+					.colspan(colspan)
+				.__(td -> td
+					.hr__()
+				);
 			}
-
-			int colspan = colspansAndDirections[c];
-			document.out.write("              <td");
-			if(colspan != 1) document.out.append(" colspan=\"").append(Integer.toString(colspan)).append('"');
-			document.out.write('>'); document.hr__().out.write("</td>\n");
-		}
-		document.out.write("            </tr>\n");
+		});
 	}
 
 	@Override
-	public void endContent(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, PageAttributes pageAttributes, int[] colspans) throws JspException, IOException {
-		int totalColumns = 0;
-		for(int c = 0; c < colspans.length; c++) {
-			if(c > 0) totalColumns += 1;
-			totalColumns += colspans[c];
+	public void endContent(
+		HttpServletRequest req,
+		HttpServletResponse resp,
+		PageAttributes pageAttributes,
+		ContentEE<?> content,
+		int[] contentColumnSpans
+	) throws JspException, IOException {
+		@SuppressWarnings("unchecked")
+		TABLE_c<?> table = (TABLE_c)content;
+		final int totalColumns;
+		{
+			int totalColumns_ = 0;
+			for(int c = 0; c < contentColumnSpans.length; c++) {
+				if(c > 0) totalColumns_ += 1;
+				totalColumns_ += contentColumnSpans[c];
+			}
+			totalColumns = totalColumns_;
 		}
-		document.out.write("            <tr><td");
-		if(totalColumns != 1) document.out.append(" colspan=\"").append(Integer.toString(totalColumns)).append('"');
-		document.out.write('>'); document.hr__().out.write("</td></tr>\n");
+		table.tr__(tr -> tr
+			.td()
+				.colspan(totalColumns)
+			.__(td -> td
+				.hr__()
+			)
+		);
 		String copyright = pageAttributes.getCopyright();
-		if(copyright != null && !(copyright = copyright.trim()).isEmpty()) {
-			document.out.write("            <tr><td");
-			if(totalColumns != 1) document.out.append(" colspan=\"").append(Integer.toString(totalColumns)).append('"');
-			document.out.write(" style=\"text-align:center\"><span style=\"font-size: x-small\">");
-			document.text(copyright).out.write("</span></td></tr>\n");
+		if(copyright != null) copyright = copyright.trim();
+		if(copyright != null && !copyright.isEmpty()) {
+			String copyright_ = copyright;
+			table.tr__(tr -> tr
+				.td()
+					.colspan(totalColumns)
+					.style("text-align:center", "font-size:x-small")
+				.__(copyright_)
+			);
 		}
-		document.out.write("          </table>\n");
+		table.__();
 	}
 
 	@Override
-	public void endSkin(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, PageAttributes pageAttributes) throws JspException, IOException {
+	public void endSkin(
+		HttpServletRequest req,
+		HttpServletResponse resp,
+		PageAttributes pageAttributes,
+		DocumentEE document
+	) throws JspException, IOException {
 		document.out.write("        </td>\n"
 		+ "      </tr>\n"
 		+ "    </table>\n");
@@ -833,7 +910,12 @@ public class TextSkin extends Skin {
 	}
 
 	@Override
-	public void printAutoIndex(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, PageAttributes pageAttributes) throws JspException, IOException {
+	public void printAutoIndex(
+		HttpServletRequest req,
+		HttpServletResponse resp,
+		PageAttributes pageAttributes,
+		DocumentEE document
+	) throws JspException, IOException {
 		String urlBase = getUrlBase(req);
 		//Locale locale = resp.getLocale();
 

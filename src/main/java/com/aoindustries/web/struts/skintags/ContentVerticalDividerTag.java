@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,7 +22,7 @@
  */
 package com.aoindustries.web.struts.skintags;
 
-import com.aoapps.html.servlet.DocumentEE;
+import com.aoapps.html.servlet.FlowContent;
 import com.aoapps.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
@@ -63,18 +63,12 @@ public class ContentVerticalDividerTag extends TagSupport {
 		try {
 			ContentLineTag contentLineTag = JspTagUtils.requireAncestor(TAG_NAME, this, ContentLineTag.TAG_NAME, ContentLineTag.class);
 			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-			SkinTag.getSkin(req).printContentVerticalDivider(
+			FlowContent<?> contentLine = contentLineTag.getContentLine();
+			contentLine.getDocument().setOut(pageContext.getOut());
+			contentLine = SkinTag.getSkin(req).contentVerticalDivider(
 				req,
-				resp,
-				new DocumentEE(
-					pageContext.getServletContext(),
-					req,
-					resp,
-					pageContext.getOut(),
-					false, // Do not add extra newlines to JSP
-					false  // Do not add extra indentation to JSP
-				),
+				(HttpServletResponse)pageContext.getResponse(),
+				contentLine,
 				visible,
 				colspan,
 				rowspan,
@@ -82,6 +76,7 @@ public class ContentVerticalDividerTag extends TagSupport {
 				width
 			);
 			contentLineTag.setLastRowSpan(rowspan);
+			contentLineTag.setContentLine(contentLine);
 			return SKIP_BODY;
 		} catch(IOException err) {
 			throw new JspTagException(err);

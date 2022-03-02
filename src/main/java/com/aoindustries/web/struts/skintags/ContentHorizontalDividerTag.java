@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,7 +22,7 @@
  */
 package com.aoindustries.web.struts.skintags;
 
-import com.aoapps.html.servlet.DocumentEE;
+import com.aoapps.html.servlet.ContentEE;
 import com.aoapps.lang.Strings;
 import com.aoapps.servlet.jsp.LocalizedJspTagException;
 import com.aoapps.servlet.jsp.tagext.JspTagUtils;
@@ -60,7 +60,7 @@ public class ContentHorizontalDividerTag extends TagSupport {
 	@Override
 	public int doStartTag() throws JspException {
 		try {
-			JspTagUtils.requireAncestor(TAG_NAME, this, ContentTag.TAG_NAME, ContentTag.class);
+			ContentTag contentTag = JspTagUtils.requireAncestor(TAG_NAME, this, ContentTag.TAG_NAME, ContentTag.class);
 
 			List<String> list = Strings.splitCommaSpace(colspansAndDirections);
 			if((list.size()&1)==0) {
@@ -81,18 +81,12 @@ public class ContentHorizontalDividerTag extends TagSupport {
 			}
 
 			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-			SkinTag.getSkin(req).printContentHorizontalDivider(
+			ContentEE<?> content = contentTag.getContent();
+			content.getDocument().setOut(pageContext.getOut());
+			SkinTag.getSkin(req).contentHorizontalDivider(
 				req,
-				resp,
-				new DocumentEE(
-					pageContext.getServletContext(),
-					req,
-					resp,
-					pageContext.getOut(),
-					false, // Do not add extra newlines to JSP
-					false  // Do not add extra indentation to JSP
-				),
+				(HttpServletResponse)pageContext.getResponse(),
+				content,
 				array,
 				endsInternal
 			);
