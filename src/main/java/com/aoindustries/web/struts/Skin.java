@@ -647,9 +647,9 @@ public abstract class Skin {
 		boolean endsInternal,
 		IOConsumerE<? super __, Ex> contentLine
 	) throws JspException, IOException, Ex {
-		__ flow = startContentLine(req, resp, content, colspan, align, width);
-		if(contentLine != null) contentLine.accept(flow);
-		endContentLine(req, resp, flow, endRowspan, endsInternal);
+		__ flow = startContentLine(req, resp, content, colspan, align, width); {
+			if(contentLine != null) contentLine.accept(flow);
+		} endContentLine(req, resp, flow, endRowspan, endsInternal);
 	}
 
 	/**
@@ -677,9 +677,9 @@ public abstract class Skin {
 		boolean endsInternal,
 		IORunnableE<Ex> contentLine
 	) throws JspException, IOException, Ex {
-		__ flow = startContentLine(req, resp, content, colspan, align, width);
-		if(contentLine != null) contentLine.run();
-		endContentLine(req, resp, flow, endRowspan, endsInternal);
+		__ flow = startContentLine(req, resp, content, colspan, align, width); {
+			if(contentLine != null) contentLine.run();
+		} endContentLine(req, resp, flow, endRowspan, endsInternal);
 	}
 
 	/**
@@ -919,9 +919,9 @@ public abstract class Skin {
 		int[] endContentColumnSpans,
 		IOConsumerE<? super __, Ex> content
 	) throws JspException, IOException, Ex {
-		__ contentEE = startContent(req, resp, pageAttributes, pc, startContentColumnSpans, width);
-		if(content != null) content.accept(contentEE);
-		endContent(req, resp, pageAttributes, contentEE, endContentColumnSpans);
+		__ contentEE = startContent(req, resp, pageAttributes, pc, startContentColumnSpans, width); {
+			if(content != null) content.accept(contentEE);
+		} endContent(req, resp, pageAttributes, contentEE, endContentColumnSpans);
 	}
 
 	/**
@@ -950,9 +950,9 @@ public abstract class Skin {
 		int[] endContentColumnSpans,
 		IORunnableE<Ex> content
 	) throws JspException, IOException, Ex {
-		__ contentEE = startContent(req, resp, pageAttributes, pc, startContentColumnSpans, width);
-		if(content != null) content.run();
-		endContent(req, resp, pageAttributes, contentEE, endContentColumnSpans);
+		__ contentEE = startContent(req, resp, pageAttributes, pc, startContentColumnSpans, width); {
+			if(content != null) content.run();
+		} endContent(req, resp, pageAttributes, contentEE, endContentColumnSpans);
 	}
 
 	/**
@@ -1032,9 +1032,9 @@ public abstract class Skin {
 		boolean nowrap,
 		IOConsumerE<? super __, Ex> lightArea
 	) throws JspException, IOException, Ex {
-		__ flow = beginLightArea(req, resp, pc, align, width, nowrap);
-		if(lightArea != null) lightArea.accept(flow);
-		endLightArea(req, resp, flow);
+		__ flow = beginLightArea(req, resp, pc, align, width, nowrap); {
+			if(lightArea != null) lightArea.accept(flow);
+		} endLightArea(req, resp, flow);
 	}
 
 	/**
@@ -1060,9 +1060,9 @@ public abstract class Skin {
 		boolean nowrap,
 		IORunnableE<Ex> lightArea
 	) throws JspException, IOException, Ex {
-		FlowContent<?> flow = beginLightArea(req, resp, pc, align, width, nowrap);
-		if(lightArea != null) lightArea.run();
-		endLightArea(req, resp, flow);
+		FlowContent<?> flow = beginLightArea(req, resp, pc, align, width, nowrap); {
+			if(lightArea != null) lightArea.run();
+		} endLightArea(req, resp, flow);
 	}
 
 	/**
@@ -1125,9 +1125,9 @@ public abstract class Skin {
 		boolean nowrap,
 		IOConsumerE<? super __, Ex> whiteArea
 	) throws JspException, IOException, Ex {
-		__ flow = beginWhiteArea(req, resp, pc, align, width, nowrap);
-		if(whiteArea != null) whiteArea.accept(flow);
-		endWhiteArea(req, resp, flow);
+		__ flow = beginWhiteArea(req, resp, pc, align, width, nowrap); {
+			if(whiteArea != null) whiteArea.accept(flow);
+		} endWhiteArea(req, resp, flow);
 	}
 
 	/**
@@ -1153,9 +1153,9 @@ public abstract class Skin {
 		boolean nowrap,
 		IORunnableE<Ex> whiteArea
 	) throws JspException, IOException, Ex {
-		FlowContent<?> flow = beginWhiteArea(req, resp, pc, align, width, nowrap);
-		if(whiteArea != null) whiteArea.run();
-		endWhiteArea(req, resp, flow);
+		FlowContent<?> flow = beginWhiteArea(req, resp, pc, align, width, nowrap); {
+			if(whiteArea != null) whiteArea.run();
+		} endWhiteArea(req, resp, flow);
 	}
 
 	public static class Language {
