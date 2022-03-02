@@ -986,7 +986,7 @@ public abstract class Skin {
 	public abstract <
 		PC extends FlowContent<PC>,
 		__ extends FlowContent<__>
-	> __ beginLightArea(
+	> __ startLightArea(
 		HttpServletRequest req,
 		HttpServletResponse resp,
 		PC pc,
@@ -999,7 +999,7 @@ public abstract class Skin {
 	 * Ends a lighter area of the site.
 	 *
 	 * @param  lightArea  The {@link FlowContent} that was returned by
-	 *                    {@link #beginLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)}.
+	 *                    {@link #startLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)}.
 	 */
 	public abstract void endLightArea(
 		HttpServletRequest req,
@@ -1008,7 +1008,7 @@ public abstract class Skin {
 	) throws JspException, IOException;
 
 	/**
-	 * {@linkplain #beginLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean) Begins a light area},
+	 * {@linkplain #startLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean) Begins a light area},
 	 * invokes the given area body, then
 	 * {@linkplain #endLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the light area}.
 	 *
@@ -1016,7 +1016,7 @@ public abstract class Skin {
 	 * @param  <__>  This content model, which will be the parent content model of child elements
 	 * @param  <Ex>  An arbitrary exception type that may be thrown
 	 *
-	 * @see  #beginLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)
+	 * @see  #startLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)
 	 * @see  #endLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
 	 */
 	public final <
@@ -1032,20 +1032,20 @@ public abstract class Skin {
 		boolean nowrap,
 		IOConsumerE<? super __, Ex> lightArea
 	) throws JspException, IOException, Ex {
-		__ flow = beginLightArea(req, resp, pc, align, width, nowrap); {
+		__ flow = startLightArea(req, resp, pc, align, width, nowrap); {
 			if(lightArea != null) lightArea.accept(flow);
 		} endLightArea(req, resp, flow);
 	}
 
 	/**
-	 * {@linkplain #beginLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean) Begins a light area},
+	 * {@linkplain #startLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean) Begins a light area},
 	 * invokes the given area body, then
 	 * {@linkplain #endLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the light area}.
 	 *
 	 * @param  <PC>  The parent content model this area is within
 	 * @param  <Ex>  An arbitrary exception type that may be thrown
 	 *
-	 * @see  #beginLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)
+	 * @see  #startLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)
 	 * @see  #endLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
 	 */
 	public final <
@@ -1060,7 +1060,7 @@ public abstract class Skin {
 		boolean nowrap,
 		IORunnableE<Ex> lightArea
 	) throws JspException, IOException, Ex {
-		FlowContent<?> flow = beginLightArea(req, resp, pc, align, width, nowrap); {
+		FlowContent<?> flow = startLightArea(req, resp, pc, align, width, nowrap); {
 			if(lightArea != null) lightArea.run();
 		} endLightArea(req, resp, flow);
 	}
@@ -1079,7 +1079,7 @@ public abstract class Skin {
 	public abstract <
 		PC extends FlowContent<PC>,
 		__ extends FlowContent<__>
-	> __ beginWhiteArea(
+	> __ startWhiteArea(
 		HttpServletRequest req,
 		HttpServletResponse resp,
 		PC pc,
@@ -1092,7 +1092,7 @@ public abstract class Skin {
 	 * Ends a white area of the site.
 	 *
 	 * @param  whiteArea  The {@link FlowContent} that was returned by
-	 *                    {@link #beginWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)}.
+	 *                    {@link #startWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)}.
 	 */
 	public abstract void endWhiteArea(
 		HttpServletRequest req,
@@ -1101,7 +1101,7 @@ public abstract class Skin {
 	) throws JspException, IOException;
 
 	/**
-	 * {@linkplain #beginWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean) Begins a white area},
+	 * {@linkplain #startWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean) Begins a white area},
 	 * invokes the given area body, then
 	 * {@linkplain #endWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the white area}.
 	 *
@@ -1109,7 +1109,7 @@ public abstract class Skin {
 	 * @param  <__>  This content model, which will be the parent content model of child elements
 	 * @param  <Ex>  An arbitrary exception type that may be thrown
 	 *
-	 * @see  #beginWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)
+	 * @see  #startWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)
 	 * @see  #endWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
 	 */
 	public final <
@@ -1125,20 +1125,20 @@ public abstract class Skin {
 		boolean nowrap,
 		IOConsumerE<? super __, Ex> whiteArea
 	) throws JspException, IOException, Ex {
-		__ flow = beginWhiteArea(req, resp, pc, align, width, nowrap); {
+		__ flow = startWhiteArea(req, resp, pc, align, width, nowrap); {
 			if(whiteArea != null) whiteArea.accept(flow);
 		} endWhiteArea(req, resp, flow);
 	}
 
 	/**
-	 * {@linkplain #beginWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean) Begins a white area},
+	 * {@linkplain #startWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean) Begins a white area},
 	 * invokes the given area body, then
 	 * {@linkplain #endWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the white area}.
 	 *
 	 * @param  <PC>  The parent content model this area is within
 	 * @param  <Ex>  An arbitrary exception type that may be thrown
 	 *
-	 * @see  #beginWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)
+	 * @see  #startWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)
 	 * @see  #endWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
 	 */
 	public final <
@@ -1153,7 +1153,7 @@ public abstract class Skin {
 		boolean nowrap,
 		IORunnableE<Ex> whiteArea
 	) throws JspException, IOException, Ex {
-		FlowContent<?> flow = beginWhiteArea(req, resp, pc, align, width, nowrap); {
+		FlowContent<?> flow = startWhiteArea(req, resp, pc, align, width, nowrap); {
 			if(whiteArea != null) whiteArea.run();
 		} endWhiteArea(req, resp, flow);
 	}

@@ -823,7 +823,7 @@ public class TextSkin extends Skin {
 	public <
 		PC extends FlowContent<PC>,
 		__ extends FlowContent<__>
-	> __ beginLightArea(
+	> __ startLightArea(
 		HttpServletRequest req,
 		HttpServletResponse resp,
 		PC pc,
@@ -868,7 +868,7 @@ public class TextSkin extends Skin {
 	public <
 		PC extends FlowContent<PC>,
 		__ extends FlowContent<__>
-	> __ beginWhiteArea(
+	> __ startWhiteArea(
 		HttpServletRequest req,
 		HttpServletResponse resp,
 		PC pc,
