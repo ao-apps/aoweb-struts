@@ -30,11 +30,11 @@ import com.aoapps.html.any.AnyLINK;
 import com.aoapps.html.servlet.ContentEE;
 import com.aoapps.html.servlet.DocumentEE;
 import com.aoapps.html.servlet.FlowContent;
-import com.aoapps.lang.io.function.IOConsumerE;
-import com.aoapps.lang.io.function.IORunnableE;
 import com.aoapps.net.AnyURI;
 import com.aoapps.net.URIEncoder;
 import com.aoapps.servlet.http.HttpServletUtil;
+import com.aoapps.servlet.jsp.function.JspConsumerE;
+import com.aoapps.servlet.jsp.function.JspRunnableE;
 import com.aoapps.web.resources.registry.Registry;
 import com.aoindustries.web.struts.skintags.PageAttributes;
 import java.io.IOException;
@@ -594,7 +594,7 @@ public abstract class Skin {
 		HttpServletRequest req,
 		HttpServletResponse resp,
 		ContentEE<?> content,
-		IOConsumerE<? super __, Ex> contentLine
+		JspConsumerE<? super __, Ex> contentLine
 	) throws JspException, IOException, Ex {
 		this.<__, Ex>contentLine(req, resp, content, 1, null, null, 1, false, contentLine);
 	}
@@ -617,7 +617,7 @@ public abstract class Skin {
 		HttpServletRequest req,
 		HttpServletResponse resp,
 		ContentEE<?> content,
-		IORunnableE<Ex> contentLine
+		JspRunnableE<Ex> contentLine
 	) throws JspException, IOException, Ex {
 		contentLine(req, resp, content, 1, null, null, 1, false, contentLine);
 	}
@@ -645,7 +645,7 @@ public abstract class Skin {
 		String width,
 		int endRowspan,
 		boolean endsInternal,
-		IOConsumerE<? super __, Ex> contentLine
+		JspConsumerE<? super __, Ex> contentLine
 	) throws JspException, IOException, Ex {
 		__ flow = startContentLine(req, resp, content, colspan, align, width); {
 			if(contentLine != null) contentLine.accept(flow);
@@ -675,7 +675,7 @@ public abstract class Skin {
 		String width,
 		int endRowspan,
 		boolean endsInternal,
-		IORunnableE<Ex> contentLine
+		JspRunnableE<Ex> contentLine
 	) throws JspException, IOException, Ex {
 		__ flow = startContentLine(req, resp, content, colspan, align, width); {
 			if(contentLine != null) contentLine.run();
@@ -804,7 +804,7 @@ public abstract class Skin {
 		HttpServletResponse resp,
 		PageAttributes pageAttributes,
 		PC pc,
-		IOConsumerE<? super __, Ex> content
+		JspConsumerE<? super __, Ex> content
 	) throws JspException, IOException, Ex {
 		this.<PC, __, Ex>content(req, resp, pageAttributes, pc, new int[] {1}, null, new int[] {1}, content);
 	}
@@ -830,7 +830,7 @@ public abstract class Skin {
 		HttpServletResponse resp,
 		PageAttributes pageAttributes,
 		PC pc,
-		IORunnableE<Ex> content
+		JspRunnableE<Ex> content
 	) throws JspException, IOException, Ex {
 		content(req, resp, pageAttributes, pc, new int[] {1}, null, new int[] {1}, content);
 	}
@@ -859,7 +859,7 @@ public abstract class Skin {
 		int startContentColumns,
 		String width,
 		int endContentColumns,
-		IOConsumerE<? super __, Ex> content
+		JspConsumerE<? super __, Ex> content
 	) throws JspException, IOException, Ex {
 		this.<PC, __, Ex>content(req, resp, pageAttributes, pc, new int[] {startContentColumns}, width, new int[] {endContentColumns}, content);
 	}
@@ -888,7 +888,7 @@ public abstract class Skin {
 		int startContentColumns,
 		String width,
 		int endContentColumns,
-		IORunnableE<Ex> content
+		JspRunnableE<Ex> content
 	) throws JspException, IOException, Ex {
 		content(req, resp, pageAttributes, pc, new int[] {startContentColumns}, width, new int[] {endContentColumns}, content);
 	}
@@ -917,7 +917,7 @@ public abstract class Skin {
 		int[] startContentColumnSpans,
 		String width,
 		int[] endContentColumnSpans,
-		IOConsumerE<? super __, Ex> content
+		JspConsumerE<? super __, Ex> content
 	) throws JspException, IOException, Ex {
 		__ contentEE = startContent(req, resp, pageAttributes, pc, startContentColumnSpans, width); {
 			if(content != null) content.accept(contentEE);
@@ -948,7 +948,7 @@ public abstract class Skin {
 		int[] startContentColumnSpans,
 		String width,
 		int[] endContentColumnSpans,
-		IORunnableE<Ex> content
+		JspRunnableE<Ex> content
 	) throws JspException, IOException, Ex {
 		__ contentEE = startContent(req, resp, pageAttributes, pc, startContentColumnSpans, width); {
 			if(content != null) content.run();
@@ -1030,7 +1030,7 @@ public abstract class Skin {
 		String align,
 		String width,
 		boolean nowrap,
-		IOConsumerE<? super __, Ex> lightArea
+		JspConsumerE<? super __, Ex> lightArea
 	) throws JspException, IOException, Ex {
 		__ flow = startLightArea(req, resp, pc, align, width, nowrap); {
 			if(lightArea != null) lightArea.accept(flow);
@@ -1058,7 +1058,7 @@ public abstract class Skin {
 		String align,
 		String width,
 		boolean nowrap,
-		IORunnableE<Ex> lightArea
+		JspRunnableE<Ex> lightArea
 	) throws JspException, IOException, Ex {
 		FlowContent<?> flow = startLightArea(req, resp, pc, align, width, nowrap); {
 			if(lightArea != null) lightArea.run();
@@ -1123,7 +1123,7 @@ public abstract class Skin {
 		String align,
 		String width,
 		boolean nowrap,
-		IOConsumerE<? super __, Ex> whiteArea
+		JspConsumerE<? super __, Ex> whiteArea
 	) throws JspException, IOException, Ex {
 		__ flow = startWhiteArea(req, resp, pc, align, width, nowrap); {
 			if(whiteArea != null) whiteArea.accept(flow);
@@ -1151,7 +1151,7 @@ public abstract class Skin {
 		String align,
 		String width,
 		boolean nowrap,
-		IORunnableE<Ex> whiteArea
+		JspRunnableE<Ex> whiteArea
 	) throws JspException, IOException, Ex {
 		FlowContent<?> flow = startWhiteArea(req, resp, pc, align, width, nowrap); {
 			if(whiteArea != null) whiteArea.run();
