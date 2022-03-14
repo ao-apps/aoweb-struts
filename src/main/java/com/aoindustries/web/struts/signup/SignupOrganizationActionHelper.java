@@ -72,7 +72,6 @@ public final class SignupOrganizationActionHelper {
 		countryOptions.add(new CountryOption("", "---"));
 		final int prioritySize = 10;
 		int[] priorityCounter = new int[1];
-		boolean selectedOne = false;
 		List<CountryCode> cc = aoConn.getPayment().getCountryCode().getCountryCodesByPriority(prioritySize, priorityCounter);
 		for (int i = 0; i<cc.size(); i++) {
 			if(priorityCounter[0]!=0 && i==priorityCounter[0]) {
