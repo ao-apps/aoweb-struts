@@ -47,8 +47,9 @@ public class ContentLineTag extends BodyTagSupport {
 	private String align;
 	private String width;
 	private boolean endsInternal;
-	private int lastRowSpan;
-	private FlowContent<?> contentLine;
+	// Values only used between doStartTag and doEndTag
+	private transient int lastRowSpan;
+	private transient FlowContent<?> contentLine;
 
 	public ContentLineTag() {
 		init();

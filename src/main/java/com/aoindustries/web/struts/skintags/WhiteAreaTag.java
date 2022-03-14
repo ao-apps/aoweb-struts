@@ -42,7 +42,8 @@ public class WhiteAreaTag extends PageAttributesBodyTag {
 	private String align;
 	private String width;
 	private boolean nowrap;
-	private FlowContent<?> whiteArea;
+	// Values only used between doStartTag and doEndTag
+	private transient FlowContent<?> whiteArea;
 
 	public WhiteAreaTag() {
 		init();

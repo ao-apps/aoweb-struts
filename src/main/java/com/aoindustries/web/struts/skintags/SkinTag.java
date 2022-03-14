@@ -28,6 +28,7 @@ import com.aoapps.encoding.servlet.DoctypeEE;
 import com.aoapps.encoding.servlet.SerializationEE;
 import com.aoapps.html.any.AnyDocument;
 import com.aoapps.html.servlet.DocumentEE;
+import com.aoapps.html.servlet.FlowContent;
 import com.aoapps.lang.LocalizedIllegalArgumentException;
 import com.aoapps.servlet.ServletUtil;
 import com.aoapps.servlet.jsp.LocalizedJspTagException;
@@ -157,6 +158,8 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
 	private transient boolean setAutonli;
 	private transient Boolean oldIndent;
 	private transient boolean setIndent;
+	// Values only used between doStartTag and doEndTag
+	private transient FlowContent<?> flow;
 
 	private void init() {
 		serialization = null;
@@ -174,6 +177,7 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
 		setAutonli = false;
 		oldIndent = null;
 		setIndent = false;
+		flow = null;
 	}
 
 	@Override
@@ -236,7 +240,7 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
 			Globals.XHTML_KEY.context(pageContext).set(Boolean.toString(serialization == Serialization.XML));
 
 			// Start the skin
-			SkinTag.getSkin(request).startSkin(
+			flow = SkinTag.getSkin(request).startPage(
 				request,
 				response,
 				pageAttributes,
@@ -252,12 +256,13 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
 	@Override
 	public int doEndTag(PageAttributes pageAttributes) throws JspException, IOException {
 		HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
-		HttpServletResponse response = (HttpServletResponse)pageContext.getResponse();
-		SkinTag.getSkin(request).endSkin(
+		assert flow != null;
+		flow.getDocument().setOut(pageContext.getOut());
+		SkinTag.getSkin(request).endPage(
 			request,
-			response,
+			(HttpServletResponse)pageContext.getResponse(),
 			pageAttributes,
-			new DocumentEE(pageContext.getServletContext(), request, response, pageContext.getOut(), autonli, indent)
+			flow
 		);
 		return EVAL_PAGE;
 	}

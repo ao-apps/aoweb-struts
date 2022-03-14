@@ -56,7 +56,8 @@ public class ContentTag extends PageAttributesBodyTag {
 	private String colspans;
 	private int[] colspansParsed;
 	private String width;
-	private ContentEE<?> content;
+	// Values only used between doStartTag and doEndTag
+	private transient ContentEE<?> content;
 
 	public ContentTag() {
 		init();

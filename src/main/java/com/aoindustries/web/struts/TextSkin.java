@@ -23,9 +23,6 @@
 package com.aoindustries.web.struts;
 
 import com.aoapps.encoding.Doctype;
-import static com.aoapps.encoding.JavaScriptInXhtmlAttributeEncoder.encodeJavaScriptInXhtmlAttribute;
-import static com.aoapps.encoding.JavaScriptInXhtmlAttributeEncoder.javaScriptInXhtmlAttributeEncoder;
-import com.aoapps.encoding.MediaWriter;
 import com.aoapps.encoding.Serialization;
 import static com.aoapps.encoding.TextInJavaScriptEncoder.textInJavaScriptEncoder;
 import static com.aoapps.encoding.TextInXhtmlAttributeEncoder.encodeTextInXhtmlAttribute;
@@ -36,9 +33,14 @@ import com.aoapps.html.any.AnyLINK;
 import com.aoapps.html.any.AnyMETA;
 import com.aoapps.html.any.AnySCRIPT;
 import com.aoapps.html.any.AnySTYLE;
+import com.aoapps.html.any.attributes.Enum.Method;
+import com.aoapps.html.servlet.BODY;
+import com.aoapps.html.servlet.BODY_c;
 import com.aoapps.html.servlet.ContentEE;
 import com.aoapps.html.servlet.DocumentEE;
 import com.aoapps.html.servlet.FlowContent;
+import com.aoapps.html.servlet.HTML_c;
+import com.aoapps.html.servlet.ScriptSupportingContent;
 import com.aoapps.html.servlet.TABLE_c;
 import com.aoapps.html.servlet.TD_c;
 import com.aoapps.html.servlet.TR_c;
@@ -46,7 +48,6 @@ import com.aoapps.html.servlet.Union_Metadata_Phrasing;
 import com.aoapps.html.util.GoogleAnalytics;
 import com.aoapps.html.util.ImagePreload;
 import static com.aoapps.lang.Strings.trimNullIfEmpty;
-import com.aoapps.lang.io.NoCloseWriter;
 import com.aoapps.net.AnyURI;
 import com.aoapps.net.EmptyURIParameters;
 import com.aoapps.net.URIEncoder;
@@ -55,8 +56,6 @@ import com.aoapps.servlet.lastmodified.LastModifiedUtil;
 import com.aoapps.style.AoStyle;
 import static com.aoapps.taglib.AttributeUtils.appendWidthStyle;
 import static com.aoapps.taglib.AttributeUtils.getWidthStyle;
-import com.aoapps.taglib.GlobalAttributes;
-import com.aoapps.taglib.HtmlTag;
 import com.aoapps.web.resources.registry.Group;
 import com.aoapps.web.resources.registry.Registry;
 import com.aoapps.web.resources.registry.Style;
@@ -123,9 +122,8 @@ public class TextSkin extends Skin {
 	 * Reuse a single instance, not synchronized because if more than one is
 	 * made no big deal.
 	 */
-	private static TextSkin instance;
+	private static final TextSkin instance = new TextSkin();
 	public static TextSkin getInstance() {
-		if(instance==null) instance = new TextSkin();
 		return instance;
 	}
 
@@ -146,137 +144,158 @@ public class TextSkin extends Skin {
 	/**
 	 * Print the logo for the top left part of the page.
 	 */
-	public void printLogo(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, String urlBase) throws JspException, IOException {
+	public <__ extends FlowContent<__>> void printLogo(HttpServletRequest req, HttpServletResponse resp, PageAttributes pageAttributes, __ td, String urlBase) throws JspException, IOException {
 		// Print no logo by default
 	}
 
 	/**
 	 * Prints the search form, if any exists.
 	 */
-	public void printSearch(HttpServletRequest req, HttpServletResponse resp, DocumentEE document) throws JspException, IOException {
+	public <__ extends FlowContent<__>> void printSearch(HttpServletRequest req, HttpServletResponse resp, __ div) throws JspException, IOException {
 		// Do nothing
 	}
 
 	/**
 	 * Prints the common pages area, which is at the top of the site.
 	 */
-	public void printCommonPages(HttpServletRequest req, HttpServletResponse resp, DocumentEE document) throws JspException, IOException {
+	public <__ extends FlowContent<__>> void printCommonPages(HttpServletRequest req, HttpServletResponse resp, __ td) throws JspException, IOException {
 		// Do nothing
 	}
 
 	/**
 	 * Prints the lines for any JavaScript sources.
 	 */
-	public void printJavaScriptSources(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, String urlBase) throws JspException, IOException {
+	public <__ extends ScriptSupportingContent<__>> void printJavaScriptSources(HttpServletRequest req, HttpServletResponse resp, __ head, String urlBase) throws JspException, IOException {
 		// Do nothing
 	}
 
 	/**
 	 * Prints the line for the favicon.
 	 */
-	public void printFavIcon(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, String urlBase) throws JspException, IOException {
+	public <__ extends Union_Metadata_Phrasing<__>> void printFavIcon(HttpServletRequest req, HttpServletResponse resp, __ head, String urlBase) throws JspException, IOException {
 		// Do nothing
 	}
 
 	@Override
-	public void configureResources(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, Registry requestRegistry, PageAttributes page) {
-		super.configureResources(servletContext, req, resp, requestRegistry, page);
+	public void configureResources(
+		ServletContext servletContext,
+		HttpServletRequest req,
+		HttpServletResponse resp,
+		PageAttributes pageAttributes,
+		Registry requestRegistry
+	) {
+		super.configureResources(servletContext, req, resp, pageAttributes, requestRegistry);
 		requestRegistry.activate(RESOURCE_GROUP);
 	}
 
 	@Override
 	// TODO: uncomment once only expected deprecated remains: @SuppressWarnings("deprecation")
-	public void startSkin(HttpServletRequest req, HttpServletResponse resp, PageAttributes pageAttributes, DocumentEE document) throws JspException, IOException {
+	public <__ extends FlowContent<__>> __ startPage(
+		HttpServletRequest req,
+		HttpServletResponse resp,
+		PageAttributes pageAttributes,
+		DocumentEE document
+	) throws JspException, IOException {
+		boolean isOkResponseStatus = (resp.getStatus() == HttpServletResponse.SC_OK);
+		ServletContext servletContext = req.getServletContext();
+		SiteSettings settings = SiteSettings.getInstance(servletContext);
+		Brand brand;
 		try {
-			ServletContext servletContext = req.getServletContext();
-			SiteSettings settings = SiteSettings.getInstance(servletContext);
-			Brand brand = settings.getBrand();
-			String trackingId = brand.getAowebStrutsGoogleAnalyticsNewTrackingCode();
-			// Write doctype
-			document.xmlDeclaration();
-			document.doctype();
-			// Write <html>
-			HtmlTag.beginHtmlTag(resp, document.out, document.serialization, (GlobalAttributes)null); document.out.write("\n"
-			+ "  <head>\n");
-
-			String layout = pageAttributes.getLayout();
-			if(!layout.equals(PageAttributes.LAYOUT_NORMAL)) throw new JspException("TODO: Implement layout: "+layout);
-			Locale locale = resp.getLocale();
-			String urlBase = getUrlBase(req);
-			String path = pageAttributes.getPath();
-			if(path.startsWith("/")) path=path.substring(1);
-			final String fullPath = urlBase + path;
-			final String encodedFullPath = resp.encodeURL(URIEncoder.encodeURI(fullPath));
-			List<Skin> skins = settings.getSkins();
-			boolean isOkResponseStatus = (resp.getStatus() == HttpServletResponse.SC_OK);
-
+			brand = settings.getBrand();
+		} catch(SQLException e) {
+			throw new JspException(e);
+		}
+		String trackingId = brand.getAowebStrutsGoogleAnalyticsNewTrackingCode();
+		List<Language> languages;
+		try {
+			languages = settings.getLanguages(req);
+		} catch(SQLException e) {
+			throw new JspException(e);
+		}
+		String layout = pageAttributes.getLayout();
+		if(!layout.equals(PageAttributes.LAYOUT_NORMAL)) throw new JspException("TODO: Implement layout: "+layout);
+		Locale locale = resp.getLocale();
+		String urlBase = getUrlBase(req);
+		final String path; {
+			String path_ = pageAttributes.getPath();
+			if(path_ == null) throw new NullPointerException("pageAttributes.path is null");
+			if(path_.startsWith("/")) path_ = path_.substring(1);
+			path = path_;
+		}
+		final String fullPath = urlBase + path;
+		List<Skin> skins = settings.getSkins();
+		List<Parent> parents = pageAttributes.getParents();
+		AOServConnector aoConn = AuthenticatedAction.getAoConn(req, resp);
+		// Do this before getting session, since session may be conditionally created by path in LoginAction
+		String target = LoginAction.addTarget(req::getSession, fullPath);
+		HttpSession session = req.getSession(false);
+		//if(session == null) session = req.getSession(false); // Get again, just in case of authentication
+		// Write doctype
+		document.xmlDeclaration();
+		document.doctype();
+		// Write <html>
+		HTML_c<DocumentEE> html_c = document.html().lang()._c();
+		html_c.head__(head -> {
 			// If this is not the default skin, then robots noindex
 			boolean robotsMetaUsed = false;
 			if(!isOkResponseStatus || !getName().equals(skins.get(0).getName())) {
-				document.meta(AnyMETA.Name.ROBOTS).content("noindex, nofollow").__();
+				head.meta(AnyMETA.Name.ROBOTS).content("noindex, nofollow").__();
+				robotsMetaUsed = true;
 			}
 			if(document.doctype == Doctype.HTML5) {
-				document.meta().charset(resp.getCharacterEncoding()).__();
+				head.meta().charset(resp.getCharacterEncoding()).__();
 			} else {
-				document
+				head
 					.meta(AnyMETA.HttpEquiv.CONTENT_TYPE).content(resp.getContentType()).__()
 					// Default style language
 					.meta(AnyMETA.HttpEquiv.CONTENT_STYLE_TYPE).content(AnySTYLE.Type.TEXT_CSS).__()
 					.meta(AnyMETA.HttpEquiv.CONTENT_SCRIPT_TYPE).content(AnySCRIPT.Type.TEXT_JAVASCRIPT).__();
 			}
 			if(document.doctype == Doctype.HTML5) {
-				GoogleAnalytics.writeGlobalSiteTag(document, trackingId);
+				GoogleAnalytics.writeGlobalSiteTag(head, trackingId);
 			} else {
-				GoogleAnalytics.writeAnalyticsJs(document, trackingId);
+				GoogleAnalytics.writeAnalyticsJs(head, trackingId);
 			}
 			// Mobile support
-			document
+			head
 				.meta(AnyMETA.Name.VIEWPORT).content("width=device-width, initial-scale=1.0").__()
+				// TODO: This is probably only appropriate for single-page applications!
+				//       See https://medium.com/@firt/dont-use-ios-web-app-meta-tag-irresponsibly-in-your-progressive-web-apps-85d70f4438cb
 				.meta(AnyMETA.Name.APPLE_MOBILE_WEB_APP_CAPABLE).content("yes").__()
 				.meta(AnyMETA.Name.APPLE_MOBILE_WEB_APP_STATUS_BAR_STYLE).content("black").__();
 			// Authors
-			// TODO: dcterms copyright
+			// TODO: 3.0.0: dcterms copyright
 			String author = pageAttributes.getAuthor();
 			if(author != null && !(author = author.trim()).isEmpty()) {
-				document.meta(AnyMETA.Name.AUTHOR).content(author).__();
+				head.meta(AnyMETA.Name.AUTHOR).content(author).__();
 			}
 			String authorHref = pageAttributes.getAuthorHref();
 			if(authorHref != null && !(authorHref = authorHref.trim()).isEmpty()) {
-				document.link(AnyLINK.Rel.AUTHOR).href(
+				head.link(AnyLINK.Rel.AUTHOR).href(
 					// TODO: RFC 3986-only always?
 					resp.encodeURL(
-						URIEncoder.encodeURI(authorHref)
+						URIEncoder.encodeURI(authorHref) // TODO: Conditionally convert from context-relative paths
 					)
 				).__();
 			}
-			document.title__(
-				// No more page stack, just show current page only
-				/*
-				List<Parent> parents = pageAttributes.getParents();
-				for(Parent parent : parents) {
-					html.text(parent.getTitle());
-					out.print(" - ");
-				}
-				 */
-				pageAttributes.getTitle()
-			);
+			head.title__(pageAttributes.getTitle());
 			String description = pageAttributes.getDescription();
 			if(description != null && !(description = description.trim()).isEmpty()) {
-				document.meta(AnyMETA.Name.DESCRIPTION).content(description).__();
+				head.meta(AnyMETA.Name.DESCRIPTION).content(description).__();
 			}
 			String keywords = pageAttributes.getKeywords();
 			if(keywords != null && !(keywords = keywords.trim()).isEmpty()) {
-				document.meta(AnyMETA.Name.KEYWORDS).content(keywords).__();
+				head.meta(AnyMETA.Name.KEYWORDS).content(keywords).__();
 			}
-			// TODO: Review HTML 4/HTML 5 differences from here
+			// TODO: 3.0.0: Review HTML 4/HTML 5 differences from here
+			String copyright = pageAttributes.getCopyright();
+			if(copyright != null && !(copyright = copyright.trim()).isEmpty()) {
+				// TODO: 3.0.0: Dublin Core: https://stackoverflow.com/questions/6665312/is-the-copyright-meta-tag-valid-in-html5
+				head.meta().name("copyright").content(copyright).__();
+			}
 			// If this is an authenticated page, redirect to session timeout after one hour
-			AOServConnector aoConn = AuthenticatedAction.getAoConn(req, resp);
-			// Do this before getting session, since session may be conditionally created by path in LoginAction
-			String target = LoginAction.addTarget(req::getSession, fullPath);
-			HttpSession session = req.getSession(false);
-			//if(session == null) session = req.getSession(false); // Get again, just in case of authentication
 			if(isOkResponseStatus && aoConn != null && session != null) {
-				document.meta(AnyMETA.HttpEquiv.REFRESH).content(content -> {
+				head.meta(AnyMETA.HttpEquiv.REFRESH).content(content -> {
 					content.write(Integer.toString(Math.max(60, session.getMaxInactiveInterval() - 60)));
 					content.write(";URL=");
 					content.write(
@@ -297,29 +316,23 @@ public class TextSkin extends Skin {
 			}
 			for(com.aoindustries.web.struts.skintags.Meta meta : pageAttributes.getMetas()) {
 				// Skip robots if not on default skin
-				boolean isRobots = meta.getName().equalsIgnoreCase("robots");
+				boolean isRobots = meta.getName().equalsIgnoreCase(AnyMETA.Name.ROBOTS.getValue());
 				if(!robotsMetaUsed || !isRobots) {
-					document.meta().name(meta.getName()).content(meta.getContent()).__();
+					head.meta().name(meta.getName()).content(meta.getContent()).__();
 					if(isRobots) robotsMetaUsed = true;
 				}
 			}
 			if(isOkResponseStatus) {
 				String googleVerify = brand.getAowebStrutsGoogleVerifyContent();
 				if(googleVerify != null) {
-					document.meta().name("verify-v1").content(googleVerify).__();
+					head.meta().name("verify-v1").content(googleVerify).__();
 				}
 			}
-			String copyright = pageAttributes.getCopyright();
-			if(copyright != null && !(copyright = copyright.trim()).isEmpty()) {
-				// TODO: Dublin Core: https://stackoverflow.com/questions/6665312/is-the-copyright-meta-tag-valid-in-html5
-				document.meta().name("copyright").content(copyright).__();
-			}
-			List<Language> languages = settings.getLanguages(req);
-			printAlternativeLinks(req, resp, document, fullPath, languages);
+			printAlternativeLinks(req, resp, head, fullPath, languages);
 
 			// Configure skin resources
 			Registry requestRegistry = RegistryEE.Request.get(servletContext, req);
-			configureResources(servletContext, req, resp, requestRegistry, pageAttributes);
+			configureResources(servletContext, req, resp, pageAttributes, requestRegistry);
 			// Configure page resources
 			Registry pageRegistry = RegistryEE.Page.get(req);
 			if(pageRegistry == null) {
@@ -331,253 +344,244 @@ public class TextSkin extends Skin {
 			Renderer.get(servletContext).renderStyles(
 				req,
 				resp,
-				document,
+				head,
 				true, // registeredActivations
 				null, // No additional activations
 				requestRegistry, // request-scope
 				RegistryEE.Session.get(req.getSession(false)), // session-scope
 				pageRegistry
 			);
-
-			defaultPrintLinks(servletContext, req, resp, document, pageAttributes);
-			printJavaScriptSources(req, resp, document, urlBase);
+			defaultPrintLinks(servletContext, req, resp, head, pageAttributes);
+			printJavaScriptSources(req, resp, head, urlBase);
 			Formtype formtype = pageAttributes.getFormtype();
-			if(formtype != null) formtype.doHead(servletContext, req, resp, document);
-			printFavIcon(req, resp, document, urlBase);
+			if(formtype != null) formtype.doHead(servletContext, req, resp, head);
+			printFavIcon(req, resp, head, urlBase);
 			// TODO: Canonical?
-			document.out.write("  </head>\n"
-			+ "  <body");
-			String onload = pageAttributes.getOnload();
-			if(onload != null && !(onload = onload.trim()).isEmpty()) {
-				document.out.write(" onload=\""); encodeJavaScriptInXhtmlAttribute(onload, document.out); document.out.write('"');
-			}
-			document.out.write(">\n"
-			+ "    <table cellspacing=\"10\" cellpadding=\"0\">\n"
-			+ "      <tr>\n"
-			+ "        <td style=\"vertical-align:top\">\n");
-			printLogo(req, resp, document, urlBase);
-			if(aoConn != null) {
-				document.out.write("          "); document.hr__().out.write("\n"
-				+ "          "); document.text(RESOURCES.getMessage(locale, "logoutPrompt"))
-				.out.write("<form style=\"display:inline\" id=\"logout_form\" method=\"post\" action=\"");
-				encodeTextInXhtmlAttribute(
-					resp.encodeURL(
-						URIEncoder.encodeURI(
-							urlBase + "logout.do"
-						)
-					),
-					document.out
-				);
-				document.out.write("\"><div style=\"display:inline;\">");
-				if(target != null) document.input().hidden().name("target").value(target).__()
-				// Variant that takes ResourceBundle?
-				.input().submit__(RESOURCES.getMessage(locale, "logoutButtonLabel"))
-				.out.write("</div></form>\n");
-			} else {
-				document.out.write("          "); document.hr__().out.write("\n"
-				+ "          "); document.text(RESOURCES.getMessage(locale, "loginPrompt"))
-				.out.write("<form style=\"display:inline\" id=\"login_form\" method=\"post\" action=\"");
-				encodeTextInXhtmlAttribute(
-					resp.encodeURL(
-						URIEncoder.encodeURI(
-							urlBase + "login.do"
-						)
-					),
-					document.out
-				);
-				document.out.write("\"><div style=\"display:inline\">");
-				// Only include the target when they are in the /clientarea/ part of the site
-				if(path.startsWith("clientarea/") && target != null) {
-					document.input().hidden().name("target").value(target).__();
-				}
-				document.input().submit__(RESOURCES.getMessage(locale, "loginButtonLabel"))
-				.out.write("</div></form>\n");
-			}
-			document.hr__()
-			.out.write("          <div style=\"white-space: nowrap\">\n");
-			if(skins.size() > 1) {
-				document.script().out(script -> {
-					script.append("function selectLayout(layout) {\n");
-					for(Skin skin : skins) {
-						script.append("  if(layout==").text(skin.getName()).append(") window.top.location.href=").text(
-							resp.encodeURL(
-								new AnyURI(fullPath)
-									.addEncodedParameter(Constants.LAYOUT.getName(), URIEncoder.encodeURIComponent(skin.getName()))
-									.toASCIIString()
-							)
-						).append(";\n");
-					}
-					script.append('}');
-				}).__()
-				.out.write("            <form action=\"\" style=\"display:inline\"><div style=\"display:inline\">\n"
-				+ "              "); document.text(RESOURCES.getMessage(locale, "layoutPrompt"))
-				.out.write("<select name=\"layout_selector\" onchange=\"selectLayout(this.form.layout_selector.options[this.form.layout_selector.selectedIndex].value);\">\n");
-				for(Skin skin : skins) {
-					document.option().value(skin.getName()).selected(getName().equals(skin.getName())).__(skin.getDisplay(req, resp));
-				}
-				document.out.write("              </select>\n"
-				+ "            </div></form>"); document.br__();
-			}
-			if(languages.size()>1) {
-				document.out.write("            ");
-				for(Language language : languages) {
-					AnyURI uri = language.getUri();
-					if(language.getCode().equalsIgnoreCase(locale.getLanguage())) {
-						document.out.write("&#160;<a href=\"");
-						encodeTextInXhtmlAttribute(
-							resp.encodeURL(
-								URIEncoder.encodeURI(
-									(
-										uri == null
-										? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
-										: uri
-									).toASCIIString()
-								)
-							),
-							document.out
-						);
-						document.out.write("\" hreflang=\""); encodeTextInXhtmlAttribute(language.getCode(), document.out); document.out.write("\">");
-						document.img()
-							.src(
-								resp.encodeURL(
-									URIEncoder.encodeURI(
-										urlBase + language.getFlagOnSrc(req, locale)
-									)
-								)
-							).style("border:1px solid; vertical-align:bottom")
-							.width(language.getFlagWidth(req, locale))
-							.height(language.getFlagHeight(req, locale))
-							.alt(language.getDisplay(req, locale))
-							.__()
-						.out.write("</a>");
-					} else {
-						document.out.write("&#160;<a href=\"");
-						encodeTextInXhtmlAttribute(
-							resp.encodeURL(
-								URIEncoder.encodeURI(
-									(
-										uri == null
-										? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
-										: uri
-									).toASCIIString()
-								)
-							),
-							document.out
-						);
-						document.out.write("\" hreflang=\""); encodeTextInXhtmlAttribute(language.getCode(), document.out); document.out.write("\" onmouseover=\"");
-						try (MediaWriter onmouseover = new MediaWriter(document.encodingContext, javaScriptInXhtmlAttributeEncoder, new NoCloseWriter(document.out))) {
-							onmouseover.append("document.images[").text("flagSelector_" + language.getCode()).append("].src=").text(
-								resp.encodeURL(
-									URIEncoder.encodeURI(
-										urlBase
-										+ language.getFlagOnSrc(req, locale)
-									)
-								)
-							).append(';');
-						} document.out.write("\" onmouseout=\""); try (MediaWriter onmouseout = new MediaWriter(document.encodingContext, javaScriptInXhtmlAttributeEncoder, new NoCloseWriter(document.out))) {
-							onmouseout.append("document.images[").text("flagSelector_" + language.getCode()).append("].src=").text(
-								resp.encodeURL(
-									URIEncoder.encodeURI(
-										urlBase
-										+ language.getFlagOffSrc(req, locale)
-									)
-								)
-							).append(';');
-						} document.out.write("\">"); document.img()
-							.src(
-								resp.encodeURL(
-									URIEncoder.encodeURI(
-										urlBase
-										+ language.getFlagOffSrc(req, locale)
-									)
-								)
-							).id("flagSelector_" + language.getCode())
-							.style("border:1px solid; vertical-align:bottom")
-							.width(language.getFlagWidth(req, locale))
-							.height(language.getFlagHeight(req, locale))
-							.alt(language.getDisplay(req, locale))
-							.__()
-						.out.write("</a>");
-						ImagePreload.writeImagePreloadScript(
-							resp.encodeURL(
-								URIEncoder.encodeURI(
-									urlBase + language.getFlagOnSrc(req, locale)
-								)
-							),
-							document
-						);
-					}
-				}
-				document.br__();
-			}
-			printSearch(req, resp, document);
-			document.out.write("          </div>\n"
-			+ "          "); document.hr__().out.write("\n"
-			// Display the parents
-			+ "          <b>"); document.text(RESOURCES.getMessage(locale, "currentLocation")).out.write("</b>"); document.br__().out.write("\n"
-			+ "          <div style=\"white-space:nowrap\">\n");
-			List<Parent> parents = pageAttributes.getParents();
-			for(Parent parent : parents) {
-				String navAlt = parent.getNavImageAlt();
-				String parentPath = parent.getPath();
-				if(parentPath.startsWith("/")) parentPath=parentPath.substring(1);
-				document.out.write("            <a href=\"");
-				encodeTextInXhtmlAttribute(
-					resp.encodeURL(
-						URIEncoder.encodeURI(
-							urlBase
-							+ URIEncoder.encodeURI(parentPath)
-						)
-					),
-					document.out
-				);
-				document.out.write("\">"); document.text(navAlt).out.write("</a>"); document.br__();
-			}
-			// Always include the current page in the current location area
-			document.out.write("            <a href=\""); encodeTextInXhtmlAttribute(encodedFullPath, document.out); document.out.write("\">");
-			document.text(pageAttributes.getNavImageAlt())
-			.out.write("</a>"); document.br__().out.write("\n"
-			+ "          </div>\n"
-			+ "          "); document.hr__().out.write("\n"
-			+ "          <b>"); document.text(RESOURCES.getMessage(locale, "relatedPages")).out.write("</b>"); document.br__().out.write("\n"
-			// Display the siblings
-			+ "          <div style=\"white-space:nowrap\">\n");
-			List<Child> siblings = pageAttributes.getChildren();
-			if(siblings.isEmpty() && !parents.isEmpty()) {
-				siblings = parents.get(parents.size()-1).getChildren();
-			}
-			for(Child sibling : siblings) {
-				String navAlt = sibling.getNavImageAlt();
-				String siblingPath = sibling.getPath();
-				if(siblingPath.startsWith("/")) siblingPath = siblingPath.substring(1);
-				document.out.write("          <a href=\"");
-				encodeTextInXhtmlAttribute(
-					resp.encodeURL(
-						URIEncoder.encodeURI(
-							urlBase
-							+ URIEncoder.encodeURI(siblingPath)
-						)
-					),
-					document.out
-				);
-				document.out.write("\">"); document.text(navAlt).out.write("</a>"); document.br__();
-			}
-			document.out.write("          </div>\n");
-			document.hr__();
-			printBelowRelatedPages(req, document);
-			document.out.write("        </td>\n"
-			+ "        <td style=\"vertical-align:top\">\n");
-			printCommonPages(req, resp, document);
-		} catch(SQLException err) {
-			throw new JspException(err);
+		});
+		BODY<HTML_c<DocumentEE>> body = html_c.body();
+		String onload = pageAttributes.getOnload();
+		if (onload != null && !(onload = onload.trim()).isEmpty()) {
+			body.onload(onload);
 		}
+		BODY_c<HTML_c<DocumentEE>> body_c = body._c();
+		TD_c<TR_c<TABLE_c<BODY_c<HTML_c<DocumentEE>>>>> td_c = body_c.table().cellspacing(10).cellpadding(0)._c()
+			.tr_c()
+				.td().style("vertical-align:top").__(td -> {
+					printLogo(req, resp, pageAttributes, td, urlBase);
+					td.hr__();
+					boolean isLoggedIn = aoConn != null;
+					if(isLoggedIn) {
+						td.text(RESOURCES.getMessage(locale, "logoutPrompt"))
+						.form()
+							.style("display:inline")
+							.id("logout_form")
+							.method(Method.Value.POST)
+							.action(resp.encodeURL(URIEncoder.encodeURI(urlBase + "logout.do")))
+						.__(form -> form
+							.div().style("display:inline").__(div -> {
+								if(target != null) div.input().hidden().name("target").value(target).__();
+								// TODO: Variant that takes ResourceBundle?
+								div.input().submit__(RESOURCES.getMessage(locale, "logoutButtonLabel"));
+							})
+						);
+					} else {
+						td.text(RESOURCES.getMessage(locale, "loginPrompt"))
+						.form()
+							.style("display:inline")
+							.id("login_form")
+							.method(Method.Value.POST)
+							.action(resp.encodeURL(URIEncoder.encodeURI(urlBase + "login.do")))
+						.__(form -> form
+							.div().style("display:inline").__(div -> {
+								// Only include the target when they are in the /clientarea/ part of the site
+								if(path.startsWith("clientarea/") && target != null) {
+									div.input().hidden().name("target").value(target).__();
+								}
+								div.input().submit__(RESOURCES.getMessage(locale, "loginButtonLabel"));
+							})
+						);
+					}
+					td.hr__()
+					.div().style("white-space:nowrap").__(div -> {
+						if(skins.size() > 1) {
+							div.script().out(script -> {
+								script.append("function selectLayout(layout) {\n");
+								for(Skin skin : skins) {
+									script.append("  if(layout==").text(skin.getName()).append(") window.top.location.href=").text(
+										resp.encodeURL(
+											new AnyURI(fullPath)
+												.addEncodedParameter(Constants.LAYOUT.getName(), URIEncoder.encodeURIComponent(skin.getName()))
+												.toASCIIString()
+										)
+									).append(";\n");
+								}
+								script.append('}');
+							}).__()
+							.form().action("").style("display:inline").__(form -> form
+								.div().style("display:inline").__(div2 -> div2
+									.text(RESOURCES.getMessage(locale, "layoutPrompt"))
+									.select().name("layout_selector").onchange("selectLayout(this.form.layout_selector.options[this.form.layout_selector.selectedIndex].value);").__(select -> {
+										for(Skin skin : skins) {
+											select.option()
+												.value(skin.getName())
+												.selected(getName().equals(skin.getName()))
+											.__(skin.getDisplay(req, resp));
+										}
+									})
+								)
+							).br__();
+						}
+						if(languages.size() > 1) {
+							for(Language language : languages) {
+								AnyURI uri = language.getUri();
+								if(language.getCode().equalsIgnoreCase(locale.getLanguage())) {
+									div.nbsp().a()
+										.href(
+											resp.encodeURL(
+												URIEncoder.encodeURI(
+													(
+														uri == null
+														? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
+														: uri
+													).toASCIIString()
+												)
+											)
+										)
+										.hreflang(language.getCode())
+									.__(a -> a
+										.img()
+											.src(
+												resp.encodeURL(
+													URIEncoder.encodeURI(
+														urlBase + language.getFlagOnSrc(req, locale)
+													)
+												)
+											).style("border:1px solid; vertical-align:bottom")
+											.width(language.getFlagWidth(req, locale))
+											.height(language.getFlagHeight(req, locale))
+											.alt(language.getDisplay(req, locale))
+										.__()
+									);
+								} else {
+									div.nbsp().a()
+										.href(
+											resp.encodeURL(
+												URIEncoder.encodeURI(
+													(
+														uri == null
+														? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
+														: uri
+													).toASCIIString()
+												)
+											)
+										)
+										.hreflang(language.getCode())
+										.onmouseover(onmouseover -> onmouseover
+											.append("document.images[").text("flagSelector_" + language.getCode()).append("].src=").text(
+												resp.encodeURL(
+													URIEncoder.encodeURI(
+														urlBase
+														+ language.getFlagOnSrc(req, locale)
+													)
+												)
+											).append(';')
+										)
+										.onmouseout(onmouseout -> onmouseout
+											.append("document.images[").text("flagSelector_" + language.getCode()).append("].src=").text(
+												resp.encodeURL(
+													URIEncoder.encodeURI(
+														urlBase
+														+ language.getFlagOffSrc(req, locale)
+													)
+												)
+											).append(';')
+										)
+									.__(a -> a
+										.img()
+											.src(
+												resp.encodeURL(
+													URIEncoder.encodeURI(
+														urlBase
+														+ language.getFlagOffSrc(req, locale)
+													)
+												)
+											).id("flagSelector_" + language.getCode())
+											.style("border:1px solid; vertical-align:bottom")
+											.width(language.getFlagWidth(req, locale))
+											.height(language.getFlagHeight(req, locale))
+											.alt(language.getDisplay(req, locale))
+										.__()
+									);
+									ImagePreload.writeImagePreloadScript(
+										resp.encodeURL(
+											URIEncoder.encodeURI(
+												urlBase + language.getFlagOnSrc(req, locale)
+											)
+										),
+										div
+									);
+								}
+							}
+							div.br__();
+						}
+						printSearch(req, resp, div);
+					})
+					.hr__()
+					// Display the parents
+					.b__(RESOURCES.getMessage(locale, "currentLocation")).br__()
+					.div().style("white-space:nowrap").__(div -> {
+						for(Parent parent : parents) {
+							String navAlt = parent.getNavImageAlt();
+							String parentPath = parent.getPath();
+							if(parentPath.startsWith("/")) parentPath = parentPath.substring(1);
+							div.a(
+								resp.encodeURL(
+									URIEncoder.encodeURI(
+										urlBase
+										+ URIEncoder.encodeURI(parentPath)
+									)
+								)
+							).__(navAlt).br__();
+						}
+						// Always include the current page in the current location area
+						div.a(resp.encodeURL(URIEncoder.encodeURI(fullPath))).__(pageAttributes.getNavImageAlt()).br__();
+					})
+					.hr__()
+					// Related Pages
+					.b__(RESOURCES.getMessage(locale, "relatedPages")).br__()
+					.div().style("white-space:nowrap").__(div -> {
+						List<Child> related = pageAttributes.getChildren();
+						if(related.isEmpty() && !parents.isEmpty()) {
+							related = parents.get(parents.size() - 1).getChildren();
+						}
+						for(Child tpage : related) {
+							String navAlt = tpage.getNavImageAlt();
+							String siblingPath = tpage.getPath();
+							if(siblingPath.startsWith("/")) siblingPath = siblingPath.substring(1);
+							div.a(
+								resp.encodeURL(
+									URIEncoder.encodeURI(
+										urlBase
+										+ URIEncoder.encodeURI(siblingPath)
+									)
+								)
+							).__(navAlt).br__();
+						}
+					})
+					.hr__();
+					printBelowRelatedPages(req, td);
+				})
+				.td().style("vertical-align:top")._c();
+					printCommonPages(req, resp, td_c);
+		@SuppressWarnings("unchecked") __ flow = (__)td_c;
+		return flow;
 	}
 
-	public static void defaultPrintLinks(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, Union_Metadata_Phrasing<?> meta, PageAttributes pageAttributes) throws JspException, IOException {
+	public static <__ extends Union_Metadata_Phrasing<__>> void defaultPrintLinks(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, __ head, PageAttributes pageAttributes) throws JspException, IOException {
 		for(PageAttributes.Link link : pageAttributes.getLinks()) {
 			String href = link.getHref();
 			String rel = link.getRel();
-			meta.link()
+			head.link()
 				.rel(rel)
 				.href(href == null ? null :
 					LastModifiedUtil.buildURL(
@@ -595,6 +599,34 @@ public class TextSkin extends Skin {
 				.type(link.getType())
 			.__();
 		}
+	}
+
+	@Override
+	public void endPage(
+		HttpServletRequest req,
+		HttpServletResponse resp,
+		PageAttributes pageAttributes,
+		FlowContent<?> flow
+	) throws JspException, IOException {
+		@SuppressWarnings("unchecked")
+		TD_c<TR_c<TABLE_c<BODY_c<HTML_c<DocumentEE>>>>> td_c = (TD_c<TR_c<TABLE_c<BODY_c<HTML_c<DocumentEE>>>>>)flow;
+		BODY_c<HTML_c<DocumentEE>> body_c = td_c
+						.__()
+					.__()
+				.__();
+				// TODO: SemanticCMS component for this, also make sure in other layouts and skins
+				EditableResourceBundle.printEditableResourceBundleLookups(
+					textInJavaScriptEncoder,
+					textInXhtmlEncoder,
+					body_c.getUnsafe(),
+					SerializationEE.get(req.getServletContext(), req) == Serialization.XML,
+					4,
+					true
+				);
+		DocumentEE document = body_c
+			.__()
+		.__();
+		assert document != null : "Is fully closed back to DocumentEE";
 	}
 
 	@Override
@@ -797,29 +829,6 @@ public class TextSkin extends Skin {
 	}
 
 	@Override
-	public void endSkin(
-		HttpServletRequest req,
-		HttpServletResponse resp,
-		PageAttributes pageAttributes,
-		DocumentEE document
-	) throws JspException, IOException {
-		document.out.write("        </td>\n"
-		+ "      </tr>\n"
-		+ "    </table>\n");
-		// TODO: SemanticCMS component for this, also make sure in other layouts and skins
-		EditableResourceBundle.printEditableResourceBundleLookups(
-			textInJavaScriptEncoder,
-			textInXhtmlEncoder,
-			document.out,
-			SerializationEE.get(req.getServletContext(), req) == Serialization.XML,
-			4,
-			true
-		);
-		document.out.write("  </body>\n");
-		HtmlTag.endHtmlTag(document.out); document.autoNl();
-	}
-
-	@Override
 	public <
 		PC extends FlowContent<PC>,
 		__ extends FlowContent<__>
@@ -942,7 +951,7 @@ public class TextSkin extends Skin {
 				document.out
 			);
 			document.out.write("\">"); document.text(navAlt).out.write("</a></td>\n"
-			+ "    <td style=\"width:12px; white-space:nowrap\">&#160;</td>\n"
+			+ "    <td style=\"width:12px; white-space:nowrap\">\u00A0</td>\n"
 			+ "    <td style=\"white-space:nowrap\">");
 			String description = sibling.getDescription();
 			if(description != null && !(description = description.trim()).isEmpty()) {
@@ -952,7 +961,7 @@ public class TextSkin extends Skin {
 				if(title != null && !(title = title.trim()).isEmpty()) {
 					document.text(title);
 				} else {
-					document.out.write("&#160;");
+					document.out.write("\u00A0");
 				}
 			}
 			document.out.write("</td>\n"
@@ -964,7 +973,7 @@ public class TextSkin extends Skin {
 	/**
 	 * Prints content below the related pages area on the left.
 	 */
-	public void printBelowRelatedPages(HttpServletRequest req, DocumentEE document) throws JspException, IOException {
+	public <__ extends FlowContent<__>> void printBelowRelatedPages(HttpServletRequest req, __ td) throws JspException, IOException {
 		// Do nothing
 	}
 

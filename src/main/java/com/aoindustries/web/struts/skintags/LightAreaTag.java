@@ -42,7 +42,8 @@ public class LightAreaTag extends PageAttributesBodyTag {
 	private String align;
 	private String width;
 	private boolean nowrap;
-	private FlowContent<?> lightArea;
+	// Values only used between doStartTag and doEndTag
+	private transient FlowContent<?> lightArea;
 
 	public LightAreaTag() {
 		init();
