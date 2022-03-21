@@ -1558,7 +1558,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>joda-time</groupId><artifactId>joda-time</artifactId><version>2.10.13</version>
+				<groupId>joda-time</groupId><artifactId>joda-time</artifactId><version>2.10.14</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.17.2</version>
