@@ -199,7 +199,6 @@ public abstract class Skin {
 			{
 				Language language = languages.get(0);
 				AnyURI uri = language.getUri();
-				// TODO: hreflang attribute
 				head.link(AnyLINK.Rel.ALTERNATE).hreflang("x-default").href(
 					resp.encodeURL(
 						URIEncoder.encodeURI(
