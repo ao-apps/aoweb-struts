@@ -53,6 +53,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -261,7 +262,7 @@ public final class ServerConfirmationCompletedActionHelper {
 
 			// Find the locale and related resource bundles
 			Locale userLocale = ThreadLocale.get();
-			String charset = AnyDocument.ENCODING.name(); // TODO: US-ASCII with automatic entity encoding
+			Charset charset = AnyDocument.ENCODING; // TODO: US-ASCII with automatic entity encoding
 
 			// Generate the email contents
 			// TODO: Test emails

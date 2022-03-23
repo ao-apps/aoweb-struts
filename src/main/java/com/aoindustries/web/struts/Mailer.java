@@ -24,6 +24,7 @@ package com.aoindustries.web.struts;
 
 import com.aoapps.net.HostAddress;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -54,7 +55,7 @@ public final class Mailer {
 	public static void sendEmail(
 		HostAddress smtpServer,
 		String contentType,
-		String charset,
+		Charset charset,
 		String fromAddress,
 		String fromPersonal,
 		List<String> tos,
@@ -62,7 +63,7 @@ public final class Mailer {
 		String message
 	) throws MessagingException, UnsupportedEncodingException {
 		synchronized(mailerLock) {
-			System.setProperty("mail.mime.charset", charset);
+			System.setProperty("mail.mime.charset", charset.name());
 			try {
 				// Create the email
 				Properties props=new Properties();
@@ -82,7 +83,7 @@ public final class Mailer {
 				msg.setSentDate(new Date(System.currentTimeMillis()));
 
 				ContentType ct = new ContentType(contentType);
-				ct.setParameter("charset", charset);
+				ct.setParameter("charset", charset.name());
 				msg.setContent(message, ct.toString());
 				Transport.send(msg);
 			} finally {
