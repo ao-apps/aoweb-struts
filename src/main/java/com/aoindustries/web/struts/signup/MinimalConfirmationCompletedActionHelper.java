@@ -153,24 +153,29 @@ public final class MinimalConfirmationCompletedActionHelper {
 					public Doctype getDoctype() {
 						return Doctype.STRICT;
 					}
+					@Override
+					public Charset getCharacterEncoding() {
+						return charset;
+					}
 				},
 				NativeToPosixWriter.getInstance(new FindReplaceWriter(buffer, "\n", "\r\n"))
 			);
 			document.setAutonli(true);
 			document.setIndent(true);
-			document.xmlDeclaration(charset);
+			document.xmlDeclaration();
 			document.doctype();
-			HtmlTag.beginHtmlTag(userLocale, document.out, document.serialization, (GlobalAttributes)null); document.out.write("\n"
+			Serialization serialization = document.encodingContext.getSerialization();
+			HtmlTag.beginHtmlTag(userLocale, document.out, serialization, (GlobalAttributes)null); document.out.write("\n"
 			+ "<head>\n");
-			String contentType = document.serialization.getContentType() + "; charset=" + charset;
-			if(document.doctype == Doctype.HTML5) {
-				document.meta().charset(charset).__();
+			String contentType = serialization.getContentType() + "; charset=" + charset;
+			if(document.encodingContext.getDoctype() == Doctype.HTML5) {
+				document.meta().charset().__();
 			} else {
 				document
-					.meta(AnyMETA.HttpEquiv.CONTENT_TYPE).content(contentType).__()
+					.meta().httpEquiv(AnyMETA.HttpEquiv.CONTENT_TYPE).content(contentType).__()
 					// Default style language
-					.meta(AnyMETA.HttpEquiv.CONTENT_STYLE_TYPE).content(AnySTYLE.Type.TEXT_CSS).__()
-					.meta(AnyMETA.HttpEquiv.CONTENT_SCRIPT_TYPE).content(AnySCRIPT.Type.TEXT_JAVASCRIPT).__();
+					.meta().httpEquiv(AnyMETA.HttpEquiv.CONTENT_STYLE_TYPE).content(AnySTYLE.Type.TEXT_CSS).__()
+					.meta().httpEquiv(AnyMETA.HttpEquiv.CONTENT_SCRIPT_TYPE).content(AnySCRIPT.Type.TEXT_JAVASCRIPT).__();
 			}
 			document.title__(subject);
 			// Embed the text-only style sheet

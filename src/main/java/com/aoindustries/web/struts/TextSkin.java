@@ -240,35 +240,36 @@ public class TextSkin extends Skin {
 			// If this is not the default skin, then robots noindex
 			boolean robotsMetaUsed = false;
 			if(!isOkResponseStatus || !getName().equals(skins.get(0).getName())) {
-				head.meta(AnyMETA.Name.ROBOTS).content("noindex, nofollow").__();
+				head.meta().name(AnyMETA.Name.ROBOTS).content("noindex, nofollow").__();
 				robotsMetaUsed = true;
 			}
-			if(document.doctype == Doctype.HTML5) {
-				head.meta().charset(resp.getCharacterEncoding()).__();
+			Doctype doctype = document.encodingContext.getDoctype();
+			if(doctype == Doctype.HTML5) {
+				head.meta().charset().__();
 			} else {
 				head
-					.meta(AnyMETA.HttpEquiv.CONTENT_TYPE).content(resp.getContentType()).__()
+					.meta().httpEquiv(AnyMETA.HttpEquiv.CONTENT_TYPE).content(resp.getContentType()).__()
 					// Default style language
-					.meta(AnyMETA.HttpEquiv.CONTENT_STYLE_TYPE).content(AnySTYLE.Type.TEXT_CSS).__()
-					.meta(AnyMETA.HttpEquiv.CONTENT_SCRIPT_TYPE).content(AnySCRIPT.Type.TEXT_JAVASCRIPT).__();
+					.meta().httpEquiv(AnyMETA.HttpEquiv.CONTENT_STYLE_TYPE).content(AnySTYLE.Type.TEXT_CSS).__()
+					.meta().httpEquiv(AnyMETA.HttpEquiv.CONTENT_SCRIPT_TYPE).content(AnySCRIPT.Type.TEXT_JAVASCRIPT).__();
 			}
-			if(document.doctype == Doctype.HTML5) {
+			if(doctype == Doctype.HTML5) {
 				GoogleAnalytics.writeGlobalSiteTag(head, trackingId);
 			} else {
 				GoogleAnalytics.writeAnalyticsJs(head, trackingId);
 			}
 			// Mobile support
 			head
-				.meta(AnyMETA.Name.VIEWPORT).content("width=device-width, initial-scale=1.0").__()
+				.meta().name(AnyMETA.Name.VIEWPORT).content("width=device-width, initial-scale=1.0").__()
 				// TODO: This is probably only appropriate for single-page applications!
 				//       See https://medium.com/@firt/dont-use-ios-web-app-meta-tag-irresponsibly-in-your-progressive-web-apps-85d70f4438cb
-				.meta(AnyMETA.Name.APPLE_MOBILE_WEB_APP_CAPABLE).content("yes").__()
-				.meta(AnyMETA.Name.APPLE_MOBILE_WEB_APP_STATUS_BAR_STYLE).content("black").__();
+				.meta().name(AnyMETA.Name.APPLE_MOBILE_WEB_APP_CAPABLE).content("yes").__()
+				.meta().name(AnyMETA.Name.APPLE_MOBILE_WEB_APP_STATUS_BAR_STYLE).content("black").__();
 			// Authors
 			// TODO: 3.0.0: dcterms copyright
 			String author = pageAttributes.getAuthor();
 			if(author != null && !(author = author.trim()).isEmpty()) {
-				head.meta(AnyMETA.Name.AUTHOR).content(author).__();
+				head.meta().name(AnyMETA.Name.AUTHOR).content(author).__();
 			}
 			String authorHref = pageAttributes.getAuthorHref();
 			if(authorHref != null && !(authorHref = authorHref.trim()).isEmpty()) {
@@ -282,11 +283,11 @@ public class TextSkin extends Skin {
 			head.title__(pageAttributes.getTitle());
 			String description = pageAttributes.getDescription();
 			if(description != null && !(description = description.trim()).isEmpty()) {
-				head.meta(AnyMETA.Name.DESCRIPTION).content(description).__();
+				head.meta().name(AnyMETA.Name.DESCRIPTION).content(description).__();
 			}
 			String keywords = pageAttributes.getKeywords();
 			if(keywords != null && !(keywords = keywords.trim()).isEmpty()) {
-				head.meta(AnyMETA.Name.KEYWORDS).content(keywords).__();
+				head.meta().name(AnyMETA.Name.KEYWORDS).content(keywords).__();
 			}
 			// TODO: 3.0.0: Review HTML 4/HTML 5 differences from here
 			String copyright = pageAttributes.getCopyright();
@@ -296,7 +297,7 @@ public class TextSkin extends Skin {
 			}
 			// If this is an authenticated page, redirect to session timeout after one hour
 			if(isOkResponseStatus && aoConn != null && session != null) {
-				head.meta(AnyMETA.HttpEquiv.REFRESH).content(content -> {
+				head.meta().httpEquiv(AnyMETA.HttpEquiv.REFRESH).content(content -> {
 					content.write(Integer.toString(Math.max(60, session.getMaxInactiveInterval() - 60)));
 					content.write(";URL=");
 					content.write(
