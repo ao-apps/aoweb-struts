@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2009, 2016, 2019, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2009, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,7 +22,7 @@
  */
 package com.aoindustries.web.struts.aowebtags;
 
-import com.aoapps.encoding.MediaWriter;
+import com.aoapps.encoding.JavaScriptWriter;
 import com.aoapps.html.servlet.DocumentEE;
 import com.aoapps.lang.util.Sequence;
 import com.aoapps.lang.util.UnsynchronizedSequence;
@@ -93,7 +93,7 @@ public class ScriptGroupTag extends BodyTagSupport {
 					false, // Do not add extra newlines to JSP
 					false  // Do not add extra indentation to JSP
 				);
-				try (MediaWriter script = document.script()._c()) {
+				try (JavaScriptWriter script = document.script()._c()) {
 					if("none".equals(onloadMode)) {
 						scriptOut.writeTo(script);
 					} else {

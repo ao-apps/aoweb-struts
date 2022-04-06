@@ -24,7 +24,6 @@ package com.aoindustries.web.struts.signup;
 
 import com.aoapps.encoding.Doctype;
 import com.aoapps.encoding.EncodingContext;
-import com.aoapps.encoding.MediaWriter;
 import com.aoapps.encoding.Serialization;
 import com.aoapps.hodgepodge.io.FindReplaceWriter;
 import com.aoapps.hodgepodge.io.NativeToPosixWriter;
@@ -49,6 +48,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.HashSet;
@@ -182,7 +182,7 @@ public final class MinimalConfirmationCompletedActionHelper {
 			InputStream cssIn = servlet.getServletContext().getResourceAsStream(TextSkin.TEXTSKIN_CSS.getUri());
 			if(cssIn != null) {
 				try {
-					try (MediaWriter style = document.style()._c()) {
+					try (Writer style = document.style()._c()) {
 						Reader cssReader = new InputStreamReader(cssIn);
 						try {
 							IoUtils.copy(cssReader, style);

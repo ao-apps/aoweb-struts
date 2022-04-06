@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2009-2013, 2015, 2016, 2019, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2009-2013, 2015, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,7 +23,6 @@
 package com.aoindustries.web.struts.aowebtags;
 
 import static com.aoapps.encoding.JavaScriptInXhtmlEncoder.encodeJavaScriptInXhtml;
-import com.aoapps.encoding.MediaWriter;
 import com.aoapps.html.servlet.DocumentEE;
 import com.aoapps.html.servlet.Union_Palpable_Phrasing;
 import com.aoapps.lang.util.Sequence;
@@ -33,6 +32,7 @@ import com.aoapps.servlet.jsp.tagext.JspTagUtils;
 import com.aoapps.sql.SQLUtility;
 import java.io.CharArrayWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Date;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
@@ -169,7 +169,7 @@ public class TimeTag extends BodyTagSupport {
 				} else {
 					CharArrayWriter scriptOut = new CharArrayWriter();
 					writeTimeJavaScript(time, sequence, document, scriptOut);
-					try (MediaWriter script = document.script()._c()) {
+					try (Writer script = document.script()._c()) {
 						scriptOut.writeTo(script);
 					}
 				}
