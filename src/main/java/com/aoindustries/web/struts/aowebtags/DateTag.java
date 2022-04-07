@@ -22,7 +22,7 @@
  */
 package com.aoindustries.web.struts.aowebtags;
 
-import static com.aoapps.encoding.JavaScriptInXhtmlEncoder.encodeJavaScriptInXhtml;
+import static com.aoapps.encoding.JavaScriptInXhtmlEncoder.encodeJavascriptInXhtml;
 import com.aoapps.html.servlet.DocumentEE;
 import com.aoapps.html.servlet.Union_Palpable_Phrasing;
 import com.aoapps.lang.util.Sequence;
@@ -66,7 +66,7 @@ public class DateTag extends BodyTagSupport {
 	 *
 	 * @see  SQLUtility#formatDate(long)
 	 */
-	public static void writeDateJavaScript(long date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
+	public static void writeDateJavascript(long date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
 		String dateString = SQLUtility.formatDate(date);
 		long id = sequence.getNextSequenceValue();
 		String idString = Long.toString(id);
@@ -93,7 +93,7 @@ public class DateTag extends BodyTagSupport {
 		scriptOut.append(", ");
 		scriptOut.append(Long.toString(date));
 		scriptOut.append(", \"");
-		encodeJavaScriptInXhtml(dateString, scriptOut);
+		encodeJavascriptInXhtml(dateString, scriptOut);
 		scriptOut.append("\");\n");
 	}
 
@@ -112,8 +112,8 @@ public class DateTag extends BodyTagSupport {
 	 *
 	 * @see  SQLUtility#formatDate(java.lang.Long)
 	 */
-	public static void writeDateJavaScript(Long date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
-		if(date != null) writeDateJavaScript(date.longValue(), sequence, content, scriptOut);
+	public static void writeDateJavascript(Long date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
+		if(date != null) writeDateJavascript(date.longValue(), sequence, content, scriptOut);
 	}
 
 	/**
@@ -131,8 +131,8 @@ public class DateTag extends BodyTagSupport {
 	 *
 	 * @see  SQLUtility#formatDate(java.util.Date)
 	 */
-	public static void writeDateJavaScript(Date date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
-		if(date != null) writeDateJavaScript(date.getTime(), sequence, content, scriptOut);
+	public static void writeDateJavascript(Date date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
+		if(date != null) writeDateJavascript(date.getTime(), sequence, content, scriptOut);
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -163,10 +163,10 @@ public class DateTag extends BodyTagSupport {
 				// Resolve the scriptOut
 				Optional<ScriptGroupTag> scriptGroupTag = JspTagUtils.findAncestor(this, ScriptGroupTag.class);
 				if(scriptGroupTag.isPresent()) {
-					writeDateJavaScript(date, sequence, document, scriptGroupTag.get().getScriptOut());
+					writeDateJavascript(date, sequence, document, scriptGroupTag.get().getScriptOut());
 				} else {
 					CharArrayWriter scriptOut = new CharArrayWriter();
-					writeDateJavaScript(date, sequence, document, scriptOut);
+					writeDateJavascript(date, sequence, document, scriptOut);
 					try (Writer script = document.script()._c()) {
 						scriptOut.writeTo(script);
 					}

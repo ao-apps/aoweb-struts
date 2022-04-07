@@ -24,7 +24,7 @@ package com.aoindustries.web.struts;
 
 import com.aoapps.encoding.Doctype;
 import com.aoapps.encoding.Serialization;
-import static com.aoapps.encoding.TextInJavaScriptEncoder.textInJavaScriptEncoder;
+import static com.aoapps.encoding.TextInJavaScriptEncoder.textInJavascriptEncoder;
 import static com.aoapps.encoding.TextInXhtmlAttributeEncoder.encodeTextInXhtmlAttribute;
 import static com.aoapps.encoding.TextInXhtmlEncoder.textInXhtmlEncoder;
 import com.aoapps.encoding.servlet.SerializationEE;
@@ -166,7 +166,7 @@ public class TextSkin extends Skin {
 	/**
 	 * Prints the lines for any JavaScript sources.
 	 */
-	public <__ extends ScriptSupportingContent<__>> void printJavaScriptSources(HttpServletRequest req, HttpServletResponse resp, __ head, String urlBase) throws JspException, IOException {
+	public <__ extends ScriptSupportingContent<__>> void printJavascriptSources(HttpServletRequest req, HttpServletResponse resp, __ head, String urlBase) throws JspException, IOException {
 		// Do nothing
 	}
 
@@ -354,7 +354,7 @@ public class TextSkin extends Skin {
 				pageRegistry
 			);
 			defaultPrintLinks(servletContext, req, resp, head, pageAttributes);
-			printJavaScriptSources(req, resp, head, urlBase);
+			printJavascriptSources(req, resp, head, urlBase);
 			Formtype formtype = pageAttributes.getFormtype();
 			if(formtype != null) formtype.doHead(servletContext, req, resp, head);
 			printFavIcon(req, resp, head, urlBase);
@@ -620,7 +620,7 @@ public class TextSkin extends Skin {
 				.__();
 				// TODO: SemanticCMS component for this, also make sure in other layouts and skins
 				EditableResourceBundle.printEditableResourceBundleLookups(
-					textInJavaScriptEncoder,
+					textInJavascriptEncoder,
 					textInXhtmlEncoder,
 					body_c.getUnsafe(),
 					SerializationEE.get(req.getServletContext(), req) == Serialization.XML,
