@@ -31,8 +31,6 @@ import com.aoapps.encoding.servlet.SerializationEE;
 import com.aoapps.hodgepodge.i18n.EditableResourceBundle;
 import com.aoapps.html.any.AnyLINK;
 import com.aoapps.html.any.AnyMETA;
-import com.aoapps.html.any.AnySCRIPT;
-import com.aoapps.html.any.AnySTYLE;
 import com.aoapps.html.any.attributes.Enum.Method;
 import com.aoapps.html.servlet.BODY;
 import com.aoapps.html.servlet.BODY_c;
@@ -47,6 +45,7 @@ import com.aoapps.html.servlet.TD_c;
 import com.aoapps.html.servlet.TR_c;
 import com.aoapps.html.servlet.Union_Metadata_Phrasing;
 import com.aoapps.html.util.GoogleAnalytics;
+import com.aoapps.html.util.HeadUtil;
 import com.aoapps.html.util.ImagePreload;
 import static com.aoapps.lang.Strings.trimNullIfEmpty;
 import com.aoapps.net.AnyURI;
@@ -190,7 +189,6 @@ public class TextSkin extends Skin {
 	}
 
 	@Override
-	// TODO: uncomment once only expected deprecated remains: @SuppressWarnings("deprecation")
 	public <__ extends FlowContent<__>> __ startPage(
 		HttpServletRequest req,
 		HttpServletResponse resp,
@@ -243,16 +241,8 @@ public class TextSkin extends Skin {
 				head.meta().name(AnyMETA.Name.ROBOTS).content("noindex, nofollow").__();
 				robotsMetaUsed = true;
 			}
+			HeadUtil.standardMeta(head, resp.getContentType());
 			Doctype doctype = document.encodingContext.getDoctype();
-			if(doctype == Doctype.HTML5) {
-				head.meta().charset().__();
-			} else {
-				head
-					.meta().httpEquiv(AnyMETA.HttpEquiv.CONTENT_TYPE).content(resp.getContentType()).__()
-					// Default style language
-					.meta().httpEquiv(AnyMETA.HttpEquiv.CONTENT_STYLE_TYPE).content(AnySTYLE.Type.TEXT_CSS).__()
-					.meta().httpEquiv(AnyMETA.HttpEquiv.CONTENT_SCRIPT_TYPE).content(AnySCRIPT.Type.TEXT_JAVASCRIPT).__();
-			}
 			if(doctype == Doctype.HTML5) {
 				GoogleAnalytics.writeGlobalSiteTag(head, trackingId);
 			} else {
@@ -622,7 +612,7 @@ public class TextSkin extends Skin {
 				EditableResourceBundle.printEditableResourceBundleLookups(
 					textInJavascriptEncoder,
 					textInXhtmlEncoder,
-					body_c.getUnsafe(),
+					body_c.getRawUnsafe(),
 					SerializationEE.get(req.getServletContext(), req) == Serialization.XML,
 					4,
 					true
@@ -952,7 +942,7 @@ public class TextSkin extends Skin {
 		String urlBase = getUrlBase(req);
 		//Locale locale = resp.getLocale();
 
-		document.out.write("<table cellpadding=\"0\" cellspacing=\"10\">\n");
+		document.unsafe("<table cellpadding=\"0\" cellspacing=\"10\">\n");
 		List<Child> siblings = pageAttributes.getChildren();
 		if(siblings.isEmpty()) {
 			List<Parent> parents = pageAttributes.getParents();
@@ -963,7 +953,7 @@ public class TextSkin extends Skin {
 			String siblingPath = sibling.getPath();
 			if(siblingPath.startsWith("/")) siblingPath=siblingPath.substring(1);
 
-			document.out.write("  <tr>\n"
+			document.unsafe("  <tr>\n"
 			+ "    <td style=\"white-space:nowrap\"><a class=\"aoLightLink\" href=\"");
 			encodeTextInXhtmlAttribute(
 				resp.encodeURL(
@@ -972,9 +962,9 @@ public class TextSkin extends Skin {
 						+ URIEncoder.encodeURI(siblingPath)
 					)
 				),
-				document.out
+				document.getRawUnsafe()
 			);
-			document.out.write("\">"); document.text(navAlt).out.write("</a></td>\n"
+			document.unsafe("\">").text(navAlt).unsafe("</a></td>\n"
 			+ "    <td style=\"width:12px; white-space:nowrap\">\u00A0</td>\n"
 			+ "    <td style=\"white-space:nowrap\">");
 			String description = sibling.getDescription();
@@ -985,13 +975,13 @@ public class TextSkin extends Skin {
 				if(title != null && !(title = title.trim()).isEmpty()) {
 					document.text(title);
 				} else {
-					document.out.write("\u00A0");
+					document.nbsp();
 				}
 			}
-			document.out.write("</td>\n"
+			document.unsafe("</td>\n"
 			+ "  </tr>\n");
 		}
-		document.out.write("</table>\n");
+		document.unsafe("</table>\n");
 	}
 
 	/**
@@ -1088,8 +1078,8 @@ public class TextSkin extends Skin {
 		width = trimNullIfEmpty(width);
 		Locale locale = resp.getLocale();
 
-		document.out.append("<div id=\"aoPopupAnchor_").append(groupIdStr).append('_').append(popupIdStr).append("\" class=\"aoPopupAnchor\">");
-		document.img()
+		document.unsafe("<div id=\"aoPopupAnchor_").unsafe(groupIdStr).unsafe('_').unsafe(popupIdStr).unsafe("\" class=\"aoPopupAnchor\">")
+		.img()
 			.clazz("aoPopupAnchorImg")
 			.src(
 				resp.encodeURL(
@@ -1131,17 +1121,17 @@ public class TextSkin extends Skin {
 				.append(");")
 		).__()
 		// Used to be span width=\"100%\"
-		.out.append("    <div id=\"aoPopup_").append(groupIdStr).append('_').append(popupIdStr).append("\" class=\"aoPopupMain\"");
+		.unsafe("    <div id=\"aoPopup_").unsafe(groupIdStr).unsafe('_').unsafe(popupIdStr).unsafe("\" class=\"aoPopupMain\"");
 		if(width != null) {
-			document.out.write(" style=\"");
-			appendWidthStyle(width, document.out);
-			document.out.write('"');
+			document.unsafe(" style=\"");
+			appendWidthStyle(width, document.getRawUnsafe());
+			document.unsafe('"');
 		}
-		document.out.write(">\n"
+		document.unsafe(">\n"
 		+ "        <table class=\"aoPopupTable ao-packed\">\n"
 		+ "            <tr>\n"
-		+ "                <td class=\"aoPopupTL\">");
-		document.img()
+		+ "                <td class=\"aoPopupTL\">")
+		.img()
 			.src(
 				resp.encodeURL(
 					URIEncoder.encodeURI(
@@ -1149,7 +1139,7 @@ public class TextSkin extends Skin {
 					)
 				)
 			).width(12).height(12).alt("").__()
-		.out.write("</td>\n"
+		.unsafe("</td>\n"
 		+ "                <td class=\"aoPopupTop\" style=\"background-image:url(");
 		encodeTextInXhtmlAttribute(
 			resp.encodeURL(
@@ -1157,11 +1147,11 @@ public class TextSkin extends Skin {
 					urlBase + "textskin/popup_top.gif"
 				)
 			),
-			document.out
+			document.getRawUnsafe()
 		);
-		document.out.write(");\"></td>\n"
-		+ "                <td class=\"aoPopupTR\">");
-		document.img()
+		document.unsafe(");\"></td>\n"
+		+ "                <td class=\"aoPopupTR\">")
+		.img()
 			.src(
 				resp.encodeURL(
 					URIEncoder.encodeURI(
@@ -1169,7 +1159,7 @@ public class TextSkin extends Skin {
 					)
 				)
 			).width(12).height(12).alt("").__()
-		.out.write("</td>\n"
+		.unsafe("</td>\n"
 		+ "            </tr>\n"
 		+ "            <tr>\n"
 		+ "                <td class=\"aoPopupLeft\" style=\"background-image:url(");
@@ -1179,9 +1169,9 @@ public class TextSkin extends Skin {
 					urlBase + "textskin/popup_left.gif"
 				)
 			),
-			document.out
+			document.getRawUnsafe()
 		);
-		document.out.write(");\"></td>\n"
+		document.unsafe(");\"></td>\n"
 		+ "                <td class=\"aoPopupLightRow\">");
 	}
 
@@ -1230,7 +1220,7 @@ public class TextSkin extends Skin {
 	 * Default implementation of endPopup.
 	 */
 	public static void defaultEndPopup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId, String width, String urlBase) throws JspException, IOException {
-		document.out.write("</td>\n"
+		document.unsafe("</td>\n"
 		+ "                <td class=\"aoPopupRight\" style=\"background-image:url(");
 		encodeTextInXhtmlAttribute(
 			resp.encodeURL(
@@ -1238,13 +1228,13 @@ public class TextSkin extends Skin {
 					urlBase + "textskin/popup_right.gif"
 				)
 			),
-			document.out
+			document.getRawUnsafe()
 		);
-		document.out.write(");\"></td>\n"
+		document.unsafe(");\"></td>\n"
 		+ "            </tr>\n"
 		+ "            <tr>\n"
-		+ "                <td class=\"aoPopupBL\">");
-		document.img()
+		+ "                <td class=\"aoPopupBL\">")
+		.img()
 			.src(
 				resp.encodeURL(
 					URIEncoder.encodeURI(
@@ -1252,7 +1242,7 @@ public class TextSkin extends Skin {
 					)
 				)
 			).width(12).height(12).alt("").__()
-		.out.write("</td>\n"
+		.unsafe("</td>\n"
 		+ "                <td class=\"aoPopupBottom\" style=\"background-image:url(");
 		encodeTextInXhtmlAttribute(
 			resp.encodeURL(
@@ -1260,9 +1250,9 @@ public class TextSkin extends Skin {
 					urlBase + "textskin/popup_bottom.gif"
 				)
 			),
-			document.out
+			document.getRawUnsafe()
 		);
-		document.out.write(");\"></td>\n"
+		document.unsafe(");\"></td>\n"
 		+ "                <td class=\"aoPopupBR\">");
 		document.img()
 			.src(
@@ -1272,7 +1262,7 @@ public class TextSkin extends Skin {
 					)
 				)
 			).width(12).height(12).alt("").__()
-		.out.write("</td>\n"
+		.unsafe("</td>\n"
 		+ "            </tr>\n"
 		+ "        </table>\n"
 		+ "    </div>\n"

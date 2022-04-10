@@ -29,9 +29,7 @@ import com.aoapps.hodgepodge.io.FindReplaceWriter;
 import com.aoapps.hodgepodge.io.NativeToPosixWriter;
 import com.aoapps.html.Document;
 import com.aoapps.html.any.AnyDocument;
-import com.aoapps.html.any.AnyMETA;
-import com.aoapps.html.any.AnySCRIPT;
-import com.aoapps.html.any.AnySTYLE;
+import com.aoapps.html.util.HeadUtil;
 import com.aoapps.lang.i18n.ThreadLocale;
 import com.aoapps.lang.io.IoUtils;
 import com.aoapps.net.Email;
@@ -243,7 +241,7 @@ public final class ServerConfirmationCompletedActionHelper {
 	/**
 	 * Sends a summary email and returns <code>true</code> if successful.
 	 */
-	@SuppressWarnings({"deprecation", "UseSpecificCatch", "TooBroadCatch"})
+	@SuppressWarnings({"UseSpecificCatch", "TooBroadCatch"})
 	private static boolean sendSummaryEmail(
 		ActionServlet servlet,
 		HttpServletRequest request,
@@ -289,18 +287,10 @@ public final class ServerConfirmationCompletedActionHelper {
 			document.xmlDeclaration();
 			document.doctype();
 			Serialization serialization = document.encodingContext.getSerialization();
-			HtmlTag.beginHtmlTag(userLocale, document.out, serialization, (GlobalAttributes)null); document.out.write("\n"
+			HtmlTag.beginHtmlTag(userLocale, document.getRawUnsafe(), serialization, (GlobalAttributes)null); document.unsafe("\n"
 			+ "<head>\n");
 			String contentType = serialization.getContentType() + "; charset=" + charset;
-			if(document.encodingContext.getDoctype() == Doctype.HTML5) {
-				document.meta().charset().__();
-			} else {
-				document
-					.meta().httpEquiv(AnyMETA.HttpEquiv.CONTENT_TYPE).content(contentType).__()
-					// Default style language
-					.meta().httpEquiv(AnyMETA.HttpEquiv.CONTENT_STYLE_TYPE).content(AnySTYLE.Type.TEXT_CSS).__()
-					.meta().httpEquiv(AnyMETA.HttpEquiv.CONTENT_SCRIPT_TYPE).content(AnySCRIPT.Type.TEXT_JAVASCRIPT).__();
-			}
+			HeadUtil.standardMeta(document, contentType);
 			document.title__(subject);
 			// Embed the text-only style sheet
 			InputStream cssIn = servlet.getServletContext().getResourceAsStream(TextSkin.TEXTSKIN_CSS.getUri());
@@ -320,25 +310,25 @@ public final class ServerConfirmationCompletedActionHelper {
 			} else {
 				servlet.log("Warning: Unable to find resource: " + TextSkin.TEXTSKIN_CSS);
 			}
-			document.out.append("</head>\n"
+			document.unsafe("</head>\n"
 			+ "<body>\n"
 			+ "<table style=\"border:0px\" cellpadding=\"0\" cellspacing=\"0\">\n"
 			+ "    <tr><td style=\"white-space:nowrap\" colspan=\"3\">\n"
-			+ "        ").append(PACKAGE_RESOURCES.getMessage(statusKey, pkey)); document.br__().out.write("\n"
-			+ "        "); document.br__().out.append("\n"
-			+ "        ").append(PACKAGE_RESOURCES.getMessage("serverConfirmationCompleted.belowIsSummary")); document.br__().out.write("\n"
-			+ "        "); document.hr__().out.write("\n"
+			+ "        ").unsafe(PACKAGE_RESOURCES.getMessage(statusKey, pkey)).br__().unsafe("\n"
+			+ "        ").br__().unsafe("\n"
+			+ "        ").unsafe(PACKAGE_RESOURCES.getMessage("serverConfirmationCompleted.belowIsSummary")).br__().unsafe("\n"
+			+ "        ").hr__().unsafe("\n"
 			+ "    </td></tr>\n"
-			+ "    <tr><th colspan=\"3\">"); document.text(PACKAGE_RESOURCES.getMessage("steps.selectServer.label")); document.out.write("</th></tr>\n");
+			+ "    <tr><th colspan=\"3\">").text(PACKAGE_RESOURCES.getMessage("steps.selectServer.label")).unsafe("</th></tr>\n");
 			SignupSelectServerActionHelper.writeEmailConfirmation(document, packageDefinition);
-			document.out.write("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-			+ "    <tr><th colspan=\"3\">"); document.text(PACKAGE_RESOURCES.getMessage("steps.customizeServer.label")); document.out.write("</th></tr>\n");
+			document.unsafe("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
+			+ "    <tr><th colspan=\"3\">").text(PACKAGE_RESOURCES.getMessage("steps.customizeServer.label")).unsafe("</th></tr>\n");
 			SiteSettings siteSettings = SiteSettings.getInstance(servlet.getServletContext());
 			AOServConnector rootConn = siteSettings.getRootAOServConnector();
 			SignupCustomizeServerActionHelper.writeEmailConfirmation(request, document, rootConn, packageDefinition, signupCustomizeServerForm);
 			if(signupCustomizeManagementForm!=null) {
-				document.out.write("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-				+ "    <tr><th colspan=\"3\">"); document.text(PACKAGE_RESOURCES.getMessage("steps.customizeManagement.label")); document.out.write("</th></tr>\n");
+				document.unsafe("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
+				+ "    <tr><th colspan=\"3\">").text(PACKAGE_RESOURCES.getMessage("steps.customizeManagement.label")).unsafe("</th></tr>\n");
 				SignupCustomizeManagementActionHelper.writeEmailConfirmation(
 					request,
 					document,
@@ -346,18 +336,18 @@ public final class ServerConfirmationCompletedActionHelper {
 					signupCustomizeManagementForm
 				);
 			}
-			document.out.write("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-			+ "    <tr><th colspan=\"3\">"); document.text(PACKAGE_RESOURCES.getMessage("steps.organizationInfo.label")); document.out.write("</th></tr>\n");
+			document.unsafe("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
+			+ "    <tr><th colspan=\"3\">").text(PACKAGE_RESOURCES.getMessage("steps.organizationInfo.label")).unsafe("</th></tr>\n");
 			SignupOrganizationActionHelper.writeEmailConfirmation(document, rootConn, signupOrganizationForm);
-			document.out.write("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-			+ "    <tr><th colspan=\"3\">"); document.text(PACKAGE_RESOURCES.getMessage("steps.technicalInfo.label")); document.out.write("</th></tr>\n");
+			document.unsafe("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
+			+ "    <tr><th colspan=\"3\">").text(PACKAGE_RESOURCES.getMessage("steps.technicalInfo.label")).unsafe("</th></tr>\n");
 			SignupTechnicalActionHelper.writeEmailConfirmation(document, rootConn, signupTechnicalForm);
-			document.out.write("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-			+ "    <tr><th colspan=\"3\">"); document.text(PACKAGE_RESOURCES.getMessage("steps.billingInformation.label")); document.out.write("</th></tr>\n");
+			document.unsafe("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
+			+ "    <tr><th colspan=\"3\">").text(PACKAGE_RESOURCES.getMessage("steps.billingInformation.label")).unsafe("</th></tr>\n");
 			SignupBillingInformationActionHelper.writeEmailConfirmation(document, signupBillingInformationForm);
-			document.out.write("</table>\n"
+			document.unsafe("</table>\n"
 			+ "</body>\n");
-			HtmlTag.endHtmlTag(document.out); document.autoNl();
+			HtmlTag.endHtmlTag(document.getRawUnsafe()); document.autoNl();
 
 			// Send the email
 			Brand brand = siteSettings.getBrand();
