@@ -570,7 +570,7 @@ public class TextSkin extends Skin {
 		return flow;
 	}
 
-	public static <__ extends Union_Metadata_Phrasing<__>> void defaultPrintLinks(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, __ head, PageAttributes pageAttributes) throws JspException, IOException {
+	public static <__ extends Union_Metadata_Phrasing<__>> void defaultPrintLinks(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, __ head, PageAttributes pageAttributes) throws IOException {
 		for(PageAttributes.Link link : pageAttributes.getLinks()) {
 			String href = link.getHref();
 			String rel = link.getRel();
@@ -1004,7 +1004,7 @@ public class TextSkin extends Skin {
 	/**
 	 * Default implementation of beginPopupGroup.
 	 */
-	public static void defaultBeginPopupGroup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId) throws JspException, IOException {
+	public static void defaultBeginPopupGroup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId) throws IOException {
 		String groupIdStr = Long.toString(groupId);
 		document.script().out(script -> script.indent()
 			.append("var popupGroupTimer").append(groupIdStr).append("=null;").nli()
@@ -1068,7 +1068,7 @@ public class TextSkin extends Skin {
 	/**
 	 * Default implementation of beginPopup.
 	 */
-	public static void defaultBeginPopup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId, String width, String urlBase) throws JspException, IOException {
+	public static void defaultBeginPopup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId, String width, String urlBase) throws IOException {
 		if(groupId < 0) throw new IllegalArgumentException("groupId < 0: " + groupId);
 		final String groupIdStr = Long.toString(groupId);
 
@@ -1188,7 +1188,7 @@ public class TextSkin extends Skin {
 	/**
 	 * Default implementation of printPopupClose.
 	 */
-	public static void defaultPrintPopupClose(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId, String urlBase) throws JspException, IOException {
+	public static void defaultPrintPopupClose(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId, String urlBase) throws IOException {
 		Locale locale = resp.getLocale();
 
 		document.img()
@@ -1219,7 +1219,7 @@ public class TextSkin extends Skin {
 	/**
 	 * Default implementation of endPopup.
 	 */
-	public static void defaultEndPopup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId, String width, String urlBase) throws JspException, IOException {
+	public static void defaultEndPopup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId, String width, String urlBase) throws IOException {
 		document.unsafe("</td>\n"
 		+ "                <td class=\"aoPopupRight\" style=\"background-image:url(");
 		encodeTextInXhtmlAttribute(

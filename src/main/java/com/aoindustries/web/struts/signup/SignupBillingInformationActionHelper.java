@@ -78,7 +78,7 @@ public final class SignupBillingInformationActionHelper {
 		ServletContext servletContext,
 		HttpServletRequest request,
 		SignupBillingInformationForm signupBillingInformationForm
-	) throws IOException {
+	) {
 		// Store as request attribute for the view
 		request.setAttribute("billingCardNumber", getBillingCardNumber(signupBillingInformationForm));
 	}

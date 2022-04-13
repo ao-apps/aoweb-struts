@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2019, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -37,7 +37,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspException;
 
 /**
  * Resolves the current {@link Locale}, optionally changing it with any language parameters, and sets the request param
@@ -145,7 +144,7 @@ public class LocaleFilter implements Filter {
 	/**
 	 * Gets the default locale for the provided request.  The session and {@linkplain ThreadLocale thread locale} are not set.
 	 */
-	public static Locale getDefaultLocale(SiteSettings siteSettings, ServletRequest request) throws JspException, IOException, SQLException {
+	public static Locale getDefaultLocale(SiteSettings siteSettings, ServletRequest request) throws IOException, SQLException {
 		return getDefaultLocale(siteSettings.getLanguages(request));
 	}
 
