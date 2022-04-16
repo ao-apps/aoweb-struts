@@ -20,6 +20,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 package com.aoindustries.web.struts.book;
 
 import com.aoapps.lang.util.PropertiesUtils;
