@@ -46,56 +46,60 @@ import org.apache.struts.action.ActionMapping;
  */
 public class ConfigureAutomaticBillingCompletedAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		// Account must be selected and accessible
-		String account_name = request.getParameter("account");
-		if(GenericValidator.isBlankOrNull(account_name)) {
-			return mapping.findForward("credit-card-manager");
-		}
-		Account account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(account_name));
-		if(account == null) {
-			return mapping.findForward("credit-card-manager");
-		}
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    // Account must be selected and accessible
+    String account_name = request.getParameter("account");
+    if (GenericValidator.isBlankOrNull(account_name)) {
+      return mapping.findForward("credit-card-manager");
+    }
+    Account account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(account_name));
+    if (account == null) {
+      return mapping.findForward("credit-card-manager");
+    }
 
-		// CreditCard must be selected or "", and part of the account
-		String pkey = request.getParameter("pkey");
-		if(pkey==null) {
-			return mapping.findForward("credit-card-manager");
-		}
-		CreditCard creditCard;
-		if(pkey.length()==0) {
-			creditCard=null;
-		} else {
-			creditCard = aoConn.getPayment().getCreditCard().get(Integer.parseInt(pkey));
-			if(creditCard == null) return mapping.findForward("credit-card-manager");
-			if(!creditCard.getAccount().equals(account)) throw new SQLException("Requested account and CreditCard account do not match: "+creditCard.getAccount().getName()+"!="+account.getName());
-		}
+    // CreditCard must be selected or "", and part of the account
+    String pkey = request.getParameter("pkey");
+    if (pkey == null) {
+      return mapping.findForward("credit-card-manager");
+    }
+    CreditCard creditCard;
+    if (pkey.length() == 0) {
+      creditCard=null;
+    } else {
+      creditCard = aoConn.getPayment().getCreditCard().get(Integer.parseInt(pkey));
+      if (creditCard == null) {
+        return mapping.findForward("credit-card-manager");
+      }
+      if (!creditCard.getAccount().equals(account)) {
+        throw new SQLException("Requested account and CreditCard account do not match: "+creditCard.getAccount().getName()+" != "+account.getName());
+      }
+    }
 
-		account.setUseMonthlyCreditCard(creditCard);
+    account.setUseMonthlyCreditCard(creditCard);
 
-		// Store request attributes
-		request.setAttribute("account", account);
-		request.setAttribute("creditCard", creditCard);
+    // Store request attributes
+    request.setAttribute("account", account);
+    request.setAttribute("creditCard", creditCard);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	private static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
-		EnumSet.of(
-			Permission.Name.get_credit_cards,
-			Permission.Name.edit_credit_card
-		)
-	);
+  private static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
+    EnumSet.of(
+      Permission.Name.get_credit_cards,
+      Permission.Name.edit_credit_card
+    )
+  );
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return permissions;
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return permissions;
+  }
 }

@@ -37,20 +37,20 @@ import javax.servlet.http.HttpServletRequest;
 @WebListener
 public class SwitchUserRequestListener implements ServletRequestListener {
 
-	@Override
-	public void requestInitialized(ServletRequestEvent sre) {
-		ServletRequest request = sre.getServletRequest();
-		// Is a switch-user requested?
-		String su = request.getParameter(Constants.SU);
-		if(su != null) {
-			if(request instanceof HttpServletRequest) {
-				Constants.SU_REQUESTED.context(((HttpServletRequest)request).getSession()).set(su.trim());
-			}
-		}
-	}
+  @Override
+  public void requestInitialized(ServletRequestEvent sre) {
+    ServletRequest request = sre.getServletRequest();
+    // Is a switch-user requested?
+    String su = request.getParameter(Constants.SU);
+    if (su != null) {
+      if (request instanceof HttpServletRequest) {
+        Constants.SU_REQUESTED.context(((HttpServletRequest)request).getSession()).set(su.trim());
+      }
+    }
+  }
 
-	@Override
-	public void requestDestroyed(ServletRequestEvent sre) {
-		// Nothing to do
-	}
+  @Override
+  public void requestDestroyed(ServletRequestEvent sre) {
+    // Nothing to do
+  }
 }

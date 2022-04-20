@@ -47,57 +47,59 @@ import org.apache.struts.action.ActionMapping;
  */
 public class ConfigureAutomaticBillingAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		// Account must be selected and accessible
-		String account_name = request.getParameter("account");
-		if(GenericValidator.isBlankOrNull(account_name)) {
-			return mapping.findForward("credit-card-manager");
-		}
-		Account account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(account_name));
-		if(account == null) {
-			return mapping.findForward("credit-card-manager");
-		}
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    // Account must be selected and accessible
+    String account_name = request.getParameter("account");
+    if (GenericValidator.isBlankOrNull(account_name)) {
+      return mapping.findForward("credit-card-manager");
+    }
+    Account account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(account_name));
+    if (account == null) {
+      return mapping.findForward("credit-card-manager");
+    }
 
-		// Get the list of cards for the account, must have at least one card.
-		List<CreditCard> creditCards = account.getCreditCards();
-		// Build list of active cards
-		List<CreditCard> activeCards = new ArrayList<>(creditCards.size());
-		CreditCard automaticCard = null;
-		for(CreditCard creditCard : creditCards) {
-			if(creditCard.getIsActive()) {
-				activeCards.add(creditCard);
-				// The first automatic card is used
-				if(automaticCard==null && creditCard.getUseMonthly()) automaticCard = creditCard;
-			}
-		}
-		if(activeCards.isEmpty()) {
-			return mapping.findForward("credit-card-manager");
-		}
+    // Get the list of cards for the account, must have at least one card.
+    List<CreditCard> creditCards = account.getCreditCards();
+    // Build list of active cards
+    List<CreditCard> activeCards = new ArrayList<>(creditCards.size());
+    CreditCard automaticCard = null;
+    for (CreditCard creditCard : creditCards) {
+      if (creditCard.getIsActive()) {
+        activeCards.add(creditCard);
+        // The first automatic card is used
+        if (automaticCard == null && creditCard.getUseMonthly()) {
+          automaticCard = creditCard;
+        }
+      }
+    }
+    if (activeCards.isEmpty()) {
+      return mapping.findForward("credit-card-manager");
+    }
 
-		// Store request attributes
-		request.setAttribute("account", account);
-		request.setAttribute("activeCards", activeCards);
-		request.setAttribute("automaticCard", automaticCard);
+    // Store request attributes
+    request.setAttribute("account", account);
+    request.setAttribute("activeCards", activeCards);
+    request.setAttribute("automaticCard", automaticCard);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	private static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
-		EnumSet.of(
-			Permission.Name.get_credit_cards,
-			Permission.Name.edit_credit_card
-		)
-	);
+  private static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
+    EnumSet.of(
+      Permission.Name.get_credit_cards,
+      Permission.Name.edit_credit_card
+    )
+  );
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return permissions;
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return permissions;
+  }
 }

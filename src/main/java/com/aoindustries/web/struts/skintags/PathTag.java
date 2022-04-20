@@ -46,47 +46,49 @@ import javax.servlet.jsp.tagext.DynamicAttributes;
  */
 public class PathTag extends EncodingBufferedTag implements ParamsAttribute, DynamicAttributes {
 
-	private URIParametersMap params;
-	// TODO: canonical, absolute, addLastModified?
+  private URIParametersMap params;
+  // TODO: canonical, absolute, addLastModified?
 
-	@Override
-	public MediaType getContentType() {
-		return MediaType.URL;
-	}
+  @Override
+  public MediaType getContentType() {
+    return MediaType.URL;
+  }
 
-	@Override
-	public MediaType getOutputType() {
-		return null;
-	}
+  @Override
+  public MediaType getOutputType() {
+    return null;
+  }
 
-	@Override
-	public void addParam(String name, Object value) {
-		if(params == null) params = new URIParametersMap();
-		params.add(name, value);
-	}
+  @Override
+  public void addParam(String name, Object value) {
+    if (params == null) {
+      params = new URIParametersMap();
+    }
+    params.add(name, value);
+  }
 
-	/**
-	 * @see  ParamUtils#addDynamicAttribute(java.lang.String, java.lang.String, java.lang.Object, java.util.List, com.aoapps.taglib.ParamsAttribute)
-	 */
-	@Override
-	public void setDynamicAttribute(String uri, String localName, Object value) throws JspException {
-		List<String> expectedPatterns = new ArrayList<>();
-		if(!ParamUtils.addDynamicAttribute(uri, localName, value, expectedPatterns, this)) {
-			throw AttributeUtils.newDynamicAttributeFailedException(uri, localName, value, expectedPatterns);
-		}
-	}
+  /**
+   * @see  ParamUtils#addDynamicAttribute(java.lang.String, java.lang.String, java.lang.Object, java.util.List, com.aoapps.taglib.ParamsAttribute)
+   */
+  @Override
+  public void setDynamicAttribute(String uri, String localName, Object value) throws JspException {
+    List<String> expectedPatterns = new ArrayList<>();
+    if (!ParamUtils.addDynamicAttribute(uri, localName, value, expectedPatterns, this)) {
+      throw AttributeUtils.newDynamicAttributeFailedException(uri, localName, value, expectedPatterns);
+    }
+  }
 
-	@Override
-	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-		PageContext pageContext = (PageContext)getJspContext();
-		assert capturedBody.trim() == capturedBody : "URLs should have already been trimmed";
-		String path = capturedBody.toString();
-		path = URIParametersUtils.addParams(path, params);
-		PageTag pageTag = PageTag.getPageTag(pageContext.getRequest());
-		if(pageTag==null) {
-			PageAttributesBodyTag.getPageAttributes(pageContext).setPath(path);
-		} else {
-			pageTag.setPath(path);
-		}
-	}
+  @Override
+  protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+    PageContext pageContext = (PageContext)getJspContext();
+    assert capturedBody.trim() == capturedBody : "URLs should have already been trimmed";
+    String path = capturedBody.toString();
+    path = URIParametersUtils.addParams(path, params);
+    PageTag pageTag = PageTag.getPageTag(pageContext.getRequest());
+    if (pageTag == null) {
+      PageAttributesBodyTag.getPageAttributes(pageContext).setPath(path);
+    } else {
+      pageTag.setPath(path);
+    }
+  }
 }

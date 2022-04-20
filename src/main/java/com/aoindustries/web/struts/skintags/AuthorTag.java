@@ -36,25 +36,25 @@ import javax.servlet.jsp.PageContext;
  */
 public class AuthorTag extends EncodingBufferedTag {
 
-	@Override
-	public MediaType getContentType() {
-		return MediaType.TEXT;
-	}
+  @Override
+  public MediaType getContentType() {
+    return MediaType.TEXT;
+  }
 
-	@Override
-	public MediaType getOutputType() {
-		return null;
-	}
+  @Override
+  public MediaType getOutputType() {
+    return null;
+  }
 
-	@Override
-	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-		PageContext pageContext = (PageContext)getJspContext();
-		String author = capturedBody.trim().toString();
-		PageTag pageTag = PageTag.getPageTag(pageContext.getRequest());
-		if(pageTag==null) {
-			PageAttributesBodyTag.getPageAttributes(pageContext).setAuthor(author);
-		} else {
-			pageTag.setAuthor(author);
-		}
-	}
+  @Override
+  protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+    PageContext pageContext = (PageContext)getJspContext();
+    String author = capturedBody.trim().toString();
+    PageTag pageTag = PageTag.getPageTag(pageContext.getRequest());
+    if (pageTag == null) {
+      PageAttributesBodyTag.getPageAttributes(pageContext).setAuthor(author);
+    } else {
+      pageTag.setAuthor(author);
+    }
+  }
 }

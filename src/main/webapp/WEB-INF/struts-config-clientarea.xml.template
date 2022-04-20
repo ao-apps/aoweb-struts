@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2009, 2016, 2021  AO Industries, Inc.
+Copyright (C) 2009, 2016, 2021, 2022  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -34,50 +34,50 @@ struts-config-clientarea.xml.messageResources Additional message resources
 "http://struts.apache.org/dtds/struts-config_1_3.dtd">
 
 <struts-config>
-	<!-- ========== Form Bean Definitions =================================== -->
-	<form-beans>
-	</form-beans>
+  <!-- ========== Form Bean Definitions =================================== -->
+  <form-beans>
+  </form-beans>
 
-	<!-- ========== Global Error Handlers =================================== -->
-	<global-exceptions>
-		<exception key="Exception.message" type="java.lang.Exception" handler="com.aoindustries.web.struts.ExceptionHandler" />
-	</global-exceptions>
+  <!-- ========== Global Error Handlers =================================== -->
+  <global-exceptions>
+    <exception key="Exception.message" type="java.lang.Exception" handler="com.aoindustries.web.struts.ExceptionHandler" />
+  </global-exceptions>
 
-	<!-- ========== Global Forward Definitions ============================== -->
-	<global-forwards>
-		<!-- / -->
-		<forward name="exception" module="" path="/WEB-INF/content/exception.jsp" redirect="false" />
-		<forward name="login" module="" path="/login.do" redirect="false" />
-		<forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
-		<!-- /clientarea -->
-	</global-forwards>
+  <!-- ========== Global Forward Definitions ============================== -->
+  <global-forwards>
+    <!-- / -->
+    <forward name="exception" module="" path="/WEB-INF/content/exception.jsp" redirect="false" />
+    <forward name="login" module="" path="/login.do" redirect="false" />
+    <forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
+    <!-- /clientarea -->
+  </global-forwards>
 
-	<!-- ========== Action Mapping Definitions ============================== -->
-	<action-mappings>
-		<action
-			path="/index"
-			type="com.aoindustries.web.struts.PageAction"
-		>
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/index.jsp" redirect="false" />
-		</action>
-		<action
-			path="/**"
-			type="com.aoindustries.web.struts.PageAction"
-		>
-			<forward name="success" module="" path="/WEB-INF/content/not-found.jsp" redirect="false" />
-		</action>
-	</action-mappings>
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+    <action
+      path="/index"
+      type="com.aoindustries.web.struts.PageAction"
+    >
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/index.jsp" redirect="false" />
+    </action>
+    <action
+      path="/**"
+      type="com.aoindustries.web.struts.PageAction"
+    >
+      <forward name="success" module="" path="/WEB-INF/content/not-found.jsp" redirect="false" />
+    </action>
+  </action-mappings>
 
-	<!-- ========== Controller ============================================== -->
-	<controller
-		nocache="true"
-	/>
+  <!-- ========== Controller ============================================== -->
+  <controller
+    nocache="true"
+  />
 
-	<!-- ========== Message Resources ======================================= -->
+  <!-- ========== Message Resources ======================================= -->
 <!-- Include "struts-config-clientarea.xml.messageResources" -->
 
-	<!-- ========== Validator Plug-In ======================================= -->
-	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
-		<set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml" />
-	</plug-in>
+  <!-- ========== Validator Plug-In ======================================= -->
+  <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+    <set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml" />
+  </plug-in>
 </struts-config>

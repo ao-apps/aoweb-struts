@@ -47,119 +47,121 @@ import org.apache.struts.action.ActionServlet;
  */
 public class MakePaymentNewCardForm extends AddCreditCardForm implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String currency;
-	private String paymentAmount;
+  private String currency;
+  private String paymentAmount;
 
-	/**
-	 * Should be one of "", "store", "automatic"
-	 */
-	private String storeCard;
+  /**
+   * Should be one of "", "store", "automatic"
+   */
+  private String storeCard;
 
-	@Override
-	public void reset(ActionMapping mapping, HttpServletRequest request) {
-		super.reset(mapping, request);
-		setCurrency("");
-		setPaymentAmount("");
-		setStoreCard("");
-	}
+  @Override
+  public void reset(ActionMapping mapping, HttpServletRequest request) {
+    super.reset(mapping, request);
+    setCurrency("");
+    setPaymentAmount("");
+    setStoreCard("");
+  }
 
-	public String getCurrency() {
-		return currency;
-	}
+  public String getCurrency() {
+    return currency;
+  }
 
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
+  public void setCurrency(String currency) {
+    this.currency = currency;
+  }
 
-	public String getPaymentAmount() {
-		return paymentAmount;
-	}
+  public String getPaymentAmount() {
+    return paymentAmount;
+  }
 
-	public void setPaymentAmount(String paymentAmount) {
-		this.paymentAmount = paymentAmount.trim();
-	}
+  public void setPaymentAmount(String paymentAmount) {
+    this.paymentAmount = paymentAmount.trim();
+  }
 
-	public String getStoreCard() {
-		return storeCard;
-	}
+  public String getStoreCard() {
+    return storeCard;
+  }
 
-	public void setStoreCard(String storeCard) {
-		this.storeCard = storeCard;
-	}
+  public void setStoreCard(String storeCard) {
+    this.storeCard = storeCard;
+  }
 
-	@Override
-	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-		ActionErrors errors = super.validate(mapping, request);
-		if(errors == null) errors = new ActionErrors();
-		try {
-			Currency javaCurrency;
-			if(GenericValidator.isBlankOrNull(currency)) {
-				errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.currency.required"));
-				javaCurrency = null;
-			} else {
-				ActionServlet myServlet = getServlet();
-				if(myServlet != null) {
-					AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
-					com.aoindustries.aoserv.client.billing.Currency aoservCurrency = rootConn.getBilling().getCurrency().get(currency);
-					if(aoservCurrency != null) {
-						javaCurrency = aoservCurrency.getCurrency();
-					} else {
-						errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.currency.invalid"));
-						javaCurrency = null;
-					}
-				} else {
-					try {
-						javaCurrency = Currency.getInstance(currency);
-					} catch(IllegalArgumentException e) {
-						errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.currency.invalid"));
-						javaCurrency = null;
-					}
-				}
-			}
-			if(GenericValidator.isBlankOrNull(paymentAmount)) {
-				errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.required"));
-			} else {
-				try {
-					BigDecimal pa = Money.parseMoneyAmount(
-						ThreadLocale.get(),
-						javaCurrency == null ? null : CurrencyUtil.getSymbol(javaCurrency),
-						this.paymentAmount
-					);
-					if(pa == null) {
-						errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.invalid"));
-					} else {
-						this.paymentAmount = pa.toPlainString();
-						if(pa.signum() <= 0) {
-							errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.mustBeGeaterThanZero"));
-						}
-						if(javaCurrency != null) {
-							// Verify scale against currency
-							Money money = new Money(javaCurrency, pa);
-							this.paymentAmount = money.getValue().toPlainString();
-						}
-					}
-				} catch(NumberFormatException err) {
-					errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.invalid"));
-				}
-			}
-			return errors;
-		} catch(IOException | SQLException err) {
-			throw new WrappedException(err);
-		}
-	}
+  @Override
+  public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+    ActionErrors errors = super.validate(mapping, request);
+    if (errors == null) {
+      errors = new ActionErrors();
+    }
+    try {
+      Currency javaCurrency;
+      if (GenericValidator.isBlankOrNull(currency)) {
+        errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.currency.required"));
+        javaCurrency = null;
+      } else {
+        ActionServlet myServlet = getServlet();
+        if (myServlet != null) {
+          AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
+          com.aoindustries.aoserv.client.billing.Currency aoservCurrency = rootConn.getBilling().getCurrency().get(currency);
+          if (aoservCurrency != null) {
+            javaCurrency = aoservCurrency.getCurrency();
+          } else {
+            errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.currency.invalid"));
+            javaCurrency = null;
+          }
+        } else {
+          try {
+            javaCurrency = Currency.getInstance(currency);
+          } catch (IllegalArgumentException e) {
+            errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.currency.invalid"));
+            javaCurrency = null;
+          }
+        }
+      }
+      if (GenericValidator.isBlankOrNull(paymentAmount)) {
+        errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.required"));
+      } else {
+        try {
+          BigDecimal pa = Money.parseMoneyAmount(
+            ThreadLocale.get(),
+            javaCurrency == null ? null : CurrencyUtil.getSymbol(javaCurrency),
+            this.paymentAmount
+          );
+          if (pa == null) {
+            errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.invalid"));
+          } else {
+            this.paymentAmount = pa.toPlainString();
+            if (pa.signum() <= 0) {
+              errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.mustBeGeaterThanZero"));
+            }
+            if (javaCurrency != null) {
+              // Verify scale against currency
+              Money money = new Money(javaCurrency, pa);
+              this.paymentAmount = money.getValue().toPlainString();
+            }
+          }
+        } catch (NumberFormatException err) {
+          errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.invalid"));
+        }
+      }
+      return errors;
+    } catch (IOException | SQLException err) {
+      throw new WrappedException(err);
+    }
+  }
 
-	@Override
-	public ActionErrors mapTransactionError(TransactionResult.ErrorCode errorCode) {
-		String errorString = errorCode.toString();
-		ActionErrors errors = new ActionErrors();
-		switch(errorCode) {
-			case INVALID_AMOUNT:
-				errors.add("paymentAmount", new ActionMessage(errorString, false));
-				return errors;
-			default:
-				return super.mapTransactionError(errorCode);
-		}
-	}
+  @Override
+  public ActionErrors mapTransactionError(TransactionResult.ErrorCode errorCode) {
+    String errorString = errorCode.toString();
+    ActionErrors errors = new ActionErrors();
+    switch (errorCode) {
+      case INVALID_AMOUNT:
+        errors.add("paymentAmount", new ActionMessage(errorString, false));
+        return errors;
+      default:
+        return super.mapTransactionError(errorCode);
+    }
+  }
 }

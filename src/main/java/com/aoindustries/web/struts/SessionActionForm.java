@@ -32,9 +32,9 @@ package com.aoindustries.web.struts;
  */
 public interface SessionActionForm {
 
-	/**
-	 * Indicates this form is empty, meaning that a default instance may be used
-	 * in its place with no consequences.
-	 */
-	boolean isEmpty();
+  /**
+   * Indicates this form is empty, meaning that a default instance may be used
+   * in its place with no consequences.
+   */
+  boolean isEmpty();
 }

@@ -40,62 +40,66 @@ import javax.servlet.jsp.JspException;
  */
 public class ParentTag extends PageTag {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	static final ScopeEE.Request.Attribute<Stack<ParentTag>> STACK_REQUEST_ATTRIBUTE =
-		ScopeEE.REQUEST.attribute(ParentTag.class.getName() + ".stack");
+  static final ScopeEE.Request.Attribute<Stack<ParentTag>> STACK_REQUEST_ATTRIBUTE =
+    ScopeEE.REQUEST.attribute(ParentTag.class.getName() + ".stack");
 
-	private List<Child> children;
+  private List<Child> children;
 
-	@Override
-	protected void init() {
-		super.init();
-		children = null;
-	}
+  @Override
+  protected void init() {
+    super.init();
+    children = null;
+  }
 
-	@Override
-	public int doStartTag() throws JspException {
-		ServletRequest request = pageContext.getRequest();
-		Stack<ParentTag> stack = STACK_REQUEST_ATTRIBUTE.context(request).computeIfAbsent(__ -> new Stack<>());
-		stack.push(this);
-		return super.doStartTag();
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    ServletRequest request = pageContext.getRequest();
+    Stack<ParentTag> stack = STACK_REQUEST_ATTRIBUTE.context(request).computeIfAbsent(__ -> new Stack<>());
+    stack.push(this);
+    return super.doStartTag();
+  }
 
-	/**
-	 * Gets the children of this parent page.
-	 */
-	public List<Child> getChildren() {
-		if(children == null) {
-			return Collections.emptyList();
-		} else {
-			return Collections.unmodifiableList(children);
-		}
-	}
+  /**
+   * Gets the children of this parent page.
+   */
+  public List<Child> getChildren() {
+    if (children == null) {
+      return Collections.emptyList();
+    } else {
+      return Collections.unmodifiableList(children);
+    }
+  }
 
-	public void addChild(Child child) {
-		if(children == null) children = new ArrayList<>();
-		children.add(child);
-	}
+  public void addChild(Child child) {
+    if (children == null) {
+      children = new ArrayList<>();
+    }
+    children.add(child);
+  }
 
-	@Override
-	@SuppressWarnings("unchecked")
-	protected int doEndTag(
-		String title,
-		String navImageAlt,
-		String description,
-		String author,
-		String authorHref,
-		String copyright,
-		String path,
-		String keywords,
-		Collection<Meta> metas
-	) throws JspException, IOException {
-		Stack<ParentTag> stack = STACK_REQUEST_ATTRIBUTE.context(pageContext.getRequest()).get();
-		if(stack!=null && !stack.isEmpty() && stack.peek()==this) stack.pop();
+  @Override
+  @SuppressWarnings("unchecked")
+  protected int doEndTag(
+    String title,
+    String navImageAlt,
+    String description,
+    String author,
+    String authorHref,
+    String copyright,
+    String path,
+    String keywords,
+    Collection<Meta> metas
+  ) throws JspException, IOException {
+    Stack<ParentTag> stack = STACK_REQUEST_ATTRIBUTE.context(pageContext.getRequest()).get();
+    if (stack != null && !stack.isEmpty() && stack.peek() == this) {
+      stack.pop();
+    }
 
-		PageAttributesBodyTag.getPageAttributes(pageContext).addParent(
-			new Parent(title, navImageAlt, description, author, authorHref, copyright, path, keywords, metas, children)
-		);
-		return EVAL_PAGE;
-	}
+    PageAttributesBodyTag.getPageAttributes(pageContext).addParent(
+      new Parent(title, navImageAlt, description, author, authorHref, copyright, path, keywords, metas, children)
+    );
+    return EVAL_PAGE;
+  }
 }

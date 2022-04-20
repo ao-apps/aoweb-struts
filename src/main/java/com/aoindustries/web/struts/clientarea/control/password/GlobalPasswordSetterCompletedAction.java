@@ -45,56 +45,58 @@ import org.apache.struts.action.ActionMessages;
  */
 public class GlobalPasswordSetterCompletedAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		GlobalPasswordSetterForm globalPasswordSetterForm = (GlobalPasswordSetterForm)form;
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    GlobalPasswordSetterForm globalPasswordSetterForm = (GlobalPasswordSetterForm)form;
 
-		// Validation
-		ActionMessages errors = globalPasswordSetterForm.validate(mapping, request);
-		if(errors!=null && !errors.isEmpty()) {
-			saveErrors(request, errors);
-			return mapping.findForward("input");
-		}
+    // Validation
+    ActionMessages errors = globalPasswordSetterForm.validate(mapping, request);
+    if (errors != null && !errors.isEmpty()) {
+      saveErrors(request, errors);
+      return mapping.findForward("input");
+    }
 
-		// Reset passwords here and clear the passwords from the form
-		ActionMessages messages = new ActionMessages();
-		List<String> usernames = globalPasswordSetterForm.getUsernames();
-		List<String> newPasswords = globalPasswordSetterForm.getNewPasswords();
-		List<String> confirmPasswords = globalPasswordSetterForm.getConfirmPasswords();
-		for(int c=0;c<usernames.size();c++) {
-			String newPassword = newPasswords.get(c);
-			if(newPassword.length()>0) {
-				User.Name username = User.Name.valueOf(usernames.get(c));
-				User un = aoConn.getAccount().getUser().get(username);
-				if(un == null) throw new SQLException("Unable to find Username: " + username);
-				un.setPassword(newPassword);
-				messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("globalPasswordSetter.field.confirmPasswords.passwordReset"));
-				newPasswords.set(c, "");
-				confirmPasswords.set(c, "");
-			}
-		}
-		saveMessages(request, messages);
+    // Reset passwords here and clear the passwords from the form
+    ActionMessages messages = new ActionMessages();
+    List<String> usernames = globalPasswordSetterForm.getUsernames();
+    List<String> newPasswords = globalPasswordSetterForm.getNewPasswords();
+    List<String> confirmPasswords = globalPasswordSetterForm.getConfirmPasswords();
+    for (int c=0;c<usernames.size();c++) {
+      String newPassword = newPasswords.get(c);
+      if (newPassword.length()>0) {
+        User.Name username = User.Name.valueOf(usernames.get(c));
+        User un = aoConn.getAccount().getUser().get(username);
+        if (un == null) {
+          throw new SQLException("Unable to find Username: " + username);
+        }
+        un.setPassword(newPassword);
+        messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("globalPasswordSetter.field.confirmPasswords.passwordReset"));
+        newPasswords.set(c, "");
+        confirmPasswords.set(c, "");
+      }
+    }
+    saveMessages(request, messages);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
-		EnumSet.of(
-			Permission.Name.set_business_administrator_password,
-			Permission.Name.set_linux_server_account_password,
-			Permission.Name.set_mysql_server_user_password,
-			Permission.Name.set_postgres_server_user_password
-		)
-	);
+  static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
+    EnumSet.of(
+      Permission.Name.set_business_administrator_password,
+      Permission.Name.set_linux_server_account_password,
+      Permission.Name.set_mysql_server_user_password,
+      Permission.Name.set_postgres_server_user_password
+    )
+  );
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return permissions;
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return permissions;
+  }
 }

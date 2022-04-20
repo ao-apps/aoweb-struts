@@ -28,17 +28,17 @@ import com.semanticcms.tagreference.TagReferenceInitializer;
 
 public class AowebStrutsAowebTldInitializer extends TagReferenceInitializer {
 
-	public AowebStrutsAowebTldInitializer() throws ValidationException {
-		super(
-			Maven.properties.getProperty("documented.name") + " AOWeb Taglib Reference",
-			"AOWeb Taglib Reference",
-			"/aoweb-struts",
-			"/aoweb-struts-aoweb.tld",
-			true,
-			Maven.properties.getProperty("documented.javadoc.link.javase"),
-			Maven.properties.getProperty("documented.javadoc.link.javaee"),
-			// Self
-			"com.aoindustries.web.struts.aowebtags", Maven.properties.getProperty("project.url") + "apidocs/com.aoindustries.web.struts/"
-		);
-	}
+  public AowebStrutsAowebTldInitializer() throws ValidationException {
+    super(
+      Maven.properties.getProperty("documented.name") + " AOWeb Taglib Reference",
+      "AOWeb Taglib Reference",
+      "/aoweb-struts",
+      "/aoweb-struts-aoweb.tld",
+      true,
+      Maven.properties.getProperty("documented.javadoc.link.javase"),
+      Maven.properties.getProperty("documented.javadoc.link.javaee"),
+      // Self
+      "com.aoindustries.web.struts.aowebtags", Maven.properties.getProperty("project.url") + "apidocs/com.aoindustries.web.struts/"
+    );
+  }
 }

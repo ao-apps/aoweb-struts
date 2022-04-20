@@ -34,59 +34,69 @@ import org.apache.struts.action.ActionMapping;
  */
 public class SystemAdministration4CompletedAction extends SystemAdministration4Action {
 
-	@Override
-	public ActionForward executeSystemAdministrationStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		SystemAdministrationSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		// Forward to previous steps if they have not been completed
-		if(!signupSelectPackageFormComplete) return mapping.findForward("system-administration-completed");
-		if(!signupOrganizationFormComplete)  return mapping.findForward("system-administration-2-completed");
-		if(!signupTechnicalFormComplete)  return mapping.findForward("system-administration-3-completed");
-		if(!signupBillingInformationFormComplete) {
-			// Init values for the form
-			return super.executeSystemAdministrationStep(
-				mapping,
-				request,
-				response,
-				signupSelectPackageForm,
-				signupSelectPackageFormComplete,
-				signupOrganizationForm,
-				signupOrganizationFormComplete,
-				signupTechnicalForm,
-				signupTechnicalFormComplete,
-				signupBillingInformationForm,
-				signupBillingInformationFormComplete
-			);
-		}
-		return mapping.findForward("system-administration-5");
-	}
+  @Override
+  public ActionForward executeSystemAdministrationStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    SystemAdministrationSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    // Forward to previous steps if they have not been completed
+    if (!signupSelectPackageFormComplete) {
+      return mapping.findForward("system-administration-completed");
+    }
+    if (!signupOrganizationFormComplete) {
+      return mapping.findForward("system-administration-2-completed");
+    }
+    if (!signupTechnicalFormComplete) {
+      return mapping.findForward("system-administration-3-completed");
+    }
+    if (!signupBillingInformationFormComplete) {
+      // Init values for the form
+      return super.executeSystemAdministrationStep(
+        mapping,
+        request,
+        response,
+        signupSelectPackageForm,
+        signupSelectPackageFormComplete,
+        signupOrganizationForm,
+        signupOrganizationFormComplete,
+        signupTechnicalForm,
+        signupTechnicalFormComplete,
+        signupBillingInformationForm,
+        signupBillingInformationFormComplete
+      );
+    }
+    return mapping.findForward("system-administration-5");
+  }
 
-	/**
-	 * Clears checkboxes when not in form.
-	 */
-	@Override
-	protected void clearCheckboxes(HttpServletRequest request, ActionForm form) {
-		SignupBillingInformationForm signupBillingInformationForm = (SignupBillingInformationForm)form;
-		// Clear the checkboxes if not present in this request
-		if(!"on".equals(request.getParameter("billingUseMonthly"))) signupBillingInformationForm.setBillingUseMonthly(false);
-		if(!"on".equals(request.getParameter("billingPayOneYear"))) signupBillingInformationForm.setBillingPayOneYear(false);
-	}
+  /**
+   * Clears checkboxes when not in form.
+   */
+  @Override
+  protected void clearCheckboxes(HttpServletRequest request, ActionForm form) {
+    SignupBillingInformationForm signupBillingInformationForm = (SignupBillingInformationForm)form;
+    // Clear the checkboxes if not present in this request
+    if (!"on".equals(request.getParameter("billingUseMonthly"))) {
+      signupBillingInformationForm.setBillingUseMonthly(false);
+    }
+    if (!"on".equals(request.getParameter("billingPayOneYear"))) {
+      signupBillingInformationForm.setBillingPayOneYear(false);
+    }
+  }
 
-	/**
-	 * Errors are not cleared for the complete step.
-	 */
-	@Override
-	protected void clearErrors(HttpServletRequest req) {
-		// Do nothing
-	}
+  /**
+   * Errors are not cleared for the complete step.
+   */
+  @Override
+  protected void clearErrors(HttpServletRequest req) {
+    // Do nothing
+  }
 }

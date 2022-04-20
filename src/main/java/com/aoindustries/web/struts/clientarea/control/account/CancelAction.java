@@ -43,24 +43,24 @@ import org.apache.struts.action.ActionMapping;
  */
 public class CancelAction  extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		List<Account> accounts = aoConn.getAccount().getAccount().getRows();
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    List<Account> accounts = aoConn.getAccount().getAccount().getRows();
 
-		// Set request values
-		request.setAttribute("accounts", accounts);
+    // Set request values
+    request.setAttribute("accounts", accounts);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return Collections.singleton(Permission.Name.cancel_business);
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return Collections.singleton(Permission.Name.cancel_business);
+  }
 }

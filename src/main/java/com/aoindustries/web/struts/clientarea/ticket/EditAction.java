@@ -43,52 +43,52 @@ import org.apache.struts.action.ActionMapping;
  */
 public class EditAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		TicketForm ticketForm = (TicketForm)form;
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    TicketForm ticketForm = (TicketForm)form;
 
-		// Look for the existing ticket
-		String pkeyS = request.getParameter("pkey");
-		if(pkeyS==null) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "pkey required");
-			return null;
-		}
-		int id;
-		try {
-			id = Integer.parseInt(pkeyS);
-		} catch(NumberFormatException err) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid pkey");
-			return null;
-		}
-		Ticket ticket = aoConn.getTicket().getTicket().get(id);
-		if(ticket==null) {
-			response.sendError(HttpServletResponse.SC_NOT_FOUND, "Ticket not found");
-			return null;
-		}
+    // Look for the existing ticket
+    String pkeyS = request.getParameter("pkey");
+    if (pkeyS == null) {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST, "pkey required");
+      return null;
+    }
+    int id;
+    try {
+      id = Integer.parseInt(pkeyS);
+    } catch (NumberFormatException err) {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid pkey");
+      return null;
+    }
+    Ticket ticket = aoConn.getTicket().getTicket().get(id);
+    if (ticket == null) {
+      response.sendError(HttpServletResponse.SC_NOT_FOUND, "Ticket not found");
+      return null;
+    }
 
-		// Populate the ticket form
-		Account account = ticket.getAccount();
-		ticketForm.setAccount(account==null ? "" : account.getName().toString());
-		ticketForm.setClientPriority(ticket.getClientPriority().getPriority());
-		ticketForm.setContactEmails(Strings.join(ticket.getContactEmails(), ", "));
-		ticketForm.setContactPhoneNumbers(ticket.getContactPhoneNumbers());
-		ticketForm.setDetails(ticket.getDetails());
-		ticketForm.setSummary(ticket.getSummary());
+    // Populate the ticket form
+    Account account = ticket.getAccount();
+    ticketForm.setAccount(account == null ? "" : account.getName().toString());
+    ticketForm.setClientPriority(ticket.getClientPriority().getPriority());
+    ticketForm.setContactEmails(Strings.join(ticket.getContactEmails(), ", "));
+    ticketForm.setContactPhoneNumbers(ticket.getContactPhoneNumbers());
+    ticketForm.setDetails(ticket.getDetails());
+    ticketForm.setSummary(ticket.getSummary());
 
-		// Set the request attributes
-		request.setAttribute("ticket", ticket);
+    // Set the request attributes
+    request.setAttribute("ticket", ticket);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return EditCompletedAction.permissions;
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return EditCompletedAction.permissions;
+  }
 }

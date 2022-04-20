@@ -32,7 +32,7 @@ import java.util.Collection;
  */
 public class Child extends Page {
 
-	public Child(String title, String navImageAlt, String description, String author, String authorHref, String copyright, String path, String keywords, Collection<Meta> metas) {
-		super(title, navImageAlt, description, author, authorHref, copyright, path, keywords, metas);
-	}
+  public Child(String title, String navImageAlt, String description, String author, String authorHref, String copyright, String path, String keywords, Collection<Meta> metas) {
+    super(title, navImageAlt, description, author, authorHref, copyright, path, keywords, metas);
+  }
 }

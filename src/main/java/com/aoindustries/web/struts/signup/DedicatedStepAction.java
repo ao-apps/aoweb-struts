@@ -38,110 +38,110 @@ import org.apache.struts.action.ActionMessages;
  */
 public abstract class DedicatedStepAction extends PageAction {
 
-	/**
-	 * Initializes the step details.
-	 */
-	@Override
-	public final ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		Registry pageRegistry
-	) throws Exception {
-		// Clear checkboxes that were not part of the request
-		clearCheckboxes(request, form);
+  /**
+   * Initializes the step details.
+   */
+  @Override
+  public final ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    Registry pageRegistry
+  ) throws Exception {
+    // Clear checkboxes that were not part of the request
+    clearCheckboxes(request, form);
 
-		// Perform redirect if requested a different step
-		String selectedStep = request.getParameter("selectedStep");
-		if(selectedStep!=null && (selectedStep=selectedStep.trim()).length()>0) {
-			if(
-				"dedicated-server".equals(selectedStep)
-				|| "dedicated-server-2".equals(selectedStep)
-				|| "dedicated-server-3".equals(selectedStep)
-				|| "dedicated-server-4".equals(selectedStep)
-				|| "dedicated-server-5".equals(selectedStep)
-				|| "dedicated-server-6".equals(selectedStep)
-			) {
-				return mapping.findForward(selectedStep);
-			}
-		}
+    // Perform redirect if requested a different step
+    String selectedStep = request.getParameter("selectedStep");
+    if (selectedStep != null && (selectedStep=selectedStep.trim()).length()>0) {
+      if (
+        "dedicated-server".equals(selectedStep)
+        || "dedicated-server-2".equals(selectedStep)
+        || "dedicated-server-3".equals(selectedStep)
+        || "dedicated-server-4".equals(selectedStep)
+        || "dedicated-server-5".equals(selectedStep)
+        || "dedicated-server-6".equals(selectedStep)
+      ) {
+        return mapping.findForward(selectedStep);
+      }
+    }
 
-		HttpSession session = request.getSession();
+    HttpSession session = request.getSession();
 
-		DedicatedSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, DedicatedSignupSelectPackageForm.SESSION_ATTRIBUTE, DedicatedSignupSelectPackageForm::new);
-		DedicatedSignupCustomizeServerForm signupCustomizeServerForm = SignupHelper.getSessionActionForm(servlet, session, DedicatedSignupCustomizeServerForm.SESSION_ATTRIBUTE, DedicatedSignupCustomizeServerForm::new);
-		SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(servlet, session, SignupOrganizationForm.SESSION_ATTRIBUTE, SignupOrganizationForm::new);
-		SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.SESSION_ATTRIBUTE, SignupTechnicalForm::new);
-		SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.SESSION_ATTRIBUTE, SignupBillingInformationForm::new);
+    DedicatedSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, DedicatedSignupSelectPackageForm.SESSION_ATTRIBUTE, DedicatedSignupSelectPackageForm::new);
+    DedicatedSignupCustomizeServerForm signupCustomizeServerForm = SignupHelper.getSessionActionForm(servlet, session, DedicatedSignupCustomizeServerForm.SESSION_ATTRIBUTE, DedicatedSignupCustomizeServerForm::new);
+    SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(servlet, session, SignupOrganizationForm.SESSION_ATTRIBUTE, SignupOrganizationForm::new);
+    SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.SESSION_ATTRIBUTE, SignupTechnicalForm::new);
+    SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.SESSION_ATTRIBUTE, SignupBillingInformationForm::new);
 
-		ActionMessages signupSelectPackageFormErrors = signupSelectPackageForm.validate(mapping, request);
-		ActionMessages signupCustomizeServerFormErrors = signupCustomizeServerForm.validate(mapping, request);
-		ActionMessages signupOrganizationFormErrors = signupOrganizationForm.validate(mapping, request);
-		ActionMessages signupTechnicalFormErrors = signupTechnicalForm.validate(mapping, request);
-		ActionMessages signupBillingInformationFormErrors = signupBillingInformationForm.validate(mapping, request);
+    ActionMessages signupSelectPackageFormErrors = signupSelectPackageForm.validate(mapping, request);
+    ActionMessages signupCustomizeServerFormErrors = signupCustomizeServerForm.validate(mapping, request);
+    ActionMessages signupOrganizationFormErrors = signupOrganizationForm.validate(mapping, request);
+    ActionMessages signupTechnicalFormErrors = signupTechnicalForm.validate(mapping, request);
+    ActionMessages signupBillingInformationFormErrors = signupBillingInformationForm.validate(mapping, request);
 
-		boolean signupSelectPackageFormComplete = !doAddErrors(request, signupSelectPackageFormErrors);
-		boolean signupCustomizeServerFormComplete = !doAddErrors(request, signupCustomizeServerFormErrors);
-		boolean signupOrganizationFormComplete = !doAddErrors(request, signupOrganizationFormErrors);
-		boolean signupTechnicalFormComplete = !doAddErrors(request, signupTechnicalFormErrors);
-		boolean signupBillingInformationFormComplete = !doAddErrors(request, signupBillingInformationFormErrors);
+    boolean signupSelectPackageFormComplete = !doAddErrors(request, signupSelectPackageFormErrors);
+    boolean signupCustomizeServerFormComplete = !doAddErrors(request, signupCustomizeServerFormErrors);
+    boolean signupOrganizationFormComplete = !doAddErrors(request, signupOrganizationFormErrors);
+    boolean signupTechnicalFormComplete = !doAddErrors(request, signupTechnicalFormErrors);
+    boolean signupBillingInformationFormComplete = !doAddErrors(request, signupBillingInformationFormErrors);
 
-		request.setAttribute("signupSelectPackageFormComplete", Boolean.toString(signupSelectPackageFormComplete));
-		request.setAttribute("signupCustomizeServerFormComplete", Boolean.toString(signupCustomizeServerFormComplete));
-		request.setAttribute("signupOrganizationFormComplete", Boolean.toString(signupOrganizationFormComplete));
-		request.setAttribute("signupTechnicalFormComplete", Boolean.toString(signupTechnicalFormComplete));
-		request.setAttribute("signupBillingInformationFormComplete", Boolean.toString(signupBillingInformationFormComplete));
+    request.setAttribute("signupSelectPackageFormComplete", Boolean.toString(signupSelectPackageFormComplete));
+    request.setAttribute("signupCustomizeServerFormComplete", Boolean.toString(signupCustomizeServerFormComplete));
+    request.setAttribute("signupOrganizationFormComplete", Boolean.toString(signupOrganizationFormComplete));
+    request.setAttribute("signupTechnicalFormComplete", Boolean.toString(signupTechnicalFormComplete));
+    request.setAttribute("signupBillingInformationFormComplete", Boolean.toString(signupBillingInformationFormComplete));
 
-		return executeDedicatedStep(
-			mapping,
-			request,
-			response,
-			signupSelectPackageForm,
-			signupSelectPackageFormComplete,
-			signupCustomizeServerForm,
-			signupCustomizeServerFormComplete,
-			signupOrganizationForm,
-			signupOrganizationFormComplete,
-			signupTechnicalForm,
-			signupTechnicalFormComplete,
-			signupBillingInformationForm,
-			signupBillingInformationFormComplete
-		);
-	}
+    return executeDedicatedStep(
+      mapping,
+      request,
+      response,
+      signupSelectPackageForm,
+      signupSelectPackageFormComplete,
+      signupCustomizeServerForm,
+      signupCustomizeServerFormComplete,
+      signupOrganizationForm,
+      signupOrganizationFormComplete,
+      signupTechnicalForm,
+      signupTechnicalFormComplete,
+      signupBillingInformationForm,
+      signupBillingInformationFormComplete
+    );
+  }
 
-	/**
-	 * Clears checkboxes when not in form.
-	 */
-	@SuppressWarnings("NoopMethodInAbstractClass")
-	protected void clearCheckboxes(HttpServletRequest request, ActionForm form) {
-		// Do nothing by default
-	}
+  /**
+   * Clears checkboxes when not in form.
+   */
+  @SuppressWarnings("NoopMethodInAbstractClass")
+  protected void clearCheckboxes(HttpServletRequest request, ActionForm form) {
+    // Do nothing by default
+  }
 
-	/**
-	 * Saves the provided errors and return <code>true</code> if there were errors to save.
-	 */
-	private boolean doAddErrors(HttpServletRequest request, ActionMessages errors) {
-		if(errors!=null && !errors.isEmpty()) {
-			addErrors(request, errors);
-			return true;
-		}
-		return false;
-	}
+  /**
+   * Saves the provided errors and return <code>true</code> if there were errors to save.
+   */
+  private boolean doAddErrors(HttpServletRequest request, ActionMessages errors) {
+    if (errors != null && !errors.isEmpty()) {
+      addErrors(request, errors);
+      return true;
+    }
+    return false;
+  }
 
-	public abstract ActionForward executeDedicatedStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		DedicatedSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
-		boolean signupCustomizeServerFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception;
+  public abstract ActionForward executeDedicatedStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    DedicatedSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
+    boolean signupCustomizeServerFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception;
 }

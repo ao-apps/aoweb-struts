@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2016, 2020, 2021  AO Industries, Inc.
+Copyright (C) 2016, 2020, 2021, 2022  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -22,10 +22,10 @@ You should have received a copy of the GNU Lesser General Public License
 along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <books
-	xmlns="https://semanticcms.com/core/servlet/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="https://semanticcms.com/core/servlet/ https://semanticcms.com/core/servlet/books-1.0.xsd"
-	rootBook="/clientarea"
+  xmlns="https://semanticcms.com/core/servlet/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="https://semanticcms.com/core/servlet/ https://semanticcms.com/core/servlet/books-1.0.xsd"
+  rootBook="/clientarea"
 >
-	<book name="/clientarea" cvsworkDirectory="~/maven2/ao/aoweb-struts/src/main/webapp/clientarea" />
+  <book name="/clientarea" cvsworkDirectory="~/maven2/ao/aoweb-struts/src/main/webapp/clientarea" />
 </books>

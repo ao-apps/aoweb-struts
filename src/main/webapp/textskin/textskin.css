@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2009, 2016, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2009, 2016, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,19 +22,19 @@
  */
 
 img {
-	border-style: none;
+  border-style: none;
 }
 /*th {
-	background-color: #e0e0e0;
+  background-color: #e0e0e0;
 }*/
 .aoWhiteRow {
-	background-color: #ffffff;
+  background-color: #ffffff;
 }
 .aoLightRow {
-	background-color: #f8f8f8;
+  background-color: #f8f8f8;
 }
 .aoDarkRow {
-	background-color: #e0e0e0;
+  background-color: #e0e0e0;
 }
 /* No styles:
 .aoDarkLink {
@@ -43,105 +43,105 @@ img {
 }
  */
 .error {
-	color: red;
+  color: red;
 }
 .aoPopupLightRow {
-	background-color: #fff9ad;
+  background-color: #fff9ad;
 }
 .aoPopupDarkRow {
-	background-color: #f5efa6;
+  background-color: #f5efa6;
 }
 .aoPopupAnchor {
-	position:relative;
-	display:inline;
+  position:relative;
+  display:inline;
 }
 .aoPopupAnchorImg {
-	border:0px;
-	vertical-align:middle;
-	cursor:pointer;
+  border:0px;
+  vertical-align:middle;
+  cursor:pointer;
 }
 .aoPopupMain {
-	position:absolute;
-	bottom:30px;
-	left:30px;
-	visibility: hidden;
-	white-space:normal;
-	/*white-space:nowrap;*/
-	/* Only add when needed because z-index can confuse IE 6: z-index:1*/
+  position:absolute;
+  bottom:30px;
+  left:30px;
+  visibility: hidden;
+  white-space:normal;
+  /*white-space:nowrap;*/
+  /* Only add when needed because z-index can confuse IE 6: z-index:1*/
 }
 .aoPopupTable {
-	border:0px;
+  border:0px;
 }
 .aoPopupTL {
-	width:12px;
-	height:12px;
-	padding:0px;
-	vertical-align:bottom;
-	text-align:right;
+  width:12px;
+  height:12px;
+  padding:0px;
+  vertical-align:bottom;
+  text-align:right;
 }
 .aoPopupTL img {
-	vertical-align: bottom;
-	display:block;
+  vertical-align: bottom;
+  display:block;
 }
 .aoPopupTop {
-	height:12px;
-	padding:0px;
-	background-position: bottom;
-	background-repeat: repeat-x;
+  height:12px;
+  padding:0px;
+  background-position: bottom;
+  background-repeat: repeat-x;
 }
 .aoPopupTR {
-	width:12px;
-	height:12px;
-	padding:0px;
-	vertical-align:bottom;
-	text-align:left;
+  width:12px;
+  height:12px;
+  padding:0px;
+  vertical-align:bottom;
+  text-align:left;
 }
 .aoPopupTR img {
-	vertical-align: bottom;
-	display:block;
+  vertical-align: bottom;
+  display:block;
 }
 .aoPopupLeft {
-	width:12px;
-	padding:0px;
-	background-position:right;
-	background-repeat:repeat-y;
+  width:12px;
+  padding:0px;
+  background-position:right;
+  background-repeat:repeat-y;
 }
 .aoPopupClose {
-	border:0px;
-	vertical-align:middle;
-	cursor:pointer;
+  border:0px;
+  vertical-align:middle;
+  cursor:pointer;
 }
 .aoPopupRight {
-	width:12px;
-	padding:0px;
-	background-position:left;
-	background-repeat:repeat-y;
+  width:12px;
+  padding:0px;
+  background-position:left;
+  background-repeat:repeat-y;
 }
 .aoPopupBL {
-	width:12px;
-	height:12px;
-	padding:0px;
-	vertical-align:top;
-	text-align:right;
+  width:12px;
+  height:12px;
+  padding:0px;
+  vertical-align:top;
+  text-align:right;
 }
 .aoPopupBL img {
-	vertical-align: top;
-	display:block;
+  vertical-align: top;
+  display:block;
 }
 .aoPopupBottom {
-	height:12px;
-	padding:0px;
-	background-position:top;
-	background-repeat:repeat-x;
+  height:12px;
+  padding:0px;
+  background-position:top;
+  background-repeat:repeat-x;
 }
 .aoPopupBR {
-	width:12px;
-	height:12px;
-	padding:0px;
-	vertical-align:top;
-	text-align:left;
+  width:12px;
+  height:12px;
+  padding:0px;
+  vertical-align:top;
+  text-align:left;
 }
 .aoPopupBR img {
-	vertical-align: top;
-	display:block;
+  vertical-align: top;
+  display:block;
 }

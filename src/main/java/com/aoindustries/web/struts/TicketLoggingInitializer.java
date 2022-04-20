@@ -50,119 +50,145 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class TicketLoggingInitializer implements ServletContextListener {
 
-	private static final boolean DEBUG = false;
+  private static final boolean DEBUG = false;
 
-	private volatile Thread thread;
+  private volatile Thread thread;
 
-	private volatile TicketLoggingHandler handler;
+  private volatile TicketLoggingHandler handler;
 
-	@Override
-	public void contextInitialized(ServletContextEvent event) {
-		ServletContext servletContext = event.getServletContext();
-		SiteSettings siteSettings = SiteSettings.getInstance(servletContext);
-		if(DEBUG) servletContext.log("Got SiteSettings: " + siteSettings.getClass().getName());
-		LogManager logManager = LogManager.getLogManager();
+  @Override
+  public void contextInitialized(ServletContextEvent event) {
+    ServletContext servletContext = event.getServletContext();
+    SiteSettings siteSettings = SiteSettings.getInstance(servletContext);
+    if (DEBUG) {
+      servletContext.log("Got SiteSettings: " + siteSettings.getClass().getName());
+    }
+    LogManager logManager = LogManager.getLogManager();
 
-		// Re-runnable code that will install.  Only returns on success.
-		Callable<Void> installer = () -> {
-			// If there is not already an instance if ticket logging registered on root handler, add one
-			// Search all handlers of all loggers
-			boolean found = false;
-			Enumeration<String> names = logManager.getLoggerNames();
-			while(names.hasMoreElements()) {
-				String name = names.nextElement();
-				if(DEBUG) servletContext.log("Getting logger: " + name);
-				Logger l = logManager.getLogger(name);
-				if(l != null) {
-					for(Handler h : l.getHandlers()) {
-						if(h != null) {
-							if(DEBUG) servletContext.log("Checking handler: " + h.getClass().getName());
-							if(h instanceof TicketLoggingHandler) {
-								found = true;
-								if(DEBUG) servletContext.log("Found handler!!!: " + h.getClass().getName());
-								break;
-							}
-						}
-					}
-				}
-			}
-			if(!found) {
-				if(DEBUG) servletContext.log("Handler not found, adding");
-				AOServConnector rootConn = siteSettings.getRootAOServConnector();
-				try {
-					logManager.getLogger("").addHandler(
-						handler = TicketLoggingHandler.getHandler(
-							siteSettings.getBrand().getAowebStrutsHttpUrlBase(),
-							rootConn,
-							"aoserv.aoweb_struts"
-						)
-					);
-					if(DEBUG) servletContext.log("Successfully added");
-				} catch(SecurityException e) {
-					if(DEBUG) servletContext.log("SecurityException, not added");
-					// OK
-				}
-			}
-			return null;
-		};
-		// Try once on current thread
-		try {
-			installer.call();
-		} catch(Exception e) {
-			ErrorPrinter.printStackTraces(e, System.err);
-			// Try more in a background thread
-			if(DEBUG) servletContext.log("Starting installer thread");
-			(thread = new Thread(
-				() -> {
-					Thread currentThread = Thread.currentThread();
-					while(thread == currentThread && !currentThread.isInterrupted()) {
-						try {
-							if(DEBUG) servletContext.log("Sleeping 10 seconds in Thread to try again");
-							Thread.sleep(10000);
-							installer.call();
-							thread = null;
-						} catch(InterruptedException ie) {
-							if(thread == currentThread) {
-								ErrorPrinter.printStackTraces(ie, System.err);
-							}
-							// Restore the interrupted status
-							currentThread.interrupt();
-						} catch(Exception e2) {
-							if(thread == currentThread) {
-								ErrorPrinter.printStackTraces(e2, System.err);
-							}
-						}
-					}
-				},
-				"Adding " + TicketLoggingHandler.class.getName()
-			)).start();
-		}
-	}
+    // Re-runnable code that will install.  Only returns on success.
+    Callable<Void> installer = () -> {
+      // If there is not already an instance if ticket logging registered on root handler, add one
+      // Search all handlers of all loggers
+      boolean found = false;
+      Enumeration<String> names = logManager.getLoggerNames();
+      while (names.hasMoreElements()) {
+        String name = names.nextElement();
+        if (DEBUG) {
+          servletContext.log("Getting logger: " + name);
+        }
+        Logger l = logManager.getLogger(name);
+        if (l != null) {
+          for (Handler h : l.getHandlers()) {
+            if (h != null) {
+              if (DEBUG) {
+                servletContext.log("Checking handler: " + h.getClass().getName());
+              }
+              if (h instanceof TicketLoggingHandler) {
+                found = true;
+                if (DEBUG) {
+                  servletContext.log("Found handler!!!: " + h.getClass().getName());
+                }
+                break;
+              }
+            }
+          }
+        }
+      }
+      if (!found) {
+        if (DEBUG) {
+          servletContext.log("Handler not found, adding");
+        }
+        AOServConnector rootConn = siteSettings.getRootAOServConnector();
+        try {
+          logManager.getLogger("").addHandler(
+            handler = TicketLoggingHandler.getHandler(
+              siteSettings.getBrand().getAowebStrutsHttpUrlBase(),
+              rootConn,
+              "aoserv.aoweb_struts"
+            )
+          );
+          if (DEBUG) {
+            servletContext.log("Successfully added");
+          }
+        } catch (SecurityException e) {
+          if (DEBUG) {
+            servletContext.log("SecurityException, not added");
+          }
+          // OK
+        }
+      }
+      return null;
+    };
+    // Try once on current thread
+    try {
+      installer.call();
+    } catch (Exception e) {
+      ErrorPrinter.printStackTraces(e, System.err);
+      // Try more in a background thread
+      if (DEBUG) {
+        servletContext.log("Starting installer thread");
+      }
+      (thread = new Thread(
+        () -> {
+          Thread currentThread = Thread.currentThread();
+          while (thread == currentThread && !currentThread.isInterrupted()) {
+            try {
+              if (DEBUG) {
+                servletContext.log("Sleeping 10 seconds in Thread to try again");
+              }
+              Thread.sleep(10000);
+              installer.call();
+              thread = null;
+            } catch (InterruptedException ie) {
+              if (thread == currentThread) {
+                ErrorPrinter.printStackTraces(ie, System.err);
+              }
+              // Restore the interrupted status
+              currentThread.interrupt();
+            } catch (Exception e2) {
+              if (thread == currentThread) {
+                ErrorPrinter.printStackTraces(e2, System.err);
+              }
+            }
+          }
+        },
+        "Adding " + TicketLoggingHandler.class.getName()
+      )).start();
+    }
+  }
 
-	@Override
-	public void contextDestroyed(ServletContextEvent event) {
-		ServletContext servletContext = event.getServletContext();
-		// Stop thread
-		Thread t = thread;
-		thread = null;
-		if(t != null) {
-			if(DEBUG) servletContext.log("Stopping installer thread");
-			t.interrupt();
-		}
-		// Remove handler if we added it
-		TicketLoggingHandler h = handler;
-		handler = null;
-		if(h != null) {
-			if(DEBUG) servletContext.log("Removing handler");
-			try {
-				LogManager.getLogManager().getLogger("").removeHandler(h);
-				if(DEBUG) servletContext.log("Successfully removed");
-			} catch(SecurityException e) {
-				if(DEBUG) servletContext.log("SecurityException, not removed");
-				// OK
-			}
-		} else {
-			if(DEBUG) servletContext.log("Handler not set - nothing to remove");
-		}
-	}
+  @Override
+  public void contextDestroyed(ServletContextEvent event) {
+    ServletContext servletContext = event.getServletContext();
+    // Stop thread
+    Thread t = thread;
+    thread = null;
+    if (t != null) {
+      if (DEBUG) {
+        servletContext.log("Stopping installer thread");
+      }
+      t.interrupt();
+    }
+    // Remove handler if we added it
+    TicketLoggingHandler h = handler;
+    handler = null;
+    if (h != null) {
+      if (DEBUG) {
+        servletContext.log("Removing handler");
+      }
+      try {
+        LogManager.getLogManager().getLogger("").removeHandler(h);
+        if (DEBUG) {
+          servletContext.log("Successfully removed");
+        }
+      } catch (SecurityException e) {
+        if (DEBUG) {
+          servletContext.log("SecurityException, not removed");
+        }
+        // OK
+      }
+    } else if (DEBUG) {
+      servletContext.log("Handler not set - nothing to remove");
+    }
+  }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2009, 2016, 2021  AO Industries, Inc.
+Copyright (C) 2009, 2016, 2021, 2022  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -34,201 +34,201 @@ struts-config-clientarea-accounting.xml.messageResources    Additional message r
 "http://struts.apache.org/dtds/struts-config_1_3.dtd">
 
 <struts-config>
-	<!-- ========== Form Bean Definitions =================================== -->
-	<form-beans>
-		<form-bean name="addCreditCardForm" type="com.aoindustries.web.struts.clientarea.accounting.AddCreditCardForm" />
-		<form-bean name="editCreditCardForm" type="com.aoindustries.web.struts.clientarea.accounting.EditCreditCardForm" />
-		<form-bean name="makePaymentStoredCardForm" type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentStoredCardForm" />
-		<form-bean name="makePaymentNewCardForm" type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentNewCardForm" />
-	</form-beans>
+  <!-- ========== Form Bean Definitions =================================== -->
+  <form-beans>
+    <form-bean name="addCreditCardForm" type="com.aoindustries.web.struts.clientarea.accounting.AddCreditCardForm" />
+    <form-bean name="editCreditCardForm" type="com.aoindustries.web.struts.clientarea.accounting.EditCreditCardForm" />
+    <form-bean name="makePaymentStoredCardForm" type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentStoredCardForm" />
+    <form-bean name="makePaymentNewCardForm" type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentNewCardForm" />
+  </form-beans>
 
-	<!-- ========== Global Error Handlers =================================== -->
-	<global-exceptions>
-		<exception key="Exception.message" type="java.lang.Exception" handler="com.aoindustries.web.struts.ExceptionHandler" />
-	</global-exceptions>
+  <!-- ========== Global Error Handlers =================================== -->
+  <global-exceptions>
+    <exception key="Exception.message" type="java.lang.Exception" handler="com.aoindustries.web.struts.ExceptionHandler" />
+  </global-exceptions>
 
-	<!-- ========== Global Forward Definitions ============================== -->
-	<global-forwards>
-		<!-- / -->
-		<forward name="exception" module="" path="/WEB-INF/content/exception.jsp" redirect="false" />
-		<forward name="login" module="" path="/login.do" redirect="false" />
-		<forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
-		<!-- /clientarea/accounting -->
-		<forward name="credit-card-manager" path="/credit-card-manager.do" redirect="true" />
-		<forward name="make-payment" path="/make-payment.do" redirect="true" />
-	</global-forwards>
+  <!-- ========== Global Forward Definitions ============================== -->
+  <global-forwards>
+    <!-- / -->
+    <forward name="exception" module="" path="/WEB-INF/content/exception.jsp" redirect="false" />
+    <forward name="login" module="" path="/login.do" redirect="false" />
+    <forward name="permission-denied" module="" path="/permission-denied.do" redirect="false" />
+    <!-- /clientarea/accounting -->
+    <forward name="credit-card-manager" path="/credit-card-manager.do" redirect="true" />
+    <forward name="make-payment" path="/make-payment.do" redirect="true" />
+  </global-forwards>
 
-	<!-- ========== Action Mapping Definitions ============================== -->
-	<action-mappings>
-		<action
-			path="/index"
-			type="com.aoindustries.web.struts.PageAction"
-		>
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/index.jsp" redirect="false" />
-		</action>
-		<action
-			path="/credit-card-manager"
-			type="com.aoindustries.web.struts.clientarea.accounting.CreditCardManagerAction"
-		>
-			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/credit-card-manager.jsp" redirect="false" />
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/credit-card-manager.jsp" redirect="false" />
-		</action>
-		<action
-			path="/add-credit-card"
-			name="addCreditCardForm"
-			scope="request"
-			validate="false"
-			type="com.aoindustries.web.struts.clientarea.accounting.AddCreditCardAction"
-		>
-			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/add-credit-card.jsp" redirect="false" />
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/add-credit-card.jsp" redirect="false" />
-		</action>
-		<action
-			path="/add-credit-card-completed"
-			name="addCreditCardForm"
-			scope="request"
-			validate="false"
-			type="com.aoindustries.web.struts.clientarea.accounting.AddCreditCardCompletedAction"
-		>
-			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/add-credit-card.jsp" redirect="false" />
-			<forward name="input" module="" path="/WEB-INF/content/clientarea/accounting/add-credit-card.jsp" redirect="false" />
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/add-credit-card-completed.jsp" redirect="false" />
-		</action>
-		<action
-			path="/delete-credit-card"
-			type="com.aoindustries.web.struts.clientarea.accounting.DeleteCreditCardAction"
-		>
-			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/delete-credit-card.jsp" redirect="false" />
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/delete-credit-card.jsp" redirect="false" />
-		</action>
-		<action
-			path="/delete-credit-card-completed"
-			type="com.aoindustries.web.struts.clientarea.accounting.DeleteCreditCardCompletedAction"
-		>
-			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/delete-credit-card-completed.jsp" redirect="false" />
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/delete-credit-card-completed.jsp" redirect="false" />
-		</action>
-		<action
-			path="/edit-credit-card"
-			name="editCreditCardForm"
-			scope="request"
-			validate="false"
-			type="com.aoindustries.web.struts.clientarea.accounting.EditCreditCardAction"
-		>
-			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
-		</action>
-		<action
-			path="/edit-credit-card-completed"
-			name="editCreditCardForm"
-			scope="request"
-			validate="false"
-			type="com.aoindustries.web.struts.clientarea.accounting.EditCreditCardCompletedAction"
-		>
-			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
-			<forward name="input" module="" path="/WEB-INF/content/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/edit-credit-card-completed.jsp" redirect="false" />
-		</action>
-		<action
-			path="/configure-automatic-billing"
-			type="com.aoindustries.web.struts.clientarea.accounting.ConfigureAutomaticBillingAction"
-		>
-			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/configure-automatic-billing.jsp" redirect="false" />
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/configure-automatic-billing.jsp" redirect="false" />
-		</action>
-		<action
-			path="/configure-automatic-billing-completed"
-			type="com.aoindustries.web.struts.clientarea.accounting.ConfigureAutomaticBillingCompletedAction"
-		>
-			<forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/configure-automatic-billing-completed.jsp" redirect="false" />
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/configure-automatic-billing-completed.jsp" redirect="false" />
-		</action>
-		<action
-			path="/make-payment"
-			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentAction"
-		>
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment.jsp" redirect="false" />
-		</action>
-		<action
-			path="/make-payment-select-card"
-			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentSelectCardAction"
-		>
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-select-card.jsp" redirect="false" />
-		</action>
-		<action
-			path="/make-payment-stored-card"
-			name="makePaymentStoredCardForm"
-			scope="request"
-			validate="false"
-			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentStoredCardAction"
-		>
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card.jsp" redirect="false" />
-		</action>
-		<action
-			path="/make-payment-stored-card-completed"
-			name="makePaymentStoredCardForm"
-			scope="request"
-			validate="false"
-			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentStoredCardCompletedAction"
-		>
-			<forward name="input" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card.jsp" redirect="false" />
-			<forward name="error" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card-error.jsp" redirect="false" />
-			<forward name="hold" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card-hold.jsp" redirect="false" />
-			<forward name="declined" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card-declined.jsp" redirect="false" />
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card-completed.jsp" redirect="false" />
-		</action>
-		<action
-			path="/make-payment-new-card"
-			name="makePaymentNewCardForm"
-			scope="request"
-			validate="false"
-			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentNewCardAction"
-		>
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
-		</action>
-		<action
-			path="/make-payment-new-card-completed"
-			name="makePaymentNewCardForm"
-			scope="request"
-			validate="false"
-			type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentNewCardCompletedAction"
-		>
-			<forward name="input" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
-			<forward name="error" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
-			<forward name="hold" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card-hold.jsp" redirect="false" />
-			<forward name="declined" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
-			<forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card-completed.jsp" redirect="false" />
-		</action>
-		<action
-			path="/**"
-			type="com.aoindustries.web.struts.PageAction"
-		>
-			<forward name="success" module="" path="/WEB-INF/content/not-found.jsp" redirect="false" />
-		</action>
-	</action-mappings>
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+    <action
+      path="/index"
+      type="com.aoindustries.web.struts.PageAction"
+    >
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/index.jsp" redirect="false" />
+    </action>
+    <action
+      path="/credit-card-manager"
+      type="com.aoindustries.web.struts.clientarea.accounting.CreditCardManagerAction"
+    >
+      <forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/credit-card-manager.jsp" redirect="false" />
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/credit-card-manager.jsp" redirect="false" />
+    </action>
+    <action
+      path="/add-credit-card"
+      name="addCreditCardForm"
+      scope="request"
+      validate="false"
+      type="com.aoindustries.web.struts.clientarea.accounting.AddCreditCardAction"
+    >
+      <forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/add-credit-card.jsp" redirect="false" />
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/add-credit-card.jsp" redirect="false" />
+    </action>
+    <action
+      path="/add-credit-card-completed"
+      name="addCreditCardForm"
+      scope="request"
+      validate="false"
+      type="com.aoindustries.web.struts.clientarea.accounting.AddCreditCardCompletedAction"
+    >
+      <forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/add-credit-card.jsp" redirect="false" />
+      <forward name="input" module="" path="/WEB-INF/content/clientarea/accounting/add-credit-card.jsp" redirect="false" />
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/add-credit-card-completed.jsp" redirect="false" />
+    </action>
+    <action
+      path="/delete-credit-card"
+      type="com.aoindustries.web.struts.clientarea.accounting.DeleteCreditCardAction"
+    >
+      <forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/delete-credit-card.jsp" redirect="false" />
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/delete-credit-card.jsp" redirect="false" />
+    </action>
+    <action
+      path="/delete-credit-card-completed"
+      type="com.aoindustries.web.struts.clientarea.accounting.DeleteCreditCardCompletedAction"
+    >
+      <forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/delete-credit-card-completed.jsp" redirect="false" />
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/delete-credit-card-completed.jsp" redirect="false" />
+    </action>
+    <action
+      path="/edit-credit-card"
+      name="editCreditCardForm"
+      scope="request"
+      validate="false"
+      type="com.aoindustries.web.struts.clientarea.accounting.EditCreditCardAction"
+    >
+      <forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
+    </action>
+    <action
+      path="/edit-credit-card-completed"
+      name="editCreditCardForm"
+      scope="request"
+      validate="false"
+      type="com.aoindustries.web.struts.clientarea.accounting.EditCreditCardCompletedAction"
+    >
+      <forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
+      <forward name="input" module="" path="/WEB-INF/content/clientarea/accounting/edit-credit-card.jsp" redirect="false" />
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/edit-credit-card-completed.jsp" redirect="false" />
+    </action>
+    <action
+      path="/configure-automatic-billing"
+      type="com.aoindustries.web.struts.clientarea.accounting.ConfigureAutomaticBillingAction"
+    >
+      <forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/configure-automatic-billing.jsp" redirect="false" />
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/configure-automatic-billing.jsp" redirect="false" />
+    </action>
+    <action
+      path="/configure-automatic-billing-completed"
+      type="com.aoindustries.web.struts.clientarea.accounting.ConfigureAutomaticBillingCompletedAction"
+    >
+      <forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/accounting/configure-automatic-billing-completed.jsp" redirect="false" />
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/configure-automatic-billing-completed.jsp" redirect="false" />
+    </action>
+    <action
+      path="/make-payment"
+      type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentAction"
+    >
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment.jsp" redirect="false" />
+    </action>
+    <action
+      path="/make-payment-select-card"
+      type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentSelectCardAction"
+    >
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-select-card.jsp" redirect="false" />
+    </action>
+    <action
+      path="/make-payment-stored-card"
+      name="makePaymentStoredCardForm"
+      scope="request"
+      validate="false"
+      type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentStoredCardAction"
+    >
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card.jsp" redirect="false" />
+    </action>
+    <action
+      path="/make-payment-stored-card-completed"
+      name="makePaymentStoredCardForm"
+      scope="request"
+      validate="false"
+      type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentStoredCardCompletedAction"
+    >
+      <forward name="input" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card.jsp" redirect="false" />
+      <forward name="error" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card-error.jsp" redirect="false" />
+      <forward name="hold" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card-hold.jsp" redirect="false" />
+      <forward name="declined" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card-declined.jsp" redirect="false" />
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-stored-card-completed.jsp" redirect="false" />
+    </action>
+    <action
+      path="/make-payment-new-card"
+      name="makePaymentNewCardForm"
+      scope="request"
+      validate="false"
+      type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentNewCardAction"
+    >
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
+    </action>
+    <action
+      path="/make-payment-new-card-completed"
+      name="makePaymentNewCardForm"
+      scope="request"
+      validate="false"
+      type="com.aoindustries.web.struts.clientarea.accounting.MakePaymentNewCardCompletedAction"
+    >
+      <forward name="input" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
+      <forward name="error" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
+      <forward name="hold" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card-hold.jsp" redirect="false" />
+      <forward name="declined" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card.jsp" redirect="false" />
+      <forward name="success" module="" path="/WEB-INF/content/clientarea/accounting/make-payment-new-card-completed.jsp" redirect="false" />
+    </action>
+    <action
+      path="/**"
+      type="com.aoindustries.web.struts.PageAction"
+    >
+      <forward name="success" module="" path="/WEB-INF/content/not-found.jsp" redirect="false" />
+    </action>
+  </action-mappings>
 
-	<!-- ========== Controller ============================================== -->
-	<controller
-		nocache="true"
-	/>
+  <!-- ========== Controller ============================================== -->
+  <controller
+    nocache="true"
+  />
 
-	<!-- ========== Message Resources ======================================= -->
-	<message-resources
-		key="/clientarea/accounting/ApplicationResources"
-		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
-		parameter="com.aoindustries.web.struts.clientarea.accounting.i18n.ApplicationResources"
-		null="false"
-	/>
+  <!-- ========== Message Resources ======================================= -->
+  <message-resources
+    key="/clientarea/accounting/ApplicationResources"
+    factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+    parameter="com.aoindustries.web.struts.clientarea.accounting.i18n.ApplicationResources"
+    null="false"
+  />
 <!-- Begin include "struts-config-clientarea-accounting.xml.messageResources" -->
-	<message-resources
-		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
-		parameter="com.aoindustries.web.struts.webapp.i18n.ApplicationResources"
-		null="false"
-	/>
+  <message-resources
+    factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+    parameter="com.aoindustries.web.struts.webapp.i18n.ApplicationResources"
+    null="false"
+  />
 <!-- End include "struts-config-clientarea-accounting.xml.messageResources" -->
 
-	<!-- ========== Validator Plug-In ======================================= -->
-	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
-		<set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml" />
-	</plug-in>
+  <!-- ========== Validator Plug-In ======================================= -->
+  <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+    <set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml" />
+  </plug-in>
 </struts-config>

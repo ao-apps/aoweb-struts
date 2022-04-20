@@ -32,13 +32,13 @@ import java.io.Serializable;
  */
 public class SystemAdministrationSignupSelectPackageForm extends SignupSelectPackageForm implements Serializable {
 
-	public static final ScopeEE.Session.Attribute<SystemAdministrationSignupSelectPackageForm> SESSION_ATTRIBUTE =
-		ScopeEE.SESSION.attribute("systemAdministrationSignupSelectPackageForm");
+  public static final ScopeEE.Session.Attribute<SystemAdministrationSignupSelectPackageForm> SESSION_ATTRIBUTE =
+    ScopeEE.SESSION.attribute("systemAdministrationSignupSelectPackageForm");
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Override
-	protected String getPackageCategory() {
-		return PackageCategory.SYSADMIN;
-	}
+  @Override
+  protected String getPackageCategory() {
+    return PackageCategory.SYSADMIN;
+  }
 }

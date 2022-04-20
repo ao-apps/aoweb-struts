@@ -34,34 +34,36 @@ import org.apache.struts.action.ActionMessages;
  */
 public class Application2Action extends ApplicationStepAction {
 
-	@Override
-	public ActionForward executeApplicationStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		ApplicationSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		SignupDomainForm signupDomainForm,
-		boolean signupDomainFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		if(!signupSelectPackageFormComplete) return mapping.findForward("application-completed");
+  @Override
+  public ActionForward executeApplicationStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    ApplicationSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    SignupDomainForm signupDomainForm,
+    boolean signupDomainFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    if (!signupSelectPackageFormComplete) {
+      return mapping.findForward("application-completed");
+    }
 
-		// Clear errors if they should not be displayed
-		clearErrors(request);
+    // Clear errors if they should not be displayed
+    clearErrors(request);
 
-		return mapping.findForward("input");
-	}
+    return mapping.findForward("input");
+  }
 
-	/**
-	 * May clear specific errors here.
-	 */
-	protected void clearErrors(HttpServletRequest request) {
-		saveErrors(request, new ActionMessages());
-	}
+  /**
+   * May clear specific errors here.
+   */
+  protected void clearErrors(HttpServletRequest request) {
+    saveErrors(request, new ActionMessages());
+  }
 }

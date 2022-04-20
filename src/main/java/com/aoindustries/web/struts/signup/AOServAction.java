@@ -39,45 +39,45 @@ import org.apache.struts.action.ActionMessages;
  */
 public class AOServAction extends AOServStepAction {
 
-	@Override
-	public ActionForward executeAOServStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		List<PackageDefinition> packageDefinitions = SignupSelectPackageActionHelper.getPackageDefinitions(getServlet().getServletContext(), PackageCategory.AOSERV);
-		if(packageDefinitions.size()==1) {
-			response.sendRedirect(
-				response.encodeRedirectURL(
-					URIEncoder.encodeURI(
-						Skin.getSkin(request).getUrlBase(request)
-						+ "signup/aoserv-completed.do?packageDefinition="
-						+ URIEncoder.encodeURIComponent(Integer.toString(packageDefinitions.get(0).getPkey()))
-					)
-				)
-			);
-			return null;
-		}
-		SignupSelectPackageActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, PackageCategory.AOSERV);
+  @Override
+  public ActionForward executeAOServStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    List<PackageDefinition> packageDefinitions = SignupSelectPackageActionHelper.getPackageDefinitions(getServlet().getServletContext(), PackageCategory.AOSERV);
+    if (packageDefinitions.size() == 1) {
+      response.sendRedirect(
+        response.encodeRedirectURL(
+          URIEncoder.encodeURI(
+            Skin.getSkin(request).getUrlBase(request)
+            + "signup/aoserv-completed.do?packageDefinition="
+            + URIEncoder.encodeURIComponent(Integer.toString(packageDefinitions.get(0).getPkey()))
+          )
+        )
+      );
+      return null;
+    }
+    SignupSelectPackageActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, PackageCategory.AOSERV);
 
-		// Clear errors if they should not be displayed
-		clearErrors(request);
+    // Clear errors if they should not be displayed
+    clearErrors(request);
 
-		return mapping.findForward("input");
-	}
+    return mapping.findForward("input");
+  }
 
-	/**
-	 * May clear specific errors here.
-	 */
-	protected void clearErrors(HttpServletRequest request) {
-		saveErrors(request, new ActionMessages());
-	}
+  /**
+   * May clear specific errors here.
+   */
+  protected void clearErrors(HttpServletRequest request) {
+    saveErrors(request, new ActionMessages());
+  }
 }

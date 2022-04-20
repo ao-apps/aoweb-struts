@@ -33,87 +33,87 @@ import org.apache.struts.action.ActionForm;
  */
 public class SignupCustomizeManagementForm extends ActionForm implements Serializable, SessionActionForm {
 
-	public static final ScopeEE.Session.Attribute<SignupCustomizeManagementForm> MANAGED_SESSION_ATTRIBUTE =
-		ScopeEE.SESSION.attribute("managedSignupCustomizeManagementForm");
+  public static final ScopeEE.Session.Attribute<SignupCustomizeManagementForm> MANAGED_SESSION_ATTRIBUTE =
+    ScopeEE.SESSION.attribute("managedSignupCustomizeManagementForm");
 
-	public static final ScopeEE.Session.Attribute<SignupCustomizeManagementForm> VIRTUAL_MANAGED_SESSION_ATTRIBUTE =
-		ScopeEE.SESSION.attribute("virtualManagedSignupCustomizeManagementForm");
+  public static final ScopeEE.Session.Attribute<SignupCustomizeManagementForm> VIRTUAL_MANAGED_SESSION_ATTRIBUTE =
+    ScopeEE.SESSION.attribute("virtualManagedSignupCustomizeManagementForm");
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private int backupOnsiteOption;
-	private int backupOffsiteOption;
-	private String backupDvdOption;
-	private int distributionScanOption;
-	private int failoverOption;
-	private String formCompleted;
+  private int backupOnsiteOption;
+  private int backupOffsiteOption;
+  private String backupDvdOption;
+  private int distributionScanOption;
+  private int failoverOption;
+  private String formCompleted;
 
-	public SignupCustomizeManagementForm() {
-		setBackupOnsiteOption(-1);
-		setBackupOffsiteOption(-1);
-		setBackupDvdOption("");
-		setDistributionScanOption(-1);
-		setFailoverOption(-1);
-		setFormCompleted("false");
-	}
+  public SignupCustomizeManagementForm() {
+    setBackupOnsiteOption(-1);
+    setBackupOffsiteOption(-1);
+    setBackupDvdOption("");
+    setDistributionScanOption(-1);
+    setFailoverOption(-1);
+    setFormCompleted("false");
+  }
 
-	@Override
-	public boolean isEmpty() {
-		return
-			backupOnsiteOption==-1
-			&& backupOffsiteOption==-1
-			&& "".equals(backupDvdOption)
-			&& distributionScanOption==-1
-			&& failoverOption==-1
-			&& "false".equalsIgnoreCase(formCompleted)
-		;
-	}
+  @Override
+  public boolean isEmpty() {
+    return
+      backupOnsiteOption == -1
+      && backupOffsiteOption == -1
+      && "".equals(backupDvdOption)
+      && distributionScanOption == -1
+      && failoverOption == -1
+      && "false".equalsIgnoreCase(formCompleted)
+    ;
+  }
 
-	public final int getBackupOnsiteOption() {
-		return backupOnsiteOption;
-	}
+  public final int getBackupOnsiteOption() {
+    return backupOnsiteOption;
+  }
 
-	public final void setBackupOnsiteOption(int backupOnsiteOption) {
-		this.backupOnsiteOption = backupOnsiteOption;
-	}
+  public final void setBackupOnsiteOption(int backupOnsiteOption) {
+    this.backupOnsiteOption = backupOnsiteOption;
+  }
 
-	public final int getBackupOffsiteOption() {
-		return backupOffsiteOption;
-	}
+  public final int getBackupOffsiteOption() {
+    return backupOffsiteOption;
+  }
 
-	public final void setBackupOffsiteOption(int backupOffsiteOption) {
-		this.backupOffsiteOption = backupOffsiteOption;
-	}
+  public final void setBackupOffsiteOption(int backupOffsiteOption) {
+    this.backupOffsiteOption = backupOffsiteOption;
+  }
 
-	public final String getBackupDvdOption() {
-		return backupDvdOption;
-	}
+  public final String getBackupDvdOption() {
+    return backupDvdOption;
+  }
 
-	public final void setBackupDvdOption(String backupDvdOption) {
-		this.backupDvdOption = backupDvdOption;
-	}
+  public final void setBackupDvdOption(String backupDvdOption) {
+    this.backupDvdOption = backupDvdOption;
+  }
 
-	public final int getDistributionScanOption() {
-		return distributionScanOption;
-	}
+  public final int getDistributionScanOption() {
+    return distributionScanOption;
+  }
 
-	public final void setDistributionScanOption(int distributionScanOption) {
-		this.distributionScanOption = distributionScanOption;
-	}
+  public final void setDistributionScanOption(int distributionScanOption) {
+    this.distributionScanOption = distributionScanOption;
+  }
 
-	public final int getFailoverOption() {
-		return failoverOption;
-	}
+  public final int getFailoverOption() {
+    return failoverOption;
+  }
 
-	public final void setFailoverOption(int failoverOption) {
-		this.failoverOption = failoverOption;
-	}
+  public final void setFailoverOption(int failoverOption) {
+    this.failoverOption = failoverOption;
+  }
 
-	public final String getFormCompleted() {
-		return formCompleted;
-	}
+  public final String getFormCompleted() {
+    return formCompleted;
+  }
 
-	public final void setFormCompleted(String formCompleted) {
-		this.formCompleted = formCompleted;
-	}
+  public final void setFormCompleted(String formCompleted) {
+    this.formCompleted = formCompleted;
+  }
 }

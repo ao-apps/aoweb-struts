@@ -49,68 +49,68 @@ import org.apache.struts.action.ActionMapping;
  */
 public class MakePaymentAction extends AuthenticatedAction {
 
-	@Override
-	public final ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		TransactionTable transactionTable = aoConn.getBilling().getTransaction();
-		Account thisAccount = aoConn.getCurrentAdministrator().getUsername().getPackage().getAccount();
+  @Override
+  public final ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    TransactionTable transactionTable = aoConn.getBilling().getTransaction();
+    Account thisAccount = aoConn.getCurrentAdministrator().getUsername().getPackage().getAccount();
 
-		// Get the list of accounts that are not canceled or have a non-zero balance, or are thisAccount
-		List<Account> allAccounts = aoConn.getAccount().getAccount().getRows();
-		Map<Account, Monies> accountsAndBalances = AoCollections.newLinkedHashMap(allAccounts.size());
-		for(Account account : allAccounts) {
-			Monies accountBalance = transactionTable.getAccountBalance(account);
-			if(
-				thisAccount.equals(account)
-				|| (
-					account.getCanceled() == null
-					&& !account.billParent()
-				) || !accountBalance.isZero()
-			) {
-				// Remove all zero balances
-				// This is useful when an account changes currencies and have paid their bill in old currency
-				accountBalance = accountBalance.removeZeros();
+    // Get the list of accounts that are not canceled or have a non-zero balance, or are thisAccount
+    List<Account> allAccounts = aoConn.getAccount().getAccount().getRows();
+    Map<Account, Monies> accountsAndBalances = AoCollections.newLinkedHashMap(allAccounts.size());
+    for (Account account : allAccounts) {
+      Monies accountBalance = transactionTable.getAccountBalance(account);
+      if (
+        thisAccount.equals(account)
+        || (
+          account.getCanceled() == null
+          && !account.billParent()
+        ) || !accountBalance.isZero()
+      ) {
+        // Remove all zero balances
+        // This is useful when an account changes currencies and have paid their bill in old currency
+        accountBalance = accountBalance.removeZeros();
 
-				if(account.getCanceled() == null) {
-					// Add all currencies, as zero, for all current monthly charges (including billParent sub accounts)
-					// This will allow payment in advance when there is no balance due
-					Monies monthlyRate = account.getBillingMonthlyRate();
-					if(monthlyRate != null) {
-						for(Currency currency : monthlyRate.getCurrencies()) {
-							accountBalance = accountBalance.add(new Money(currency, 0, 0));
-						}
-					}
-				}
-				accountsAndBalances.put(account, accountBalance);
-			}
-		}
-		if(accountsAndBalances.size() == 1) {
-			Map.Entry<Account, Monies> entry = accountsAndBalances.entrySet().iterator().next();
-			Monies accountBalance = entry.getValue();
-			Set<Currency> currencies = accountBalance.getCurrencies();
-			if(currencies.size() == 1) {
-				// Redirect, only one option
-				response.sendRedirect(
-					response.encodeRedirectURL(
-						URIEncoder.encodeURI(
-							Skin.getSkin(request).getUrlBase(request)
-							+ "clientarea/accounting/make-payment-select-card.do?account="
-							+ URIEncoder.encodeURIComponent(entry.getKey().getName().toString())
-							+ "&currency="
-							+ URIEncoder.encodeURIComponent(currencies.iterator().next().getCurrencyCode())
-						)
-					)
-				);
-				return null;
-			}
-		}
-		// Show selector screen
-		request.setAttribute("accountsAndBalances", accountsAndBalances);
-		return mapping.findForward("success");
-	}
+        if (account.getCanceled() == null) {
+          // Add all currencies, as zero, for all current monthly charges (including billParent sub accounts)
+          // This will allow payment in advance when there is no balance due
+          Monies monthlyRate = account.getBillingMonthlyRate();
+          if (monthlyRate != null) {
+            for (Currency currency : monthlyRate.getCurrencies()) {
+              accountBalance = accountBalance.add(new Money(currency, 0, 0));
+            }
+          }
+        }
+        accountsAndBalances.put(account, accountBalance);
+      }
+    }
+    if (accountsAndBalances.size() == 1) {
+      Map.Entry<Account, Monies> entry = accountsAndBalances.entrySet().iterator().next();
+      Monies accountBalance = entry.getValue();
+      Set<Currency> currencies = accountBalance.getCurrencies();
+      if (currencies.size() == 1) {
+        // Redirect, only one option
+        response.sendRedirect(
+          response.encodeRedirectURL(
+            URIEncoder.encodeURI(
+              Skin.getSkin(request).getUrlBase(request)
+              + "clientarea/accounting/make-payment-select-card.do?account="
+              + URIEncoder.encodeURIComponent(entry.getKey().getName().toString())
+              + "&currency="
+              + URIEncoder.encodeURIComponent(currencies.iterator().next().getCurrencyCode())
+            )
+          )
+        );
+        return null;
+      }
+    }
+    // Show selector screen
+    request.setAttribute("accountsAndBalances", accountsAndBalances);
+    return mapping.findForward("success");
+  }
 }

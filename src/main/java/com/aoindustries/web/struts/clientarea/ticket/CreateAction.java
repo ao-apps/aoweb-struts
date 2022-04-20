@@ -43,31 +43,31 @@ import org.apache.struts.action.ActionMapping;
  */
 public class CreateAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		TicketForm ticketForm = (TicketForm)form;
-		Administrator currentAdministrator = aoConn.getCurrentAdministrator();
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    TicketForm ticketForm = (TicketForm)form;
+    Administrator currentAdministrator = aoConn.getCurrentAdministrator();
 
-		// Default to the account of the authenticated user
-		ticketForm.setAccount(currentAdministrator.getUsername().getPackage().getAccount_name().toString());
+    // Default to the account of the authenticated user
+    ticketForm.setAccount(currentAdministrator.getUsername().getPackage().getAccount_name().toString());
 
-		// Default to normal priority
-		ticketForm.setClientPriority(Priority.NORMAL);
+    // Default to normal priority
+    ticketForm.setClientPriority(Priority.NORMAL);
 
-		// Default contact emails
-		// ticketForm.setContactEmails(currentAdministrator.getEmail());
+    // Default contact emails
+    // ticketForm.setContactEmails(currentAdministrator.getEmail());
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return Collections.singleton(Permission.Name.add_ticket);
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return Collections.singleton(Permission.Name.add_ticket);
+  }
 }

@@ -42,122 +42,130 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public abstract class PageTag extends BodyTagSupport {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * Request-scope attribute containing the current page, used to find the
-	 * parent PageTag.
-	 */
-	private static final ScopeEE.Request.Attribute<PageTag> PAGE_TAG_ATTRIBUTE =
-		ScopeEE.REQUEST.attribute(PageTag.class.getName());
+  /**
+   * Request-scope attribute containing the current page, used to find the
+   * parent PageTag.
+   */
+  private static final ScopeEE.Request.Attribute<PageTag> PAGE_TAG_ATTRIBUTE =
+    ScopeEE.REQUEST.attribute(PageTag.class.getName());
 
-	/**
-	 * Gets the current page tag (parent or child).
-	 */
-	static PageTag getPageTag(ServletRequest request) {
-		return PAGE_TAG_ATTRIBUTE.context(request).get();
-	}
+  /**
+   * Gets the current page tag (parent or child).
+   */
+  static PageTag getPageTag(ServletRequest request) {
+    return PAGE_TAG_ATTRIBUTE.context(request).get();
+  }
 
-	private String title;
-	private String navImageAlt;
-	private String description;
-	private String author;
-	private String authorHref;
-	private String copyright;
-	private String path;
-	private String keywords;
-	private Collection<Meta> metas;
+  private String title;
+  private String navImageAlt;
+  private String description;
+  private String author;
+  private String authorHref;
+  private String copyright;
+  private String path;
+  private String keywords;
+  private Collection<Meta> metas;
 
-	protected PageTag() {
-		init(); // TODO: Switch to TryCatchFinally style, review all
-	}
+  protected PageTag() {
+    init(); // TODO: Switch to TryCatchFinally style, review all
+  }
 
-	protected void init() {
-		title = null;
-		navImageAlt = null;
-		description = null;
-		author = null;
-		authorHref = null;
-		copyright = null;
-		path = null;
-		keywords = null;
-		metas = null;
-	}
+  protected void init() {
+    title = null;
+    navImageAlt = null;
+    description = null;
+    author = null;
+    authorHref = null;
+    copyright = null;
+    path = null;
+    keywords = null;
+    metas = null;
+  }
 
-	private Attribute.OldValue oldPageTag;
+  private Attribute.OldValue oldPageTag;
 
-	@Override
-	public int doStartTag() throws JspException {
-		oldPageTag = PAGE_TAG_ATTRIBUTE.context(pageContext.getRequest()).init(this);
-		return EVAL_BODY_BUFFERED;
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    oldPageTag = PAGE_TAG_ATTRIBUTE.context(pageContext.getRequest()).init(this);
+    return EVAL_BODY_BUFFERED;
+  }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-	public void setNavImageAlt(String navImageAlt) {
-		this.navImageAlt = navImageAlt;
-	}
+  public void setNavImageAlt(String navImageAlt) {
+    this.navImageAlt = navImageAlt;
+  }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+  public void setAuthor(String author) {
+    this.author = author;
+  }
 
-	public void setAuthorHref(String authorHref) {
-		this.authorHref = authorHref;
-	}
+  public void setAuthorHref(String authorHref) {
+    this.authorHref = authorHref;
+  }
 
-	public void setCopyright(String copyright) {
-		this.copyright = copyright;
-	}
+  public void setCopyright(String copyright) {
+    this.copyright = copyright;
+  }
 
-	public void setPath(String path) {
-		this.path = path;
-	}
+  public void setPath(String path) {
+    this.path = path;
+  }
 
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
-	}
+  public void setKeywords(String keywords) {
+    this.keywords = keywords;
+  }
 
-	public void addMeta(Meta meta) {
-		if(metas==null) metas = new ArrayList<>();
-		metas.add(meta);
-	}
+  public void addMeta(Meta meta) {
+    if (metas == null) {
+      metas = new ArrayList<>();
+    }
+    metas.add(meta);
+  }
 
-	@Override
-	public int doEndTag() throws JspException {
-		ServletRequest request = pageContext.getRequest();
-		try {
-			if(title==null) {
-				throw new LocalizedJspTagException(PACKAGE_RESOURCES, "skintags.PageTag.needsTitleTag");
-			}
-			String myNavImageAlt = this.navImageAlt;
-			if(myNavImageAlt == null || myNavImageAlt.length()==0) myNavImageAlt=title;
-			String myDescription = this.description;
-			if(myDescription == null || myDescription.length()==0) myDescription=title;
-			return doEndTag(title, myNavImageAlt, myDescription, author, authorHref, copyright, path, keywords, metas);
-		} catch(IOException e) {
-			throw new JspTagException(e);
-		} finally {
-			if(oldPageTag != null) oldPageTag.close();
-			init();
-		}
-	}
+  @Override
+  public int doEndTag() throws JspException {
+    ServletRequest request = pageContext.getRequest();
+    try {
+      if (title == null) {
+        throw new LocalizedJspTagException(PACKAGE_RESOURCES, "skintags.PageTag.needsTitleTag");
+      }
+      String myNavImageAlt = this.navImageAlt;
+      if (myNavImageAlt == null || myNavImageAlt.length() == 0) {
+        myNavImageAlt=title;
+      }
+      String myDescription = this.description;
+      if (myDescription == null || myDescription.length() == 0) {
+        myDescription=title;
+      }
+      return doEndTag(title, myNavImageAlt, myDescription, author, authorHref, copyright, path, keywords, metas);
+    } catch (IOException e) {
+      throw new JspTagException(e);
+    } finally {
+      if (oldPageTag != null) {
+        oldPageTag.close();
+      }
+      init();
+    }
+  }
 
-	protected abstract int doEndTag(
-		String title,
-		String navImageAlt,
-		String description,
-		String author,
-		String authorHref,
-		String copyright,
-		String path,
-		String keywords,
-		Collection<Meta> metas
-	) throws JspException, IOException;
+  protected abstract int doEndTag(
+    String title,
+    String navImageAlt,
+    String description,
+    String author,
+    String authorHref,
+    String copyright,
+    String path,
+    String keywords,
+    Collection<Meta> metas
+  ) throws JspException, IOException;
 }

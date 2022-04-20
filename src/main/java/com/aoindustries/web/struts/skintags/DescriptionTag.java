@@ -36,25 +36,25 @@ import javax.servlet.jsp.PageContext;
  */
 public class DescriptionTag extends EncodingBufferedTag {
 
-	@Override
-	public MediaType getContentType() {
-		return MediaType.TEXT;
-	}
+  @Override
+  public MediaType getContentType() {
+    return MediaType.TEXT;
+  }
 
-	@Override
-	public MediaType getOutputType() {
-		return null;
-	}
+  @Override
+  public MediaType getOutputType() {
+    return null;
+  }
 
-	@Override
-	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-		PageContext pageContext = (PageContext)getJspContext();
-		String description = capturedBody.trim().toString();
-		PageTag pageTag = PageTag.getPageTag(pageContext.getRequest());
-		if(pageTag==null) {
-			PageAttributesBodyTag.getPageAttributes(pageContext).setDescription(description);
-		} else {
-			pageTag.setDescription(description);
-		}
-	}
+  @Override
+  protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+    PageContext pageContext = (PageContext)getJspContext();
+    String description = capturedBody.trim().toString();
+    PageTag pageTag = PageTag.getPageTag(pageContext.getRequest());
+    if (pageTag == null) {
+      PageAttributesBodyTag.getPageAttributes(pageContext).setDescription(description);
+    } else {
+      pageTag.setDescription(description);
+    }
+  }
 }

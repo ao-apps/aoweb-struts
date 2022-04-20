@@ -34,21 +34,21 @@ import java.util.List;
  */
 public class Parent extends Page {
 
-	private final List<Child> children;
+  private final List<Child> children;
 
-	public Parent(String title, String navImageAlt, String description, String author, String authorHref, String copyright, String path, String keywords, Collection<Meta> metas, List<Child> children) {
-		super(title, navImageAlt, description, author, authorHref, copyright, path, keywords, metas);
-		this.children = children;
-	}
+  public Parent(String title, String navImageAlt, String description, String author, String authorHref, String copyright, String path, String keywords, Collection<Meta> metas, List<Child> children) {
+    super(title, navImageAlt, description, author, authorHref, copyright, path, keywords, metas);
+    this.children = children;
+  }
 
-	/**
-	 * Gets the children of this parent page.
-	 */
-	public List<Child> getChildren() {
-		if(children==null) {
-			List<Child> emptyList = Collections.emptyList();
-			return emptyList;
-		}
-		return children;
-	}
+  /**
+   * Gets the children of this parent page.
+   */
+  public List<Child> getChildren() {
+    if (children == null) {
+      List<Child> emptyList = Collections.emptyList();
+      return emptyList;
+    }
+    return children;
+  }
 }

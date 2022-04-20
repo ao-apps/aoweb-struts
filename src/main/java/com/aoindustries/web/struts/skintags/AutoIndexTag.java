@@ -36,29 +36,29 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class AutoIndexTag extends TagSupport {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Override
-	public int doStartTag() throws JspException {
-		try {
-			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-			SkinTag.getSkin(req).printAutoIndex(
-				req,
-				resp,
-				PageAttributesBodyTag.getPageAttributes(pageContext),
-				new DocumentEE(
-					pageContext.getServletContext(),
-					req,
-					resp,
-					pageContext.getOut(),
-					false, // Do not add extra newlines to JSP
-					false  // Do not add extra indentation to JSP
-				)
-			);
-			return SKIP_BODY;
-		} catch(IOException e) {
-			throw new JspTagException(e);
-		}
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    try {
+      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+      HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+      SkinTag.getSkin(req).printAutoIndex(
+        req,
+        resp,
+        PageAttributesBodyTag.getPageAttributes(pageContext),
+        new DocumentEE(
+          pageContext.getServletContext(),
+          req,
+          resp,
+          pageContext.getOut(),
+          false, // Do not add extra newlines to JSP
+          false  // Do not add extra indentation to JSP
+        )
+      );
+      return SKIP_BODY;
+    } catch (IOException e) {
+      throw new JspTagException(e);
+    }
+  }
 }

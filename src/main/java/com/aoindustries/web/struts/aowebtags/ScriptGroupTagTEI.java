@@ -33,29 +33,29 @@ import javax.servlet.jsp.tagext.ValidationMessage;
  */
 public class ScriptGroupTagTEI extends TagExtraInfo {
 
-	@Override
-	public ValidationMessage[] validate(TagData data) {
-		Object o = data.getAttribute("onloadMode");
-		if(
-			o != null
-			&& o != TagData.REQUEST_TIME_VALUE
-			&& !"none".equals(o)
-			&& !"before".equals(o)
-			&& !"after".equals(o)
-		) {
-			return new ValidationMessage[] {
-				new ValidationMessage(
-					data.getId(),
-					PACKAGE_RESOURCES.getMessage(
-						//"Invalid value for onloadMode, should be one of \"none\", \"before\", or \"after\": {0}",
-						//Locale.getDefault(),
-						"aowebtags.ScriptGroupTag.onloadMode.invalid",
-						o
-					)
-				)
-			};
-		} else {
-			return null;
-		}
-	}
+  @Override
+  public ValidationMessage[] validate(TagData data) {
+    Object o = data.getAttribute("onloadMode");
+    if (
+      o != null
+      && o != TagData.REQUEST_TIME_VALUE
+      && !"none".equals(o)
+      && !"before".equals(o)
+      && !"after".equals(o)
+    ) {
+      return new ValidationMessage[] {
+        new ValidationMessage(
+          data.getId(),
+          PACKAGE_RESOURCES.getMessage(
+            //"Invalid value for onloadMode, should be one of \"none\", \"before\", or \"after\": {0}",
+            //Locale.getDefault(),
+            "aowebtags.ScriptGroupTag.onloadMode.invalid",
+            o
+          )
+        )
+      };
+    } else {
+      return null;
+    }
+  }
 }

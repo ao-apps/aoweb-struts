@@ -47,57 +47,65 @@ import org.apache.struts.action.ActionMessages;
  */
 public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		PostgreSQLPasswordSetterForm postgreSQLPasswordSetterForm = (PostgreSQLPasswordSetterForm)form;
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    PostgreSQLPasswordSetterForm postgreSQLPasswordSetterForm = (PostgreSQLPasswordSetterForm)form;
 
-		// Validation
-		ActionMessages errors = postgreSQLPasswordSetterForm.validate(mapping, request);
-		if(errors!=null && !errors.isEmpty()) {
-			saveErrors(request, errors);
-			return mapping.findForward("input");
-		}
+    // Validation
+    ActionMessages errors = postgreSQLPasswordSetterForm.validate(mapping, request);
+    if (errors != null && !errors.isEmpty()) {
+      saveErrors(request, errors);
+      return mapping.findForward("input");
+    }
 
-		// Reset passwords here and clear the passwords from the form
-		ActionMessages messages = new ActionMessages();
-		List<String> usernames = postgreSQLPasswordSetterForm.getUsernames();
-		List<String> servers = postgreSQLPasswordSetterForm.getServers();
-		List<String> postgreSQLServers = postgreSQLPasswordSetterForm.getPostgreSQLServers();
-		List<String> newPasswords = postgreSQLPasswordSetterForm.getNewPasswords();
-		List<String> confirmPasswords = postgreSQLPasswordSetterForm.getConfirmPasswords();
-		for(int c=0;c<usernames.size();c++) {
-			String newPassword = newPasswords.get(c);
-			if(newPassword.length()>0) {
-				User.Name username = User.Name.valueOf(usernames.get(c));
-				String hostname = servers.get(c);
-				Host host = aoConn.getNet().getHost().get(hostname);
-				if(host == null) throw new SQLException("Unable to find Host: " + host);
-				com.aoindustries.aoserv.client.linux.Server linuxServer = host.getLinuxServer();
-				if(linuxServer == null) throw new SQLException("Unable to find Server: " + host);
-				Server.Name serverName = Server.Name.valueOf(postgreSQLServers.get(c));
-				Server ps = linuxServer.getPostgresServer(serverName);
-				if(ps==null) throw new SQLException("Unable to find Server: "+serverName+" on "+hostname);
-				UserServer psu = ps.getPostgresServerUser(username);
-				if(psu==null) throw new SQLException("Unable to find UserServer: "+username+" on "+serverName+" on "+hostname);
-				psu.setPassword(newPassword);
-				messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("postgreSQLPasswordSetter.field.confirmPasswords.passwordReset"));
-				newPasswords.set(c, "");
-				confirmPasswords.set(c, "");
-			}
-		}
-		saveMessages(request, messages);
+    // Reset passwords here and clear the passwords from the form
+    ActionMessages messages = new ActionMessages();
+    List<String> usernames = postgreSQLPasswordSetterForm.getUsernames();
+    List<String> servers = postgreSQLPasswordSetterForm.getServers();
+    List<String> postgreSQLServers = postgreSQLPasswordSetterForm.getPostgreSQLServers();
+    List<String> newPasswords = postgreSQLPasswordSetterForm.getNewPasswords();
+    List<String> confirmPasswords = postgreSQLPasswordSetterForm.getConfirmPasswords();
+    for (int c=0;c<usernames.size();c++) {
+      String newPassword = newPasswords.get(c);
+      if (newPassword.length()>0) {
+        User.Name username = User.Name.valueOf(usernames.get(c));
+        String hostname = servers.get(c);
+        Host host = aoConn.getNet().getHost().get(hostname);
+        if (host == null) {
+          throw new SQLException("Unable to find Host: " + host);
+        }
+        com.aoindustries.aoserv.client.linux.Server linuxServer = host.getLinuxServer();
+        if (linuxServer == null) {
+          throw new SQLException("Unable to find Server: " + host);
+        }
+        Server.Name serverName = Server.Name.valueOf(postgreSQLServers.get(c));
+        Server ps = linuxServer.getPostgresServer(serverName);
+        if (ps == null) {
+          throw new SQLException("Unable to find Server: "+serverName+" on "+hostname);
+        }
+        UserServer psu = ps.getPostgresServerUser(username);
+        if (psu == null) {
+          throw new SQLException("Unable to find UserServer: "+username+" on "+serverName+" on "+hostname);
+        }
+        psu.setPassword(newPassword);
+        messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("postgreSQLPasswordSetter.field.confirmPasswords.passwordReset"));
+        newPasswords.set(c, "");
+        confirmPasswords.set(c, "");
+      }
+    }
+    saveMessages(request, messages);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return Collections.singleton(Permission.Name.set_postgres_server_user_password);
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return Collections.singleton(Permission.Name.set_postgres_server_user_password);
+  }
 }

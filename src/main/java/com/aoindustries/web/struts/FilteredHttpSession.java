@@ -39,130 +39,130 @@ import javax.servlet.http.HttpSession;
  */
 public class FilteredHttpSession implements HttpSession {
 
-	private final HttpSession wrapped;
+  private final HttpSession wrapped;
 
-	public FilteredHttpSession(HttpSession wrapped) {
-		this.wrapped = wrapped;
-	}
+  public FilteredHttpSession(HttpSession wrapped) {
+    this.wrapped = wrapped;
+  }
 
-	@Override
-	public long getCreationTime() {
-		return wrapped.getCreationTime();
-	}
+  @Override
+  public long getCreationTime() {
+    return wrapped.getCreationTime();
+  }
 
-	@Override
-	public String getId() {
-		return wrapped.getId();
-	}
+  @Override
+  public String getId() {
+    return wrapped.getId();
+  }
 
-	@Override
-	public long getLastAccessedTime() {
-		return wrapped.getLastAccessedTime();
-	}
+  @Override
+  public long getLastAccessedTime() {
+    return wrapped.getLastAccessedTime();
+  }
 
-	@Override
-	public ServletContext getServletContext() {
-		return wrapped.getServletContext();
-	}
+  @Override
+  public ServletContext getServletContext() {
+    return wrapped.getServletContext();
+  }
 
-	@Override
-	public void setMaxInactiveInterval(int interval) {
-		wrapped.setMaxInactiveInterval(interval);
-	}
+  @Override
+  public void setMaxInactiveInterval(int interval) {
+    wrapped.setMaxInactiveInterval(interval);
+  }
 
-	@Override
-	public int getMaxInactiveInterval() {
-		return wrapped.getMaxInactiveInterval();
-	}
+  @Override
+  public int getMaxInactiveInterval() {
+    return wrapped.getMaxInactiveInterval();
+  }
 
-	@Deprecated(forRemoval = false)
-	@Override
-	public javax.servlet.http.HttpSessionContext getSessionContext() {
-		return wrapped.getSessionContext();
-	}
+  @Deprecated(forRemoval = false)
+  @Override
+  public javax.servlet.http.HttpSessionContext getSessionContext() {
+    return wrapped.getSessionContext();
+  }
 
-	@Override
-	public Object getAttribute(String name) {
-		return wrapped.getAttribute(name);
-	}
+  @Override
+  public Object getAttribute(String name) {
+    return wrapped.getAttribute(name);
+  }
 
-	@Deprecated(forRemoval = false)
-	@Override
-	public Object getValue(String name) {
-		return wrapped.getValue(name);
-	}
+  @Deprecated(forRemoval = false)
+  @Override
+  public Object getValue(String name) {
+    return wrapped.getValue(name);
+  }
 
-	@Override
-	public Enumeration<String> getAttributeNames() {
-		return wrapped.getAttributeNames();
-	}
+  @Override
+  public Enumeration<String> getAttributeNames() {
+    return wrapped.getAttributeNames();
+  }
 
-	@Deprecated(forRemoval = false)
-	@Override
-	public String[] getValueNames() {
-		return wrapped.getValueNames();
-	}
+  @Deprecated(forRemoval = false)
+  @Override
+  public String[] getValueNames() {
+    return wrapped.getValueNames();
+  }
 
-	/**
-	 * Makes sure the session attribute is acceptable.  Throws AssertionError
-	 * if it is not.
-	 */
-	static void checkSessionAttribute(String name, Object value) {
-		// All all null to be set
-		if(value!=null) {
-			// These names are always allowed
-			if(
-				!Constants.AUTHENTICATION_TARGET.getName().equals(name)
-				&& !Constants.TARGETS.equals(name)
-				&& !Constants.LAYOUT.getName().equals(name)
-				&& !Constants.SU_REQUESTED.getName().equals(name)
-				&& !Constants.AO_CONN.getName().equals(name)
-				&& !Constants.AUTHENTICATED_AO_CONN.getName().equals(name)
-				// Struts 1
-				&& !Globals.LOCALE_KEY.getName().equals(name)
-				// TODO: Is there a Struts 2 locale key?
-				// JSTL 1.2
-				&& !ScopeEE.Session.REQUEST_CHAR_SET.getName().equals(name)
-				&& !AttributeEE.Jstl.FMT_LOCALE.context((HttpSession)null).getName().equals(name)
-				// Must be an SessionActionForm if none of the above
-				&& !(value instanceof SessionActionForm)
-			) {
-				throw new AssertionError(PACKAGE_RESOURCES.getMessage("FilteredHttpSession.unexpectedSessionAttribute", name, value.getClass().getName()));
-			}
-		}
-	}
+  /**
+   * Makes sure the session attribute is acceptable.  Throws AssertionError
+   * if it is not.
+   */
+  static void checkSessionAttribute(String name, Object value) {
+    // All all null to be set
+    if (value != null) {
+      // These names are always allowed
+      if (
+        !Constants.AUTHENTICATION_TARGET.getName().equals(name)
+        && !Constants.TARGETS.equals(name)
+        && !Constants.LAYOUT.getName().equals(name)
+        && !Constants.SU_REQUESTED.getName().equals(name)
+        && !Constants.AO_CONN.getName().equals(name)
+        && !Constants.AUTHENTICATED_AO_CONN.getName().equals(name)
+        // Struts 1
+        && !Globals.LOCALE_KEY.getName().equals(name)
+        // TODO: Is there a Struts 2 locale key?
+        // JSTL 1.2
+        && !ScopeEE.Session.REQUEST_CHAR_SET.getName().equals(name)
+        && !AttributeEE.Jstl.FMT_LOCALE.context((HttpSession)null).getName().equals(name)
+        // Must be an SessionActionForm if none of the above
+        && !(value instanceof SessionActionForm)
+      ) {
+        throw new AssertionError(PACKAGE_RESOURCES.getMessage("FilteredHttpSession.unexpectedSessionAttribute", name, value.getClass().getName()));
+      }
+    }
+  }
 
-	@Override
-	public void setAttribute(String name, Object value) {
-		checkSessionAttribute(name, value);
-		wrapped.setAttribute(name, value);
-	}
+  @Override
+  public void setAttribute(String name, Object value) {
+    checkSessionAttribute(name, value);
+    wrapped.setAttribute(name, value);
+  }
 
-	@Deprecated(forRemoval = false)
-	@Override
-	public void putValue(String name, Object value) {
-		checkSessionAttribute(name, value);
-		wrapped.putValue(name, value);
-	}
+  @Deprecated(forRemoval = false)
+  @Override
+  public void putValue(String name, Object value) {
+    checkSessionAttribute(name, value);
+    wrapped.putValue(name, value);
+  }
 
-	@Override
-	public void removeAttribute(String name) {
-		wrapped.removeAttribute(name);
-	}
+  @Override
+  public void removeAttribute(String name) {
+    wrapped.removeAttribute(name);
+  }
 
-	@Deprecated(forRemoval = false)
-	@Override
-	public void removeValue(String name) {
-		wrapped.removeValue(name);
-	}
+  @Deprecated(forRemoval = false)
+  @Override
+  public void removeValue(String name) {
+    wrapped.removeValue(name);
+  }
 
-	@Override
-	public void invalidate() {
-		wrapped.invalidate();
-	}
+  @Override
+  public void invalidate() {
+    wrapped.invalidate();
+  }
 
-	@Override
-	public boolean isNew() {
-		return wrapped.isNew();
-	}
+  @Override
+  public boolean isNew() {
+    return wrapped.isNew();
+  }
 }

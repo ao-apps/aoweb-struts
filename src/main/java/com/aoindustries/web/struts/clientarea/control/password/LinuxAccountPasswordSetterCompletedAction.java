@@ -47,55 +47,63 @@ import org.apache.struts.action.ActionMessages;
  */
 public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		LinuxAccountPasswordSetterForm linuxAccountPasswordSetterForm = (LinuxAccountPasswordSetterForm)form;
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    LinuxAccountPasswordSetterForm linuxAccountPasswordSetterForm = (LinuxAccountPasswordSetterForm)form;
 
-		// Validation
-		ActionMessages errors = linuxAccountPasswordSetterForm.validate(mapping, request);
-		if(errors!=null && !errors.isEmpty()) {
-			saveErrors(request, errors);
-			return mapping.findForward("input");
-		}
+    // Validation
+    ActionMessages errors = linuxAccountPasswordSetterForm.validate(mapping, request);
+    if (errors != null && !errors.isEmpty()) {
+      saveErrors(request, errors);
+      return mapping.findForward("input");
+    }
 
-		// Reset passwords here and clear the passwords from the form
-		ActionMessages messages = new ActionMessages();
-		List<String> usernames = linuxAccountPasswordSetterForm.getUsernames();
-		List<String> servers = linuxAccountPasswordSetterForm.getServers();
-		List<String> newPasswords = linuxAccountPasswordSetterForm.getNewPasswords();
-		List<String> confirmPasswords = linuxAccountPasswordSetterForm.getConfirmPasswords();
-		for(int c=0;c<usernames.size();c++) {
-			String newPassword = newPasswords.get(c);
-			if(newPassword.length()>0) {
-				User.Name username = User.Name.valueOf(usernames.get(c));
-				User la = aoConn.getLinux().getUser().get(username);
-				if(la == null) throw new SQLException("Unable to find User: " + username);
-				String hostname = servers.get(c);
-				Host host = aoConn.getNet().getHost().get(hostname);
-				if(host == null) throw new SQLException("Unable to find Host: " + host);
-				Server server = host.getLinuxServer();
-				if(server == null) throw new SQLException("Unable to find Server: " + server);
-				UserServer lsa = la.getLinuxServerAccount(server);
-				if(lsa==null) throw new SQLException("Unable to find UserServer: "+username+" on "+hostname);
-				lsa.setPassword(newPassword);
-				messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("linuxAccountPasswordSetter.field.confirmPasswords.passwordReset"));
-				newPasswords.set(c, "");
-				confirmPasswords.set(c, "");
-			}
-		}
-		saveMessages(request, messages);
+    // Reset passwords here and clear the passwords from the form
+    ActionMessages messages = new ActionMessages();
+    List<String> usernames = linuxAccountPasswordSetterForm.getUsernames();
+    List<String> servers = linuxAccountPasswordSetterForm.getServers();
+    List<String> newPasswords = linuxAccountPasswordSetterForm.getNewPasswords();
+    List<String> confirmPasswords = linuxAccountPasswordSetterForm.getConfirmPasswords();
+    for (int c=0;c<usernames.size();c++) {
+      String newPassword = newPasswords.get(c);
+      if (newPassword.length()>0) {
+        User.Name username = User.Name.valueOf(usernames.get(c));
+        User la = aoConn.getLinux().getUser().get(username);
+        if (la == null) {
+          throw new SQLException("Unable to find User: " + username);
+        }
+        String hostname = servers.get(c);
+        Host host = aoConn.getNet().getHost().get(hostname);
+        if (host == null) {
+          throw new SQLException("Unable to find Host: " + host);
+        }
+        Server server = host.getLinuxServer();
+        if (server == null) {
+          throw new SQLException("Unable to find Server: " + server);
+        }
+        UserServer lsa = la.getLinuxServerAccount(server);
+        if (lsa == null) {
+          throw new SQLException("Unable to find UserServer: "+username+" on "+hostname);
+        }
+        lsa.setPassword(newPassword);
+        messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("linuxAccountPasswordSetter.field.confirmPasswords.passwordReset"));
+        newPasswords.set(c, "");
+        confirmPasswords.set(c, "");
+      }
+    }
+    saveMessages(request, messages);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return Collections.singleton(Permission.Name.set_linux_server_account_password);
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return Collections.singleton(Permission.Name.set_linux_server_account_password);
+  }
 }

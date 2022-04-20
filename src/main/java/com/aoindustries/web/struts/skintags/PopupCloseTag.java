@@ -41,38 +41,38 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class PopupCloseTag extends TagSupport {
 
-	public static final String TAG_NAME = "<skin:popupClose>";
+  public static final String TAG_NAME = "<skin:popupClose>";
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Override
-	public int doStartTag() throws JspException {
-		try {
-			// Look for the containing popup tag
-			PopupTag popupTag = JspTagUtils.requireAncestor(TAG_NAME, this, PopupTag.TAG_NAME, PopupTag.class);
+  @Override
+  public int doStartTag() throws JspException {
+    try {
+      // Look for the containing popup tag
+      PopupTag popupTag = JspTagUtils.requireAncestor(TAG_NAME, this, PopupTag.TAG_NAME, PopupTag.class);
 
-			// Look for containing popupGroup tag
-			PopupGroupTag popupGroupTag = JspTagUtils.requireAncestor(PopupTag.TAG_NAME, popupTag, PopupGroupTag.TAG_NAME, PopupGroupTag.class);
+      // Look for containing popupGroup tag
+      PopupGroupTag popupGroupTag = JspTagUtils.requireAncestor(PopupTag.TAG_NAME, popupTag, PopupGroupTag.TAG_NAME, PopupGroupTag.class);
 
-			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-			HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-			SkinTag.getSkin(req).printPopupClose(
-				req,
-				resp,
-				new DocumentEE(
-					pageContext.getServletContext(),
-					req,
-					resp,
-					pageContext.getOut(),
-					false, // Do not add extra newlines to JSP
-					false  // Do not add extra indentation to JSP
-				),
-				popupGroupTag.sequenceId,
-				popupTag.sequenceId
-			);
-			return SKIP_BODY;
-		} catch(IOException e) {
-			throw new JspTagException(e);
-		}
-	}
+      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+      HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+      SkinTag.getSkin(req).printPopupClose(
+        req,
+        resp,
+        new DocumentEE(
+          pageContext.getServletContext(),
+          req,
+          resp,
+          pageContext.getOut(),
+          false, // Do not add extra newlines to JSP
+          false  // Do not add extra indentation to JSP
+        ),
+        popupGroupTag.sequenceId,
+        popupTag.sequenceId
+      );
+      return SKIP_BODY;
+    } catch (IOException e) {
+      throw new JspTagException(e);
+    }
+  }
 }

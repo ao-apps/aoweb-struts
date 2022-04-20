@@ -50,124 +50,124 @@ import org.apache.struts.action.ActionMapping;
  */
 public class MakePaymentStoredCardAction extends PermissionAction {
 
-	/**
-	 * When permission denied, redirect straight to the new card step.
-	 */
-	@Override
-	public ActionForward executePermissionDenied(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn,
-		List<Permission> permissions
-	) throws Exception {
-		// Redirect when they don't have permissions to retrieve stored cards
-		String currency = request.getParameter("currency");
-		StringBuilder href = new StringBuilder();
-		href
-			.append(Skin.getSkin(request).getUrlBase(request))
-			.append("clientarea/accounting/make-payment-new-card.do?account=")
-			.append(URIEncoder.encodeURIComponent(request.getParameter("account")));
-		if(!GenericValidator.isBlankOrNull(currency)) {
-			href
-				.append("&currency=")
-				.append(URIEncoder.encodeURIComponent(request.getParameter("currency")));
-		}
-		response.sendRedirect(
-			response.encodeRedirectURL(
-				URIEncoder.encodeURI(
-					href.toString()
-				)
-			)
-		);
-		return null;
-	}
+  /**
+   * When permission denied, redirect straight to the new card step.
+   */
+  @Override
+  public ActionForward executePermissionDenied(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn,
+    List<Permission> permissions
+  ) throws Exception {
+    // Redirect when they don't have permissions to retrieve stored cards
+    String currency = request.getParameter("currency");
+    StringBuilder href = new StringBuilder();
+    href
+      .append(Skin.getSkin(request).getUrlBase(request))
+      .append("clientarea/accounting/make-payment-new-card.do?account=")
+      .append(URIEncoder.encodeURIComponent(request.getParameter("account")));
+    if (!GenericValidator.isBlankOrNull(currency)) {
+      href
+        .append("&currency=")
+        .append(URIEncoder.encodeURIComponent(request.getParameter("currency")));
+    }
+    response.sendRedirect(
+      response.encodeRedirectURL(
+        URIEncoder.encodeURI(
+          href.toString()
+        )
+      )
+    );
+    return null;
+  }
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		MakePaymentStoredCardForm makePaymentStoredCardForm = (MakePaymentStoredCardForm)form;
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    MakePaymentStoredCardForm makePaymentStoredCardForm = (MakePaymentStoredCardForm)form;
 
-		Account account;
-		try {
-			account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(makePaymentStoredCardForm.getAccount()));
-		} catch(ValidationException e) {
-			return mapping.findForward("make-payment");
-		}
-		if(account == null) {
-			// Redirect back to make-payment if account not found
-			return mapping.findForward("make-payment");
-		}
+    Account account;
+    try {
+      account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(makePaymentStoredCardForm.getAccount()));
+    } catch (ValidationException e) {
+      return mapping.findForward("make-payment");
+    }
+    if (account == null) {
+      // Redirect back to make-payment if account not found
+      return mapping.findForward("make-payment");
+    }
 
-		Currency currency = aoConn.getBilling().getCurrency().get(makePaymentStoredCardForm.getCurrency());
+    Currency currency = aoConn.getBilling().getCurrency().get(makePaymentStoredCardForm.getCurrency());
 
-		// If the card id is "", new card was selected
-		String idString = makePaymentStoredCardForm.getId();
-		if(idString == null) {
-			// id not provided, redirect back to make-payment
-			return mapping.findForward("make-payment");
-		}
-		if(idString.isEmpty()) {
-			StringBuilder href = new StringBuilder();
-			href
-				.append(Skin.getSkin(request).getUrlBase(request))
-				.append("clientarea/accounting/make-payment-new-card.do?account=")
-				.append(URIEncoder.encodeURIComponent(request.getParameter("account")));
-			if(currency != null) {
-				href
-					.append("&currency=")
-					.append(URIEncoder.encodeURIComponent(currency.getCurrencyCode()));
-			}
-			response.sendRedirect(
-				response.encodeRedirectURL(
-					URIEncoder.encodeURI(
-						href.toString()
-					)
-				)
-			);
-			return null;
-		}
+    // If the card id is "", new card was selected
+    String idString = makePaymentStoredCardForm.getId();
+    if (idString == null) {
+      // id not provided, redirect back to make-payment
+      return mapping.findForward("make-payment");
+    }
+    if (idString.isEmpty()) {
+      StringBuilder href = new StringBuilder();
+      href
+        .append(Skin.getSkin(request).getUrlBase(request))
+        .append("clientarea/accounting/make-payment-new-card.do?account=")
+        .append(URIEncoder.encodeURIComponent(request.getParameter("account")));
+      if (currency != null) {
+        href
+          .append("&currency=")
+          .append(URIEncoder.encodeURIComponent(currency.getCurrencyCode()));
+      }
+      response.sendRedirect(
+        response.encodeRedirectURL(
+          URIEncoder.encodeURI(
+            href.toString()
+          )
+        )
+      );
+      return null;
+    }
 
-		int id;
-		try {
-			id = Integer.parseInt(idString);
-		} catch(NumberFormatException err) {
-			// Can't parse int, redirect back to make-payment
-			return mapping.findForward("make-payment");
-		}
-		CreditCard creditCard = aoConn.getPayment().getCreditCard().get(id);
-		if(creditCard == null) {
-			// creditCard not found, redirect back to make-payment
-			return mapping.findForward("make-payment");
-		}
+    int id;
+    try {
+      id = Integer.parseInt(idString);
+    } catch (NumberFormatException err) {
+      // Can't parse int, redirect back to make-payment
+      return mapping.findForward("make-payment");
+    }
+    CreditCard creditCard = aoConn.getPayment().getCreditCard().get(id);
+    if (creditCard == null) {
+      // creditCard not found, redirect back to make-payment
+      return mapping.findForward("make-payment");
+    }
 
-		// Prompt for amount of payment defaults to current balance.
-		if(currency != null) {
-			Money balance = aoConn.getBilling().getTransaction().getAccountBalance(account).get(currency.getCurrency());
-			if(balance != null && balance.getUnscaledValue() > 0) {
-				makePaymentStoredCardForm.setPaymentAmount(balance.getValue().toPlainString());
-			} else {
-				makePaymentStoredCardForm.setPaymentAmount("");
-			}
-		} else {
-			// No currency, no default payment amount
-			makePaymentStoredCardForm.setPaymentAmount("");
-		}
+    // Prompt for amount of payment defaults to current balance.
+    if (currency != null) {
+      Money balance = aoConn.getBilling().getTransaction().getAccountBalance(account).get(currency.getCurrency());
+      if (balance != null && balance.getUnscaledValue() > 0) {
+        makePaymentStoredCardForm.setPaymentAmount(balance.getValue().toPlainString());
+      } else {
+        makePaymentStoredCardForm.setPaymentAmount("");
+      }
+    } else {
+      // No currency, no default payment amount
+      makePaymentStoredCardForm.setPaymentAmount("");
+    }
 
-		request.setAttribute("account", account);
-		request.setAttribute("creditCard", creditCard);
+    request.setAttribute("account", account);
+    request.setAttribute("creditCard", creditCard);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return Collections.singleton(Permission.Name.get_credit_cards);
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return Collections.singleton(Permission.Name.get_credit_cards);
+  }
 }

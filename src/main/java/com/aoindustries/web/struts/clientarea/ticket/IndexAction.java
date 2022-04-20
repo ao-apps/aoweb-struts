@@ -42,38 +42,38 @@ import org.apache.struts.action.ActionMapping;
  */
 public class IndexAction  extends AuthenticatedAction {
 
-	@Override
-	public ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		List<Ticket> tickets = aoConn.getTicket().getTicket().getRows();
+  @Override
+  public ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    List<Ticket> tickets = aoConn.getTicket().getTicket().getRows();
 
-		List<Ticket> filteredTickets = new ArrayList<>(tickets.size());
-		for(Ticket ticket : tickets) {
-			// Only show support or project tickets here
-			//String type = ticket.getTicketType().getType();
-			//if(
-			//    type.equals(TicketType.SUPPORT)
-			//    || type.equals(TicketType.PROJECTS)
-			//) {
-				// Do not show junk or deleted tickets
-				String status = ticket.getStatus().getStatus();
-				if(
-					!status.equals(Status.JUNK)
-					&& !status.equals(Status.DELETED)
-				) {
-					filteredTickets.add(ticket);
-				}
-			//}
-		}
+    List<Ticket> filteredTickets = new ArrayList<>(tickets.size());
+    for (Ticket ticket : tickets) {
+      // Only show support or project tickets here
+      //String type = ticket.getTicketType().getType();
+      //if (
+      //    type.equals(TicketType.SUPPORT)
+      //    || type.equals(TicketType.PROJECTS)
+      //) {
+        // Do not show junk or deleted tickets
+        String status = ticket.getStatus().getStatus();
+        if (
+          !status.equals(Status.JUNK)
+          && !status.equals(Status.DELETED)
+        ) {
+          filteredTickets.add(ticket);
+        }
+      //}
+    }
 
-		// Set request values
-		request.setAttribute("tickets", filteredTickets);
+    // Set request values
+    request.setAttribute("tickets", filteredTickets);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 }

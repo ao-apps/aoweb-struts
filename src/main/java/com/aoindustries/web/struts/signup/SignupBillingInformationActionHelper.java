@@ -42,106 +42,108 @@ import javax.servlet.http.HttpServletRequest;
  */
 public final class SignupBillingInformationActionHelper {
 
-	/** Make no instances. */
-	private SignupBillingInformationActionHelper() {throw new AssertionError();}
+  /** Make no instances. */
+  private SignupBillingInformationActionHelper() {
+    throw new AssertionError();
+  }
 
-	public static void setRequestAttributes(HttpServletRequest request) {
-		setBillingExpirationYearsRequestAttribute(request);
-	}
+  public static void setRequestAttributes(HttpServletRequest request) {
+    setBillingExpirationYearsRequestAttribute(request);
+  }
 
-	public static void setBillingExpirationYearsRequestAttribute(HttpServletRequest request) {
-		// Build the list of years
-		List<String> billingExpirationYears = new ArrayList<>(1 + CreditCard.EXPIRATION_YEARS_FUTURE);
-		int startYear = new GregorianCalendar().get(Calendar.YEAR);
-		for(int c = 0; c <= CreditCard.EXPIRATION_YEARS_FUTURE; c++) {
-			billingExpirationYears.add(Integer.toString(startYear + c));
-		}
+  public static void setBillingExpirationYearsRequestAttribute(HttpServletRequest request) {
+    // Build the list of years
+    List<String> billingExpirationYears = new ArrayList<>(1 + CreditCard.EXPIRATION_YEARS_FUTURE);
+    int startYear = new GregorianCalendar().get(Calendar.YEAR);
+    for (int c = 0; c <= CreditCard.EXPIRATION_YEARS_FUTURE; c++) {
+      billingExpirationYears.add(Integer.toString(startYear + c));
+    }
 
-		// Store to request attributes
-		request.setAttribute("billingExpirationYears", billingExpirationYears);
-	}
+    // Store to request attributes
+    request.setAttribute("billingExpirationYears", billingExpirationYears);
+  }
 
-	/**
-	 * Only shows the first two and last four digits of a card number.
-	 *
-	 * @deprecated  Please call CreditCard.maskCreditCardNumber directly.
-	 */
-	@Deprecated(forRemoval = true)
-	public static String hideCreditCardNumber(String number) {
-		return CreditCard.maskCreditCardNumber(number);
-	}
+  /**
+   * Only shows the first two and last four digits of a card number.
+   *
+   * @deprecated  Please call CreditCard.maskCreditCardNumber directly.
+   */
+  @Deprecated(forRemoval = true)
+  public static String hideCreditCardNumber(String number) {
+    return CreditCard.maskCreditCardNumber(number);
+  }
 
-	public static String getBillingCardNumber(SignupBillingInformationForm signupBillingInformationForm) {
-		return CreditCard.maskCreditCardNumber(signupBillingInformationForm.getBillingCardNumber());
-	}
+  public static String getBillingCardNumber(SignupBillingInformationForm signupBillingInformationForm) {
+    return CreditCard.maskCreditCardNumber(signupBillingInformationForm.getBillingCardNumber());
+  }
 
-	public static void setConfirmationRequestAttributes(
-		ServletContext servletContext,
-		HttpServletRequest request,
-		SignupBillingInformationForm signupBillingInformationForm
-	) {
-		// Store as request attribute for the view
-		request.setAttribute("billingCardNumber", getBillingCardNumber(signupBillingInformationForm));
-	}
+  public static void setConfirmationRequestAttributes(
+    ServletContext servletContext,
+    HttpServletRequest request,
+    SignupBillingInformationForm signupBillingInformationForm
+  ) {
+    // Store as request attribute for the view
+    request.setAttribute("billingCardNumber", getBillingCardNumber(signupBillingInformationForm));
+  }
 
-	public static void writeEmailConfirmation(
-		Union_TBODY_THEAD_TFOOT<?> tbody,
-		SignupBillingInformationForm signupBillingInformationForm
-	) throws IOException {
-		tbody.tr__(tr -> tr
-			.td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-			.td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingContact.prompt"))
-			.td__(signupBillingInformationForm.getBillingContact())
-		)
-		.tr__(tr -> tr
-			.td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-			.td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingEmail.prompt"))
-			.td__(signupBillingInformationForm.getBillingEmail())
-		)
-		.tr__(tr -> tr
-			.td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-			.td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingCardholderName.prompt"))
-			.td__(signupBillingInformationForm.getBillingCardholderName())
-		)
-		.tr__(tr -> tr
-			.td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-			.td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingCardNumber.prompt"))
-			.td__(getBillingCardNumber(signupBillingInformationForm))
-		)
-		.tr__(tr -> tr
-			.td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-			.td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingExpirationDate.prompt"))
-			.td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingExpirationDate.hidden"))
-		)
-		.tr__(tr -> tr
-			.td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-			.td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingStreetAddress.prompt"))
-			.td__(signupBillingInformationForm.getBillingStreetAddress())
-		)
-		.tr__(tr -> tr
-			.td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-			.td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingCity.prompt"))
-			.td__(signupBillingInformationForm.getBillingCity())
-		)
-		.tr__(tr -> tr
-			.td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-			.td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingState.prompt"))
-			.td__(signupBillingInformationForm.getBillingState())
-		)
-		.tr__(tr -> tr
-			.td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-			.td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingZip.prompt"))
-			.td__(signupBillingInformationForm.getBillingZip())
-		)
-		.tr__(tr -> tr
-			.td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-			.td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingUseMonthly.prompt"))
-			.td__(PACKAGE_RESOURCES.getMessage(signupBillingInformationForm.getBillingUseMonthly() ? "signupBillingInformationForm.billingUseMonthly.yes" : "signupBillingInformationForm.billingUseMonthly.no"))
-		)
-		.tr__(tr -> tr
-			.td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-			.td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingPayOneYear.prompt"))
-			.td__(PACKAGE_RESOURCES.getMessage(signupBillingInformationForm.getBillingPayOneYear() ? "signupBillingInformationForm.billingPayOneYear.yes" : "signupBillingInformationForm.billingPayOneYear.no"))
-		);
-	}
+  public static void writeEmailConfirmation(
+    Union_TBODY_THEAD_TFOOT<?> tbody,
+    SignupBillingInformationForm signupBillingInformationForm
+  ) throws IOException {
+    tbody.tr__(tr -> tr
+      .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+      .td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingContact.prompt"))
+      .td__(signupBillingInformationForm.getBillingContact())
+    )
+    .tr__(tr -> tr
+      .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+      .td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingEmail.prompt"))
+      .td__(signupBillingInformationForm.getBillingEmail())
+    )
+    .tr__(tr -> tr
+      .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+      .td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingCardholderName.prompt"))
+      .td__(signupBillingInformationForm.getBillingCardholderName())
+    )
+    .tr__(tr -> tr
+      .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+      .td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingCardNumber.prompt"))
+      .td__(getBillingCardNumber(signupBillingInformationForm))
+    )
+    .tr__(tr -> tr
+      .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+      .td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingExpirationDate.prompt"))
+      .td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingExpirationDate.hidden"))
+    )
+    .tr__(tr -> tr
+      .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+      .td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingStreetAddress.prompt"))
+      .td__(signupBillingInformationForm.getBillingStreetAddress())
+    )
+    .tr__(tr -> tr
+      .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+      .td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingCity.prompt"))
+      .td__(signupBillingInformationForm.getBillingCity())
+    )
+    .tr__(tr -> tr
+      .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+      .td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingState.prompt"))
+      .td__(signupBillingInformationForm.getBillingState())
+    )
+    .tr__(tr -> tr
+      .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+      .td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingZip.prompt"))
+      .td__(signupBillingInformationForm.getBillingZip())
+    )
+    .tr__(tr -> tr
+      .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+      .td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingUseMonthly.prompt"))
+      .td__(PACKAGE_RESOURCES.getMessage(signupBillingInformationForm.getBillingUseMonthly() ? "signupBillingInformationForm.billingUseMonthly.yes" : "signupBillingInformationForm.billingUseMonthly.no"))
+    )
+    .tr__(tr -> tr
+      .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+      .td__(PACKAGE_RESOURCES.getMessage("signupBillingInformationForm.billingPayOneYear.prompt"))
+      .td__(PACKAGE_RESOURCES.getMessage(signupBillingInformationForm.getBillingPayOneYear() ? "signupBillingInformationForm.billingPayOneYear.yes" : "signupBillingInformationForm.billingPayOneYear.no"))
+    );
+  }
 }

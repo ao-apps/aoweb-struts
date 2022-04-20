@@ -39,77 +39,85 @@ import org.apache.struts.action.ActionServlet;
  */
 public class SystemAdministration5CompletedAction extends SystemAdministration5Action {
 
-	@Override
-	public ActionForward executeSystemAdministrationStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		SystemAdministrationSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		// Forward to previous steps if they have not been completed
-		if(!signupSelectPackageFormComplete) return mapping.findForward("system-administration-completed");
-		if(!signupOrganizationFormComplete) return mapping.findForward("system-administration-2-completed");
-		if(!signupTechnicalFormComplete) return mapping.findForward("system-administration-3-completed");
-		if(!signupBillingInformationFormComplete) return mapping.findForward("system-administration-4-completed");
+  @Override
+  public ActionForward executeSystemAdministrationStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    SystemAdministrationSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    // Forward to previous steps if they have not been completed
+    if (!signupSelectPackageFormComplete) {
+      return mapping.findForward("system-administration-completed");
+    }
+    if (!signupOrganizationFormComplete) {
+      return mapping.findForward("system-administration-2-completed");
+    }
+    if (!signupTechnicalFormComplete) {
+      return mapping.findForward("system-administration-3-completed");
+    }
+    if (!signupBillingInformationFormComplete) {
+      return mapping.findForward("system-administration-4-completed");
+    }
 
-		// Let the parent class do the initialization of the request attributes for both the emails and the final JSP
-		initRequestAttributes(
-			request,
-			response,
-			signupSelectPackageForm,
-			signupOrganizationForm,
-			signupTechnicalForm,
-			signupBillingInformationForm
-		);
+    // Let the parent class do the initialization of the request attributes for both the emails and the final JSP
+    initRequestAttributes(
+      request,
+      response,
+      signupSelectPackageForm,
+      signupOrganizationForm,
+      signupTechnicalForm,
+      signupBillingInformationForm
+    );
 
-		// Used later
-		ActionServlet myServlet = getServlet();
-		SiteSettings siteSettings = SiteSettings.getInstance(myServlet.getServletContext());
-		AOServConnector rootConn = siteSettings.getRootAOServConnector();
-		PackageDefinition packageDefinition = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
+    // Used later
+    ActionServlet myServlet = getServlet();
+    SiteSettings siteSettings = SiteSettings.getInstance(myServlet.getServletContext());
+    AOServConnector rootConn = siteSettings.getRootAOServConnector();
+    PackageDefinition packageDefinition = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
 
-		// Build the options map
-		Map<String, String> options = new HashMap<>();
+    // Build the options map
+    Map<String, String> options = new HashMap<>();
 
-		// Store to the database
-		ServerConfirmationCompletedActionHelper.storeToDatabase(myServlet, request, rootConn, packageDefinition, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm, options);
-		String pkey = (String)request.getAttribute("pkey");
-		String statusKey = (String)request.getAttribute("statusKey");
+    // Store to the database
+    ServerConfirmationCompletedActionHelper.storeToDatabase(myServlet, request, rootConn, packageDefinition, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm, options);
+    String pkey = (String)request.getAttribute("pkey");
+    String statusKey = (String)request.getAttribute("statusKey");
 
-		// Send confirmation email to support
-		MinimalConfirmationCompletedActionHelper.sendSupportSummaryEmail(
-			myServlet,
-			request,
-			pkey,
-			statusKey,
-			packageDefinition,
-			signupOrganizationForm,
-			signupTechnicalForm,
-			signupBillingInformationForm
-		);
+    // Send confirmation email to support
+    MinimalConfirmationCompletedActionHelper.sendSupportSummaryEmail(
+      myServlet,
+      request,
+      pkey,
+      statusKey,
+      packageDefinition,
+      signupOrganizationForm,
+      signupTechnicalForm,
+      signupBillingInformationForm
+    );
 
-		// Send confirmation email to customer
-		MinimalConfirmationCompletedActionHelper.sendCustomerSummaryEmails(
-			myServlet,
-			request,
-			pkey,
-			statusKey,
-			packageDefinition,
-			signupOrganizationForm,
-			signupTechnicalForm,
-			signupBillingInformationForm
-		);
+    // Send confirmation email to customer
+    MinimalConfirmationCompletedActionHelper.sendCustomerSummaryEmails(
+      myServlet,
+      request,
+      pkey,
+      statusKey,
+      packageDefinition,
+      signupOrganizationForm,
+      signupTechnicalForm,
+      signupBillingInformationForm
+    );
 
-		// Clear system administration signup-specific forms from the session
-		SystemAdministrationSignupSelectPackageForm.SESSION_ATTRIBUTE.context(request.getSession(false)).remove();
+    // Clear system administration signup-specific forms from the session
+    SystemAdministrationSignupSelectPackageForm.SESSION_ATTRIBUTE.context(request.getSession(false)).remove();
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 }

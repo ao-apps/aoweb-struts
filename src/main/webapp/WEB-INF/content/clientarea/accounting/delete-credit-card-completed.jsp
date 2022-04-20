@@ -1,9 +1,9 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021  AO Industries, Inc.
-	support@aoindustries.com
-	7262 Bull Pen Cir
-	Mobile, AL 36695
+Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
 
 This file is part of aoweb-struts.
 
@@ -24,35 +24,35 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
 <ao:bundle basename="com.aoindustries.web.struts.clientarea.accounting.i18n.ApplicationResources">
-	<skin:path>
-		/clientarea/accounting/delete-credit-card-completed.do
-		<ao:param name="id" value="${param.id}"/>
-	</skin:path>
-	<logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="robots">noindex</skin:meta></logic:equal>
-	<skin:title><ao:message key="deleteCreditCardCompleted.title" /></skin:title>
-	<skin:navImageAlt><ao:message key="deleteCreditCardCompleted.navImageAlt" /></skin:navImageAlt>
-	<skin:keywords><ao:message key="deleteCreditCardCompleted.keywords" /></skin:keywords>
-	<skin:description><ao:message key="deleteCreditCardCompleted.description" /></skin:description>
-	<%@include file="add-parents.jspf" %>
-	<skin:parent><%@include file="credit-card-manager.meta.jspf" %></skin:parent>
-	<skin:skin>
-		<skin:content width="600">
-			<skin:contentTitle><ao:message key="deleteCreditCardCompleted.title" /></skin:contentTitle>
-			<skin:contentHorizontalDivider />
-			<skin:contentLine>
-				<logic:present scope="request" name="permissionDenied">
-					<%@include file="../../permission-denied.jspf" %>
-				</logic:present>
-				<logic:notPresent scope="request" name="permissionDenied">
-					<skin:lightArea>
-						<b><ao:message key="deleteCreditCardCompleted.successMessage.title" /></b>
-						<ao:hr />
-						<ao:message key="deleteCreditCardCompleted.successMessage.text" arg0="${aoweb:getCardNumberDisplay(cardNumber)}" /><ao:br />
-						<ao:br />
-						<ao:a href="/clientarea/accounting/credit-card-manager.do"><ao:message key="deleteCreditCardCompleted.creditCardManager.link" /></ao:a>
-					</skin:lightArea>
-				</logic:notPresent>
-			</skin:contentLine>
-		</skin:content>
-	</skin:skin>
+  <skin:path>
+    /clientarea/accounting/delete-credit-card-completed.do
+    <ao:param name="id" value="${param.id}"/>
+  </skin:path>
+  <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="robots">noindex</skin:meta></logic:equal>
+  <skin:title><ao:message key="deleteCreditCardCompleted.title" /></skin:title>
+  <skin:navImageAlt><ao:message key="deleteCreditCardCompleted.navImageAlt" /></skin:navImageAlt>
+  <skin:keywords><ao:message key="deleteCreditCardCompleted.keywords" /></skin:keywords>
+  <skin:description><ao:message key="deleteCreditCardCompleted.description" /></skin:description>
+  <%@include file="add-parents.jspf" %>
+  <skin:parent><%@include file="credit-card-manager.meta.jspf" %></skin:parent>
+  <skin:skin>
+    <skin:content width="600">
+      <skin:contentTitle><ao:message key="deleteCreditCardCompleted.title" /></skin:contentTitle>
+      <skin:contentHorizontalDivider />
+      <skin:contentLine>
+        <logic:present scope="request" name="permissionDenied">
+          <%@include file="../../permission-denied.jspf" %>
+        </logic:present>
+        <logic:notPresent scope="request" name="permissionDenied">
+          <skin:lightArea>
+            <b><ao:message key="deleteCreditCardCompleted.successMessage.title" /></b>
+            <ao:hr />
+            <ao:message key="deleteCreditCardCompleted.successMessage.text" arg0="${aoweb:getCardNumberDisplay(cardNumber)}" /><ao:br />
+            <ao:br />
+            <ao:a href="/clientarea/accounting/credit-card-manager.do"><ao:message key="deleteCreditCardCompleted.creditCardManager.link" /></ao:a>
+          </skin:lightArea>
+        </logic:notPresent>
+      </skin:contentLine>
+    </skin:content>
+  </skin:skin>
 </ao:bundle>

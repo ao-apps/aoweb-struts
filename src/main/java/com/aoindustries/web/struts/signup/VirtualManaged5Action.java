@@ -34,41 +34,49 @@ import org.apache.struts.action.ActionMessages;
  */
 public class VirtualManaged5Action extends VirtualManagedStepAction {
 
-	@Override
-	public ActionForward executeVirtualManagedStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
-		boolean signupCustomizeServerFormComplete,
-		SignupCustomizeManagementForm signupCustomizeManagementForm,
-		boolean signupCustomizeManagementFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		if(!signupSelectPackageFormComplete) return mapping.findForward("virtual-managed-server-completed");
-		if(!signupCustomizeServerFormComplete) return mapping.findForward("virtual-managed-server-2-completed");
-		if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtual-managed-server-3-completed");
-		if(!signupOrganizationFormComplete) return mapping.findForward("virtual-managed-server-4-completed");
+  @Override
+  public ActionForward executeVirtualManagedStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
+    boolean signupCustomizeServerFormComplete,
+    SignupCustomizeManagementForm signupCustomizeManagementForm,
+    boolean signupCustomizeManagementFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    if (!signupSelectPackageFormComplete) {
+      return mapping.findForward("virtual-managed-server-completed");
+    }
+    if (!signupCustomizeServerFormComplete) {
+      return mapping.findForward("virtual-managed-server-2-completed");
+    }
+    if (!signupCustomizeManagementFormComplete) {
+      return mapping.findForward("virtual-managed-server-3-completed");
+    }
+    if (!signupOrganizationFormComplete) {
+      return mapping.findForward("virtual-managed-server-4-completed");
+    }
 
-		SignupTechnicalActionHelper.setRequestAttributes(getServlet().getServletContext(), request, signupTechnicalForm);
+    SignupTechnicalActionHelper.setRequestAttributes(getServlet().getServletContext(), request, signupTechnicalForm);
 
-		// Clear errors if they should not be displayed
-		clearErrors(request);
+    // Clear errors if they should not be displayed
+    clearErrors(request);
 
-		return mapping.findForward("input");
-	}
+    return mapping.findForward("input");
+  }
 
-	/**
-	 * May clear specific errors here.
-	 */
-	protected void clearErrors(HttpServletRequest request) {
-		saveErrors(request, new ActionMessages());
-	}
+  /**
+   * May clear specific errors here.
+   */
+  protected void clearErrors(HttpServletRequest request) {
+    saveErrors(request, new ActionMessages());
+  }
 }

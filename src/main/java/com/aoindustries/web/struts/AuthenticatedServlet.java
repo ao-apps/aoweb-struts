@@ -39,51 +39,55 @@ import javax.servlet.http.HttpSession;
  */
 public abstract class AuthenticatedServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Override
-	public final void doGet(
-		HttpServletRequest request,
-		HttpServletResponse response
-	) throws IOException {
-		// Must be logged in
-		HttpSession session = request.getSession(false);
-		AOServConnector aoConn = Constants.AO_CONN.context(session).get();
-		if(aoConn == null) {
-			// Save target for later
-			String target = request.getRequestURL().toString();
-			if(!target.endsWith("/login.do")) {
-				String queryString = request.getQueryString();
-				if(queryString!=null) target = target+'?'+queryString;
-				if(session == null) session = request.getSession();
-				Constants.AUTHENTICATION_TARGET.context(session).set(target);
-			} else {
-				Constants.AUTHENTICATION_TARGET.context(session).remove();
-			}
+  @Override
+  public final void doGet(
+    HttpServletRequest request,
+    HttpServletResponse response
+  ) throws IOException {
+    // Must be logged in
+    HttpSession session = request.getSession(false);
+    AOServConnector aoConn = Constants.AO_CONN.context(session).get();
+    if (aoConn == null) {
+      // Save target for later
+      String target = request.getRequestURL().toString();
+      if (!target.endsWith("/login.do")) {
+        String queryString = request.getQueryString();
+        if (queryString != null) {
+          target = target+'?'+queryString;
+        }
+        if (session == null) {
+          session = request.getSession();
+        }
+        Constants.AUTHENTICATION_TARGET.context(session).set(target);
+      } else {
+        Constants.AUTHENTICATION_TARGET.context(session).remove();
+      }
 
-			int port = request.getServerPort();
-			String url;
-			if(port!=80 && port!=443) {
-				// Development area
-				url = "https://"+request.getServerName()+":11257"+request.getContextPath()+"/login.do";
-			} else {
-				url = "https://"+request.getServerName()+request.getContextPath()+"/login.do";
-			}
-			response.sendRedirect(
-				response.encodeRedirectURL(
-					URIEncoder.encodeURI(
-						url
-					)
-				)
-			);
-		} else {
-			doGet(request, response, aoConn);
-		}
-	}
+      int port = request.getServerPort();
+      String url;
+      if (port != 80 && port != 443) {
+        // Development area
+        url = "https://"+request.getServerName()+":11257"+request.getContextPath()+"/login.do";
+      } else {
+        url = "https://"+request.getServerName()+request.getContextPath()+"/login.do";
+      }
+      response.sendRedirect(
+        response.encodeRedirectURL(
+          URIEncoder.encodeURI(
+            url
+          )
+        )
+      );
+    } else {
+      doGet(request, response, aoConn);
+    }
+  }
 
-	public abstract void doGet(
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws IOException;
+  public abstract void doGet(
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws IOException;
 }

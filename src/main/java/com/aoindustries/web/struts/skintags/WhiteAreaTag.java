@@ -38,85 +38,85 @@ import javax.servlet.jsp.JspException;
 // TODO: Convert these to TryCatchFinally when have init()
 public class WhiteAreaTag extends PageAttributesBodyTag {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String align;
-	private String width;
-	private boolean nowrap;
-	// Values only used between doStartTag and doEndTag
-	private transient FlowContent<?> whiteArea;
+  private String align;
+  private String width;
+  private boolean nowrap;
+  // Values only used between doStartTag and doEndTag
+  private transient FlowContent<?> whiteArea;
 
-	public WhiteAreaTag() {
-		init();
-	}
+  public WhiteAreaTag() {
+    init();
+  }
 
-	private void init() {
-		align = null;
-		width = null;
-		nowrap = false;
-		whiteArea = null;
-	}
+  private void init() {
+    align = null;
+    width = null;
+    nowrap = false;
+    whiteArea = null;
+  }
 
-	@Override
-	public int doStartTag(PageAttributes pageAttributes) throws JspException, IOException {
-		HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-		HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
-		whiteArea = SkinTag.getSkin(req).startWhiteArea(
-			req,
-			resp,
-			new DocumentEE(
-				pageContext.getServletContext(),
-				req,
-				resp,
-				pageContext.getOut(),
-				false, // Do not add extra newlines to JSP
-				false  // Do not add extra indentation to JSP
-			),
-			align,
-			width,
-			nowrap
-		);
-		return EVAL_BODY_INCLUDE;
-	}
+  @Override
+  public int doStartTag(PageAttributes pageAttributes) throws JspException, IOException {
+    HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+    HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+    whiteArea = SkinTag.getSkin(req).startWhiteArea(
+      req,
+      resp,
+      new DocumentEE(
+        pageContext.getServletContext(),
+        req,
+        resp,
+        pageContext.getOut(),
+        false, // Do not add extra newlines to JSP
+        false  // Do not add extra indentation to JSP
+      ),
+      align,
+      width,
+      nowrap
+    );
+    return EVAL_BODY_INCLUDE;
+  }
 
-	@Override
-	public int doEndTag(PageAttributes pageAttributes) throws JspException, IOException {
-		try {
-			assert whiteArea != null;
-			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-			whiteArea.getDocument().setOut(pageContext.getOut());
-			SkinTag.getSkin(req).endWhiteArea(
-				req,
-				(HttpServletResponse)pageContext.getResponse(),
-				whiteArea
-			);
-			return EVAL_PAGE;
-		} finally {
-			init();
-		}
-	}
+  @Override
+  public int doEndTag(PageAttributes pageAttributes) throws JspException, IOException {
+    try {
+      assert whiteArea != null;
+      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+      whiteArea.getDocument().setOut(pageContext.getOut());
+      SkinTag.getSkin(req).endWhiteArea(
+        req,
+        (HttpServletResponse)pageContext.getResponse(),
+        whiteArea
+      );
+      return EVAL_PAGE;
+    } finally {
+      init();
+    }
+  }
 
-	public String getAlign() {
-		return align;
-	}
+  public String getAlign() {
+    return align;
+  }
 
-	public void setAlign(String align) {
-		this.align = align;
-	}
+  public void setAlign(String align) {
+    this.align = align;
+  }
 
-	public String getWidth() {
-		return width;
-	}
+  public String getWidth() {
+    return width;
+  }
 
-	public void setWidth(String width) {
-		this.width = width;
-	}
+  public void setWidth(String width) {
+    this.width = width;
+  }
 
-	public boolean getNowrap() {
-		return nowrap;
-	}
+  public boolean getNowrap() {
+    return nowrap;
+  }
 
-	public void setNowrap(boolean nowrap) {
-		this.nowrap = nowrap;
-	}
+  public void setNowrap(boolean nowrap) {
+    this.nowrap = nowrap;
+  }
 }

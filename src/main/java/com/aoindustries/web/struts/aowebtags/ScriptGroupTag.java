@@ -43,106 +43,106 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class ScriptGroupTag extends BodyTagSupport {
 
-	/**
-	 * The maximum buffer size that will be allowed between requests.  This is
-	 * so that an unusually large request will not continue to use lots of heap
-	 * space.
-	 */
-	private static final int MAX_PERSISTENT_BUFFER_SIZE = 1024 * 1024;
+  /**
+   * The maximum buffer size that will be allowed between requests.  This is
+   * so that an unusually large request will not continue to use lots of heap
+   * space.
+   */
+  private static final int MAX_PERSISTENT_BUFFER_SIZE = 1024 * 1024;
 
-	/**
-	 * The request attribute name used to store the sequence.
-	 */
-	private static final ScopeEE.Request.Attribute<Sequence> SEQUENCE_REQUEST_ATTRIBUTE =
-		ScopeEE.REQUEST.attribute(ScriptGroupTag.class.getName() + ".sequence");
+  /**
+   * The request attribute name used to store the sequence.
+   */
+  private static final ScopeEE.Request.Attribute<Sequence> SEQUENCE_REQUEST_ATTRIBUTE =
+    ScopeEE.REQUEST.attribute(ScriptGroupTag.class.getName() + ".sequence");
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String onloadMode;
+  private String onloadMode;
 
-	private CharArrayWriter scriptOut = new CharArrayWriter();
+  private CharArrayWriter scriptOut = new CharArrayWriter();
 
-	public ScriptGroupTag() {
-		init();
-	}
+  public ScriptGroupTag() {
+    init();
+  }
 
-	private void init() {
-		onloadMode = "none";
-		// Bring back down to size if exceeds MAX_PERSISTENT_BUFFER_SIZE
-		if(scriptOut.size() > MAX_PERSISTENT_BUFFER_SIZE) {
-			scriptOut = new CharArrayWriter();
-		} else {
-			scriptOut.reset();
-		}
-	}
+  private void init() {
+    onloadMode = "none";
+    // Bring back down to size if exceeds MAX_PERSISTENT_BUFFER_SIZE
+    if (scriptOut.size() > MAX_PERSISTENT_BUFFER_SIZE) {
+      scriptOut = new CharArrayWriter();
+    } else {
+      scriptOut.reset();
+    }
+  }
 
-	@Override
-	public int doStartTag() throws JspException {
-		return EVAL_BODY_INCLUDE;
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    return EVAL_BODY_INCLUDE;
+  }
 
-	@Override
-	public int doEndTag() throws JspException {
-		try {
-			if(scriptOut.size() > 0) {
-				HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
-				DocumentEE document = new DocumentEE(
-					pageContext.getServletContext(),
-					request,
-					(HttpServletResponse)pageContext.getResponse(),
-					pageContext.getOut(),
-					false, // Do not add extra newlines to JSP
-					false  // Do not add extra indentation to JSP
-				);
-				try (JavaScriptWriter script = document.script()._c()) {
-					if("none".equals(onloadMode)) {
-						scriptOut.writeTo(script);
-					} else {
-						Sequence sequence = SEQUENCE_REQUEST_ATTRIBUTE.context(request).computeIfAbsent(__ -> new UnsynchronizedSequence());
-						String sequenceId = Long.toString(sequence.getNextSequenceValue());
-						boolean wroteScript = false;
-						script.write("  var scriptOutOldOnload"); script.write(sequenceId); script.write("=window.onload;\n"
-								+ "  function scriptOutOnload"); script.write(sequenceId); script.write("() {\n");
-						if("before".equals(onloadMode)) {
-							scriptOut.writeTo(script);
-							wroteScript = true;
-						}
-						script.write("    if(scriptOutOldOnload"); script.write(sequenceId); script.write(") {\n"
-								+ "      scriptOutOldOnload"); script.write(sequenceId); script.write("();\n"
-								+ "      scriptOutOldOnload"); script.write(sequenceId); script.write("=null;\n"
-								+ "    }\n");
-						if(!wroteScript && "after".equals(onloadMode)) {
-							scriptOut.writeTo(script);
-							wroteScript = true;
-						}
-						script.write("  }\n"
-								+ "  window.onload = scriptOutOnload"); script.write(sequenceId); script.write(';');
-						if(!wroteScript) {
-							throw new LocalizedJspTagException(PACKAGE_RESOURCES, "aowebtags.ScriptGroupTag.onloadMode.invalid", onloadMode);
-						}
-					}
-				}
-			}
-			return EVAL_PAGE;
-		} catch(IOException err) {
-			throw new JspTagException(err);
-		} finally {
-			init();
-		}
-	}
+  @Override
+  public int doEndTag() throws JspException {
+    try {
+      if (scriptOut.size() > 0) {
+        HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
+        DocumentEE document = new DocumentEE(
+          pageContext.getServletContext(),
+          request,
+          (HttpServletResponse)pageContext.getResponse(),
+          pageContext.getOut(),
+          false, // Do not add extra newlines to JSP
+          false  // Do not add extra indentation to JSP
+        );
+        try (JavaScriptWriter script = document.script()._c()) {
+          if ("none".equals(onloadMode)) {
+            scriptOut.writeTo(script);
+          } else {
+            Sequence sequence = SEQUENCE_REQUEST_ATTRIBUTE.context(request).computeIfAbsent(__ -> new UnsynchronizedSequence());
+            String sequenceId = Long.toString(sequence.getNextSequenceValue());
+            boolean wroteScript = false;
+            script.write("  var scriptOutOldOnload"); script.write(sequenceId); script.write("=window.onload;\n"
+                + "  function scriptOutOnload"); script.write(sequenceId); script.write("() {\n");
+            if ("before".equals(onloadMode)) {
+              scriptOut.writeTo(script);
+              wroteScript = true;
+            }
+            script.write("    if (scriptOutOldOnload"); script.write(sequenceId); script.write(") {\n"
+                + "      scriptOutOldOnload"); script.write(sequenceId); script.write("();\n"
+                + "      scriptOutOldOnload"); script.write(sequenceId); script.write("=null;\n"
+                + "    }\n");
+            if (!wroteScript && "after".equals(onloadMode)) {
+              scriptOut.writeTo(script);
+              wroteScript = true;
+            }
+            script.write("  }\n"
+                + "  window.onload = scriptOutOnload"); script.write(sequenceId); script.write(';');
+            if (!wroteScript) {
+              throw new LocalizedJspTagException(PACKAGE_RESOURCES, "aowebtags.ScriptGroupTag.onloadMode.invalid", onloadMode);
+            }
+          }
+        }
+      }
+      return EVAL_PAGE;
+    } catch (IOException err) {
+      throw new JspTagException(err);
+    } finally {
+      init();
+    }
+  }
 
-	public String getOnloadMode() {
-		return onloadMode;
-	}
+  public String getOnloadMode() {
+    return onloadMode;
+  }
 
-	public void setOnloadMode(String onloadMode) {
-		this.onloadMode = onloadMode;
-	}
+  public void setOnloadMode(String onloadMode) {
+    this.onloadMode = onloadMode;
+  }
 
-	/**
-	 * Gets the buffered used to store the JavaScript.
-	 */
-	Appendable getScriptOut() {
-		return scriptOut;
-	}
+  /**
+   * Gets the buffered used to store the JavaScript.
+   */
+  Appendable getScriptOut() {
+    return scriptOut;
+  }
 }

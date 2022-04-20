@@ -34,38 +34,44 @@ import org.apache.struts.action.ActionMessages;
  */
 public class VirtualDedicated4Action extends VirtualDedicatedStepAction {
 
-	@Override
-	public ActionForward executeVirtualDedicatedStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
-		boolean signupCustomizeServerFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		if(!signupSelectPackageFormComplete) return mapping.findForward("virtual-dedicated-server-completed");
-		if(!signupCustomizeServerFormComplete) return mapping.findForward("virtual-dedicated-server-2-completed");
-		if(!signupOrganizationFormComplete) return mapping.findForward("virtual-dedicated-server-3-completed");
+  @Override
+  public ActionForward executeVirtualDedicatedStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
+    boolean signupCustomizeServerFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    if (!signupSelectPackageFormComplete) {
+      return mapping.findForward("virtual-dedicated-server-completed");
+    }
+    if (!signupCustomizeServerFormComplete) {
+      return mapping.findForward("virtual-dedicated-server-2-completed");
+    }
+    if (!signupOrganizationFormComplete) {
+      return mapping.findForward("virtual-dedicated-server-3-completed");
+    }
 
-		SignupTechnicalActionHelper.setRequestAttributes(getServlet().getServletContext(), request, signupTechnicalForm);
+    SignupTechnicalActionHelper.setRequestAttributes(getServlet().getServletContext(), request, signupTechnicalForm);
 
-		// Clear errors if they should not be displayed
-		clearErrors(request);
+    // Clear errors if they should not be displayed
+    clearErrors(request);
 
-		return mapping.findForward("input");
-	}
+    return mapping.findForward("input");
+  }
 
-	/**
-	 * May clear specific errors here.
-	 */
-	protected void clearErrors(HttpServletRequest request) {
-		saveErrors(request, new ActionMessages());
-	}
+  /**
+   * May clear specific errors here.
+   */
+  protected void clearErrors(HttpServletRequest request) {
+    saveErrors(request, new ActionMessages());
+  }
 }

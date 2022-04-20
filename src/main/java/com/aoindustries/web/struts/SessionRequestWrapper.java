@@ -32,23 +32,25 @@ import javax.servlet.http.HttpSession;
  */
 public class SessionRequestWrapper extends HttpServletRequestWrapper {
 
-	public SessionRequestWrapper(HttpServletRequest request) {
-		super(request);
-	}
+  public SessionRequestWrapper(HttpServletRequest request) {
+    super(request);
+  }
 
-	@Override
-	public HttpSession getSession() {
-		HttpSession session = super.getSession();
-		if(!(session instanceof FilteredHttpSession)) session = new FilteredHttpSession(session);
-		return session;
-	}
+  @Override
+  public HttpSession getSession() {
+    HttpSession session = super.getSession();
+    if (!(session instanceof FilteredHttpSession)) {
+      session = new FilteredHttpSession(session);
+    }
+    return session;
+  }
 
-	@Override
-	public HttpSession getSession(boolean create) {
-		HttpSession session = super.getSession(create);
-		if(session!=null) {
-			if(!(session instanceof FilteredHttpSession)) session = new FilteredHttpSession(session);
-		}
-		return session;
-	}
+  @Override
+  public HttpSession getSession(boolean create) {
+    HttpSession session = super.getSession(create);
+    if (session != null && !(session instanceof FilteredHttpSession)) {
+      session = new FilteredHttpSession(session);
+    }
+    return session;
+  }
 }

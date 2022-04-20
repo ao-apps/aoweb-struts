@@ -37,92 +37,92 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class ContentVerticalDividerTag extends TagSupport {
 
-	public static final String TAG_NAME = "<skin:contentVerticalDivider>";
+  public static final String TAG_NAME = "<skin:contentVerticalDivider>";
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private boolean visible;
-	private int colspan;
-	private int rowspan;
-	private String align;
-	private String width;
+  private boolean visible;
+  private int colspan;
+  private int rowspan;
+  private String align;
+  private String width;
 
-	public ContentVerticalDividerTag() {
-		init();
-	}
+  public ContentVerticalDividerTag() {
+    init();
+  }
 
-	private void init() {
-		this.visible = true;
-		this.colspan = 1;
-		this.rowspan = 1;
-		this.align = null;
-		this.width = null;
-	}
+  private void init() {
+    this.visible = true;
+    this.colspan = 1;
+    this.rowspan = 1;
+    this.align = null;
+    this.width = null;
+  }
 
-	@Override
-	public int doStartTag() throws JspException {
-		try {
-			ContentLineTag contentLineTag = JspTagUtils.requireAncestor(TAG_NAME, this, ContentLineTag.TAG_NAME, ContentLineTag.class);
-			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-			FlowContent<?> contentLine = contentLineTag.getContentLine();
-			contentLine.getDocument().setOut(pageContext.getOut());
-			contentLine = SkinTag.getSkin(req).contentVerticalDivider(
-				req,
-				(HttpServletResponse)pageContext.getResponse(),
-				contentLine,
-				visible,
-				colspan,
-				rowspan,
-				align,
-				width
-			);
-			contentLineTag.setLastRowSpan(rowspan);
-			contentLineTag.setContentLine(contentLine);
-			return SKIP_BODY;
-		} catch(IOException err) {
-			throw new JspTagException(err);
-		} finally {
-			init(); // TODO: TryCatchFinally
-		}
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    try {
+      ContentLineTag contentLineTag = JspTagUtils.requireAncestor(TAG_NAME, this, ContentLineTag.TAG_NAME, ContentLineTag.class);
+      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+      FlowContent<?> contentLine = contentLineTag.getContentLine();
+      contentLine.getDocument().setOut(pageContext.getOut());
+      contentLine = SkinTag.getSkin(req).contentVerticalDivider(
+        req,
+        (HttpServletResponse)pageContext.getResponse(),
+        contentLine,
+        visible,
+        colspan,
+        rowspan,
+        align,
+        width
+      );
+      contentLineTag.setLastRowSpan(rowspan);
+      contentLineTag.setContentLine(contentLine);
+      return SKIP_BODY;
+    } catch (IOException err) {
+      throw new JspTagException(err);
+    } finally {
+      init(); // TODO: TryCatchFinally
+    }
+  }
 
-	public boolean isVisible() {
-		return visible;
-	}
+  public boolean isVisible() {
+    return visible;
+  }
 
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-	}
+  public void setVisible(boolean visible) {
+    this.visible = visible;
+  }
 
-	public int getColspan() {
-		return colspan;
-	}
+  public int getColspan() {
+    return colspan;
+  }
 
-	public void setColspan(int colspan) {
-		this.colspan = colspan;
-	}
+  public void setColspan(int colspan) {
+    this.colspan = colspan;
+  }
 
-	public int getRowspan() {
-		return rowspan;
-	}
+  public int getRowspan() {
+    return rowspan;
+  }
 
-	public void setRowspan(int rowspan) {
-		this.rowspan = rowspan;
-	}
+  public void setRowspan(int rowspan) {
+    this.rowspan = rowspan;
+  }
 
-	public String getAlign() {
-		return align;
-	}
+  public String getAlign() {
+    return align;
+  }
 
-	public void setAlign(String align) {
-		this.align = align;
-	}
+  public void setAlign(String align) {
+    this.align = align;
+  }
 
-	public String getWidth() {
-		return width;
-	}
+  public String getWidth() {
+    return width;
+  }
 
-	public void setWidth(String width) {
-		this.width = width;
-	}
+  public void setWidth(String width) {
+    this.width = width;
+  }
 }

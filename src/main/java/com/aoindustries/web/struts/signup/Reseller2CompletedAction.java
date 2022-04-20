@@ -33,47 +33,53 @@ import org.apache.struts.action.ActionMapping;
  */
 public class Reseller2CompletedAction extends Reseller2Action {
 
-	@Override
-	public ActionForward executeResellerStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		ResellerSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		if(!signupSelectPackageFormComplete) return mapping.findForward("reseller-completed");
-		if(!signupOrganizationFormComplete) {
-			// Init values for the form
-			return super.executeResellerStep(
-				mapping,
-				request,
-				response,
-				signupSelectPackageForm,
-				signupSelectPackageFormComplete,
-				signupOrganizationForm,
-				signupOrganizationFormComplete,
-				signupTechnicalForm,
-				signupTechnicalFormComplete,
-				signupBillingInformationForm,
-				signupBillingInformationFormComplete
-			);
-		}
-		if(!signupTechnicalFormComplete) return mapping.findForward("reseller-3");
-		if(!signupBillingInformationFormComplete) return mapping.findForward("reseller-4");
-		return mapping.findForward("reseller-5");
-	}
+  @Override
+  public ActionForward executeResellerStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    ResellerSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    if (!signupSelectPackageFormComplete) {
+      return mapping.findForward("reseller-completed");
+    }
+    if (!signupOrganizationFormComplete) {
+      // Init values for the form
+      return super.executeResellerStep(
+        mapping,
+        request,
+        response,
+        signupSelectPackageForm,
+        signupSelectPackageFormComplete,
+        signupOrganizationForm,
+        signupOrganizationFormComplete,
+        signupTechnicalForm,
+        signupTechnicalFormComplete,
+        signupBillingInformationForm,
+        signupBillingInformationFormComplete
+      );
+    }
+    if (!signupTechnicalFormComplete) {
+      return mapping.findForward("reseller-3");
+    }
+    if (!signupBillingInformationFormComplete) {
+      return mapping.findForward("reseller-4");
+    }
+    return mapping.findForward("reseller-5");
+  }
 
-	/**
-	 * Errors are not cleared for the complete step.
-	 */
-	@Override
-	protected void clearErrors(HttpServletRequest req) {
-		// Do nothing
-	}
+  /**
+   * Errors are not cleared for the complete step.
+   */
+  @Override
+  protected void clearErrors(HttpServletRequest req) {
+    // Do nothing
+  }
 }

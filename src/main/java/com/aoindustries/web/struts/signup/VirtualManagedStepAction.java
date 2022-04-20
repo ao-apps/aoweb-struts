@@ -38,121 +38,124 @@ import org.apache.struts.action.ActionMessages;
  */
 public abstract class VirtualManagedStepAction extends PageAction {
 
-	/**
-	 * Initializes the step details.
-	 */
-	@Override
-	public final ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		Registry pageRegistry
-	) throws Exception {
-		// Clear checkboxes that were not part of the request
-		clearCheckboxes(request, form);
+  /**
+   * Initializes the step details.
+   */
+  @Override
+  public final ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    Registry pageRegistry
+  ) throws Exception {
+    // Clear checkboxes that were not part of the request
+    clearCheckboxes(request, form);
 
-		// Perform redirect if requested a different step
-		String selectedStep = request.getParameter("selectedStep");
-		if(selectedStep!=null && (selectedStep=selectedStep.trim()).length()>0) {
-			if(
-				"virtual-managed-server".equals(selectedStep)
-				|| "virtual-managed-server-2".equals(selectedStep)
-				|| "virtual-managed-server-3".equals(selectedStep)
-				|| "virtual-managed-server-4".equals(selectedStep)
-				|| "virtual-managed-server-5".equals(selectedStep)
-				|| "virtual-managed-server-6".equals(selectedStep)
-				|| "virtual-managed-server-7".equals(selectedStep)
-			) {
-				return mapping.findForward(selectedStep);
-			}
-		}
+    // Perform redirect if requested a different step
+    String selectedStep = request.getParameter("selectedStep");
+    if (selectedStep != null && (selectedStep=selectedStep.trim()).length()>0) {
+      if (
+        "virtual-managed-server".equals(selectedStep)
+        || "virtual-managed-server-2".equals(selectedStep)
+        || "virtual-managed-server-3".equals(selectedStep)
+        || "virtual-managed-server-4".equals(selectedStep)
+        || "virtual-managed-server-5".equals(selectedStep)
+        || "virtual-managed-server-6".equals(selectedStep)
+        || "virtual-managed-server-7".equals(selectedStep)
+      ) {
+        return mapping.findForward(selectedStep);
+      }
+    }
 
-		HttpSession session = request.getSession();
+    HttpSession session = request.getSession();
 
-		VirtualManagedSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, VirtualManagedSignupSelectPackageForm.SESSION_ATTRIBUTE, VirtualManagedSignupSelectPackageForm::new);
-		VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm = SignupHelper.getSessionActionForm(servlet, session, VirtualManagedSignupCustomizeServerForm.SESSION_ATTRIBUTE, VirtualManagedSignupCustomizeServerForm::new);
-		SignupCustomizeManagementForm signupCustomizeManagementForm = SignupHelper.getSessionActionForm(servlet, session, SignupCustomizeManagementForm.VIRTUAL_MANAGED_SESSION_ATTRIBUTE, SignupCustomizeManagementForm::new);
-		SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(servlet, session, SignupOrganizationForm.SESSION_ATTRIBUTE, SignupOrganizationForm::new);
-		SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.SESSION_ATTRIBUTE, SignupTechnicalForm::new);
-		SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.SESSION_ATTRIBUTE, SignupBillingInformationForm::new);
+    VirtualManagedSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, VirtualManagedSignupSelectPackageForm.SESSION_ATTRIBUTE, VirtualManagedSignupSelectPackageForm::new);
+    VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm = SignupHelper.getSessionActionForm(servlet, session, VirtualManagedSignupCustomizeServerForm.SESSION_ATTRIBUTE, VirtualManagedSignupCustomizeServerForm::new);
+    SignupCustomizeManagementForm signupCustomizeManagementForm = SignupHelper.getSessionActionForm(servlet, session, SignupCustomizeManagementForm.VIRTUAL_MANAGED_SESSION_ATTRIBUTE, SignupCustomizeManagementForm::new);
+    SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(servlet, session, SignupOrganizationForm.SESSION_ATTRIBUTE, SignupOrganizationForm::new);
+    SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.SESSION_ATTRIBUTE, SignupTechnicalForm::new);
+    SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.SESSION_ATTRIBUTE, SignupBillingInformationForm::new);
 
-		ActionMessages signupSelectPackageFormErrors = signupSelectPackageForm.validate(mapping, request);
-		ActionMessages signupCustomizeServerFormErrors = signupCustomizeServerForm.validate(mapping, request);
-		ActionMessages signupCustomizeManagementFormErrors = signupCustomizeManagementForm.validate(mapping, request);
-		ActionMessages signupOrganizationFormErrors = signupOrganizationForm.validate(mapping, request);
-		ActionMessages signupTechnicalFormErrors = signupTechnicalForm.validate(mapping, request);
-		ActionMessages signupBillingInformationFormErrors = signupBillingInformationForm.validate(mapping, request);
+    ActionMessages signupSelectPackageFormErrors = signupSelectPackageForm.validate(mapping, request);
+    ActionMessages signupCustomizeServerFormErrors = signupCustomizeServerForm.validate(mapping, request);
+    ActionMessages signupCustomizeManagementFormErrors = signupCustomizeManagementForm.validate(mapping, request);
+    ActionMessages signupOrganizationFormErrors = signupOrganizationForm.validate(mapping, request);
+    ActionMessages signupTechnicalFormErrors = signupTechnicalForm.validate(mapping, request);
+    ActionMessages signupBillingInformationFormErrors = signupBillingInformationForm.validate(mapping, request);
 
-		boolean signupSelectPackageFormComplete = !doAddErrors(request, signupSelectPackageFormErrors);
-		boolean signupCustomizeServerFormComplete = !doAddErrors(request, signupCustomizeServerFormErrors);
-		boolean signupCustomizeManagementFormComplete;
-		if(doAddErrors(request, signupCustomizeManagementFormErrors)) signupCustomizeManagementFormComplete = false;
-		else signupCustomizeManagementFormComplete = Boolean.parseBoolean(signupCustomizeManagementForm.getFormCompleted());
-		boolean signupOrganizationFormComplete = !doAddErrors(request, signupOrganizationFormErrors);
-		boolean signupTechnicalFormComplete = !doAddErrors(request, signupTechnicalFormErrors);
-		boolean signupBillingInformationFormComplete = !doAddErrors(request, signupBillingInformationFormErrors);
+    boolean signupSelectPackageFormComplete = !doAddErrors(request, signupSelectPackageFormErrors);
+    boolean signupCustomizeServerFormComplete = !doAddErrors(request, signupCustomizeServerFormErrors);
+    boolean signupCustomizeManagementFormComplete;
+    if (doAddErrors(request, signupCustomizeManagementFormErrors)) {
+      signupCustomizeManagementFormComplete = false;
+    } else {
+      signupCustomizeManagementFormComplete = Boolean.parseBoolean(signupCustomizeManagementForm.getFormCompleted());
+    }
+    boolean signupOrganizationFormComplete = !doAddErrors(request, signupOrganizationFormErrors);
+    boolean signupTechnicalFormComplete = !doAddErrors(request, signupTechnicalFormErrors);
+    boolean signupBillingInformationFormComplete = !doAddErrors(request, signupBillingInformationFormErrors);
 
-		request.setAttribute("signupSelectPackageFormComplete", Boolean.toString(signupSelectPackageFormComplete));
-		request.setAttribute("signupCustomizeServerFormComplete", Boolean.toString(signupCustomizeServerFormComplete));
-		request.setAttribute("signupCustomizeManagementFormComplete", Boolean.toString(signupCustomizeManagementFormComplete));
-		request.setAttribute("signupOrganizationFormComplete", Boolean.toString(signupOrganizationFormComplete));
-		request.setAttribute("signupTechnicalFormComplete", Boolean.toString(signupTechnicalFormComplete));
-		request.setAttribute("signupBillingInformationFormComplete", Boolean.toString(signupBillingInformationFormComplete));
+    request.setAttribute("signupSelectPackageFormComplete", Boolean.toString(signupSelectPackageFormComplete));
+    request.setAttribute("signupCustomizeServerFormComplete", Boolean.toString(signupCustomizeServerFormComplete));
+    request.setAttribute("signupCustomizeManagementFormComplete", Boolean.toString(signupCustomizeManagementFormComplete));
+    request.setAttribute("signupOrganizationFormComplete", Boolean.toString(signupOrganizationFormComplete));
+    request.setAttribute("signupTechnicalFormComplete", Boolean.toString(signupTechnicalFormComplete));
+    request.setAttribute("signupBillingInformationFormComplete", Boolean.toString(signupBillingInformationFormComplete));
 
-		return executeVirtualManagedStep(
-			mapping,
-			request,
-			response,
-			signupSelectPackageForm,
-			signupSelectPackageFormComplete,
-			signupCustomizeServerForm,
-			signupCustomizeServerFormComplete,
-			signupCustomizeManagementForm,
-			signupCustomizeManagementFormComplete,
-			signupOrganizationForm,
-			signupOrganizationFormComplete,
-			signupTechnicalForm,
-			signupTechnicalFormComplete,
-			signupBillingInformationForm,
-			signupBillingInformationFormComplete
-		);
-	}
+    return executeVirtualManagedStep(
+      mapping,
+      request,
+      response,
+      signupSelectPackageForm,
+      signupSelectPackageFormComplete,
+      signupCustomizeServerForm,
+      signupCustomizeServerFormComplete,
+      signupCustomizeManagementForm,
+      signupCustomizeManagementFormComplete,
+      signupOrganizationForm,
+      signupOrganizationFormComplete,
+      signupTechnicalForm,
+      signupTechnicalFormComplete,
+      signupBillingInformationForm,
+      signupBillingInformationFormComplete
+    );
+  }
 
-	/**
-	 * Clears checkboxes when not in form.
-	 */
-	@SuppressWarnings("NoopMethodInAbstractClass")
-	protected void clearCheckboxes(HttpServletRequest request, ActionForm form) {
-		// Do nothing by default
-	}
+  /**
+   * Clears checkboxes when not in form.
+   */
+  @SuppressWarnings("NoopMethodInAbstractClass")
+  protected void clearCheckboxes(HttpServletRequest request, ActionForm form) {
+    // Do nothing by default
+  }
 
-	/**
-	 * Saves the provided errors and return <code>true</code> if there were errors to save.
-	 */
-	private boolean doAddErrors(HttpServletRequest request, ActionMessages errors) {
-		if(errors!=null && !errors.isEmpty()) {
-			addErrors(request, errors);
-			return true;
-		}
-		return false;
-	}
+  /**
+   * Saves the provided errors and return <code>true</code> if there were errors to save.
+   */
+  private boolean doAddErrors(HttpServletRequest request, ActionMessages errors) {
+    if (errors != null && !errors.isEmpty()) {
+      addErrors(request, errors);
+      return true;
+    }
+    return false;
+  }
 
-	public abstract ActionForward executeVirtualManagedStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
-		boolean signupCustomizeServerFormComplete,
-		SignupCustomizeManagementForm signupCustomizeManagementForm,
-		boolean signupCustomizeManagementFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception;
+  public abstract ActionForward executeVirtualManagedStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
+    boolean signupCustomizeServerFormComplete,
+    SignupCustomizeManagementForm signupCustomizeManagementForm,
+    boolean signupCustomizeManagementFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception;
 }

@@ -47,111 +47,115 @@ import org.apache.struts.action.ActionMessage;
  */
 public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private List<String> packages;
-	private List<String> usernames;
-	private List<String> postgreSQLServers;
-	private List<String> servers;
-	private List<String> newPasswords;
-	private List<String> confirmPasswords;
+  private List<String> packages;
+  private List<String> usernames;
+  private List<String> postgreSQLServers;
+  private List<String> servers;
+  private List<String> newPasswords;
+  private List<String> confirmPasswords;
 
-	@Override
-	public void reset(ActionMapping mapping, HttpServletRequest request) {
-		super.reset(mapping, request);
-		setPackages(new AutoGrowArrayList<>());
-		setUsernames(new AutoGrowArrayList<>());
-		setPostgreSQLServers(new AutoGrowArrayList<>());
-		setServers(new AutoGrowArrayList<>());
-		setNewPasswords(new AutoGrowArrayList<>());
-		setConfirmPasswords(new AutoGrowArrayList<>());
-	}
+  @Override
+  public void reset(ActionMapping mapping, HttpServletRequest request) {
+    super.reset(mapping, request);
+    setPackages(new AutoGrowArrayList<>());
+    setUsernames(new AutoGrowArrayList<>());
+    setPostgreSQLServers(new AutoGrowArrayList<>());
+    setServers(new AutoGrowArrayList<>());
+    setNewPasswords(new AutoGrowArrayList<>());
+    setConfirmPasswords(new AutoGrowArrayList<>());
+  }
 
-	public final List<String> getPackages() {
-		return packages;
-	}
+  public final List<String> getPackages() {
+    return packages;
+  }
 
-	public final void setPackages(List<String> packages) {
-		this.packages = packages;
-	}
+  public final void setPackages(List<String> packages) {
+    this.packages = packages;
+  }
 
-	public final List<String> getUsernames() {
-		return usernames;
-	}
+  public final List<String> getUsernames() {
+    return usernames;
+  }
 
-	public final void setUsernames(List<String> usernames) {
-		this.usernames = usernames;
-	}
+  public final void setUsernames(List<String> usernames) {
+    this.usernames = usernames;
+  }
 
-	public final List<String> getPostgreSQLServers() {
-		return postgreSQLServers;
-	}
+  public final List<String> getPostgreSQLServers() {
+    return postgreSQLServers;
+  }
 
-	public final void setPostgreSQLServers(List<String> postgreSQLServers) {
-		this.postgreSQLServers = postgreSQLServers;
-	}
+  public final void setPostgreSQLServers(List<String> postgreSQLServers) {
+    this.postgreSQLServers = postgreSQLServers;
+  }
 
-	public final List<String> getServers() {
-		return servers;
-	}
+  public final List<String> getServers() {
+    return servers;
+  }
 
-	public final void setServers(List<String> servers) {
-		this.servers = servers;
-	}
+  public final void setServers(List<String> servers) {
+    this.servers = servers;
+  }
 
-	public final List<String> getNewPasswords() {
-		return newPasswords;
-	}
+  public final List<String> getNewPasswords() {
+    return newPasswords;
+  }
 
-	public final void setNewPasswords(List<String> newPasswords) {
-		this.newPasswords = newPasswords;
-	}
+  public final void setNewPasswords(List<String> newPasswords) {
+    this.newPasswords = newPasswords;
+  }
 
-	public final List<String> getConfirmPasswords() {
-		return confirmPasswords;
-	}
+  public final List<String> getConfirmPasswords() {
+    return confirmPasswords;
+  }
 
-	public final void setConfirmPasswords(List<String> confirmPasswords) {
-		this.confirmPasswords = confirmPasswords;
-	}
+  public final void setConfirmPasswords(List<String> confirmPasswords) {
+    this.confirmPasswords = confirmPasswords;
+  }
 
-	@Override
-	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-		try {
-			ActionErrors errors = super.validate(mapping, request);
-			if(errors==null) errors = new ActionErrors();
-			AOServConnector aoConn = AuthenticatedAction.getAoConn(request, null);
-			if(aoConn==null) throw new RuntimeException("aoConn is null");
+  @Override
+  public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+    try {
+      ActionErrors errors = super.validate(mapping, request);
+      if (errors == null) {
+        errors = new ActionErrors();
+      }
+      AOServConnector aoConn = AuthenticatedAction.getAoConn(request, null);
+      if (aoConn == null) {
+        throw new RuntimeException("aoConn is null");
+      }
 
-			ServletContext servletContext = getServlet().getServletContext();
+      ServletContext servletContext = getServlet().getServletContext();
 
-			for(int c=0;c<usernames.size();c++) {
-				String newPassword = newPasswords.get(c);
-				String confirmPassword = confirmPasswords.get(c);
-				if(!newPassword.equals(confirmPassword)) {
-					errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("postgreSQLPasswordSetter.field.confirmPasswords.mismatch"));
-				} else {
-					if(newPassword.length()>0) {
-						User.Name username = User.Name.valueOf(usernames.get(c));
+      for (int c=0;c<usernames.size();c++) {
+        String newPassword = newPasswords.get(c);
+        String confirmPassword = confirmPasswords.get(c);
+        if (!newPassword.equals(confirmPassword)) {
+          errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("postgreSQLPasswordSetter.field.confirmPasswords.mismatch"));
+        } else {
+          if (newPassword.length()>0) {
+            User.Name username = User.Name.valueOf(usernames.get(c));
 
-						// Check the password strength
-						List<PasswordChecker.Result> results = User.checkPassword(username, newPassword);
-						if(PasswordChecker.hasResults(results)) {
-							Serialization serialization = SerializationEE.get(servletContext, request);
-							errors.add(
-								"confirmPasswords[" + c + "].confirmPasswords",
-								new ActionMessage(
-									PasswordChecker.getResultsHtml(results, serialization == Serialization.XML),
-									false
-								)
-							);
-						}
-					}
-				}
-			}
-			return errors;
-		} catch(IOException | ValidationException err) {
-			throw new WrappedException(err);
-		}
-	}
+            // Check the password strength
+            List<PasswordChecker.Result> results = User.checkPassword(username, newPassword);
+            if (PasswordChecker.hasResults(results)) {
+              Serialization serialization = SerializationEE.get(servletContext, request);
+              errors.add(
+                "confirmPasswords[" + c + "].confirmPasswords",
+                new ActionMessage(
+                  PasswordChecker.getResultsHtml(results, serialization == Serialization.XML),
+                  false
+                )
+              );
+            }
+          }
+        }
+      }
+      return errors;
+    } catch (IOException | ValidationException err) {
+      throw new WrappedException(err);
+    }
+  }
 }

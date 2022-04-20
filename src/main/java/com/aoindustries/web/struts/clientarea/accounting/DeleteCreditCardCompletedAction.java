@@ -48,51 +48,55 @@ import org.apache.struts.action.ActionMapping;
  */
 public class DeleteCreditCardCompletedAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		// Make sure the credit card still exists, redirect to credit-card-manager if doesn't
-		CreditCard creditCard = null;
-		String id = request.getParameter("id");
-		if(id != null && !id.isEmpty()) {
-			try {
-				creditCard = aoConn.getPayment().getCreditCard().get(Integer.parseInt(id));
-			} catch(NumberFormatException err) {
-				getServlet().log(null, err);
-			}
-		}
-		if(creditCard==null) return mapping.findForward("credit-card-manager");
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    // Make sure the credit card still exists, redirect to credit-card-manager if doesn't
+    CreditCard creditCard = null;
+    String id = request.getParameter("id");
+    if (id != null && !id.isEmpty()) {
+      try {
+        creditCard = aoConn.getPayment().getCreditCard().get(Integer.parseInt(id));
+      } catch (NumberFormatException err) {
+        getServlet().log(null, err);
+      }
+    }
+    if (creditCard == null) {
+      return mapping.findForward("credit-card-manager");
+    }
 
-		String cardNumber = creditCard.getCardInfo();
+    String cardNumber = creditCard.getCardInfo();
 
-		// Lookup the card in the root connector (to get access to the processor)
-		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
-		AOServConnector rootConn = siteSettings.getRootAOServConnector();
-		CreditCard rootCreditCard = rootConn.getPayment().getCreditCard().get(creditCard.getId());
-		if(rootCreditCard == null) throw new SQLException("Unable to find CreditCard: " + creditCard.getId());
+    // Lookup the card in the root connector (to get access to the processor)
+    SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
+    AOServConnector rootConn = siteSettings.getRootAOServConnector();
+    CreditCard rootCreditCard = rootConn.getPayment().getCreditCard().get(creditCard.getId());
+    if (rootCreditCard == null) {
+      throw new SQLException("Unable to find CreditCard: " + creditCard.getId());
+    }
 
-		// Delete the card from the bank and persistence
-		Processor rootAoservCCP = rootCreditCard.getCreditCardProcessor();
-		com.aoapps.payments.CreditCardProcessor processor = CreditCardProcessorFactory.getCreditCardProcessor(rootAoservCCP);
-		processor.deleteCreditCard(
-			new AOServConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
-			CreditCardFactory.getCreditCard(rootCreditCard)
-		);
+    // Delete the card from the bank and persistence
+    Processor rootAoservCCP = rootCreditCard.getCreditCardProcessor();
+    com.aoapps.payments.CreditCardProcessor processor = CreditCardProcessorFactory.getCreditCardProcessor(rootAoservCCP);
+    processor.deleteCreditCard(
+      new AOServConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
+      CreditCardFactory.getCreditCard(rootCreditCard)
+    );
 
-		// Set request attributes
-		request.setAttribute("cardNumber", cardNumber);
+    // Set request attributes
+    request.setAttribute("cardNumber", cardNumber);
 
-		// Return status success
-		return mapping.findForward("success");
-	}
+    // Return status success
+    return mapping.findForward("success");
+  }
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return Collections.singleton(Permission.Name.delete_credit_card);
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return Collections.singleton(Permission.Name.delete_credit_card);
+  }
 }

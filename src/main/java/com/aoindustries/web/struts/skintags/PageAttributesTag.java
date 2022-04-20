@@ -35,47 +35,47 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public abstract class PageAttributesTag extends TagSupport {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	protected PageAttributesTag() {
-		// Do nothing
-	}
+  protected PageAttributesTag() {
+    // Do nothing
+  }
 
-	/**
-	 * @deprecated  You should probably be implementing in {@link #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)}
-	 *
-	 * @see  #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)
-	 */
-	@Deprecated(forRemoval = false)
-	@Override
-	public int doStartTag() throws JspException {
-		try {
-			return doStartTag(PageAttributesBodyTag.getPageAttributes(pageContext));
-		} catch(IOException err) {
-			throw new JspTagException(err);
-		}
-	}
+  /**
+   * @deprecated  You should probably be implementing in {@link #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)}
+   *
+   * @see  #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)
+   */
+  @Deprecated(forRemoval = false)
+  @Override
+  public int doStartTag() throws JspException {
+    try {
+      return doStartTag(PageAttributesBodyTag.getPageAttributes(pageContext));
+    } catch (IOException err) {
+      throw new JspTagException(err);
+    }
+  }
 
-	public int doStartTag(PageAttributes pageAttributes) throws JspException, IOException {
-		return SKIP_BODY;
-	}
+  public int doStartTag(PageAttributes pageAttributes) throws JspException, IOException {
+    return SKIP_BODY;
+  }
 
-	/**
-	 * @deprecated  You should probably be implementing in {@link #doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)}
-	 *
-	 * @see  #doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)
-	 */
-	@Deprecated(forRemoval = false)
-	@Override
-	public int doEndTag() throws JspException {
-		try {
-			return doEndTag(PageAttributesBodyTag.getPageAttributes(pageContext));
-		} catch(IOException err) {
-			throw new JspTagException(err);
-		}
-	}
+  /**
+   * @deprecated  You should probably be implementing in {@link #doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)}
+   *
+   * @see  #doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)
+   */
+  @Deprecated(forRemoval = false)
+  @Override
+  public int doEndTag() throws JspException {
+    try {
+      return doEndTag(PageAttributesBodyTag.getPageAttributes(pageContext));
+    } catch (IOException err) {
+      throw new JspTagException(err);
+    }
+  }
 
-	public int doEndTag(PageAttributes pageAttributes) throws JspException, IOException {
-		return EVAL_PAGE;
-	}
+  public int doEndTag(PageAttributes pageAttributes) throws JspException, IOException {
+    return EVAL_PAGE;
+  }
 }

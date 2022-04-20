@@ -43,51 +43,57 @@ import org.apache.struts.action.ActionMessages;
  */
 public class AdministratorPasswordSetterCompletedAction extends AuthenticatedAction {
 
-	@Override
-	public ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		AdministratorPasswordSetterForm administratorPasswordSetterForm = (AdministratorPasswordSetterForm)form;
+  @Override
+  public ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    AdministratorPasswordSetterForm administratorPasswordSetterForm = (AdministratorPasswordSetterForm)form;
 
-		// Validation
-		ActionMessages errors = administratorPasswordSetterForm.validate(mapping, request);
-		if(errors!=null && !errors.isEmpty()) {
-			saveErrors(request, errors);
-			return mapping.findForward("input");
-		}
+    // Validation
+    ActionMessages errors = administratorPasswordSetterForm.validate(mapping, request);
+    if (errors != null && !errors.isEmpty()) {
+      saveErrors(request, errors);
+      return mapping.findForward("input");
+    }
 
-		// Reset passwords here and clear the passwords from the form
-		Administrator thisBA = aoConn.getCurrentAdministrator();
-		ActionMessages messages = new ActionMessages();
-		List<String> usernames = administratorPasswordSetterForm.getUsernames();
-		List<String> newPasswords = administratorPasswordSetterForm.getNewPasswords();
-		List<String> confirmPasswords = administratorPasswordSetterForm.getConfirmPasswords();
-		for(int c=0;c<usernames.size();c++) {
-			String newPassword = newPasswords.get(c);
-			if(newPassword.length()>0) {
-				User.Name username = User.Name.valueOf(usernames.get(c));
-				if(!thisBA.hasPermission(Permission.Name.set_business_administrator_password) && !thisBA.getUsername().getUsername().equals(username)) {
-					Permission aoPerm = aoConn.getMaster().getPermission().get(Permission.Name.set_business_administrator_password);
-					if(aoPerm==null) throw new SQLException("Unable to find AOServPermission: "+Permission.Name.set_business_administrator_password);
-					request.setAttribute("permission", aoPerm);
-					ActionForward forward = mapping.findForward("permission-denied");
-					if(forward==null) throw new Exception("Unable to find ActionForward: permission-denied");
-					return forward;
-				}
-				Administrator ba = aoConn.getAccount().getAdministrator().get(username);
-				if(ba == null) throw new SQLException("Unable to find Administrator: " + username);
-				ba.setPassword(newPassword);
-				messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("administratorPasswordSetter.field.confirmPasswords.passwordReset"));
-				newPasswords.set(c, "");
-				confirmPasswords.set(c, "");
-			}
-		}
-		saveMessages(request, messages);
+    // Reset passwords here and clear the passwords from the form
+    Administrator thisBA = aoConn.getCurrentAdministrator();
+    ActionMessages messages = new ActionMessages();
+    List<String> usernames = administratorPasswordSetterForm.getUsernames();
+    List<String> newPasswords = administratorPasswordSetterForm.getNewPasswords();
+    List<String> confirmPasswords = administratorPasswordSetterForm.getConfirmPasswords();
+    for (int c=0;c<usernames.size();c++) {
+      String newPassword = newPasswords.get(c);
+      if (newPassword.length()>0) {
+        User.Name username = User.Name.valueOf(usernames.get(c));
+        if (!thisBA.hasPermission(Permission.Name.set_business_administrator_password) && !thisBA.getUsername().getUsername().equals(username)) {
+          Permission aoPerm = aoConn.getMaster().getPermission().get(Permission.Name.set_business_administrator_password);
+          if (aoPerm == null) {
+            throw new SQLException("Unable to find AOServPermission: "+Permission.Name.set_business_administrator_password);
+          }
+          request.setAttribute("permission", aoPerm);
+          ActionForward forward = mapping.findForward("permission-denied");
+          if (forward == null) {
+            throw new Exception("Unable to find ActionForward: permission-denied");
+          }
+          return forward;
+        }
+        Administrator ba = aoConn.getAccount().getAdministrator().get(username);
+        if (ba == null) {
+          throw new SQLException("Unable to find Administrator: " + username);
+        }
+        ba.setPassword(newPassword);
+        messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("administratorPasswordSetter.field.confirmPasswords.passwordReset"));
+        newPasswords.set(c, "");
+        confirmPasswords.set(c, "");
+      }
+    }
+    saveMessages(request, messages);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 }

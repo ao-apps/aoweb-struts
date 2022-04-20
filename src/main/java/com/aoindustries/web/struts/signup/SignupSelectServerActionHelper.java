@@ -48,93 +48,95 @@ import javax.servlet.http.HttpServletResponse;
  */
 public final class SignupSelectServerActionHelper {
 
-	/** Make no instances. */
-	private SignupSelectServerActionHelper() {throw new AssertionError();}
+  /** Make no instances. */
+  private SignupSelectServerActionHelper() {
+    throw new AssertionError();
+  }
 
-	public static void setRequestAttributes(
-		ServletContext servletContext,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		String packageCategoryName
-	) throws IOException, SQLException {
-		List<Host> servers = getServers(servletContext, packageCategoryName);
+  public static void setRequestAttributes(
+    ServletContext servletContext,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    String packageCategoryName
+  ) throws IOException, SQLException {
+    List<Host> servers = getServers(servletContext, packageCategoryName);
 
-		request.setAttribute("servers", servers);
-	}
+    request.setAttribute("servers", servers);
+  }
 
-	/**
-	 * Gets the possible servers ordered by minimum monthly rate.
-	 */
-	public static List<Host> getServers(ServletContext servletContext, String packageCategoryName) throws IOException, SQLException {
-		AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
-		PackageCategory category = rootConn.getBilling().getPackageCategory().get(packageCategoryName);
-		Account rootAccount = rootConn.getCurrentAdministrator().getUsername().getPackage().getAccount();
-		List<PackageDefinition> packageDefinitions = rootAccount.getPackageDefinitions(category);
-		List<Host> servers = new ArrayList<>();
+  /**
+   * Gets the possible servers ordered by minimum monthly rate.
+   */
+  public static List<Host> getServers(ServletContext servletContext, String packageCategoryName) throws IOException, SQLException {
+    AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
+    PackageCategory category = rootConn.getBilling().getPackageCategory().get(packageCategoryName);
+    Account rootAccount = rootConn.getCurrentAdministrator().getUsername().getPackage().getAccount();
+    List<PackageDefinition> packageDefinitions = rootAccount.getPackageDefinitions(category);
+    List<Host> servers = new ArrayList<>();
 
-		for(PackageDefinition packageDefinition : packageDefinitions) {
-			if(packageDefinition.isActive()) {
-				servers.add(
-					new Host(
-						ServerConfiguration.getMinimumConfiguration(packageDefinition),
-						ServerConfiguration.getMaximumConfiguration(packageDefinition)
-					)
-				);
-			}
-		}
+    for (PackageDefinition packageDefinition : packageDefinitions) {
+      if (packageDefinition.isActive()) {
+        servers.add(
+          new Host(
+            ServerConfiguration.getMinimumConfiguration(packageDefinition),
+            ServerConfiguration.getMaximumConfiguration(packageDefinition)
+          )
+        );
+      }
+    }
 
-		Collections.sort(servers, new ServerComparator());
+    Collections.sort(servers, new ServerComparator());
 
-		return servers;
-	}
+    return servers;
+  }
 
-	public static class Host {
-		private final ServerConfiguration minimumConfiguration;
-		private final ServerConfiguration maximumConfiguration;
+  public static class Host {
+    private final ServerConfiguration minimumConfiguration;
+    private final ServerConfiguration maximumConfiguration;
 
-		private Host(
-			ServerConfiguration minimumConfiguration,
-			ServerConfiguration maximumConfiguration
-		) {
-			this.minimumConfiguration = minimumConfiguration;
-			this.maximumConfiguration = maximumConfiguration;
-		}
+    private Host(
+      ServerConfiguration minimumConfiguration,
+      ServerConfiguration maximumConfiguration
+    ) {
+      this.minimumConfiguration = minimumConfiguration;
+      this.maximumConfiguration = maximumConfiguration;
+    }
 
-		public ServerConfiguration getMinimumConfiguration() {
-			return minimumConfiguration;
-		}
+    public ServerConfiguration getMinimumConfiguration() {
+      return minimumConfiguration;
+    }
 
-		public ServerConfiguration getMaximumConfiguration() {
-			return maximumConfiguration;
-		}
-	}
+    public ServerConfiguration getMaximumConfiguration() {
+      return maximumConfiguration;
+    }
+  }
 
-	private static class ServerComparator implements Comparator<Host> {
-		@Override
-		public int compare(Host s1, Host s2) {
-			return s1.getMinimumConfiguration().getMonthly().compareTo(s2.getMinimumConfiguration().getMonthly());
-		}
-	}
+  private static class ServerComparator implements Comparator<Host> {
+    @Override
+    public int compare(Host s1, Host s2) {
+      return s1.getMinimumConfiguration().getMonthly().compareTo(s2.getMinimumConfiguration().getMonthly());
+    }
+  }
 
-	public static void setConfirmationRequestAttributes(
-		ServletContext servletContext,
-		HttpServletRequest request,
-		SignupSelectPackageForm signupSelectPackageForm
-	) throws IOException, SQLException {
-		// Lookup things needed by the view
-		AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
-		PackageDefinition packageDefinition = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
+  public static void setConfirmationRequestAttributes(
+    ServletContext servletContext,
+    HttpServletRequest request,
+    SignupSelectPackageForm signupSelectPackageForm
+  ) throws IOException, SQLException {
+    // Lookup things needed by the view
+    AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
+    PackageDefinition packageDefinition = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
 
-		// Store as request attribute for the view
-		request.setAttribute("packageDefinition", packageDefinition);
-		request.setAttribute("setup", packageDefinition.getSetupFee());
-	}
+    // Store as request attribute for the view
+    request.setAttribute("packageDefinition", packageDefinition);
+    request.setAttribute("setup", packageDefinition.getSetupFee());
+  }
 
-	public static void writeEmailConfirmation(Union_TBODY_THEAD_TFOOT<?> tbody, PackageDefinition packageDefinition) throws IOException {
-		tbody.tr__(tr -> tr
-			.td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-			.td__(PACKAGE_RESOURCES.getMessage("signupSelectServerForm.packageDefinition.prompt"))
-			.td__(packageDefinition.getDisplay())
-		);
-	}
+  public static void writeEmailConfirmation(Union_TBODY_THEAD_TFOOT<?> tbody, PackageDefinition packageDefinition) throws IOException {
+    tbody.tr__(tr -> tr
+      .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+      .td__(PACKAGE_RESOURCES.getMessage("signupSelectServerForm.packageDefinition.prompt"))
+      .td__(packageDefinition.getDisplay())
+    );
+  }
 }

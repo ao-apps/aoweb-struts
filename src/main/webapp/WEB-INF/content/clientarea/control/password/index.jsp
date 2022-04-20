@@ -1,9 +1,9 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2000-2009, 2016, 2019, 2020, 2021  AO Industries, Inc.
-	support@aoindustries.com
-	7262 Bull Pen Cir
-	Mobile, AL 36695
+Copyright (C) 2000-2009, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
 
 This file is part of aoweb-struts.
 
@@ -27,13 +27,13 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 <%@include file="index.meta.jspf" %>
 <%@include file="index.children.jspf" %>
 <skin:skin>
-	<skin:content width="600">
-		<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.password.i18n.ApplicationResources">
-			<skin:contentTitle><ao:message key="index.title" /></skin:contentTitle>
-			<skin:contentHorizontalDivider />
-			<skin:contentLine>
-				<skin:autoIndex />
-			</skin:contentLine>
-		</ao:bundle>
-	</skin:content>
+  <skin:content width="600">
+    <ao:bundle basename="com.aoindustries.web.struts.clientarea.control.password.i18n.ApplicationResources">
+      <skin:contentTitle><ao:message key="index.title" /></skin:contentTitle>
+      <skin:contentHorizontalDivider />
+      <skin:contentLine>
+        <skin:autoIndex />
+      </skin:contentLine>
+    </ao:bundle>
+  </skin:content>
 </skin:skin>

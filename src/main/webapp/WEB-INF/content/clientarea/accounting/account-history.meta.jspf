@@ -1,9 +1,9 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2007-2009, 2015, 2016, 2020, 2021  AO Industries, Inc.
-	support@aoindustries.com
-	7262 Bull Pen Cir
-	Mobile, AL 36695
+Copyright (C) 2007-2009, 2015, 2016, 2020, 2021, 2022  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
 
 This file is part of aoweb-struts.
 
@@ -24,8 +24,8 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
 <ao:bundle basename="com.aoindustries.web.struts.clientarea.accounting.i18n.ApplicationResources">
-	<skin:path>/clientarea/accounting/AccountHistory.ao</skin:path>
-	<skin:title><ao:message key="accountHistory.title" /></skin:title>
-	<skin:navImageAlt><ao:message key="accountHistory.navImageAlt" /></skin:navImageAlt>
-	<skin:description><ao:message key="accountHistory.description" /></skin:description>
+  <skin:path>/clientarea/accounting/AccountHistory.ao</skin:path>
+  <skin:title><ao:message key="accountHistory.title" /></skin:title>
+  <skin:navImageAlt><ao:message key="accountHistory.navImageAlt" /></skin:navImageAlt>
+  <skin:description><ao:message key="accountHistory.description" /></skin:description>
 </ao:bundle>

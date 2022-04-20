@@ -35,38 +35,40 @@ import org.apache.struts.action.ActionMessages;
  */
 public final class Globals {
 
-	/** Make no instances. */
-	private Globals() {throw new AssertionError();}
+  /** Make no instances. */
+  private Globals() {
+    throw new AssertionError();
+  }
 
-	/**
-	 * The Struts 1 action errors.
-	 *
-	 * @see  org.apache.struts.Globals#ERROR_KEY
-	 */
-	public static final ScopeEE.Request.Attribute<ActionMessages> ERROR_KEY =
-		ScopeEE.REQUEST.attribute(org.apache.struts.Globals.ERROR_KEY);
+  /**
+   * The Struts 1 action errors.
+   *
+   * @see  org.apache.struts.Globals#ERROR_KEY
+   */
+  public static final ScopeEE.Request.Attribute<ActionMessages> ERROR_KEY =
+    ScopeEE.REQUEST.attribute(org.apache.struts.Globals.ERROR_KEY);
 
-	/**
-	 * The Struts 1 exception.
-	 *
-	 * @see  org.apache.struts.Globals#EXCEPTION_KEY
-	 */
-	public static final ScopeEE.Request.Attribute<Throwable> EXCEPTION_KEY =
-		ScopeEE.REQUEST.attribute(org.apache.struts.Globals.EXCEPTION_KEY);
+  /**
+   * The Struts 1 exception.
+   *
+   * @see  org.apache.struts.Globals#EXCEPTION_KEY
+   */
+  public static final ScopeEE.Request.Attribute<Throwable> EXCEPTION_KEY =
+    ScopeEE.REQUEST.attribute(org.apache.struts.Globals.EXCEPTION_KEY);
 
-	/**
-	 * The Struts 1 session locale.
-	 *
-	 * @see  org.apache.struts.Globals#LOCALE_KEY
-	 */
-	public static final ScopeEE.Session.Attribute<Locale> LOCALE_KEY =
-		ScopeEE.SESSION.attribute(org.apache.struts.Globals.LOCALE_KEY);
+  /**
+   * The Struts 1 session locale.
+   *
+   * @see  org.apache.struts.Globals#LOCALE_KEY
+   */
+  public static final ScopeEE.Session.Attribute<Locale> LOCALE_KEY =
+    ScopeEE.SESSION.attribute(org.apache.struts.Globals.LOCALE_KEY);
 
-	/**
-	 * The Struts 1 XHTML flag.
-	 *
-	 * @see  org.apache.struts.Globals#XHTML_KEY
-	 */
-	public static final ScopeEE.Page.Attribute<String> XHTML_KEY =
-		ScopeEE.PAGE.attribute(org.apache.struts.Globals.XHTML_KEY);
+  /**
+   * The Struts 1 XHTML flag.
+   *
+   * @see  org.apache.struts.Globals#XHTML_KEY
+   */
+  public static final ScopeEE.Page.Attribute<String> XHTML_KEY =
+    ScopeEE.PAGE.attribute(org.apache.struts.Globals.XHTML_KEY);
 }

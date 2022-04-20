@@ -38,40 +38,40 @@ import javax.servlet.jsp.JspException;
  * @author  AO Industries, Inc.
  */
 public enum Formtype {
-	/**
-	 * Adds <code>/struts1/commons-validator-1.3.1-compress.js</code> to {@code <head>} for Struts 1.
-	 */
-	STRUTS1 {
-		@Override
-		public void doHead(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, MetadataContent<?> content) throws IOException {
-			content.script().src(
-				resp.encodeURL(
-					URIEncoder.encodeURI(
-						req.getContextPath() + "/struts1/commons-validator-1.3.1-compress.js"
-					)
-				)
-			).__();
-		}
-	},
+  /**
+   * Adds <code>/struts1/commons-validator-1.3.1-compress.js</code> to {@code <head>} for Struts 1.
+   */
+  STRUTS1 {
+    @Override
+    public void doHead(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, MetadataContent<?> content) throws IOException {
+      content.script().src(
+        resp.encodeURL(
+          URIEncoder.encodeURI(
+            req.getContextPath() + "/struts1/commons-validator-1.3.1-compress.js"
+          )
+        )
+      ).__();
+    }
+  },
 
-	/**
-	 * Calls <a href="https://struts.apache.org/tag-developers/head-tag.html">{@code <s:head />}</a> within
-	 * {@code <head>} for <a href="https://struts.apache.org/">Struts 2</a>.
-	 * <p>
-	 * See <code>/WEB-INF/struts2/head.jsp</code>
-	 * </p>
-	 */
-	STRUTS2 {
-		@Override
-		public void doHead(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, MetadataContent<?> content) throws JspException, IOException {
-			final String STRUTS2_HEAD_INCLUDE = "/WEB-INF/struts2/head.jsp";
-			try {
-				servletContext.getRequestDispatcher(STRUTS2_HEAD_INCLUDE).include(req, resp);
-			} catch(ServletException e) {
-				throw new JspException(e);
-			}
-		}
-	};
+  /**
+   * Calls <a href="https://struts.apache.org/tag-developers/head-tag.html">{@code <s:head />}</a> within
+   * {@code <head>} for <a href="https://struts.apache.org/">Struts 2</a>.
+   * <p>
+   * See <code>/WEB-INF/struts2/head.jsp</code>
+   * </p>
+   */
+  STRUTS2 {
+    @Override
+    public void doHead(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, MetadataContent<?> content) throws JspException, IOException {
+      final String STRUTS2_HEAD_INCLUDE = "/WEB-INF/struts2/head.jsp";
+      try {
+        servletContext.getRequestDispatcher(STRUTS2_HEAD_INCLUDE).include(req, resp);
+      } catch (ServletException e) {
+        throw new JspException(e);
+      }
+    }
+  };
 
-	public abstract void doHead(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, MetadataContent<?> content) throws JspException, IOException;
+  public abstract void doHead(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, MetadataContent<?> content) throws JspException, IOException;
 }

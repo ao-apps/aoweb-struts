@@ -34,37 +34,41 @@ import org.apache.struts.action.ActionMessages;
  */
 public class VirtualDedicated3Action extends VirtualDedicatedStepAction {
 
-	@Override
-	public ActionForward executeVirtualDedicatedStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
-		boolean signupCustomizeServerFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		if(!signupSelectPackageFormComplete) return mapping.findForward("virtual-dedicated-server-completed");
-		if(!signupCustomizeServerFormComplete) return mapping.findForward("virtual-dedicated-server-2-completed");
+  @Override
+  public ActionForward executeVirtualDedicatedStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
+    boolean signupCustomizeServerFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    if (!signupSelectPackageFormComplete) {
+      return mapping.findForward("virtual-dedicated-server-completed");
+    }
+    if (!signupCustomizeServerFormComplete) {
+      return mapping.findForward("virtual-dedicated-server-2-completed");
+    }
 
-		SignupOrganizationActionHelper.setRequestAttributes(getServlet().getServletContext(), request);
+    SignupOrganizationActionHelper.setRequestAttributes(getServlet().getServletContext(), request);
 
-		// Clear errors if they should not be displayed
-		clearErrors(request);
+    // Clear errors if they should not be displayed
+    clearErrors(request);
 
-		return mapping.findForward("input");
-	}
+    return mapping.findForward("input");
+  }
 
-	/**
-	 * May clear specific errors here.
-	 */
-	protected void clearErrors(HttpServletRequest request) {
-		saveErrors(request, new ActionMessages());
-	}
+  /**
+   * May clear specific errors here.
+   */
+  protected void clearErrors(HttpServletRequest request) {
+    saveErrors(request, new ActionMessages());
+  }
 }

@@ -31,13 +31,13 @@ import java.io.Serializable;
  */
 public class ManagedSignupCustomizeServerForm extends SignupCustomizeServerForm implements Serializable {
 
-	public static final ScopeEE.Session.Attribute<ManagedSignupCustomizeServerForm> SESSION_ATTRIBUTE =
-		ScopeEE.SESSION.attribute("managedSignupCustomizeServerForm");
+  public static final ScopeEE.Session.Attribute<ManagedSignupCustomizeServerForm> SESSION_ATTRIBUTE =
+    ScopeEE.SESSION.attribute("managedSignupCustomizeServerForm");
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Override
-	protected ScopeEE.Session.Attribute<ManagedSignupSelectPackageForm> getSignupSelectPackageFormName() {
-		return ManagedSignupSelectPackageForm.SESSION_ATTRIBUTE;
-	}
+  @Override
+  protected ScopeEE.Session.Attribute<ManagedSignupSelectPackageForm> getSignupSelectPackageFormName() {
+    return ManagedSignupSelectPackageForm.SESSION_ATTRIBUTE;
+  }
 }

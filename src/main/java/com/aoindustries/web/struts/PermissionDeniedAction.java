@@ -37,15 +37,15 @@ import org.apache.struts.action.ActionMapping;
  */
 public class PermissionDeniedAction extends PageAction {
 
-	@Override
-	public ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		Registry pageRegistry
-	) throws Exception {
-		response.sendError(HttpServletResponse.SC_FORBIDDEN);
-		return null;
-	}
+  @Override
+  public ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    Registry pageRegistry
+  ) throws Exception {
+    response.sendError(HttpServletResponse.SC_FORBIDDEN);
+    return null;
+  }
 }

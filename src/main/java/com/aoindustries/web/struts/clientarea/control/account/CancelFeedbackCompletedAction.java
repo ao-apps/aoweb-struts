@@ -43,39 +43,39 @@ import org.apache.struts.action.ActionMapping;
  */
 public class CancelFeedbackCompletedAction  extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		CancelFeedbackForm cancelFeedbackForm = (CancelFeedbackForm)form;
-		String account_name = cancelFeedbackForm.getAccount();
-		String reason = cancelFeedbackForm.getReason();
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    CancelFeedbackForm cancelFeedbackForm = (CancelFeedbackForm)form;
+    String account_name = cancelFeedbackForm.getAccount();
+    String reason = cancelFeedbackForm.getReason();
 
-		Account account;
-		if(GenericValidator.isBlankOrNull(account_name)) {
-			account = null;
-		} else {
-			account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(account_name));
-		}
-		if(account==null || !account.canCancel()) {
-			return mapping.findForward("invalid-account");
-		}
+    Account account;
+    if (GenericValidator.isBlankOrNull(account_name)) {
+      account = null;
+    } else {
+      account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(account_name));
+    }
+    if (account == null || !account.canCancel()) {
+      return mapping.findForward("invalid-account");
+    }
 
-		// Do the actual cancellation
-		account.cancel(reason);
+    // Do the actual cancellation
+    account.cancel(reason);
 
-		// Set request values
-		request.setAttribute("account", account);
+    // Set request values
+    request.setAttribute("account", account);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return Collections.singleton(Permission.Name.cancel_business);
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return Collections.singleton(Permission.Name.cancel_business);
+  }
 }

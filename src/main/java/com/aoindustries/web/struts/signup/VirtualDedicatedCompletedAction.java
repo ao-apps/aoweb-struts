@@ -33,47 +33,47 @@ import org.apache.struts.action.ActionMapping;
  */
 public class VirtualDedicatedCompletedAction extends VirtualDedicatedAction {
 
-	@Override
-	public ActionForward executeVirtualDedicatedStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
-		boolean signupCustomizeServerFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		if(!signupSelectPackageFormComplete) {
-			return super.executeVirtualDedicatedStep(
-				mapping,
-				request,
-				response,
-				signupSelectPackageForm,
-				signupSelectPackageFormComplete,
-				signupCustomizeServerForm,
-				signupCustomizeServerFormComplete,
-				signupOrganizationForm,
-				signupOrganizationFormComplete,
-				signupTechnicalForm,
-				signupTechnicalFormComplete,
-				signupBillingInformationForm,
-				signupBillingInformationFormComplete
-			);
-		}
-		return mapping.findForward("virtual-dedicated-server-2");
-	}
+  @Override
+  public ActionForward executeVirtualDedicatedStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
+    boolean signupCustomizeServerFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    if (!signupSelectPackageFormComplete) {
+      return super.executeVirtualDedicatedStep(
+        mapping,
+        request,
+        response,
+        signupSelectPackageForm,
+        signupSelectPackageFormComplete,
+        signupCustomizeServerForm,
+        signupCustomizeServerFormComplete,
+        signupOrganizationForm,
+        signupOrganizationFormComplete,
+        signupTechnicalForm,
+        signupTechnicalFormComplete,
+        signupBillingInformationForm,
+        signupBillingInformationFormComplete
+      );
+    }
+    return mapping.findForward("virtual-dedicated-server-2");
+  }
 
-	/**
-	 * Errors are not cleared for the complete step.
-	 */
-	@Override
-	protected void clearErrors(HttpServletRequest req) {
-		// Do nothing
-	}
+  /**
+   * Errors are not cleared for the complete step.
+   */
+  @Override
+  protected void clearErrors(HttpServletRequest req) {
+    // Do nothing
+  }
 }

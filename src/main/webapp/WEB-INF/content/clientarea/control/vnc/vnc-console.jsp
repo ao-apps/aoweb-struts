@@ -1,9 +1,9 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2009, 2016, 2019, 2020, 2021  AO Industries, Inc.
-	support@aoindustries.com
-	7262 Bull Pen Cir
-	Mobile, AL 36695
+Copyright (C) 2009, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
 
 This file is part of aoweb-struts.
 
@@ -26,68 +26,68 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 <%@include file="../add-parents.jspf" %>
 <%@include file="vnc-console.meta.jspf" %>
 <skin:skin>
-	<skin:content width="600">
-		<ao:bundle basename="com.aoindustries.web.struts.clientarea.control.vnc.i18n.ApplicationResources">
-			<skin:contentTitle><ao:message key="vncConsole.title" /></skin:contentTitle>
-			<skin:contentHorizontalDivider />
-			<skin:contentLine>
-				<logic:present scope="request" name="permissionDenied">
-					<%@include file="../../../permission-denied.jspf" %>
-				</logic:present>
-				<logic:notPresent scope="request" name="permissionDenied">
-					<skin:lightArea>
-						<logic:empty scope="request" name="vncVirtualServers">
-							<ao:message key="vncConsole.noServers" />
-						</logic:empty>
-						<logic:notEmpty scope="request" name="vncVirtualServers">
-							<table>
-								<tr>
-									<th><ao:message key="vncConsole.server.header" /></th>
-									<th><ao:message key="vncConsole.host.header" /></th>
-									<th><ao:message key="vncConsole.sslRequired.header" /></th>
-									<th><ao:message key="vncConsole.password.header" /></th>
-									<th><ao:message key="vncConsole.connectNow.header" /></th>
-								</tr>
-								<logic:iterate scope="request" name="vncVirtualServers" id="vncVirtualServer">
-									<skin:lightDarkTableRow>
-										<td><bean:write name="vncVirtualServer" property="host.name" /></td>
-										<td>
-											<c:choose>
-												<c:when test="${siteSettings.brand.aowebStrutsVncBind.port.port < 5900}">
-													<c:out value="${siteSettings.brand.aowebStrutsHttpsURL.host}" />::<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port}" />
-												</c:when>
-												<c:otherwise>
-													<c:out value="${siteSettings.brand.aowebStrutsHttpsURL.host}" />:<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port - 5900}" />
-												</c:otherwise>
-											</c:choose>
-										</td>
-										<td><ao:message key="vncConsole.sslRequired.yes" /></td>
-										<td><code><c:out value="${vncVirtualServer.vncPassword}" /></code></td>
-										<td style="white-space:nowrap">
-											<ao:a href="/clientarea/control/vnc/noVNC-1.3.0/vnc.html#autoconnect=true&path=${ao:encodeURIComponent(empty pageContext.request.contextPath ? '' : fn:substringAfter(pageContext.request.contextPath, '/').concat('/'))}${ao:encodeURIComponent('clientarea/control/vnc/vnc-console-websocket')}&password=${ao:encodeURIComponent(vncVirtualServer.vncPassword)}&shared=false&show_dot=true">
-												<ao:message key="vncConsole.connectNow.link" />
-												<%--
-												<ao:onclick>
-													window.open(
-														this.href,
-														"vnc" + (new Date()).getTime(),
-														"toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=1,width=380,height=200,left="
-															+ ((screen.availWidth - 380) / 2 - 64)
-															+ ",top="
-															+ ((screen.availHeight - 200) / 2 - 48)
-													);
-													return false;
-												</ao:onclick>
-												--%>
-											</ao:a>
-										</td>
-									</skin:lightDarkTableRow>
-								</logic:iterate>
-							</table>
-						</logic:notEmpty>
-					</skin:lightArea>
-				</logic:notPresent>
-			</skin:contentLine>
-		</ao:bundle>
-	</skin:content>
+  <skin:content width="600">
+    <ao:bundle basename="com.aoindustries.web.struts.clientarea.control.vnc.i18n.ApplicationResources">
+      <skin:contentTitle><ao:message key="vncConsole.title" /></skin:contentTitle>
+      <skin:contentHorizontalDivider />
+      <skin:contentLine>
+        <logic:present scope="request" name="permissionDenied">
+          <%@include file="../../../permission-denied.jspf" %>
+        </logic:present>
+        <logic:notPresent scope="request" name="permissionDenied">
+          <skin:lightArea>
+            <logic:empty scope="request" name="vncVirtualServers">
+              <ao:message key="vncConsole.noServers" />
+            </logic:empty>
+            <logic:notEmpty scope="request" name="vncVirtualServers">
+              <table>
+                <tr>
+                  <th><ao:message key="vncConsole.server.header" /></th>
+                  <th><ao:message key="vncConsole.host.header" /></th>
+                  <th><ao:message key="vncConsole.sslRequired.header" /></th>
+                  <th><ao:message key="vncConsole.password.header" /></th>
+                  <th><ao:message key="vncConsole.connectNow.header" /></th>
+                </tr>
+                <logic:iterate scope="request" name="vncVirtualServers" id="vncVirtualServer">
+                  <skin:lightDarkTableRow>
+                    <td><bean:write name="vncVirtualServer" property="host.name" /></td>
+                    <td>
+                      <c:choose>
+                        <c:when test="${siteSettings.brand.aowebStrutsVncBind.port.port < 5900}">
+                          <c:out value="${siteSettings.brand.aowebStrutsHttpsURL.host}" />::<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port}" />
+                        </c:when>
+                        <c:otherwise>
+                          <c:out value="${siteSettings.brand.aowebStrutsHttpsURL.host}" />:<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port - 5900}" />
+                        </c:otherwise>
+                      </c:choose>
+                    </td>
+                    <td><ao:message key="vncConsole.sslRequired.yes" /></td>
+                    <td><code><c:out value="${vncVirtualServer.vncPassword}" /></code></td>
+                    <td style="white-space:nowrap">
+                      <ao:a href="/clientarea/control/vnc/noVNC-1.3.0/vnc.html#autoconnect=true&path=${ao:encodeURIComponent(empty pageContext.request.contextPath ? '' : fn:substringAfter(pageContext.request.contextPath, '/').concat('/'))}${ao:encodeURIComponent('clientarea/control/vnc/vnc-console-websocket')}&password=${ao:encodeURIComponent(vncVirtualServer.vncPassword)}&shared=false&show_dot=true">
+                        <ao:message key="vncConsole.connectNow.link" />
+                        <%--
+                        <ao:onclick>
+                          window.open(
+                            this.href,
+                            "vnc" + (new Date()).getTime(),
+                            "toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=1,width=380,height=200,left="
+                              + ((screen.availWidth - 380) / 2 - 64)
+                              + ",top="
+                              + ((screen.availHeight - 200) / 2 - 48)
+                          );
+                          return false;
+                        </ao:onclick>
+                        --%>
+                      </ao:a>
+                    </td>
+                  </skin:lightDarkTableRow>
+                </logic:iterate>
+              </table>
+            </logic:notEmpty>
+          </skin:lightArea>
+        </logic:notPresent>
+      </skin:contentLine>
+    </ao:bundle>
+  </skin:content>
 </skin:skin>

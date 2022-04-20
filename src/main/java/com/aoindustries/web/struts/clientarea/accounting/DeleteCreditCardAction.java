@@ -43,42 +43,44 @@ import org.apache.struts.action.ActionMapping;
  */
 public class DeleteCreditCardAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		// Make sure the credit card still exists, redirect to credit-card-manager if doesn't
-		CreditCard creditCard = null;
-		String id = request.getParameter("id");
-		if(id != null && !id.isEmpty()) {
-			try {
-				creditCard = aoConn.getPayment().getCreditCard().get(Integer.parseInt(id));
-			} catch(NumberFormatException err) {
-				getServlet().log(null, err);
-			}
-		}
-		if(creditCard == null) return mapping.findForward("credit-card-manager");
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    // Make sure the credit card still exists, redirect to credit-card-manager if doesn't
+    CreditCard creditCard = null;
+    String id = request.getParameter("id");
+    if (id != null && !id.isEmpty()) {
+      try {
+        creditCard = aoConn.getPayment().getCreditCard().get(Integer.parseInt(id));
+      } catch (NumberFormatException err) {
+        getServlet().log(null, err);
+      }
+    }
+    if (creditCard == null) {
+      return mapping.findForward("credit-card-manager");
+    }
 
-		// Set request attributes
-		request.setAttribute("creditCard", creditCard);
+    // Set request attributes
+    request.setAttribute("creditCard", creditCard);
 
-		// Return status success
-		return mapping.findForward("success");
-	}
+    // Return status success
+    return mapping.findForward("success");
+  }
 
-	private static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
-		EnumSet.of(
-			Permission.Name.get_credit_cards,
-			Permission.Name.delete_credit_card
-		)
-	);
+  private static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
+    EnumSet.of(
+      Permission.Name.get_credit_cards,
+      Permission.Name.delete_credit_card
+    )
+  );
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return permissions;
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return permissions;
+  }
 }

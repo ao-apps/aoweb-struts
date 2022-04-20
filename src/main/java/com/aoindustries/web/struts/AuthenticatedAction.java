@@ -52,99 +52,105 @@ import org.apache.struts.action.ActionMapping;
  */
 public abstract class AuthenticatedAction extends PageAction {
 
-	private static final Logger logger = Logger.getLogger(AuthenticatedAction.class.getName());
+  private static final Logger logger = Logger.getLogger(AuthenticatedAction.class.getName());
 
-	@Override
-	public final ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		Registry pageRegistry
-	) throws Exception {
-		// Handle login
-		AOServConnector aoConn = getAoConn(request, response);
-		if(aoConn==null) {
-			String target = request.getRequestURL().toString();
-			if(!target.endsWith("/login.do")) {
-				String queryString = request.getQueryString();
-				if(queryString!=null) target = target+'?'+queryString;
-				Constants.AUTHENTICATION_TARGET.context(request.getSession()).set(target);
-			} else {
-				Constants.AUTHENTICATION_TARGET.context(request.getSession(false)).remove();
-			}
-			return mapping.findForward("login");
-		}
+  @Override
+  public final ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    Registry pageRegistry
+  ) throws Exception {
+    // Handle login
+    AOServConnector aoConn = getAoConn(request, response);
+    if (aoConn == null) {
+      String target = request.getRequestURL().toString();
+      if (!target.endsWith("/login.do")) {
+        String queryString = request.getQueryString();
+        if (queryString != null) {
+          target = target+'?'+queryString;
+        }
+        Constants.AUTHENTICATION_TARGET.context(request.getSession()).set(target);
+      } else {
+        Constants.AUTHENTICATION_TARGET.context(request.getSession(false)).remove();
+      }
+      return mapping.findForward("login");
+    }
 
-		// Set request values
-		Constants.AO_CONN.context(request).set(aoConn);
+    // Set request values
+    Constants.AO_CONN.context(request).set(aoConn);
 
-		return execute(mapping, form, request, response, aoConn);
-	}
+    return execute(mapping, form, request, response, aoConn);
+  }
 
-	/**
-	 * Gets the AOServConnector that represents the actual login id.  This will not change when
-	 * the user performs a switch user ({@link Constants#SU})..
-	 */
-	public static AOServConnector getAuthenticatedAoConn(HttpServletRequest request, HttpServletResponse response) {
-		return Constants.AUTHENTICATED_AO_CONN.context(request.getSession(false)).get();
-	}
+  /**
+   * Gets the AOServConnector that represents the actual login id.  This will not change when
+   * the user performs a switch user ({@link Constants#SU})..
+   */
+  public static AOServConnector getAuthenticatedAoConn(HttpServletRequest request, HttpServletResponse response) {
+    return Constants.AUTHENTICATED_AO_CONN.context(request.getSession(false)).get();
+  }
 
-	/**
-	 * Gets the AOServConnector for the user or <code>null</code> if not logged in.
-	 * This also handles the {@link Constants#SU} behavior that was stored in the session by {@link SwitchUserRequestListener}.
-	 */
-	public static AOServConnector getAoConn(HttpServletRequest request, HttpServletResponse response) {
-		AOServConnector authenticatedAoConn = getAuthenticatedAoConn(request, response);
-		// Not logged in
-		if(authenticatedAoConn==null) return null;
+  /**
+   * Gets the AOServConnector for the user or <code>null</code> if not logged in.
+   * This also handles the {@link Constants#SU} behavior that was stored in the session by {@link SwitchUserRequestListener}.
+   */
+  public static AOServConnector getAoConn(HttpServletRequest request, HttpServletResponse response) {
+    AOServConnector authenticatedAoConn = getAuthenticatedAoConn(request, response);
+    // Not logged in
+    if (authenticatedAoConn == null) {
+      return null;
+    }
 
-		HttpSession session = request.getSession();
-		// Is a switch-user requested?
-		AttributeEE.Session<String> suRequestedAttribute = Constants.SU_REQUESTED.context(session);
-		String su = suRequestedAttribute.get();
-		if(su != null) {
-			suRequestedAttribute.remove();
-			try {
-				AOServConnector aoConn;
-				if(su.isEmpty()) {
-					aoConn = authenticatedAoConn;
-				} else {
-					try {
-						User.Name suId = User.Name.valueOf(su);
-						aoConn = authenticatedAoConn.switchUsers(suId);
-					} catch(ValidationException e) {
-						// Ignore requests for invalid su
-						aoConn = authenticatedAoConn;
-					}
-				}
-				Constants.AO_CONN.context(session).set(aoConn);
-				return aoConn;
-			} catch(IOException err) {
-				logger.log(Level.SEVERE, null, err);
-			}
-		}
+    HttpSession session = request.getSession();
+    // Is a switch-user requested?
+    AttributeEE.Session<String> suRequestedAttribute = Constants.SU_REQUESTED.context(session);
+    String su = suRequestedAttribute.get();
+    if (su != null) {
+      suRequestedAttribute.remove();
+      try {
+        AOServConnector aoConn;
+        if (su.isEmpty()) {
+          aoConn = authenticatedAoConn;
+        } else {
+          try {
+            User.Name suId = User.Name.valueOf(su);
+            aoConn = authenticatedAoConn.switchUsers(suId);
+          } catch (ValidationException e) {
+            // Ignore requests for invalid su
+            aoConn = authenticatedAoConn;
+          }
+        }
+        Constants.AO_CONN.context(session).set(aoConn);
+        return aoConn;
+      } catch (IOException err) {
+        logger.log(Level.SEVERE, null, err);
+      }
+    }
 
-		// Look for previous effective user
-		AOServConnector aoConn = Constants.AO_CONN.context(session).get();
-		if(aoConn!=null) return aoConn;
+    // Look for previous effective user
+    AOServConnector aoConn = Constants.AO_CONN.context(session).get();
+    if (aoConn != null) {
+      return aoConn;
+    }
 
-		// Default effective user to authenticated user
-		Constants.AO_CONN.context(session).set(authenticatedAoConn);
-		return authenticatedAoConn;
-	}
+    // Default effective user to authenticated user
+    Constants.AO_CONN.context(session).set(authenticatedAoConn);
+    return authenticatedAoConn;
+  }
 
-	/**
-	 * Once authentication has been handled, this version of the execute method is invoked.
-	 * The default implementation of this method simply returns the mapping of "success".
-	 */
-	public ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		return mapping.findForward("success");
-	}
+  /**
+   * Once authentication has been handled, this version of the execute method is invoked.
+   * The default implementation of this method simply returns the mapping of "success".
+   */
+  public ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    return mapping.findForward("success");
+  }
 }

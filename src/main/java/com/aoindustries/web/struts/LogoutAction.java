@@ -35,44 +35,44 @@ import org.apache.struts2.ServletActionContext;
  */
 public class LogoutAction extends ActionSupport {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String target;
-	public void setTarget(String target) {
-		this.target = target;
-	}
+  private String target;
+  public void setTarget(String target) {
+    this.target = target;
+  }
 
-	public static void logout(HttpSession session) {
-		if(session != null) {
-			Constants.AO_CONN.context(session).remove();
-			Constants.AUTHENTICATED_AO_CONN.context(session).remove();
-			Constants.AUTHENTICATION_TARGET.context(session).remove();
-			Constants.SU_REQUESTED.context(session).remove();
-		}
-	}
+  public static void logout(HttpSession session) {
+    if (session != null) {
+      Constants.AO_CONN.context(session).remove();
+      Constants.AUTHENTICATED_AO_CONN.context(session).remove();
+      Constants.AUTHENTICATION_TARGET.context(session).remove();
+      Constants.SU_REQUESTED.context(session).remove();
+    }
+  }
 
-	@Override
-	public String execute() throws Exception {
-		HttpServletRequest request = ServletActionContext.getRequest();
-		HttpServletResponse response = ServletActionContext.getResponse();
-		// Handle logout
-		HttpSession session = request.getSession(false);
-		if(session != null) {
-			logout(session);
-			// Try redirect
-			String targetUrl = LoginAction.getTargetUrl(session, target);
-			if(targetUrl != null) {
-				response.sendRedirect(
-					response.encodeRedirectURL(
-						URIEncoder.encodeURI(
-							targetUrl
-						)
-					)
-				);
-				return null;
-			}
-		}
+  @Override
+  public String execute() throws Exception {
+    HttpServletRequest request = ServletActionContext.getRequest();
+    HttpServletResponse response = ServletActionContext.getResponse();
+    // Handle logout
+    HttpSession session = request.getSession(false);
+    if (session != null) {
+      logout(session);
+      // Try redirect
+      String targetUrl = LoginAction.getTargetUrl(session, target);
+      if (targetUrl != null) {
+        response.sendRedirect(
+          response.encodeRedirectURL(
+            URIEncoder.encodeURI(
+              targetUrl
+            )
+          )
+        );
+        return null;
+      }
+    }
 
-		return SUCCESS;
-	}
+    return SUCCESS;
+  }
 }

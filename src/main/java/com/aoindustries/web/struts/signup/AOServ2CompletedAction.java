@@ -33,47 +33,53 @@ import org.apache.struts.action.ActionMapping;
  */
 public class AOServ2CompletedAction extends AOServ2Action {
 
-	@Override
-	public ActionForward executeAOServStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		if(!signupSelectPackageFormComplete) return mapping.findForward("aoserv-completed");
-		if(!signupOrganizationFormComplete) {
-			// Init values for the form
-			return super.executeAOServStep(
-				mapping,
-				request,
-				response,
-				signupSelectPackageForm,
-				signupSelectPackageFormComplete,
-				signupOrganizationForm,
-				signupOrganizationFormComplete,
-				signupTechnicalForm,
-				signupTechnicalFormComplete,
-				signupBillingInformationForm,
-				signupBillingInformationFormComplete
-			);
-		}
-		if(!signupTechnicalFormComplete) return mapping.findForward("aoserv-3");
-		if(!signupBillingInformationFormComplete) return mapping.findForward("aoserv-4");
-		return mapping.findForward("aoserv-5");
-	}
+  @Override
+  public ActionForward executeAOServStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    if (!signupSelectPackageFormComplete) {
+      return mapping.findForward("aoserv-completed");
+    }
+    if (!signupOrganizationFormComplete) {
+      // Init values for the form
+      return super.executeAOServStep(
+        mapping,
+        request,
+        response,
+        signupSelectPackageForm,
+        signupSelectPackageFormComplete,
+        signupOrganizationForm,
+        signupOrganizationFormComplete,
+        signupTechnicalForm,
+        signupTechnicalFormComplete,
+        signupBillingInformationForm,
+        signupBillingInformationFormComplete
+      );
+    }
+    if (!signupTechnicalFormComplete) {
+      return mapping.findForward("aoserv-3");
+    }
+    if (!signupBillingInformationFormComplete) {
+      return mapping.findForward("aoserv-4");
+    }
+    return mapping.findForward("aoserv-5");
+  }
 
-	/**
-	 * Errors are not cleared for the complete step.
-	 */
-	@Override
-	protected void clearErrors(HttpServletRequest req) {
-		// Do nothing
-	}
+  /**
+   * Errors are not cleared for the complete step.
+   */
+  @Override
+  protected void clearErrors(HttpServletRequest req) {
+    // Do nothing
+  }
 }

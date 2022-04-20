@@ -25,19 +25,19 @@ package com.aoindustries.web.struts.skintags;
 
 public class Meta {
 
-	private final String name;
-	private final String content;
+  private final String name;
+  private final String content;
 
-	public Meta(String name, String content) {
-		this.name = name;
-		this.content = content;
-	}
+  public Meta(String name, String content) {
+    this.name = name;
+    this.content = content;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public String getContent() {
-		return content;
-	}
+  public String getContent() {
+    return content;
+  }
 }

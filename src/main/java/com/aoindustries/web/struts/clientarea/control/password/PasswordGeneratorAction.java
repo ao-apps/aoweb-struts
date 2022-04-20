@@ -41,25 +41,25 @@ import org.apache.struts.action.ActionMapping;
  */
 public class PasswordGeneratorAction extends PageAction {
 
-	private static final int NUM_PASSWORDS = 10;
+  private static final int NUM_PASSWORDS = 10;
 
-	@Override
-	public ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		Registry pageRegistry
-	) throws Exception {
-		// Generate the passwords
-		List<String> generatedPasswords = new ArrayList<>(NUM_PASSWORDS);
-		for(int c = 0; c < 10; c++) {
-			generatedPasswords.add(PasswordGenerator.generatePassword());
-		}
+  @Override
+  public ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    Registry pageRegistry
+  ) throws Exception {
+    // Generate the passwords
+    List<String> generatedPasswords = new ArrayList<>(NUM_PASSWORDS);
+    for (int c = 0; c < 10; c++) {
+      generatedPasswords.add(PasswordGenerator.generatePassword());
+    }
 
-		// Set request values
-		request.setAttribute("generatedPasswords", generatedPasswords);
+    // Set request values
+    request.setAttribute("generatedPasswords", generatedPasswords);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 }

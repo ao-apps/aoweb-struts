@@ -34,10 +34,10 @@ import org.apache.struts.util.MessageResourcesFactory;
  */
 public class ResourceBundleMessageResourcesFactory extends MessageResourcesFactory implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Override
-	public MessageResources createResources(String config) {
-		return new ResourceBundleMessageResources(this, config, this.returnNull);
-	}
+  @Override
+  public MessageResources createResources(String config) {
+    return new ResourceBundleMessageResources(this, config, this.returnNull);
+  }
 }

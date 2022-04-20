@@ -51,100 +51,102 @@ import org.apache.struts.action.ActionMapping;
  */
 public class MakePaymentSelectCardAction extends PermissionAction {
 
-	/**
-	 * When permission denied, redirect straight to the new card step.
-	 */
-	@Override
-	public final ActionForward executePermissionDenied(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn,
-		List<Permission> permissions
-	) throws Exception {
-		// Redirect when they don't have permissions to retrieve stored cards
-		StringBuilder href = new StringBuilder();
-		href
-			.append(Skin.getSkin(request).getUrlBase(request))
-			.append("clientarea/accounting/make-payment-new-card.do?account=")
-			.append(URIEncoder.encodeURIComponent(request.getParameter("account")));
-		String currency = request.getParameter("currency");
-		if(!GenericValidator.isBlankOrNull(currency)) {
-			href
-				.append("&currency=")
-				.append(URIEncoder.encodeURIComponent(currency));
-		}
-		response.sendRedirect(
-			response.encodeRedirectURL(
-				URIEncoder.encodeURI(
-					href.toString()
-				)
-			)
-		);
-		return null;
-	}
+  /**
+   * When permission denied, redirect straight to the new card step.
+   */
+  @Override
+  public final ActionForward executePermissionDenied(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn,
+    List<Permission> permissions
+  ) throws Exception {
+    // Redirect when they don't have permissions to retrieve stored cards
+    StringBuilder href = new StringBuilder();
+    href
+      .append(Skin.getSkin(request).getUrlBase(request))
+      .append("clientarea/accounting/make-payment-new-card.do?account=")
+      .append(URIEncoder.encodeURIComponent(request.getParameter("account")));
+    String currency = request.getParameter("currency");
+    if (!GenericValidator.isBlankOrNull(currency)) {
+      href
+        .append("&currency=")
+        .append(URIEncoder.encodeURIComponent(currency));
+    }
+    response.sendRedirect(
+      response.encodeRedirectURL(
+        URIEncoder.encodeURI(
+          href.toString()
+        )
+      )
+    );
+    return null;
+  }
 
-	@Override
-	public final ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		Account account;
-		try {
-			account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(request.getParameter("account")));
-		} catch(ValidationException e) {
-			return mapping.findForward("make-payment");
-		}
-		if(account == null) {
-			// Redirect back to make-payment if account not found
-			return mapping.findForward("make-payment");
-		}
+  @Override
+  public final ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    Account account;
+    try {
+      account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(request.getParameter("account")));
+    } catch (ValidationException e) {
+      return mapping.findForward("make-payment");
+    }
+    if (account == null) {
+      // Redirect back to make-payment if account not found
+      return mapping.findForward("make-payment");
+    }
 
-		Currency currency = aoConn.getBilling().getCurrency().get(request.getParameter("currency"));
+    Currency currency = aoConn.getBilling().getCurrency().get(request.getParameter("currency"));
 
-		// Get the list of active credit cards stored for this account
-		List<CreditCard> allCreditCards = account.getCreditCards();
-		List<CreditCard> creditCards = new ArrayList<>(allCreditCards.size());
-		for(CreditCard creditCard : allCreditCards) {
-			if(creditCard.getDeactivatedOn()==null) creditCards.add(creditCard);
-		}
+    // Get the list of active credit cards stored for this account
+    List<CreditCard> allCreditCards = account.getCreditCards();
+    List<CreditCard> creditCards = new ArrayList<>(allCreditCards.size());
+    for (CreditCard creditCard : allCreditCards) {
+      if (creditCard.getDeactivatedOn() == null) {
+        creditCards.add(creditCard);
+      }
+    }
 
-		if(creditCards.isEmpty()) {
-			// Redirect to new card if none stored
-			StringBuilder href = new StringBuilder();
-			href
-				.append(Skin.getSkin(request).getUrlBase(request))
-				.append("clientarea/accounting/make-payment-new-card.do?account=")
-				.append(URIEncoder.encodeURIComponent(request.getParameter("account")));
-			if(currency != null) {
-				href
-					.append("&currency=")
-					.append(URIEncoder.encodeURIComponent(currency.getCurrencyCode()));
-			}
-			response.sendRedirect(
-				response.encodeRedirectURL(
-					URIEncoder.encodeURI(
-						href.toString()
-					)
-				)
-			);
-			return null;
-		} else {
-			// Store to request attributes, return success
-			request.setAttribute("account", account);
-			request.setAttribute("creditCards", creditCards);
-			Payment lastCCT = account.getLastCreditCardTransaction();
-			request.setAttribute("lastPaymentCreditCard", lastCCT==null ? null : lastCCT.getCreditCardProviderUniqueId());
-			return mapping.findForward("success");
-		}
-	}
+    if (creditCards.isEmpty()) {
+      // Redirect to new card if none stored
+      StringBuilder href = new StringBuilder();
+      href
+        .append(Skin.getSkin(request).getUrlBase(request))
+        .append("clientarea/accounting/make-payment-new-card.do?account=")
+        .append(URIEncoder.encodeURIComponent(request.getParameter("account")));
+      if (currency != null) {
+        href
+          .append("&currency=")
+          .append(URIEncoder.encodeURIComponent(currency.getCurrencyCode()));
+      }
+      response.sendRedirect(
+        response.encodeRedirectURL(
+          URIEncoder.encodeURI(
+            href.toString()
+          )
+        )
+      );
+      return null;
+    } else {
+      // Store to request attributes, return success
+      request.setAttribute("account", account);
+      request.setAttribute("creditCards", creditCards);
+      Payment lastCCT = account.getLastCreditCardTransaction();
+      request.setAttribute("lastPaymentCreditCard", lastCCT == null ? null : lastCCT.getCreditCardProviderUniqueId());
+      return mapping.findForward("success");
+    }
+  }
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return Collections.singleton(Permission.Name.get_credit_cards);
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return Collections.singleton(Permission.Name.get_credit_cards);
+  }
 }

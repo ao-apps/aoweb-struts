@@ -42,34 +42,34 @@ import javax.servlet.http.HttpServletRequest;
 @WebListener
 public class SiteSettingsRequestListener implements ServletRequestListener {
 
-	@Override
-	public void requestInitialized(ServletRequestEvent sre) {
-		// Resolve the settings
-		SiteSettings siteSettings = SiteSettings.getInstance(sre.getServletContext());
-		ServletRequest request = sre.getServletRequest();
-		Constants.SITE_SETTINGS.context(request).set(siteSettings);
+  @Override
+  public void requestInitialized(ServletRequestEvent sre) {
+    // Resolve the settings
+    SiteSettings siteSettings = SiteSettings.getInstance(sre.getServletContext());
+    ServletRequest request = sre.getServletRequest();
+    Constants.SITE_SETTINGS.context(request).set(siteSettings);
 
-		// Start the request tracking
-		boolean canEditResources = (request instanceof HttpServletRequest) && siteSettings.getCanEditResources();
-		EditableResourceBundle.ThreadSettings threadSettings;
-		if(canEditResources) {
-			HttpServletRequest httpRequest = (HttpServletRequest)request;
-			// Check for cookie
-			boolean modifyAllText = "visible".equals(Cookies.getCookie(httpRequest, "EditableResourceBundleEditorVisibility")); // TODO: "EditableResourceBundleEditorVisibility" should be a constant?
-			threadSettings = new EditableResourceBundle.ThreadSettings(
-				HttpServletUtil.getAbsoluteURL(httpRequest, "/set-resource-bundle-value.do"),
-				EditableResourceBundle.ThreadSettings.Mode.MARKUP,
-				modifyAllText
-			);
-		} else {
-			threadSettings = new EditableResourceBundle.ThreadSettings();
-		}
-		ResourceBundleMessageResources.setCachedEnabled(!canEditResources);
-		EditableResourceBundle.setThreadSettings(threadSettings);
-	}
+    // Start the request tracking
+    boolean canEditResources = (request instanceof HttpServletRequest) && siteSettings.getCanEditResources();
+    EditableResourceBundle.ThreadSettings threadSettings;
+    if (canEditResources) {
+      HttpServletRequest httpRequest = (HttpServletRequest)request;
+      // Check for cookie
+      boolean modifyAllText = "visible".equals(Cookies.getCookie(httpRequest, "EditableResourceBundleEditorVisibility")); // TODO: "EditableResourceBundleEditorVisibility" should be a constant?
+      threadSettings = new EditableResourceBundle.ThreadSettings(
+        HttpServletUtil.getAbsoluteURL(httpRequest, "/set-resource-bundle-value.do"),
+        EditableResourceBundle.ThreadSettings.Mode.MARKUP,
+        modifyAllText
+      );
+    } else {
+      threadSettings = new EditableResourceBundle.ThreadSettings();
+    }
+    ResourceBundleMessageResources.setCachedEnabled(!canEditResources);
+    EditableResourceBundle.setThreadSettings(threadSettings);
+  }
 
-	@Override
-	public void requestDestroyed(ServletRequestEvent sre) {
-		// Nothing to do
-	}
+  @Override
+  public void requestDestroyed(ServletRequestEvent sre) {
+    // Nothing to do
+  }
 }

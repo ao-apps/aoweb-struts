@@ -44,50 +44,56 @@ import org.apache.struts.action.ActionMessages;
  */
 public class ContactCompletedAction extends PageAction {
 
-	@Override
-	public ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		Registry pageRegistry
-	) throws Exception {
-		ContactForm contactForm = (ContactForm)form;
+  @Override
+  public ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    Registry pageRegistry
+  ) throws Exception {
+    ContactForm contactForm = (ContactForm)form;
 
-		// Validation
-		ActionMessages errors = contactForm.validate(mapping, request);
-		if(errors!=null && !errors.isEmpty()) {
-			saveErrors(request, errors);
-			return mapping.findForward("input");
-		}
+    // Validation
+    ActionMessages errors = contactForm.validate(mapping, request);
+    if (errors != null && !errors.isEmpty()) {
+      saveErrors(request, errors);
+      return mapping.findForward("input");
+    }
 
-		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
-		AOServConnector rootConn = siteSettings.getRootAOServConnector();
-		Locale locale = response.getLocale();
-		Language language = rootConn.getTicket().getLanguage().get(locale.getLanguage());
-		if(language==null) {
-			language = rootConn.getTicket().getLanguage().get(Language.EN);
-			if(language == null) throw new SQLException("Unable to find Language: " + Language.EN);
-		}
-		TicketType ticketType = rootConn.getTicket().getTicketType().get(TicketType.CONTACT);
-		if(ticketType == null) throw new SQLException("Unable to find TicketType: " + TicketType.CONTACT);
-		Priority clientPriority = rootConn.getTicket().getPriority().get(Priority.NORMAL);
-		if(clientPriority == null) throw new SQLException("Unable to find Priority: " + Priority.NORMAL);
-		Email from = Email.valueOf(contactForm.getFrom());
-		rootConn.getTicket().getTicket().addTicket(
-			siteSettings.getBrand(),
-			null,
-			language,
-			null,
-			ticketType,
-			from,
-			contactForm.getSubject(),
-			contactForm.getMessage(),
-			clientPriority,
-			Collections.singleton(from),
-			""
-		);
+    SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
+    AOServConnector rootConn = siteSettings.getRootAOServConnector();
+    Locale locale = response.getLocale();
+    Language language = rootConn.getTicket().getLanguage().get(locale.getLanguage());
+    if (language == null) {
+      language = rootConn.getTicket().getLanguage().get(Language.EN);
+      if (language == null) {
+        throw new SQLException("Unable to find Language: " + Language.EN);
+      }
+    }
+    TicketType ticketType = rootConn.getTicket().getTicketType().get(TicketType.CONTACT);
+    if (ticketType == null) {
+      throw new SQLException("Unable to find TicketType: " + TicketType.CONTACT);
+    }
+    Priority clientPriority = rootConn.getTicket().getPriority().get(Priority.NORMAL);
+    if (clientPriority == null) {
+      throw new SQLException("Unable to find Priority: " + Priority.NORMAL);
+    }
+    Email from = Email.valueOf(contactForm.getFrom());
+    rootConn.getTicket().getTicket().addTicket(
+      siteSettings.getBrand(),
+      null,
+      language,
+      null,
+      ticketType,
+      from,
+      contactForm.getSubject(),
+      contactForm.getMessage(),
+      clientPriority,
+      Collections.singleton(from),
+      ""
+    );
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 }

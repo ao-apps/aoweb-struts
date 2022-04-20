@@ -1,9 +1,9 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021  AO Industries, Inc.
-	support@aoindustries.com
-	7262 Bull Pen Cir
-	Mobile, AL 36695
+Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
 
 This file is part of aoweb-struts.
 
@@ -24,48 +24,48 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
 <ao:bundle basename="com.aoindustries.web.struts.i18n.ApplicationResources">
-	<skin:path>/login.do</skin:path>
-	<skin:meta name="robots">noindex</skin:meta>
-	<skin:title><ao:message key="login.title" /></skin:title>
-	<skin:navImageAlt><ao:message key="login.navImageAlt" /></skin:navImageAlt>
-	<skin:keywords><ao:message key="login.keywords" /></skin:keywords>
-	<skin:description><ao:message key="login.description" /></skin:description>
-	<%@include file="add-parents.jspf" %>
-	<skin:skin formtype="struts1" onload="document.forms['loginForm'].username.focus(); document.forms['loginForm'].username.select();">
-		<skin:content width="600">
-			<skin:contentTitle><ao:message key="login.title" /></skin:contentTitle>
-			<skin:contentHorizontalDivider />
-			<skin:contentLine>
-				<html:javascript staticJavascript='false' bundle="/ApplicationResources" formName="loginForm" />
-				<skin:lightArea>
-					<b>
-						<logic:present scope="request" name="authenticationMessage"><ao:write scope="request" name="authenticationMessage" type="application/xhtml+xml" /></logic:present>
-						<logic:notPresent scope="request" name="authenticationMessage"><ao:message key="login.pleaseLogin" /></logic:notPresent>
-					</b>
-					<ao:hr />
-					<html:form action="/login-completed" onsubmit="return validateLoginForm(this);" style="display:inline;"><div><%-- display:inline for IE6 only --%>
-						<table class="ao-no-border">
-							<tbody>
-								<tr>
-									<td><ao:message key="login.field.username.prompt" /></td>
-									<td><html:text size="16" property="username" /></td>
-									<td><html:errors bundle="/ApplicationResources" property="username" /></td>
-								</tr>
-								<tr>
-									<td><ao:message key="login.field.password.prompt" /></td>
-									<td><html:password size="16" property="password" /></td>
-									<td><html:errors bundle="/ApplicationResources" property="password" /></td>
-								</tr>
-							</tbody>
-							<tfoot>
-								<tr>
-									<td colspan="3" style="text-align:center"><ao:input type="submit" value="${ao:message('login.field.submit.label')}" /></td>
-								</tr>
-							</tfoot>
-						</table>
-					</div></html:form>
-				</skin:lightArea>
-			</skin:contentLine>
-		</skin:content>
-	</skin:skin>
+  <skin:path>/login.do</skin:path>
+  <skin:meta name="robots">noindex</skin:meta>
+  <skin:title><ao:message key="login.title" /></skin:title>
+  <skin:navImageAlt><ao:message key="login.navImageAlt" /></skin:navImageAlt>
+  <skin:keywords><ao:message key="login.keywords" /></skin:keywords>
+  <skin:description><ao:message key="login.description" /></skin:description>
+  <%@include file="add-parents.jspf" %>
+  <skin:skin formtype="struts1" onload="document.forms['loginForm'].username.focus(); document.forms['loginForm'].username.select();">
+    <skin:content width="600">
+      <skin:contentTitle><ao:message key="login.title" /></skin:contentTitle>
+      <skin:contentHorizontalDivider />
+      <skin:contentLine>
+        <html:javascript staticJavascript='false' bundle="/ApplicationResources" formName="loginForm" />
+        <skin:lightArea>
+          <b>
+            <logic:present scope="request" name="authenticationMessage"><ao:write scope="request" name="authenticationMessage" type="application/xhtml+xml" /></logic:present>
+            <logic:notPresent scope="request" name="authenticationMessage"><ao:message key="login.pleaseLogin" /></logic:notPresent>
+          </b>
+          <ao:hr />
+          <html:form action="/login-completed" onsubmit="return validateLoginForm(this);" style="display:inline;"><div><%-- display:inline for IE6 only --%>
+            <table class="ao-no-border">
+              <tbody>
+                <tr>
+                  <td><ao:message key="login.field.username.prompt" /></td>
+                  <td><html:text size="16" property="username" /></td>
+                  <td><html:errors bundle="/ApplicationResources" property="username" /></td>
+                </tr>
+                <tr>
+                  <td><ao:message key="login.field.password.prompt" /></td>
+                  <td><html:password size="16" property="password" /></td>
+                  <td><html:errors bundle="/ApplicationResources" property="password" /></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3" style="text-align:center"><ao:input type="submit" value="${ao:message('login.field.submit.label')}" /></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></html:form>
+        </skin:lightArea>
+      </skin:contentLine>
+    </skin:content>
+  </skin:skin>
 </ao:bundle>

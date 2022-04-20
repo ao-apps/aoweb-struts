@@ -38,25 +38,25 @@ import javax.servlet.jsp.PageContext;
  */
 public class CopyrightTag extends EncodingBufferedTag {
 
-	@Override
-	public MediaType getContentType() {
-		return MediaType.TEXT;
-	}
+  @Override
+  public MediaType getContentType() {
+    return MediaType.TEXT;
+  }
 
-	@Override
-	public MediaType getOutputType() {
-		return null;
-	}
+  @Override
+  public MediaType getOutputType() {
+    return null;
+  }
 
-	@Override
-	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-		PageContext pageContext = (PageContext)getJspContext();
-		String copyright = capturedBody.trim().toString();
-		PageTag pageTag = PageTag.getPageTag(pageContext.getRequest());
-		if(pageTag==null) {
-			PageAttributesBodyTag.getPageAttributes(pageContext).setCopyright(copyright);
-		} else {
-			pageTag.setCopyright(copyright);
-		}
-	}
+  @Override
+  protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+    PageContext pageContext = (PageContext)getJspContext();
+    String copyright = capturedBody.trim().toString();
+    PageTag pageTag = PageTag.getPageTag(pageContext.getRequest());
+    if (pageTag == null) {
+      PageAttributesBodyTag.getPageAttributes(pageContext).setCopyright(copyright);
+    } else {
+      pageTag.setCopyright(copyright);
+    }
+  }
 }

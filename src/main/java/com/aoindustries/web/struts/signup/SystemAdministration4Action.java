@@ -34,36 +34,42 @@ import org.apache.struts.action.ActionMessages;
  */
 public class SystemAdministration4Action extends SystemAdministrationStepAction {
 
-	@Override
-	public ActionForward executeSystemAdministrationStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		SystemAdministrationSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		if(!signupSelectPackageFormComplete) return mapping.findForward("system-administration-completed");
-		if(!signupOrganizationFormComplete) return mapping.findForward("system-administration-2-completed");
-		if(!signupTechnicalFormComplete) return mapping.findForward("system-administration-3-completed");
+  @Override
+  public ActionForward executeSystemAdministrationStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    SystemAdministrationSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    if (!signupSelectPackageFormComplete) {
+      return mapping.findForward("system-administration-completed");
+    }
+    if (!signupOrganizationFormComplete) {
+      return mapping.findForward("system-administration-2-completed");
+    }
+    if (!signupTechnicalFormComplete) {
+      return mapping.findForward("system-administration-3-completed");
+    }
 
-		SignupBillingInformationActionHelper.setRequestAttributes(request);
+    SignupBillingInformationActionHelper.setRequestAttributes(request);
 
-		// Clear errors if they should not be displayed
-		clearErrors(request);
+    // Clear errors if they should not be displayed
+    clearErrors(request);
 
-		return mapping.findForward("input");
-	}
+    return mapping.findForward("input");
+  }
 
-	/**
-	 * May clear specific errors here.
-	 */
-	protected void clearErrors(HttpServletRequest request) {
-		saveErrors(request, new ActionMessages());
-	}
+  /**
+   * May clear specific errors here.
+   */
+  protected void clearErrors(HttpServletRequest request) {
+    saveErrors(request, new ActionMessages());
+  }
 }

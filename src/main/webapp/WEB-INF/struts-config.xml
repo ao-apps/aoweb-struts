@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2009, 2016, 2021  AO Industries, Inc.
+Copyright (C) 2009, 2016, 2021, 2022  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -35,118 +35,118 @@ struts-config.xml.messageResources    Additional message resources
 "http://struts.apache.org/dtds/struts-config_1_3.dtd">
 
 <struts-config>
-	<!-- ========== Form Bean Definitions =================================== -->
-	<form-beans>
-		<!-- / -->
-		<form-bean name="contactForm" type="com.aoindustries.web.struts.ContactForm" />
-		<form-bean name="loginForm" type="com.aoindustries.web.struts.LoginForm" />
-	</form-beans>
+  <!-- ========== Form Bean Definitions =================================== -->
+  <form-beans>
+    <!-- / -->
+    <form-bean name="contactForm" type="com.aoindustries.web.struts.ContactForm" />
+    <form-bean name="loginForm" type="com.aoindustries.web.struts.LoginForm" />
+  </form-beans>
 
-	<!-- ========== Global Error Handlers =================================== -->
-	<global-exceptions>
-		<exception key="Exception.message" type="java.lang.Exception" handler="com.aoindustries.web.struts.ExceptionHandler" />
-	</global-exceptions>
+  <!-- ========== Global Error Handlers =================================== -->
+  <global-exceptions>
+    <exception key="Exception.message" type="java.lang.Exception" handler="com.aoindustries.web.struts.ExceptionHandler" />
+  </global-exceptions>
 
-	<!-- ========== Global Forward Definitions ============================== -->
-	<global-forwards>
-		<!-- / -->
-		<forward name="exception" path="/WEB-INF/content/exception.jspf" redirect="false" />
-		<forward name="login" path="/login.do" redirect="false" />
-		<forward name="permission-denied" path="/permission-denied.do" redirect="false" />
-	</global-forwards>
+  <!-- ========== Global Forward Definitions ============================== -->
+  <global-forwards>
+    <!-- / -->
+    <forward name="exception" path="/WEB-INF/content/exception.jspf" redirect="false" />
+    <forward name="login" path="/login.do" redirect="false" />
+    <forward name="permission-denied" path="/permission-denied.do" redirect="false" />
+  </global-forwards>
 
-	<!-- ========== Action Mapping Definitions ============================== -->
-	<action-mappings>
-		<!-- =============== Common =============== -->
-		<action
-			path="/contact"
-			name="contactForm"
-			scope="request"
-			validate="false"
-			type="com.aoindustries.web.struts.PageAction"
-		>
-			<forward name="success" path="/WEB-INF/content/contact.jsp" redirect="false" />
-		</action>
-		<action
-			path="/contact-completed"
-			name="contactForm"
-			scope="request"
-			validate="false"
-			type="com.aoindustries.web.struts.ContactCompletedAction"
-		>
-			<forward name="input" path="/WEB-INF/content/contact.jsp" redirect="false" />
-			<forward name="success" path="/WEB-INF/content/contact-completed.jsp" redirect="false" />
-		</action>
-		<action
-			path="/login"
-			name="loginForm"
-			scope="request"
-			validate="false"
-			type="com.aoindustries.web.struts.LoginAction"
-		>
-			<forward name="success" path="/WEB-INF/content/login.jsp" redirect="false" />
-		</action>
-		<action
-			path="/login-completed"
-			name="loginForm"
-			scope="request"
-			validate="false"
-			type="com.aoindustries.web.struts.LoginCompletedAction"
-		>
-			<forward name="input" path="/WEB-INF/content/login.jsp" redirect="false" />
-			<!-- Redirect done directly from Action now: forward name="success" module="/clientarea" path="/index.do" redirect="true" /-->
-			<forward name="failure" path="/WEB-INF/content/login.jsp" redirect="false" />
-		</action>
-		<action
-			path="/permission-denied"
-			type="com.aoindustries.web.struts.PermissionDeniedAction"
-		/>
-		<action
-			path="/session-timeout"
-			name="loginForm"
-			scope="request"
-			validate="false"
-			type="com.aoindustries.web.struts.SessionTimeoutAction"
-		>
-			<forward name="success" path="/WEB-INF/content/login.jsp" redirect="false" />
-		</action>
-		<action
-			path="/set-resource-bundle-value"
-			type="com.aoindustries.web.struts.SetResourceBundleValueAction"
-		>
-			<forward name="success" path="/WEB-INF/content/set-resource-bundle-value.jsp" redirect="false" />
-		</action>
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+    <!-- =============== Common =============== -->
+    <action
+      path="/contact"
+      name="contactForm"
+      scope="request"
+      validate="false"
+      type="com.aoindustries.web.struts.PageAction"
+    >
+      <forward name="success" path="/WEB-INF/content/contact.jsp" redirect="false" />
+    </action>
+    <action
+      path="/contact-completed"
+      name="contactForm"
+      scope="request"
+      validate="false"
+      type="com.aoindustries.web.struts.ContactCompletedAction"
+    >
+      <forward name="input" path="/WEB-INF/content/contact.jsp" redirect="false" />
+      <forward name="success" path="/WEB-INF/content/contact-completed.jsp" redirect="false" />
+    </action>
+    <action
+      path="/login"
+      name="loginForm"
+      scope="request"
+      validate="false"
+      type="com.aoindustries.web.struts.LoginAction"
+    >
+      <forward name="success" path="/WEB-INF/content/login.jsp" redirect="false" />
+    </action>
+    <action
+      path="/login-completed"
+      name="loginForm"
+      scope="request"
+      validate="false"
+      type="com.aoindustries.web.struts.LoginCompletedAction"
+    >
+      <forward name="input" path="/WEB-INF/content/login.jsp" redirect="false" />
+      <!-- Redirect done directly from Action now: forward name="success" module="/clientarea" path="/index.do" redirect="true" /-->
+      <forward name="failure" path="/WEB-INF/content/login.jsp" redirect="false" />
+    </action>
+    <action
+      path="/permission-denied"
+      type="com.aoindustries.web.struts.PermissionDeniedAction"
+    />
+    <action
+      path="/session-timeout"
+      name="loginForm"
+      scope="request"
+      validate="false"
+      type="com.aoindustries.web.struts.SessionTimeoutAction"
+    >
+      <forward name="success" path="/WEB-INF/content/login.jsp" redirect="false" />
+    </action>
+    <action
+      path="/set-resource-bundle-value"
+      type="com.aoindustries.web.struts.SetResourceBundleValueAction"
+    >
+      <forward name="success" path="/WEB-INF/content/set-resource-bundle-value.jsp" redirect="false" />
+    </action>
 <!-- struts-config.xml.actions: no template file -->
-		<action
-			path="/**"
-			type="com.aoindustries.web.struts.PageAction"
-		>
-			<forward name="success" path="/WEB-INF/content/not-found.jsp" redirect="false" />
-		</action>
-	</action-mappings>
+    <action
+      path="/**"
+      type="com.aoindustries.web.struts.PageAction"
+    >
+      <forward name="success" path="/WEB-INF/content/not-found.jsp" redirect="false" />
+    </action>
+  </action-mappings>
 
-	<!-- ========== Controller ============================================== -->
-	<controller
-		nocache="true"
-	/>
+  <!-- ========== Controller ============================================== -->
+  <controller
+    nocache="true"
+  />
 
-	<!-- ========== Message Resources ======================================= -->
-	<message-resources
-		key="/ApplicationResources"
-		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
-		parameter="com.aoindustries.web.struts.i18n.ApplicationResources"
-		null="false"
-	/>
+  <!-- ========== Message Resources ======================================= -->
+  <message-resources
+    key="/ApplicationResources"
+    factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+    parameter="com.aoindustries.web.struts.i18n.ApplicationResources"
+    null="false"
+  />
 <!-- Begin include "struts-config.xml.messageResources" -->
-	<message-resources
-		factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
-		parameter="com.aoindustries.web.struts.webapp.i18n.ApplicationResources"
-		null="false"
-	/>
+  <message-resources
+    factory="com.aoindustries.web.struts.struts.ResourceBundleMessageResourcesFactory"
+    parameter="com.aoindustries.web.struts.webapp.i18n.ApplicationResources"
+    null="false"
+  />
 <!-- End include "struts-config.xml.messageResources" -->
 
-	<!-- ========== Validator Plug-In ======================================= -->
-	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
-		<set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml,/WEB-INF/validator.xml" />
-	</plug-in>
+  <!-- ========== Validator Plug-In ======================================= -->
+  <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+    <set-property property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator-custom-rules.xml,/WEB-INF/validator-constants.xml,/WEB-INF/validator.xml" />
+  </plug-in>
 </struts-config>

@@ -37,69 +37,69 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public abstract class PageAttributesBodyTag extends BodyTagSupport {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	protected PageAttributesBodyTag() {
-		// Do nothing
-	}
+  protected PageAttributesBodyTag() {
+    // Do nothing
+  }
 
-	static PageAttributes getPageAttributes(ServletRequest request) {
-		return PageAttributes.REQUEST_ATTRIBUTE.context(request).computeIfAbsent(__ -> new PageAttributes());
-	}
+  static PageAttributes getPageAttributes(ServletRequest request) {
+    return PageAttributes.REQUEST_ATTRIBUTE.context(request).computeIfAbsent(__ -> new PageAttributes());
+  }
 
-	static PageAttributes getPageAttributes(PageContext pageContext) {
-		return getPageAttributes(pageContext.getRequest());
-	}
+  static PageAttributes getPageAttributes(PageContext pageContext) {
+    return getPageAttributes(pageContext.getRequest());
+  }
 
-	/**
-	 * @deprecated  You should probably be implementing in {@link #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)}
-	 *
-	 * @see  #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)
-	 */
-	@Deprecated(forRemoval = false)
-	@Override
-	public int doStartTag() throws JspException {
-		try {
-			return doStartTag(getPageAttributes(pageContext));
-		} catch(IOException err) {
-			throw new JspTagException(err);
-		}
-	}
+  /**
+   * @deprecated  You should probably be implementing in {@link #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)}
+   *
+   * @see  #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)
+   */
+  @Deprecated(forRemoval = false)
+  @Override
+  public int doStartTag() throws JspException {
+    try {
+      return doStartTag(getPageAttributes(pageContext));
+    } catch (IOException err) {
+      throw new JspTagException(err);
+    }
+  }
 
-	public int doStartTag(PageAttributes pageAttributes) throws JspException, IOException {
-		return EVAL_BODY_BUFFERED;
-	}
+  public int doStartTag(PageAttributes pageAttributes) throws JspException, IOException {
+    return EVAL_BODY_BUFFERED;
+  }
 
-	/* *
-	 * @deprecated  You should probably be implementing in {@link #doAfterBody(com.aoindustries.web.struts.skintags.PageAttributes)}
-	 *
-	 * @see  #doAfterBody(com.aoindustries.web.struts.skintags.PageAttributes)
-	 * /
-	@Deprecated(forRemoval = false)
-	public int doAfterBody() throws JspException {
-		return doAfterBody(getPageAttributes());
-	}
+  /* *
+   * @deprecated  You should probably be implementing in {@link #doAfterBody(com.aoindustries.web.struts.skintags.PageAttributes)}
+   *
+   * @see  #doAfterBody(com.aoindustries.web.struts.skintags.PageAttributes)
+   * /
+  @Deprecated(forRemoval = false)
+  public int doAfterBody() throws JspException {
+    return doAfterBody(getPageAttributes());
+  }
 
-	public int doAfterBody(PageAttributes pageAttributes) throws JspException, IOException {
-		return SKIP_BODY;
-	}*/
+  public int doAfterBody(PageAttributes pageAttributes) throws JspException, IOException {
+    return SKIP_BODY;
+  }*/
 
-	/**
-	 * @deprecated  You should probably be implementing in {@link #doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)}
-	 *
-	 * @see  #doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)
-	 */
-	@Deprecated(forRemoval = false)
-	@Override
-	public int doEndTag() throws JspException {
-		try {
-			return doEndTag(getPageAttributes(pageContext));
-		} catch(IOException err) {
-			throw new JspTagException(err);
-		}
-	}
+  /**
+   * @deprecated  You should probably be implementing in {@link #doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)}
+   *
+   * @see  #doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)
+   */
+  @Deprecated(forRemoval = false)
+  @Override
+  public int doEndTag() throws JspException {
+    try {
+      return doEndTag(getPageAttributes(pageContext));
+    } catch (IOException err) {
+      throw new JspTagException(err);
+    }
+  }
 
-	public int doEndTag(PageAttributes pageAttributes) throws JspException, IOException {
-		return EVAL_PAGE;
-	}
+  public int doEndTag(PageAttributes pageAttributes) throws JspException, IOException {
+    return EVAL_PAGE;
+  }
 }

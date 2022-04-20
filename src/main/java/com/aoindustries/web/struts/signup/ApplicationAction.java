@@ -39,47 +39,47 @@ import org.apache.struts.action.ActionMessages;
  */
 public class ApplicationAction extends ApplicationStepAction {
 
-	@Override
-	public ActionForward executeApplicationStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		ApplicationSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		SignupDomainForm signupDomainForm,
-		boolean signupDomainFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		List<PackageDefinition> packageDefinitions = SignupSelectPackageActionHelper.getPackageDefinitions(getServlet().getServletContext(), PackageCategory.APPLICATION);
-		if(packageDefinitions.size()==1) {
-			response.sendRedirect(
-				response.encodeRedirectURL(
-					URIEncoder.encodeURI(
-						Skin.getSkin(request).getUrlBase(request)
-						+ "signup/application-completed.do?packageDefinition="
-						+ URIEncoder.encodeURIComponent(Integer.toString(packageDefinitions.get(0).getPkey()))
-					)
-				)
-			);
-			return null;
-		}
-		SignupSelectPackageActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, PackageCategory.APPLICATION);
+  @Override
+  public ActionForward executeApplicationStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    ApplicationSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    SignupDomainForm signupDomainForm,
+    boolean signupDomainFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    List<PackageDefinition> packageDefinitions = SignupSelectPackageActionHelper.getPackageDefinitions(getServlet().getServletContext(), PackageCategory.APPLICATION);
+    if (packageDefinitions.size() == 1) {
+      response.sendRedirect(
+        response.encodeRedirectURL(
+          URIEncoder.encodeURI(
+            Skin.getSkin(request).getUrlBase(request)
+            + "signup/application-completed.do?packageDefinition="
+            + URIEncoder.encodeURIComponent(Integer.toString(packageDefinitions.get(0).getPkey()))
+          )
+        )
+      );
+      return null;
+    }
+    SignupSelectPackageActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, PackageCategory.APPLICATION);
 
-		// Clear errors if they should not be displayed
-		clearErrors(request);
+    // Clear errors if they should not be displayed
+    clearErrors(request);
 
-		return mapping.findForward("input");
-	}
+    return mapping.findForward("input");
+  }
 
-	/**
-	 * May clear specific errors here.
-	 */
-	protected void clearErrors(HttpServletRequest request) {
-		saveErrors(request, new ActionMessages());
-	}
+  /**
+   * May clear specific errors here.
+   */
+  protected void clearErrors(HttpServletRequest request) {
+    saveErrors(request, new ActionMessages());
+  }
 }

@@ -49,110 +49,116 @@ import org.apache.struts.action.ActionMessages;
  */
 public class EditCompletedAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		TicketForm ticketForm = (TicketForm)form;
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    TicketForm ticketForm = (TicketForm)form;
 
-		// Look for the existing ticket
-		String pkeyS = request.getParameter("pkey");
-		if(pkeyS==null) return mapping.findForward("index");
-		int id;
-		try {
-			id = Integer.parseInt(pkeyS);
-		} catch(NumberFormatException err) {
-			return mapping.findForward("index");
-		}
-		Ticket ticket = aoConn.getTicket().getTicket().get(id);
-		if(ticket == null) {
-			response.sendError(HttpServletResponse.SC_NOT_FOUND, "Ticket not found");
-			return null;
-		}
-		request.setAttribute("ticket", ticket);
+    // Look for the existing ticket
+    String pkeyS = request.getParameter("pkey");
+    if (pkeyS == null) {
+      return mapping.findForward("index");
+    }
+    int id;
+    try {
+      id = Integer.parseInt(pkeyS);
+    } catch (NumberFormatException err) {
+      return mapping.findForward("index");
+    }
+    Ticket ticket = aoConn.getTicket().getTicket().get(id);
+    if (ticket == null) {
+      response.sendError(HttpServletResponse.SC_NOT_FOUND, "Ticket not found");
+      return null;
+    }
+    request.setAttribute("ticket", ticket);
 
-		// Validation
-		ActionMessages errors = ticketForm.validate(mapping, request);
-		if(errors!=null && !errors.isEmpty()) {
-			saveErrors(request, errors);
-			return mapping.findForward("input");
-		}
+    // Validation
+    ActionMessages errors = ticketForm.validate(mapping, request);
+    if (errors != null && !errors.isEmpty()) {
+      saveErrors(request, errors);
+      return mapping.findForward("input");
+    }
 
-		// Request attribute defaults
-		boolean accountUpdated = false;
-		boolean contactEmailsUpdated = false;
-		boolean contactPhoneNumbersUpdated = false;
-		boolean clientPriorityUpdated = false;
-		boolean summaryUpdated = false;
-		boolean annotationAdded = false;
+    // Request attribute defaults
+    boolean accountUpdated = false;
+    boolean contactEmailsUpdated = false;
+    boolean contactPhoneNumbersUpdated = false;
+    boolean clientPriorityUpdated = false;
+    boolean summaryUpdated = false;
+    boolean annotationAdded = false;
 
-		// Update anything that changed
-		Account newAccount = aoConn.getAccount().getAccount().get(Account.Name.valueOf(ticketForm.getAccount()));
-		if(newAccount == null) throw new SQLException("Unable to find Account: " + ticketForm.getAccount());
-		Account oldAccount = ticket.getAccount();
-		if(!newAccount.equals(oldAccount)) {
-			ticket.setAccount(oldAccount, newAccount);
-			accountUpdated = true;
-		}
-		Set<Email> contactEmails = Profile.splitEmails(ticketForm.getContactEmails());
-		if(!contactEmails.equals(ticket.getContactEmails())) {
-			ticket.setContactEmails(contactEmails);
-			contactEmailsUpdated = true;
-		}
-		if(!ticketForm.getContactPhoneNumbers().equals(ticket.getContactPhoneNumbers())) {
-			ticket.setContactPhoneNumbers(ticketForm.getContactPhoneNumbers());
-			contactPhoneNumbersUpdated = true;
-		}
-		Priority clientPriority = aoConn.getTicket().getPriority().get(ticketForm.getClientPriority());
-		if(clientPriority == null) throw new SQLException("Unable to find Priority: " + ticketForm.getClientPriority());
-		if(!clientPriority.equals(ticket.getClientPriority())) {
-			ticket.setClientPriority(clientPriority);
-			clientPriorityUpdated = true;
-		}
-		if(!ticketForm.getSummary().equals(ticket.getSummary())) {
-			ticket.setSummary(ticketForm.getSummary());
-			summaryUpdated = true;
-		}
-		if(ticketForm.getAnnotationSummary().length()>0) {
-			ticket.addAnnotation(
-				ticketForm.getAnnotationSummary(),
-				ticketForm.getAnnotationDetails()
-			);
-			annotationAdded = true;
-		}
+    // Update anything that changed
+    Account newAccount = aoConn.getAccount().getAccount().get(Account.Name.valueOf(ticketForm.getAccount()));
+    if (newAccount == null) {
+      throw new SQLException("Unable to find Account: " + ticketForm.getAccount());
+    }
+    Account oldAccount = ticket.getAccount();
+    if (!newAccount.equals(oldAccount)) {
+      ticket.setAccount(oldAccount, newAccount);
+      accountUpdated = true;
+    }
+    Set<Email> contactEmails = Profile.splitEmails(ticketForm.getContactEmails());
+    if (!contactEmails.equals(ticket.getContactEmails())) {
+      ticket.setContactEmails(contactEmails);
+      contactEmailsUpdated = true;
+    }
+    if (!ticketForm.getContactPhoneNumbers().equals(ticket.getContactPhoneNumbers())) {
+      ticket.setContactPhoneNumbers(ticketForm.getContactPhoneNumbers());
+      contactPhoneNumbersUpdated = true;
+    }
+    Priority clientPriority = aoConn.getTicket().getPriority().get(ticketForm.getClientPriority());
+    if (clientPriority == null) {
+      throw new SQLException("Unable to find Priority: " + ticketForm.getClientPriority());
+    }
+    if (!clientPriority.equals(ticket.getClientPriority())) {
+      ticket.setClientPriority(clientPriority);
+      clientPriorityUpdated = true;
+    }
+    if (!ticketForm.getSummary().equals(ticket.getSummary())) {
+      ticket.setSummary(ticketForm.getSummary());
+      summaryUpdated = true;
+    }
+    if (ticketForm.getAnnotationSummary().length()>0) {
+      ticket.addAnnotation(
+        ticketForm.getAnnotationSummary(),
+        ticketForm.getAnnotationDetails()
+      );
+      annotationAdded = true;
+    }
 
-		// Set the request attributes
-		request.setAttribute("accountUpdated", accountUpdated);
-		request.setAttribute("contactEmailsUpdated", contactEmailsUpdated);
-		request.setAttribute("contactPhoneNumbersUpdated", contactPhoneNumbersUpdated);
-		request.setAttribute("clientPriorityUpdated", clientPriorityUpdated);
-		request.setAttribute("summaryUpdated", summaryUpdated);
-		request.setAttribute("annotationAdded", annotationAdded);
-		request.setAttribute(
-			"nothingChanged",
-			!accountUpdated
-			&& !contactEmailsUpdated
-			&& !contactPhoneNumbersUpdated
-			&& !clientPriorityUpdated
-			&& !summaryUpdated
-			&& !annotationAdded
-		);
-		return mapping.findForward("success");
-	}
+    // Set the request attributes
+    request.setAttribute("accountUpdated", accountUpdated);
+    request.setAttribute("contactEmailsUpdated", contactEmailsUpdated);
+    request.setAttribute("contactPhoneNumbersUpdated", contactPhoneNumbersUpdated);
+    request.setAttribute("clientPriorityUpdated", clientPriorityUpdated);
+    request.setAttribute("summaryUpdated", summaryUpdated);
+    request.setAttribute("annotationAdded", annotationAdded);
+    request.setAttribute(
+      "nothingChanged",
+      !accountUpdated
+      && !contactEmailsUpdated
+      && !contactPhoneNumbersUpdated
+      && !clientPriorityUpdated
+      && !summaryUpdated
+      && !annotationAdded
+    );
+    return mapping.findForward("success");
+  }
 
-	static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
-		EnumSet.of(
-			Permission.Name.add_ticket,
-			Permission.Name.edit_ticket
-		)
-	);
+  static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
+    EnumSet.of(
+      Permission.Name.add_ticket,
+      Permission.Name.edit_ticket
+    )
+  );
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return permissions;
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return permissions;
+  }
 }

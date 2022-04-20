@@ -33,21 +33,21 @@ import org.apache.struts.validator.ValidatorForm;
  */
 public class PasswordEvaluatorForm extends ValidatorForm implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String password;
+  private String password;
 
-	@Override
-	public void reset(ActionMapping mapping, HttpServletRequest request) {
-		super.reset(mapping, request);
-		setPassword("");
-	}
+  @Override
+  public void reset(ActionMapping mapping, HttpServletRequest request) {
+    super.reset(mapping, request);
+    setPassword("");
+  }
 
-	public String getPassword() {
-		return password;
-	}
+  public String getPassword() {
+    return password;
+  }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+  public void setPassword(String password) {
+    this.password = password;
+  }
 }

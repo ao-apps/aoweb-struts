@@ -48,108 +48,112 @@ import javax.servlet.http.HttpSession;
 // TODO: Use com.aoapps.servlet.filter.LocaleFilter instead?
 public class LocaleFilter implements Filter {
 
-	private ServletContext servletContext;
+  private ServletContext servletContext;
 
-	@Override
-	public void init(FilterConfig fc) {
-		servletContext = fc.getServletContext();
-	}
+  @Override
+  public void init(FilterConfig fc) {
+    servletContext = fc.getServletContext();
+  }
 
-	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		try {
-			// Resolve the locale
-			SiteSettings siteSettings = SiteSettings.getInstance(servletContext);
-			Locale locale = getEffectiveLocale(siteSettings, request, response);
-			Constants.LOCALE.context(request).set(locale);
+  @Override
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    try {
+      // Resolve the locale
+      SiteSettings siteSettings = SiteSettings.getInstance(servletContext);
+      Locale locale = getEffectiveLocale(siteSettings, request, response);
+      Constants.LOCALE.context(request).set(locale);
 
-			Locale oldLocale = ThreadLocale.get();
-			try {
-				if(oldLocale != locale) ThreadLocale.set(locale);
-				chain.doFilter(request, response);
-			} finally {
-				if(oldLocale != locale) ThreadLocale.set(oldLocale);
-			}
-		} catch(SQLException e) {
-			throw new ServletException(e);
-		}
-	}
+      Locale oldLocale = ThreadLocale.get();
+      try {
+        if (oldLocale != locale) {
+          ThreadLocale.set(locale);
+        }
+        chain.doFilter(request, response);
+      } finally {
+        if (oldLocale != locale) {
+          ThreadLocale.set(oldLocale);
+        }
+      }
+    } catch (SQLException e) {
+      throw new ServletException(e);
+    }
+  }
 
-	@Override
-	public void destroy() {
-		// Nothing to do
-	}
+  @Override
+  public void destroy() {
+    // Nothing to do
+  }
 
 
-	/**
-	 * <p>
-	 * Gets the effective locale for the request.  If the requested language is not
-	 * one of the enabled languages for this site, will set to the default language
-	 * (the first in the language list).
-	 * </p>
-	 * <p>Also allows the parameter {@link Constants#LANGUAGE} to override the current settings.</p>
-	 * <p>This also sets the struts, JSTL, and response locales to the same value.</p>
-	 * <p>The {@linkplain ThreadLocale thread locale} is not set.</p>
-	 */
-	public static Locale getEffectiveLocale(SiteSettings siteSettings, ServletRequest request, ServletResponse response) throws IOException, SQLException {
-		HttpSession session;
-		if(request instanceof HttpServletRequest) {
-			session = ((HttpServletRequest)request).getSession();
-		} else {
-			assert request != null;
-			session = null;
-		}
-		List<Skin.Language> languages = siteSettings.getLanguages(request);
-		Locale locale = Globals.LOCALE_KEY.context(session).get();
-		String language = request.getParameter(Constants.LANGUAGE);
-		if(language!=null && (language=language.trim()).length()>0) {
-			// Make sure is a supported language
-			for(Skin.Language possLanguage : languages) {
-				String code = possLanguage.getCode();
-				if(code.equals(language)) {
-					locale = locale==null ? new Locale(code) : new Locale(code, locale.getCountry(), locale.getVariant());
-					if(session != null) {
-						Globals.LOCALE_KEY.context(session).set(locale);
-						AttributeEE.Jstl.FMT_LOCALE.context(session).set(locale);
-					}
-					response.setLocale(locale);
-					return locale;
-				}
-			}
-		}
-		if(locale!=null) {
-			// Make sure the language is a supported value, otherwise return the default language
-			String localeLanguage = locale.getLanguage();
-			for(Skin.Language possLanguage : languages) {
-				if(possLanguage.getCode().equals(localeLanguage)) {
-					// Current value is from session and is OK
-					response.setLocale(locale);
-					// Make sure the JSTL value matches
-					if(session != null && !locale.equals(AttributeEE.Jstl.FMT_LOCALE.context(session).get())) {
-						AttributeEE.Jstl.FMT_LOCALE.context(session).set(locale);
-					}
-					return locale;
-				}
-			}
-		}
-		// Return the default
-		locale = getDefaultLocale(languages);
-		if(session != null) {
-			Globals.LOCALE_KEY.context(session).set(locale);
-			AttributeEE.Jstl.FMT_LOCALE.context(session).set(locale);
-		}
-		response.setLocale(locale);
-		return locale;
-	}
+  /**
+   * <p>
+   * Gets the effective locale for the request.  If the requested language is not
+   * one of the enabled languages for this site, will set to the default language
+   * (the first in the language list).
+   * </p>
+   * <p>Also allows the parameter {@link Constants#LANGUAGE} to override the current settings.</p>
+   * <p>This also sets the struts, JSTL, and response locales to the same value.</p>
+   * <p>The {@linkplain ThreadLocale thread locale} is not set.</p>
+   */
+  public static Locale getEffectiveLocale(SiteSettings siteSettings, ServletRequest request, ServletResponse response) throws IOException, SQLException {
+    HttpSession session;
+    if (request instanceof HttpServletRequest) {
+      session = ((HttpServletRequest)request).getSession();
+    } else {
+      assert request != null;
+      session = null;
+    }
+    List<Skin.Language> languages = siteSettings.getLanguages(request);
+    Locale locale = Globals.LOCALE_KEY.context(session).get();
+    String language = request.getParameter(Constants.LANGUAGE);
+    if (language != null && (language=language.trim()).length()>0) {
+      // Make sure is a supported language
+      for (Skin.Language possLanguage : languages) {
+        String code = possLanguage.getCode();
+        if (code.equals(language)) {
+          locale = locale == null ? new Locale(code) : new Locale(code, locale.getCountry(), locale.getVariant());
+          if (session != null) {
+            Globals.LOCALE_KEY.context(session).set(locale);
+            AttributeEE.Jstl.FMT_LOCALE.context(session).set(locale);
+          }
+          response.setLocale(locale);
+          return locale;
+        }
+      }
+    }
+    if (locale != null) {
+      // Make sure the language is a supported value, otherwise return the default language
+      String localeLanguage = locale.getLanguage();
+      for (Skin.Language possLanguage : languages) {
+        if (possLanguage.getCode().equals(localeLanguage)) {
+          // Current value is from session and is OK
+          response.setLocale(locale);
+          // Make sure the JSTL value matches
+          if (session != null && !locale.equals(AttributeEE.Jstl.FMT_LOCALE.context(session).get())) {
+            AttributeEE.Jstl.FMT_LOCALE.context(session).set(locale);
+          }
+          return locale;
+        }
+      }
+    }
+    // Return the default
+    locale = getDefaultLocale(languages);
+    if (session != null) {
+      Globals.LOCALE_KEY.context(session).set(locale);
+      AttributeEE.Jstl.FMT_LOCALE.context(session).set(locale);
+    }
+    response.setLocale(locale);
+    return locale;
+  }
 
-	/**
-	 * Gets the default locale for the provided request.  The session and {@linkplain ThreadLocale thread locale} are not set.
-	 */
-	public static Locale getDefaultLocale(SiteSettings siteSettings, ServletRequest request) throws IOException, SQLException {
-		return getDefaultLocale(siteSettings.getLanguages(request));
-	}
+  /**
+   * Gets the default locale for the provided request.  The session and {@linkplain ThreadLocale thread locale} are not set.
+   */
+  public static Locale getDefaultLocale(SiteSettings siteSettings, ServletRequest request) throws IOException, SQLException {
+    return getDefaultLocale(siteSettings.getLanguages(request));
+  }
 
-	private static Locale getDefaultLocale(List<Skin.Language> languages) {
-		return new Locale(languages.get(0).getCode());
-	}
+  private static Locale getDefaultLocale(List<Skin.Language> languages) {
+    return new Locale(languages.get(0).getCode());
+  }
 }

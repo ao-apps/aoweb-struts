@@ -39,77 +39,85 @@ import org.apache.struts.action.ActionServlet;
  */
 public class Reseller5CompletedAction extends Reseller5Action {
 
-	@Override
-	public ActionForward executeResellerStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		ResellerSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		// Forward to previous steps if they have not been completed
-		if(!signupSelectPackageFormComplete) return mapping.findForward("reseller-completed");
-		if(!signupOrganizationFormComplete) return mapping.findForward("reseller-2-completed");
-		if(!signupTechnicalFormComplete) return mapping.findForward("reseller-3-completed");
-		if(!signupBillingInformationFormComplete) return mapping.findForward("reseller-4-completed");
+  @Override
+  public ActionForward executeResellerStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    ResellerSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    // Forward to previous steps if they have not been completed
+    if (!signupSelectPackageFormComplete) {
+      return mapping.findForward("reseller-completed");
+    }
+    if (!signupOrganizationFormComplete) {
+      return mapping.findForward("reseller-2-completed");
+    }
+    if (!signupTechnicalFormComplete) {
+      return mapping.findForward("reseller-3-completed");
+    }
+    if (!signupBillingInformationFormComplete) {
+      return mapping.findForward("reseller-4-completed");
+    }
 
-		// Let the parent class do the initialization of the request attributes for both the emails and the final JSP
-		initRequestAttributes(
-			request,
-			response,
-			signupSelectPackageForm,
-			signupOrganizationForm,
-			signupTechnicalForm,
-			signupBillingInformationForm
-		);
+    // Let the parent class do the initialization of the request attributes for both the emails and the final JSP
+    initRequestAttributes(
+      request,
+      response,
+      signupSelectPackageForm,
+      signupOrganizationForm,
+      signupTechnicalForm,
+      signupBillingInformationForm
+    );
 
-		// Used later
-		ActionServlet myServlet = getServlet();
-		SiteSettings siteSettings = SiteSettings.getInstance(myServlet.getServletContext());
-		AOServConnector rootConn = siteSettings.getRootAOServConnector();
-		PackageDefinition packageDefinition = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
+    // Used later
+    ActionServlet myServlet = getServlet();
+    SiteSettings siteSettings = SiteSettings.getInstance(myServlet.getServletContext());
+    AOServConnector rootConn = siteSettings.getRootAOServConnector();
+    PackageDefinition packageDefinition = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
 
-		// Build the options map
-		Map<String, String> options = new HashMap<>();
+    // Build the options map
+    Map<String, String> options = new HashMap<>();
 
-		// Store to the database
-		ServerConfirmationCompletedActionHelper.storeToDatabase(myServlet, request, rootConn, packageDefinition, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm, options);
-		String pkey = (String)request.getAttribute("pkey");
-		String statusKey = (String)request.getAttribute("statusKey");
+    // Store to the database
+    ServerConfirmationCompletedActionHelper.storeToDatabase(myServlet, request, rootConn, packageDefinition, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm, options);
+    String pkey = (String)request.getAttribute("pkey");
+    String statusKey = (String)request.getAttribute("statusKey");
 
-		// Send confirmation email to support
-		MinimalConfirmationCompletedActionHelper.sendSupportSummaryEmail(
-			myServlet,
-			request,
-			pkey,
-			statusKey,
-			packageDefinition,
-			signupOrganizationForm,
-			signupTechnicalForm,
-			signupBillingInformationForm
-		);
+    // Send confirmation email to support
+    MinimalConfirmationCompletedActionHelper.sendSupportSummaryEmail(
+      myServlet,
+      request,
+      pkey,
+      statusKey,
+      packageDefinition,
+      signupOrganizationForm,
+      signupTechnicalForm,
+      signupBillingInformationForm
+    );
 
-		// Send confirmation email to customer
-		MinimalConfirmationCompletedActionHelper.sendCustomerSummaryEmails(
-			myServlet,
-			request,
-			pkey,
-			statusKey,
-			packageDefinition,
-			signupOrganizationForm,
-			signupTechnicalForm,
-			signupBillingInformationForm
-		);
+    // Send confirmation email to customer
+    MinimalConfirmationCompletedActionHelper.sendCustomerSummaryEmails(
+      myServlet,
+      request,
+      pkey,
+      statusKey,
+      packageDefinition,
+      signupOrganizationForm,
+      signupTechnicalForm,
+      signupBillingInformationForm
+    );
 
-		// Clear reseller signup-specific forms from the session
-		ResellerSignupSelectPackageForm.SESSION_ATTRIBUTE.context(request.getSession(false)).remove();
+    // Clear reseller signup-specific forms from the session
+    ResellerSignupSelectPackageForm.SESSION_ATTRIBUTE.context(request.getSession(false)).remove();
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 }

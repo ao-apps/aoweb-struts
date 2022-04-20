@@ -45,49 +45,51 @@ import org.apache.struts.action.ActionServlet;
  */
 public abstract class SignupSelectPackageForm extends ActionForm implements Serializable, SessionActionForm {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private int packageDefinition;
+  private int packageDefinition;
 
-	protected SignupSelectPackageForm() {
-		setPackageDefinition(-1);
-	}
+  protected SignupSelectPackageForm() {
+    setPackageDefinition(-1);
+  }
 
-	@Override
-	public boolean isEmpty() {
-		return packageDefinition == -1;
-	}
+  @Override
+  public boolean isEmpty() {
+    return packageDefinition == -1;
+  }
 
-	public int getPackageDefinition() {
-		return packageDefinition;
-	}
+  public int getPackageDefinition() {
+    return packageDefinition;
+  }
 
-	public final void setPackageDefinition(int packageDefinition) {
-		this.packageDefinition = packageDefinition;
-	}
+  public final void setPackageDefinition(int packageDefinition) {
+    this.packageDefinition = packageDefinition;
+  }
 
-	@Override
-	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-		ActionErrors errors = super.validate(mapping, request);
-		if(errors==null) errors = new ActionErrors();
-		try {
-			// Must be one of the active package_definitions
-			ActionServlet myServlet = getServlet();
-			if(myServlet!=null) {
-				AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
-				PackageCategory category = rootConn.getBilling().getPackageCategory().get(getPackageCategory());
-				Account rootAccount = rootConn.getCurrentAdministrator().getUsername().getPackage().getAccount();
+  @Override
+  public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+    ActionErrors errors = super.validate(mapping, request);
+    if (errors == null) {
+      errors = new ActionErrors();
+    }
+    try {
+      // Must be one of the active package_definitions
+      ActionServlet myServlet = getServlet();
+      if (myServlet != null) {
+        AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
+        PackageCategory category = rootConn.getBilling().getPackageCategory().get(getPackageCategory());
+        Account rootAccount = rootConn.getCurrentAdministrator().getUsername().getPackage().getAccount();
 
-				PackageDefinition pd = rootConn.getBilling().getPackageDefinition().get(packageDefinition);
-				if(pd==null || !pd.getPackageCategory().equals(category) || !pd.getAccount().equals(rootAccount)) {
-					errors.add("packageDefinition", new ActionMessage("signupSelectPackageForm.packageDefinition.required"));
-				}
-			}
-			return errors;
-		} catch(IOException | SQLException err) {
-			throw new WrappedException(err);
-		}
-	}
+        PackageDefinition pd = rootConn.getBilling().getPackageDefinition().get(packageDefinition);
+        if (pd == null || !pd.getPackageCategory().equals(category) || !pd.getAccount().equals(rootAccount)) {
+          errors.add("packageDefinition", new ActionMessage("signupSelectPackageForm.packageDefinition.required"));
+        }
+      }
+      return errors;
+    } catch (IOException | SQLException err) {
+      throw new WrappedException(err);
+    }
+  }
 
-	protected abstract String getPackageCategory();
+  protected abstract String getPackageCategory();
 }

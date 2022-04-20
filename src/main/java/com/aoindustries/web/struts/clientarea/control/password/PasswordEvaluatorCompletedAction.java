@@ -41,29 +41,29 @@ import org.apache.struts.action.ActionMessages;
  */
 public class PasswordEvaluatorCompletedAction extends PageAction {
 
-	@Override
-	public ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		Registry pageRegistry
-	) throws Exception {
-		PasswordEvaluatorForm passwordEvaluatorForm = (PasswordEvaluatorForm)form;
+  @Override
+  public ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    Registry pageRegistry
+  ) throws Exception {
+    PasswordEvaluatorForm passwordEvaluatorForm = (PasswordEvaluatorForm)form;
 
-		ActionMessages errors = passwordEvaluatorForm.validate(mapping, request);
-		if(errors!=null && !errors.isEmpty()) {
-			saveErrors(request, errors);
-			return mapping.findForward("input");
-		}
+    ActionMessages errors = passwordEvaluatorForm.validate(mapping, request);
+    if (errors != null && !errors.isEmpty()) {
+      saveErrors(request, errors);
+      return mapping.findForward("input");
+    }
 
-		// Evaluate the password
-		String password = passwordEvaluatorForm.getPassword();
-		List<PasswordChecker.Result> results = PasswordChecker.checkPassword(null, password, PasswordChecker.PasswordStrength.STRICT);
+    // Evaluate the password
+    String password = passwordEvaluatorForm.getPassword();
+    List<PasswordChecker.Result> results = PasswordChecker.checkPassword(null, password, PasswordChecker.PasswordStrength.STRICT);
 
-		// Set request values
-		request.setAttribute("results", results);
+    // Set request values
+    request.setAttribute("results", results);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 }

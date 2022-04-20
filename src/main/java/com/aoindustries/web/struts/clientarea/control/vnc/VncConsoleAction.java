@@ -45,27 +45,29 @@ import org.apache.struts.action.ActionMapping;
  */
 public class VncConsoleAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		List<VirtualServer> virtualServers = aoConn.getInfrastructure().getVirtualServer().getRows();
-		List<VirtualServer> vncVirtualServers = new ArrayList<>(virtualServers.size());
-		for(VirtualServer virtualServer : virtualServers) {
-			String vncPassword = virtualServer.getVncPassword();
-			if(vncPassword!=null && !vncPassword.equals(AoservProtocol.FILTERED)) vncVirtualServers.add(virtualServer);
-		}
-		request.setAttribute("vncVirtualServers", vncVirtualServers);
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    List<VirtualServer> virtualServers = aoConn.getInfrastructure().getVirtualServer().getRows();
+    List<VirtualServer> vncVirtualServers = new ArrayList<>(virtualServers.size());
+    for (VirtualServer virtualServer : virtualServers) {
+      String vncPassword = virtualServer.getVncPassword();
+      if (vncPassword != null && !vncPassword.equals(AoservProtocol.FILTERED)) {
+        vncVirtualServers.add(virtualServer);
+      }
+    }
+    request.setAttribute("vncVirtualServers", vncVirtualServers);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return Collections.singleton(Permission.Name.vnc_console);
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return Collections.singleton(Permission.Name.vnc_console);
+  }
 }

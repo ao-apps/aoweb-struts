@@ -1,6 +1,6 @@
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2009, 2016, 2021  AO Industries, Inc.
+Copyright (C) 2009, 2016, 2021, 2022  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -25,6 +25,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
 
 <form-validation>
-	<global>
-	</global>
+  <global>
+  </global>
 </form-validation>

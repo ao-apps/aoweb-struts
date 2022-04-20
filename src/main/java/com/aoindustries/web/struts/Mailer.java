@@ -45,51 +45,53 @@ import javax.mail.internet.MimeMessage;
  */
 public final class Mailer {
 
-	/** Make no instances. */
-	private Mailer() {throw new AssertionError();}
+  /** Make no instances. */
+  private Mailer() {
+    throw new AssertionError();
+  }
 
-	private static final Object mailerLock = new Object();
+  private static final Object mailerLock = new Object();
 
-	/**
-	 * Sends an email.
-	 */
-	public static void sendEmail(
-		HostAddress smtpServer,
-		String contentType,
-		Charset charset,
-		String fromAddress,
-		String fromPersonal,
-		List<String> tos,
-		String subject,
-		String message
-	) throws MessagingException, UnsupportedEncodingException {
-		synchronized(mailerLock) {
-			System.setProperty("mail.mime.charset", charset.name());
-			try {
-				// Create the email
-				Properties props=new Properties();
-				props.put("mail.smtp.host", smtpServer);
-				Session mailSession=Session.getDefaultInstance(props, null);
-				Message msg=new MimeMessage(mailSession);
-				msg.setFrom(
-					new InternetAddress(
-						fromAddress,
-						fromPersonal
-					)
-				);
-				for(String to : tos) {
-					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to, true));
-				}
-				msg.setSubject(subject);
-				msg.setSentDate(new Date(System.currentTimeMillis()));
+  /**
+   * Sends an email.
+   */
+  public static void sendEmail(
+    HostAddress smtpServer,
+    String contentType,
+    Charset charset,
+    String fromAddress,
+    String fromPersonal,
+    List<String> tos,
+    String subject,
+    String message
+  ) throws MessagingException, UnsupportedEncodingException {
+    synchronized (mailerLock) {
+      System.setProperty("mail.mime.charset", charset.name());
+      try {
+        // Create the email
+        Properties props=new Properties();
+        props.put("mail.smtp.host", smtpServer);
+        Session mailSession=Session.getDefaultInstance(props, null);
+        Message msg=new MimeMessage(mailSession);
+        msg.setFrom(
+          new InternetAddress(
+            fromAddress,
+            fromPersonal
+          )
+        );
+        for (String to : tos) {
+          msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to, true));
+        }
+        msg.setSubject(subject);
+        msg.setSentDate(new Date(System.currentTimeMillis()));
 
-				ContentType ct = new ContentType(contentType);
-				ct.setParameter("charset", charset.name());
-				msg.setContent(message, ct.toString());
-				Transport.send(msg);
-			} finally {
-				System.clearProperty("mail.mime.charset");
-			}
-		}
-	}
+        ContentType ct = new ContentType(contentType);
+        ct.setParameter("charset", charset.name());
+        msg.setContent(message, ct.toString());
+        Transport.send(msg);
+      } finally {
+        System.clearProperty("mail.mime.charset");
+      }
+    }
+  }
 }

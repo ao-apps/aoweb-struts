@@ -31,32 +31,32 @@ import java.util.Comparator;
  */
 public class Option {
 
-	public static final Comparator<Option> priceComparator =
-		(pdl1, pdl2) -> pdl1.getPriceDifference().compareTo(pdl2.getPriceDifference());
+  public static final Comparator<Option> priceComparator =
+    (pdl1, pdl2) -> pdl1.getPriceDifference().compareTo(pdl2.getPriceDifference());
 
-	private final int packageDefinitionLimit;
-	private final String display;
-	private final Monies priceDifference;
+  private final int packageDefinitionLimit;
+  private final String display;
+  private final Monies priceDifference;
 
-	public Option(
-		int packageDefinitionLimit,
-		String display,
-		Monies priceDifference
-	) {
-		this.packageDefinitionLimit = packageDefinitionLimit;
-		this.display = display;
-		this.priceDifference = priceDifference;
-	}
+  public Option(
+    int packageDefinitionLimit,
+    String display,
+    Monies priceDifference
+  ) {
+    this.packageDefinitionLimit = packageDefinitionLimit;
+    this.display = display;
+    this.priceDifference = priceDifference;
+  }
 
-	public int getPackageDefinitionLimit() {
-		return packageDefinitionLimit;
-	}
+  public int getPackageDefinitionLimit() {
+    return packageDefinitionLimit;
+  }
 
-	public String getDisplay() {
-		return display;
-	}
+  public String getDisplay() {
+    return display;
+  }
 
-	public Monies getPriceDifference() {
-		return priceDifference;
-	}
+  public Monies getPriceDifference() {
+    return priceDifference;
+  }
 }

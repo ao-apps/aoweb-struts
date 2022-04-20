@@ -1,9 +1,9 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2009, 2016, 2019, 2020, 2021  AO Industries, Inc.
-	support@aoindustries.com
-	7262 Bull Pen Cir
-	Mobile, AL 36695
+Copyright (C) 2009, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
 
 This file is part of aoweb-struts.
 
@@ -26,29 +26,29 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 <%@include file="add-parents.jspf" %>
 <%@include file="application.meta.jspf" %>
 <skin:skin formtype="struts1">
-	<skin:content width="600">
-		<ao:bundle basename="com.aoindustries.web.struts.signup.i18n.ApplicationResources">
-			<skin:contentTitle><ao:message key="application.title" /></skin:contentTitle>
-			<skin:contentHorizontalDivider />
-			<skin:contentLine>
-				<ao:script>
-					function selectStep(step) {
-						var form = document.forms['applicationSignupSelectPackageForm'];
-						form.selectedStep.value=step;
-						form.submit();
-					}
-				</ao:script>
-				<bean:define toScope="request" type="java.lang.String" id="stepNumber" value="1" />
-				<bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="application" />
-				<%@include file="virtual-hosting-steps.jspf" %>
-				<ao:br />
-				<html:form action="/application-completed.do">
-					<div>
-						<ao:input type="hidden" name="selectedStep" />
-						<%@include file="signup-select-package-form.jspf" %>
-					</div>
-				</html:form>
-			</skin:contentLine>
-		</ao:bundle>
-	</skin:content>
+  <skin:content width="600">
+    <ao:bundle basename="com.aoindustries.web.struts.signup.i18n.ApplicationResources">
+      <skin:contentTitle><ao:message key="application.title" /></skin:contentTitle>
+      <skin:contentHorizontalDivider />
+      <skin:contentLine>
+        <ao:script>
+          function selectStep(step) {
+            var form = document.forms['applicationSignupSelectPackageForm'];
+            form.selectedStep.value=step;
+            form.submit();
+          }
+        </ao:script>
+        <bean:define toScope="request" type="java.lang.String" id="stepNumber" value="1" />
+        <bean:define type="java.lang.String" id="actionPrefix" toScope="request" value="application" />
+        <%@include file="virtual-hosting-steps.jspf" %>
+        <ao:br />
+        <html:form action="/application-completed.do">
+          <div>
+            <ao:input type="hidden" name="selectedStep" />
+            <%@include file="signup-select-package-form.jspf" %>
+          </div>
+        </html:form>
+      </skin:contentLine>
+    </ao:bundle>
+  </skin:content>
 </skin:skin>

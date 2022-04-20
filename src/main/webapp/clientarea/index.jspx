@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2016, 2020, 2021  AO Industries, Inc.
-	support@aoindustries.com
-	7262 Bull Pen Cir
-	Mobile, AL 36695
+Copyright (C) 2016, 2020, 2021, 2022  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
 
 This file is part of aoweb-struts.
 
@@ -22,30 +22,30 @@ You should have received a copy of the GNU Lesser General Public License
 along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <jsp:root
-	xmlns:ao="https://oss.aoapps.com/taglib/"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:core="https://semanticcms.com/core/taglib/"
-	xmlns:jsp="http://java.sun.com/JSP/Page"
-	version="2.1"
+  xmlns:ao="https://oss.aoapps.com/taglib/"
+  xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:core="https://semanticcms.com/core/taglib/"
+  xmlns:jsp="http://java.sun.com/JSP/Page"
+  version="2.1"
 >
-	<jsp:directive.page language="java" pageEncoding="UTF-8" />
-	<jsp:directive.page session="false" />
-	<jsp:output omit-xml-declaration="true" />
-	<c:if test="${core:getCaptureLevel()==null and empty param.view and !param.navigation}">
-		<ao:redirect page="index.do" statusCode="301">
-			<!-- Include all request parameters -->
-			<ao:params values="${paramValues}" />
-		</ao:redirect>
-	</c:if>
-	<ao:bundle basename="com.aoindustries.web.struts.clientarea.i18n.ApplicationResources">
-		<!-- TODO: allowRobots based on brand.aowebStrutsNoindex settings -->
-		<core:page
-			title="${ao:message('index.title')}"
-			shortTitle="${ao:message('index.navImageAlt')}"
-			description="${ao:message('index.description')}"
-			keywords="${ao:message('index.keywords')}"
-		>
-			<!-- TODO children via include allowing override -->
-		</core:page>
-	</ao:bundle>
+  <jsp:directive.page language="java" pageEncoding="UTF-8" />
+  <jsp:directive.page session="false" />
+  <jsp:output omit-xml-declaration="true" />
+  <c:if test="${core:getCaptureLevel() == null and empty param.view and !param.navigation}">
+    <ao:redirect page="index.do" statusCode="301">
+      <!-- Include all request parameters -->
+      <ao:params values="${paramValues}" />
+    </ao:redirect>
+  </c:if>
+  <ao:bundle basename="com.aoindustries.web.struts.clientarea.i18n.ApplicationResources">
+    <!-- TODO: allowRobots based on brand.aowebStrutsNoindex settings -->
+    <core:page
+      title="${ao:message('index.title')}"
+      shortTitle="${ao:message('index.navImageAlt')}"
+      description="${ao:message('index.description')}"
+      keywords="${ao:message('index.keywords')}"
+    >
+      <!-- TODO children via include allowing override -->
+    </core:page>
+  </ao:bundle>
 </jsp:root>

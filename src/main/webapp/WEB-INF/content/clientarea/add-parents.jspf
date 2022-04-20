@@ -1,9 +1,9 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2007-2009, 2016, 2021  AO Industries, Inc.
-	support@aoindustries.com
-	7262 Bull Pen Cir
-	Mobile, AL 36695
+Copyright (C) 2007-2009, 2016, 2021, 2022  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
 
 This file is part of aoweb-struts.
 
@@ -25,6 +25,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 
 <%@include file="../add-parents.jspf" %>
 <skin:parent>
-	<%@include file="index.meta.jspf" %>
-	<%@include file="index.children.jspf" %>
+  <%@include file="index.meta.jspf" %>
+  <%@include file="index.children.jspf" %>
 </skin:parent>

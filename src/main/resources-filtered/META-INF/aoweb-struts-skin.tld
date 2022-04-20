@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2007-2009, 2016, 2017, 2019, 2020, 2021  AO Industries, Inc.
+Copyright (C) 2007-2009, 2016, 2017, 2019, 2020, 2021, 2022  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -22,1159 +22,1159 @@ You should have received a copy of the GNU Lesser General Public License
 along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <taglib xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
-	version="2.1">
-	<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-	<!-- dateModified="2021-09-05T21:51:52-05:00" -->
-	<description><![CDATA[
-		<p>@{description.html}</p>
-		<hr />
-		<p>
-			This taglib is part of an extensible suite of interoperable, context-aware,
-			<a href="https://oss.aoapps.com/encoding/">auto-encoding</a> taglibs.
-			All auto-encoding tags generate correct output for their context, provide context information for nested
-			tags, and validate the output of nested tags.  For example,
-			<a href="https://oss.aoapps.com/taglib/ao.tld/tag-message">&lt;ao:message&gt;</a> within
-			<a href="@{project.url}aoweb-struts-skin.tld/tag-description">&lt;skin:description&gt;</a> will write its output
-			encoded as <a href="https://oss.aoapps.com/encoding/apidocs/com.aoapps.encoding/com/aoapps/encoding/MediaType.html#TEXT">TEXT</a>,
-			while within <a href="@{project.url}aoweb-struts-skin.tld/tag-content">&lt;skin:content&gt;</a> (of type "text/html") will write its
-			output encoded as <a href="https://oss.aoapps.com/encoding/apidocs/com.aoapps.encoding/com/aoapps/encoding/MediaType.html#XHTML">XHTML</a>.
-		</p>
-		<p>
-			This suite includes, but is not limited to:
-		</p>
-		<ul>
-			<li><a href="https://oss.aoapps.com/encoding/taglib/ao-encoding.tld/">AO Encoding Taglib</a></li>
-			<li><a href="https://oss.aoapps.com/taglib/ao.tld/">AO Taglib</a></li>
-			<li><a href="@{project.url}aoweb-struts-skin.tld/">AOWeb Struts Skin Taglib</a> (this taglib)</li>
-			<li><a href="https://oss.newmediaworks.com/email-taglib/nmw-email.tld/">NMW Email Taglib</a></li>
-			<li><a href="https://oss.newmediaworks.com/payment-taglib/nmw-payment.tld/">NMW Payment Taglib</a></li>
-			<!-- TODO: nmw-persistence-taglib once open-source, and many others -->
-		</ul>
-	]]></description>
-	<display-name>@{project.name} Skin Taglib</display-name>
-	<tlib-version>
-		<!-- Release: @{project.version} -->
-		@{parsedVersion.majorVersion}.@{parsedVersion.minorVersion}.@{parsedVersion.incrementalVersion}
-	</tlib-version>
-	<short-name>skin</short-name>
-	<uri>@{project.url}skin-taglib/</uri>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
-		<description><![CDATA[
-			<p>
-				Provides keywords to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
-				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
-				if parent not found.
-			</p>
-		]]></description>
-		<name>keywords</name>
-		<tag-class>com.aoindustries.web.struts.skintags.KeywordsTag</tag-class>
-		<body-content>scriptless</body-content>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
-		<description><![CDATA[
-			<p>
-				Provides a description to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
-				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
-				if parent not found.
-			</p>
-		]]></description>
-		<name>description</name>
-		<tag-class>com.aoindustries.web.struts.skintags.DescriptionTag</tag-class>
-		<body-content>scriptless</body-content>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
-		<description><![CDATA[
-			<p>
-				Provides an author to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
-				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
-				if parent not found.
-			</p>
-		]]></description>
-		<name>author</name>
-		<tag-class>com.aoindustries.web.struts.skintags.AuthorTag</tag-class>
-		<body-content>scriptless</body-content>
-	</tag>
-	<tag>
-		<!-- datePublished="2019-10-29T03:35:08-05:00" -->
-		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
-		<description><![CDATA[
-			<p>
-				Provides an author href to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
-				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
-				if parent not found.
-			</p>
-		]]></description>
-		<name>authorHref</name>
-		<tag-class>com.aoindustries.web.struts.skintags.AuthorHrefTag</tag-class>
-		<body-content>scriptless</body-content>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
-		<description><![CDATA[
-			<p>
-				Provides a copyright to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
-				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
-				if parent not found.
-			</p>
-		]]></description>
-		<name>copyright</name>
-		<tag-class>com.aoindustries.web.struts.skintags.CopyrightTag</tag-class>
-		<body-content>scriptless</body-content>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-09-25T23:27:50-05:00" -->
-		<description><![CDATA[
-			<p class="semanticcms-tag-reference-summary">
-				Provides a path to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
-				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
-				if parent not found.
-				The body of this tag, after trimming, is valid <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
-				or <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a>.
-			</p>
-			<p>
-				The path is relative to the root of the application.
-			</p>
-			<p>
-				Parameters must be properly URL encoded but not XML encoded (with &amp; instead of &amp;amp;).
-				The path before the first ? will be encoded by this tag.  The preferred approach is to add any
-				necessary parameters using nested
-				<a href="https://oss.aoapps.com/taglib/ao.tld/tag-param">&lt;ao:param&gt;</a> and
-				<a href="https://oss.aoapps.com/taglib/ao.tld/tag-params">&lt;ao:params&gt;</a> tags.
-			</p>
-			<p>
-				Any attribute that has no namespace and begins with <code>param.</code> is added to the URL as a parameter.
-				The parameter name is the part of the attribute name following <code>param.</code>.
-			</p>
-			<p>
-				When a parameter value is <code>null</code> it is not added.
-				If the value is an
-				<a rel="nofollow" href="@{javadoc.link.javase}java/lang/Iterable.html">Iterable</a>,
-				<a rel="nofollow" href="@{javadoc.link.javase}java/util/Iterator.html">Iterator</a>,
-				<a rel="nofollow" href="@{javadoc.link.javase}java/util/Enumeration.html">Enumeration</a>,
-				or array, then each non-null element is coerced to
-				<a rel="nofollow" href="@{javadoc.link.javase}java/lang/String.html">String</a> as a separate
-				parameter in iteration order.  Otherwise, the value itself is
-				coerced to <a rel="nofollow" href="@{javadoc.link.javase}java/lang/String.html">String</a>
-				for the parameter value.
-			</p>
-			<p>
-				Nested <a href="@{project.url}aoweb-struts-skin.tld/tag-param">&lt;ao:param&gt;</a> or
-				<a href="@{project.url}aoweb-struts-skin.tld/tag-params">&lt;ao:params&gt;</a> tags will
-				add parameters after any provided as attributes.
-			</p>
-		]]></description>
-		<name>path</name>
-		<tag-class>com.aoindustries.web.struts.skintags.PathTag</tag-class>
-		<body-content>scriptless</body-content>
-		<dynamic-attributes>true</dynamic-attributes>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
-		<description><![CDATA[
-			<p>
-				Provides a meta to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
-				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
-				if parent not found.
-			</p>
-			<p>
-				In precedence order, the content may be provided as:
-			</p>
-			<ol>
-				<li>Nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-content">&lt;ao:content&gt;</a> tag</li>
-				<li>content attribute</li>
-				<li>Body</li>
-			</ol>
-		]]></description>
-		<name>meta</name>
-		<tag-class>com.aoindustries.web.struts.skintags.MetaTag</tag-class>
-		<body-content>scriptless</body-content>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The name of the <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/Meta.html">meta information</a>.
-					A nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-name">&lt;ao:name&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>name</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The content of the <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/Meta.html">meta information</a>.
-					A nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-content">&lt;ao:content&gt;</a> tag will override this value.
-					A non-empty body may also provide the content.
-				</p>
-			]]></description>
-			<name>content</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.Object</type>
-		</attribute>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-09-25T23:27:50-05:00" -->
-		<description><![CDATA[
-			<p>
-				Adds a link tag to <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">this page</a>.
-				In precedence order, the href may be provided as:
-			</p>
-			<ol>
-				<li>Nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-href">&lt;ao:href&gt;</a> tag</li>
-				<li>href attribute</li>
-				<li>
-					The body of this tag, after trimming, is valid <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
-					or <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a>.
-				</li>
-			</ol>
-			<p>
-				Parameters must be properly URL encoded but not XML encoded (with &amp; instead of &amp;amp;).
-				The path before the first ? will be encoded by this tag.  The preferred approach is to add any
-				necessary parameters using nested
-				<a href="https://oss.aoapps.com/taglib/ao.tld/tag-param">&lt;ao:param&gt;</a> and
-				<a href="https://oss.aoapps.com/taglib/ao.tld/tag-params">&lt;ao:params&gt;</a> tags.
-			</p>
-			<p>
-				Any attribute that has no namespace and begins with <code>param.</code> is added to the URL as a parameter.
-				The parameter name is the part of the attribute name following <code>param.</code>.
-			</p>
-			<p>
-				When a parameter value is <code>null</code> it is not added.
-				If the value is an
-				<a rel="nofollow" href="@{javadoc.link.javase}java/lang/Iterable.html">Iterable</a>,
-				<a rel="nofollow" href="@{javadoc.link.javase}java/util/Iterator.html">Iterator</a>,
-				<a rel="nofollow" href="@{javadoc.link.javase}java/util/Enumeration.html">Enumeration</a>,
-				or array, then each non-null element is coerced to
-				<a rel="nofollow" href="@{javadoc.link.javase}java/lang/String.html">String</a> as a separate
-				parameter in iteration order.  Otherwise, the value itself is
-				coerced to <a rel="nofollow" href="@{javadoc.link.javase}java/lang/String.html">String</a>
-				for the parameter value.
-			</p>
-			<p>
-				Nested <a href="@{project.url}aoweb-struts-skin.tld/tag-param">&lt;ao:param&gt;</a> or
-				<a href="@{project.url}aoweb-struts-skin.tld/tag-params">&lt;ao:params&gt;</a> tags will
-				add parameters after any provided as attributes.
-			</p>
-			<p>
-				Please note, that any links to stylesheets here are never optimized.  Please
-				prefer the <a href="https://oss.aoapps.com/web-resources/taglib/">AO Web Resources Taglib</a>.
-			</p>
-		]]></description>
-		<name>link</name>
-		<tag-class>com.aoindustries.web.struts.skintags.LinkTag</tag-class>
-		<body-content>scriptless</body-content>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The rel of the link.
-					A nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-rel">&lt;ao:rel&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>rel</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p class="semanticcms-tag-reference-summary">
-					The href of the link.
-					A nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-href">&lt;ao:href&gt;</a> tag will override this value.
-				</p>
-				<p>
-					Parameters must be properly URL encoded but not XML encoded (with &amp; instead of &amp;amp;).
-					The path before the first ? will be encoded by this tag.  The preferred approach is to add any
-					necessary parameters using nested
-					<a href="https://oss.aoapps.com/taglib/ao.tld/tag-param">&lt;ao:param&gt;</a> and
-					<a href="https://oss.aoapps.com/taglib/ao.tld/tag-params">&lt;ao:params&gt;</a> tags.
-				</p>
-			]]></description>
-			<name>href</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The type of the link tag.
-					A nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-type">&lt;ao:type&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>type</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<dynamic-attributes>true</dynamic-attributes>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
-		<description><![CDATA[
-			<p>
-				Provides a title to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
-				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
-				if parent not found.
-			</p>
-		]]></description>
-		<name>title</name>
-		<tag-class>com.aoindustries.web.struts.skintags.TitleTag</tag-class>
-		<body-content>scriptless</body-content>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-09-05T21:51:52-05:00" -->
-		<description><![CDATA[
-			<p>
-				Provides a navImageAlt to its
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
-				parent tag or the
-				<a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
-				if parent not found.
-			</p>
-		]]></description>
-		<name>navImageAlt</name>
-		<tag-class>com.aoindustries.web.struts.skintags.NavImageAltTag</tag-class>
-		<body-content>scriptless</body-content>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-14T02:28:24-05:00" -->
-		<description><![CDATA[
-			<p>
-				Adds a parent to the hierarchy above this page.
-			</p>
-		]]></description>
-		<name>parent</name>
-		<tag-class>com.aoindustries.web.struts.skintags.ParentTag</tag-class>
-		<body-content>JSP</body-content>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The keywords of the parent.
-					A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-keywords">&lt;skin:keywords&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>keywords</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The description of the parent.
-					A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-description">&lt;skin:description&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>description</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The author of the parent.
-					A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-author">&lt;skin:author&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>author</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The copyright of the parent.
-					A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-copyright">&lt;skin:copyright&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>copyright</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The path of the parent.
-					A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-path">&lt;skin:path&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>path</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The title of the parent.
-					A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-title">&lt;skin:title&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>title</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The navImageAlt of the parent.
-					A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-navImageAlt">&lt;skin:navImageAlt&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>navImageAlt</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-14T02:28:24-05:00" -->
-		<description><![CDATA[
-			<p>
-				Adds a child to the <a href="@{project.url}aoweb-struts-skin.tld/tag-parent">&lt;skin:parent&gt;</a> tag or at the same level as this page if no parent tag.
-			</p>
-		]]></description>
-		<name>child</name>
-		<tag-class>com.aoindustries.web.struts.skintags.ChildTag</tag-class>
-		<body-content>JSP</body-content>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The keywords of the child.
-					A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-keywords">&lt;skin:keywords&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>keywords</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The description of the child.
-					A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-description">&lt;skin:description&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>description</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The author of the child.
-					A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-author">&lt;skin:author&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>author</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The copyright of the child.
-					A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-copyright">&lt;skin:copyright&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>copyright</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The path of the child.
-					A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-path">&lt;skin:path&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>path</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The title of the child.
-					A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-title">&lt;skin:title&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>title</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The navImageAlt of the child.
-					A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-navImageAlt">&lt;skin:navImageAlt&gt;</a> tag will override this value.
-				</p>
-			]]></description>
-			<name>navImageAlt</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-09-23T07:02:20-05:00" -->
-		<description><![CDATA[
-			<p>
-				Sets up the request and response, then writes all of the HTML
-				preceding and following the content of the page.
-			</p>
-		]]></description>
-		<name>skin</name>
-		<tag-class>com.aoindustries.web.struts.skintags.SkinTag</tag-class>
-		<tei-class>com.aoindustries.web.struts.skintags.SkinTagTEI</tei-class>
-		<body-content>JSP</body-content>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					When <code>SGML</code>, forces the content-type to be <code>text/html</code>.
-					When <code>XML</code>, forces the content-type to be <code>application/xhtml+xml</code>.
-					When <code>auto</code> (the default), the following steps are performed to resolve the serialization:
-				</p>
-				<ol>
-					<li>Use the serialization active on the current request.</li>
-					<li>
-						Use the application <a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/ServletContext.html#getInitParameter(java.lang.String)">context-param</a>
-						<code>com.aoapps.encoding.Serialization.default</code>
-						that allows an application to control the selection of HTML versus XHTML.
-					</li>
-					<li>
-						When this context-param is unspecified or <code>auto</code>,
-						determine the serialization based on the client's <code>Accept</code> header.
-					</li>
-				</ol>
-				<p>
-					This should normally be left with the default value of <code>auto</code>.  This is used
-					when the content is known to contain invalid markup that can not be parsed as XML.
-				</p>
-			]]></description>
-			<name>serialization</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The <a href="https://www.w3schools.com/tags/tag_doctype.asp">&lt;!DOCTYPE&gt;</a> to use,
-					must be one of <code>default</code>, <code>HTML5</code>, <code>STRICT</code>, <code>TRANSITIONAL</code>,
-					<code>FRAMESET</code>, or <code>NONE</code>.
-					Defaults to <code>HTML5</code>.  <code>NONE</code> will suppress the output of a doctype.
-				</p>
-				<p>
-					When <code>default</code>, the following steps are performed to resolve the doctype:
-				</p>
-				<ol>
-					<li>Use the doctype active on the current request.</li>
-					<li>
-						Use the application <a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/ServletContext.html#getInitParameter(java.lang.String)">context-param</a>
-						<code>com.aoapps.encoding.Doctype.default</code>
-						that allows an application to control the default doctype.
-					</li>
-					<li>
-						When this context-param is unspecified or <code>default</code>,
-						defaults to <code>HTML5</code>.
-					</li>
-				</ol>
-			]]></description>
-			<name>doctype</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					When <code>true</code>, enables automatic newline (and tab indentation when enabled).
-					When <code>false</code>, disables automatic newline and tab indentation.
-					When <code>auto</code> (the default), the following steps are performed to resolve the autonli setting:
-				</p>
-				<ol>
-					<li>Use the autonli setting active on the current request.</li>
-					<li>
-						Use the application <a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/ServletContext.html#getInitParameter(java.lang.String)">context-param</a>
-						<code>com.aoapps.html.servlet.DocumentEE.autonli</code>
-						that allows an application to control the default autonli setting.
-					</li>
-					<li>
-						When this context-param is unspecified or <code>auto</code>,
-						defaults to <code>false</code>.
-					</li>
-				</ol>
-			]]></description>
-			<name>autonli</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					When <code>true</code>, enables tab indentation.
-					When <code>false</code>, disables tab indentation.
-					When <code>auto</code> (the default), the following steps are performed to resolve the indent setting:
-				</p>
-				<ol>
-					<li>Use the indent setting active on the current request.</li>
-					<li>
-						Use the application <a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/ServletContext.html#getInitParameter(java.lang.String)">context-param</a>
-						<code>com.aoapps.html.servlet.DocumentEE.indent</code>
-						that allows an application to control the default indent setting.
-					</li>
-					<li>
-						When this context-param is unspecified or <code>auto</code>,
-						defaults to <code>false</code>.
-					</li>
-				</ol>
-			]]></description>
-			<name>indent</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					Each page may request a specific layout from the skin implementation.  The currently
-					supported values are:
-				</p>
-				<ul>
-					<li>
-						<code>normal</code> - This provides headers, footers, and full navigation.
-						This is the default layout if no layout is specified.
-					</li>
-					<li>
-						<code>minimal</code> - This provides a minimal layout without any page navigation
-						except headers and footers.  This provides maximum area for the page content
-						while still maintaining a consistent look and feel.
-					</li>
-				</ul>
-			]]></description>
-			<name>layout</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The type of form used in the page.  The currently supported values are:
-				</p>
-				<ul>
-					<li>
-						<code>none</code> (the default) - This page does not require any resources in the head.
-					</li>
-					<li>
-						<code>struts1</code> - Adds <code>/struts1/commons-validator-1.3.1-compress.js</code> to
-						<code>&lt;head&gt;</code> for Struts 1.
-					</li>
-					<li>
-						<code>struts2</code> - <a href="https://struts.apache.org/tag-developers/head-tag.html"><code>&lt;s:head /&gt;</code></a> within
-						<code>&lt;head&gt;</code> for <a href="https://struts.apache.org/">Struts 2</a>.
-					</li>
-				</ul>
-			]]></description>
-			<name>formtype</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The JavaScript that will be placed in the onload attribute of the body tag.
-				</p>
-			]]></description>
-			<name>onload</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-14T02:28:24-05:00" -->
-		<description><![CDATA[
-			<p>
-				Surrounds the body with a light area.
-			</p>
-		]]></description>
-		<name>lightArea</name>
-		<tag-class>com.aoindustries.web.struts.skintags.LightAreaTag</tag-class>
-		<body-content>JSP</body-content>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The alignment for this area.
-				</p>
-			]]></description>
-			<name>align</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					An optional width for the area.
-				</p>
-				<p>
-					This should be formatted for use in a <code>style="width:…"</code> attribute,
-					such as <code>100px</code> or <code>33%</code>.
-					When a non-zero integer, "px" is automatically added.
-				</p>
-			]]></description>
-			<name>width</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					If <code>true</code>, will cause the contents of the area to not wrap.
-					Defaults to <code>false</code>.
-				</p>
-			]]></description>
-			<name>nowrap</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>boolean</type>
-		</attribute>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-14T02:28:24-05:00" -->
-		<description><![CDATA[
-			<p>
-				Surrounds the body with a white area.
-			</p>
-		]]></description>
-		<name>whiteArea</name>
-		<tag-class>com.aoindustries.web.struts.skintags.WhiteAreaTag</tag-class>
-		<body-content>JSP</body-content>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The alignment for this area.
-				</p>
-			]]></description>
-			<name>align</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					An optional width for the area.
-				</p>
-				<p>
-					This should be formatted for use in a <code>style="width:…"</code> attribute,
-					such as <code>100px</code> or <code>33%</code>.
-					When a non-zero integer, "px" is automatically added.
-				</p>
-			]]></description>
-			<name>width</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					If <code>true</code>, will cause the contents of the area to not wrap.
-					Defaults to <code>false</code>.
-				</p>
-			]]></description>
-			<name>nowrap</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>boolean</type>
-		</attribute>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-14T02:28:24-05:00" -->
-		<description><![CDATA[
-			<p>
-				Writes the advanced content area with skin-provided formatting.
-				This is essentially a fancy way to make tables with skin-specific formatting and dividers.
-			</p>
-		]]></description>
-		<name>content</name>
-		<tag-class>com.aoindustries.web.struts.skintags.ContentTag</tag-class>
-		<body-content>JSP</body-content>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The comma separated list of colspan between each downward
-					pointing connector, defaults to <code>1</code>.
-				</p>
-			]]></description>
-			<name>colspans</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					An optional width for the content area.
-				</p>
-				<p>
-					This should be formatted for use in a <code>style="width:…"</code> attribute,
-					such as <code>100px</code> or <code>33%</code>.
-					When a non-zero integer, "px" is automatically added.
-				</p>
-			]]></description>
-			<name>width</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-14T02:28:24-05:00" -->
-		<description><![CDATA[
-			<p>
-				Prints the content title line, must be nested in a content tag.
-			</p>
-		]]></description>
-		<name>contentTitle</name>
-		<tag-class>com.aoindustries.web.struts.skintags.ContentTitleTag</tag-class>
-		<body-content>scriptless</body-content>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-14T02:28:24-05:00" -->
-		<description><![CDATA[
-			<p>
-				Prints a line of content in a content area.
-				Must be nested in a <a href="@{project.url}aoweb-struts-skin.tld/tag-content">&lt;skin:content&gt;</a> tag.
-			</p>
-		]]></description>
-		<name>contentLine</name>
-		<tag-class>com.aoindustries.web.struts.skintags.ContentLineTag</tag-class>
-		<body-content>JSP</body-content>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The starting colspan, other colspan may be applied using
-					<a href="@{project.url}aoweb-struts-skin.tld/tag-contentVerticalDivider">&lt;skin:contentVerticalDivider&gt;</a>.
-					Defaults to <code>1</code>.
-				</p>
-			]]></description>
-			<name>colspan</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>int</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The starting alignment, other alignments may be applied using
-					<a href="@{project.url}aoweb-struts-skin.tld/tag-contentVerticalDivider">&lt;skin:contentVerticalDivider&gt;</a>.
-				</p>
-			]]></description>
-			<name>align</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The width for the content starting this line.
-				</p>
-				<p>
-					This should be formatted for use in a <code>style="width:…"</code> attribute,
-					such as <code>100px</code> or <code>33%</code>.
-					When a non-zero integer, "px" is automatically added.
-				</p>
-			]]></description>
-			<name>width</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					Indicates the line of content ends internal to the overall
-					content area, this may be the case when a rowspan from a higher
-					line is causing overlap.  Defaults to <code>false</code>.
-				</p>
-			]]></description>
-			<name>endsInternal</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>boolean</type>
-		</attribute>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-14T02:28:24-05:00" -->
-		<description><![CDATA[
-			<p>
-				Prints a vertical divider within the content line.
-				Must be nested in a <a href="@{project.url}aoweb-struts-skin.tld/tag-contentLine">&lt;skin:contentLine&gt;</a> tag.
-			</p>
-		]]></description>
-		<name>contentVerticalDivider</name>
-		<tag-class>com.aoindustries.web.struts.skintags.ContentVerticalDividerTag</tag-class>
-		<body-content>empty</body-content>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					If <code>true</code>, will draw a visible separator and count as one in the
-					overall line colspan.  When <code>false</code>, will not draw the separator
-					and doesn't count in the overall line colspan.  Defaults to
-					<code>true</code>.
-				</p>
-			]]></description>
-			<name>visible</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>boolean</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The colspan for this part of the line.
-					Defaults to <code>1</code>.
-				</p>
-			]]></description>
-			<name>colspan</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>int</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The rowspan for this part of the line.
-					Defaults to <code>1</code>.
-				</p>
-			]]></description>
-			<name>rowspan</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>int</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The alignment for this part of the line.
-				</p>
-			]]></description>
-			<name>align</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The width for the content following the divider.
-				</p>
-				<p>
-					This should be formatted for use in a <code>style="width:…"</code> attribute,
-					such as <code>100px</code> or <code>33%</code>.
-					When a non-zero integer, "px" is automatically added.
-				</p>
-			]]></description>
-			<name>width</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-14T02:28:24-05:00" -->
-		<description><![CDATA[
-			<p>
-				Prints a horizontal divider line.
-				Must be nested in a <a href="@{project.url}aoweb-struts-skin.tld/tag-content">&lt;skin:content&gt;</a> tag.
-			</p>
-		]]></description>
-		<name>contentHorizontalDivider</name>
-		<tag-class>com.aoindustries.web.struts.skintags.ContentHorizontalDividerTag</tag-class>
-		<body-content>JSP</body-content>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					Provides the comma-separated colspan and directions for the line, defaults to <code>1</code>.
-					It is in the format "colspan,direction,colspan,direction,colspan" where each colspan is for
-					that part of the line and each direction is either
-					<code>up</code>, <code>down</code>, or <code>upAndDown</code>.
-				</p>
-			]]></description>
-			<name>colspansAndDirections</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					Indicates the line of content ends internal to the overall content area, this may
-					be the case when a rowspan from a higher line is causing overlap.
-					Defaults to <code>false</code>.
-				</p>
-			]]></description>
-			<name>endsInternal</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>boolean</type>
-		</attribute>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-14T02:28:24-05:00" -->
-		<description><![CDATA[
-			<p>
-				Creates an auto index on a per-skin formatted basis.
-			</p>
-		]]></description>
-		<name>autoIndex</name>
-		<tag-class>com.aoindustries.web.struts.skintags.AutoIndexTag</tag-class>
-		<body-content>empty</body-content>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-14T02:28:24-05:00" -->
-		<!-- TODO: Move popups to their own small project, with taglib of <popup:group />, <popup:popup />, and <popup:close /> -->
-		<description><![CDATA[
-			<p>
-				A popup group will only have one <a href="@{project.url}aoweb-struts-skin.tld/tag-popup">&lt;skin:popup&gt;</a>
-				within the group visible at a time.  Opening a second
-				<a href="@{project.url}aoweb-struts-skin.tld/tag-popup">&lt;skin:popup&gt;</a>
-				will close the one that was first opened.
-			</p>
-		]]></description>
-		<name>popupGroup</name>
-		<tag-class>com.aoindustries.web.struts.skintags.PopupGroupTag</tag-class>
-		<body-content>JSP</body-content>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-14T02:28:24-05:00" -->
-		<description><![CDATA[
-			<p>
-				A popup will display extra information when the mouse is moved over
-				a link/image.
-				Popups must be nested inside a <a href="@{project.url}aoweb-struts-skin.tld/tag-popupGroup">&lt;skin:popupGroup&gt;</a>.
-				Only one of the popups for each popup group will be displayed at a time.
-			</p>
-		]]></description>
-		<name>popup</name>
-		<tag-class>com.aoindustries.web.struts.skintags.PopupTag</tag-class>
-		<body-content>JSP</body-content>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					An optional width for the popup.
-				</p>
-				<p>
-					This should be formatted for use in a <code>style="width:…"</code> attribute,
-					such as <code>100px</code> or <code>33%</code>.
-					When a non-zero integer, "px" is automatically added.
-				</p>
-			]]></description>
-			<name>width</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-14T02:28:24-05:00" -->
-		<description><![CDATA[
-			<p>
-				Renders a close button/link/image for a popup.
-				Must be nested inside a <a href="@{project.url}aoweb-struts-skin.tld/tag-popup">&lt;skin:popup&gt;</a> tag.
-			</p>
-		]]></description>
-		<name>popupClose</name>
-		<tag-class>com.aoindustries.web.struts.skintags.PopupCloseTag</tag-class>
-		<body-content>empty</body-content>
-	</tag>
-	<tag>
-		<!-- datePublished="2016-10-07T16:24:47-05:00" -->
-		<!-- dateModified="2021-06-16T14:18:10-05:00" -->
-		<description><![CDATA[
-			<p>
-				Alternates between <code>aoLightRow</code> and <code>aoDarkRow</code> classes.
-			</p>
-		]]></description>
-		<name>lightDarkTableRow</name>
-		<tag-class>com.aoindustries.web.struts.skintags.LightDarkTableRowTag</tag-class>
-		<body-content>JSP</body-content>
-		<attribute>
-			<description><![CDATA[
-				<p>
-					The name of the page-scoped attribute that keeps the <code>isDark</code>
-					<a rel="nofollow" href="@{javadoc.link.javase}java.base/java/lang/Boolean.html">Boolean</a> flag.
-					Defaults to <code>LightDarkTableRowTag.isDark</code>.
-				</p>
-			]]></description>
-			<name>pageAttributeId</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-	</tag>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+  version="2.1">
+  <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+  <!-- dateModified="2021-09-05T21:51:52-05:00" -->
+  <description><![CDATA[
+    <p>@{description.html}</p>
+    <hr />
+    <p>
+      This taglib is part of an extensible suite of interoperable, context-aware,
+      <a href="https://oss.aoapps.com/encoding/">auto-encoding</a> taglibs.
+      All auto-encoding tags generate correct output for their context, provide context information for nested
+      tags, and validate the output of nested tags.  For example,
+      <a href="https://oss.aoapps.com/taglib/ao.tld/tag-message">&lt;ao:message&gt;</a> within
+      <a href="@{project.url}aoweb-struts-skin.tld/tag-description">&lt;skin:description&gt;</a> will write its output
+      encoded as <a href="https://oss.aoapps.com/encoding/apidocs/com.aoapps.encoding/com/aoapps/encoding/MediaType.html#TEXT">TEXT</a>,
+      while within <a href="@{project.url}aoweb-struts-skin.tld/tag-content">&lt;skin:content&gt;</a> (of type "text/html") will write its
+      output encoded as <a href="https://oss.aoapps.com/encoding/apidocs/com.aoapps.encoding/com/aoapps/encoding/MediaType.html#XHTML">XHTML</a>.
+    </p>
+    <p>
+      This suite includes, but is not limited to:
+    </p>
+    <ul>
+      <li><a href="https://oss.aoapps.com/encoding/taglib/ao-encoding.tld/">AO Encoding Taglib</a></li>
+      <li><a href="https://oss.aoapps.com/taglib/ao.tld/">AO Taglib</a></li>
+      <li><a href="@{project.url}aoweb-struts-skin.tld/">AOWeb Struts Skin Taglib</a> (this taglib)</li>
+      <li><a href="https://oss.newmediaworks.com/email-taglib/nmw-email.tld/">NMW Email Taglib</a></li>
+      <li><a href="https://oss.newmediaworks.com/payment-taglib/nmw-payment.tld/">NMW Payment Taglib</a></li>
+      <!-- TODO: nmw-persistence-taglib once open-source, and many others -->
+    </ul>
+  ]]></description>
+  <display-name>@{project.name} Skin Taglib</display-name>
+  <tlib-version>
+    <!-- Release: @{project.version} -->
+    @{parsedVersion.majorVersion}.@{parsedVersion.minorVersion}.@{parsedVersion.incrementalVersion}
+  </tlib-version>
+  <short-name>skin</short-name>
+  <uri>@{project.url}skin-taglib/</uri>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-09-05T21:51:52-05:00" -->
+    <description><![CDATA[
+      <p>
+        Provides keywords to its
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+        parent tag or the
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+        if parent not found.
+      </p>
+    ]]></description>
+    <name>keywords</name>
+    <tag-class>com.aoindustries.web.struts.skintags.KeywordsTag</tag-class>
+    <body-content>scriptless</body-content>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-09-05T21:51:52-05:00" -->
+    <description><![CDATA[
+      <p>
+        Provides a description to its
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+        parent tag or the
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+        if parent not found.
+      </p>
+    ]]></description>
+    <name>description</name>
+    <tag-class>com.aoindustries.web.struts.skintags.DescriptionTag</tag-class>
+    <body-content>scriptless</body-content>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-09-05T21:51:52-05:00" -->
+    <description><![CDATA[
+      <p>
+        Provides an author to its
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+        parent tag or the
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+        if parent not found.
+      </p>
+    ]]></description>
+    <name>author</name>
+    <tag-class>com.aoindustries.web.struts.skintags.AuthorTag</tag-class>
+    <body-content>scriptless</body-content>
+  </tag>
+  <tag>
+    <!-- datePublished="2019-10-29T03:35:08-05:00" -->
+    <!-- dateModified="2021-09-05T21:51:52-05:00" -->
+    <description><![CDATA[
+      <p>
+        Provides an author href to its
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+        parent tag or the
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+        if parent not found.
+      </p>
+    ]]></description>
+    <name>authorHref</name>
+    <tag-class>com.aoindustries.web.struts.skintags.AuthorHrefTag</tag-class>
+    <body-content>scriptless</body-content>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-09-05T21:51:52-05:00" -->
+    <description><![CDATA[
+      <p>
+        Provides a copyright to its
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+        parent tag or the
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+        if parent not found.
+      </p>
+    ]]></description>
+    <name>copyright</name>
+    <tag-class>com.aoindustries.web.struts.skintags.CopyrightTag</tag-class>
+    <body-content>scriptless</body-content>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-09-25T23:27:50-05:00" -->
+    <description><![CDATA[
+      <p class="semanticcms-tag-reference-summary">
+        Provides a path to its
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+        parent tag or the
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+        if parent not found.
+        The body of this tag, after trimming, is valid <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
+        or <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a>.
+      </p>
+      <p>
+        The path is relative to the root of the application.
+      </p>
+      <p>
+        Parameters must be properly URL encoded but not XML encoded (with &amp; instead of &amp;amp;).
+        The path before the first ? will be encoded by this tag.  The preferred approach is to add any
+        necessary parameters using nested
+        <a href="https://oss.aoapps.com/taglib/ao.tld/tag-param">&lt;ao:param&gt;</a> and
+        <a href="https://oss.aoapps.com/taglib/ao.tld/tag-params">&lt;ao:params&gt;</a> tags.
+      </p>
+      <p>
+        Any attribute that has no namespace and begins with <code>param.</code> is added to the URL as a parameter.
+        The parameter name is the part of the attribute name following <code>param.</code>.
+      </p>
+      <p>
+        When a parameter value is <code>null</code> it is not added.
+        If the value is an
+        <a rel="nofollow" href="@{javadoc.link.javase}java/lang/Iterable.html">Iterable</a>,
+        <a rel="nofollow" href="@{javadoc.link.javase}java/util/Iterator.html">Iterator</a>,
+        <a rel="nofollow" href="@{javadoc.link.javase}java/util/Enumeration.html">Enumeration</a>,
+        or array, then each non-null element is coerced to
+        <a rel="nofollow" href="@{javadoc.link.javase}java/lang/String.html">String</a> as a separate
+        parameter in iteration order.  Otherwise, the value itself is
+        coerced to <a rel="nofollow" href="@{javadoc.link.javase}java/lang/String.html">String</a>
+        for the parameter value.
+      </p>
+      <p>
+        Nested <a href="@{project.url}aoweb-struts-skin.tld/tag-param">&lt;ao:param&gt;</a> or
+        <a href="@{project.url}aoweb-struts-skin.tld/tag-params">&lt;ao:params&gt;</a> tags will
+        add parameters after any provided as attributes.
+      </p>
+    ]]></description>
+    <name>path</name>
+    <tag-class>com.aoindustries.web.struts.skintags.PathTag</tag-class>
+    <body-content>scriptless</body-content>
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-09-05T21:51:52-05:00" -->
+    <description><![CDATA[
+      <p>
+        Provides a meta to its
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+        parent tag or the
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+        if parent not found.
+      </p>
+      <p>
+        In precedence order, the content may be provided as:
+      </p>
+      <ol>
+        <li>Nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-content">&lt;ao:content&gt;</a> tag</li>
+        <li>content attribute</li>
+        <li>Body</li>
+      </ol>
+    ]]></description>
+    <name>meta</name>
+    <tag-class>com.aoindustries.web.struts.skintags.MetaTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The name of the <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/Meta.html">meta information</a>.
+          A nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-name">&lt;ao:name&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The content of the <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/Meta.html">meta information</a>.
+          A nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-content">&lt;ao:content&gt;</a> tag will override this value.
+          A non-empty body may also provide the content.
+        </p>
+      ]]></description>
+      <name>content</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.Object</type>
+    </attribute>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-09-25T23:27:50-05:00" -->
+    <description><![CDATA[
+      <p>
+        Adds a link tag to <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">this page</a>.
+        In precedence order, the href may be provided as:
+      </p>
+      <ol>
+        <li>Nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-href">&lt;ao:href&gt;</a> tag</li>
+        <li>href attribute</li>
+        <li>
+          The body of this tag, after trimming, is valid <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
+          or <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a>.
+        </li>
+      </ol>
+      <p>
+        Parameters must be properly URL encoded but not XML encoded (with &amp; instead of &amp;amp;).
+        The path before the first ? will be encoded by this tag.  The preferred approach is to add any
+        necessary parameters using nested
+        <a href="https://oss.aoapps.com/taglib/ao.tld/tag-param">&lt;ao:param&gt;</a> and
+        <a href="https://oss.aoapps.com/taglib/ao.tld/tag-params">&lt;ao:params&gt;</a> tags.
+      </p>
+      <p>
+        Any attribute that has no namespace and begins with <code>param.</code> is added to the URL as a parameter.
+        The parameter name is the part of the attribute name following <code>param.</code>.
+      </p>
+      <p>
+        When a parameter value is <code>null</code> it is not added.
+        If the value is an
+        <a rel="nofollow" href="@{javadoc.link.javase}java/lang/Iterable.html">Iterable</a>,
+        <a rel="nofollow" href="@{javadoc.link.javase}java/util/Iterator.html">Iterator</a>,
+        <a rel="nofollow" href="@{javadoc.link.javase}java/util/Enumeration.html">Enumeration</a>,
+        or array, then each non-null element is coerced to
+        <a rel="nofollow" href="@{javadoc.link.javase}java/lang/String.html">String</a> as a separate
+        parameter in iteration order.  Otherwise, the value itself is
+        coerced to <a rel="nofollow" href="@{javadoc.link.javase}java/lang/String.html">String</a>
+        for the parameter value.
+      </p>
+      <p>
+        Nested <a href="@{project.url}aoweb-struts-skin.tld/tag-param">&lt;ao:param&gt;</a> or
+        <a href="@{project.url}aoweb-struts-skin.tld/tag-params">&lt;ao:params&gt;</a> tags will
+        add parameters after any provided as attributes.
+      </p>
+      <p>
+        Please note, that any links to stylesheets here are never optimized.  Please
+        prefer the <a href="https://oss.aoapps.com/web-resources/taglib/">AO Web Resources Taglib</a>.
+      </p>
+    ]]></description>
+    <name>link</name>
+    <tag-class>com.aoindustries.web.struts.skintags.LinkTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The rel of the link.
+          A nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-rel">&lt;ao:rel&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>rel</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p class="semanticcms-tag-reference-summary">
+          The href of the link.
+          A nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-href">&lt;ao:href&gt;</a> tag will override this value.
+        </p>
+        <p>
+          Parameters must be properly URL encoded but not XML encoded (with &amp; instead of &amp;amp;).
+          The path before the first ? will be encoded by this tag.  The preferred approach is to add any
+          necessary parameters using nested
+          <a href="https://oss.aoapps.com/taglib/ao.tld/tag-param">&lt;ao:param&gt;</a> and
+          <a href="https://oss.aoapps.com/taglib/ao.tld/tag-params">&lt;ao:params&gt;</a> tags.
+        </p>
+      ]]></description>
+      <name>href</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The type of the link tag.
+          A nested <a href="https://oss.aoapps.com/taglib/ao.tld/tag-type">&lt;ao:type&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>type</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-09-05T21:51:52-05:00" -->
+    <description><![CDATA[
+      <p>
+        Provides a title to its
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+        parent tag or the
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+        if parent not found.
+      </p>
+    ]]></description>
+    <name>title</name>
+    <tag-class>com.aoindustries.web.struts.skintags.TitleTag</tag-class>
+    <body-content>scriptless</body-content>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-09-05T21:51:52-05:00" -->
+    <description><![CDATA[
+      <p>
+        Provides a navImageAlt to its
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageTag.html">PageTag</a>
+        parent tag or the
+        <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">page overall</a>
+        if parent not found.
+      </p>
+    ]]></description>
+    <name>navImageAlt</name>
+    <tag-class>com.aoindustries.web.struts.skintags.NavImageAltTag</tag-class>
+    <body-content>scriptless</body-content>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-06-14T02:28:24-05:00" -->
+    <description><![CDATA[
+      <p>
+        Adds a parent to the hierarchy above this page.
+      </p>
+    ]]></description>
+    <name>parent</name>
+    <tag-class>com.aoindustries.web.struts.skintags.ParentTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The keywords of the parent.
+          A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-keywords">&lt;skin:keywords&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>keywords</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The description of the parent.
+          A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-description">&lt;skin:description&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>description</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The author of the parent.
+          A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-author">&lt;skin:author&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>author</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The copyright of the parent.
+          A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-copyright">&lt;skin:copyright&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>copyright</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The path of the parent.
+          A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-path">&lt;skin:path&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>path</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The title of the parent.
+          A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-title">&lt;skin:title&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>title</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The navImageAlt of the parent.
+          A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-navImageAlt">&lt;skin:navImageAlt&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>navImageAlt</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-06-14T02:28:24-05:00" -->
+    <description><![CDATA[
+      <p>
+        Adds a child to the <a href="@{project.url}aoweb-struts-skin.tld/tag-parent">&lt;skin:parent&gt;</a> tag or at the same level as this page if no parent tag.
+      </p>
+    ]]></description>
+    <name>child</name>
+    <tag-class>com.aoindustries.web.struts.skintags.ChildTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The keywords of the child.
+          A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-keywords">&lt;skin:keywords&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>keywords</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The description of the child.
+          A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-description">&lt;skin:description&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>description</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The author of the child.
+          A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-author">&lt;skin:author&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>author</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The copyright of the child.
+          A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-copyright">&lt;skin:copyright&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>copyright</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The path of the child.
+          A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-path">&lt;skin:path&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>path</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The title of the child.
+          A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-title">&lt;skin:title&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>title</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The navImageAlt of the child.
+          A nested <a href="@{project.url}aoweb-struts-skin.tld/tag-navImageAlt">&lt;skin:navImageAlt&gt;</a> tag will override this value.
+        </p>
+      ]]></description>
+      <name>navImageAlt</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-09-23T07:02:20-05:00" -->
+    <description><![CDATA[
+      <p>
+        Sets up the request and response, then writes all of the HTML
+        preceding and following the content of the page.
+      </p>
+    ]]></description>
+    <name>skin</name>
+    <tag-class>com.aoindustries.web.struts.skintags.SkinTag</tag-class>
+    <tei-class>com.aoindustries.web.struts.skintags.SkinTagTEI</tei-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          When <code>SGML</code>, forces the content-type to be <code>text/html</code>.
+          When <code>XML</code>, forces the content-type to be <code>application/xhtml+xml</code>.
+          When <code>auto</code> (the default), the following steps are performed to resolve the serialization:
+        </p>
+        <ol>
+          <li>Use the serialization active on the current request.</li>
+          <li>
+            Use the application <a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/ServletContext.html#getInitParameter(java.lang.String)">context-param</a>
+            <code>com.aoapps.encoding.Serialization.default</code>
+            that allows an application to control the selection of HTML versus XHTML.
+          </li>
+          <li>
+            When this context-param is unspecified or <code>auto</code>,
+            determine the serialization based on the client's <code>Accept</code> header.
+          </li>
+        </ol>
+        <p>
+          This should normally be left with the default value of <code>auto</code>.  This is used
+          when the content is known to contain invalid markup that can not be parsed as XML.
+        </p>
+      ]]></description>
+      <name>serialization</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The <a href="https://www.w3schools.com/tags/tag_doctype.asp">&lt;!DOCTYPE&gt;</a> to use,
+          must be one of <code>default</code>, <code>HTML5</code>, <code>STRICT</code>, <code>TRANSITIONAL</code>,
+          <code>FRAMESET</code>, or <code>NONE</code>.
+          Defaults to <code>HTML5</code>.  <code>NONE</code> will suppress the output of a doctype.
+        </p>
+        <p>
+          When <code>default</code>, the following steps are performed to resolve the doctype:
+        </p>
+        <ol>
+          <li>Use the doctype active on the current request.</li>
+          <li>
+            Use the application <a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/ServletContext.html#getInitParameter(java.lang.String)">context-param</a>
+            <code>com.aoapps.encoding.Doctype.default</code>
+            that allows an application to control the default doctype.
+          </li>
+          <li>
+            When this context-param is unspecified or <code>default</code>,
+            defaults to <code>HTML5</code>.
+          </li>
+        </ol>
+      ]]></description>
+      <name>doctype</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          When <code>true</code>, enables automatic newline (and tab indentation when enabled).
+          When <code>false</code>, disables automatic newline and tab indentation.
+          When <code>auto</code> (the default), the following steps are performed to resolve the autonli setting:
+        </p>
+        <ol>
+          <li>Use the autonli setting active on the current request.</li>
+          <li>
+            Use the application <a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/ServletContext.html#getInitParameter(java.lang.String)">context-param</a>
+            <code>com.aoapps.html.servlet.DocumentEE.autonli</code>
+            that allows an application to control the default autonli setting.
+          </li>
+          <li>
+            When this context-param is unspecified or <code>auto</code>,
+            defaults to <code>false</code>.
+          </li>
+        </ol>
+      ]]></description>
+      <name>autonli</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          When <code>true</code>, enables tab indentation.
+          When <code>false</code>, disables tab indentation.
+          When <code>auto</code> (the default), the following steps are performed to resolve the indent setting:
+        </p>
+        <ol>
+          <li>Use the indent setting active on the current request.</li>
+          <li>
+            Use the application <a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/ServletContext.html#getInitParameter(java.lang.String)">context-param</a>
+            <code>com.aoapps.html.servlet.DocumentEE.indent</code>
+            that allows an application to control the default indent setting.
+          </li>
+          <li>
+            When this context-param is unspecified or <code>auto</code>,
+            defaults to <code>false</code>.
+          </li>
+        </ol>
+      ]]></description>
+      <name>indent</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          Each page may request a specific layout from the skin implementation.  The currently
+          supported values are:
+        </p>
+        <ul>
+          <li>
+            <code>normal</code> - This provides headers, footers, and full navigation.
+            This is the default layout if no layout is specified.
+          </li>
+          <li>
+            <code>minimal</code> - This provides a minimal layout without any page navigation
+            except headers and footers.  This provides maximum area for the page content
+            while still maintaining a consistent look and feel.
+          </li>
+        </ul>
+      ]]></description>
+      <name>layout</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The type of form used in the page.  The currently supported values are:
+        </p>
+        <ul>
+          <li>
+            <code>none</code> (the default) - This page does not require any resources in the head.
+          </li>
+          <li>
+            <code>struts1</code> - Adds <code>/struts1/commons-validator-1.3.1-compress.js</code> to
+            <code>&lt;head&gt;</code> for Struts 1.
+          </li>
+          <li>
+            <code>struts2</code> - <a href="https://struts.apache.org/tag-developers/head-tag.html"><code>&lt;s:head /&gt;</code></a> within
+            <code>&lt;head&gt;</code> for <a href="https://struts.apache.org/">Struts 2</a>.
+          </li>
+        </ul>
+      ]]></description>
+      <name>formtype</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The JavaScript that will be placed in the onload attribute of the body tag.
+        </p>
+      ]]></description>
+      <name>onload</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-06-14T02:28:24-05:00" -->
+    <description><![CDATA[
+      <p>
+        Surrounds the body with a light area.
+      </p>
+    ]]></description>
+    <name>lightArea</name>
+    <tag-class>com.aoindustries.web.struts.skintags.LightAreaTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The alignment for this area.
+        </p>
+      ]]></description>
+      <name>align</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          An optional width for the area.
+        </p>
+        <p>
+          This should be formatted for use in a <code>style="width:…"</code> attribute,
+          such as <code>100px</code> or <code>33%</code>.
+          When a non-zero integer, "px" is automatically added.
+        </p>
+      ]]></description>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          If <code>true</code>, will cause the contents of the area to not wrap.
+          Defaults to <code>false</code>.
+        </p>
+      ]]></description>
+      <name>nowrap</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+    </attribute>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-06-14T02:28:24-05:00" -->
+    <description><![CDATA[
+      <p>
+        Surrounds the body with a white area.
+      </p>
+    ]]></description>
+    <name>whiteArea</name>
+    <tag-class>com.aoindustries.web.struts.skintags.WhiteAreaTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The alignment for this area.
+        </p>
+      ]]></description>
+      <name>align</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          An optional width for the area.
+        </p>
+        <p>
+          This should be formatted for use in a <code>style="width:…"</code> attribute,
+          such as <code>100px</code> or <code>33%</code>.
+          When a non-zero integer, "px" is automatically added.
+        </p>
+      ]]></description>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          If <code>true</code>, will cause the contents of the area to not wrap.
+          Defaults to <code>false</code>.
+        </p>
+      ]]></description>
+      <name>nowrap</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+    </attribute>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-06-14T02:28:24-05:00" -->
+    <description><![CDATA[
+      <p>
+        Writes the advanced content area with skin-provided formatting.
+        This is essentially a fancy way to make tables with skin-specific formatting and dividers.
+      </p>
+    ]]></description>
+    <name>content</name>
+    <tag-class>com.aoindustries.web.struts.skintags.ContentTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The comma separated list of colspan between each downward
+          pointing connector, defaults to <code>1</code>.
+        </p>
+      ]]></description>
+      <name>colspans</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          An optional width for the content area.
+        </p>
+        <p>
+          This should be formatted for use in a <code>style="width:…"</code> attribute,
+          such as <code>100px</code> or <code>33%</code>.
+          When a non-zero integer, "px" is automatically added.
+        </p>
+      ]]></description>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-06-14T02:28:24-05:00" -->
+    <description><![CDATA[
+      <p>
+        Prints the content title line, must be nested in a content tag.
+      </p>
+    ]]></description>
+    <name>contentTitle</name>
+    <tag-class>com.aoindustries.web.struts.skintags.ContentTitleTag</tag-class>
+    <body-content>scriptless</body-content>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-06-14T02:28:24-05:00" -->
+    <description><![CDATA[
+      <p>
+        Prints a line of content in a content area.
+        Must be nested in a <a href="@{project.url}aoweb-struts-skin.tld/tag-content">&lt;skin:content&gt;</a> tag.
+      </p>
+    ]]></description>
+    <name>contentLine</name>
+    <tag-class>com.aoindustries.web.struts.skintags.ContentLineTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The starting colspan, other colspan may be applied using
+          <a href="@{project.url}aoweb-struts-skin.tld/tag-contentVerticalDivider">&lt;skin:contentVerticalDivider&gt;</a>.
+          Defaults to <code>1</code>.
+        </p>
+      ]]></description>
+      <name>colspan</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The starting alignment, other alignments may be applied using
+          <a href="@{project.url}aoweb-struts-skin.tld/tag-contentVerticalDivider">&lt;skin:contentVerticalDivider&gt;</a>.
+        </p>
+      ]]></description>
+      <name>align</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The width for the content starting this line.
+        </p>
+        <p>
+          This should be formatted for use in a <code>style="width:…"</code> attribute,
+          such as <code>100px</code> or <code>33%</code>.
+          When a non-zero integer, "px" is automatically added.
+        </p>
+      ]]></description>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          Indicates the line of content ends internal to the overall
+          content area, this may be the case when a rowspan from a higher
+          line is causing overlap.  Defaults to <code>false</code>.
+        </p>
+      ]]></description>
+      <name>endsInternal</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+    </attribute>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-06-14T02:28:24-05:00" -->
+    <description><![CDATA[
+      <p>
+        Prints a vertical divider within the content line.
+        Must be nested in a <a href="@{project.url}aoweb-struts-skin.tld/tag-contentLine">&lt;skin:contentLine&gt;</a> tag.
+      </p>
+    ]]></description>
+    <name>contentVerticalDivider</name>
+    <tag-class>com.aoindustries.web.struts.skintags.ContentVerticalDividerTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          If <code>true</code>, will draw a visible separator and count as one in the
+          overall line colspan.  When <code>false</code>, will not draw the separator
+          and doesn't count in the overall line colspan.  Defaults to
+          <code>true</code>.
+        </p>
+      ]]></description>
+      <name>visible</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The colspan for this part of the line.
+          Defaults to <code>1</code>.
+        </p>
+      ]]></description>
+      <name>colspan</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The rowspan for this part of the line.
+          Defaults to <code>1</code>.
+        </p>
+      ]]></description>
+      <name>rowspan</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The alignment for this part of the line.
+        </p>
+      ]]></description>
+      <name>align</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The width for the content following the divider.
+        </p>
+        <p>
+          This should be formatted for use in a <code>style="width:…"</code> attribute,
+          such as <code>100px</code> or <code>33%</code>.
+          When a non-zero integer, "px" is automatically added.
+        </p>
+      ]]></description>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-06-14T02:28:24-05:00" -->
+    <description><![CDATA[
+      <p>
+        Prints a horizontal divider line.
+        Must be nested in a <a href="@{project.url}aoweb-struts-skin.tld/tag-content">&lt;skin:content&gt;</a> tag.
+      </p>
+    ]]></description>
+    <name>contentHorizontalDivider</name>
+    <tag-class>com.aoindustries.web.struts.skintags.ContentHorizontalDividerTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          Provides the comma-separated colspan and directions for the line, defaults to <code>1</code>.
+          It is in the format "colspan,direction,colspan,direction,colspan" where each colspan is for
+          that part of the line and each direction is either
+          <code>up</code>, <code>down</code>, or <code>upAndDown</code>.
+        </p>
+      ]]></description>
+      <name>colspansAndDirections</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          Indicates the line of content ends internal to the overall content area, this may
+          be the case when a rowspan from a higher line is causing overlap.
+          Defaults to <code>false</code>.
+        </p>
+      ]]></description>
+      <name>endsInternal</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+    </attribute>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-06-14T02:28:24-05:00" -->
+    <description><![CDATA[
+      <p>
+        Creates an auto index on a per-skin formatted basis.
+      </p>
+    ]]></description>
+    <name>autoIndex</name>
+    <tag-class>com.aoindustries.web.struts.skintags.AutoIndexTag</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-06-14T02:28:24-05:00" -->
+    <!-- TODO: Move popups to their own small project, with taglib of <popup:group />, <popup:popup />, and <popup:close /> -->
+    <description><![CDATA[
+      <p>
+        A popup group will only have one <a href="@{project.url}aoweb-struts-skin.tld/tag-popup">&lt;skin:popup&gt;</a>
+        within the group visible at a time.  Opening a second
+        <a href="@{project.url}aoweb-struts-skin.tld/tag-popup">&lt;skin:popup&gt;</a>
+        will close the one that was first opened.
+      </p>
+    ]]></description>
+    <name>popupGroup</name>
+    <tag-class>com.aoindustries.web.struts.skintags.PopupGroupTag</tag-class>
+    <body-content>JSP</body-content>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-06-14T02:28:24-05:00" -->
+    <description><![CDATA[
+      <p>
+        A popup will display extra information when the mouse is moved over
+        a link/image.
+        Popups must be nested inside a <a href="@{project.url}aoweb-struts-skin.tld/tag-popupGroup">&lt;skin:popupGroup&gt;</a>.
+        Only one of the popups for each popup group will be displayed at a time.
+      </p>
+    ]]></description>
+    <name>popup</name>
+    <tag-class>com.aoindustries.web.struts.skintags.PopupTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          An optional width for the popup.
+        </p>
+        <p>
+          This should be formatted for use in a <code>style="width:…"</code> attribute,
+          such as <code>100px</code> or <code>33%</code>.
+          When a non-zero integer, "px" is automatically added.
+        </p>
+      ]]></description>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-06-14T02:28:24-05:00" -->
+    <description><![CDATA[
+      <p>
+        Renders a close button/link/image for a popup.
+        Must be nested inside a <a href="@{project.url}aoweb-struts-skin.tld/tag-popup">&lt;skin:popup&gt;</a> tag.
+      </p>
+    ]]></description>
+    <name>popupClose</name>
+    <tag-class>com.aoindustries.web.struts.skintags.PopupCloseTag</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+  <tag>
+    <!-- datePublished="2016-10-07T16:24:47-05:00" -->
+    <!-- dateModified="2021-06-16T14:18:10-05:00" -->
+    <description><![CDATA[
+      <p>
+        Alternates between <code>aoLightRow</code> and <code>aoDarkRow</code> classes.
+      </p>
+    ]]></description>
+    <name>lightDarkTableRow</name>
+    <tag-class>com.aoindustries.web.struts.skintags.LightDarkTableRowTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <description><![CDATA[
+        <p>
+          The name of the page-scoped attribute that keeps the <code>isDark</code>
+          <a rel="nofollow" href="@{javadoc.link.javase}java.base/java/lang/Boolean.html">Boolean</a> flag.
+          Defaults to <code>LightDarkTableRowTag.isDark</code>.
+        </p>
+      ]]></description>
+      <name>pageAttributeId</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+  </tag>
 </taglib>

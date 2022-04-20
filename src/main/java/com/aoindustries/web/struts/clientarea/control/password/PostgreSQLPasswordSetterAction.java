@@ -46,51 +46,51 @@ import org.apache.struts.action.ActionMapping;
  */
 public class PostgreSQLPasswordSetterAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		PostgreSQLPasswordSetterForm postgreSQLPasswordSetterForm = (PostgreSQLPasswordSetterForm)form;
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    PostgreSQLPasswordSetterForm postgreSQLPasswordSetterForm = (PostgreSQLPasswordSetterForm)form;
 
-		List<UserServer> psus = aoConn.getPostgresql().getUserServer().getRows();
+    List<UserServer> psus = aoConn.getPostgresql().getUserServer().getRows();
 
-		List<String> packages = new ArrayList<>(psus.size());
-		List<String> usernames = new ArrayList<>(psus.size());
-		List<String> postgreSQLServers = new ArrayList<>(psus.size());
-		List<String> servers = new ArrayList<>(psus.size());
-		List<String> newPasswords = new ArrayList<>(psus.size());
-		List<String> confirmPasswords = new ArrayList<>(psus.size());
-		for(UserServer psu : psus) {
-			if(psu.canSetPassword()) {
-				User pu = psu.getPostgresUser();
-				com.aoindustries.aoserv.client.account.User un = pu.getUsername();
-				Server ps = psu.getPostgresServer();
-				packages.add(un.getPackage().getName().toString());
-				usernames.add(un.getUsername().toString());
-				postgreSQLServers.add(ps.getName().toString());
-				servers.add(ps.getLinuxServer().getHostname().toString());
-				newPasswords.add("");
-				confirmPasswords.add("");
-			}
-		}
+    List<String> packages = new ArrayList<>(psus.size());
+    List<String> usernames = new ArrayList<>(psus.size());
+    List<String> postgreSQLServers = new ArrayList<>(psus.size());
+    List<String> servers = new ArrayList<>(psus.size());
+    List<String> newPasswords = new ArrayList<>(psus.size());
+    List<String> confirmPasswords = new ArrayList<>(psus.size());
+    for (UserServer psu : psus) {
+      if (psu.canSetPassword()) {
+        User pu = psu.getPostgresUser();
+        com.aoindustries.aoserv.client.account.User un = pu.getUsername();
+        Server ps = psu.getPostgresServer();
+        packages.add(un.getPackage().getName().toString());
+        usernames.add(un.getUsername().toString());
+        postgreSQLServers.add(ps.getName().toString());
+        servers.add(ps.getLinuxServer().getHostname().toString());
+        newPasswords.add("");
+        confirmPasswords.add("");
+      }
+    }
 
-		// Store to the form
-		postgreSQLPasswordSetterForm.setPackages(packages);
-		postgreSQLPasswordSetterForm.setUsernames(usernames);
-		postgreSQLPasswordSetterForm.setPostgreSQLServers(postgreSQLServers);
-		postgreSQLPasswordSetterForm.setServers(servers);
-		postgreSQLPasswordSetterForm.setNewPasswords(newPasswords);
-		postgreSQLPasswordSetterForm.setConfirmPasswords(confirmPasswords);
+    // Store to the form
+    postgreSQLPasswordSetterForm.setPackages(packages);
+    postgreSQLPasswordSetterForm.setUsernames(usernames);
+    postgreSQLPasswordSetterForm.setPostgreSQLServers(postgreSQLServers);
+    postgreSQLPasswordSetterForm.setServers(servers);
+    postgreSQLPasswordSetterForm.setNewPasswords(newPasswords);
+    postgreSQLPasswordSetterForm.setConfirmPasswords(confirmPasswords);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return Collections.singleton(Permission.Name.set_postgres_server_user_password);
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return Collections.singleton(Permission.Name.set_postgres_server_user_password);
+  }
 }

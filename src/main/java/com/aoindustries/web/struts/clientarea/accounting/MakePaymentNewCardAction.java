@@ -55,87 +55,87 @@ import org.apache.struts.action.ActionMapping;
  */
 public class MakePaymentNewCardAction extends AuthenticatedAction {
 
-	@Override
-	public ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		MakePaymentNewCardForm makePaymentNewCardForm = (MakePaymentNewCardForm)form;
+  @Override
+  public ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    MakePaymentNewCardForm makePaymentNewCardForm = (MakePaymentNewCardForm)form;
 
-		Account account;
-		try {
-			account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(makePaymentNewCardForm.getAccount()));
-		} catch(ValidationException e) {
-			return mapping.findForward("make-payment");
-		}
-		if(account == null) {
-			// Redirect back to make-payment if account not found
-			return mapping.findForward("make-payment");
-		}
+    Account account;
+    try {
+      account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(makePaymentNewCardForm.getAccount()));
+    } catch (ValidationException e) {
+      return mapping.findForward("make-payment");
+    }
+    if (account == null) {
+      // Redirect back to make-payment if account not found
+      return mapping.findForward("make-payment");
+    }
 
-		// Populate the initial details from the selected account name or authenticated user
-		Locale locale = response.getLocale();
-		Profile profile = account.getProfile();
-		if(profile != null) {
-			makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(profile.getBillingContact(), locale));
-			makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(profile.getBillingContact(), locale));
-			makePaymentNewCardForm.setCompanyName(profile.getName());
-			makePaymentNewCardForm.setStreetAddress1(profile.getAddress1());
-			makePaymentNewCardForm.setStreetAddress2(profile.getAddress2());
-			makePaymentNewCardForm.setCity(profile.getCity());
-			makePaymentNewCardForm.setState(profile.getState());
-			makePaymentNewCardForm.setPostalCode(profile.getZIP());
-			makePaymentNewCardForm.setCountryCode(profile.getCountry().getCode());
-		} else {
-			Administrator thisBA = aoConn.getCurrentAdministrator();
-			makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(thisBA.getName(), locale));
-			makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(thisBA.getName(), locale));
-			makePaymentNewCardForm.setStreetAddress1(thisBA.getAddress1());
-			makePaymentNewCardForm.setStreetAddress2(thisBA.getAddress2());
-			makePaymentNewCardForm.setCity(thisBA.getCity());
-			makePaymentNewCardForm.setState(thisBA.getState());
-			makePaymentNewCardForm.setPostalCode(thisBA.getZIP());
-			makePaymentNewCardForm.setCountryCode(thisBA.getCountry() == null ? "" : thisBA.getCountry().getCode());
-		}
+    // Populate the initial details from the selected account name or authenticated user
+    Locale locale = response.getLocale();
+    Profile profile = account.getProfile();
+    if (profile != null) {
+      makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(profile.getBillingContact(), locale));
+      makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(profile.getBillingContact(), locale));
+      makePaymentNewCardForm.setCompanyName(profile.getName());
+      makePaymentNewCardForm.setStreetAddress1(profile.getAddress1());
+      makePaymentNewCardForm.setStreetAddress2(profile.getAddress2());
+      makePaymentNewCardForm.setCity(profile.getCity());
+      makePaymentNewCardForm.setState(profile.getState());
+      makePaymentNewCardForm.setPostalCode(profile.getZIP());
+      makePaymentNewCardForm.setCountryCode(profile.getCountry().getCode());
+    } else {
+      Administrator thisBA = aoConn.getCurrentAdministrator();
+      makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(thisBA.getName(), locale));
+      makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(thisBA.getName(), locale));
+      makePaymentNewCardForm.setStreetAddress1(thisBA.getAddress1());
+      makePaymentNewCardForm.setStreetAddress2(thisBA.getAddress2());
+      makePaymentNewCardForm.setCity(thisBA.getCity());
+      makePaymentNewCardForm.setState(thisBA.getState());
+      makePaymentNewCardForm.setPostalCode(thisBA.getZIP());
+      makePaymentNewCardForm.setCountryCode(thisBA.getCountry() == null ? "" : thisBA.getCountry().getCode());
+    }
 
-		initRequestAttributes(request, getServlet().getServletContext());
+    initRequestAttributes(request, getServlet().getServletContext());
 
-		Currency currency = aoConn.getBilling().getCurrency().get(makePaymentNewCardForm.getCurrency());
-		if(currency != null) {
-			// Prompt for amount of payment defaults to current balance.
-			Money balance = aoConn.getBilling().getTransaction().getAccountBalance(account).get(currency.getCurrency());
-			if(balance != null && balance.getUnscaledValue() > 0) {
-				makePaymentNewCardForm.setPaymentAmount(balance.getValue().toPlainString());
-			} else {
-				makePaymentNewCardForm.setPaymentAmount("");
-			}
-		} else {
-			// No currency, no default payment amount
-			makePaymentNewCardForm.setPaymentAmount("");
-		}
+    Currency currency = aoConn.getBilling().getCurrency().get(makePaymentNewCardForm.getCurrency());
+    if (currency != null) {
+      // Prompt for amount of payment defaults to current balance.
+      Money balance = aoConn.getBilling().getTransaction().getAccountBalance(account).get(currency.getCurrency());
+      if (balance != null && balance.getUnscaledValue() > 0) {
+        makePaymentNewCardForm.setPaymentAmount(balance.getValue().toPlainString());
+      } else {
+        makePaymentNewCardForm.setPaymentAmount("");
+      }
+    } else {
+      // No currency, no default payment amount
+      makePaymentNewCardForm.setPaymentAmount("");
+    }
 
-		request.setAttribute("account", account);
+    request.setAttribute("account", account);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	protected void initRequestAttributes(HttpServletRequest request, ServletContext context) throws SQLException, IOException {
-		// Build the list of years
-		List<String> expirationYears = new ArrayList<>(1 + CreditCard.EXPIRATION_YEARS_FUTURE);
-		int startYear = new GregorianCalendar().get(Calendar.YEAR);
-		for(int c = 0; c <= CreditCard.EXPIRATION_YEARS_FUTURE; c++) {
-			expirationYears.add(Integer.toString(startYear + c));
-		}
+  protected void initRequestAttributes(HttpServletRequest request, ServletContext context) throws SQLException, IOException {
+    // Build the list of years
+    List<String> expirationYears = new ArrayList<>(1 + CreditCard.EXPIRATION_YEARS_FUTURE);
+    int startYear = new GregorianCalendar().get(Calendar.YEAR);
+    for (int c = 0; c <= CreditCard.EXPIRATION_YEARS_FUTURE; c++) {
+      expirationYears.add(Integer.toString(startYear + c));
+    }
 
-		// Build the list of countries
-		// We use the root connector to provide a better set of country values
-		List<SignupOrganizationActionHelper.CountryOption> countryOptions = SignupOrganizationActionHelper.getCountryOptions(SiteSettings.getInstance(context).getRootAOServConnector());
+    // Build the list of countries
+    // We use the root connector to provide a better set of country values
+    List<SignupOrganizationActionHelper.CountryOption> countryOptions = SignupOrganizationActionHelper.getCountryOptions(SiteSettings.getInstance(context).getRootAOServConnector());
 
-		// Store to request attributes
-		request.setAttribute("expirationYears", expirationYears);
-		request.setAttribute("countryOptions", countryOptions);
-	}
+    // Store to request attributes
+    request.setAttribute("expirationYears", expirationYears);
+    request.setAttribute("countryOptions", countryOptions);
+  }
 }

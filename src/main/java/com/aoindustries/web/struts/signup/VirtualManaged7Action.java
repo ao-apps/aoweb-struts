@@ -36,62 +36,74 @@ import org.apache.struts.action.ActionMapping;
  */
 public class VirtualManaged7Action extends VirtualManagedStepAction {
 
-	@Override
-	public ActionForward executeVirtualManagedStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
-		boolean signupCustomizeServerFormComplete,
-		SignupCustomizeManagementForm signupCustomizeManagementForm,
-		boolean signupCustomizeManagementFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		if(!signupSelectPackageFormComplete) return mapping.findForward("virtual-managed-server-completed");
-		if(!signupCustomizeServerFormComplete) return mapping.findForward("virtual-managed-server-2-completed");
-		if(!signupCustomizeManagementFormComplete) return mapping.findForward("virtual-managed-server-3-completed");
-		if(!signupOrganizationFormComplete) return mapping.findForward("virtual-managed-server-4-completed");
-		if(!signupTechnicalFormComplete) return mapping.findForward("virtual-managed-server-5-completed");
-		if(!signupBillingInformationFormComplete) return mapping.findForward("virtual-managed-server-6-completed");
+  @Override
+  public ActionForward executeVirtualManagedStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
+    boolean signupCustomizeServerFormComplete,
+    SignupCustomizeManagementForm signupCustomizeManagementForm,
+    boolean signupCustomizeManagementFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    if (!signupSelectPackageFormComplete) {
+      return mapping.findForward("virtual-managed-server-completed");
+    }
+    if (!signupCustomizeServerFormComplete) {
+      return mapping.findForward("virtual-managed-server-2-completed");
+    }
+    if (!signupCustomizeManagementFormComplete) {
+      return mapping.findForward("virtual-managed-server-3-completed");
+    }
+    if (!signupOrganizationFormComplete) {
+      return mapping.findForward("virtual-managed-server-4-completed");
+    }
+    if (!signupTechnicalFormComplete) {
+      return mapping.findForward("virtual-managed-server-5-completed");
+    }
+    if (!signupBillingInformationFormComplete) {
+      return mapping.findForward("virtual-managed-server-6-completed");
+    }
 
-		initRequestAttributes(
-			request,
-			response,
-			signupSelectPackageForm,
-			signupCustomizeServerForm,
-			signupCustomizeManagementForm,
-			signupOrganizationForm,
-			signupTechnicalForm,
-			signupBillingInformationForm
-		);
+    initRequestAttributes(
+      request,
+      response,
+      signupSelectPackageForm,
+      signupCustomizeServerForm,
+      signupCustomizeManagementForm,
+      signupOrganizationForm,
+      signupTechnicalForm,
+      signupBillingInformationForm
+    );
 
-		return mapping.findForward("input");
-	}
+    return mapping.findForward("input");
+  }
 
-	protected void initRequestAttributes(
-		HttpServletRequest request,
-		HttpServletResponse response,
-		SignupSelectPackageForm signupSelectPackageForm,
-		SignupCustomizeServerForm signupCustomizeServerForm,
-		SignupCustomizeManagementForm signupCustomizeManagementForm,
-		SignupOrganizationForm signupOrganizationForm,
-		SignupTechnicalForm signupTechnicalForm,
-		SignupBillingInformationForm signupBillingInformationForm
-	) throws IOException, SQLException {
-		ServletContext servletContext = getServlet().getServletContext();
+  protected void initRequestAttributes(
+    HttpServletRequest request,
+    HttpServletResponse response,
+    SignupSelectPackageForm signupSelectPackageForm,
+    SignupCustomizeServerForm signupCustomizeServerForm,
+    SignupCustomizeManagementForm signupCustomizeManagementForm,
+    SignupOrganizationForm signupOrganizationForm,
+    SignupTechnicalForm signupTechnicalForm,
+    SignupBillingInformationForm signupBillingInformationForm
+  ) throws IOException, SQLException {
+    ServletContext servletContext = getServlet().getServletContext();
 
-		SignupSelectServerActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectPackageForm);
-		SignupCustomizeServerActionHelper.setConfirmationRequestAttributes(servletContext, request, response, signupSelectPackageForm, signupCustomizeServerForm);
-		SignupCustomizeManagementActionHelper.setConfirmationRequestAttributes(servletContext, request, response, signupSelectPackageForm, signupCustomizeServerForm, signupCustomizeManagementForm);
-		SignupOrganizationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupOrganizationForm);
-		SignupTechnicalActionHelper.setConfirmationRequestAttributes(servletContext, request, signupTechnicalForm);
-		SignupBillingInformationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupBillingInformationForm);
-	}
+    SignupSelectServerActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectPackageForm);
+    SignupCustomizeServerActionHelper.setConfirmationRequestAttributes(servletContext, request, response, signupSelectPackageForm, signupCustomizeServerForm);
+    SignupCustomizeManagementActionHelper.setConfirmationRequestAttributes(servletContext, request, response, signupSelectPackageForm, signupCustomizeServerForm, signupCustomizeManagementForm);
+    SignupOrganizationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupOrganizationForm);
+    SignupTechnicalActionHelper.setConfirmationRequestAttributes(servletContext, request, signupTechnicalForm);
+    SignupBillingInformationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupBillingInformationForm);
+  }
 }

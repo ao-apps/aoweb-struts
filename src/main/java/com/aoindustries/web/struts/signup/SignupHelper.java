@@ -36,24 +36,26 @@ import org.apache.struts.action.ActionServlet;
  */
 public final class SignupHelper {
 
-	/** Make no instances. */
-	private SignupHelper() {throw new AssertionError();}
+  /** Make no instances. */
+  private SignupHelper() {
+    throw new AssertionError();
+  }
 
-	/**
-	 * Gets the form of the provided class from the session.  If it is not in
-	 * the session will create the form, set its servlet, and add it to the
-	 * session.
-	 */
-	public static <T extends ActionForm> T getSessionActionForm(
-		ActionServlet servlet,
-		HttpSession session,
-		ScopeEE.Session.Attribute<T> attribute,
-		Supplier<T> factory
-	) {
-		return attribute.context(session).computeIfAbsent(__ -> {
-			T form = factory.get();
-			form.setServlet(servlet);
-			return form;
-		});
-	}
+  /**
+   * Gets the form of the provided class from the session.  If it is not in
+   * the session will create the form, set its servlet, and add it to the
+   * session.
+   */
+  public static <T extends ActionForm> T getSessionActionForm(
+    ActionServlet servlet,
+    HttpSession session,
+    ScopeEE.Session.Attribute<T> attribute,
+    Supplier<T> factory
+  ) {
+    return attribute.context(session).computeIfAbsent(__ -> {
+      T form = factory.get();
+      form.setServlet(servlet);
+      return form;
+    });
+  }
 }

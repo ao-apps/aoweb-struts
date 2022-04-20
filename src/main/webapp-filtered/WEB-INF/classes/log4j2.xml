@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2021  AO Industries, Inc.
-	support@aoindustries.com
-	7262 Bull Pen Cir
-	Mobile, AL 36695
+Copyright (C) 2021, 2022  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
 
 This file is part of aoweb-struts.
 
@@ -23,16 +23,16 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <!-- TODO: How to use standard Java logging so goes to our ticket system? -->
 <Configuration>
-	<Appenders>
-		<Console name="STDOUT" target="SYSTEM_OUT">
-			<PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
-		</Console>
-	</Appenders>
-	<Loggers>
-		<Logger name="com.opensymphony.xwork2" level="@{log4j2.xwork2.level}"/>
-		<Logger name="org.apache.struts2" level="@{log4j2.struts2.level}"/>
-		<Root level="@{log4j2.root.level}">
-			<AppenderRef ref="STDOUT"/>
-		</Root>
-	</Loggers>
+  <Appenders>
+    <Console name="STDOUT" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Logger name="com.opensymphony.xwork2" level="@{log4j2.xwork2.level}"/>
+    <Logger name="org.apache.struts2" level="@{log4j2.struts2.level}"/>
+    <Root level="@{log4j2.root.level}">
+      <AppenderRef ref="STDOUT"/>
+    </Root>
+  </Loggers>
 </Configuration>

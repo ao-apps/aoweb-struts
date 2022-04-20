@@ -36,50 +36,58 @@ import org.apache.struts.action.ActionMapping;
  */
 public class AOServ5Action extends AOServStepAction {
 
-	@Override
-	public ActionForward executeAOServStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		if(!signupSelectPackageFormComplete) return mapping.findForward("aoserv-completed");
-		if(!signupOrganizationFormComplete) return mapping.findForward("aoserv-2-completed");
-		if(!signupTechnicalFormComplete) return mapping.findForward("aoserv-3-completed");
-		if(!signupBillingInformationFormComplete) return mapping.findForward("aoserv-4-completed");
+  @Override
+  public ActionForward executeAOServStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    if (!signupSelectPackageFormComplete) {
+      return mapping.findForward("aoserv-completed");
+    }
+    if (!signupOrganizationFormComplete) {
+      return mapping.findForward("aoserv-2-completed");
+    }
+    if (!signupTechnicalFormComplete) {
+      return mapping.findForward("aoserv-3-completed");
+    }
+    if (!signupBillingInformationFormComplete) {
+      return mapping.findForward("aoserv-4-completed");
+    }
 
-		initRequestAttributes(
-			request,
-			response,
-			signupSelectPackageForm,
-			signupOrganizationForm,
-			signupTechnicalForm,
-			signupBillingInformationForm
-		);
+    initRequestAttributes(
+      request,
+      response,
+      signupSelectPackageForm,
+      signupOrganizationForm,
+      signupTechnicalForm,
+      signupBillingInformationForm
+    );
 
-		return mapping.findForward("input");
-	}
+    return mapping.findForward("input");
+  }
 
-	protected void initRequestAttributes(
-		HttpServletRequest request,
-		HttpServletResponse response,
-		SignupSelectPackageForm signupSelectPackageForm,
-		SignupOrganizationForm signupOrganizationForm,
-		SignupTechnicalForm signupTechnicalForm,
-		SignupBillingInformationForm signupBillingInformationForm
-	) throws IOException, SQLException {
-		ServletContext servletContext = getServlet().getServletContext();
+  protected void initRequestAttributes(
+    HttpServletRequest request,
+    HttpServletResponse response,
+    SignupSelectPackageForm signupSelectPackageForm,
+    SignupOrganizationForm signupOrganizationForm,
+    SignupTechnicalForm signupTechnicalForm,
+    SignupBillingInformationForm signupBillingInformationForm
+  ) throws IOException, SQLException {
+    ServletContext servletContext = getServlet().getServletContext();
 
-		SignupSelectPackageActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectPackageForm);
-		SignupOrganizationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupOrganizationForm);
-		SignupTechnicalActionHelper.setConfirmationRequestAttributes(servletContext, request, signupTechnicalForm);
-		SignupBillingInformationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupBillingInformationForm);
-	}
+    SignupSelectPackageActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectPackageForm);
+    SignupOrganizationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupOrganizationForm);
+    SignupTechnicalActionHelper.setConfirmationRequestAttributes(servletContext, request, signupTechnicalForm);
+    SignupBillingInformationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupBillingInformationForm);
+  }
 }

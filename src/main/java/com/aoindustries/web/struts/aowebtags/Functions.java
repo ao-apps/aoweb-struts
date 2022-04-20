@@ -35,31 +35,37 @@ import java.util.Currency;
  */
 public final class Functions {
 
-	/** Make no instances. */
-	private Functions() {throw new AssertionError();}
+  /** Make no instances. */
+  private Functions() {
+    throw new AssertionError();
+  }
 
-	/**
-	 * @see  CreditCard#getCardNumberDisplay(java.lang.String)
-	 */
-	public static String getCardNumberDisplay(String cardNumber) {
-		return CreditCard.getCardNumberDisplay(cardNumber);
-	}
+  /**
+   * @see  CreditCard#getCardNumberDisplay(java.lang.String)
+   */
+  public static String getCardNumberDisplay(String cardNumber) {
+    return CreditCard.getCardNumberDisplay(cardNumber);
+  }
 
-	/**
-	 * Allows <code>0</code> that comes from JSP Expression Language functions.
-	 *
-	 * @see  CreditCard#getExpirationDisplay(java.lang.Byte, java.lang.Short)
-	 */
-	public static String getExpirationDisplay(Byte expirationMonth, Short expirationYear) {
-		if(expirationMonth != null && expirationMonth == 0) expirationMonth = null;
-		if(expirationYear != null && expirationYear == 0) expirationYear = null;
-		return CreditCard.getExpirationDisplay(expirationMonth, expirationYear);
-	}
+  /**
+   * Allows <code>0</code> that comes from JSP Expression Language functions.
+   *
+   * @see  CreditCard#getExpirationDisplay(java.lang.Byte, java.lang.Short)
+   */
+  public static String getExpirationDisplay(Byte expirationMonth, Short expirationYear) {
+    if (expirationMonth != null && expirationMonth == 0) {
+      expirationMonth = null;
+    }
+    if (expirationYear != null && expirationYear == 0) {
+      expirationYear = null;
+    }
+    return CreditCard.getExpirationDisplay(expirationMonth, expirationYear);
+  }
 
-	/**
-	 * @see  CurrencyUtil#getSymbol(java.util.Currency, java.util.Locale)
-	 */
-	public static String getCurrencySymbol(Currency currency) {
-		return CurrencyUtil.getSymbol(currency, FunctionContext.getResponse().getLocale());
-	}
+  /**
+   * @see  CurrencyUtil#getSymbol(java.util.Currency, java.util.Locale)
+   */
+  public static String getCurrencySymbol(Currency currency) {
+    return CurrencyUtil.getSymbol(currency, FunctionContext.getResponse().getLocale());
+  }
 }

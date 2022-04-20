@@ -37,45 +37,47 @@ import org.apache.struts.validator.ValidatorForm;
  */
 public class LoginForm extends ValidatorForm implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String username;
-	private String password;
+  private String username;
+  private String password;
 
-	@Override
-	public void reset(ActionMapping mapping, HttpServletRequest request) {
-		super.reset(mapping, request);
-		setUsername("");
-		setPassword("");
-	}
+  @Override
+  public void reset(ActionMapping mapping, HttpServletRequest request) {
+    super.reset(mapping, request);
+    setUsername("");
+    setPassword("");
+  }
 
-	public String getPassword() {
-		return password;
-	}
+  public String getPassword() {
+    return password;
+  }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-	public String getUsername() {
-		return username;
-	}
+  public String getUsername() {
+    return username;
+  }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-	@Override
-	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-		ActionErrors errors = super.validate(mapping, request);
-		if(errors==null) errors = new ActionErrors();
+  @Override
+  public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+    ActionErrors errors = super.validate(mapping, request);
+    if (errors == null) {
+      errors = new ActionErrors();
+    }
 
-		if(errors.size("username") == 0) {
-			ValidationResult usernameCheck = User.Name.validate(getUsername());
-			if(!usernameCheck.isValid()) {
-				errors.add("username", new ActionMessage(usernameCheck.toString(), false));
-			}
-		}
-		return errors;
-	}
+    if (errors.size("username") == 0) {
+      ValidationResult usernameCheck = User.Name.validate(getUsername());
+      if (!usernameCheck.isValid()) {
+        errors.add("username", new ActionMessage(usernameCheck.toString(), false));
+      }
+    }
+    return errors;
+  }
 }

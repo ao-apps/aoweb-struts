@@ -46,51 +46,51 @@ import org.apache.struts.action.ActionMapping;
  */
 public class MySQLPasswordSetterAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		MySQLPasswordSetterForm mySQLPasswordSetterForm = (MySQLPasswordSetterForm)form;
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    MySQLPasswordSetterForm mySQLPasswordSetterForm = (MySQLPasswordSetterForm)form;
 
-		List<UserServer> msus = aoConn.getMysql().getUserServer().getRows();
+    List<UserServer> msus = aoConn.getMysql().getUserServer().getRows();
 
-		List<String> packages = new ArrayList<>(msus.size());
-		List<String> usernames = new ArrayList<>(msus.size());
-		List<String> mySQLServers = new ArrayList<>(msus.size());
-		List<String> servers = new ArrayList<>(msus.size());
-		List<String> newPasswords = new ArrayList<>(msus.size());
-		List<String> confirmPasswords = new ArrayList<>(msus.size());
-		for(UserServer msu : msus) {
-			if(msu.canSetPassword()) {
-				User mu = msu.getMySQLUser();
-				com.aoindustries.aoserv.client.account.User un = mu.getUsername();
-				Server ms = msu.getMySQLServer();
-				packages.add(un.getPackage().getName().toString());
-				usernames.add(un.getUsername().toString());
-				mySQLServers.add(ms.getName().toString());
-				servers.add(ms.getLinuxServer().getHostname().toString());
-				newPasswords.add("");
-				confirmPasswords.add("");
-			}
-		}
+    List<String> packages = new ArrayList<>(msus.size());
+    List<String> usernames = new ArrayList<>(msus.size());
+    List<String> mySQLServers = new ArrayList<>(msus.size());
+    List<String> servers = new ArrayList<>(msus.size());
+    List<String> newPasswords = new ArrayList<>(msus.size());
+    List<String> confirmPasswords = new ArrayList<>(msus.size());
+    for (UserServer msu : msus) {
+      if (msu.canSetPassword()) {
+        User mu = msu.getMySQLUser();
+        com.aoindustries.aoserv.client.account.User un = mu.getUsername();
+        Server ms = msu.getMySQLServer();
+        packages.add(un.getPackage().getName().toString());
+        usernames.add(un.getUsername().toString());
+        mySQLServers.add(ms.getName().toString());
+        servers.add(ms.getLinuxServer().getHostname().toString());
+        newPasswords.add("");
+        confirmPasswords.add("");
+      }
+    }
 
-		// Store to the form
-		mySQLPasswordSetterForm.setPackages(packages);
-		mySQLPasswordSetterForm.setUsernames(usernames);
-		mySQLPasswordSetterForm.setMySQLServers(mySQLServers);
-		mySQLPasswordSetterForm.setServers(servers);
-		mySQLPasswordSetterForm.setNewPasswords(newPasswords);
-		mySQLPasswordSetterForm.setConfirmPasswords(confirmPasswords);
+    // Store to the form
+    mySQLPasswordSetterForm.setPackages(packages);
+    mySQLPasswordSetterForm.setUsernames(usernames);
+    mySQLPasswordSetterForm.setMySQLServers(mySQLServers);
+    mySQLPasswordSetterForm.setServers(servers);
+    mySQLPasswordSetterForm.setNewPasswords(newPasswords);
+    mySQLPasswordSetterForm.setConfirmPasswords(confirmPasswords);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return Collections.singleton(Permission.Name.set_mysql_server_user_password);
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return Collections.singleton(Permission.Name.set_mysql_server_user_password);
+  }
 }

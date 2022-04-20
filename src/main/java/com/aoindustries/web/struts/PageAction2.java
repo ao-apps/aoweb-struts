@@ -38,30 +38,30 @@ import org.apache.struts2.ServletActionContext;
  */
 public abstract class PageAction2 extends ActionSupport {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * Creates the page-scope registry, if not already present, then invokes
-	 * {@link #execute(com.aoapps.web.resources.registry.Registry)}.
-	 * The registry if left on the request to be available to any forwarding target.
-	 */
-	@Override
-	/* Cannot be final due to overridden for @Action annotation */
-	public String execute() throws Exception {
-		HttpServletRequest request = ServletActionContext.getRequest();
-		Registry pageRegistry = RegistryEE.Page.get(request);
-		if(pageRegistry == null) {
-			// Create a new page-scope registry
-			pageRegistry = new Registry();
-			RegistryEE.Page.set(request, pageRegistry);
-		}
-		return execute(pageRegistry);
-	}
+  /**
+   * Creates the page-scope registry, if not already present, then invokes
+   * {@link #execute(com.aoapps.web.resources.registry.Registry)}.
+   * The registry if left on the request to be available to any forwarding target.
+   */
+  @Override
+  /* Cannot be final due to overridden for @Action annotation */
+  public String execute() throws Exception {
+    HttpServletRequest request = ServletActionContext.getRequest();
+    Registry pageRegistry = RegistryEE.Page.get(request);
+    if (pageRegistry == null) {
+      // Create a new page-scope registry
+      pageRegistry = new Registry();
+      RegistryEE.Page.set(request, pageRegistry);
+    }
+    return execute(pageRegistry);
+  }
 
-	/**
-	 * Once the page registry is set resolved, this version of the execute method is invoked.
-	 */
-	public abstract String execute(
-		Registry pageRegistry
-	) throws Exception;
+  /**
+   * Once the page registry is set resolved, this version of the execute method is invoked.
+   */
+  public abstract String execute(
+    Registry pageRegistry
+  ) throws Exception;
 }

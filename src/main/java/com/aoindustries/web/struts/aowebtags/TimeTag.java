@@ -47,137 +47,147 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class TimeTag extends BodyTagSupport {
 
-	/**
-	 * The request attribute name used to store the sequence.
-	 */
-	private static final ScopeEE.Request.Attribute<Sequence> SEQUENCE_REQUEST_ATTRIBUTE =
-		ScopeEE.REQUEST.attribute(TimeTag.class.getName() + ".sequence");
+  /**
+   * The request attribute name used to store the sequence.
+   */
+  private static final ScopeEE.Request.Attribute<Sequence> SEQUENCE_REQUEST_ATTRIBUTE =
+    ScopeEE.REQUEST.attribute(TimeTag.class.getName() + ".sequence");
 
-	/**
-	 * Writes a JavaScript script tag that a time in the user's locale.
-	 * <p>
-	 * Because this needs to modify the DOM it can lead to poor performance or large data sets.
-	 * To provide more performance options, the JavaScript is written to scriptOut.  This could
-	 * then be buffered into one long script to execute at once or using body.onload.
-	 * </p>
-	 * <p>
-	 * The provided sequence should start at one for any given HTML page because parts of the
-	 * script will only be written when the sequence is equal to one.
-	 * </p>
-	 *
-	 * @see  SQLUtility#formatTime(long)
-	 */
-	public static void writeTimeJavascript(long date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
-		String timeString = SQLUtility.formatTime(date);
-		long id = sequence.getNextSequenceValue();
-		String idString = Long.toString(id);
-		// Write the element
-		content.span().id(idAttr -> idAttr.append("chainWriterTime").append(idString)).__(timeString);
-		// Write the shared script only on first sequence
-		if(id == 1) {
-			scriptOut.append("  function chainWriterUpdateTime(id, millis, serverValue) {\n"
-						   + "    if(document.getElementById) {\n"
-						   + "      var date=new Date(millis);\n"
-						   + "      var hour=date.getHours();\n"
-						   + "      var clientValue=(hour<10)?\"0\":\"\";\n"
-						   + "      clientValue+=hour+\":\";\n"
-						   + "      var minute=date.getMinutes();\n"
-						   + "      if(minute<10) clientValue+=\"0\";\n"
-						   + "      clientValue+=minute+\":\";\n"
-						   + "      var second=date.getSeconds();\n"
-						   + "      if(second<10) clientValue+=\"0\";\n"
-						   + "      clientValue+=second;\n"
-						   + "      if(clientValue!=serverValue) document.getElementById(\"chainWriterTime\"+id).firstChild.nodeValue=clientValue;\n"
-						   + "    }\n"
-						   + "  }\n");
-		}
-		scriptOut.append("  chainWriterUpdateTime(");
-		scriptOut.append(idString);
-		scriptOut.append(", ");
-		scriptOut.append(Long.toString(date));
-		scriptOut.append(", \"");
-		encodeJavascriptInXhtml(timeString, scriptOut);
-		scriptOut.append("\");\n");
-	}
+  /**
+   * Writes a JavaScript script tag that a time in the user's locale.
+   * <p>
+   * Because this needs to modify the DOM it can lead to poor performance or large data sets.
+   * To provide more performance options, the JavaScript is written to scriptOut.  This could
+   * then be buffered into one long script to execute at once or using body.onload.
+   * </p>
+   * <p>
+   * The provided sequence should start at one for any given HTML page because parts of the
+   * script will only be written when the sequence is equal to one.
+   * </p>
+   *
+   * @see  SQLUtility#formatTime(long)
+   */
+  public static void writeTimeJavascript(long date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
+    String timeString = SQLUtility.formatTime(date);
+    long id = sequence.getNextSequenceValue();
+    String idString = Long.toString(id);
+    // Write the element
+    content.span().id(idAttr -> idAttr.append("chainWriterTime").append(idString)).__(timeString);
+    // Write the shared script only on first sequence
+    if (id == 1) {
+      scriptOut.append("  function chainWriterUpdateTime(id, millis, serverValue) {\n"
+               + "    if (document.getElementById) {\n"
+               + "      var date=new Date(millis);\n"
+               + "      var hour=date.getHours();\n"
+               + "      var clientValue=(hour<10)?\"0\":\"\";\n"
+               + "      clientValue+=hour+\":\";\n"
+               + "      var minute=date.getMinutes();\n"
+               + "      if (minute<10) {\n"
+               + "        clientValue+=\"0\";\n"
+               + "      }\n"
+               + "      clientValue+=minute+\":\";\n"
+               + "      var second=date.getSeconds();\n"
+               + "      if (second<10) {\n"
+               + "        clientValue+=\"0\";\n"
+               + "      }\n"
+               + "      clientValue+=second;\n"
+               + "      if (clientValue != serverValue) {\n"
+               + "        document.getElementById(\"chainWriterTime\"+id).firstChild.nodeValue=clientValue;\n"
+               + "      }\n"
+               + "    }\n"
+               + "  }\n");
+    }
+    scriptOut.append("  chainWriterUpdateTime(");
+    scriptOut.append(idString);
+    scriptOut.append(", ");
+    scriptOut.append(Long.toString(date));
+    scriptOut.append(", \"");
+    encodeJavascriptInXhtml(timeString, scriptOut);
+    scriptOut.append("\");\n");
+  }
 
-	/**
-	 * Writes a JavaScript script tag that a time in the user's locale.
-	 * Prints nothing when the date is {@code null}.
-	 * <p>
-	 * Because this needs to modify the DOM it can lead to poor performance or large data sets.
-	 * To provide more performance options, the JavaScript is written to scriptOut.  This could
-	 * then be buffered into one long script to execute at once or using body.onload.
-	 * </p>
-	 * <p>
-	 * The provided sequence should start at one for any given HTML page because parts of the
-	 * script will only be written when the sequence is equal to one.
-	 * </p>
-	 *
-	 * @see  SQLUtility#formatTime(java.lang.Long)
-	 */
-	public static void writeTimeJavascript(Long date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
-		if(date != null) writeTimeJavascript(date.longValue(), sequence, content, scriptOut);
-	}
+  /**
+   * Writes a JavaScript script tag that a time in the user's locale.
+   * Prints nothing when the date is {@code null}.
+   * <p>
+   * Because this needs to modify the DOM it can lead to poor performance or large data sets.
+   * To provide more performance options, the JavaScript is written to scriptOut.  This could
+   * then be buffered into one long script to execute at once or using body.onload.
+   * </p>
+   * <p>
+   * The provided sequence should start at one for any given HTML page because parts of the
+   * script will only be written when the sequence is equal to one.
+   * </p>
+   *
+   * @see  SQLUtility#formatTime(java.lang.Long)
+   */
+  public static void writeTimeJavascript(Long date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
+    if (date != null) {
+      writeTimeJavascript(date.longValue(), sequence, content, scriptOut);
+    }
+  }
 
-	/**
-	 * Writes a JavaScript script tag that a time in the user's locale.
-	 * Prints nothing when the date is {@code null}.
-	 * <p>
-	 * Because this needs to modify the DOM it can lead to poor performance or large data sets.
-	 * To provide more performance options, the JavaScript is written to scriptOut.  This could
-	 * then be buffered into one long script to execute at once or using body.onload.
-	 * </p>
-	 * <p>
-	 * The provided sequence should start at one for any given HTML page because parts of the
-	 * script will only be written when the sequence is equal to one.
-	 * </p>
-	 *
-	 * @see  SQLUtility#formatTime(java.util.Date)
-	 */
-	public static void writeTimeJavascript(Date date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
-		if(date != null) writeTimeJavascript(date.getTime(), sequence, content, scriptOut);
-	}
+  /**
+   * Writes a JavaScript script tag that a time in the user's locale.
+   * Prints nothing when the date is {@code null}.
+   * <p>
+   * Because this needs to modify the DOM it can lead to poor performance or large data sets.
+   * To provide more performance options, the JavaScript is written to scriptOut.  This could
+   * then be buffered into one long script to execute at once or using body.onload.
+   * </p>
+   * <p>
+   * The provided sequence should start at one for any given HTML page because parts of the
+   * script will only be written when the sequence is equal to one.
+   * </p>
+   *
+   * @see  SQLUtility#formatTime(java.util.Date)
+   */
+  public static void writeTimeJavascript(Date date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
+    if (date != null) {
+      writeTimeJavascript(date.getTime(), sequence, content, scriptOut);
+    }
+  }
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Override
-	public int doStartTag() throws JspException {
-		return EVAL_BODY_BUFFERED;
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    return EVAL_BODY_BUFFERED;
+  }
 
-	@Override
-	public int doEndTag() throws JspException {
-		try {
-			String millisString = getBodyContent().getString().trim();
-			if(!millisString.isEmpty()) {
-				Long time = Long.parseLong(millisString);
-				HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
-				DocumentEE document = new DocumentEE(
-					pageContext.getServletContext(),
-					request,
-					(HttpServletResponse)pageContext.getResponse(),
-					pageContext.getOut(),
-					false, // Do not add extra newlines to JSP
-					false  // Do not add extra indentation to JSP
-				);
-				// Resolve the sequence
-				Sequence sequence = SEQUENCE_REQUEST_ATTRIBUTE.context(request)
-					.computeIfAbsent(__ -> new UnsynchronizedSequence());
-				// Resolve the scriptOut
-				Optional<ScriptGroupTag> scriptGroupTag = JspTagUtils.findAncestor(this, ScriptGroupTag.class);
-				if(scriptGroupTag.isPresent()) {
-					writeTimeJavascript(time, sequence, document, scriptGroupTag.get().getScriptOut());
-				} else {
-					CharArrayWriter scriptOut = new CharArrayWriter();
-					writeTimeJavascript(time, sequence, document, scriptOut);
-					try (Writer script = document.script()._c()) {
-						scriptOut.writeTo(script);
-					}
-				}
-			}
-			return EVAL_PAGE;
-		} catch(IOException err) {
-			throw new JspTagException(err);
-		}
-	}
+  @Override
+  public int doEndTag() throws JspException {
+    try {
+      String millisString = getBodyContent().getString().trim();
+      if (!millisString.isEmpty()) {
+        Long time = Long.parseLong(millisString);
+        HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
+        DocumentEE document = new DocumentEE(
+          pageContext.getServletContext(),
+          request,
+          (HttpServletResponse)pageContext.getResponse(),
+          pageContext.getOut(),
+          false, // Do not add extra newlines to JSP
+          false  // Do not add extra indentation to JSP
+        );
+        // Resolve the sequence
+        Sequence sequence = SEQUENCE_REQUEST_ATTRIBUTE.context(request)
+          .computeIfAbsent(__ -> new UnsynchronizedSequence());
+        // Resolve the scriptOut
+        Optional<ScriptGroupTag> scriptGroupTag = JspTagUtils.findAncestor(this, ScriptGroupTag.class);
+        if (scriptGroupTag.isPresent()) {
+          writeTimeJavascript(time, sequence, document, scriptGroupTag.get().getScriptOut());
+        } else {
+          CharArrayWriter scriptOut = new CharArrayWriter();
+          writeTimeJavascript(time, sequence, document, scriptOut);
+          try (Writer script = document.script()._c()) {
+            scriptOut.writeTo(script);
+          }
+        }
+      }
+      return EVAL_PAGE;
+    } catch (IOException err) {
+      throw new JspTagException(err);
+    }
+  }
 }

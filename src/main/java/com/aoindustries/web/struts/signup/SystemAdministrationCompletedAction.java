@@ -33,46 +33,52 @@ import org.apache.struts.action.ActionMapping;
  */
 public class SystemAdministrationCompletedAction extends SystemAdministrationAction {
 
-	@Override
-	public ActionForward executeSystemAdministrationStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		SystemAdministrationSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		if(!signupSelectPackageFormComplete) {
-			return super.executeSystemAdministrationStep(
-				mapping,
-				request,
-				response,
-				signupSelectPackageForm,
-				signupSelectPackageFormComplete,
-				signupOrganizationForm,
-				signupOrganizationFormComplete,
-				signupTechnicalForm,
-				signupTechnicalFormComplete,
-				signupBillingInformationForm,
-				signupBillingInformationFormComplete
-			);
-		}
-		if(!signupOrganizationFormComplete) return mapping.findForward("system-administration-2");
-		if(!signupTechnicalFormComplete) return mapping.findForward("system-administration-3");
-		if(!signupBillingInformationFormComplete) return mapping.findForward("system-administration-4");
-		return mapping.findForward("system-administration-5");
-	}
+  @Override
+  public ActionForward executeSystemAdministrationStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    SystemAdministrationSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    if (!signupSelectPackageFormComplete) {
+      return super.executeSystemAdministrationStep(
+        mapping,
+        request,
+        response,
+        signupSelectPackageForm,
+        signupSelectPackageFormComplete,
+        signupOrganizationForm,
+        signupOrganizationFormComplete,
+        signupTechnicalForm,
+        signupTechnicalFormComplete,
+        signupBillingInformationForm,
+        signupBillingInformationFormComplete
+      );
+    }
+    if (!signupOrganizationFormComplete) {
+      return mapping.findForward("system-administration-2");
+    }
+    if (!signupTechnicalFormComplete) {
+      return mapping.findForward("system-administration-3");
+    }
+    if (!signupBillingInformationFormComplete) {
+      return mapping.findForward("system-administration-4");
+    }
+    return mapping.findForward("system-administration-5");
+  }
 
-	/**
-	 * Errors are not cleared for the complete step.
-	 */
-	@Override
-	protected void clearErrors(HttpServletRequest req) {
-		// Do nothing
-	}
+  /**
+   * Errors are not cleared for the complete step.
+   */
+  @Override
+  protected void clearErrors(HttpServletRequest req) {
+    // Do nothing
+  }
 }

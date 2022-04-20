@@ -48,164 +48,178 @@ import org.apache.struts.action.ActionServlet;
  */
 public abstract class SignupCustomizeServerForm extends ActionForm implements Serializable, SessionActionForm {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private int powerOption;
-	private int cpuOption;
-	private int ramOption;
-	private int sataControllerOption;
-	private int scsiControllerOption;
-	private List<String> diskOptions;
+  private int powerOption;
+  private int cpuOption;
+  private int ramOption;
+  private int sataControllerOption;
+  private int scsiControllerOption;
+  private List<String> diskOptions;
 
-	protected SignupCustomizeServerForm() {
-		setPowerOption(-1);
-		setCpuOption(-1);
-		setRamOption(-1);
-		setSataControllerOption(-1);
-		setScsiControllerOption(-1);
-		setDiskOptions(new AutoGrowArrayList<>());
-	}
+  protected SignupCustomizeServerForm() {
+    setPowerOption(-1);
+    setCpuOption(-1);
+    setRamOption(-1);
+    setSataControllerOption(-1);
+    setScsiControllerOption(-1);
+    setDiskOptions(new AutoGrowArrayList<>());
+  }
 
-	@Override
-	public boolean isEmpty() {
-		return
-			powerOption==-1
-			&& cpuOption==-1
-			&& ramOption==-1
-			&& sataControllerOption==-1
-			&& scsiControllerOption==-1
-			&& diskOptions.isEmpty()
-		;
-	}
+  @Override
+  public boolean isEmpty() {
+    return
+      powerOption == -1
+      && cpuOption == -1
+      && ramOption == -1
+      && sataControllerOption == -1
+      && scsiControllerOption == -1
+      && diskOptions.isEmpty()
+    ;
+  }
 
-	public final int getPowerOption() {
-		return powerOption;
-	}
+  public final int getPowerOption() {
+    return powerOption;
+  }
 
-	public final void setPowerOption(int powerOption) {
-		this.powerOption = powerOption;
-	}
+  public final void setPowerOption(int powerOption) {
+    this.powerOption = powerOption;
+  }
 
-	public final int getCpuOption() {
-		return cpuOption;
-	}
+  public final int getCpuOption() {
+    return cpuOption;
+  }
 
-	public final void setCpuOption(int cpuOption) {
-		this.cpuOption = cpuOption;
-	}
+  public final void setCpuOption(int cpuOption) {
+    this.cpuOption = cpuOption;
+  }
 
-	public final int getRamOption() {
-		return ramOption;
-	}
+  public final int getRamOption() {
+    return ramOption;
+  }
 
-	public final void setRamOption(int ramOption) {
-		this.ramOption = ramOption;
-	}
+  public final void setRamOption(int ramOption) {
+    this.ramOption = ramOption;
+  }
 
-	public final int getSataControllerOption() {
-		return sataControllerOption;
-	}
+  public final int getSataControllerOption() {
+    return sataControllerOption;
+  }
 
-	public final void setSataControllerOption(int sataControllerOption) {
-		this.sataControllerOption = sataControllerOption;
-	}
+  public final void setSataControllerOption(int sataControllerOption) {
+    this.sataControllerOption = sataControllerOption;
+  }
 
-	public final int getScsiControllerOption() {
-		return scsiControllerOption;
-	}
+  public final int getScsiControllerOption() {
+    return scsiControllerOption;
+  }
 
-	public final void setScsiControllerOption(int scsiControllerOption) {
-		this.scsiControllerOption = scsiControllerOption;
-	}
+  public final void setScsiControllerOption(int scsiControllerOption) {
+    this.scsiControllerOption = scsiControllerOption;
+  }
 
-	public final List<String> getDiskOptions() {
-		return diskOptions;
-	}
+  public final List<String> getDiskOptions() {
+    return diskOptions;
+  }
 
-	public final void setDiskOptions(List<String> diskOptions) {
-		this.diskOptions = diskOptions;
-	}
+  public final void setDiskOptions(List<String> diskOptions) {
+    this.diskOptions = diskOptions;
+  }
 
-	@Override
-	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-		ActionErrors errors = super.validate(mapping, request);
-		if(errors==null) errors = new ActionErrors();
-		try {
-			ActionServlet myServlet = getServlet();
+  @Override
+  public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+    ActionErrors errors = super.validate(mapping, request);
+    if (errors == null) {
+      errors = new ActionErrors();
+    }
+    try {
+      ActionServlet myServlet = getServlet();
 
-			// Find the connector
-			AOServConnector rootConn;
-			if(myServlet!=null) {
-				rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
-			} else {
-				rootConn = null;
-			}
+      // Find the connector
+      AOServConnector rootConn;
+      if (myServlet != null) {
+        rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
+      } else {
+        rootConn = null;
+      }
 
-			// Find the current package definition
-			PackageDefinition pd = null;
-			if(rootConn!=null) {
-				HttpSession session = request.getSession(false);
-				SignupSelectPackageForm signupSelectPackageForm = getSignupSelectPackageFormName().context(session).get();
-				if(signupSelectPackageForm != null) {
-					pd = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
-				}
-			}
+      // Find the current package definition
+      PackageDefinition pd = null;
+      if (rootConn != null) {
+        HttpSession session = request.getSession(false);
+        SignupSelectPackageForm signupSelectPackageForm = getSignupSelectPackageFormName().context(session).get();
+        if (signupSelectPackageForm != null) {
+          pd = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
+        }
+      }
 
-			// Find the current limits
-			List<PackageDefinitionLimit> limits = pd==null ? null : pd.getLimits();
+      // Find the current limits
+      List<PackageDefinitionLimit> limits = pd == null ? null : pd.getLimits();
 
-			if(powerOption==-1 && limits!=null) {
-				// Only required when there is at least one power option available
-				boolean found = false;
-				for(PackageDefinitionLimit limit : limits) {
-					if(limit.getResource().getName().startsWith("hardware_power_")) {
-						found=true;
-						break;
-					}
-				}
-				if(found) errors.add("powerOption", new ActionMessage("signupCustomizeServerForm.powerOption.required"));
-			}
-			if(cpuOption==-1) errors.add("cpuOption", new ActionMessage("signupCustomizeServerForm.cpuOption.required"));
-			if(ramOption==-1) errors.add("ramOption", new ActionMessage("signupCustomizeServerForm.ramOption.required"));
-			if(sataControllerOption==-1 && limits!=null) {
-				// Only required when there is at least one power option available
-				boolean found = false;
-				for(PackageDefinitionLimit limit : limits) {
-					if(limit.getResource().getName().startsWith("hardware_disk_controller_sata_")) {
-						found=true;
-						break;
-					}
-				}
-				if(found) errors.add("sataControllerOption", new ActionMessage("signupCustomizeServerForm.sataControllerOption.required"));
-			}
-			if(scsiControllerOption==-1 && limits!=null) {
-				// Only required when there is at least one power option available
-				boolean found = false;
-				for(PackageDefinitionLimit limit : limits) {
-					if(limit.getResource().getName().startsWith("hardware_disk_controller_scsi_")) {
-						found=true;
-						break;
-					}
-				}
-				if(found) errors.add("scsiControllerOption", new ActionMessage("signupCustomizeServerForm.scsiControllerOption.required"));
-			}
-			// At least one hard drive must be selected
-			boolean foundDisk = isAtLeastOneDiskSelected();
-			if(!foundDisk) errors.add("diskOptions", new ActionMessage("signupCustomizeServerForm.atLeastOneDisk"));
-			return errors;
-		} catch(IOException | SQLException err) {
-			throw new WrappedException(err);
-		}
-	}
+      if (powerOption == -1 && limits != null) {
+        // Only required when there is at least one power option available
+        boolean found = false;
+        for (PackageDefinitionLimit limit : limits) {
+          if (limit.getResource().getName().startsWith("hardware_power_")) {
+            found=true;
+            break;
+          }
+        }
+        if (found) {
+          errors.add("powerOption", new ActionMessage("signupCustomizeServerForm.powerOption.required"));
+        }
+      }
+      if (cpuOption == -1) {
+        errors.add("cpuOption", new ActionMessage("signupCustomizeServerForm.cpuOption.required"));
+      }
+      if (ramOption == -1) {
+        errors.add("ramOption", new ActionMessage("signupCustomizeServerForm.ramOption.required"));
+      }
+      if (sataControllerOption == -1 && limits != null) {
+        // Only required when there is at least one power option available
+        boolean found = false;
+        for (PackageDefinitionLimit limit : limits) {
+          if (limit.getResource().getName().startsWith("hardware_disk_controller_sata_")) {
+            found=true;
+            break;
+          }
+        }
+        if (found) {
+          errors.add("sataControllerOption", new ActionMessage("signupCustomizeServerForm.sataControllerOption.required"));
+        }
+      }
+      if (scsiControllerOption == -1 && limits != null) {
+        // Only required when there is at least one power option available
+        boolean found = false;
+        for (PackageDefinitionLimit limit : limits) {
+          if (limit.getResource().getName().startsWith("hardware_disk_controller_scsi_")) {
+            found=true;
+            break;
+          }
+        }
+        if (found) {
+          errors.add("scsiControllerOption", new ActionMessage("signupCustomizeServerForm.scsiControllerOption.required"));
+        }
+      }
+      // At least one hard drive must be selected
+      boolean foundDisk = isAtLeastOneDiskSelected();
+      if (!foundDisk) {
+        errors.add("diskOptions", new ActionMessage("signupCustomizeServerForm.atLeastOneDisk"));
+      }
+      return errors;
+    } catch (IOException | SQLException err) {
+      throw new WrappedException(err);
+    }
+  }
 
-	public boolean isAtLeastOneDiskSelected() {
-		for(String diskOption : diskOptions) {
-			if(diskOption!=null && diskOption.length()>0 && !diskOption.equals("-1")) {
-				return true;
-			}
-		}
-		return false;
-	}
+  public boolean isAtLeastOneDiskSelected() {
+    for (String diskOption : diskOptions) {
+      if (diskOption != null && diskOption.length()>0 && !diskOption.equals("-1")) {
+        return true;
+      }
+    }
+    return false;
+  }
 
-	protected abstract ScopeEE.Session.Attribute<? extends SignupSelectPackageForm> getSignupSelectPackageFormName();
+  protected abstract ScopeEE.Session.Attribute<? extends SignupSelectPackageForm> getSignupSelectPackageFormName();
 }

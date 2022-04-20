@@ -40,41 +40,41 @@ import javax.servlet.jsp.PageContext;
  */
 public class ContentTitleTag extends EncodingBufferedTag {
 
-	public static final String TAG_NAME = "<skin:contentTitle>";
+  public static final String TAG_NAME = "<skin:contentTitle>";
 
-	@Override
-	public MediaType getContentType() {
-		return MediaType.TEXT;
-	}
+  @Override
+  public MediaType getContentType() {
+    return MediaType.TEXT;
+  }
 
-	@Override
-	public MediaType getOutputType() {
-		return MediaType.XHTML;
-	}
+  @Override
+  public MediaType getOutputType() {
+    return MediaType.XHTML;
+  }
 
-	@Override
-	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-		PageContext pageContext = (PageContext)getJspContext();
-		HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-		String title = capturedBody.trim().toString();
+  @Override
+  protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+    PageContext pageContext = (PageContext)getJspContext();
+    HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+    String title = capturedBody.trim().toString();
 
-		// TODO: Should we instead set request attributes instead of tag ancestors?  This would allow tag interaction across include boundaries.
-		ContentTag contentTag = JspTagUtils.requireAncestor(TAG_NAME, this, ContentTag.TAG_NAME, ContentTag.class);
+    // TODO: Should we instead set request attributes instead of tag ancestors?  This would allow tag interaction across include boundaries.
+    ContentTag contentTag = JspTagUtils.requireAncestor(TAG_NAME, this, ContentTag.TAG_NAME, ContentTag.class);
 
-		int[] colspans = contentTag.getColspansParsed();
-		int totalColspan = 0;
-		for(int c = 0; c < colspans.length; c++) {
-			totalColspan += colspans[c];
-		}
+    int[] colspans = contentTag.getColspansParsed();
+    int totalColspan = 0;
+    for (int c = 0; c < colspans.length; c++) {
+      totalColspan += colspans[c];
+    }
 
-		ContentEE<?> content = contentTag.getContent();
-		content.getDocument().setOut(pageContext.getOut());
-		SkinTag.getSkin(req).contentTitle(
-			req,
-			(HttpServletResponse)pageContext.getResponse(),
-			content,
-			title,
-			totalColspan
-		);
-	}
+    ContentEE<?> content = contentTag.getContent();
+    content.getDocument().setOut(pageContext.getOut());
+    SkinTag.getSkin(req).contentTitle(
+      req,
+      (HttpServletResponse)pageContext.getResponse(),
+      content,
+      title,
+      totalColspan
+    );
+  }
 }

@@ -38,51 +38,54 @@ import org.apache.struts.action.ActionMessage;
  */
 public class SignupDomainForm extends ActionForm implements Serializable, SessionActionForm {
 
-	public static final ScopeEE.Session.Attribute<SignupDomainForm> SESSION_ATTRIBUTE =
-		ScopeEE.SESSION.attribute("signupDomainForm");
+  public static final ScopeEE.Session.Attribute<SignupDomainForm> SESSION_ATTRIBUTE =
+    ScopeEE.SESSION.attribute("signupDomainForm");
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String choice;
-	private String domain;
+  private String choice;
+  private String domain;
 
-	public SignupDomainForm() {
-		setChoice("");
-		setDomain("");
-	}
+  public SignupDomainForm() {
+    setChoice("");
+    setDomain("");
+  }
 
-	@Override
-	public boolean isEmpty() {
-		return
-			"".equals(choice)
-			&& "".equals(domain)
-		;
-	}
+  @Override
+  public boolean isEmpty() {
+    return
+      "".equals(choice)
+      && "".equals(domain)
+    ;
+  }
 
-	public final String getChoice() {
-		return choice;
-	}
+  public final String getChoice() {
+    return choice;
+  }
 
-	public final void setChoice(String choice) {
-		this.choice = choice;
-	}
+  public final void setChoice(String choice) {
+    this.choice = choice;
+  }
 
-	public final String getDomain() {
-		return domain;
-	}
+  public final String getDomain() {
+    return domain;
+  }
 
-	public final void setDomain(String domain) {
-		this.domain = domain.trim();
-	}
+  public final void setDomain(String domain) {
+    this.domain = domain.trim();
+  }
 
-	@Override
-	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-		ActionErrors errors = super.validate(mapping, request);
-		if(errors==null) errors = new ActionErrors();
-		if(GenericValidator.isBlankOrNull(choice)) errors.add("choice", new ActionMessage("signupDomainForm.choice.required"));
-		else {
-			if(!"later".equals(choice) && GenericValidator.isBlankOrNull(domain)) errors.add("domain", new ActionMessage("signupDomainForm.domain.required"));
-		}
-		return errors;
-	}
+  @Override
+  public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+    ActionErrors errors = super.validate(mapping, request);
+    if (errors == null) {
+      errors = new ActionErrors();
+    }
+    if (GenericValidator.isBlankOrNull(choice)) {
+      errors.add("choice", new ActionMessage("signupDomainForm.choice.required"));
+    } else if (!"later".equals(choice) && GenericValidator.isBlankOrNull(domain)) {
+      errors.add("domain", new ActionMessage("signupDomainForm.domain.required"));
+    }
+    return errors;
+  }
 }

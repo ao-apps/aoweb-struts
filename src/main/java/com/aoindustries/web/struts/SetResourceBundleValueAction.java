@@ -38,50 +38,54 @@ import org.apache.struts.action.ActionMapping;
  */
 public class SetResourceBundleValueAction extends PageAction {
 
-	@Override
-	public ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		Registry pageRegistry
-	) throws Exception {
-		// If disabled, return 404 status
-		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
-		if(!siteSettings.getCanEditResources()) {
-			response.sendError(HttpServletResponse.SC_NOT_FOUND);
-			return null;
-		}
-		/*Enumeration names = request.getHeaderNames();
-		while(names.hasMoreElements()) {
-			String name = (String)names.nextElement();
-			System.out.println(name);
-			Enumeration values = request.getHeaders(name);
-			while(values.hasMoreElements()) {
-				System.out.println("    "+values.nextElement());
-			}
-		}*/
-		String baseName = request.getParameter("baseName");
-		Locale locale = new Locale(request.getParameter("locale")); // TODO: Parse country and variant, too.
-		String key = request.getParameter("key");
-		String value = request.getParameter("value");
-		//for(int c=0;c<value.length();c++) System.out.println(Integer.toHexString(value.charAt(c)));
-		boolean modified = Boolean.parseBoolean(request.getParameter("modified"));
+  @Override
+  public ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    Registry pageRegistry
+  ) throws Exception {
+    // If disabled, return 404 status
+    SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
+    if (!siteSettings.getCanEditResources()) {
+      response.sendError(HttpServletResponse.SC_NOT_FOUND);
+      return null;
+    }
+    /*Enumeration names = request.getHeaderNames();
+    while (names.hasMoreElements()) {
+      String name = (String)names.nextElement();
+      System.out.println(name);
+      Enumeration values = request.getHeaders(name);
+      while (values.hasMoreElements()) {
+        System.out.println("    "+values.nextElement());
+      }
+    }*/
+    String baseName = request.getParameter("baseName");
+    Locale locale = new Locale(request.getParameter("locale")); // TODO: Parse country and variant, too.
+    String key = request.getParameter("key");
+    String value = request.getParameter("value");
+    //for (int c=0;c<value.length();c++) System.out.println(Integer.toHexString(value.charAt(c)));
+    boolean modified = Boolean.parseBoolean(request.getParameter("modified"));
 
-		// Find the bundle
-		ResourceBundle resourceBundle = ResourceBundle.getBundle(baseName, locale);
-		if(!resourceBundle.getLocale().equals(locale)) throw new AssertionError("resourceBundle.locale!=locale");
-		if(!(resourceBundle instanceof ModifiableResourceBundle)) throw new AssertionError("resourceBundle is not a ModifiableResourceBundle");
-		((ModifiableResourceBundle)resourceBundle).setString(key, value, modified);
+    // Find the bundle
+    ResourceBundle resourceBundle = ResourceBundle.getBundle(baseName, locale);
+    if (!resourceBundle.getLocale().equals(locale)) {
+      throw new AssertionError("resourceBundle.locale != locale");
+    }
+    if (!(resourceBundle instanceof ModifiableResourceBundle)) {
+      throw new AssertionError("resourceBundle is not a ModifiableResourceBundle");
+    }
+    ((ModifiableResourceBundle)resourceBundle).setString(key, value, modified);
 
-		// Set request parameters
-		request.setAttribute("baseName", baseName);
-		request.setAttribute("locale", locale);
-		request.setAttribute("key", key);
-		request.setAttribute("value", value);
-		request.setAttribute("modified", modified);
+    // Set request parameters
+    request.setAttribute("baseName", baseName);
+    request.setAttribute("locale", locale);
+    request.setAttribute("key", key);
+    request.setAttribute("value", value);
+    request.setAttribute("modified", modified);
 
-		// Return success
-		return mapping.findForward("success");
-	}
+    // Return success
+    return mapping.findForward("success");
+  }
 }

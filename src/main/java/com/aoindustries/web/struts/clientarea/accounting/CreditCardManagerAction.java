@@ -46,80 +46,80 @@ import org.apache.struts.action.ActionMapping;
  */
 public class CreditCardManagerAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		TransactionTable transactionTable = aoConn.getBilling().getTransaction();
-		Account currentAccount = aoConn.getCurrentAdministrator().getUsername().getPackage().getAccount();
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    TransactionTable transactionTable = aoConn.getBilling().getTransaction();
+    Account currentAccount = aoConn.getCurrentAdministrator().getUsername().getPackage().getAccount();
 
-		// Create a map from account to list of credit cards
-		List<AccountAndCreditCards> accountCreditCards = new ArrayList<>();
-		for(Account account : aoConn.getAccount().getAccount().getRows()) {
-			List<CreditCard> creditCards = account.getCreditCards();
-			if(
-				// Always show own account
-				currentAccount.equals(account)
-				// Show any account with stored cards
-				|| !creditCards.isEmpty()
-				|| (
-					// Active and not billing parent
-					account.getCanceled() == null
-					&& !account.billParent()
-				)
-				// Has any non-zero balance
-				|| !transactionTable.getAccountBalance(account).isZero()
-			) {
-				boolean hasActiveCard = false;
-				for(CreditCard cc : creditCards) {
-					if(cc.getIsActive()) {
-						hasActiveCard = true;
-						break;
-					}
-				}
-				accountCreditCards.add(new AccountAndCreditCards(account, creditCards, hasActiveCard));
-			}
-		}
-		boolean showAccount = aoConn.getAccount().getAccount().getRows().size() > 1;
+    // Create a map from account to list of credit cards
+    List<AccountAndCreditCards> accountCreditCards = new ArrayList<>();
+    for (Account account : aoConn.getAccount().getAccount().getRows()) {
+      List<CreditCard> creditCards = account.getCreditCards();
+      if (
+        // Always show own account
+        currentAccount.equals(account)
+        // Show any account with stored cards
+        || !creditCards.isEmpty()
+        || (
+          // Active and not billing parent
+          account.getCanceled() == null
+          && !account.billParent()
+        )
+        // Has any non-zero balance
+        || !transactionTable.getAccountBalance(account).isZero()
+      ) {
+        boolean hasActiveCard = false;
+        for (CreditCard cc : creditCards) {
+          if (cc.getIsActive()) {
+            hasActiveCard = true;
+            break;
+          }
+        }
+        accountCreditCards.add(new AccountAndCreditCards(account, creditCards, hasActiveCard));
+      }
+    }
+    boolean showAccount = aoConn.getAccount().getAccount().getRows().size() > 1;
 
-		request.setAttribute("accountCreditCards", accountCreditCards);
-		request.setAttribute("showAccount", Boolean.toString(showAccount));
+    request.setAttribute("accountCreditCards", accountCreditCards);
+    request.setAttribute("showAccount", Boolean.toString(showAccount));
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return Collections.singleton(Permission.Name.get_credit_cards);
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return Collections.singleton(Permission.Name.get_credit_cards);
+  }
 
-	public static class AccountAndCreditCards {
+  public static class AccountAndCreditCards {
 
-		private final Account account;
-		private final List<CreditCard> creditCards;
-		private final boolean hasActiveCard;
+    private final Account account;
+    private final List<CreditCard> creditCards;
+    private final boolean hasActiveCard;
 
-		private AccountAndCreditCards(Account account, List<CreditCard> creditCards, boolean hasActiveCard) {
-			this.account = account;
-			this.creditCards = creditCards;
-			this.hasActiveCard = hasActiveCard;
-		}
+    private AccountAndCreditCards(Account account, List<CreditCard> creditCards, boolean hasActiveCard) {
+      this.account = account;
+      this.creditCards = creditCards;
+      this.hasActiveCard = hasActiveCard;
+    }
 
-		public Account getAccount() {
-			return account;
-		}
+    public Account getAccount() {
+      return account;
+    }
 
-		@SuppressWarnings("ReturnOfCollectionOrArrayField") // Returning unmodifiable
-		public List<CreditCard> getCreditCards() {
-			return creditCards;
-		}
+    @SuppressWarnings("ReturnOfCollectionOrArrayField") // Returning unmodifiable
+    public List<CreditCard> getCreditCards() {
+      return creditCards;
+    }
 
-		public boolean getHasActiveCard() {
-			return hasActiveCard;
-		}
-	}
+    public boolean getHasActiveCard() {
+      return hasActiveCard;
+    }
+  }
 }

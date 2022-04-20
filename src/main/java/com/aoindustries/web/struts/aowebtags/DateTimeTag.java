@@ -47,144 +47,160 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class DateTimeTag extends BodyTagSupport {
 
-	/**
-	 * The request attribute name used to store the sequence.
-	 */
-	private static final ScopeEE.Request.Attribute<Sequence> SEQUENCE_REQUEST_ATTRIBUTE =
-		ScopeEE.REQUEST.attribute(DateTimeTag.class.getName() + ".sequence");
+  /**
+   * The request attribute name used to store the sequence.
+   */
+  private static final ScopeEE.Request.Attribute<Sequence> SEQUENCE_REQUEST_ATTRIBUTE =
+    ScopeEE.REQUEST.attribute(DateTimeTag.class.getName() + ".sequence");
 
-	/**
-	 * Writes a JavaScript script tag that shows a date and time in the user's locale.
-	 * <p>
-	 * Because this needs to modify the DOM it can lead to poor performance or large data sets.
-	 * To provide more performance options, the JavaScript is written to scriptOut.  This could
-	 * then be buffered into one long script to execute at once or using body.onload.
-	 * </p>
-	 * <p>
-	 * The provided sequence should start at one for any given HTML page because parts of the
-	 * script will only be written when the sequence is equal to one.
-	 * </p>
-	 *
-	 * @see  SQLUtility#formatDateTime(long)
-	 */
-	public static void writeDateTimeJavascript(long date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
-		String dateTimeString = SQLUtility.formatDateTime(date);
-		long id = sequence.getNextSequenceValue();
-		String idString = Long.toString(id);
-		// Write the element
-		content.span().id(idAttr -> idAttr.append("chainWriterDateTime").append(idString)).__(dateTimeString);
-		// Write the shared script only on first sequence
-		if(id == 1) {
-			scriptOut.append("  function chainWriterUpdateDateTime(id, millis, serverValue) {\n"
-						   + "    if(document.getElementById) {\n"
-						   + "      var date=new Date(millis);\n"
-						   + "      var clientValue=date.getFullYear() + \"-\";\n"
-						   + "      var month=date.getMonth()+1;\n"
-						   + "      if(month<10) clientValue+=\"0\";\n"
-						   + "      clientValue+=month+\"-\";\n"
-						   + "      var day=date.getDate();\n"
-						   + "      if(day<10) clientValue+=\"0\";\n"
-						   + "      clientValue+=day+\" \";\n"
-						   + "      var hour=date.getHours();\n"
-						   + "      if(hour<10) clientValue+=\"0\";\n"
-						   + "      clientValue+=hour+\":\";\n"
-						   + "      var minute=date.getMinutes();\n"
-						   + "      if(minute<10) clientValue+=\"0\";\n"
-						   + "      clientValue+=minute+\":\";\n"
-						   + "      var second=date.getSeconds();\n"
-						   + "      if(second<10) clientValue+=\"0\";\n"
-						   + "      clientValue+=second;\n"
-						   + "      if(clientValue!=serverValue) document.getElementById(\"chainWriterDateTime\"+id).firstChild.nodeValue=clientValue;\n"
-						   + "    }\n"
-						   + "  }\n");
-		}
-		scriptOut.append("  chainWriterUpdateDateTime(");
-		scriptOut.append(idString);
-		scriptOut.append(", ");
-		scriptOut.append(Long.toString(date));
-		scriptOut.append(", \"");
-		encodeJavascriptInXhtml(dateTimeString, scriptOut);
-		scriptOut.append("\");\n");
-	}
+  /**
+   * Writes a JavaScript script tag that shows a date and time in the user's locale.
+   * <p>
+   * Because this needs to modify the DOM it can lead to poor performance or large data sets.
+   * To provide more performance options, the JavaScript is written to scriptOut.  This could
+   * then be buffered into one long script to execute at once or using body.onload.
+   * </p>
+   * <p>
+   * The provided sequence should start at one for any given HTML page because parts of the
+   * script will only be written when the sequence is equal to one.
+   * </p>
+   *
+   * @see  SQLUtility#formatDateTime(long)
+   */
+  public static void writeDateTimeJavascript(long date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
+    String dateTimeString = SQLUtility.formatDateTime(date);
+    long id = sequence.getNextSequenceValue();
+    String idString = Long.toString(id);
+    // Write the element
+    content.span().id(idAttr -> idAttr.append("chainWriterDateTime").append(idString)).__(dateTimeString);
+    // Write the shared script only on first sequence
+    if (id == 1) {
+      scriptOut.append("  function chainWriterUpdateDateTime(id, millis, serverValue) {\n"
+               + "    if (document.getElementById) {\n"
+               + "      var date=new Date(millis);\n"
+               + "      var clientValue=date.getFullYear() + \"-\";\n"
+               + "      var month=date.getMonth()+1;\n"
+               + "      if (month<10) {\n"
+               + "        clientValue+=\"0\";\n"
+               + "      }\n"
+               + "      clientValue+=month+\"-\";\n"
+               + "      var day=date.getDate();\n"
+               + "      if (day<10) {\n"
+               + "        clientValue+=\"0\";\n"
+               + "      }\n"
+               + "      clientValue+=day+\" \";\n"
+               + "      var hour=date.getHours();\n"
+               + "      if (hour<10) {\n"
+               + "        clientValue+=\"0\";\n"
+               + "      }\n"
+               + "      clientValue+=hour+\":\";\n"
+               + "      var minute=date.getMinutes();\n"
+               + "      if (minute<10) {\n"
+               + "        clientValue+=\"0\";\n"
+               + "      }\n"
+               + "      clientValue+=minute+\":\";\n"
+               + "      var second=date.getSeconds();\n"
+               + "      if (second<10) {\n"
+               + "        clientValue+=\"0\";\n"
+               + "      }\n"
+               + "      clientValue+=second;\n"
+               + "      if (clientValue != serverValue) {\n"
+               + "        document.getElementById(\"chainWriterDateTime\"+id).firstChild.nodeValue=clientValue;\n"
+               + "      }\n"
+               + "    }\n"
+               + "  }\n");
+    }
+    scriptOut.append("  chainWriterUpdateDateTime(");
+    scriptOut.append(idString);
+    scriptOut.append(", ");
+    scriptOut.append(Long.toString(date));
+    scriptOut.append(", \"");
+    encodeJavascriptInXhtml(dateTimeString, scriptOut);
+    scriptOut.append("\");\n");
+  }
 
-	/**
-	 * Writes a JavaScript script tag that shows a date and time in the user's locale.
-	 * Prints nothing when the date is {@code null}.
-	 * <p>
-	 * Because this needs to modify the DOM it can lead to poor performance or large data sets.
-	 * To provide more performance options, the JavaScript is written to scriptOut.  This could
-	 * then be buffered into one long script to execute at once or using body.onload.
-	 * </p>
-	 * <p>
-	 * The provided sequence should start at one for any given HTML page because parts of the
-	 * script will only be written when the sequence is equal to one.
-	 * </p>
-	 *
-	 * @see  SQLUtility#formatDateTime(java.lang.Long)
-	 */
-	public static void writeDateTimeJavascript(Long date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
-		if(date != null) writeDateTimeJavascript(date.longValue(), sequence, content, scriptOut);
-	}
+  /**
+   * Writes a JavaScript script tag that shows a date and time in the user's locale.
+   * Prints nothing when the date is {@code null}.
+   * <p>
+   * Because this needs to modify the DOM it can lead to poor performance or large data sets.
+   * To provide more performance options, the JavaScript is written to scriptOut.  This could
+   * then be buffered into one long script to execute at once or using body.onload.
+   * </p>
+   * <p>
+   * The provided sequence should start at one for any given HTML page because parts of the
+   * script will only be written when the sequence is equal to one.
+   * </p>
+   *
+   * @see  SQLUtility#formatDateTime(java.lang.Long)
+   */
+  public static void writeDateTimeJavascript(Long date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
+    if (date != null) {
+      writeDateTimeJavascript(date.longValue(), sequence, content, scriptOut);
+    }
+  }
 
-	/**
-	 * Writes a JavaScript script tag that shows a date and time in the user's locale.
-	 * Prints nothing when the date is {@code null}.
-	 * <p>
-	 * Because this needs to modify the DOM it can lead to poor performance or large data sets.
-	 * To provide more performance options, the JavaScript is written to scriptOut.  This could
-	 * then be buffered into one long script to execute at once or using body.onload.
-	 * </p>
-	 * <p>
-	 * The provided sequence should start at one for any given HTML page because parts of the
-	 * script will only be written when the sequence is equal to one.
-	 * </p>
-	 *
-	 * @see  SQLUtility#formatDateTime(java.util.Date)
-	 */
-	public static void writeDateTimeJavascript(Date date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
-		if(date != null) writeDateTimeJavascript(date.getTime(), sequence, content, scriptOut);
-	}
+  /**
+   * Writes a JavaScript script tag that shows a date and time in the user's locale.
+   * Prints nothing when the date is {@code null}.
+   * <p>
+   * Because this needs to modify the DOM it can lead to poor performance or large data sets.
+   * To provide more performance options, the JavaScript is written to scriptOut.  This could
+   * then be buffered into one long script to execute at once or using body.onload.
+   * </p>
+   * <p>
+   * The provided sequence should start at one for any given HTML page because parts of the
+   * script will only be written when the sequence is equal to one.
+   * </p>
+   *
+   * @see  SQLUtility#formatDateTime(java.util.Date)
+   */
+  public static void writeDateTimeJavascript(Date date, Sequence sequence, Union_Palpable_Phrasing<?> content, Appendable scriptOut) throws IOException {
+    if (date != null) {
+      writeDateTimeJavascript(date.getTime(), sequence, content, scriptOut);
+    }
+  }
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Override
-	public int doStartTag() throws JspException {
-		return EVAL_BODY_BUFFERED;
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    return EVAL_BODY_BUFFERED;
+  }
 
-	@Override
-	public int doEndTag() throws JspException {
-		try {
-			String millisString = getBodyContent().getString().trim();
-			if(!millisString.isEmpty()) {
-				Long date = Long.parseLong(millisString);
-				HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
-				DocumentEE document = new DocumentEE(
-					pageContext.getServletContext(),
-					request,
-					(HttpServletResponse)pageContext.getResponse(),
-					pageContext.getOut(),
-					false, // Do not add extra newlines to JSP
-					false  // Do not add extra indentation to JSP
-				);
-				// Resolve the sequence
-				Sequence sequence = SEQUENCE_REQUEST_ATTRIBUTE.context(request)
-					.computeIfAbsent(__ -> new UnsynchronizedSequence());
-				// Resolve the scriptOut
-				Optional<ScriptGroupTag> scriptGroupTag = JspTagUtils.findAncestor(this, ScriptGroupTag.class);
-				if(scriptGroupTag.isPresent()) {
-					writeDateTimeJavascript(date, sequence, document, scriptGroupTag.get().getScriptOut());
-				} else {
-					CharArrayWriter scriptOut = new CharArrayWriter();
-					writeDateTimeJavascript(date, sequence, document, scriptOut);
-					try (Writer script = document.script()._c()) {
-						scriptOut.writeTo(script);
-					}
-				}
-			}
-			return EVAL_PAGE;
-		} catch(IOException err) {
-			throw new JspTagException(err);
-		}
-	}
+  @Override
+  public int doEndTag() throws JspException {
+    try {
+      String millisString = getBodyContent().getString().trim();
+      if (!millisString.isEmpty()) {
+        Long date = Long.parseLong(millisString);
+        HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
+        DocumentEE document = new DocumentEE(
+          pageContext.getServletContext(),
+          request,
+          (HttpServletResponse)pageContext.getResponse(),
+          pageContext.getOut(),
+          false, // Do not add extra newlines to JSP
+          false  // Do not add extra indentation to JSP
+        );
+        // Resolve the sequence
+        Sequence sequence = SEQUENCE_REQUEST_ATTRIBUTE.context(request)
+          .computeIfAbsent(__ -> new UnsynchronizedSequence());
+        // Resolve the scriptOut
+        Optional<ScriptGroupTag> scriptGroupTag = JspTagUtils.findAncestor(this, ScriptGroupTag.class);
+        if (scriptGroupTag.isPresent()) {
+          writeDateTimeJavascript(date, sequence, document, scriptGroupTag.get().getScriptOut());
+        } else {
+          CharArrayWriter scriptOut = new CharArrayWriter();
+          writeDateTimeJavascript(date, sequence, document, scriptOut);
+          try (Writer script = document.script()._c()) {
+            scriptOut.writeTo(script);
+          }
+        }
+      }
+      return EVAL_PAGE;
+    } catch (IOException err) {
+      throw new JspTagException(err);
+    }
+  }
 }

@@ -49,55 +49,63 @@ import org.apache.struts.action.ActionMessages;
  */
 public class CreateCompletedAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		TicketForm ticketForm = (TicketForm)form;
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    TicketForm ticketForm = (TicketForm)form;
 
-		// Validation
-		ActionMessages errors = ticketForm.validate(mapping, request);
-		if(errors!=null && !errors.isEmpty()) {
-			saveErrors(request, errors);
-			return mapping.findForward("input");
-		}
+    // Validation
+    ActionMessages errors = ticketForm.validate(mapping, request);
+    if (errors != null && !errors.isEmpty()) {
+      saveErrors(request, errors);
+      return mapping.findForward("input");
+    }
 
-		Account account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(ticketForm.getAccount()));
-		if(account == null) throw new SQLException("Unable to find Account: " + ticketForm.getAccount());
-		Language language = aoConn.getTicket().getLanguage().get(response.getLocale().getLanguage());
-		if(language == null) {
-			language = aoConn.getTicket().getLanguage().get(Language.EN);
-			if(language==null) throw new SQLException("Unable to find Language: " + Language.EN);
-		}
-		TicketType ticketType = aoConn.getTicket().getTicketType().get(TicketType.SUPPORT);
-		if(ticketType == null) throw new SQLException("Unable to find TicketType: " + TicketType.SUPPORT);
-		Priority clientPriority = aoConn.getTicket().getPriority().get(ticketForm.getClientPriority());
-		if(clientPriority == null) throw new SQLException("Unable to find TicketPriority: " + ticketForm.getClientPriority());
-		SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
-		int pkey = aoConn.getTicket().getTicket().addTicket(
-			siteSettings.getBrand(),
-			account,
-			language,
-			null,
-			ticketType,
-			null,
-			ticketForm.getSummary(),
-			ticketForm.getDetails(),
-			clientPriority,
-			Profile.splitEmails(ticketForm.getContactEmails()),
-			ticketForm.getContactPhoneNumbers()
-		);
-		request.setAttribute("pkey", pkey);
+    Account account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(ticketForm.getAccount()));
+    if (account == null) {
+      throw new SQLException("Unable to find Account: " + ticketForm.getAccount());
+    }
+    Language language = aoConn.getTicket().getLanguage().get(response.getLocale().getLanguage());
+    if (language == null) {
+      language = aoConn.getTicket().getLanguage().get(Language.EN);
+      if (language == null) {
+        throw new SQLException("Unable to find Language: " + Language.EN);
+      }
+    }
+    TicketType ticketType = aoConn.getTicket().getTicketType().get(TicketType.SUPPORT);
+    if (ticketType == null) {
+      throw new SQLException("Unable to find TicketType: " + TicketType.SUPPORT);
+    }
+    Priority clientPriority = aoConn.getTicket().getPriority().get(ticketForm.getClientPriority());
+    if (clientPriority == null) {
+      throw new SQLException("Unable to find TicketPriority: " + ticketForm.getClientPriority());
+    }
+    SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
+    int pkey = aoConn.getTicket().getTicket().addTicket(
+      siteSettings.getBrand(),
+      account,
+      language,
+      null,
+      ticketType,
+      null,
+      ticketForm.getSummary(),
+      ticketForm.getDetails(),
+      clientPriority,
+      Profile.splitEmails(ticketForm.getContactEmails()),
+      ticketForm.getContactPhoneNumbers()
+    );
+    request.setAttribute("pkey", pkey);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return Collections.singleton(Permission.Name.add_ticket);
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return Collections.singleton(Permission.Name.add_ticket);
+  }
 }

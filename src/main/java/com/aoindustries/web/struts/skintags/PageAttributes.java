@@ -39,227 +39,248 @@ import java.util.List;
  */
 public class PageAttributes {
 
-	/**
-	 * The possible values for layout.
-	 */
-	public static final String
-		LAYOUT_NORMAL = "normal",
-		LAYOUT_MINIMAL = "minimal"
-	;
+  /**
+   * The possible values for layout.
+   */
+  public static final String
+    LAYOUT_NORMAL = "normal",
+    LAYOUT_MINIMAL = "minimal"
+  ;
 
-	/**
-	 * The following key is used to store the objects in the page attributes.
-	 */
-	public static final ScopeEE.Request.Attribute<PageAttributes> REQUEST_ATTRIBUTE =
-		ScopeEE.REQUEST.attribute("pageAttributes");
+  /**
+   * The following key is used to store the objects in the page attributes.
+   */
+  public static final ScopeEE.Request.Attribute<PageAttributes> REQUEST_ATTRIBUTE =
+    ScopeEE.REQUEST.attribute("pageAttributes");
 
-	public static class Link {
+  public static class Link {
 
-		private final String rel;
-		private final String href;
-		private final String type;
+    private final String rel;
+    private final String href;
+    private final String type;
 
-		Link(String rel, String href, String type) {
-			this.rel = Strings.trimNullIfEmpty(rel);
-			this.href = Strings.nullIfEmpty(href);
-			this.type = Strings.trimNullIfEmpty(type);
-		}
+    Link(String rel, String href, String type) {
+      this.rel = Strings.trimNullIfEmpty(rel);
+      this.href = Strings.nullIfEmpty(href);
+      this.type = Strings.trimNullIfEmpty(type);
+    }
 
-		public String getRel() {
-			return rel;
-		}
+    public String getRel() {
+      return rel;
+    }
 
-		/**
-		 * Gets the already URL-encoded href.
-		 * TODO: Not URL encoded here.
-		 */
-		public String getHref() {
-			return href;
-		}
+    /**
+     * Gets the already URL-encoded href.
+     * TODO: Not URL encoded here.
+     */
+    public String getHref() {
+      return href;
+    }
 
-		public String getType() {
-			return type;
-		}
-	}
+    public String getType() {
+      return type;
+    }
+  }
 
-	private String path;
-	private String keywords;
-	private String description;
-	private String author;
-	private String authorHref;
-	private String copyright;
-	private List<Meta> metas;
-	private List<Meta> unmodifiableMetas;
-	private List<Link> links;
-	private List<Link> unmodifiableLinks;
-	private String title;
-	private String navImageAlt;
-	private List<Parent> parents;
-	private List<Child> children;
-	private String layout;
-	private Formtype formtype;
-	private String onload;
+  private String path;
+  private String keywords;
+  private String description;
+  private String author;
+  private String authorHref;
+  private String copyright;
+  private List<Meta> metas;
+  private List<Meta> unmodifiableMetas;
+  private List<Link> links;
+  private List<Link> unmodifiableLinks;
+  private String title;
+  private String navImageAlt;
+  private List<Parent> parents;
+  private List<Child> children;
+  private String layout;
+  private Formtype formtype;
+  private String onload;
 
-	public String getPath() {
-		return path;
-	}
+  public String getPath() {
+    return path;
+  }
 
-	public void setPath(String path) {
-		this.path = path;
-	}
+  public void setPath(String path) {
+    this.path = path;
+  }
 
-	public String getKeywords() {
-		return keywords;
-	}
+  public String getKeywords() {
+    return keywords;
+  }
 
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
-	}
+  public void setKeywords(String keywords) {
+    this.keywords = keywords;
+  }
 
-	public String getDescription() {
-		return description;
-	}
+  public String getDescription() {
+    return description;
+  }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-	public String getAuthor() {
-		return author;
-	}
+  public String getAuthor() {
+    return author;
+  }
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+  public void setAuthor(String author) {
+    this.author = author;
+  }
 
-	public String getAuthorHref() {
-		return authorHref;
-	}
+  public String getAuthorHref() {
+    return authorHref;
+  }
 
-	public void setAuthorHref(String authorHref) {
-		this.authorHref = authorHref;
-	}
+  public void setAuthorHref(String authorHref) {
+    this.authorHref = authorHref;
+  }
 
-	public String getCopyright() {
-		return copyright;
-	}
+  public String getCopyright() {
+    return copyright;
+  }
 
-	public void setCopyright(String copyright) {
-		this.copyright = copyright;
-	}
+  public void setCopyright(String copyright) {
+    this.copyright = copyright;
+  }
 
-	@SuppressWarnings("ReturnOfCollectionOrArrayField") // Returning unmodifiable
-	public List<Meta> getMetas() {
-		if(metas==null) return Collections.emptyList();
-		if(unmodifiableMetas==null) unmodifiableMetas = Collections.unmodifiableList(metas);
-		return unmodifiableMetas;
-	}
+  @SuppressWarnings("ReturnOfCollectionOrArrayField") // Returning unmodifiable
+  public List<Meta> getMetas() {
+    if (metas == null) {
+      return Collections.emptyList();
+    }
+    if (unmodifiableMetas == null) {
+      unmodifiableMetas = Collections.unmodifiableList(metas);
+    }
+    return unmodifiableMetas;
+  }
 
-	public void addMeta(Meta meta) {
-		if(metas==null) metas = new ArrayList<>();
-		metas.add(meta);
-	}
+  public void addMeta(Meta meta) {
+    if (metas == null) {
+      metas = new ArrayList<>();
+    }
+    metas.add(meta);
+  }
 
-	/**
-	 * Gets an optional set of additional links to include for this page
-	 * in the order they should be added.
-	 * <p>
-	 * Please note, that any links to stylesheets here are never optimized.  Please
-	 * prefer the {@link com.aoapps.web.resources.servlet.RegistryEE.Page page-scope web resource registry}.
-	 * </p>
-	 */
-	@SuppressWarnings("ReturnOfCollectionOrArrayField") // Returning unmodifiable
-	public List<Link> getLinks() {
-		if(links==null) return Collections.emptyList();
-		if(unmodifiableLinks==null) unmodifiableLinks = Collections.unmodifiableList(links);
-		return unmodifiableLinks;
-	}
+  /**
+   * Gets an optional set of additional links to include for this page
+   * in the order they should be added.
+   * <p>
+   * Please note, that any links to stylesheets here are never optimized.  Please
+   * prefer the {@link com.aoapps.web.resources.servlet.RegistryEE.Page page-scope web resource registry}.
+   * </p>
+   */
+  @SuppressWarnings("ReturnOfCollectionOrArrayField") // Returning unmodifiable
+  public List<Link> getLinks() {
+    if (links == null) {
+      return Collections.emptyList();
+    }
+    if (unmodifiableLinks == null) {
+      unmodifiableLinks = Collections.unmodifiableList(links);
+    }
+    return unmodifiableLinks;
+  }
 
-	/**
-	 * Adds an additional link to include for this page
-	 * in the order they should be added.
-	 * <p>
-	 * Please note, that any links to stylesheets here are never optimized.  Please
-	 * prefer the {@link com.aoapps.web.resources.servlet.RegistryEE.Page page-scope web resource registry}.
-	 * </p>
-	 */
-	public void addLink(String rel, String href, String type) {
-		if(links==null) links = new ArrayList<>();
-		links.add(new Link(rel, href, type));
-	}
+  /**
+   * Adds an additional link to include for this page
+   * in the order they should be added.
+   * <p>
+   * Please note, that any links to stylesheets here are never optimized.  Please
+   * prefer the {@link com.aoapps.web.resources.servlet.RegistryEE.Page page-scope web resource registry}.
+   * </p>
+   */
+  public void addLink(String rel, String href, String type) {
+    if (links == null) {
+      links = new ArrayList<>();
+    }
+    links.add(new Link(rel, href, type));
+  }
 
-	public String getTitle() {
-		return title;
-	}
+  public String getTitle() {
+    return title;
+  }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-	public String getNavImageAlt() {
-		String myNavImageAlt = this.navImageAlt;
-		if(myNavImageAlt==null || myNavImageAlt.length()==0) myNavImageAlt = this.title;
-		return myNavImageAlt;
-	}
+  public String getNavImageAlt() {
+    String myNavImageAlt = this.navImageAlt;
+    if (myNavImageAlt == null || myNavImageAlt.length() == 0) {
+      myNavImageAlt = this.title;
+    }
+    return myNavImageAlt;
+  }
 
-	public void setNavImageAlt(String navImageAlt) {
-		this.navImageAlt = navImageAlt;
-	}
+  public void setNavImageAlt(String navImageAlt) {
+    this.navImageAlt = navImageAlt;
+  }
 
-	public List<Parent> getParents() {
-		if(parents==null) {
-			List<Parent> emptyList = Collections.emptyList();
-			return emptyList;
-		}
-		return parents;
-	}
+  public List<Parent> getParents() {
+    if (parents == null) {
+      List<Parent> emptyList = Collections.emptyList();
+      return emptyList;
+    }
+    return parents;
+  }
 
-	public void addParent(Parent parent) {
-		if(parents==null) parents = new ArrayList<>();
-		parents.add(parent);
-	}
+  public void addParent(Parent parent) {
+    if (parents == null) {
+      parents = new ArrayList<>();
+    }
+    parents.add(parent);
+  }
 
-	/**
-	 * Gets the direct children of this page.
-	 */
-	public List<Child> getChildren() {
-		if(children==null) {
-			List<Child> emptyList = Collections.emptyList();
-			return emptyList;
-		}
-		return children;
-	}
+  /**
+   * Gets the direct children of this page.
+   */
+  public List<Child> getChildren() {
+    if (children == null) {
+      List<Child> emptyList = Collections.emptyList();
+      return emptyList;
+    }
+    return children;
+  }
 
-	public void addChild(Child child) {
-		if(children==null) children = new ArrayList<>();
-		children.add(child);
-	}
+  public void addChild(Child child) {
+    if (children == null) {
+      children = new ArrayList<>();
+    }
+    children.add(child);
+  }
 
-	public String getLayout() {
-		return layout;
-	}
+  public String getLayout() {
+    return layout;
+  }
 
-	public void setLayout(String layout) {
-		if(layout.equals(LAYOUT_NORMAL) || layout.equals(LAYOUT_MINIMAL)) this.layout = layout;
-		else throw new LocalizedIllegalArgumentException(PACKAGE_RESOURCES, "skintags.PageAttributes.setLayout.invalid");
-	}
+  public void setLayout(String layout) {
+    if (layout.equals(LAYOUT_NORMAL) || layout.equals(LAYOUT_MINIMAL)) {
+      this.layout = layout;
+    } else {
+      throw new LocalizedIllegalArgumentException(PACKAGE_RESOURCES, "skintags.PageAttributes.setLayout.invalid");
+    }
+  }
 
-	public Formtype getFormtype() {
-		return formtype;
-	}
+  public Formtype getFormtype() {
+    return formtype;
+  }
 
-	/**
-	 * @param  formtype  Includes appropriate content in the head based on the type of form.
-	 */
-	public void setFormtype(Formtype formtype) {
-		this.formtype = formtype;
-	}
+  /**
+   * @param  formtype  Includes appropriate content in the head based on the type of form.
+   */
+  public void setFormtype(Formtype formtype) {
+    this.formtype = formtype;
+  }
 
-	public String getOnload() {
-		return onload;
-	}
+  public String getOnload() {
+    return onload;
+  }
 
-	public void setOnload(String onload) {
-		this.onload = onload;
-	}
+  public void setOnload(String onload) {
+    this.onload = onload;
+  }
 }

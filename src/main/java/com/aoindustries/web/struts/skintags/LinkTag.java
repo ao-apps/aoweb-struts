@@ -46,85 +46,89 @@ import javax.servlet.jsp.tagext.DynamicAttributes;
  * @author  AO Industries, Inc.
  */
 public class LinkTag extends EncodingBufferedTag
-	implements
-		RelAttribute,
-		HrefAttribute,
-		ParamsAttribute,
-		TypeAttribute,
-		DynamicAttributes
+  implements
+    RelAttribute,
+    HrefAttribute,
+    ParamsAttribute,
+    TypeAttribute,
+    DynamicAttributes
 {
 
-	@Override
-	public MediaType getContentType() {
-		return MediaType.URL;
-	}
+  @Override
+  public MediaType getContentType() {
+    return MediaType.URL;
+  }
 
-	@Override
-	public MediaType getOutputType() {
-		return null;
-	}
+  @Override
+  public MediaType getOutputType() {
+    return null;
+  }
 
-	private String rel;
-	private String href;
-	private URIParametersMap params;
-	// TODO: canonical, absolute, addLastModified?
-	private String type;
+  private String rel;
+  private String href;
+  private URIParametersMap params;
+  // TODO: canonical, absolute, addLastModified?
+  private String type;
 
-	public LinkTag() {
-		init();
-	}
+  public LinkTag() {
+    init();
+  }
 
-	private void init() {
-		rel = null;
-		href = null;
-		params = null;
-		type = null;
-	}
+  private void init() {
+    rel = null;
+    href = null;
+    params = null;
+    type = null;
+  }
 
-	@Override
-	public void setRel(String rel) {
-		this.rel = rel;
-	}
+  @Override
+  public void setRel(String rel) {
+    this.rel = rel;
+  }
 
-	@Override
-	public void setHref(String href) {
-		this.href = href;
-	}
+  @Override
+  public void setHref(String href) {
+    this.href = href;
+  }
 
-	@Override
-	public void addParam(String name, Object value) {
-		if(params == null) params = new URIParametersMap();
-		params.add(name, value);
-	}
+  @Override
+  public void addParam(String name, Object value) {
+    if (params == null) {
+      params = new URIParametersMap();
+    }
+    params.add(name, value);
+  }
 
-	@Override
-	public void setType(String type) {
-		this.type = type;
-	}
+  @Override
+  public void setType(String type) {
+    this.type = type;
+  }
 
-	/**
-	 * @see  ParamUtils#addDynamicAttribute(java.lang.String, java.lang.String, java.lang.Object, java.util.List, com.aoapps.taglib.ParamsAttribute)
-	 */
-	@Override
-	public void setDynamicAttribute(String uri, String localName, Object value) throws JspException {
-		List<String> expectedPatterns = new ArrayList<>();
-		if(!ParamUtils.addDynamicAttribute(uri, localName, value, expectedPatterns, this)) {
-			throw AttributeUtils.newDynamicAttributeFailedException(uri, localName, value, expectedPatterns);
-		}
-	}
+  /**
+   * @see  ParamUtils#addDynamicAttribute(java.lang.String, java.lang.String, java.lang.Object, java.util.List, com.aoapps.taglib.ParamsAttribute)
+   */
+  @Override
+  public void setDynamicAttribute(String uri, String localName, Object value) throws JspException {
+    List<String> expectedPatterns = new ArrayList<>();
+    if (!ParamUtils.addDynamicAttribute(uri, localName, value, expectedPatterns, this)) {
+      throw AttributeUtils.newDynamicAttributeFailedException(uri, localName, value, expectedPatterns);
+    }
+  }
 
-	@Override
-	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-		String myHref = href;
-		assert capturedBody.trim() == capturedBody : "URLs should have already been trimmed";
-		if(myHref == null) myHref = capturedBody.toString();
-		myHref = URIParametersUtils.addParams(myHref, params);
-		PageAttributesBodyTag.getPageAttributes(
-			(PageContext)getJspContext()
-		).addLink(
-			rel,
-			myHref,
-			type
-		);
-	}
+  @Override
+  protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+    String myHref = href;
+    assert capturedBody.trim() == capturedBody : "URLs should have already been trimmed";
+    if (myHref == null) {
+      myHref = capturedBody.toString();
+    }
+    myHref = URIParametersUtils.addParams(myHref, params);
+    PageAttributesBodyTag.getPageAttributes(
+      (PageContext)getJspContext()
+    ).addLink(
+      rel,
+      myHref,
+      type
+    );
+  }
 }

@@ -50,78 +50,78 @@ import javax.servlet.ServletContext;
  */
 public class VncConsoleProxySocketServer implements Runnable {
 
-	private static final Logger logger = Logger.getLogger(VncConsoleProxySocketServer.class.getName());
+  private static final Logger logger = Logger.getLogger(VncConsoleProxySocketServer.class.getName());
 
-	private ServletContext servletContext;
-	private volatile Thread thread;
+  private ServletContext servletContext;
+  private volatile Thread thread;
 
-	public void init(ServletContext servletContext) {
-		this.servletContext = servletContext;
-		if(!"false".equalsIgnoreCase(servletContext.getInitParameter(VncConsoleProxySocketServer.class.getName() + ".enabled"))) {
-			(thread = new Thread(this, "VNC Console Proxy Socket Host")).start();
-		}
-	}
+  public void init(ServletContext servletContext) {
+    this.servletContext = servletContext;
+    if (!"false".equalsIgnoreCase(servletContext.getInitParameter(VncConsoleProxySocketServer.class.getName() + ".enabled"))) {
+      (thread = new Thread(this, "VNC Console Proxy Socket Host")).start();
+    }
+  }
 
-	public void destroy() {
-		Thread t = this.thread;
-		if(t != null) {
-			this.thread = null;
-			t.interrupt();
-		}
-	}
+  public void destroy() {
+    Thread t = this.thread;
+    if (t != null) {
+      this.thread = null;
+      t.interrupt();
+    }
+  }
 
-	@Override
-	@SuppressWarnings({"ResultOfObjectAllocationIgnored", "UseSpecificCatch", "TooBroadCatch", "SleepWhileInLoop"})
-	public void run() {
-		Thread currentThread = Thread.currentThread();
-		ServletContext myServletContext = this.servletContext;
-		while(currentThread == this.thread && !currentThread.isInterrupted()) {
-			try {
-				SiteSettings siteSettings = SiteSettings.getInstance(myServletContext);
-				Brand brand = siteSettings.getBrand();
-				Bind vncBind = brand.getAowebStrutsVncBind();
-				InetAddress inetAddress = InetAddress.getByName(vncBind.getIpAddress().getInetAddress().toString());
-				AOServConnector rootConn = siteSettings.getRootAOServConnector();
-				// Init SSL without using system properties because default SSLContext may be already set
-				// From: http://java.sun.com/j2se/1.5.0/docs/guide/security/jsse/JSSERefGuide.html  "Multiple and Dynamic Keystores"
-				KeyStore.Builder fsBuilder = KeyStore.Builder.newInstance(
-					brand.getAowebStrutsKeystoreType(),
-					null,
-					new File("conf/keystore"),
-					new KeyStore.PasswordProtection(brand.getAowebStrutsKeystorePassword().toCharArray())
-				);
-				ManagerFactoryParameters ksParams = new KeyStoreBuilderParameters(Collections.singletonList(fsBuilder));
-				KeyManagerFactory factory = KeyManagerFactory.getInstance("NewSunX509");
-				factory.init(ksParams);
-				SSLContext ctx = SSLContext.getInstance("TLS");
-				ctx.init(factory.getKeyManagers(), null, null);
+  @Override
+  @SuppressWarnings({"ResultOfObjectAllocationIgnored", "UseSpecificCatch", "TooBroadCatch", "SleepWhileInLoop"})
+  public void run() {
+    Thread currentThread = Thread.currentThread();
+    ServletContext myServletContext = this.servletContext;
+    while (currentThread == this.thread && !currentThread.isInterrupted()) {
+      try {
+        SiteSettings siteSettings = SiteSettings.getInstance(myServletContext);
+        Brand brand = siteSettings.getBrand();
+        Bind vncBind = brand.getAowebStrutsVncBind();
+        InetAddress inetAddress = InetAddress.getByName(vncBind.getIpAddress().getInetAddress().toString());
+        AOServConnector rootConn = siteSettings.getRootAOServConnector();
+        // Init SSL without using system properties because default SSLContext may be already set
+        // From: http://java.sun.com/j2se/1.5.0/docs/guide/security/jsse/JSSERefGuide.html  "Multiple and Dynamic Keystores"
+        KeyStore.Builder fsBuilder = KeyStore.Builder.newInstance(
+          brand.getAowebStrutsKeystoreType(),
+          null,
+          new File("conf/keystore"),
+          new KeyStore.PasswordProtection(brand.getAowebStrutsKeystorePassword().toCharArray())
+        );
+        ManagerFactoryParameters ksParams = new KeyStoreBuilderParameters(Collections.singletonList(fsBuilder));
+        KeyManagerFactory factory = KeyManagerFactory.getInstance("NewSunX509");
+        factory.init(ksParams);
+        SSLContext ctx = SSLContext.getInstance("TLS");
+        ctx.init(factory.getKeyManagers(), null, null);
 
-				// Create the server socket
-				SSLServerSocketFactory socketFactory = ctx.getServerSocketFactory();
-				//SSLServerSocketFactory socketFactory = (SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
-				try (SSLServerSocket SS = (SSLServerSocket)socketFactory.createServerSocket(vncBind.getPort().getPort(), 50, inetAddress)) {
-					while(currentThread == this.thread && !currentThread.isInterrupted()) {
-						Socket socket = SS.accept();
-						socket.setKeepAlive(true);
-						new VncConsoleProxySocketHandler(servletContext, rootConn, socket);
-					}
-				}
-			} catch(ThreadDeath td) {
-				throw td;
-			} catch(Throwable t) {
-				logger.log(Level.SEVERE, null, t);
-			}
-			if(currentThread == this.thread && !currentThread.isInterrupted()) {
-				try {
-					Thread.sleep(60000);
-				} catch(InterruptedException err) {
-					if(currentThread == this.thread) {
-						logger.log(Level.WARNING, null, err);
-					}
-					// Restore the interrupted status
-					currentThread.interrupt();
-				}
-			}
-		}
-	}
+        // Create the server socket
+        SSLServerSocketFactory socketFactory = ctx.getServerSocketFactory();
+        //SSLServerSocketFactory socketFactory = (SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
+        try (SSLServerSocket SS = (SSLServerSocket)socketFactory.createServerSocket(vncBind.getPort().getPort(), 50, inetAddress)) {
+          while (currentThread == this.thread && !currentThread.isInterrupted()) {
+            Socket socket = SS.accept();
+            socket.setKeepAlive(true);
+            new VncConsoleProxySocketHandler(servletContext, rootConn, socket);
+          }
+        }
+      } catch (ThreadDeath td) {
+        throw td;
+      } catch (Throwable t) {
+        logger.log(Level.SEVERE, null, t);
+      }
+      if (currentThread == this.thread && !currentThread.isInterrupted()) {
+        try {
+          Thread.sleep(60000);
+        } catch (InterruptedException err) {
+          if (currentThread == this.thread) {
+            logger.log(Level.WARNING, null, err);
+          }
+          // Restore the interrupted status
+          currentThread.interrupt();
+        }
+      }
+    }
+  }
 }

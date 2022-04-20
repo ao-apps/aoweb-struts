@@ -1,9 +1,9 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021  AO Industries, Inc.
-	support@aoindustries.com
-	7262 Bull Pen Cir
-	Mobile, AL 36695
+Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
 
 This file is part of aoweb-struts.
 
@@ -24,33 +24,33 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
 <ao:bundle basename="com.aoindustries.web.struts.clientarea.accounting.i18n.ApplicationResources">
-	<skin:path>/clientarea/accounting/add-credit-card-completed.do</skin:path>
-	<logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="robots">noindex</skin:meta></logic:equal>
-	<skin:title><ao:message key="addCreditCardCompleted.title" /></skin:title>
-	<skin:navImageAlt><ao:message key="addCreditCardCompleted.navImageAlt" /></skin:navImageAlt>
-	<skin:keywords><ao:message key="addCreditCardCompleted.keywords" /></skin:keywords>
-	<skin:description><ao:message key="addCreditCardCompleted.description" /></skin:description>
-	<%@include file="add-parents.jspf" %>
-	<skin:parent><%@include file="credit-card-manager.meta.jspf" %></skin:parent>
-	<skin:skin>
-		<skin:content width="600">
-			<skin:contentTitle><ao:message key="addCreditCardCompleted.title" /></skin:contentTitle>
-			<skin:contentHorizontalDivider />
-			<skin:contentLine>
-				<logic:present scope="request" name="permissionDenied">
-					<%@include file="../../permission-denied.jspf" %>
-				</logic:present>
-				<logic:notPresent scope="request" name="permissionDenied">
-					<skin:lightArea>
-						<b><ao:message key="addCreditCardCompleted.successMessage.title" /></b>
-						<ao:hr />
-						<ao:message key="addCreditCardCompleted.successMessage.text" arg0="${aoweb:getCardNumberDisplay(cardNumber)}" /><ao:br />
-						<ao:br />
-						<%-- TODO: Link to make payment here --%>
-						<ao:a href="/clientarea/accounting/credit-card-manager.do"><ao:message key="addCreditCardCompleted.creditCardManager.link" /></ao:a>
-					</skin:lightArea>
-				</logic:notPresent>
-			</skin:contentLine>
-		</skin:content>
-	</skin:skin>
+  <skin:path>/clientarea/accounting/add-credit-card-completed.do</skin:path>
+  <logic:equal name="siteSettings" property="brand.aowebStrutsNoindex" value="true"><skin:meta name="robots">noindex</skin:meta></logic:equal>
+  <skin:title><ao:message key="addCreditCardCompleted.title" /></skin:title>
+  <skin:navImageAlt><ao:message key="addCreditCardCompleted.navImageAlt" /></skin:navImageAlt>
+  <skin:keywords><ao:message key="addCreditCardCompleted.keywords" /></skin:keywords>
+  <skin:description><ao:message key="addCreditCardCompleted.description" /></skin:description>
+  <%@include file="add-parents.jspf" %>
+  <skin:parent><%@include file="credit-card-manager.meta.jspf" %></skin:parent>
+  <skin:skin>
+    <skin:content width="600">
+      <skin:contentTitle><ao:message key="addCreditCardCompleted.title" /></skin:contentTitle>
+      <skin:contentHorizontalDivider />
+      <skin:contentLine>
+        <logic:present scope="request" name="permissionDenied">
+          <%@include file="../../permission-denied.jspf" %>
+        </logic:present>
+        <logic:notPresent scope="request" name="permissionDenied">
+          <skin:lightArea>
+            <b><ao:message key="addCreditCardCompleted.successMessage.title" /></b>
+            <ao:hr />
+            <ao:message key="addCreditCardCompleted.successMessage.text" arg0="${aoweb:getCardNumberDisplay(cardNumber)}" /><ao:br />
+            <ao:br />
+            <%-- TODO: Link to make payment here --%>
+            <ao:a href="/clientarea/accounting/credit-card-manager.do"><ao:message key="addCreditCardCompleted.creditCardManager.link" /></ao:a>
+          </skin:lightArea>
+        </logic:notPresent>
+      </skin:contentLine>
+    </skin:content>
+  </skin:skin>
 </ao:bundle>

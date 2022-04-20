@@ -33,31 +33,31 @@ import org.apache.struts.action.ActionMapping;
  */
 public class CancelFeedbackForm extends ActionForm implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String account;
-	private String reason;
+  private String account;
+  private String reason;
 
-	@Override
-	public void reset(ActionMapping mapping, HttpServletRequest request) {
-		super.reset(mapping, request);
-		setAccount("");
-		setReason("");
-	}
+  @Override
+  public void reset(ActionMapping mapping, HttpServletRequest request) {
+    super.reset(mapping, request);
+    setAccount("");
+    setReason("");
+  }
 
-	public String getAccount() {
-		return account;
-	}
+  public String getAccount() {
+    return account;
+  }
 
-	public void setAccount(String account) {
-		this.account = account;
-	}
+  public void setAccount(String account) {
+    this.account = account;
+  }
 
-	public String getReason() {
-		return reason;
-	}
+  public String getReason() {
+    return reason;
+  }
 
-	public void setReason(String reason) {
-		this.reason = reason;
-	}
+  public void setReason(String reason) {
+    this.reason = reason;
+  }
 }

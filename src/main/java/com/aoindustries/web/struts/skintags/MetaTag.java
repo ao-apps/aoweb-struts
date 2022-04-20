@@ -39,43 +39,45 @@ import javax.servlet.jsp.PageContext;
  */
 public class MetaTag extends EncodingBufferedTag implements NameAttribute, ContentAttribute {
 
-	private String name;
-	private Object content;
+  private String name;
+  private Object content;
 
-	@Override
-	public MediaType getContentType() {
-		return MediaType.TEXT;
-	}
+  @Override
+  public MediaType getContentType() {
+    return MediaType.TEXT;
+  }
 
-	@Override
-	public MediaType getOutputType() {
-		return null;
-	}
+  @Override
+  public MediaType getOutputType() {
+    return null;
+  }
 
-	@Override
-	public void setName(String name) {
-		this.name = name;
-	}
+  @Override
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	@Override
-	public void setContent(Object content) {
-		this.content = content;
-	}
+  @Override
+  public void setContent(Object content) {
+    this.content = content;
+  }
 
-	@Override
-	protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-		PageContext pageContext = (PageContext)getJspContext();
-		Object myContent = content;
-		if(myContent==null) myContent = capturedBody.trim().toString();
-		Meta meta = new Meta(
-			name,
-			Coercion.toString(myContent)
-		);
-		PageTag pageTag = PageTag.getPageTag(pageContext.getRequest());
-		if(pageTag==null) {
-			PageAttributesBodyTag.getPageAttributes(pageContext).addMeta(meta);
-		} else {
-			pageTag.addMeta(meta);
-		}
-	}
+  @Override
+  protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
+    PageContext pageContext = (PageContext)getJspContext();
+    Object myContent = content;
+    if (myContent == null) {
+      myContent = capturedBody.trim().toString();
+    }
+    Meta meta = new Meta(
+      name,
+      Coercion.toString(myContent)
+    );
+    PageTag pageTag = PageTag.getPageTag(pageContext.getRequest());
+    if (pageTag == null) {
+      PageAttributesBodyTag.getPageAttributes(pageContext).addMeta(meta);
+    } else {
+      pageTag.addMeta(meta);
+    }
+  }
 }

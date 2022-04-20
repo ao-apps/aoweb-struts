@@ -49,89 +49,91 @@ import org.apache.struts.action.ActionMapping;
  */
 public abstract class PermissionAction extends AuthenticatedAction {
 
-	@Override
-	public final ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		Set<Permission.Name> permissions = getPermissions();
+  @Override
+  public final ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    Set<Permission.Name> permissions = getPermissions();
 
-		// No permissions defined, default to denied
-		if(permissions==null || permissions.isEmpty()) {
-			List<Permission> aoPerms = Collections.emptyList();
-			return executePermissionDenied(
-				mapping,
-				form,
-				request,
-				response,
-				aoConn,
-				aoPerms
-			);
-		}
+    // No permissions defined, default to denied
+    if (permissions == null || permissions.isEmpty()) {
+      List<Permission> aoPerms = Collections.emptyList();
+      return executePermissionDenied(
+        mapping,
+        form,
+        request,
+        response,
+        aoConn,
+        aoPerms
+      );
+    }
 
-		Administrator thisBA = aoConn.getCurrentAdministrator();
-		// Return denied on first missing permission
-		for(Permission.Name permission : permissions) {
-			if(!thisBA.hasPermission(permission)) {
-				List<Permission> aoPerms = new ArrayList<>(permissions.size());
-				for(Permission.Name requiredPermission : permissions) {
-					Permission aoPerm = aoConn.getMaster().getPermission().get(requiredPermission);
-					if(aoPerm==null) throw new SQLException("Unable to find AOServPermission: "+requiredPermission);
-					aoPerms.add(aoPerm);
-				}
-				return executePermissionDenied(
-					mapping,
-					form,
-					request,
-					response,
-					aoConn,
-					aoPerms
-				);
-			}
-		}
+    Administrator thisBA = aoConn.getCurrentAdministrator();
+    // Return denied on first missing permission
+    for (Permission.Name permission : permissions) {
+      if (!thisBA.hasPermission(permission)) {
+        List<Permission> aoPerms = new ArrayList<>(permissions.size());
+        for (Permission.Name requiredPermission : permissions) {
+          Permission aoPerm = aoConn.getMaster().getPermission().get(requiredPermission);
+          if (aoPerm == null) {
+            throw new SQLException("Unable to find AOServPermission: "+requiredPermission);
+          }
+          aoPerms.add(aoPerm);
+        }
+        return executePermissionDenied(
+          mapping,
+          form,
+          request,
+          response,
+          aoConn,
+          aoPerms
+        );
+      }
+    }
 
-		// All permissions found, consider granted
-		return executePermissionGranted(mapping, form, request, response, aoConn);
-	}
+    // All permissions found, consider granted
+    return executePermissionGranted(mapping, form, request, response, aoConn);
+  }
 
-	/**
-	 * Called when permission has been granted.  By default,
-	 * returns mapping for "success".
-	 */
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		return mapping.findForward("success");
-	}
+  /**
+   * Called when permission has been granted.  By default,
+   * returns mapping for "success".
+   */
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    return mapping.findForward("success");
+  }
 
-	/**
-	 * Called when the permissions has been denied.  By default,
-	 * sets request attribute <code>Constants.PERMISSION_DENIED</code>
-	 * and returns mapping for "permission-denied".
-	 */
-	public ActionForward executePermissionDenied(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn,
-		List<Permission> permissions
-	) throws Exception {
-		Constants.PERMISSION_DENIED.context(request).set(permissions);
-		return mapping.findForward("permission-denied");
-	}
+  /**
+   * Called when the permissions has been denied.  By default,
+   * sets request attribute <code>Constants.PERMISSION_DENIED</code>
+   * and returns mapping for "permission-denied".
+   */
+  public ActionForward executePermissionDenied(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn,
+    List<Permission> permissions
+  ) throws Exception {
+    Constants.PERMISSION_DENIED.context(request).set(permissions);
+    return mapping.findForward("permission-denied");
+  }
 
-	/**
-	 * Gets the set of permissions that are required for this action.  Returning a null or empty set will result in nothing being allowed.
-	 *
-	 * @see  Permission
-	 */
-	public abstract Set<Permission.Name> getPermissions();
+  /**
+   * Gets the set of permissions that are required for this action.  Returning a null or empty set will result in nothing being allowed.
+   *
+   * @see  Permission
+   */
+  public abstract Set<Permission.Name> getPermissions();
 }

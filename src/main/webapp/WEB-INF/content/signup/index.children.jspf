@@ -1,9 +1,9 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
 Copyright (C) 2007-2009, 2016, 2018, 2019, 2021, 2022  AO Industries, Inc.
-	support@aoindustries.com
-	7262 Bull Pen Cir
-	Mobile, AL 36695
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
 
 This file is part of aoweb-struts.
 
@@ -26,30 +26,30 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 <c:set var="rootConn" value="${siteSettings.rootAOServConnector}" />
 <c:set var="activePackageDefinitions" value="${rootConn.currentAdministrator.username['package'].account.activePackageDefinitions}" />
 <c:set var="packageCategories" value="${rootConn.billing.PackageCategory.map}" />
-<c:if test="${activePackageDefinitions[packageCategories.application]!=null}">
-	<skin:child><%@include file="application.meta.jspf" %></skin:child>
+<c:if test="${activePackageDefinitions[packageCategories.application] != null}">
+  <skin:child><%@include file="application.meta.jspf" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[packageCategories.virtual]!=null}">
-	<skin:child><%@include file="virtual-hosting.meta.jspf" %></skin:child>
+<c:if test="${activePackageDefinitions[packageCategories.virtual] != null}">
+  <skin:child><%@include file="virtual-hosting.meta.jspf" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[packageCategories.virtual_dedicated]!=null}">
-	<skin:child><%@include file="virtual-dedicated-server.meta.jspf" %></skin:child>
+<c:if test="${activePackageDefinitions[packageCategories.virtual_dedicated] != null}">
+  <skin:child><%@include file="virtual-dedicated-server.meta.jspf" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[packageCategories.virtual_managed]!=null}">
-	<skin:child><%@include file="virtual-managed-server.meta.jspf" %></skin:child>
+<c:if test="${activePackageDefinitions[packageCategories.virtual_managed] != null}">
+  <skin:child><%@include file="virtual-managed-server.meta.jspf" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[packageCategories.dedicated]!=null}">
-	<skin:child><%@include file="dedicated-server.meta.jspf" %></skin:child>
+<c:if test="${activePackageDefinitions[packageCategories.dedicated] != null}">
+  <skin:child><%@include file="dedicated-server.meta.jspf" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[packageCategories.managed]!=null}">
-	<skin:child><%@include file="managed-server.meta.jspf" %></skin:child>
+<c:if test="${activePackageDefinitions[packageCategories.managed] != null}">
+  <skin:child><%@include file="managed-server.meta.jspf" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[packageCategories.aoserv]!=null}">
-	<skin:child><%@include file="aoserv.meta.jspf" %></skin:child>
+<c:if test="${activePackageDefinitions[packageCategories.aoserv] != null}">
+  <skin:child><%@include file="aoserv.meta.jspf" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[packageCategories.reseller]!=null}">
-	<skin:child><%@include file="reseller.meta.jspf" %></skin:child>
+<c:if test="${activePackageDefinitions[packageCategories.reseller] != null}">
+  <skin:child><%@include file="reseller.meta.jspf" %></skin:child>
 </c:if>
-<c:if test="${activePackageDefinitions[packageCategories.sysadmin]!=null}">
-	<skin:child><%@include file="system-administration.meta.jspf" %></skin:child>
+<c:if test="${activePackageDefinitions[packageCategories.sysadmin] != null}">
+  <skin:child><%@include file="system-administration.meta.jspf" %></skin:child>
 </c:if>

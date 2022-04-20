@@ -37,32 +37,32 @@ import org.apache.struts.action.ActionMapping;
  */
 public class SessionTimeoutAction extends PageAction {
 
-	private static final com.aoapps.lang.i18n.Resources RESOURCES =
-		com.aoapps.lang.i18n.Resources.getResources(ResourceBundle::getBundle, SessionTimeoutAction.class);
+  private static final com.aoapps.lang.i18n.Resources RESOURCES =
+    com.aoapps.lang.i18n.Resources.getResources(ResourceBundle::getBundle, SessionTimeoutAction.class);
 
-	@Override
-	public ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		Registry pageRegistry
-	) throws Exception {
-		// Logout, just in case session not actually expired
-		HttpSession session = request.getSession(false);
-		if(session != null) {
-			LogoutAction.logout(session);
-			// Save the target so authentication will return to the previous page
-			String target = request.getParameter("target");
-			String targetUrl = LoginAction.getTargetUrl(session, target);
-			if(targetUrl != null) {
-				Constants.AUTHENTICATION_TARGET.context(session).set(targetUrl);
-			}
-		}
+  @Override
+  public ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    Registry pageRegistry
+  ) throws Exception {
+    // Logout, just in case session not actually expired
+    HttpSession session = request.getSession(false);
+    if (session != null) {
+      LogoutAction.logout(session);
+      // Save the target so authentication will return to the previous page
+      String target = request.getParameter("target");
+      String targetUrl = LoginAction.getTargetUrl(session, target);
+      if (targetUrl != null) {
+        Constants.AUTHENTICATION_TARGET.context(session).set(targetUrl);
+      }
+    }
 
-		// Set the authenticationMessage
-		Constants.AUTHENTICATION_MESSAGE.context(request).set(RESOURCES.getMessage("authenticationMessage"));
+    // Set the authenticationMessage
+    Constants.AUTHENTICATION_MESSAGE.context(request).set(RESOURCES.getMessage("authenticationMessage"));
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 }

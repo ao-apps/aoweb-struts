@@ -44,40 +44,40 @@ import org.apache.struts.action.ActionMapping;
  */
 public class AdministratorPasswordSetterAction extends AuthenticatedAction {
 
-	@Override
-	public ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		AdministratorPasswordSetterForm administratorPasswordSetterForm = (AdministratorPasswordSetterForm)form;
+  @Override
+  public ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    AdministratorPasswordSetterForm administratorPasswordSetterForm = (AdministratorPasswordSetterForm)form;
 
-		Administrator thisBA = aoConn.getCurrentAdministrator();
+    Administrator thisBA = aoConn.getCurrentAdministrator();
 
-		List<Administrator> bas = thisBA.hasPermission(Permission.Name.set_business_administrator_password) ? aoConn.getAccount().getAdministrator().getRows() : Collections.singletonList(thisBA);
+    List<Administrator> bas = thisBA.hasPermission(Permission.Name.set_business_administrator_password) ? aoConn.getAccount().getAdministrator().getRows() : Collections.singletonList(thisBA);
 
-		List<String> packages = new ArrayList<>(bas.size());
-		List<String> usernames = new ArrayList<>(bas.size());
-		List<String> newPasswords = new ArrayList<>(bas.size());
-		List<String> confirmPasswords = new ArrayList<>(bas.size());
-		for(Administrator ba : bas) {
-			if(ba.canSetPassword()) {
-				User un = ba.getUsername();
-				packages.add(un.getPackage().getName().toString());
-				usernames.add(un.getUsername().toString());
-				newPasswords.add("");
-				confirmPasswords.add("");
-			}
-		}
+    List<String> packages = new ArrayList<>(bas.size());
+    List<String> usernames = new ArrayList<>(bas.size());
+    List<String> newPasswords = new ArrayList<>(bas.size());
+    List<String> confirmPasswords = new ArrayList<>(bas.size());
+    for (Administrator ba : bas) {
+      if (ba.canSetPassword()) {
+        User un = ba.getUsername();
+        packages.add(un.getPackage().getName().toString());
+        usernames.add(un.getUsername().toString());
+        newPasswords.add("");
+        confirmPasswords.add("");
+      }
+    }
 
-		// Store to the form
-		administratorPasswordSetterForm.setPackages(packages);
-		administratorPasswordSetterForm.setUsernames(usernames);
-		administratorPasswordSetterForm.setNewPasswords(newPasswords);
-		administratorPasswordSetterForm.setConfirmPasswords(confirmPasswords);
+    // Store to the form
+    administratorPasswordSetterForm.setPackages(packages);
+    administratorPasswordSetterForm.setUsernames(usernames);
+    administratorPasswordSetterForm.setNewPasswords(newPasswords);
+    administratorPasswordSetterForm.setConfirmPasswords(confirmPasswords);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 }

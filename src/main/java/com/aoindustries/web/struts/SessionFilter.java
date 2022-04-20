@@ -54,37 +54,37 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SessionFilter implements Filter {
 
-	@Override
-	public void init(FilterConfig config) {
-		// Do nothing
-	}
+  @Override
+  public void init(FilterConfig config) {
+    // Do nothing
+  }
 
-	@Override
-	public void doFilter(
-		ServletRequest request,
-		ServletResponse response,
-		FilterChain chain
-	) throws IOException, ServletException {
-		HttpServletRequest httpRequest = (HttpServletRequest)request;
-		SessionResponseWrapper myresponse = new SessionResponseWrapper(httpRequest, (HttpServletResponse)response);
-		SessionRequestWrapper myrequest = new SessionRequestWrapper(httpRequest);
-		chain.doFilter(myrequest, myresponse);
-		// Could improve the efficiency by removing temporary sessions proactively here
-		/*
-		// The only time we keep the session data is when the user is logged-in or supports cookie-based sessions
-		HttpSession session = myrequest.getSession(false);
-		if(session!=null) {
-			if(session.isNew()...
-			try {
-				session.invalidate();
-			} catch(IllegalStateException err) {
-				// Ignore this because the session could have been already invalidated
-			}
-		}*/
-	}
+  @Override
+  public void doFilter(
+    ServletRequest request,
+    ServletResponse response,
+    FilterChain chain
+  ) throws IOException, ServletException {
+    HttpServletRequest httpRequest = (HttpServletRequest)request;
+    SessionResponseWrapper myresponse = new SessionResponseWrapper(httpRequest, (HttpServletResponse)response);
+    SessionRequestWrapper myrequest = new SessionRequestWrapper(httpRequest);
+    chain.doFilter(myrequest, myresponse);
+    // Could improve the efficiency by removing temporary sessions proactively here
+    /*
+    // The only time we keep the session data is when the user is logged-in or supports cookie-based sessions
+    HttpSession session = myrequest.getSession(false);
+    if (session != null) {
+      if (session.isNew()...
+      try {
+        session.invalidate();
+      } catch (IllegalStateException err) {
+        // Ignore this because the session could have been already invalidated
+      }
+    }*/
+  }
 
-	@Override
-	public void destroy() {
-		// Do nothing
-	}
+  @Override
+  public void destroy() {
+    // Do nothing
+  }
 }

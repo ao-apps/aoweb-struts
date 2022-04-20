@@ -38,49 +38,49 @@ import org.apache.struts.action.ActionMessages;
  */
 public class VirtualManagedAction extends VirtualManagedStepAction {
 
-	@Override
-	public ActionForward executeVirtualManagedStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
-		boolean signupCustomizeServerFormComplete,
-		SignupCustomizeManagementForm signupCustomizeManagementForm,
-		boolean signupCustomizeManagementFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		List<SignupSelectServerActionHelper.Host> servers = SignupSelectServerActionHelper.getServers(getServlet().getServletContext(), PackageCategory.VIRTUAL_MANAGED);
-		if(servers.size()==1) {
-			response.sendRedirect(
-				response.encodeRedirectURL(
-					URIEncoder.encodeURI(
-						Skin.getSkin(request).getUrlBase(request)
-						+ "signup/virtual-managed-server-completed.do?packageDefinition="
-						+ URIEncoder.encodeURIComponent(Integer.toString(servers.get(0).getMinimumConfiguration().getPackageDefinition()))
-					)
-				)
-			);
-			return null;
-		}
-		SignupSelectServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, PackageCategory.VIRTUAL_MANAGED);
+  @Override
+  public ActionForward executeVirtualManagedStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
+    boolean signupCustomizeServerFormComplete,
+    SignupCustomizeManagementForm signupCustomizeManagementForm,
+    boolean signupCustomizeManagementFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    List<SignupSelectServerActionHelper.Host> servers = SignupSelectServerActionHelper.getServers(getServlet().getServletContext(), PackageCategory.VIRTUAL_MANAGED);
+    if (servers.size() == 1) {
+      response.sendRedirect(
+        response.encodeRedirectURL(
+          URIEncoder.encodeURI(
+            Skin.getSkin(request).getUrlBase(request)
+            + "signup/virtual-managed-server-completed.do?packageDefinition="
+            + URIEncoder.encodeURIComponent(Integer.toString(servers.get(0).getMinimumConfiguration().getPackageDefinition()))
+          )
+        )
+      );
+      return null;
+    }
+    SignupSelectServerActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, PackageCategory.VIRTUAL_MANAGED);
 
-		// Clear errors if they should not be displayed
-		clearErrors(request);
+    // Clear errors if they should not be displayed
+    clearErrors(request);
 
-		return mapping.findForward("input");
-	}
+    return mapping.findForward("input");
+  }
 
-	/**
-	 * May clear specific errors here.
-	 */
-	protected void clearErrors(HttpServletRequest request) {
-		saveErrors(request, new ActionMessages());
-	}
+  /**
+   * May clear specific errors here.
+   */
+  protected void clearErrors(HttpServletRequest request) {
+    saveErrors(request, new ActionMessages());
+  }
 }

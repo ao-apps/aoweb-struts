@@ -41,38 +41,38 @@ import org.apache.struts.action.ActionMapping;
  */
 public class PageAction extends Action {
 
-	/**
-	 * Creates the page-scope registry, if not already present, then invokes
-	 * {@link #execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.web.resources.registry.Registry)}.
-	 * The registry if left on the request to be available to any forwarding target.
-	 */
-	@Override
-	public final ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response
-	) throws Exception {
-		Registry pageRegistry = RegistryEE.Page.get(request);
-		if(pageRegistry == null) {
-			// Create a new page-scope registry
-			pageRegistry = new Registry();
-			RegistryEE.Page.set(request, pageRegistry);
-		}
-		return execute(mapping, form, request, response, pageRegistry);
-	}
+  /**
+   * Creates the page-scope registry, if not already present, then invokes
+   * {@link #execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.web.resources.registry.Registry)}.
+   * The registry if left on the request to be available to any forwarding target.
+   */
+  @Override
+  public final ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response
+  ) throws Exception {
+    Registry pageRegistry = RegistryEE.Page.get(request);
+    if (pageRegistry == null) {
+      // Create a new page-scope registry
+      pageRegistry = new Registry();
+      RegistryEE.Page.set(request, pageRegistry);
+    }
+    return execute(mapping, form, request, response, pageRegistry);
+  }
 
-	/**
-	 * Once the page registry is set resolved, this version of the execute method is invoked.
-	 * By default, returns mapping for "success".
-	 */
-	public ActionForward execute(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		Registry pageRegistry
-	) throws Exception {
-		return mapping.findForward("success");
-	}
+  /**
+   * Once the page registry is set resolved, this version of the execute method is invoked.
+   * By default, returns mapping for "success".
+   */
+  public ActionForward execute(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    Registry pageRegistry
+  ) throws Exception {
+    return mapping.findForward("success");
+  }
 }

@@ -40,132 +40,136 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class ContentLineTag extends BodyTagSupport {
 
-	public static final String TAG_NAME = "<skin:contentLine>";
+  public static final String TAG_NAME = "<skin:contentLine>";
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private int colspan;
-	private String align;
-	private String width;
-	private boolean endsInternal;
-	// Values only used between doStartTag and doEndTag
-	private transient int lastRowSpan;
-	private transient FlowContent<?> contentLine;
+  private int colspan;
+  private String align;
+  private String width;
+  private boolean endsInternal;
+  // Values only used between doStartTag and doEndTag
+  private transient int lastRowSpan;
+  private transient FlowContent<?> contentLine;
 
-	public ContentLineTag() {
-		init();
-	}
+  public ContentLineTag() {
+    init();
+  }
 
-	private void init() {
-		colspan = 1;
-		align = null;
-		width = null;
-		endsInternal = false;
-		lastRowSpan = 1;
-		contentLine = null;
-	}
+  private void init() {
+    colspan = 1;
+    align = null;
+    width = null;
+    endsInternal = false;
+    lastRowSpan = 1;
+    contentLine = null;
+  }
 
-	@Override
-	public int doStartTag() throws JspException {
-		try {
-			ContentTag contentTag = JspTagUtils.requireAncestor(TAG_NAME, this, ContentTag.TAG_NAME, ContentTag.class);
+  @Override
+  public int doStartTag() throws JspException {
+    try {
+      ContentTag contentTag = JspTagUtils.requireAncestor(TAG_NAME, this, ContentTag.TAG_NAME, ContentTag.class);
 
-			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-			ContentEE<?> content = contentTag.getContent();
-			content.getDocument().setOut(pageContext.getOut());
-			contentLine = SkinTag.getSkin(req).startContentLine(
-				req,
-				(HttpServletResponse)pageContext.getResponse(),
-				content,
-				colspan,
-				align,
-				width
-			);
-			return EVAL_BODY_INCLUDE;
-		} catch(IOException err) {
-			throw new JspTagException(err);
-		}
-	}
+      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+      ContentEE<?> content = contentTag.getContent();
+      content.getDocument().setOut(pageContext.getOut());
+      contentLine = SkinTag.getSkin(req).startContentLine(
+        req,
+        (HttpServletResponse)pageContext.getResponse(),
+        content,
+        colspan,
+        align,
+        width
+      );
+      return EVAL_BODY_INCLUDE;
+    } catch (IOException err) {
+      throw new JspTagException(err);
+    }
+  }
 
-	@Override
-	public int doEndTag() throws JspException {
-		try {
-			HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-			assert contentLine != null;
-			contentLine.getDocument().setOut(pageContext.getOut());
-			SkinTag.getSkin(req).endContentLine(
-				req,
-				(HttpServletResponse)pageContext.getResponse(),
-				contentLine,
-				lastRowSpan,
-				endsInternal
-			);
-			return EVAL_PAGE;
-		} catch(IOException err) {
-			throw new JspTagException(err);
-		} finally {
-			init();
-		}
-	}
+  @Override
+  public int doEndTag() throws JspException {
+    try {
+      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+      assert contentLine != null;
+      contentLine.getDocument().setOut(pageContext.getOut());
+      SkinTag.getSkin(req).endContentLine(
+        req,
+        (HttpServletResponse)pageContext.getResponse(),
+        contentLine,
+        lastRowSpan,
+        endsInternal
+      );
+      return EVAL_PAGE;
+    } catch (IOException err) {
+      throw new JspTagException(err);
+    } finally {
+      init();
+    }
+  }
 
-	public int getColspan() {
-		return colspan;
-	}
+  public int getColspan() {
+    return colspan;
+  }
 
-	public void setColspan(int colspan) {
-		this.colspan = colspan;
-	}
+  public void setColspan(int colspan) {
+    this.colspan = colspan;
+  }
 
-	public String getAlign() {
-		return align;
-	}
+  public String getAlign() {
+    return align;
+  }
 
-	public void setAlign(String align) {
-		this.align = align;
-	}
+  public void setAlign(String align) {
+    this.align = align;
+  }
 
-	public String getWidth() {
-		return width;
-	}
+  public String getWidth() {
+    return width;
+  }
 
-	public void setWidth(String width) {
-		this.width = width;
-	}
+  public void setWidth(String width) {
+    this.width = width;
+  }
 
-	public boolean isEndsInternal() {
-		return endsInternal;
-	}
+  public boolean isEndsInternal() {
+    return endsInternal;
+  }
 
-	public void setEndsInternal(boolean endsInternal) {
-		this.endsInternal = endsInternal;
-	}
+  public void setEndsInternal(boolean endsInternal) {
+    this.endsInternal = endsInternal;
+  }
 
-	/**
-	 * The row span on endContentLine either either 1 or the rowspan of the last contentVerticalDivider
-	 */
-	void setLastRowSpan(int lastRowSpan) {
-		this.lastRowSpan = lastRowSpan;
-	}
+  /**
+   * The row span on endContentLine either either 1 or the rowspan of the last contentVerticalDivider
+   */
+  void setLastRowSpan(int lastRowSpan) {
+    this.lastRowSpan = lastRowSpan;
+  }
 
-	/**
-	 * Gets the {@link FlowContent} that was returned from {@link Skin#startContentLine(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)}.
-	 *
-	 * @throws IllegalStateException when not inside {@link #doStartTag()} and no content set
-	 */
-	@SuppressWarnings("unchecked")
-	<__ extends FlowContent<__>> __ getContentLine() throws IllegalStateException {
-		if(contentLine == null) throw new IllegalStateException();
-		return (__)contentLine;
-	}
+  /**
+   * Gets the {@link FlowContent} that was returned from {@link Skin#startContentLine(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)}.
+   *
+   * @throws IllegalStateException when not inside {@link #doStartTag()} and no content set
+   */
+  @SuppressWarnings("unchecked")
+  <__ extends FlowContent<__>> __ getContentLine() throws IllegalStateException {
+    if (contentLine == null) {
+      throw new IllegalStateException();
+    }
+    return (__)contentLine;
+  }
 
-	/**
-	 * Called from {@link ContentVerticalDividerTag} when the current content line is replaced by
-	 * {@link Skin#contentVerticalDivider(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.DocumentEE, boolean, int, int, java.lang.String, java.lang.String)}.
-	 *
-	 * @throws IllegalStateException when not inside {@link #doStartTag()} and no content set
-	 */
-	void setContentLine(FlowContent<?> contentLine) throws IllegalStateException {
-		if(this.contentLine == null) throw new IllegalStateException();
-		this.contentLine = Objects.requireNonNull(contentLine);
-	}
+  /**
+   * Called from {@link ContentVerticalDividerTag} when the current content line is replaced by
+   * {@link Skin#contentVerticalDivider(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.DocumentEE, boolean, int, int, java.lang.String, java.lang.String)}.
+   *
+   * @throws IllegalStateException when not inside {@link #doStartTag()} and no content set
+   */
+  void setContentLine(FlowContent<?> contentLine) throws IllegalStateException {
+    if (this.contentLine == null) {
+      throw new IllegalStateException();
+    }
+    this.contentLine = Objects.requireNonNull(contentLine);
+  }
 }

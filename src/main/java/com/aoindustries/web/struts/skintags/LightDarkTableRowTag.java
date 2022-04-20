@@ -35,52 +35,52 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class LightDarkTableRowTag extends BodyTagSupport {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private ScopeEE.Page.Attribute<Boolean> pageAttributeId;
+  private ScopeEE.Page.Attribute<Boolean> pageAttributeId;
 
-	public LightDarkTableRowTag() {
-		init();
-	}
+  public LightDarkTableRowTag() {
+    init();
+  }
 
-	public String getPageAttributeId() {
-		return (pageAttributeId == null) ? null : pageAttributeId.getName();
-	}
+  public String getPageAttributeId() {
+    return (pageAttributeId == null) ? null : pageAttributeId.getName();
+  }
 
-	public void setPageAttributeId(String pageAttributeId) {
-		this.pageAttributeId = (pageAttributeId == null) ? null : ScopeEE.PAGE.attribute(pageAttributeId);
-	}
+  public void setPageAttributeId(String pageAttributeId) {
+    this.pageAttributeId = (pageAttributeId == null) ? null : ScopeEE.PAGE.attribute(pageAttributeId);
+  }
 
-	private void init() {
-		// Always start with a light row
-		pageAttributeId = ScopeEE.PAGE.attribute("LightDarkTableRowTag.isDark");
-	}
+  private void init() {
+    // Always start with a light row
+    pageAttributeId = ScopeEE.PAGE.attribute("LightDarkTableRowTag.isDark");
+  }
 
-	@Override
-	public int doStartTag() throws JspException {
-		try {
-			JspWriter out = pageContext.getOut();
-			out.write("<tr class=\"");
-			boolean isDark = pageAttributeId.context(pageContext).computeIfAbsent(__ -> false);
-			out.write(isDark ? "aoDarkRow" : "aoLightRow");
-			out.write("\">");
-			return EVAL_BODY_INCLUDE;
-		} catch(IOException err) {
-			throw new JspTagException(err);
-		}
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    try {
+      JspWriter out = pageContext.getOut();
+      out.write("<tr class=\"");
+      boolean isDark = pageAttributeId.context(pageContext).computeIfAbsent(__ -> false);
+      out.write(isDark ? "aoDarkRow" : "aoLightRow");
+      out.write("\">");
+      return EVAL_BODY_INCLUDE;
+    } catch (IOException err) {
+      throw new JspTagException(err);
+    }
+  }
 
-	@Override
-	public int doEndTag() throws JspException {
-		try {
-			boolean isDark = pageAttributeId.context(pageContext).computeIfAbsent(__ -> false);
-			pageAttributeId.context(pageContext).set(!isDark);
-			pageContext.getOut().write("</tr>");
-			return EVAL_PAGE;
-		} catch(IOException err) {
-			throw new JspTagException(err);
-		} finally {
-			init();
-		}
-	}
+  @Override
+  public int doEndTag() throws JspException {
+    try {
+      boolean isDark = pageAttributeId.context(pageContext).computeIfAbsent(__ -> false);
+      pageAttributeId.context(pageContext).set(!isDark);
+      pageContext.getOut().write("</tr>");
+      return EVAL_PAGE;
+    } catch (IOException err) {
+      throw new JspTagException(err);
+    } finally {
+      init();
+    }
+  }
 }

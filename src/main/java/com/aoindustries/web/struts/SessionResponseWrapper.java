@@ -54,290 +54,306 @@ import javax.servlet.jsp.JspException;
  */
 public class SessionResponseWrapper extends HttpServletResponseWrapper {
 
-	private static final Logger logger = Logger.getLogger(SessionResponseWrapper.class.getName());
+  private static final Logger logger = Logger.getLogger(SessionResponseWrapper.class.getName());
 
-	private static final String ROBOTS_HEADER_NAME = "X-Robots-Tag";
-	private static final String ROBOTS_HEADER_VALUE = "noindex, nofollow";
+  private static final String ROBOTS_HEADER_NAME = "X-Robots-Tag";
+  private static final String ROBOTS_HEADER_VALUE = "noindex, nofollow";
 
-	private final HttpServletRequest request;
-	private final HttpServletResponse response;
+  private final HttpServletRequest request;
+  private final HttpServletResponse response;
 
-	public SessionResponseWrapper(HttpServletRequest request, HttpServletResponse response) {
-		super(response);
-		this.request = request;
-		this.response = response;
-		// When the request has any Constants.AUTHENTICATION_TARGET parameter, set noindex headers
-		// This is to clean-up old URLs in crawlers; "authenticationTarget" is no longer written into URLs.
-		if(request.getParameter(Constants.AUTHENTICATION_TARGET.getName()) != null) {
-			if(!response.containsHeader(ROBOTS_HEADER_NAME)) {
-				response.setHeader(ROBOTS_HEADER_NAME, ROBOTS_HEADER_VALUE);
-			}
-		}
-	}
+  public SessionResponseWrapper(HttpServletRequest request, HttpServletResponse response) {
+    super(response);
+    this.request = request;
+    this.response = response;
+    // When the request has any Constants.AUTHENTICATION_TARGET parameter, set noindex headers
+    // This is to clean-up old URLs in crawlers; "authenticationTarget" is no longer written into URLs.
+    if (request.getParameter(Constants.AUTHENTICATION_TARGET.getName()) != null) {
+      if (!response.containsHeader(ROBOTS_HEADER_NAME)) {
+        response.setHeader(ROBOTS_HEADER_NAME, ROBOTS_HEADER_VALUE);
+      }
+    }
+  }
 
-	private String encode(String url, boolean isRedirect) {
-		// Don't rewrite empty or anchor-only URLs
-		if(url.isEmpty() || url.charAt(0) == '#') return url;
-		try {
-			boolean canonical = Canonical.get();
-			SiteSettings siteSettings = SiteSettings.getInstance(request.getServletContext());
-			List<Skin.Language> languages = siteSettings.getLanguages(request);
-			// Short-cut canonical URL processing when there are not multiple languages
-			if(canonical && languages.size() <= 1) {
-				// Canonical URLs may only include the language, and there is not multiple
-				// languages, leave URL unaltered:
-				return url;
-			}
-			// If starts with http:// or https:// parse out the first part of the URL, encode the path, and reassemble.
-			String protocol;
-			String remaining;
-			if(
-				// 7: "http://".length()
-				url.length() > 7
-				&& url.charAt(5) == '/'
-				&& url.charAt(6) == '/'
-				&& URIParser.isScheme(url, "http")
-			) {
-				protocol = url.substring(0, 7);
-				remaining = url.substring(7);
-			} else if(
-				// 8: "https://".length()
-				url.length() > 8
-				&& url.charAt(6) == '/'
-				&& url.charAt(7) == '/'
-				&& URIParser.isScheme(url, "https")
-			) {
-				protocol = url.substring(0, 8);
-				remaining = url.substring(8);
-			} else if(
-				URIParser.isScheme(url, "javascript")
-				|| URIParser.isScheme(url, "mailto")
-				|| URIParser.isScheme(url, "telnet")
-				|| URIParser.isScheme(url, "tel")
-				|| URIParser.isScheme(url, "cid")
-				|| URIParser.isScheme(url, "file")
-				|| URIParser.isScheme(url, "data")
-			) {
-				return url;
-			} else {
-				return addNoCookieParameters(canonical, siteSettings, languages, url, isRedirect);
-			}
-			int slashPos = remaining.indexOf('/');
-			if(slashPos == -1) slashPos = remaining.length();
-			String hostPort = remaining.substring(0, slashPos);
-			int colonPos = hostPort.indexOf(':');
-			String host = colonPos == -1 ? hostPort : hostPort.substring(0, colonPos);
-			String encoded;
-			if(
-				// TODO: What about [...] IPv6 addresses?
-				host.equalsIgnoreCase(request.getServerName())
-			) {
-				String withCookies = addNoCookieParameters(canonical, siteSettings, languages, remaining.substring(slashPos), isRedirect);
-				int newUrlLen = protocol.length() + hostPort.length() + withCookies.length();
-				if(newUrlLen == url.length()) {
-					assert url.equals(protocol + hostPort + withCookies);
-					encoded = url;
-				} else {
-					StringBuilder newUrl = new StringBuilder(newUrlLen);
-					newUrl.append(protocol).append(hostPort).append(withCookies);
-					assert newUrl.length() == newUrlLen;
-					encoded = newUrl.toString();
-				}
-			} else {
-				// Going to an different hostname, do not add request parameters
-				encoded = url;
-			}
-			return encoded;
-		} catch(JspException | IOException | SQLException err) {
-			throw new WrappedException(err);
-		}
-	}
+  private String encode(String url, boolean isRedirect) {
+    // Don't rewrite empty or anchor-only URLs
+    if (url.isEmpty() || url.charAt(0) == '#') {
+      return url;
+    }
+    try {
+      boolean canonical = Canonical.get();
+      SiteSettings siteSettings = SiteSettings.getInstance(request.getServletContext());
+      List<Skin.Language> languages = siteSettings.getLanguages(request);
+      // Short-cut canonical URL processing when there are not multiple languages
+      if (canonical && languages.size() <= 1) {
+        // Canonical URLs may only include the language, and there is not multiple
+        // languages, leave URL unaltered:
+        return url;
+      }
+      // If starts with http:// or https:// parse out the first part of the URL, encode the path, and reassemble.
+      String protocol;
+      String remaining;
+      if (
+        // 7: "http://".length()
+        url.length() > 7
+        && url.charAt(5) == '/'
+        && url.charAt(6) == '/'
+        && URIParser.isScheme(url, "http")
+      ) {
+        protocol = url.substring(0, 7);
+        remaining = url.substring(7);
+      } else if (
+        // 8: "https://".length()
+        url.length() > 8
+        && url.charAt(6) == '/'
+        && url.charAt(7) == '/'
+        && URIParser.isScheme(url, "https")
+      ) {
+        protocol = url.substring(0, 8);
+        remaining = url.substring(8);
+      } else if (
+        URIParser.isScheme(url, "javascript")
+        || URIParser.isScheme(url, "mailto")
+        || URIParser.isScheme(url, "telnet")
+        || URIParser.isScheme(url, "tel")
+        || URIParser.isScheme(url, "cid")
+        || URIParser.isScheme(url, "file")
+        || URIParser.isScheme(url, "data")
+      ) {
+        return url;
+      } else {
+        return addNoCookieParameters(canonical, siteSettings, languages, url, isRedirect);
+      }
+      int slashPos = remaining.indexOf('/');
+      if (slashPos == -1) {
+        slashPos = remaining.length();
+      }
+      String hostPort = remaining.substring(0, slashPos);
+      int colonPos = hostPort.indexOf(':');
+      String host = colonPos == -1 ? hostPort : hostPort.substring(0, colonPos);
+      String encoded;
+      if (
+        // TODO: What about [...] IPv6 addresses?
+        host.equalsIgnoreCase(request.getServerName())
+      ) {
+        String withCookies = addNoCookieParameters(canonical, siteSettings, languages, remaining.substring(slashPos), isRedirect);
+        int newUrlLen = protocol.length() + hostPort.length() + withCookies.length();
+        if (newUrlLen == url.length()) {
+          assert url.equals(protocol + hostPort + withCookies);
+          encoded = url;
+        } else {
+          StringBuilder newUrl = new StringBuilder(newUrlLen);
+          newUrl.append(protocol).append(hostPort).append(withCookies);
+          assert newUrl.length() == newUrlLen;
+          encoded = newUrl.toString();
+        }
+      } else {
+        // Going to an different hostname, do not add request parameters
+        encoded = url;
+      }
+      return encoded;
+    } catch (JspException | IOException | SQLException err) {
+      throw new WrappedException(err);
+    }
+  }
 
-	@Deprecated(forRemoval = false)
-	@Override
-	public String encodeUrl(String url) {
-		return encode(url, false);
-	}
+  @Deprecated(forRemoval = false)
+  @Override
+  public String encodeUrl(String url) {
+    return encode(url, false);
+  }
 
-	@Override
-	public String encodeURL(String url) {
-		return encode(url, false);
-	}
+  @Override
+  public String encodeURL(String url) {
+    return encode(url, false);
+  }
 
-	@Deprecated(forRemoval = false)
-	@Override
-	public String encodeRedirectUrl(String url) {
-		return encode(url, true);
-	}
+  @Deprecated(forRemoval = false)
+  @Override
+  public String encodeRedirectUrl(String url) {
+    return encode(url, true);
+  }
 
-	@Override
-	public String encodeRedirectURL(String url) {
-		return encode(url, true);
-	}
+  @Override
+  public String encodeRedirectURL(String url) {
+    return encode(url, true);
+  }
 
-	/**
-	 * Adds the no cookie parameters (language and layout) if needed and not already set.
-	 */
-	private String addNoCookieParameters(boolean canonical, SiteSettings siteSettings, List<Skin.Language> languages, String url, boolean isRedirect) throws JspException, IOException, SQLException {
-		HttpSession session = request.getSession(false);
-		if(canonical || session == null || session.isNew() || request.isRequestedSessionIdFromURL()) {
-			IRI iri = new IRI(url);
-			// Don't add for certains file types
-			// TODO: This list is getting long.  Use a map?
-			if(
-				// Matches LocaleFilter.java
-				// Matches NoSessionFilter.java
-				// Is SessionResponseWrapper.java
-				// Related to LastModifiedServlet.java
-				// Related to ao-mime-types/…/web-fragment.xml
-				// Related to ContentType.java
-				// Related to MimeType.java
-				!iri.pathEndsWithIgnoreCase(".bmp")
-				&& !iri.pathEndsWithIgnoreCase(".css")
-				&& !iri.pathEndsWithIgnoreCase(".dia")
-				&& !iri.pathEndsWithIgnoreCase(".exe")
-				&& !iri.pathEndsWithIgnoreCase(".gif")
-				&& !iri.pathEndsWithIgnoreCase(".ico")
-				&& !iri.pathEndsWithIgnoreCase(".jpeg")
-				&& !iri.pathEndsWithIgnoreCase(".jpg")
-				&& !iri.pathEndsWithIgnoreCase(".js")
-				&& !iri.pathEndsWithIgnoreCase(".png")
-				&& !iri.pathEndsWithIgnoreCase(".svg")
-				&& !iri.pathEndsWithIgnoreCase(".txt")
-				&& !iri.pathEndsWithIgnoreCase(".webp")
-				&& !iri.pathEndsWithIgnoreCase(".zip")
-				// Web development
-				&& !iri.pathEndsWithIgnoreCase(".less")
-				&& !iri.pathEndsWithIgnoreCase(".sass")
-				&& !iri.pathEndsWithIgnoreCase(".scss")
-				&& !iri.pathEndsWithIgnoreCase(".css.map")
-				&& !iri.pathEndsWithIgnoreCase(".js.map")
-			) {
-				if(!canonical && session != null) {
-					// Use the default servlet container jsessionid when any session object exists besides
-					// the three values that will be encoded into the URL as parameters below.
-					Enumeration<String> attributeNames = session.getAttributeNames();
-					String whyNeedsJsessionid = null;
-					while(attributeNames.hasMoreElements()) {
-						String name = attributeNames.nextElement();
-						if(
-							!Constants.TARGETS.equals(name)
-							&& !Constants.LAYOUT.getName().equals(name)
-							&& !Constants.SU_REQUESTED.getName().equals(name)
-							// Struts 1
-							&& !Globals.LOCALE_KEY.getName().equals(name)
-							// TODO: Is there a Struts 2 locale key?
-							// JSTL 1.2
-							&& !ScopeEE.Session.REQUEST_CHAR_SET.getName().equals(name)
-							&& !AttributeEE.Jstl.FMT_LOCALE.context((HttpSession)null).getName().equals(name)
-							// Allow session-based temporary file context
-							&& !TempFileContextEE.SESSION_ATTRIBUTE.getName().equals(name)
-							// Allow session-based web resource registry
-							&& !RegistryEE.Session.SESSION_ATTRIBUTE.getName().equals(name)
-						) {
-							// These will always trigger jsessionid
-							if(
-								Constants.AUTHENTICATION_TARGET.getName().equals(name)
-								|| Constants.AO_CONN.getName().equals(name)
-								|| Constants.AUTHENTICATED_AO_CONN.getName().equals(name)
-							) {
-								whyNeedsJsessionid = name;
-								break;
-							}
-							// Must be an SessionActionForm if none of the above
-							Object sessionObject = session.getAttribute(name);
-							if(sessionObject instanceof SessionActionForm) {
-								SessionActionForm sessionActionForm = (SessionActionForm)sessionObject;
-								if(!sessionActionForm.isEmpty()) {
-									whyNeedsJsessionid = name;
-									break;
-								}
-							} else {
-								Class<?> clazz = (sessionObject == null) ? null : sessionObject.getClass();
-								throw new AssertionError("Session object is neither an expected value nor a SessionActionForm.  name="+name+", sessionObject.class="+(clazz == null ? null : clazz.getName()));
-							}
-						}
-					}
-					if(whyNeedsJsessionid!=null) {
-						if(HttpServletUtil.isGooglebot(request)) {
-							// Create or update a ticket about the problem
-							logger.logp(
-								Level.WARNING,
-								SessionResponseWrapper.class.getName(),
-								"addNoCookieParameters",
-								"Refusing to send jsessionid to Googlebot eventhough request would normally need jsessionid.  Other search engines may be affected.  Reason: "+whyNeedsJsessionid
-							);
-						} else {
-							// System.out.println("DEBUG: Why needs jsessionid: "+whyNeedsJsessionid);
-							return isRedirect ? response.encodeRedirectURL(url) : response.encodeURL(url);
-						}
-					}
-				}
+  /**
+   * Adds the no cookie parameters (language and layout) if needed and not already set.
+   */
+  private String addNoCookieParameters(boolean canonical, SiteSettings siteSettings, List<Skin.Language> languages, String url, boolean isRedirect) throws JspException, IOException, SQLException {
+    HttpSession session = request.getSession(false);
+    if (canonical || session == null || session.isNew() || request.isRequestedSessionIdFromURL()) {
+      IRI iri = new IRI(url);
+      // Don't add for certains file types
+      // TODO: This list is getting long.  Use a map?
+      if (
+        // Matches LocaleFilter.java
+        // Matches NoSessionFilter.java
+        // Is SessionResponseWrapper.java
+        // Related to LastModifiedServlet.java
+        // Related to ao-mime-types/…/web-fragment.xml
+        // Related to ContentType.java
+        // Related to MimeType.java
+        !iri.pathEndsWithIgnoreCase(".bmp")
+        && !iri.pathEndsWithIgnoreCase(".css")
+        && !iri.pathEndsWithIgnoreCase(".dia")
+        && !iri.pathEndsWithIgnoreCase(".exe")
+        && !iri.pathEndsWithIgnoreCase(".gif")
+        && !iri.pathEndsWithIgnoreCase(".ico")
+        && !iri.pathEndsWithIgnoreCase(".jpeg")
+        && !iri.pathEndsWithIgnoreCase(".jpg")
+        && !iri.pathEndsWithIgnoreCase(".js")
+        && !iri.pathEndsWithIgnoreCase(".png")
+        && !iri.pathEndsWithIgnoreCase(".svg")
+        && !iri.pathEndsWithIgnoreCase(".txt")
+        && !iri.pathEndsWithIgnoreCase(".webp")
+        && !iri.pathEndsWithIgnoreCase(".zip")
+        // Web development
+        && !iri.pathEndsWithIgnoreCase(".less")
+        && !iri.pathEndsWithIgnoreCase(".sass")
+        && !iri.pathEndsWithIgnoreCase(".scss")
+        && !iri.pathEndsWithIgnoreCase(".css.map")
+        && !iri.pathEndsWithIgnoreCase(".js.map")
+      ) {
+        if (!canonical && session != null) {
+          // Use the default servlet container jsessionid when any session object exists besides
+          // the three values that will be encoded into the URL as parameters below.
+          Enumeration<String> attributeNames = session.getAttributeNames();
+          String whyNeedsJsessionid = null;
+          while (attributeNames.hasMoreElements()) {
+            String name = attributeNames.nextElement();
+            if (
+              !Constants.TARGETS.equals(name)
+              && !Constants.LAYOUT.getName().equals(name)
+              && !Constants.SU_REQUESTED.getName().equals(name)
+              // Struts 1
+              && !Globals.LOCALE_KEY.getName().equals(name)
+              // TODO: Is there a Struts 2 locale key?
+              // JSTL 1.2
+              && !ScopeEE.Session.REQUEST_CHAR_SET.getName().equals(name)
+              && !AttributeEE.Jstl.FMT_LOCALE.context((HttpSession)null).getName().equals(name)
+              // Allow session-based temporary file context
+              && !TempFileContextEE.SESSION_ATTRIBUTE.getName().equals(name)
+              // Allow session-based web resource registry
+              && !RegistryEE.Session.SESSION_ATTRIBUTE.getName().equals(name)
+            ) {
+              // These will always trigger jsessionid
+              if (
+                Constants.AUTHENTICATION_TARGET.getName().equals(name)
+                || Constants.AO_CONN.getName().equals(name)
+                || Constants.AUTHENTICATED_AO_CONN.getName().equals(name)
+              ) {
+                whyNeedsJsessionid = name;
+                break;
+              }
+              // Must be an SessionActionForm if none of the above
+              Object sessionObject = session.getAttribute(name);
+              if (sessionObject instanceof SessionActionForm) {
+                SessionActionForm sessionActionForm = (SessionActionForm)sessionObject;
+                if (!sessionActionForm.isEmpty()) {
+                  whyNeedsJsessionid = name;
+                  break;
+                }
+              } else {
+                Class<?> clazz = (sessionObject == null) ? null : sessionObject.getClass();
+                throw new AssertionError("Session object is neither an expected value nor a SessionActionForm.  name="+name+", sessionObject.class="+(clazz == null ? null : clazz.getName()));
+              }
+            }
+          }
+          if (whyNeedsJsessionid != null) {
+            if (HttpServletUtil.isGooglebot(request)) {
+              // Create or update a ticket about the problem
+              logger.logp(
+                Level.WARNING,
+                SessionResponseWrapper.class.getName(),
+                "addNoCookieParameters",
+                "Refusing to send jsessionid to Googlebot eventhough request would normally need jsessionid.  Other search engines may be affected.  Reason: "+whyNeedsJsessionid
+              );
+            } else {
+              // System.out.println("DEBUG: Why needs jsessionid: "+whyNeedsJsessionid);
+              return isRedirect ? response.encodeRedirectURL(url) : response.encodeURL(url);
+            }
+          }
+        }
 
-				URIParameters splitURIParameters = null;
-				MutableURIParameters cookieParams = null;
+        URIParameters splitURIParameters = null;
+        MutableURIParameters cookieParams = null;
 
-				if(session != null) {
-					// Only add the language if there is more than one possibility
-					if(languages.size()>1) {
-						Locale locale = Globals.LOCALE_KEY.context(session).get();
-						if(locale!=null) {
-							String code = locale.getLanguage();
-							// Don't add if is the default language
-							Locale defaultLocale = LocaleFilter.getDefaultLocale(siteSettings, request);
-							if(!code.equals(defaultLocale.getLanguage())) {
-								for(Skin.Language language : languages) {
-									if(language.getCode().equals(code)) {
-										if(splitURIParameters == null) splitURIParameters = URIParametersUtils.of(iri.getQueryString());
-										if(!splitURIParameters.getParameterMap().containsKey(Constants.LANGUAGE)) {
-											if(cookieParams == null) cookieParams = new URIParametersMap();
-											cookieParams.add(Constants.LANGUAGE, code);
-										}
-										break;
-									}
-								}
-							}
-						}
-					}
-					if(!canonical) {
-						// Only add the layout if there is more than one possibility
-						List<Skin> skins = siteSettings.getSkins();
-						if(skins.size()>1) {
-							String layout = Constants.LAYOUT.context(session).get();
-							if(layout!=null) {
-								// Don't add if is the default layout
-								Skin defaultSkin = Skin.getDefaultSkin(skins, request);
-								if(!layout.equals(defaultSkin.getName())) {
-									// Make sure it is one of the allowed skins
-									for(Skin skin : skins) {
-										if(skin.getName().equals(layout)) {
-											if(splitURIParameters == null) splitURIParameters = URIParametersUtils.of(iri.getQueryString());
-											if(!splitURIParameters.getParameterMap().containsKey(Constants.LAYOUT.getName())) {
-												if(cookieParams == null) cookieParams = new URIParametersMap();
-												cookieParams.add(Constants.LAYOUT.getName(), layout);
-											}
-											break;
-										}
-									}
-								}
-							}
-						}
-						// Add any switch-user
-						String su = Constants.SU_REQUESTED.context(session).get();
-						if(su != null && !su.isEmpty()) {
-							if(splitURIParameters == null) splitURIParameters = URIParametersUtils.of(iri.getQueryString());
-							if(!splitURIParameters.getParameterMap().containsKey(Constants.SU)) {
-								if(cookieParams == null) cookieParams = new URIParametersMap();
-								cookieParams.add(Constants.SU, su);
-							}
-						}
-					}
-				}
-				url = iri.addParameters(cookieParams).toASCIIString();
-			} else {
-				//System.err.println("DEBUG: addNoCookieParameters: Not adding parameters to skipped type: "+url);
-			}
-		}
-		return url;
-	}
+        if (session != null) {
+          // Only add the language if there is more than one possibility
+          if (languages.size()>1) {
+            Locale locale = Globals.LOCALE_KEY.context(session).get();
+            if (locale != null) {
+              String code = locale.getLanguage();
+              // Don't add if is the default language
+              Locale defaultLocale = LocaleFilter.getDefaultLocale(siteSettings, request);
+              if (!code.equals(defaultLocale.getLanguage())) {
+                for (Skin.Language language : languages) {
+                  if (language.getCode().equals(code)) {
+                    if (splitURIParameters == null) {
+                      splitURIParameters = URIParametersUtils.of(iri.getQueryString());
+                    }
+                    if (!splitURIParameters.getParameterMap().containsKey(Constants.LANGUAGE)) {
+                      if (cookieParams == null) {
+                        cookieParams = new URIParametersMap();
+                      }
+                      cookieParams.add(Constants.LANGUAGE, code);
+                    }
+                    break;
+                  }
+                }
+              }
+            }
+          }
+          if (!canonical) {
+            // Only add the layout if there is more than one possibility
+            List<Skin> skins = siteSettings.getSkins();
+            if (skins.size()>1) {
+              String layout = Constants.LAYOUT.context(session).get();
+              if (layout != null) {
+                // Don't add if is the default layout
+                Skin defaultSkin = Skin.getDefaultSkin(skins, request);
+                if (!layout.equals(defaultSkin.getName())) {
+                  // Make sure it is one of the allowed skins
+                  for (Skin skin : skins) {
+                    if (skin.getName().equals(layout)) {
+                      if (splitURIParameters == null) {
+                        splitURIParameters = URIParametersUtils.of(iri.getQueryString());
+                      }
+                      if (!splitURIParameters.getParameterMap().containsKey(Constants.LAYOUT.getName())) {
+                        if (cookieParams == null) {
+                          cookieParams = new URIParametersMap();
+                        }
+                        cookieParams.add(Constants.LAYOUT.getName(), layout);
+                      }
+                      break;
+                    }
+                  }
+                }
+              }
+            }
+            // Add any switch-user
+            String su = Constants.SU_REQUESTED.context(session).get();
+            if (su != null && !su.isEmpty()) {
+              if (splitURIParameters == null) {
+                splitURIParameters = URIParametersUtils.of(iri.getQueryString());
+              }
+              if (!splitURIParameters.getParameterMap().containsKey(Constants.SU)) {
+                if (cookieParams == null) {
+                  cookieParams = new URIParametersMap();
+                }
+                cookieParams.add(Constants.SU, su);
+              }
+            }
+          }
+        }
+        url = iri.addParameters(cookieParams).toASCIIString();
+      } else {
+        //System.err.println("DEBUG: addNoCookieParameters: Not adding parameters to skipped type: "+url);
+      }
+    }
+    return url;
+  }
 }

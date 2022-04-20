@@ -1,9 +1,9 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021  AO Industries, Inc.
-	support@aoindustries.com
-	7262 Bull Pen Cir
-	Mobile, AL 36695
+Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
 
 This file is part of aoweb-struts.
 
@@ -23,50 +23,52 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 %><%@ page isErrorPage="true"
 %><%@include file="/WEB-INF/taglibs.jspf"
 %><c:set var="code" value="${
-	empty requestScope['javax.servlet.error.status_code'] or requestScope['javax.servlet.error.status_code'] le 0
-		? 500 : requestScope['javax.servlet.error.status_code']
+  empty requestScope['javax.servlet.error.status_code'] or requestScope['javax.servlet.error.status_code'] le 0
+    ? 500 : requestScope['javax.servlet.error.status_code']
 }" /><%
-	if(exception != null) log(null, exception);
-	// Set the error status
-	if(!response.isCommitted()) {
-		Object code = pageContext.getAttribute("code");
-		response.setStatus((code instanceof Integer) ? (Integer)code : Integer.parseInt(code.toString()));
-	}
+  if (exception != null) {
+    log(null, exception);
+  }
+  // Set the error status
+  if (!response.isCommitted()) {
+    Object code = pageContext.getAttribute("code");
+    response.setStatus((code instanceof Integer) ? (Integer)code : Integer.parseInt(code.toString()));
+  }
 
-	// Set siteSettings request attribute if not yet done
-	com.aoindustries.web.struts.SiteSettings siteSettings = com.aoindustries.web.struts.Constants.SITE_SETTINGS.context(request).get();
-	if(siteSettings == null) {
-		siteSettings = com.aoindustries.web.struts.SiteSettings.getInstance(getServletContext());
-		com.aoindustries.web.struts.Constants.SITE_SETTINGS.context(request).set(siteSettings);
-	}
+  // Set siteSettings request attribute if not yet done
+  com.aoindustries.web.struts.SiteSettings siteSettings = com.aoindustries.web.struts.Constants.SITE_SETTINGS.context(request).get();
+  if (siteSettings == null) {
+    siteSettings = com.aoindustries.web.struts.SiteSettings.getInstance(getServletContext());
+    com.aoindustries.web.struts.Constants.SITE_SETTINGS.context(request).set(siteSettings);
+  }
 
-	// Set locale request attribute if not yet done
-	if(com.aoindustries.web.struts.Constants.LOCALE.context(request).get() == null) {
-		java.util.Locale locale = com.aoindustries.web.struts.LocaleFilter.getEffectiveLocale(siteSettings, request, response);
-		com.aoindustries.web.struts.Constants.LOCALE.context(request).set(locale);
-	}
+  // Set locale request attribute if not yet done
+  if (com.aoindustries.web.struts.Constants.LOCALE.context(request).get() == null) {
+    java.util.Locale locale = com.aoindustries.web.struts.LocaleFilter.getEffectiveLocale(siteSettings, request, response);
+    com.aoindustries.web.struts.Constants.LOCALE.context(request).set(locale);
+  }
 
-	// Set the skin request attribute if not yet done
-	if(com.aoindustries.web.struts.Constants.SKIN.context(request).get() == null) {
-		com.aoindustries.web.struts.Skin skin = com.aoindustries.web.struts.Skin.getSkin(siteSettings, request);
-		com.aoindustries.web.struts.Constants.SKIN.context(request).set(skin);
-	}
+  // Set the skin request attribute if not yet done
+  if (com.aoindustries.web.struts.Constants.SKIN.context(request).get() == null) {
+    com.aoindustries.web.struts.Skin skin = com.aoindustries.web.struts.Skin.getSkin(siteSettings, request);
+    com.aoindustries.web.struts.Constants.SKIN.context(request).set(skin);
+  }
 %>
 <ao:bundle basename="com.aoindustries.web.struts.i18n.ApplicationResources">
-	<skin:path>/exception.do</skin:path>
-	<skin:title><ao:message key="exception.title" arg0="${pageScope.code}" /></skin:title>
-	<skin:navImageAlt><ao:message key="exception.navImageAlt" /></skin:navImageAlt>
-	<skin:description><ao:message key="exception.description" /></skin:description>
-	<%@include file="add-parents.jspf" %>
-	<skin:skin>
-		<skin:content width="600">
-			<skin:contentTitle><ao:message key="exception.title" arg0="${pageScope.code}" /></skin:contentTitle>
-			<skin:contentHorizontalDivider />
-			<skin:contentLine>
-				<ao:message key="exception.description" /><ao:br />
-				<ao:br />
-				<%@include file="error-data.jspf" %>
-			</skin:contentLine>
-		</skin:content>
-	</skin:skin>
+  <skin:path>/exception.do</skin:path>
+  <skin:title><ao:message key="exception.title" arg0="${pageScope.code}" /></skin:title>
+  <skin:navImageAlt><ao:message key="exception.navImageAlt" /></skin:navImageAlt>
+  <skin:description><ao:message key="exception.description" /></skin:description>
+  <%@include file="add-parents.jspf" %>
+  <skin:skin>
+    <skin:content width="600">
+      <skin:contentTitle><ao:message key="exception.title" arg0="${pageScope.code}" /></skin:contentTitle>
+      <skin:contentHorizontalDivider />
+      <skin:contentLine>
+        <ao:message key="exception.description" /><ao:br />
+        <ao:br />
+        <%@include file="error-data.jspf" %>
+      </skin:contentLine>
+    </skin:content>
+  </skin:skin>
 </ao:bundle>

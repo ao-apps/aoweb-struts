@@ -33,52 +33,60 @@ import org.apache.struts.action.ActionMapping;
  */
 public class VirtualDedicated3CompletedAction extends VirtualDedicated3Action {
 
-	@Override
-	public ActionForward executeVirtualDedicatedStep(
-		ActionMapping mapping,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
-		boolean signupSelectPackageFormComplete,
-		VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
-		boolean signupCustomizeServerFormComplete,
-		SignupOrganizationForm signupOrganizationForm,
-		boolean signupOrganizationFormComplete,
-		SignupTechnicalForm signupTechnicalForm,
-		boolean signupTechnicalFormComplete,
-		SignupBillingInformationForm signupBillingInformationForm,
-		boolean signupBillingInformationFormComplete
-	) throws Exception {
-		if(!signupSelectPackageFormComplete) return mapping.findForward("virtual-dedicated-server-completed");
-		if(!signupCustomizeServerFormComplete)  return mapping.findForward("virtual-dedicated-server-2-completed");
-		if(!signupOrganizationFormComplete) {
-			// Init values for the form
-			return super.executeVirtualDedicatedStep(
-				mapping,
-				request,
-				response,
-				signupSelectPackageForm,
-				signupSelectPackageFormComplete,
-				signupCustomizeServerForm,
-				signupCustomizeServerFormComplete,
-				signupOrganizationForm,
-				signupOrganizationFormComplete,
-				signupTechnicalForm,
-				signupTechnicalFormComplete,
-				signupBillingInformationForm,
-				signupBillingInformationFormComplete
-			);
-		}
-		if(!signupTechnicalFormComplete) return mapping.findForward("virtual-dedicated-server-4");
-		if(!signupBillingInformationFormComplete) return mapping.findForward("virtual-dedicated-server-5");
-		return mapping.findForward("virtual-dedicated-server-6");
-	}
+  @Override
+  public ActionForward executeVirtualDedicatedStep(
+    ActionMapping mapping,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
+    boolean signupSelectPackageFormComplete,
+    VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
+    boolean signupCustomizeServerFormComplete,
+    SignupOrganizationForm signupOrganizationForm,
+    boolean signupOrganizationFormComplete,
+    SignupTechnicalForm signupTechnicalForm,
+    boolean signupTechnicalFormComplete,
+    SignupBillingInformationForm signupBillingInformationForm,
+    boolean signupBillingInformationFormComplete
+  ) throws Exception {
+    if (!signupSelectPackageFormComplete) {
+      return mapping.findForward("virtual-dedicated-server-completed");
+    }
+    if (!signupCustomizeServerFormComplete) {
+      return mapping.findForward("virtual-dedicated-server-2-completed");
+    }
+    if (!signupOrganizationFormComplete) {
+      // Init values for the form
+      return super.executeVirtualDedicatedStep(
+        mapping,
+        request,
+        response,
+        signupSelectPackageForm,
+        signupSelectPackageFormComplete,
+        signupCustomizeServerForm,
+        signupCustomizeServerFormComplete,
+        signupOrganizationForm,
+        signupOrganizationFormComplete,
+        signupTechnicalForm,
+        signupTechnicalFormComplete,
+        signupBillingInformationForm,
+        signupBillingInformationFormComplete
+      );
+    }
+    if (!signupTechnicalFormComplete) {
+      return mapping.findForward("virtual-dedicated-server-4");
+    }
+    if (!signupBillingInformationFormComplete) {
+      return mapping.findForward("virtual-dedicated-server-5");
+    }
+    return mapping.findForward("virtual-dedicated-server-6");
+  }
 
-	/**
-	 * Errors are not cleared for the complete step.
-	 */
-	@Override
-	protected void clearErrors(HttpServletRequest req) {
-		// Do nothing
-	}
+  /**
+   * Errors are not cleared for the complete step.
+   */
+  @Override
+  protected void clearErrors(HttpServletRequest req) {
+    // Do nothing
+  }
 }

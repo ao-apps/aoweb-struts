@@ -40,64 +40,71 @@ import org.apache.struts.config.ExceptionConfig;
  */
 public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler {
 
-	private static final Logger logger = Logger.getLogger(ExceptionHandler.class.getName());
+  private static final Logger logger = Logger.getLogger(ExceptionHandler.class.getName());
 
-	@Override
-	@SuppressWarnings({"UseSpecificCatch", "TooBroadCatch"})
-	public ActionForward execute(Exception exception, ExceptionConfig config, ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
-		ServletContext servletContext = request.getServletContext();
+  @Override
+  @SuppressWarnings({"UseSpecificCatch", "TooBroadCatch"})
+  public ActionForward execute(Exception exception, ExceptionConfig config, ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
+    ServletContext servletContext = request.getServletContext();
 
-		// There are two sources for exceptions, not sure if these are the same because the original exception from a bean access in JSP is lost
-		// 1) The exception passed in here
-		// 2) Globals.EXCEPTION_KEY
-		Throwable globalsException = Globals.EXCEPTION_KEY.context(request).get();
-		if(exception!=null) {
-			if(globalsException!=null) logger.log(Level.SEVERE, null, new WrappedExceptions(exception, globalsException));
-			else logger.log(Level.SEVERE, null, exception);
-		} else {
-			if(globalsException!=null) logger.log(Level.SEVERE, null, globalsException);
-			// Do nothing, neither exception exists
-		}
+    // There are two sources for exceptions, not sure if these are the same because the original exception from a bean access in JSP is lost
+    // 1) The exception passed in here
+    // 2) Globals.EXCEPTION_KEY
+    Throwable globalsException = Globals.EXCEPTION_KEY.context(request).get();
+    if (exception != null) {
+      if (globalsException != null) {
+        logger.log(Level.SEVERE, null, new WrappedExceptions(exception, globalsException));
+      } else {
+        logger.log(Level.SEVERE, null, exception);
+      }
+    } else {
+      if (globalsException != null) {
+        logger.log(Level.SEVERE, null, globalsException);
+      }
+      // Do nothing, neither exception exists
+    }
 
-		// Resolve the SiteSettings, to be compatible with SiteSettingsRequestListener
-		SiteSettings siteSettings;
-		try {
-			siteSettings = SiteSettings.getInstance(servletContext);
-		} catch(Exception err) {
-			logger.log(Level.SEVERE, null, err);
-			// Use default settings
-			siteSettings = new SiteSettings(servletContext);
-		}
-		Constants.SITE_SETTINGS.context(request).set(siteSettings);
+    // Resolve the SiteSettings, to be compatible with SiteSettingsRequestListener
+    SiteSettings siteSettings;
+    try {
+      siteSettings = SiteSettings.getInstance(servletContext);
+    } catch (Exception err) {
+      logger.log(Level.SEVERE, null, err);
+      // Use default settings
+      siteSettings = new SiteSettings(servletContext);
+    }
+    Constants.SITE_SETTINGS.context(request).set(siteSettings);
 
-		// Resolve the Locale, to be compatible with LocaleFilter
-		Locale locale;
-		try {
-			locale = LocaleFilter.getEffectiveLocale(siteSettings, request, response);
-		} catch(ThreadDeath td) {
-			throw td;
-		} catch(Throwable t) {
-			logger.log(Level.SEVERE, null, t);
-			// Use default locale
-			locale = Locale.getDefault();
-		}
-		Constants.LOCALE.context(request).set(locale);
+    // Resolve the Locale, to be compatible with LocaleFilter
+    Locale locale;
+    try {
+      locale = LocaleFilter.getEffectiveLocale(siteSettings, request, response);
+    } catch (ThreadDeath td) {
+      throw td;
+    } catch (Throwable t) {
+      logger.log(Level.SEVERE, null, t);
+      // Use default locale
+      locale = Locale.getDefault();
+    }
+    Constants.LOCALE.context(request).set(locale);
 
-		// Select Skin, to be compatible with Skin.RequestListener
-		Skin skin;
-		try {
-			skin = Skin.getSkin(siteSettings, request);
-		} catch(ThreadDeath td) {
-			throw td;
-		} catch(Throwable t) {
-			logger.log(Level.SEVERE, null, t);
-			// Use text skin
-			skin = TextSkin.getInstance();
-		}
-		Constants.SKIN.context(request).set(skin);
+    // Select Skin, to be compatible with Skin.RequestListener
+    Skin skin;
+    try {
+      skin = Skin.getSkin(siteSettings, request);
+    } catch (ThreadDeath td) {
+      throw td;
+    } catch (Throwable t) {
+      logger.log(Level.SEVERE, null, t);
+      // Use text skin
+      skin = TextSkin.getInstance();
+    }
+    Constants.SKIN.context(request).set(skin);
 
-		if(exception!=null && exception!=globalsException) request.setAttribute("exception", exception);
+    if (exception != null && exception != globalsException) {
+      request.setAttribute("exception", exception);
+    }
 
-		return mapping.findForward("exception");
-	}
+    return mapping.findForward("exception");
+  }
 }

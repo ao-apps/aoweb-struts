@@ -36,38 +36,38 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class ExistsTag extends BodyTagSupport {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String path;
+  private String path;
 
-	public ExistsTag() {
-		init();
-	}
+  public ExistsTag() {
+    init();
+  }
 
-	private void init() {
-		path = null;
-	}
+  private void init() {
+    path = null;
+  }
 
-	@Override
-	public int doStartTag() throws JspException {
-		try {
-			return ServletContextCache.getResource(pageContext.getServletContext(), path) != null ? EVAL_BODY_INCLUDE : SKIP_BODY;
-		} catch(MalformedURLException err) {
-			throw new JspTagException(err);
-		}
-	}
+  @Override
+  public int doStartTag() throws JspException {
+    try {
+      return ServletContextCache.getResource(pageContext.getServletContext(), path) != null ? EVAL_BODY_INCLUDE : SKIP_BODY;
+    } catch (MalformedURLException err) {
+      throw new JspTagException(err);
+    }
+  }
 
-	@Override
-	public int doEndTag() throws JspException {
-		init();
-		return EVAL_PAGE;
-	}
+  @Override
+  public int doEndTag() throws JspException {
+    init();
+    return EVAL_PAGE;
+  }
 
-	public String getPage() {
-		return path;
-	}
+  public String getPage() {
+    return path;
+  }
 
-	public void setPath(String path) {
-		this.path = path;
-	}
+  public void setPath(String path) {
+    this.path = path;
+  }
 }

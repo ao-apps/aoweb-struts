@@ -45,47 +45,47 @@ import org.apache.struts.action.ActionMapping;
  */
 public class LinuxAccountPasswordSetterAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		LinuxAccountPasswordSetterForm linuxAccountPasswordSetterForm = (LinuxAccountPasswordSetterForm)form;
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    LinuxAccountPasswordSetterForm linuxAccountPasswordSetterForm = (LinuxAccountPasswordSetterForm)form;
 
-		List<UserServer> lsas = aoConn.getLinux().getUserServer().getRows();
+    List<UserServer> lsas = aoConn.getLinux().getUserServer().getRows();
 
-		List<String> packages = new ArrayList<>(lsas.size());
-		List<String> usernames = new ArrayList<>(lsas.size());
-		List<String> servers = new ArrayList<>(lsas.size());
-		List<String> newPasswords = new ArrayList<>(lsas.size());
-		List<String> confirmPasswords = new ArrayList<>(lsas.size());
-		for(UserServer lsa : lsas) {
-			if(lsa.canSetPassword()) {
-				User la = lsa.getLinuxAccount();
-				com.aoindustries.aoserv.client.account.User un = la.getUsername();
-				packages.add(un.getPackage().getName().toString());
-				usernames.add(un.getUsername().toString());
-				servers.add(lsa.getServer().getHostname().toString());
-				newPasswords.add("");
-				confirmPasswords.add("");
-			}
-		}
+    List<String> packages = new ArrayList<>(lsas.size());
+    List<String> usernames = new ArrayList<>(lsas.size());
+    List<String> servers = new ArrayList<>(lsas.size());
+    List<String> newPasswords = new ArrayList<>(lsas.size());
+    List<String> confirmPasswords = new ArrayList<>(lsas.size());
+    for (UserServer lsa : lsas) {
+      if (lsa.canSetPassword()) {
+        User la = lsa.getLinuxAccount();
+        com.aoindustries.aoserv.client.account.User un = la.getUsername();
+        packages.add(un.getPackage().getName().toString());
+        usernames.add(un.getUsername().toString());
+        servers.add(lsa.getServer().getHostname().toString());
+        newPasswords.add("");
+        confirmPasswords.add("");
+      }
+    }
 
-		// Store to the form
-		linuxAccountPasswordSetterForm.setPackages(packages);
-		linuxAccountPasswordSetterForm.setUsernames(usernames);
-		linuxAccountPasswordSetterForm.setServers(servers);
-		linuxAccountPasswordSetterForm.setNewPasswords(newPasswords);
-		linuxAccountPasswordSetterForm.setConfirmPasswords(confirmPasswords);
+    // Store to the form
+    linuxAccountPasswordSetterForm.setPackages(packages);
+    linuxAccountPasswordSetterForm.setUsernames(usernames);
+    linuxAccountPasswordSetterForm.setServers(servers);
+    linuxAccountPasswordSetterForm.setNewPasswords(newPasswords);
+    linuxAccountPasswordSetterForm.setConfirmPasswords(confirmPasswords);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return Collections.singleton(Permission.Name.set_linux_server_account_password);
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return Collections.singleton(Permission.Name.set_linux_server_account_password);
+  }
 }

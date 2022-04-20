@@ -22,258 +22,258 @@ You should have received a copy of the GNU Lesser General Public License
 along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <jsp:root
-	xmlns:ao="https://oss.aoapps.com/taglib/"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:changelog="https://semanticcms.com/changelog/taglib/"
-	xmlns:core="https://semanticcms.com/core/taglib/"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:jsp="http://java.sun.com/JSP/Page"
-	version="2.1"
+  xmlns:ao="https://oss.aoapps.com/taglib/"
+  xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:changelog="https://semanticcms.com/changelog/taglib/"
+  xmlns:core="https://semanticcms.com/core/taglib/"
+  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+  xmlns:jsp="http://java.sun.com/JSP/Page"
+  version="2.1"
 >
-	<jsp:directive.page language="java" pageEncoding="UTF-8" />
-	<jsp:directive.page session="false" />
-	<core:page
-		title="@{documented.name} Changelog"
-		shortTitle="Changelog"
-		tocLevels="1"
-		datePublished="2016-10-29T22:19:41-05:00"
-		dateModified="2022-02-18T16:30:23-06:00"
-	>
-		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
-			<changelog:release
-				projectName="@{documented.name}"
-				version="@{project.version}"
-				groupId="@{project.groupId}"
-				artifactId="@{documented.artifactId}"
-				repository="@{nexusUrl}content/repositories/snapshots/"
-				scmUrl="@{project.scm.url}"
-			>
-				<ul>
-					<li>
-						Merged submodules directly into this module.
-						This streamlines development by allowing automatic redeploys.  Furthermore, this project is now used via
-						Maven overlay instead of jar dependencies.
-					</li>
-					<li>Minimum Java version changed from 1.7 to 11.</li>
-					<li>
-						Now supports Java 9+ modules.  Due to still having filename-based automatic module dependencies,
-						*-SNAPSHOT versions include <code>module-info.class</code> while releases include the
-						<code>Automatic-Module-Name</code> manifest entry.  To minimize the difference between these
-						modes, <code>module-info.java</code> does not perform any transitive requires.
-					</li>
-					<li>
-						Reduced use of property substitutions in <code>pom.xml</code>.
-						This is to help 3rd-party parsers that fail to perform full Maven-compatible substitutions.
-					</li>
-					<li>
-						Now outputting HTML or XHTML based on the current response content type.
-						This should eliminate validator warnings when used as HTML.
-					</li>
-					<li>
-						Now supports skin attributes for <code>serialization</code> (default "auto") and <code>doctype</code> (default "HTML5").
-						Defaulting to doctype "STRICT" until converted to HTML 5.
-					</li>
-					<li>Skins are now responsible for writing the DOCTYPE and html tag, too.</li>
-					<li>Skins now use the new <code>Html</code> instead of <code>JspWriter</code>.</li>
-					<li>HTML email generators use the new <ao:a href="https://oss.aoapps.com/fluent-html/">AO Fluent HTML</ao:a> project.</li>
-					<li>Removed setContentType tag.</li>
-					<li>Removed <code>Skin.getCharacterSet(Locale)</code>, since the default encoding is always <code>UTF-8</code>.</li>
-					<li>
-						<code>SkinTag</code> now sets Struts <code>Globals.XHTML_KEY</code> based on serialization.
-						No need to use the <![CDATA[&lt;html:xhtml /&gt;]]> tag anymore.
-					</li>
-					<li>Added <code><![CDATA[&lt;link rel="author" href="…" /&gt;]]></code> support.</li>
-					<li><code><![CDATA[&lt;skin:contentTitle /&gt;]]></code> is now <code>scriptless</code>.</li>
-					<li>Optimized ServletContext attribute initialization and concurrency.</li>
-					<li>
-						<code>TicketLoggingHandler</code> automatically loaded on start-up via
-						<code>@WebListener</code>.  No more <code>LogFactory</code>.  Now just use
-						<code>Logger.getLogger(…)</code> like normal.
-					</li>
-					<li>Integrated with <ao:a href="https://oss.aoapps.com/web-resources/">AO Web Resources</ao:a>.</li>
-					<li>Added support for <ao:a href="https://developers.google.com/speed/webp">WebP images</ao:a>.</li>
-					<li>Removed support for IE 6, 7, 8, and 9 since all are end-of-life.</li>
-					<li>
-						Added support for Web development file types <code>*.less</code>, <code>*.sass</code>,
-						<code>*.scss</code>, <code>*.css.map</code>, and <code>*.js.map</code>.
-					</li>
-					<li>
-						Cleaned-up use of <code>JspTagException</code> versus <code>JspException</code>.  Generally,
-						methods declare <code>throws JspException</code> while actually throwing instances of
-						<code>JspTagException</code>.  The exception to this is private implementation methods that
-						both declare and throw <code>JspTagException</code>.
-					</li>
-					<li>
-						Split development-only classes into a new sub-project in <code>devel/</code>.  This
-						sub-project is used only for development and is never deployed to artifact repositories.
-					</li>
-					<li>No longer trimming passwords.</li>
-					<li>
-						VNC keystore moved from web resource <code>/WEB-INF/keystore</code> to filesystem
-						resource <code>conf/keystore</code>.  This assumes that Tomcat is running with a working
-						directory containing the <code>conf/</code> folder, which is true on the
-						<ao:a href="https://aoindustries.com/aoserv/">AOServ Platform</ao:a>.  This has two advantages:
-						<ol>
-							<li>The webapp may be deployed as an unexploded WAR file.</li>
-							<li>
-								The keystore may be updated separately from the application.  This is used, for example,
-								by Let's Encrypt renewal hooks.
-							</li>
-						</ol>
-					</li>
-					<li>Updated to <ao:a rel="nofollow" href="https://www.oracle.com/java/technologies/javaee/javaeetechnologies.html#javaee7">Java™ EE 7 Web Profile</ao:a> (Servlet 3.1, JSP 2.3, EL 3.0, and JSTL 1.2).</li>
-					<li>Replaced VNC Java Applet+SSL with JavaScript+WebSocket.</li>
-					<li>
-						<p>
-							Search engines are spiraling off target due to the "authenticationTarget" being rewritten into
-							the URL for clients with cookies disabled.  A servlet filter now sets a header
-							<code>X-Robots-Tag: noindex, nofollow</code> for any request that contains any
-							"authenticationTarget" parameter.
-						</p>
-						<p>
-							Furthermore, "authenticationTarget" is no longer written into URL parameters, and the parameter
-							is no longer used after login.  "authenticationTarget" is only taken from session, which also
-							has security benefits (bad form to allow user-supplied redirects).
-						</p>
-						<p>
-							Finally, authentication redirect targets are no longer used directly from HTTP parameters.
-							Instead, a session mapping of generated random IDs is maintained.  The client is given the
-							random ID, and redirects are performed from the URLs stored in session.  Thus, cross-site
-							redirects are protected by both temporary random ID and session.
-						</p>
-					</li>
-					<li>Implemented automatic newline and tab indentation.</li>
-					<li>
-						URLs provided in tag bodies now support both
-						<ao:a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</ao:a>
-						and <ao:a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</ao:a>:
-						<ul>
-							<li><core:link page="aoweb-struts-skin.tld/tag-link" /></li>
-							<li><core:link page="aoweb-struts-skin.tld/tag-path" /></li>
-						</ul>
-					</li>
-					<li>
-						<core:link page="aoweb-struts-skin.tld/tag-link" /> now supports nested
-						<ao:a href="https://oss.aoapps.com/taglib/ao.tld/tag-param"><![CDATA[&lt;ao:param&gt;]]></ao:a> and
-						<ao:a href="https://oss.aoapps.com/taglib/ao.tld/tag-params"><![CDATA[&lt;ao:params&gt;]]></ao:a>.
-					</li>
-					<li>
-						<core:link page="aoweb-struts-skin.tld/tag-link" /> and
-						<core:link page="aoweb-struts-skin.tld/tag-path" /> now support param.* dynamic attributes.
-					</li>
-					<li>Added 401, 403, 503, and catch-all error handlers.</li>
-					<li>Require secure session cookies in production.</li>
-					<li>Now properly restoring Thread interrupted state on <code>InterruptedException</code>.</li>
-					<li>Removed package category and related signup forms for backup and colocation.</li>
+  <jsp:directive.page language="java" pageEncoding="UTF-8" />
+  <jsp:directive.page session="false" />
+  <core:page
+    title="@{documented.name} Changelog"
+    shortTitle="Changelog"
+    tocLevels="1"
+    datePublished="2016-10-29T22:19:41-05:00"
+    dateModified="2022-02-18T16:30:23-06:00"
+  >
+    <c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
+      <changelog:release
+        projectName="@{documented.name}"
+        version="@{project.version}"
+        groupId="@{project.groupId}"
+        artifactId="@{documented.artifactId}"
+        repository="@{nexusUrl}content/repositories/snapshots/"
+        scmUrl="@{project.scm.url}"
+      >
+        <ul>
+          <li>
+            Merged submodules directly into this module.
+            This streamlines development by allowing automatic redeploys.  Furthermore, this project is now used via
+            Maven overlay instead of jar dependencies.
+          </li>
+          <li>Minimum Java version changed from 1.7 to 11.</li>
+          <li>
+            Now supports Java 9+ modules.  Due to still having filename-based automatic module dependencies,
+            *-SNAPSHOT versions include <code>module-info.class</code> while releases include the
+            <code>Automatic-Module-Name</code> manifest entry.  To minimize the difference between these
+            modes, <code>module-info.java</code> does not perform any transitive requires.
+          </li>
+          <li>
+            Reduced use of property substitutions in <code>pom.xml</code>.
+            This is to help 3rd-party parsers that fail to perform full Maven-compatible substitutions.
+          </li>
+          <li>
+            Now outputting HTML or XHTML based on the current response content type.
+            This should eliminate validator warnings when used as HTML.
+          </li>
+          <li>
+            Now supports skin attributes for <code>serialization</code> (default "auto") and <code>doctype</code> (default "HTML5").
+            Defaulting to doctype "STRICT" until converted to HTML 5.
+          </li>
+          <li>Skins are now responsible for writing the DOCTYPE and html tag, too.</li>
+          <li>Skins now use the new <code>Html</code> instead of <code>JspWriter</code>.</li>
+          <li>HTML email generators use the new <ao:a href="https://oss.aoapps.com/fluent-html/">AO Fluent HTML</ao:a> project.</li>
+          <li>Removed setContentType tag.</li>
+          <li>Removed <code>Skin.getCharacterSet(Locale)</code>, since the default encoding is always <code>UTF-8</code>.</li>
+          <li>
+            <code>SkinTag</code> now sets Struts <code>Globals.XHTML_KEY</code> based on serialization.
+            No need to use the <![CDATA[&lt;html:xhtml /&gt;]]> tag anymore.
+          </li>
+          <li>Added <code><![CDATA[&lt;link rel="author" href="…" /&gt;]]></code> support.</li>
+          <li><code><![CDATA[&lt;skin:contentTitle /&gt;]]></code> is now <code>scriptless</code>.</li>
+          <li>Optimized ServletContext attribute initialization and concurrency.</li>
+          <li>
+            <code>TicketLoggingHandler</code> automatically loaded on start-up via
+            <code>@WebListener</code>.  No more <code>LogFactory</code>.  Now just use
+            <code>Logger.getLogger(…)</code> like normal.
+          </li>
+          <li>Integrated with <ao:a href="https://oss.aoapps.com/web-resources/">AO Web Resources</ao:a>.</li>
+          <li>Added support for <ao:a href="https://developers.google.com/speed/webp">WebP images</ao:a>.</li>
+          <li>Removed support for IE 6, 7, 8, and 9 since all are end-of-life.</li>
+          <li>
+            Added support for Web development file types <code>*.less</code>, <code>*.sass</code>,
+            <code>*.scss</code>, <code>*.css.map</code>, and <code>*.js.map</code>.
+          </li>
+          <li>
+            Cleaned-up use of <code>JspTagException</code> versus <code>JspException</code>.  Generally,
+            methods declare <code>throws JspException</code> while actually throwing instances of
+            <code>JspTagException</code>.  The exception to this is private implementation methods that
+            both declare and throw <code>JspTagException</code>.
+          </li>
+          <li>
+            Split development-only classes into a new sub-project in <code>devel/</code>.  This
+            sub-project is used only for development and is never deployed to artifact repositories.
+          </li>
+          <li>No longer trimming passwords.</li>
+          <li>
+            VNC keystore moved from web resource <code>/WEB-INF/keystore</code> to filesystem
+            resource <code>conf/keystore</code>.  This assumes that Tomcat is running with a working
+            directory containing the <code>conf/</code> folder, which is true on the
+            <ao:a href="https://aoindustries.com/aoserv/">AOServ Platform</ao:a>.  This has two advantages:
+            <ol>
+              <li>The webapp may be deployed as an unexploded WAR file.</li>
+              <li>
+                The keystore may be updated separately from the application.  This is used, for example,
+                by Let's Encrypt renewal hooks.
+              </li>
+            </ol>
+          </li>
+          <li>Updated to <ao:a rel="nofollow" href="https://www.oracle.com/java/technologies/javaee/javaeetechnologies.html#javaee7">Java™ EE 7 Web Profile</ao:a> (Servlet 3.1, JSP 2.3, EL 3.0, and JSTL 1.2).</li>
+          <li>Replaced VNC Java Applet+SSL with JavaScript+WebSocket.</li>
+          <li>
+            <p>
+              Search engines are spiraling off target due to the "authenticationTarget" being rewritten into
+              the URL for clients with cookies disabled.  A servlet filter now sets a header
+              <code>X-Robots-Tag: noindex, nofollow</code> for any request that contains any
+              "authenticationTarget" parameter.
+            </p>
+            <p>
+              Furthermore, "authenticationTarget" is no longer written into URL parameters, and the parameter
+              is no longer used after login.  "authenticationTarget" is only taken from session, which also
+              has security benefits (bad form to allow user-supplied redirects).
+            </p>
+            <p>
+              Finally, authentication redirect targets are no longer used directly from HTTP parameters.
+              Instead, a session mapping of generated random IDs is maintained.  The client is given the
+              random ID, and redirects are performed from the URLs stored in session.  Thus, cross-site
+              redirects are protected by both temporary random ID and session.
+            </p>
+          </li>
+          <li>Implemented automatic newline and tab indentation.</li>
+          <li>
+            URLs provided in tag bodies now support both
+            <ao:a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</ao:a>
+            and <ao:a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</ao:a>:
+            <ul>
+              <li><core:link page="aoweb-struts-skin.tld/tag-link" /></li>
+              <li><core:link page="aoweb-struts-skin.tld/tag-path" /></li>
+            </ul>
+          </li>
+          <li>
+            <core:link page="aoweb-struts-skin.tld/tag-link" /> now supports nested
+            <ao:a href="https://oss.aoapps.com/taglib/ao.tld/tag-param"><![CDATA[&lt;ao:param&gt;]]></ao:a> and
+            <ao:a href="https://oss.aoapps.com/taglib/ao.tld/tag-params"><![CDATA[&lt;ao:params&gt;]]></ao:a>.
+          </li>
+          <li>
+            <core:link page="aoweb-struts-skin.tld/tag-link" /> and
+            <core:link page="aoweb-struts-skin.tld/tag-path" /> now support param.* dynamic attributes.
+          </li>
+          <li>Added 401, 403, 503, and catch-all error handlers.</li>
+          <li>Require secure session cookies in production.</li>
+          <li>Now properly restoring Thread interrupted state on <code>InterruptedException</code>.</li>
+          <li>Removed package category and related signup forms for backup and colocation.</li>
 
-					<li>TODO: On next release, also publish relocations for old aoweb-struts-core, aoweb-struts-resources, and aoweb-struts-webapp.</li>
-				</ul>
-			</changelog:release>
-		</c:if>
+          <li>TODO: On next release, also publish relocations for old aoweb-struts-core, aoweb-struts-resources, and aoweb-struts-webapp.</li>
+        </ul>
+      </changelog:release>
+    </c:if>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="2.0.0"
-			datePublished="2019-10-12T23:28:12-05:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Updated for compatibility with <ao:a href="https://oss.aoapps.com/lang/changelog#release-notes-3.0.0">ao-lang-3.0.0</ao:a>.</li>
-				<li>Updated for compatibility with <ao:a href="https://oss.aoapps.com/hodgepodge/changelog#release-notes-3.1.0">aocode-public-3.1.0</ao:a>.</li>
-				<li>Updated for compatibility with <core:link book="/aoserv/client" page="/changelog.jspx" element="release-notes-1.83.1">aoserv-client-1.83.1</core:link>.</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="2.0.0"
+      datePublished="2019-10-12T23:28:12-05:00"
+      groupId="@{project.groupId}"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Updated for compatibility with <ao:a href="https://oss.aoapps.com/lang/changelog#release-notes-3.0.0">ao-lang-3.0.0</ao:a>.</li>
+        <li>Updated for compatibility with <ao:a href="https://oss.aoapps.com/hodgepodge/changelog#release-notes-3.1.0">aocode-public-3.1.0</ao:a>.</li>
+        <li>Updated for compatibility with <core:link book="/aoserv/client" page="/changelog.jspx" element="release-notes-1.83.1">aoserv-client-1.83.1</core:link>.</li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="1.2.0"
-			datePublished="2019-06-24T10:08:30-05:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Updated version of <ao:a href="https://oss.aoapps.com/parent/">AO OSS Parent</ao:a>.</li>
-				<li>Minimum Java version changed from 1.6 to 1.7.</li>
-				<li>Using managed dependencies:
-					<ol>
-						<li>This project uses managed dependencies.</li>
-						<li>This project's managed dependencies may also be imported by other projects.</li>
-					</ol>
-				</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="1.2.0"
+      datePublished="2019-06-24T10:08:30-05:00"
+      groupId="@{project.groupId}"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Updated version of <ao:a href="https://oss.aoapps.com/parent/">AO OSS Parent</ao:a>.</li>
+        <li>Minimum Java version changed from 1.6 to 1.7.</li>
+        <li>Using managed dependencies:
+          <ol>
+            <li>This project uses managed dependencies.</li>
+            <li>This project's managed dependencies may also be imported by other projects.</li>
+          </ol>
+        </li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="1.1.2"
-			datePublished="2017-07-20T12:41:09-05:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>New releases of modules.</li>
-				<li>Updated dependencies.</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="1.1.2"
+      datePublished="2017-07-20T12:41:09-05:00"
+      groupId="@{project.groupId}"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>New releases of modules.</li>
+        <li>Updated dependencies.</li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="1.1.1"
-			datePublished="2016-11-16T03:06:04-06:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Adjusted old Ant build.xml for new Maven structure.</li>
-				<li>New <ao:a href="https://oss.aoapps.com/parent/">AO OSS Parent</ao:a> POM to simplify <code>pom.xml</code> files.</li>
-				<li>Project documentation moved to per-project book in <ao:a href="https://semanticcms.com/">SemanticCMS</ao:a> format.</li>
-				<li>Added changelog as top-level project link.</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="1.1.1"
+      datePublished="2016-11-16T03:06:04-06:00"
+      groupId="@{project.groupId}"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Adjusted old Ant build.xml for new Maven structure.</li>
+        <li>New <ao:a href="https://oss.aoapps.com/parent/">AO OSS Parent</ao:a> POM to simplify <code>pom.xml</code> files.</li>
+        <li>Project documentation moved to per-project book in <ao:a href="https://semanticcms.com/">SemanticCMS</ao:a> format.</li>
+        <li>Added changelog as top-level project link.</li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="1.1.0"
-			datePublished="2016-10-20T18:51:00-05:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Using standard filter set provided by SemanticCMS.</li>
-				<li>Improved Javadoc formatting.</li>
-				<li>Improved README formatting.</li>
-				<li>Working on SemanticCMS integration.</li>
-				<li>shortTitle may now be specified on a per-parent basis, for when
-					the shortTitle only makes sense within the context of that
-					specific parent.  This is useful for navigation items such
-					as breadcrumbs or trees.</li>
-				<li>No more page stack, just show title for current page only.</li>
-				<li>Canonical URLs configured per-book.</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="1.1.0"
+      datePublished="2016-10-20T18:51:00-05:00"
+      groupId="@{project.groupId}"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Using standard filter set provided by SemanticCMS.</li>
+        <li>Improved Javadoc formatting.</li>
+        <li>Improved README formatting.</li>
+        <li>Working on SemanticCMS integration.</li>
+        <li>shortTitle may now be specified on a per-parent basis, for when
+          the shortTitle only makes sense within the context of that
+          specific parent.  This is useful for navigation items such
+          as breadcrumbs or trees.</li>
+        <li>No more page stack, just show title for current page only.</li>
+        <li>Canonical URLs configured per-book.</li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="1.0.0"
-			datePublished="2016-10-08T01:15:00-05:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Project moved to GitHub and Maven.</li>
-				<li>Web resources moved to separate jar file to share between projects without
-					having to copy into the web root. Thank you servlets 3.0 for allowing us
-					to no longer copy JSP files between projects with tedious build systems.</li>
-				<li>Moved Java implementation to aoweb-struts-core package.</li>
-				<li>Packaged for compatibility with old Ant build system.</li>
-			</ul>
-		</changelog:release>
-	</core:page>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="1.0.0"
+      datePublished="2016-10-08T01:15:00-05:00"
+      groupId="@{project.groupId}"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Project moved to GitHub and Maven.</li>
+        <li>Web resources moved to separate jar file to share between projects without
+          having to copy into the web root. Thank you servlets 3.0 for allowing us
+          to no longer copy JSP files between projects with tedious build systems.</li>
+        <li>Moved Java implementation to aoweb-struts-core package.</li>
+        <li>Packaged for compatibility with old Ant build system.</li>
+      </ul>
+    </changelog:release>
+  </core:page>
 </jsp:root>

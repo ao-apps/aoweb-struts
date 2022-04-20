@@ -43,42 +43,42 @@ import org.apache.struts.action.ActionMapping;
  */
 public class GlobalPasswordSetterAction extends PermissionAction {
 
-	@Override
-	public ActionForward executePermissionGranted(
-		ActionMapping mapping,
-		ActionForm form,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AOServConnector aoConn
-	) throws Exception {
-		GlobalPasswordSetterForm globalPasswordSetterForm = (GlobalPasswordSetterForm)form;
+  @Override
+  public ActionForward executePermissionGranted(
+    ActionMapping mapping,
+    ActionForm form,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AOServConnector aoConn
+  ) throws Exception {
+    GlobalPasswordSetterForm globalPasswordSetterForm = (GlobalPasswordSetterForm)form;
 
-		List<User> uns = aoConn.getAccount().getUser().getRows();
+    List<User> uns = aoConn.getAccount().getUser().getRows();
 
-		List<String> packages = new ArrayList<>(uns.size());
-		List<String> usernames = new ArrayList<>(uns.size());
-		List<String> newPasswords = new ArrayList<>(uns.size());
-		List<String> confirmPasswords = new ArrayList<>(uns.size());
-		for(User un : uns) {
-			if(un.canSetPassword()) {
-				packages.add(un.getPackage().getName().toString());
-				usernames.add(un.getUsername().toString());
-				newPasswords.add("");
-				confirmPasswords.add("");
-			}
-		}
+    List<String> packages = new ArrayList<>(uns.size());
+    List<String> usernames = new ArrayList<>(uns.size());
+    List<String> newPasswords = new ArrayList<>(uns.size());
+    List<String> confirmPasswords = new ArrayList<>(uns.size());
+    for (User un : uns) {
+      if (un.canSetPassword()) {
+        packages.add(un.getPackage().getName().toString());
+        usernames.add(un.getUsername().toString());
+        newPasswords.add("");
+        confirmPasswords.add("");
+      }
+    }
 
-		// Store to the form
-		globalPasswordSetterForm.setPackages(packages);
-		globalPasswordSetterForm.setUsernames(usernames);
-		globalPasswordSetterForm.setNewPasswords(newPasswords);
-		globalPasswordSetterForm.setConfirmPasswords(confirmPasswords);
+    // Store to the form
+    globalPasswordSetterForm.setPackages(packages);
+    globalPasswordSetterForm.setUsernames(usernames);
+    globalPasswordSetterForm.setNewPasswords(newPasswords);
+    globalPasswordSetterForm.setConfirmPasswords(confirmPasswords);
 
-		return mapping.findForward("success");
-	}
+    return mapping.findForward("success");
+  }
 
-	@Override
-	public Set<Permission.Name> getPermissions() {
-		return GlobalPasswordSetterCompletedAction.permissions;
-	}
+  @Override
+  public Set<Permission.Name> getPermissions() {
+    return GlobalPasswordSetterCompletedAction.permissions;
+  }
 }

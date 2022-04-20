@@ -38,55 +38,57 @@ import org.apache.struts.validator.ValidatorForm;
  */
 public class ContactForm extends ValidatorForm implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String from;
-	private String subject;
-	private String message;
+  private String from;
+  private String subject;
+  private String message;
 
-	@Override
-	public void reset(ActionMapping mapping, HttpServletRequest request) {
-		super.reset(mapping, request);
-		setFrom("");
-		setSubject("");
-		setMessage("");
-	}
+  @Override
+  public void reset(ActionMapping mapping, HttpServletRequest request) {
+    super.reset(mapping, request);
+    setFrom("");
+    setSubject("");
+    setMessage("");
+  }
 
-	public String getFrom() {
-		return from;
-	}
+  public String getFrom() {
+    return from;
+  }
 
-	public void setFrom(String from) {
-		this.from = from;
-	}
+  public void setFrom(String from) {
+    this.from = from;
+  }
 
-	public String getSubject() {
-		return subject;
-	}
+  public String getSubject() {
+    return subject;
+  }
 
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
+  public void setSubject(String subject) {
+    this.subject = subject;
+  }
 
-	public String getMessage() {
-		return message;
-	}
+  public String getMessage() {
+    return message;
+  }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+  public void setMessage(String message) {
+    this.message = message;
+  }
 
-	@Override
-	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-		ActionErrors errors = super.validate(mapping, request);
-		if(errors==null) errors = new ActionErrors();
+  @Override
+  public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+    ActionErrors errors = super.validate(mapping, request);
+    if (errors == null) {
+      errors = new ActionErrors();
+    }
 
-		if(!GenericValidator.isBlankOrNull(from)) {
-			ValidationResult fromCheck = Email.validate(from);
-			if(!fromCheck.isValid()) {
-				errors.add("from", new ActionMessage(fromCheck.toString(), false));
-			}
-		}
-		return errors;
-	}
+    if (!GenericValidator.isBlankOrNull(from)) {
+      ValidationResult fromCheck = Email.validate(from);
+      if (!fromCheck.isValid()) {
+        errors.add("from", new ActionMessage(fromCheck.toString(), false));
+      }
+    }
+    return errors;
+  }
 }

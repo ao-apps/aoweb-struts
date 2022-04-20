@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2009, 2016, 2021  AO Industries, Inc.
+Copyright (C) 2009, 2016, 2021, 2022  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -26,23 +26,23 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 "http://jakarta.apache.org/commons/dtds/validator_1_3_0.dtd">
 
 <form-validation>
-	<formset>
-		<form name="contactForm">
-			<field property="from" depends="required,email">
-				<msg name="required" key="contact.field.from.required" />
-				<msg name="email" key="contact.field.from.email" />
-			</field>
-			<field property="subject" depends="required">
-				<msg name="required" key="contact.field.subject.required" />
-			</field>
-		</form>
-		<form name="loginForm">
-			<field property="username" depends="required">
-				<msg name="required" key="login.field.username.required" />
-			</field>
-			<field property="password" depends="required">
-				<msg name="required" key="login.field.password.required" />
-			</field>
-		</form>
-	</formset>
+  <formset>
+    <form name="contactForm">
+      <field property="from" depends="required,email">
+        <msg name="required" key="contact.field.from.required" />
+        <msg name="email" key="contact.field.from.email" />
+      </field>
+      <field property="subject" depends="required">
+        <msg name="required" key="contact.field.subject.required" />
+      </field>
+    </form>
+    <form name="loginForm">
+      <field property="username" depends="required">
+        <msg name="required" key="login.field.username.required" />
+      </field>
+      <field property="password" depends="required">
+        <msg name="required" key="login.field.password.required" />
+      </field>
+    </form>
+  </formset>
 </form-validation>

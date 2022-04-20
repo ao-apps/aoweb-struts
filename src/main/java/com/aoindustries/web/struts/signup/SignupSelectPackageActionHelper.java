@@ -48,61 +48,65 @@ import javax.servlet.http.HttpServletResponse;
  */
 public final class SignupSelectPackageActionHelper {
 
-	/** Make no instances. */
-	private SignupSelectPackageActionHelper() {throw new AssertionError();}
+  /** Make no instances. */
+  private SignupSelectPackageActionHelper() {
+    throw new AssertionError();
+  }
 
-	public static void setRequestAttributes(
-		ServletContext servletContext,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		String packageCategoryName
-	) throws IOException, SQLException {
-		List<PackageDefinition> packageDefinitions = getPackageDefinitions(servletContext, packageCategoryName);
+  public static void setRequestAttributes(
+    ServletContext servletContext,
+    HttpServletRequest request,
+    HttpServletResponse response,
+    String packageCategoryName
+  ) throws IOException, SQLException {
+    List<PackageDefinition> packageDefinitions = getPackageDefinitions(servletContext, packageCategoryName);
 
-		request.setAttribute("packageDefinitions", packageDefinitions);
-	}
+    request.setAttribute("packageDefinitions", packageDefinitions);
+  }
 
-	/**
-	 * Gets the active package definitions ordered by monthly rate.
-	 */
-	public static List<PackageDefinition> getPackageDefinitions(ServletContext servletContext, String packageCategoryName) throws IOException, SQLException {
-		AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
-		PackageCategory category = rootConn.getBilling().getPackageCategory().get(packageCategoryName);
-		Account rootAccount = rootConn.getCurrentAdministrator().getUsername().getPackage().getAccount();
-		List<PackageDefinition> packageDefinitions = rootAccount.getPackageDefinitions(category);
-		List<PackageDefinition> activePackageDefinitions = new ArrayList<>();
+  /**
+   * Gets the active package definitions ordered by monthly rate.
+   */
+  public static List<PackageDefinition> getPackageDefinitions(ServletContext servletContext, String packageCategoryName) throws IOException, SQLException {
+    AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
+    PackageCategory category = rootConn.getBilling().getPackageCategory().get(packageCategoryName);
+    Account rootAccount = rootConn.getCurrentAdministrator().getUsername().getPackage().getAccount();
+    List<PackageDefinition> packageDefinitions = rootAccount.getPackageDefinitions(category);
+    List<PackageDefinition> activePackageDefinitions = new ArrayList<>();
 
-		for(PackageDefinition packageDefinition : packageDefinitions) {
-			if(packageDefinition.isActive()) activePackageDefinitions.add(packageDefinition);
-		}
+    for (PackageDefinition packageDefinition : packageDefinitions) {
+      if (packageDefinition.isActive()) {
+        activePackageDefinitions.add(packageDefinition);
+      }
+    }
 
-		Collections.sort(activePackageDefinitions, packageDefinitionComparator);
+    Collections.sort(activePackageDefinitions, packageDefinitionComparator);
 
-		return activePackageDefinitions;
-	}
+    return activePackageDefinitions;
+  }
 
-	private static final Comparator<PackageDefinition> packageDefinitionComparator =
-		(pd1, pd2) -> pd1.getMonthlyRate().compareTo(pd2.getMonthlyRate());
+  private static final Comparator<PackageDefinition> packageDefinitionComparator =
+    (pd1, pd2) -> pd1.getMonthlyRate().compareTo(pd2.getMonthlyRate());
 
-	public static void setConfirmationRequestAttributes(
-		ServletContext servletContext,
-		HttpServletRequest request,
-		SignupSelectPackageForm signupSelectPackageForm
-	) throws IOException, SQLException {
-		// Lookup things needed by the view
-		AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
-		PackageDefinition packageDefinition = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
+  public static void setConfirmationRequestAttributes(
+    ServletContext servletContext,
+    HttpServletRequest request,
+    SignupSelectPackageForm signupSelectPackageForm
+  ) throws IOException, SQLException {
+    // Lookup things needed by the view
+    AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
+    PackageDefinition packageDefinition = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
 
-		// Store as request attribute for the view
-		request.setAttribute("packageDefinition", packageDefinition);
-		request.setAttribute("setup", packageDefinition.getSetupFee());
-	}
+    // Store as request attribute for the view
+    request.setAttribute("packageDefinition", packageDefinition);
+    request.setAttribute("setup", packageDefinition.getSetupFee());
+  }
 
-	public static void writeEmailConfirmation(Union_TBODY_THEAD_TFOOT<?> tbody, PackageDefinition packageDefinition) throws IOException {
-		tbody.tr__(tr -> tr
-			.td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-			.td__(PACKAGE_RESOURCES.getMessage("signupSelectPackageForm.packageDefinition.prompt"))
-			.td__(packageDefinition.getDisplay())
-		);
-	}
+  public static void writeEmailConfirmation(Union_TBODY_THEAD_TFOOT<?> tbody, PackageDefinition packageDefinition) throws IOException {
+    tbody.tr__(tr -> tr
+      .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+      .td__(PACKAGE_RESOURCES.getMessage("signupSelectPackageForm.packageDefinition.prompt"))
+      .td__(packageDefinition.getDisplay())
+    );
+  }
 }

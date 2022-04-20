@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2009, 2016, 2017, 2019, 2020, 2021  AO Industries, Inc.
+Copyright (C) 2009, 2016, 2017, 2019, 2020, 2021, 2022  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -40,246 +40,246 @@ web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
   version="3.1"
   metadata-complete="false">
-	<display-name>@{project.name} @{project.version}</display-name>
-	<description>@{project.description}</description>
+  <display-name>@{project.name} @{project.version}</display-name>
+  <description>@{project.description}</description>
 
-	<context-param>
-		<description>Configuration for root AOServConnector</description>
-		<param-name>root.aoserv.client.username</param-name>
-		<param-value />
-	</context-param>
-	<context-param>
-		<description>Configuration for root AOServConnector</description>
-		<param-name>root.aoserv.client.password</param-name>
-		<param-value />
-	</context-param>
+  <context-param>
+    <description>Configuration for root AOServConnector</description>
+    <param-name>root.aoserv.client.username</param-name>
+    <param-value />
+  </context-param>
+  <context-param>
+    <description>Configuration for root AOServConnector</description>
+    <param-name>root.aoserv.client.password</param-name>
+    <param-value />
+  </context-param>
 
-	<context-param>
-		<description><![CDATA[
-			Controls the selection of HTML versus XHTML.  Supports three values:
-			<ul>
-				<li><code>SGML</code> - Use HTML always</li>
-				<li><code>XML</code> - Use XHTML always</li>
-				<li><code>auto</code> - (default) - Automatically choose based on the client's <code>Accept</code> header</li>
-			</ul>
-		]]></description>
-		<param-name>com.aoapps.encoding.Serialization.default</param-name>
-		<param-value>SGML</param-value>
-	</context-param>
+  <context-param>
+    <description><![CDATA[
+      Controls the selection of HTML versus XHTML.  Supports three values:
+      <ul>
+        <li><code>SGML</code> - Use HTML always</li>
+        <li><code>XML</code> - Use XHTML always</li>
+        <li><code>auto</code> - (default) - Automatically choose based on the client's <code>Accept</code> header</li>
+      </ul>
+    ]]></description>
+    <param-name>com.aoapps.encoding.Serialization.default</param-name>
+    <param-value>SGML</param-value>
+  </context-param>
 
-	<context-param>
-		<description><![CDATA[
-			Controls the default DOCTYPE for the application.  Supported values:
-			<ul>
-				<li><code>HTML5</code> - Use (X)HTML 5</li>
-				<li><code>STRICT</code> - Use (X)HTML strict</li>
-				<li><code>TRANSITIONAL</code> - Use (X)HTML transitional/loose</li>
-				<li><code>FRAMESET</code> - Use (X)HTML frameset</li>
-				<li><code>NONE</code> - No doctype</li>
-				<li><code>default</code> - (default) - Use (X)HTML 5</li>
-			</ul>
-		]]></description>
-		<param-name>com.aoapps.encoding.Doctype.default</param-name>
-		<param-value>default</param-value>
-	</context-param>
+  <context-param>
+    <description><![CDATA[
+      Controls the default DOCTYPE for the application.  Supported values:
+      <ul>
+        <li><code>HTML5</code> - Use (X)HTML 5</li>
+        <li><code>STRICT</code> - Use (X)HTML strict</li>
+        <li><code>TRANSITIONAL</code> - Use (X)HTML transitional/loose</li>
+        <li><code>FRAMESET</code> - Use (X)HTML frameset</li>
+        <li><code>NONE</code> - No doctype</li>
+        <li><code>default</code> - (default) - Use (X)HTML 5</li>
+      </ul>
+    ]]></description>
+    <param-name>com.aoapps.encoding.Doctype.default</param-name>
+    <param-value>default</param-value>
+  </context-param>
 
 <!-- Begin include "web.xml.contextParams" -->
-	<context-param>
-		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
-		<param-value>com.aoindustries.web.struts.i18n.ApplicationResources</param-value>
-	</context-param>
+  <context-param>
+    <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+    <param-value>com.aoindustries.web.struts.i18n.ApplicationResources</param-value>
+  </context-param>
 <!-- End include "web.xml.contextParams" -->
 
-	<!-- Require all session attributes to be Serializable -->
-	<!-- TODO: Make session objects Serializable: <distributable /> -->
+  <!-- Require all session attributes to be Serializable -->
+  <!-- TODO: Make session objects Serializable: <distributable /> -->
 
-	<session-config>
-		<!--
-			Application performs authentication timeout at 60 minutes via Refresh header.  However, session still
-			maintains "targets", which is mappings from random identifiers to redirect URLs.  Keep the session longer
-			to allow time for re-login without losing targets.
-		-->
-		<session-timeout>120</session-timeout>
-		<cookie-config>
-			<http-only>true</http-only>
-			<secure>@{session.cookie.secure}</secure>
-		</cookie-config>
-		<!-- Block any servlet container URL rewriting -->
-		<tracking-mode>COOKIE</tracking-mode>
-	</session-config>
+  <session-config>
+    <!--
+      Application performs authentication timeout at 60 minutes via Refresh header.  However, session still
+      maintains "targets", which is mappings from random identifiers to redirect URLs.  Keep the session longer
+      to allow time for re-login without losing targets.
+    -->
+    <session-timeout>120</session-timeout>
+    <cookie-config>
+      <http-only>true</http-only>
+      <secure>@{session.cookie.secure}</secure>
+    </cookie-config>
+    <!-- Block any servlet container URL rewriting -->
+    <tracking-mode>COOKIE</tracking-mode>
+  </session-config>
 
-	<!-- Filter to write selective values into URL when cookies disabled for SEO purposes. -->
-	<filter>
-		<filter-name>com.aoindustries.web.struts.SessionFilter</filter-name>
-		<filter-class>com.aoindustries.web.struts.SessionFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>com.aoindustries.web.struts.SessionFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>ERROR</dispatcher>
-	</filter-mapping>
+  <!-- Filter to write selective values into URL when cookies disabled for SEO purposes. -->
+  <filter>
+    <filter-name>com.aoindustries.web.struts.SessionFilter</filter-name>
+    <filter-class>com.aoindustries.web.struts.SessionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>com.aoindustries.web.struts.SessionFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
 
-	<!-- Filter to select locale on a per-request basis. -->
-	<filter>
-		<filter-name>com.aoindustries.web.struts.LocaleFilter</filter-name>
-		<filter-class>com.aoindustries.web.struts.LocaleFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>com.aoindustries.web.struts.LocaleFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>ERROR</dispatcher>
-	</filter-mapping>
+  <!-- Filter to select locale on a per-request basis. -->
+  <filter>
+    <filter-name>com.aoindustries.web.struts.LocaleFilter</filter-name>
+    <filter-class>com.aoindustries.web.struts.LocaleFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>com.aoindustries.web.struts.LocaleFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
 
-	<!-- Sets up the cache for the request. -->
-	<!--
-		Mapped here instead of relying on semanticcms-core-servlet:/META-INF/web-fragment.xml
-		so SemanticCMS pages work within Struts 2 actions.
-	-->
-	<filter-mapping>
-		<filter-name>com.semanticcms.core.servlet.CacheFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>ERROR</dispatcher>
-	</filter-mapping>
+  <!-- Sets up the cache for the request. -->
+  <!--
+    Mapped here instead of relying on semanticcms-core-servlet:/META-INF/web-fragment.xml
+    so SemanticCMS pages work within Struts 2 actions.
+  -->
+  <filter-mapping>
+    <filter-name>com.semanticcms.core.servlet.CacheFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
 
-	<!-- Filter to remove .jspx and .jsp file extensions -->
-	<!--
-		Filter also defined here instead of relying on semanticcms-core-taglib:/META-INF/web-fragment.xml
-		so SemanticCMS pages work within Struts 2 actions.
-	-->
-	<filter>
-		<filter-name>com.aoapps.servlet.filter.HideJspExtensionFilter-before-struts-2</filter-name>
-		<filter-class>com.aoapps.servlet.filter.HideJspExtensionFilter</filter-class>
-		<init-param>
-			<description><![CDATA[
-				Do not rewrite the <code>*.inc.jspx</code> or <code>*.inc.jsp</code> files
-				because the rewritting would allow bypass of the forced 404 above.
-			]]></description>
-			<param-name>noRewritePatterns</param-name>
-			<param-value>*.inc.jspx, *.inc.jsp, /WEB-INF/*</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>com.aoapps.servlet.filter.HideJspExtensionFilter-before-struts-2</filter-name>
-		<url-pattern>*.do</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>ERROR</dispatcher>
-	</filter-mapping>
+  <!-- Filter to remove .jspx and .jsp file extensions -->
+  <!--
+    Filter also defined here instead of relying on semanticcms-core-taglib:/META-INF/web-fragment.xml
+    so SemanticCMS pages work within Struts 2 actions.
+  -->
+  <filter>
+    <filter-name>com.aoapps.servlet.filter.HideJspExtensionFilter-before-struts-2</filter-name>
+    <filter-class>com.aoapps.servlet.filter.HideJspExtensionFilter</filter-class>
+    <init-param>
+      <description><![CDATA[
+        Do not rewrite the <code>*.inc.jspx</code> or <code>*.inc.jsp</code> files
+        because the rewritting would allow bypass of the forced 404 above.
+      ]]></description>
+      <param-name>noRewritePatterns</param-name>
+      <param-value>*.inc.jspx, *.inc.jsp, /WEB-INF/*</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>com.aoapps.servlet.filter.HideJspExtensionFilter-before-struts-2</filter-name>
+    <url-pattern>*.do</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
 
-	<!-- Struts 2 Configuration -->
-	<filter>
-		<filter-name>struts2</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>struts2</filter-name>
-		<!-- Static Content: https://struts.apache.org/core-developers/static-content.html -->
-		<url-pattern>/static/*</url-pattern>
-		<!-- Struts 2 Debugging: https://struts.apache.org/getting-started/debugging-struts.html -->
-		<url-pattern>/config-browser/*</url-pattern>
-		<!-- Only handle *.do for Struts 1 compatibility -->
-		<!-- TODO: Once all actions are Struts 2: <url-pattern>*.do</url-pattern> -->
-		<!-- During Struts 1 to Struts 2 conversion, every action is listed: -->
-		<url-pattern>/exception.do</url-pattern>
-		<url-pattern>/forbidden.do</url-pattern>
-		<url-pattern>/logout.do</url-pattern>
-		<url-pattern>/not-found.do</url-pattern>
-		<url-pattern>/unauthorized.do</url-pattern>
+  <!-- Struts 2 Configuration -->
+  <filter>
+    <filter-name>struts2</filter-name>
+    <filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>struts2</filter-name>
+    <!-- Static Content: https://struts.apache.org/core-developers/static-content.html -->
+    <url-pattern>/static/*</url-pattern>
+    <!-- Struts 2 Debugging: https://struts.apache.org/getting-started/debugging-struts.html -->
+    <url-pattern>/config-browser/*</url-pattern>
+    <!-- Only handle *.do for Struts 1 compatibility -->
+    <!-- TODO: Once all actions are Struts 2: <url-pattern>*.do</url-pattern> -->
+    <!-- During Struts 1 to Struts 2 conversion, every action is listed: -->
+    <url-pattern>/exception.do</url-pattern>
+    <url-pattern>/forbidden.do</url-pattern>
+    <url-pattern>/logout.do</url-pattern>
+    <url-pattern>/not-found.do</url-pattern>
+    <url-pattern>/unauthorized.do</url-pattern>
 <!-- web.xml.struts2Mappings: no template file -->
-	</filter-mapping>
+  </filter-mapping>
 
-	<!-- Action Servlet Configuration -->
-	<servlet>
-		<servlet-name>action</servlet-name>
-		<servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
-		<init-param>
-			<param-name>config</param-name>
-			<param-value>/WEB-INF/struts-config.xml</param-value>
-		</init-param>
-		<init-param>
-			<param-name>config/clientarea</param-name>
-			<param-value>/WEB-INF/struts-config-clientarea.xml</param-value>
-		</init-param>
-		<init-param>
-			<param-name>config/clientarea/accounting</param-name>
-			<param-value>/WEB-INF/struts-config-clientarea-accounting.xml</param-value>
-		</init-param>
-		<init-param>
-			<param-name>config/clientarea/control</param-name>
-			<param-value>/WEB-INF/struts-config-clientarea-control.xml</param-value>
-		</init-param>
-		<init-param>
-			<param-name>config/clientarea/ticket</param-name>
-			<param-value>/WEB-INF/struts-config-clientarea-ticket.xml</param-value>
-		</init-param>
-		<init-param>
-			<param-name>config/signup</param-name>
-			<param-value>/WEB-INF/struts-config-signup.xml</param-value>
-		</init-param>
+  <!-- Action Servlet Configuration -->
+  <servlet>
+    <servlet-name>action</servlet-name>
+    <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+    <init-param>
+      <param-name>config</param-name>
+      <param-value>/WEB-INF/struts-config.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>config/clientarea</param-name>
+      <param-value>/WEB-INF/struts-config-clientarea.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>config/clientarea/accounting</param-name>
+      <param-value>/WEB-INF/struts-config-clientarea-accounting.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>config/clientarea/control</param-name>
+      <param-value>/WEB-INF/struts-config-clientarea-control.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>config/clientarea/ticket</param-name>
+      <param-value>/WEB-INF/struts-config-clientarea-ticket.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>config/signup</param-name>
+      <param-value>/WEB-INF/struts-config-signup.xml</param-value>
+    </init-param>
 <!-- web.xml.strutsInitParams: no template file -->
-		<load-on-startup>2</load-on-startup>
-	</servlet>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
 
 <!-- web.xml.servlets: no template file -->
 
 <!-- web.xml.servletMappingsPre: no template file -->
 
-	<!-- Action Servlet Mapping -->
-	<servlet-mapping>
-		<servlet-name>action</servlet-name>
-		<url-pattern>*.do</url-pattern>
-	</servlet-mapping>
+  <!-- Action Servlet Mapping -->
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
 
 <!-- web.xml.servletMappingsPost: no template file -->
 
-	<welcome-file-list>
-		<!-- index.jspx before index.html for apidocs views -->
-		<welcome-file>index.jspx</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.do</welcome-file>
-	</welcome-file-list>
+  <welcome-file-list>
+    <!-- index.jspx before index.html for apidocs views -->
+    <welcome-file>index.jspx</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.do</welcome-file>
+  </welcome-file-list>
 
-	<!-- Error Pages -->
-	<error-page>
-		<error-code>401</error-code>
-		<location>/WEB-INF/content/unauthorized.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>403</error-code>
-		<location>/WEB-INF/content/forbidden.jsp</location>
-	</error-page>
-	<error-page>
-		<exception-type>java.lang.SecurityException</exception-type>
-		<location>/WEB-INF/content/forbidden.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>404</error-code>
-		<location>/WEB-INF/content/not-found.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>500</error-code>
-		<location>/WEB-INF/content/exception.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>503</error-code>
-		<location>/WEB-INF/content/exception.jsp</location>
-	</error-page>
-	<error-page>
-		<location>/WEB-INF/content/exception.jsp</location>
-	</error-page>
+  <!-- Error Pages -->
+  <error-page>
+    <error-code>401</error-code>
+    <location>/WEB-INF/content/unauthorized.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>403</error-code>
+    <location>/WEB-INF/content/forbidden.jsp</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.SecurityException</exception-type>
+    <location>/WEB-INF/content/forbidden.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/content/not-found.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/WEB-INF/content/exception.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>503</error-code>
+    <location>/WEB-INF/content/exception.jsp</location>
+  </error-page>
+  <error-page>
+    <location>/WEB-INF/content/exception.jsp</location>
+  </error-page>
 
-	<!-- No external resources:
-	<resource-ref />
-	-->
+  <!-- No external resources:
+  <resource-ref />
+  -->
 
-	<!-- No security constraints:
-	<security-constraint />
-	<login-config />
-	<security-role />
-	-->
+  <!-- No security constraints:
+  <security-constraint />
+  <login-config />
+  <security-role />
+  -->
 
 </web-app>
