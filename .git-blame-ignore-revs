@@ -1,2 +1,14 @@
 # Significant manual code formatting clean-up…
 59594ec10436a97a2549c58579992c16f60bb4c2
+# Tab indentation and UNIX newlines
+c575dd73cf49749b2a492595dd0ed12f719022eb
+# Removed extraneous space at end of line.
+ed9bbfc44c5859ada7111363df77e481c3d0ee6f
+# Tab indent
+12b153e4e913a03f1cf88e46da8e3f821a906a46
+# Tweaked indent
+d5ed453e80cb7b8c1a195a6ebdead1add130ce03
+# Removed extraneous space at end of line.
+91fcdd9f917d2f80af86aab5dc9c79b39fd1d169
+# Converted to Unix newlines
+f8a368acac040edf3d8f971e1696ccaf74eac567
