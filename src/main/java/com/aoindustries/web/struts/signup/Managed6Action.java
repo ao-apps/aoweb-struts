@@ -36,21 +36,21 @@ public class Managed6Action extends ManagedStepAction {
 
   @Override
   public ActionForward executeManagedStep(
-    ActionMapping mapping,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    ManagedSignupSelectPackageForm signupSelectPackageForm,
-    boolean signupSelectPackageFormComplete,
-    ManagedSignupCustomizeServerForm signupCustomizeServerForm,
-    boolean signupCustomizeServerFormComplete,
-    SignupCustomizeManagementForm signupCustomizeManagementForm,
-    boolean signupCustomizeManagementFormComplete,
-    SignupOrganizationForm signupOrganizationForm,
-    boolean signupOrganizationFormComplete,
-    SignupTechnicalForm signupTechnicalForm,
-    boolean signupTechnicalFormComplete,
-    SignupBillingInformationForm signupBillingInformationForm,
-    boolean signupBillingInformationFormComplete
+      ActionMapping mapping,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      ManagedSignupSelectPackageForm signupSelectPackageForm,
+      boolean signupSelectPackageFormComplete,
+      ManagedSignupCustomizeServerForm signupCustomizeServerForm,
+      boolean signupCustomizeServerFormComplete,
+      SignupCustomizeManagementForm signupCustomizeManagementForm,
+      boolean signupCustomizeManagementFormComplete,
+      SignupOrganizationForm signupOrganizationForm,
+      boolean signupOrganizationFormComplete,
+      SignupTechnicalForm signupTechnicalForm,
+      boolean signupTechnicalFormComplete,
+      SignupBillingInformationForm signupBillingInformationForm,
+      boolean signupBillingInformationFormComplete
   ) throws Exception {
     if (!signupSelectPackageFormComplete) {
       return mapping.findForward("managed-server-completed");

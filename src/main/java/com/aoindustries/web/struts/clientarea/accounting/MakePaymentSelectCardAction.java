@@ -56,42 +56,42 @@ public class MakePaymentSelectCardAction extends PermissionAction {
    */
   @Override
   public final ActionForward executePermissionDenied(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn,
-    List<Permission> permissions
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn,
+      List<Permission> permissions
   ) throws Exception {
     // Redirect when they don't have permissions to retrieve stored cards
     StringBuilder href = new StringBuilder();
     href
-      .append(Skin.getSkin(request).getUrlBase(request))
-      .append("clientarea/accounting/make-payment-new-card.do?account=")
-      .append(URIEncoder.encodeURIComponent(request.getParameter("account")));
+        .append(Skin.getSkin(request).getUrlBase(request))
+        .append("clientarea/accounting/make-payment-new-card.do?account=")
+        .append(URIEncoder.encodeURIComponent(request.getParameter("account")));
     String currency = request.getParameter("currency");
     if (!GenericValidator.isBlankOrNull(currency)) {
       href
-        .append("&currency=")
-        .append(URIEncoder.encodeURIComponent(currency));
+          .append("&currency=")
+          .append(URIEncoder.encodeURIComponent(currency));
     }
     response.sendRedirect(
-      response.encodeRedirectURL(
-        URIEncoder.encodeURI(
-          href.toString()
+        response.encodeRedirectURL(
+            URIEncoder.encodeURI(
+                href.toString()
+            )
         )
-      )
     );
     return null;
   }
 
   @Override
   public final ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
     Account account;
     try {
@@ -119,20 +119,20 @@ public class MakePaymentSelectCardAction extends PermissionAction {
       // Redirect to new card if none stored
       StringBuilder href = new StringBuilder();
       href
-        .append(Skin.getSkin(request).getUrlBase(request))
-        .append("clientarea/accounting/make-payment-new-card.do?account=")
-        .append(URIEncoder.encodeURIComponent(request.getParameter("account")));
+          .append(Skin.getSkin(request).getUrlBase(request))
+          .append("clientarea/accounting/make-payment-new-card.do?account=")
+          .append(URIEncoder.encodeURIComponent(request.getParameter("account")));
       if (currency != null) {
         href
-          .append("&currency=")
-          .append(URIEncoder.encodeURIComponent(currency.getCurrencyCode()));
+            .append("&currency=")
+            .append(URIEncoder.encodeURIComponent(currency.getCurrencyCode()));
       }
       response.sendRedirect(
-        response.encodeRedirectURL(
-          URIEncoder.encodeURI(
-            href.toString()
+          response.encodeRedirectURL(
+              URIEncoder.encodeURI(
+                  href.toString()
+              )
           )
-        )
       );
       return null;
     } else {

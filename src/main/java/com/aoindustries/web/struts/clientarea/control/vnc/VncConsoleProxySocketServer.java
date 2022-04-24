@@ -85,10 +85,10 @@ public class VncConsoleProxySocketServer implements Runnable {
         // Init SSL without using system properties because default SSLContext may be already set
         // From: http://java.sun.com/j2se/1.5.0/docs/guide/security/jsse/JSSERefGuide.html  "Multiple and Dynamic Keystores"
         KeyStore.Builder fsBuilder = KeyStore.Builder.newInstance(
-          brand.getAowebStrutsKeystoreType(),
-          null,
-          new File("conf/keystore"),
-          new KeyStore.PasswordProtection(brand.getAowebStrutsKeystorePassword().toCharArray())
+            brand.getAowebStrutsKeystoreType(),
+            null,
+            new File("conf/keystore"),
+            new KeyStore.PasswordProtection(brand.getAowebStrutsKeystorePassword().toCharArray())
         );
         ManagerFactoryParameters ksParams = new KeyStoreBuilderParameters(Collections.singletonList(fsBuilder));
         KeyManagerFactory factory = KeyManagerFactory.getInstance("NewSunX509");
@@ -99,7 +99,7 @@ public class VncConsoleProxySocketServer implements Runnable {
         // Create the server socket
         SSLServerSocketFactory socketFactory = ctx.getServerSocketFactory();
         //SSLServerSocketFactory socketFactory = (SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
-        try (SSLServerSocket SS = (SSLServerSocket)socketFactory.createServerSocket(vncBind.getPort().getPort(), 50, inetAddress)) {
+        try (SSLServerSocket SS = (SSLServerSocket) socketFactory.createServerSocket(vncBind.getPort().getPort(), 50, inetAddress)) {
           while (currentThread == this.thread && !currentThread.isInterrupted()) {
             Socket socket = SS.accept();
             socket.setKeepAlive(true);

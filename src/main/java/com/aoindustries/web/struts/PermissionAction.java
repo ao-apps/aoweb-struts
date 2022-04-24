@@ -51,11 +51,11 @@ public abstract class PermissionAction extends AuthenticatedAction {
 
   @Override
   public final ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
     Set<Permission.Name> permissions = getPermissions();
 
@@ -63,12 +63,12 @@ public abstract class PermissionAction extends AuthenticatedAction {
     if (permissions == null || permissions.isEmpty()) {
       List<Permission> aoPerms = Collections.emptyList();
       return executePermissionDenied(
-        mapping,
-        form,
-        request,
-        response,
-        aoConn,
-        aoPerms
+          mapping,
+          form,
+          request,
+          response,
+          aoConn,
+          aoPerms
       );
     }
 
@@ -80,17 +80,17 @@ public abstract class PermissionAction extends AuthenticatedAction {
         for (Permission.Name requiredPermission : permissions) {
           Permission aoPerm = aoConn.getMaster().getPermission().get(requiredPermission);
           if (aoPerm == null) {
-            throw new SQLException("Unable to find AOServPermission: "+requiredPermission);
+            throw new SQLException("Unable to find AOServPermission: " + requiredPermission);
           }
           aoPerms.add(aoPerm);
         }
         return executePermissionDenied(
-          mapping,
-          form,
-          request,
-          response,
-          aoConn,
-          aoPerms
+            mapping,
+            form,
+            request,
+            response,
+            aoConn,
+            aoPerms
         );
       }
     }
@@ -104,11 +104,11 @@ public abstract class PermissionAction extends AuthenticatedAction {
    * returns mapping for "success".
    */
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
     return mapping.findForward("success");
   }
@@ -119,12 +119,12 @@ public abstract class PermissionAction extends AuthenticatedAction {
    * and returns mapping for "permission-denied".
    */
   public ActionForward executePermissionDenied(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn,
-    List<Permission> permissions
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn,
+      List<Permission> permissions
   ) throws Exception {
     Constants.PERMISSION_DENIED.context(request).set(permissions);
     return mapping.findForward("permission-denied");

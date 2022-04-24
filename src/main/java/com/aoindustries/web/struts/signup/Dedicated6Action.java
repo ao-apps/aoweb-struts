@@ -38,19 +38,19 @@ public class Dedicated6Action extends DedicatedStepAction {
 
   @Override
   public ActionForward executeDedicatedStep(
-    ActionMapping mapping,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    DedicatedSignupSelectPackageForm signupSelectPackageForm,
-    boolean signupSelectPackageFormComplete,
-    DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
-    boolean signupCustomizeServerFormComplete,
-    SignupOrganizationForm signupOrganizationForm,
-    boolean signupOrganizationFormComplete,
-    SignupTechnicalForm signupTechnicalForm,
-    boolean signupTechnicalFormComplete,
-    SignupBillingInformationForm signupBillingInformationForm,
-    boolean signupBillingInformationFormComplete
+      ActionMapping mapping,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      DedicatedSignupSelectPackageForm signupSelectPackageForm,
+      boolean signupSelectPackageFormComplete,
+      DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
+      boolean signupCustomizeServerFormComplete,
+      SignupOrganizationForm signupOrganizationForm,
+      boolean signupOrganizationFormComplete,
+      SignupTechnicalForm signupTechnicalForm,
+      boolean signupTechnicalFormComplete,
+      SignupBillingInformationForm signupBillingInformationForm,
+      boolean signupBillingInformationFormComplete
   ) throws Exception {
     if (!signupSelectPackageFormComplete) {
       return mapping.findForward("dedicated-server-completed");
@@ -69,26 +69,26 @@ public class Dedicated6Action extends DedicatedStepAction {
     }
 
     initRequestAttributes(
-      request,
-      response,
-      signupSelectPackageForm,
-      signupCustomizeServerForm,
-      signupOrganizationForm,
-      signupTechnicalForm,
-      signupBillingInformationForm
+        request,
+        response,
+        signupSelectPackageForm,
+        signupCustomizeServerForm,
+        signupOrganizationForm,
+        signupTechnicalForm,
+        signupBillingInformationForm
     );
 
     return mapping.findForward("input");
   }
 
   protected void initRequestAttributes(
-    HttpServletRequest request,
-    HttpServletResponse response,
-    SignupSelectPackageForm signupSelectPackageForm,
-    SignupCustomizeServerForm signupCustomizeServerForm,
-    SignupOrganizationForm signupOrganizationForm,
-    SignupTechnicalForm signupTechnicalForm,
-    SignupBillingInformationForm signupBillingInformationForm
+      HttpServletRequest request,
+      HttpServletResponse response,
+      SignupSelectPackageForm signupSelectPackageForm,
+      SignupCustomizeServerForm signupCustomizeServerForm,
+      SignupOrganizationForm signupOrganizationForm,
+      SignupTechnicalForm signupTechnicalForm,
+      SignupBillingInformationForm signupBillingInformationForm
   ) throws IOException, SQLException {
     ServletContext servletContext = getServlet().getServletContext();
 

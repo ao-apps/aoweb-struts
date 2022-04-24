@@ -49,7 +49,7 @@ public class PopupGroupTag extends BodyTagSupport {
    * The request attribute name used to store the sequence.
    */
   private static final ScopeEE.Request.Attribute<Sequence> SEQUENCE_REQUEST_ATTRIBUTE =
-    ScopeEE.REQUEST.attribute(PopupGroupTag.class.getName() + ".sequence");
+      ScopeEE.REQUEST.attribute(PopupGroupTag.class.getName() + ".sequence");
 
   private static final long serialVersionUID = 1L;
 
@@ -59,23 +59,23 @@ public class PopupGroupTag extends BodyTagSupport {
   @Override
   public int doStartTag() throws JspException {
     try {
-      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-      HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+      HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
+      HttpServletResponse resp = (HttpServletResponse) pageContext.getResponse();
       sequenceId = SEQUENCE_REQUEST_ATTRIBUTE.context(req)
-        .computeIfAbsent(__ -> new UnsynchronizedSequence())
-        .getNextSequenceValue();
+          .computeIfAbsent(__ -> new UnsynchronizedSequence())
+          .getNextSequenceValue();
       SkinTag.getSkin(req).beginPopupGroup(
-        req,
-        resp,
-        new DocumentEE(
-          pageContext.getServletContext(),
           req,
           resp,
-          pageContext.getOut(),
-          false, // Do not add extra newlines to JSP
-          false  // Do not add extra indentation to JSP
-        ),
-        sequenceId
+          new DocumentEE(
+              pageContext.getServletContext(),
+              req,
+              resp,
+              pageContext.getOut(),
+              false, // Do not add extra newlines to JSP
+              false  // Do not add extra indentation to JSP
+          ),
+          sequenceId
       );
       return EVAL_BODY_INCLUDE;
     } catch (IOException e) {
@@ -86,20 +86,20 @@ public class PopupGroupTag extends BodyTagSupport {
   @Override
   public int doEndTag() throws JspException {
     try {
-      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-      HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+      HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
+      HttpServletResponse resp = (HttpServletResponse) pageContext.getResponse();
       SkinTag.getSkin(req).endPopupGroup(
-        req,
-        resp,
-        new DocumentEE(
-          pageContext.getServletContext(),
           req,
           resp,
-          pageContext.getOut(),
-          false, // Do not add extra newlines to JSP
-          false  // Do not add extra indentation to JSP
-        ),
-        sequenceId
+          new DocumentEE(
+              pageContext.getServletContext(),
+              req,
+              resp,
+              pageContext.getOut(),
+              false, // Do not add extra newlines to JSP
+              false  // Do not add extra indentation to JSP
+          ),
+          sequenceId
       );
       return EVAL_PAGE;
     } catch (IOException e) {

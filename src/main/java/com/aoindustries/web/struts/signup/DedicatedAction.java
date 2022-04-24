@@ -40,30 +40,30 @@ public class DedicatedAction extends DedicatedStepAction {
 
   @Override
   public ActionForward executeDedicatedStep(
-    ActionMapping mapping,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    DedicatedSignupSelectPackageForm signupSelectPackageForm,
-    boolean signupSelectPackageFormComplete,
-    DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
-    boolean signupCustomizeServerFormComplete,
-    SignupOrganizationForm signupOrganizationForm,
-    boolean signupOrganizationFormComplete,
-    SignupTechnicalForm signupTechnicalForm,
-    boolean signupTechnicalFormComplete,
-    SignupBillingInformationForm signupBillingInformationForm,
-    boolean signupBillingInformationFormComplete
+      ActionMapping mapping,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      DedicatedSignupSelectPackageForm signupSelectPackageForm,
+      boolean signupSelectPackageFormComplete,
+      DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
+      boolean signupCustomizeServerFormComplete,
+      SignupOrganizationForm signupOrganizationForm,
+      boolean signupOrganizationFormComplete,
+      SignupTechnicalForm signupTechnicalForm,
+      boolean signupTechnicalFormComplete,
+      SignupBillingInformationForm signupBillingInformationForm,
+      boolean signupBillingInformationFormComplete
   ) throws Exception {
     List<SignupSelectServerActionHelper.Host> servers = SignupSelectServerActionHelper.getServers(getServlet().getServletContext(), PackageCategory.DEDICATED);
     if (servers.size() == 1) {
       response.sendRedirect(
-        response.encodeRedirectURL(
-          URIEncoder.encodeURI(
-            Skin.getSkin(request).getUrlBase(request)
-            + "signup/dedicated-server-completed.do?packageDefinition="
-            + URIEncoder.encodeURIComponent(Integer.toString(servers.get(0).getMinimumConfiguration().getPackageDefinition()))
+          response.encodeRedirectURL(
+              URIEncoder.encodeURI(
+                  Skin.getSkin(request).getUrlBase(request)
+                      + "signup/dedicated-server-completed.do?packageDefinition="
+                      + URIEncoder.encodeURIComponent(Integer.toString(servers.get(0).getMinimumConfiguration().getPackageDefinition()))
+              )
           )
-        )
       );
       return null;
     }

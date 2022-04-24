@@ -54,7 +54,7 @@ public class ScriptGroupTag extends BodyTagSupport {
    * The request attribute name used to store the sequence.
    */
   private static final ScopeEE.Request.Attribute<Sequence> SEQUENCE_REQUEST_ATTRIBUTE =
-    ScopeEE.REQUEST.attribute(ScriptGroupTag.class.getName() + ".sequence");
+      ScopeEE.REQUEST.attribute(ScriptGroupTag.class.getName() + ".sequence");
 
   private static final long serialVersionUID = 1L;
 
@@ -85,14 +85,14 @@ public class ScriptGroupTag extends BodyTagSupport {
   public int doEndTag() throws JspException {
     try {
       if (scriptOut.size() > 0) {
-        HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         DocumentEE document = new DocumentEE(
-          pageContext.getServletContext(),
-          request,
-          (HttpServletResponse)pageContext.getResponse(),
-          pageContext.getOut(),
-          false, // Do not add extra newlines to JSP
-          false  // Do not add extra indentation to JSP
+            pageContext.getServletContext(),
+            request,
+            (HttpServletResponse) pageContext.getResponse(),
+            pageContext.getOut(),
+            false, // Do not add extra newlines to JSP
+            false  // Do not add extra indentation to JSP
         );
         try (JavaScriptWriter script = document.script()._c()) {
           if ("none".equals(onloadMode)) {
@@ -101,22 +101,34 @@ public class ScriptGroupTag extends BodyTagSupport {
             Sequence sequence = SEQUENCE_REQUEST_ATTRIBUTE.context(request).computeIfAbsent(__ -> new UnsynchronizedSequence());
             String sequenceId = Long.toString(sequence.getNextSequenceValue());
             boolean wroteScript = false;
-            script.write("  var scriptOutOldOnload"); script.write(sequenceId); script.write("=window.onload;\n"
-                + "  function scriptOutOnload"); script.write(sequenceId); script.write("() {\n");
+            script.write("  var scriptOutOldOnload");
+            script.write(sequenceId);
+            script.write("=window.onload;\n"
+                + "  function scriptOutOnload");
+            script.write(sequenceId);
+            script.write("() {\n");
             if ("before".equals(onloadMode)) {
               scriptOut.writeTo(script);
               wroteScript = true;
             }
-            script.write("    if (scriptOutOldOnload"); script.write(sequenceId); script.write(") {\n"
-                + "      scriptOutOldOnload"); script.write(sequenceId); script.write("();\n"
-                + "      scriptOutOldOnload"); script.write(sequenceId); script.write("=null;\n"
+            script.write("    if (scriptOutOldOnload");
+            script.write(sequenceId);
+            script.write(") {\n"
+                + "      scriptOutOldOnload");
+            script.write(sequenceId);
+            script.write("();\n"
+                + "      scriptOutOldOnload");
+            script.write(sequenceId);
+            script.write("=null;\n"
                 + "    }\n");
             if (!wroteScript && "after".equals(onloadMode)) {
               scriptOut.writeTo(script);
               wroteScript = true;
             }
             script.write("  }\n"
-                + "  window.onload = scriptOutOnload"); script.write(sequenceId); script.write(';');
+                + "  window.onload = scriptOutOnload");
+            script.write(sequenceId);
+            script.write(';');
             if (!wroteScript) {
               throw new LocalizedJspTagException(PACKAGE_RESOURCES, "aowebtags.ScriptGroupTag.onloadMode.invalid", onloadMode);
             }

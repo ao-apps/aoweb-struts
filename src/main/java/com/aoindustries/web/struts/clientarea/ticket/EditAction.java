@@ -45,13 +45,13 @@ public class EditAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    TicketForm ticketForm = (TicketForm)form;
+    TicketForm ticketForm = (TicketForm) form;
 
     // Look for the existing ticket
     String pkeyS = request.getParameter("pkey");

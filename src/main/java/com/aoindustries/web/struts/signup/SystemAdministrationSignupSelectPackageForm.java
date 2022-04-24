@@ -33,7 +33,7 @@ import java.io.Serializable;
 public class SystemAdministrationSignupSelectPackageForm extends SignupSelectPackageForm implements Serializable {
 
   public static final ScopeEE.Session.Attribute<SystemAdministrationSignupSelectPackageForm> SESSION_ATTRIBUTE =
-    ScopeEE.SESSION.attribute("systemAdministrationSignupSelectPackageForm");
+      ScopeEE.SESSION.attribute("systemAdministrationSignupSelectPackageForm");
 
   private static final long serialVersionUID = 1L;
 

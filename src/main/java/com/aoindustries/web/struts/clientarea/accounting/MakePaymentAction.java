@@ -51,11 +51,11 @@ public class MakePaymentAction extends AuthenticatedAction {
 
   @Override
   public final ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
     TransactionTable transactionTable = aoConn.getBilling().getTransaction();
     Account thisAccount = aoConn.getCurrentAdministrator().getUsername().getPackage().getAccount();
@@ -66,11 +66,11 @@ public class MakePaymentAction extends AuthenticatedAction {
     for (Account account : allAccounts) {
       Monies accountBalance = transactionTable.getAccountBalance(account);
       if (
-        thisAccount.equals(account)
-        || (
-          account.getCanceled() == null
-          && !account.billParent()
-        ) || !accountBalance.isZero()
+          thisAccount.equals(account)
+              || (
+              account.getCanceled() == null
+                  && !account.billParent()
+          ) || !accountBalance.isZero()
       ) {
         // Remove all zero balances
         // This is useful when an account changes currencies and have paid their bill in old currency
@@ -96,15 +96,15 @@ public class MakePaymentAction extends AuthenticatedAction {
       if (currencies.size() == 1) {
         // Redirect, only one option
         response.sendRedirect(
-          response.encodeRedirectURL(
-            URIEncoder.encodeURI(
-              Skin.getSkin(request).getUrlBase(request)
-              + "clientarea/accounting/make-payment-select-card.do?account="
-              + URIEncoder.encodeURIComponent(entry.getKey().getName().toString())
-              + "&currency="
-              + URIEncoder.encodeURIComponent(currencies.iterator().next().getCurrencyCode())
+            response.encodeRedirectURL(
+                URIEncoder.encodeURI(
+                    Skin.getSkin(request).getUrlBase(request)
+                        + "clientarea/accounting/make-payment-select-card.do?account="
+                        + URIEncoder.encodeURIComponent(entry.getKey().getName().toString())
+                        + "&currency="
+                        + URIEncoder.encodeURIComponent(currencies.iterator().next().getCurrencyCode())
+                )
             )
-          )
         );
         return null;
       }

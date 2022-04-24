@@ -58,7 +58,7 @@ public class SiteSettings {
   private static final String INIT_PARAM_NAME = SiteSettings.class.getName() + ".classname";
 
   private static final ScopeEE.Application.Attribute<SiteSettings> APPLICATION_ATTRIBUTE =
-    ScopeEE.APPLICATION.attribute(SiteSettings.class.getName());
+      ScopeEE.APPLICATION.attribute(SiteSettings.class.getName());
 
   @WebListener
   public static class Initializer implements ServletContextListener {
@@ -66,6 +66,7 @@ public class SiteSettings {
     public void contextInitialized(ServletContextEvent event) {
       getInstance(event.getServletContext());
     }
+
     @Override
     public void contextDestroyed(ServletContextEvent event) {
       // Do nothing
@@ -101,7 +102,7 @@ public class SiteSettings {
   }
   // </editor-fold>
   // <editor-fold desc="Skins">
-  private static final List<Skin> skins = Collections.singletonList((Skin)TextSkin.getInstance());
+  private static final List<Skin> skins = Collections.singletonList((Skin) TextSkin.getInstance());
 
   /**
    * Gets the unmodifiable list of skins supported by this site.
@@ -113,6 +114,7 @@ public class SiteSettings {
   public List<Skin> getSkins() {
     return skins;
   }
+
   // </editor-fold>
   // <editor-fold desc="AOServ Integration">
   /**
@@ -148,8 +150,8 @@ public class SiteSettings {
     synchronized (rootAOServConnectorLock) {
       if (rootAOServConnector == null) {
         rootAOServConnector = AOServConnector.getConnector(
-          getRootAOServConnectorUsername(),
-          getRootAOServConnectorPassword()
+            getRootAOServConnectorUsername(),
+            getRootAOServConnectorPassword()
         );
       }
       return rootAOServConnector;
@@ -168,6 +170,7 @@ public class SiteSettings {
     }
     return brand;
   }
+
   // </editor-fold>
   // <editor-fold desc="Languages">
   /**
@@ -182,7 +185,7 @@ public class SiteSettings {
   public List<Skin.Language> getLanguages(ServletRequest req) throws IOException, SQLException {
     HttpSession session;
     if (req instanceof HttpServletRequest) {
-      session = ((HttpServletRequest)req).getSession(false);
+      session = ((HttpServletRequest) req).getSession(false);
     } else {
       session = null;
     }
@@ -198,48 +201,49 @@ public class SiteSettings {
     if (brand.getEnglishEnabled()) {
       if (isUnitedStates) {
         languages.add(
-          new Skin.Language(
-            Locale.ENGLISH.getLanguage(),
-            TextSkin.RESOURCES,
-            "language.en_US.alt",
-            "language.en_US.flag.on.src",
-            "language.en_US.flag.off.src",
-            "language.en_US.flag.width",
-            "language.en_US.flag.height",
-            null
-          )
+            new Skin.Language(
+                Locale.ENGLISH.getLanguage(),
+                TextSkin.RESOURCES,
+                "language.en_US.alt",
+                "language.en_US.flag.on.src",
+                "language.en_US.flag.off.src",
+                "language.en_US.flag.width",
+                "language.en_US.flag.height",
+                null
+            )
         );
       } else {
         languages.add(
-          new Skin.Language(
-            Locale.ENGLISH.getLanguage(),
-            TextSkin.RESOURCES,
-            "language.en.alt",
-            "language.en.flag.on.src",
-            "language.en.flag.off.src",
-            "language.en.flag.width",
-            "language.en.flag.height",
-            null
-          )
+            new Skin.Language(
+                Locale.ENGLISH.getLanguage(),
+                TextSkin.RESOURCES,
+                "language.en.alt",
+                "language.en.flag.on.src",
+                "language.en.flag.off.src",
+                "language.en.flag.width",
+                "language.en.flag.height",
+                null
+            )
         );
       }
     }
     if (brand.getJapaneseEnabled()) {
       languages.add(
-        new Skin.Language(
-          Locale.JAPANESE.getLanguage(),
-          TextSkin.RESOURCES,
-          "language.ja.alt",
-          "language.ja.flag.on.src",
-          "language.ja.flag.off.src",
-          "language.ja.flag.width",
-          "language.ja.flag.height",
-          null
-        )
+          new Skin.Language(
+              Locale.JAPANESE.getLanguage(),
+              TextSkin.RESOURCES,
+              "language.ja.alt",
+              "language.ja.flag.on.src",
+              "language.ja.flag.off.src",
+              "language.ja.flag.width",
+              "language.ja.flag.height",
+              null
+          )
       );
     }
     return Collections.unmodifiableList(languages);
   }
+
   // </editor-fold>
   // <editor-fold desc="Development vs Production">
   /**

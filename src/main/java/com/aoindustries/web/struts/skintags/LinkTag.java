@@ -46,7 +46,7 @@ import javax.servlet.jsp.tagext.DynamicAttributes;
  * @author  AO Industries, Inc.
  */
 public class LinkTag extends EncodingBufferedTag
-  implements
+    implements
     RelAttribute,
     HrefAttribute,
     ParamsAttribute,
@@ -124,11 +124,11 @@ public class LinkTag extends EncodingBufferedTag
     }
     myHref = URIParametersUtils.addParams(myHref, params);
     PageAttributesBodyTag.getPageAttributes(
-      (PageContext)getJspContext()
+        (PageContext) getJspContext()
     ).addLink(
-      rel,
-      myHref,
-      type
+        rel,
+        myHref,
+        type
     );
   }
 }

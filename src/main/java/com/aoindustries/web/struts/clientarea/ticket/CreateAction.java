@@ -45,13 +45,13 @@ public class CreateAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    TicketForm ticketForm = (TicketForm)form;
+    TicketForm ticketForm = (TicketForm) form;
     Administrator currentAdministrator = aoConn.getCurrentAdministrator();
 
     // Default to the account of the authenticated user

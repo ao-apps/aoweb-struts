@@ -44,11 +44,11 @@ public class IndexAction  extends AuthenticatedAction {
 
   @Override
   public ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
     List<Ticket> tickets = aoConn.getTicket().getTicket().getRows();
 
@@ -62,12 +62,12 @@ public class IndexAction  extends AuthenticatedAction {
       //) {
         // Do not show junk or deleted tickets
         String status = ticket.getStatus().getStatus();
-        if (
+      if (
           !status.equals(Status.JUNK)
-          && !status.equals(Status.DELETED)
-        ) {
-          filteredTickets.add(ticket);
-        }
+              && !status.equals(Status.DELETED)
+      ) {
+        filteredTickets.add(ticket);
+      }
       //}
     }
 

@@ -46,7 +46,7 @@ public final class Globals {
    * @see  org.apache.struts.Globals#ERROR_KEY
    */
   public static final ScopeEE.Request.Attribute<ActionMessages> ERROR_KEY =
-    ScopeEE.REQUEST.attribute(org.apache.struts.Globals.ERROR_KEY);
+      ScopeEE.REQUEST.attribute(org.apache.struts.Globals.ERROR_KEY);
 
   /**
    * The Struts 1 exception.
@@ -54,7 +54,7 @@ public final class Globals {
    * @see  org.apache.struts.Globals#EXCEPTION_KEY
    */
   public static final ScopeEE.Request.Attribute<Throwable> EXCEPTION_KEY =
-    ScopeEE.REQUEST.attribute(org.apache.struts.Globals.EXCEPTION_KEY);
+      ScopeEE.REQUEST.attribute(org.apache.struts.Globals.EXCEPTION_KEY);
 
   /**
    * The Struts 1 session locale.
@@ -62,7 +62,7 @@ public final class Globals {
    * @see  org.apache.struts.Globals#LOCALE_KEY
    */
   public static final ScopeEE.Session.Attribute<Locale> LOCALE_KEY =
-    ScopeEE.SESSION.attribute(org.apache.struts.Globals.LOCALE_KEY);
+      ScopeEE.SESSION.attribute(org.apache.struts.Globals.LOCALE_KEY);
 
   /**
    * The Struts 1 XHTML flag.
@@ -70,5 +70,5 @@ public final class Globals {
    * @see  org.apache.struts.Globals#XHTML_KEY
    */
   public static final ScopeEE.Page.Attribute<String> XHTML_KEY =
-    ScopeEE.PAGE.attribute(org.apache.struts.Globals.XHTML_KEY);
+      ScopeEE.PAGE.attribute(org.apache.struts.Globals.XHTML_KEY);
 }

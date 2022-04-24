@@ -38,15 +38,15 @@ import org.apache.struts.action.ActionMapping;
 public class SessionTimeoutAction extends PageAction {
 
   private static final com.aoapps.lang.i18n.Resources RESOURCES =
-    com.aoapps.lang.i18n.Resources.getResources(ResourceBundle::getBundle, SessionTimeoutAction.class);
+      com.aoapps.lang.i18n.Resources.getResources(ResourceBundle::getBundle, SessionTimeoutAction.class);
 
   @Override
   public ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Registry pageRegistry
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Registry pageRegistry
   ) throws Exception {
     // Logout, just in case session not actually expired
     HttpSession session = request.getSession(false);

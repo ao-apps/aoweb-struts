@@ -46,13 +46,13 @@ public class AdministratorPasswordSetterAction extends AuthenticatedAction {
 
   @Override
   public ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    AdministratorPasswordSetterForm administratorPasswordSetterForm = (AdministratorPasswordSetterForm)form;
+    AdministratorPasswordSetterForm administratorPasswordSetterForm = (AdministratorPasswordSetterForm) form;
 
     Administrator thisBA = aoConn.getCurrentAdministrator();
 

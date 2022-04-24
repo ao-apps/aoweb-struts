@@ -106,13 +106,14 @@ public class TextSkin extends Skin {
     @Override
     public void contextInitialized(ServletContextEvent event) {
       RegistryEE.Application.get(event.getServletContext())
-        .getGroup(RESOURCE_GROUP)
-        .styles
-        .add(
-          AoStyle.AO_STYLE,
-          TEXTSKIN_CSS
-        );
+          .getGroup(RESOURCE_GROUP)
+          .styles
+          .add(
+              AoStyle.AO_STYLE,
+              TEXTSKIN_CSS
+          );
     }
+
     @Override
     public void contextDestroyed(ServletContextEvent event) {
       // Do nothing
@@ -124,6 +125,7 @@ public class TextSkin extends Skin {
    * made no big deal.
    */
   private static final TextSkin instance = new TextSkin();
+
   public static TextSkin getInstance() {
     return instance;
   }
@@ -179,11 +181,11 @@ public class TextSkin extends Skin {
 
   @Override
   public void configureResources(
-    ServletContext servletContext,
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    Registry requestRegistry
+      ServletContext servletContext,
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      Registry requestRegistry
   ) {
     super.configureResources(servletContext, req, resp, pageAttributes, requestRegistry);
     requestRegistry.activate(RESOURCE_GROUP);
@@ -191,10 +193,10 @@ public class TextSkin extends Skin {
 
   @Override
   public <__ extends FlowContent<__>> __ startPage(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    DocumentEE document
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      DocumentEE document
   ) throws JspException, IOException {
     boolean isOkResponseStatus = (resp.getStatus() == HttpServletResponse.SC_OK);
     ServletContext servletContext = req.getServletContext();
@@ -214,11 +216,12 @@ public class TextSkin extends Skin {
     }
     String layout = pageAttributes.getLayout();
     if (!layout.equals(PageAttributes.LAYOUT_NORMAL)) {
-      throw new JspException("TODO: Implement layout: "+layout);
+      throw new JspException("TODO: Implement layout: " + layout);
     }
     Locale locale = resp.getLocale();
     String urlBase = getUrlBase(req);
-    final String path; {
+    final String path;
+    {
       String path_ = pageAttributes.getPath();
       if (path_ == null) {
         throw new NullPointerException("pageAttributes.path is null");
@@ -259,11 +262,11 @@ public class TextSkin extends Skin {
       }
       // Mobile support
       head
-        .meta().name(AnyMETA.Name.VIEWPORT).content("width=device-width, initial-scale=1.0").__()
-        // TODO: This is probably only appropriate for single-page applications!
-        //       See https://medium.com/@firt/dont-use-ios-web-app-meta-tag-irresponsibly-in-your-progressive-web-apps-85d70f4438cb
-        .meta().name(AnyMETA.Name.APPLE_MOBILE_WEB_APP_CAPABLE).content("yes").__()
-        .meta().name(AnyMETA.Name.APPLE_MOBILE_WEB_APP_STATUS_BAR_STYLE).content("black").__();
+          .meta().name(AnyMETA.Name.VIEWPORT).content("width=device-width, initial-scale=1.0").__()
+          // TODO: This is probably only appropriate for single-page applications!
+          //       See https://medium.com/@firt/dont-use-ios-web-app-meta-tag-irresponsibly-in-your-progressive-web-apps-85d70f4438cb
+          .meta().name(AnyMETA.Name.APPLE_MOBILE_WEB_APP_CAPABLE).content("yes").__()
+          .meta().name(AnyMETA.Name.APPLE_MOBILE_WEB_APP_STATUS_BAR_STYLE).content("black").__();
       // Authors
       // TODO: 3.0.0: dcterms copyright
       String author = pageAttributes.getAuthor();
@@ -273,10 +276,10 @@ public class TextSkin extends Skin {
       String authorHref = pageAttributes.getAuthorHref();
       if (authorHref != null && !(authorHref = authorHref.trim()).isEmpty()) {
         head.link(AnyLINK.Rel.AUTHOR).href(
-          // TODO: RFC 3986-only always?
-          resp.encodeURL(
-            URIEncoder.encodeURI(authorHref) // TODO: Conditionally convert from context-relative paths
-          )
+            // TODO: RFC 3986-only always?
+            resp.encodeURL(
+                URIEncoder.encodeURI(authorHref) // TODO: Conditionally convert from context-relative paths
+            )
         ).__();
       }
       head.title__(pageAttributes.getTitle());
@@ -300,18 +303,18 @@ public class TextSkin extends Skin {
           content.write(Integer.toString(Math.max(60, session.getMaxInactiveInterval() - 60)));
           content.write(";URL=");
           content.write(
-            resp.encodeRedirectURL(
-              URIEncoder.encodeURI(
-                target == null ? (
-                  urlBase
-                  + "session-timeout.do"
-                ) : (
-                  urlBase
-                  + "session-timeout.do?target="
-                  + URIEncoder.encodeURIComponent(target)
-                )
+              resp.encodeRedirectURL(
+                  URIEncoder.encodeURI(
+                      target == null ? (
+                          urlBase
+                              + "session-timeout.do"
+                      ) : (
+                          urlBase
+                              + "session-timeout.do?target="
+                              + URIEncoder.encodeURIComponent(target)
+                      )
+                  )
               )
-            )
           );
         }).__();
       }
@@ -345,14 +348,14 @@ public class TextSkin extends Skin {
       }
       // Render links
       Renderer.get(servletContext).renderStyles(
-        req,
-        resp,
-        head,
-        true, // registeredActivations
-        null, // No additional activations
-        requestRegistry, // request-scope
-        RegistryEE.Session.get(req.getSession(false)), // session-scope
-        pageRegistry
+          req,
+          resp,
+          head,
+          true, // registeredActivations
+          null, // No additional activations
+          requestRegistry, // request-scope
+          RegistryEE.Session.get(req.getSession(false)), // session-scope
+          pageRegistry
       );
       defaultPrintLinks(servletContext, req, resp, head, pageAttributes);
       printJavascriptSources(req, resp, head, urlBase);
@@ -370,222 +373,223 @@ public class TextSkin extends Skin {
     }
     BODY_c<HTML_c<DocumentEE>> body_c = body._c();
     TD_c<TR_c<TBODY_c<TABLE_c<BODY_c<HTML_c<DocumentEE>>>>>> td_c = body_c.table().cellspacing(10).cellpadding(0)._c()
-      .tbody_c()
+        .tbody_c()
         .tr_c()
-          .td().style("vertical-align:top").__(td -> {
-            printLogo(req, resp, pageAttributes, td, urlBase);
-            td.hr__();
-            boolean isLoggedIn = aoConn != null;
-            if (isLoggedIn) {
-              td.text(RESOURCES.getMessage(locale, "logoutPrompt"))
-              .form()
-                .style("display:inline")
-                .id("logout_form")
-                .method(Method.Value.POST)
-                .action(resp.encodeURL(URIEncoder.encodeURI(urlBase + "logout.do")))
-              .__(form -> form
-                .div().style("display:inline").__(div -> {
+        .td().style("vertical-align:top").__(td -> {
+      printLogo(req, resp, pageAttributes, td, urlBase);
+      td.hr__();
+      boolean isLoggedIn = aoConn != null;
+      if (isLoggedIn) {
+        td.text(RESOURCES.getMessage(locale, "logoutPrompt"))
+            .form()
+            .style("display:inline")
+            .id("logout_form")
+            .method(Method.Value.POST)
+            .action(resp.encodeURL(URIEncoder.encodeURI(urlBase + "logout.do")))
+            .__(form -> form
+                    .div().style("display:inline").__(div -> {
                   if (target != null) {
                     div.input().hidden().name("target").value(target).__();
                   }
                   // TODO: Variant that takes ResourceBundle?
                   div.input().submit__(RESOURCES.getMessage(locale, "logoutButtonLabel"));
                 })
-              );
-            } else {
-              td.text(RESOURCES.getMessage(locale, "loginPrompt"))
-              .form()
-                .style("display:inline")
-                .id("login_form")
-                .method(Method.Value.POST)
-                .action(resp.encodeURL(URIEncoder.encodeURI(urlBase + "login.do")))
-              .__(form -> form
-                .div().style("display:inline").__(div -> {
+            );
+      } else {
+        td.text(RESOURCES.getMessage(locale, "loginPrompt"))
+            .form()
+            .style("display:inline")
+            .id("login_form")
+            .method(Method.Value.POST)
+            .action(resp.encodeURL(URIEncoder.encodeURI(urlBase + "login.do")))
+            .__(form -> form
+                    .div().style("display:inline").__(div -> {
                   // Only include the target when they are in the /clientarea/ part of the site
                   if (path.startsWith("clientarea/") && target != null) {
                     div.input().hidden().name("target").value(target).__();
                   }
                   div.input().submit__(RESOURCES.getMessage(locale, "loginButtonLabel"));
                 })
-              );
-            }
-            td.hr__()
-            .div().style("white-space:nowrap").__(div -> {
-              if (skins.size() > 1) {
-                div.script().out(script -> {
-                  script.append("function selectLayout(layout) {\n");
-                  for (Skin skin : skins) {
-                    script.append("  if (layout == ").text(skin.getName()).append(") window.top.location.href=").text(
-                      resp.encodeURL(
-                        new AnyURI(fullPath)
+            );
+      }
+      td.hr__()
+          .div().style("white-space:nowrap").__(div -> {
+        if (skins.size() > 1) {
+          div.script().out(script -> {
+            script.append("function selectLayout(layout) {\n");
+            for (Skin skin : skins) {
+              script.append("  if (layout == ").text(skin.getName()).append(") window.top.location.href=").text(
+                  resp.encodeURL(
+                      new AnyURI(fullPath)
                           .addEncodedParameter(Constants.LAYOUT.getName(), URIEncoder.encodeURIComponent(skin.getName()))
                           .toASCIIString()
-                      )
-                    ).append(";\n");
-                  }
-                  script.append('}');
-                }).__()
-                .form().action("").style("display:inline").__(form -> form
+                  )
+              ).append(";\n");
+            }
+            script.append('}');
+          }).__()
+              .form().action("").style("display:inline").__(form -> form
                   .div().style("display:inline").__(div2 -> div2
-                    .text(RESOURCES.getMessage(locale, "layoutPrompt"))
-                    .select().name("layout_selector").onchange("selectLayout(this.form.layout_selector.options[this.form.layout_selector.selectedIndex].value);").__(select -> {
-                      for (Skin skin : skins) {
-                        select.option()
+                      .text(RESOURCES.getMessage(locale, "layoutPrompt"))
+                      .select().name("layout_selector").onchange("selectLayout(this.form.layout_selector.options[this.form.layout_selector.selectedIndex].value);").__(select -> {
+                    for (Skin skin : skins) {
+                      select.option()
                           .value(skin.getName())
                           .selected(getName().equals(skin.getName()))
-                        .__(skin.getDisplay(req, resp));
-                      }
-                    })
-                  )
-                ).br__();
-              }
-              if (languages.size() > 1) {
-                for (Language language : languages) {
-                  AnyURI uri = language.getUri();
-                  if (language.getCode().equalsIgnoreCase(locale.getLanguage())) {
-                    div.nbsp().a()
-                      .href(
-                        resp.encodeURL(
-                          URIEncoder.encodeURI(
-                            (
-                              uri == null
-                              ? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
-                              : uri
-                            ).toASCIIString()
-                          )
-                        )
-                      )
-                      .hreflang(language.getCode())
-                    .__(a -> a
-                      .img()
-                        .src(
-                          resp.encodeURL(
-                            URIEncoder.encodeURI(
-                              urlBase + language.getFlagOnSrc(req, locale)
-                            )
-                          )
-                        ).style("border:1px solid; vertical-align:bottom")
-                        .width(language.getFlagWidth(req, locale))
-                        .height(language.getFlagHeight(req, locale))
-                        .alt(language.getDisplay(req, locale))
-                      .__()
-                    );
-                  } else {
-                    div.nbsp().a()
-                      .href(
-                        resp.encodeURL(
-                          URIEncoder.encodeURI(
-                            (
-                              uri == null
-                              ? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
-                              : uri
-                            ).toASCIIString()
-                          )
-                        )
-                      )
-                      .hreflang(language.getCode())
-                      .onmouseover(onmouseover -> onmouseover
-                        .append("document.images[").text("flagSelector_" + language.getCode()).append("].src=").text(
-                          resp.encodeURL(
-                            URIEncoder.encodeURI(
-                              urlBase
-                              + language.getFlagOnSrc(req, locale)
-                            )
-                          )
-                        ).append(';')
-                      )
-                      .onmouseout(onmouseout -> onmouseout
-                        .append("document.images[").text("flagSelector_" + language.getCode()).append("].src=").text(
-                          resp.encodeURL(
-                            URIEncoder.encodeURI(
-                              urlBase
-                              + language.getFlagOffSrc(req, locale)
-                            )
-                          )
-                        ).append(';')
-                      )
-                    .__(a -> a
-                      .img()
-                        .src(
-                          resp.encodeURL(
-                            URIEncoder.encodeURI(
-                              urlBase
-                              + language.getFlagOffSrc(req, locale)
-                            )
-                          )
-                        ).id("flagSelector_" + language.getCode())
-                        .style("border:1px solid; vertical-align:bottom")
-                        .width(language.getFlagWidth(req, locale))
-                        .height(language.getFlagHeight(req, locale))
-                        .alt(language.getDisplay(req, locale))
-                      .__()
-                    );
-                    ImagePreload.writeImagePreloadScript(
+                          .__(skin.getDisplay(req, resp));
+                    }
+                  })
+              )
+          ).br__();
+        }
+        if (languages.size() > 1) {
+          for (Language language : languages) {
+            AnyURI uri = language.getUri();
+            if (language.getCode().equalsIgnoreCase(locale.getLanguage())) {
+              div.nbsp().a()
+                  .href(
                       resp.encodeURL(
-                        URIEncoder.encodeURI(
+                          URIEncoder.encodeURI(
+                              (
+                                  uri == null
+                                      ? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
+                                      : uri
+                              ).toASCIIString()
+                          )
+                      )
+                  )
+                  .hreflang(language.getCode())
+                  .__(a -> a
+                          .img()
+                          .src(
+                              resp.encodeURL(
+                                  URIEncoder.encodeURI(
+                                      urlBase + language.getFlagOnSrc(req, locale)
+                                  )
+                              )
+                          ).style("border:1px solid; vertical-align:bottom")
+                          .width(language.getFlagWidth(req, locale))
+                          .height(language.getFlagHeight(req, locale))
+                          .alt(language.getDisplay(req, locale))
+                          .__()
+                  );
+            } else {
+              div.nbsp().a()
+                  .href(
+                      resp.encodeURL(
+                          URIEncoder.encodeURI(
+                              (
+                                  uri == null
+                                      ? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
+                                      : uri
+                              ).toASCIIString()
+                          )
+                      )
+                  )
+                  .hreflang(language.getCode())
+                  .onmouseover(onmouseover -> onmouseover
+                          .append("document.images[").text("flagSelector_" + language.getCode()).append("].src=").text(
+                          resp.encodeURL(
+                              URIEncoder.encodeURI(
+                                  urlBase
+                                      + language.getFlagOnSrc(req, locale)
+                              )
+                          )
+                      ).append(';')
+                  )
+                  .onmouseout(onmouseout -> onmouseout
+                          .append("document.images[").text("flagSelector_" + language.getCode()).append("].src=").text(
+                          resp.encodeURL(
+                              URIEncoder.encodeURI(
+                                  urlBase
+                                      + language.getFlagOffSrc(req, locale)
+                              )
+                          )
+                      ).append(';')
+                  )
+                  .__(a -> a
+                          .img()
+                          .src(
+                              resp.encodeURL(
+                                  URIEncoder.encodeURI(
+                                      urlBase
+                                          + language.getFlagOffSrc(req, locale)
+                                  )
+                              )
+                          ).id("flagSelector_" + language.getCode())
+                          .style("border:1px solid; vertical-align:bottom")
+                          .width(language.getFlagWidth(req, locale))
+                          .height(language.getFlagHeight(req, locale))
+                          .alt(language.getDisplay(req, locale))
+                          .__()
+                  );
+              ImagePreload.writeImagePreloadScript(
+                  resp.encodeURL(
+                      URIEncoder.encodeURI(
                           urlBase + language.getFlagOnSrc(req, locale)
-                        )
-                      ),
-                      div
-                    );
-                  }
-                }
-                div.br__();
-              }
-              printSearch(req, resp, div);
-            })
-            .hr__()
-            // Display the parents
-            .b__(RESOURCES.getMessage(locale, "currentLocation")).br__()
-            .div().style("white-space:nowrap").__(div -> {
-              for (Parent parent : parents) {
-                String navAlt = parent.getNavImageAlt();
-                String parentPath = parent.getPath();
-                if (parentPath.startsWith("/")) {
-                  parentPath = parentPath.substring(1);
-                }
-                div.a(
-                  resp.encodeURL(
-                    URIEncoder.encodeURI(
+                      )
+                  ),
+                  div
+              );
+            }
+          }
+          div.br__();
+        }
+        printSearch(req, resp, div);
+      })
+          .hr__()
+          // Display the parents
+          .b__(RESOURCES.getMessage(locale, "currentLocation")).br__()
+          .div().style("white-space:nowrap").__(div -> {
+        for (Parent parent : parents) {
+          String navAlt = parent.getNavImageAlt();
+          String parentPath = parent.getPath();
+          if (parentPath.startsWith("/")) {
+            parentPath = parentPath.substring(1);
+          }
+          div.a(
+              resp.encodeURL(
+                  URIEncoder.encodeURI(
                       urlBase
-                      + URIEncoder.encodeURI(parentPath)
-                    )
+                          + URIEncoder.encodeURI(parentPath)
                   )
-                ).__(navAlt).br__();
-              }
-              // Always include the current page in the current location area
-              div.a(resp.encodeURL(URIEncoder.encodeURI(fullPath))).__(pageAttributes.getNavImageAlt()).br__();
-            })
-            .hr__()
-            // Related Pages
-            .b__(RESOURCES.getMessage(locale, "relatedPages")).br__()
-            .div().style("white-space:nowrap").__(div -> {
-              List<Child> related = pageAttributes.getChildren();
-              if (related.isEmpty() && !parents.isEmpty()) {
-                related = parents.get(parents.size() - 1).getChildren();
-              }
-              for (Child tpage : related) {
-                String navAlt = tpage.getNavImageAlt();
-                String siblingPath = tpage.getPath();
-                if (siblingPath.startsWith("/")) {
-                  siblingPath = siblingPath.substring(1);
-                }
-                div.a(
-                  resp.encodeURL(
-                    URIEncoder.encodeURI(
+              )
+          ).__(navAlt).br__();
+        }
+        // Always include the current page in the current location area
+        div.a(resp.encodeURL(URIEncoder.encodeURI(fullPath))).__(pageAttributes.getNavImageAlt()).br__();
+      })
+          .hr__()
+          // Related Pages
+          .b__(RESOURCES.getMessage(locale, "relatedPages")).br__()
+          .div().style("white-space:nowrap").__(div -> {
+        List<Child> related = pageAttributes.getChildren();
+        if (related.isEmpty() && !parents.isEmpty()) {
+          related = parents.get(parents.size() - 1).getChildren();
+        }
+        for (Child tpage : related) {
+          String navAlt = tpage.getNavImageAlt();
+          String siblingPath = tpage.getPath();
+          if (siblingPath.startsWith("/")) {
+            siblingPath = siblingPath.substring(1);
+          }
+          div.a(
+              resp.encodeURL(
+                  URIEncoder.encodeURI(
                       urlBase
-                      + URIEncoder.encodeURI(siblingPath)
-                    )
+                          + URIEncoder.encodeURI(siblingPath)
                   )
-                ).__(navAlt).br__();
-              }
-            })
-            .hr__();
-            printBelowRelatedPages(req, td);
-          })
-          .td().style("vertical-align:top")._c();
-            printCommonPages(req, resp, td_c);
-    @SuppressWarnings("unchecked") __ flow = (__)td_c;
+              )
+          ).__(navAlt).br__();
+        }
+      })
+          .hr__();
+      printBelowRelatedPages(req, td);
+    })
+        .td().style("vertical-align:top")._c();
+    printCommonPages(req, resp, td_c);
+    @SuppressWarnings("unchecked")
+    __ flow = (__) td_c;
     return flow;
   }
 
@@ -594,65 +598,65 @@ public class TextSkin extends Skin {
       String href = link.getHref();
       String rel = link.getRel();
       head.link()
-        .rel(rel)
-        .href(href == null ? null :
-          LastModifiedUtil.buildURL(
-            servletContext,
-            req,
-            resp,
-            href,
-            EmptyURIParameters.getInstance(),
-            AddLastModified.AUTO,
-            false,
-            // TODO: Support canonical flag on link
-            AnyLINK.Rel.CANONICAL.toString().equalsIgnoreCase(rel)
+          .rel(rel)
+          .href(href == null ? null :
+              LastModifiedUtil.buildURL(
+                  servletContext,
+                  req,
+                  resp,
+                  href,
+                  EmptyURIParameters.getInstance(),
+                  AddLastModified.AUTO,
+                  false,
+                  // TODO: Support canonical flag on link
+                  AnyLINK.Rel.CANONICAL.toString().equalsIgnoreCase(rel)
+              )
           )
-        )
-        .type(link.getType())
-      .__();
+          .type(link.getType())
+          .__();
     }
   }
 
   @Override
   public void endPage(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    FlowContent<?> flow
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      FlowContent<?> flow
   ) throws JspException, IOException {
     @SuppressWarnings("unchecked")
-    TD_c<TR_c<TBODY_c<TABLE_c<BODY_c<HTML_c<DocumentEE>>>>>> td_c = (TD_c)flow;
+    TD_c<TR_c<TBODY_c<TABLE_c<BODY_c<HTML_c<DocumentEE>>>>>> td_c = (TD_c) flow;
     BODY_c<HTML_c<DocumentEE>> body_c = td_c
-              .__()
-            .__()
-          .__()
+        .__()
+        .__()
+        .__()
         .__();
-        // TODO: SemanticCMS component for this, also make sure in other layouts and skins
-        EditableResourceBundle.printEditableResourceBundleLookups(
-          textInJavascriptEncoder,
-          textInXhtmlEncoder,
-          body_c.getRawUnsafe(),
-          SerializationEE.get(req.getServletContext(), req) == Serialization.XML,
-          4,
-          true
-        );
+    // TODO: SemanticCMS component for this, also make sure in other layouts and skins
+    EditableResourceBundle.printEditableResourceBundleLookups(
+        textInJavascriptEncoder,
+        textInXhtmlEncoder,
+        body_c.getRawUnsafe(),
+        SerializationEE.get(req.getServletContext(), req) == Serialization.XML,
+        4,
+        true
+    );
     DocumentEE document = body_c
-      .__()
-    .__();
+        .__()
+        .__();
     assert document != null : "Is fully closed back to DocumentEE";
   }
 
   @Override
   public <
-    PC extends FlowContent<PC>,
-    __ extends ContentEE<__>
+      PC extends FlowContent<PC>,
+      __ extends ContentEE<__>
   > __ startContent(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    PC pc,
-    int[] contentColumnSpans,
-    String width
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      PC pc,
+      int[] contentColumnSpans,
+      String width
   ) throws JspException, IOException {
     width = trimNullIfEmpty(width);
     final int totalColumns;
@@ -667,78 +671,78 @@ public class TextSkin extends Skin {
       totalColumns = totalColumns_;
     }
     TBODY_c<TABLE_c<PC>> tbody = pc.table()
-      .clazz("ao-packed")
-      .style(getWidthStyle(width))
-    ._c()
-      .thead__(thead -> thead
-        .tr__(tr -> tr
-          .td().colspan(totalColumns).__(td -> td
-            .hr__()
-          )
+        .clazz("ao-packed")
+        .style(getWidthStyle(width))
+        ._c()
+        .thead__(thead -> thead
+                .tr__(tr -> tr
+                        .td().colspan(totalColumns).__(td -> td
+                            .hr__()
+                    )
+                )
         )
-      )
-      .tbody_c();
+        .tbody_c();
     @SuppressWarnings("unchecked")
-    __ content = (__)tbody;
+    __ content = (__) tbody;
     return content;
   }
 
   @Override
   public void contentTitle(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    ContentEE<?> content,
-    String title,
-    int contentColumns
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      ContentEE<?> content,
+      String title,
+      int contentColumns
   ) throws JspException, IOException {
-    FlowContent<?> contentLine = startContentLine(req, resp, content, contentColumns, "center", null); {
-      contentLine.h1__(title);
-    } endContentLine(req, resp, contentLine);
+    FlowContent<?> contentLine = startContentLine(req, resp, content, contentColumns, "center", null);
+    contentLine.h1__(title);
+    endContentLine(req, resp, contentLine);
   }
 
   @Override
   public <__ extends FlowContent<__>> __ startContentLine(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    ContentEE<?> content,
-    int colspan,
-    String align,
-    String width
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      ContentEE<?> content,
+      int colspan,
+      String align,
+      String width
   ) throws JspException, IOException {
     // Lying about "DocumentEE" here, but it makes the compiler happy and is otherwise irrelevant
     @SuppressWarnings("unchecked")
-    TBODY_c<TABLE_c<DocumentEE>> tbody = (TBODY_c)content;
+    TBODY_c<TABLE_c<DocumentEE>> tbody = (TBODY_c) content;
     align = trimNullIfEmpty(align);
     width = trimNullIfEmpty(width);
     TD_c<TR_c<TBODY_c<TABLE_c<DocumentEE>>>> td = tbody
-      .tr_c()
+        .tr_c()
         .td()
-          .style(
+        .style(
             align == null ? null : "text-align:" + align,
             getWidthStyle(width),
             "vertical-align:top"
-          )
-          .colspan(colspan)
+        )
+        .colspan(colspan)
         ._c();
     @SuppressWarnings("unchecked")
-    __ contentLine = (__)td;
+    __ contentLine = (__) td;
     return contentLine;
   }
 
   @Override
   public <__ extends FlowContent<__>> __ contentVerticalDivider(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    FlowContent<?> contentLine,
-    boolean visible,
-    int colspan,
-    int rowspan,
-    String align,
-    String width
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      FlowContent<?> contentLine,
+      boolean visible,
+      int colspan,
+      int rowspan,
+      String align,
+      String width
   ) throws JspException, IOException {
     // Lying about "DocumentEE" here, but it makes the compiler happy and is otherwise irrelevant
     @SuppressWarnings("unchecked")
-    TD_c<TR_c<TBODY_c<TABLE_c<DocumentEE>>>> td = (TD_c)contentLine;
+    TD_c<TR_c<TBODY_c<TABLE_c<DocumentEE>>>> td = (TD_c) contentLine;
     align = trimNullIfEmpty(align);
     width = trimNullIfEmpty(width);
     TR_c<TBODY_c<TABLE_c<DocumentEE>>> tr = td.__();
@@ -746,48 +750,48 @@ public class TextSkin extends Skin {
       tr.td__('\u00A0');
     }
     TD_c<TR_c<TBODY_c<TABLE_c<DocumentEE>>>> newTd = tr.td()
-      .style(
-        align == null ? null : "text-align:" + align,
-        getWidthStyle(width),
-        "vertical-align:top"
-      )
-      .colspan(colspan)
-      .rowspan(rowspan)
-    ._c();
+        .style(
+            align == null ? null : "text-align:" + align,
+            getWidthStyle(width),
+            "vertical-align:top"
+        )
+        .colspan(colspan)
+        .rowspan(rowspan)
+        ._c();
     @SuppressWarnings("unchecked")
-    __ newContentLine = (__)newTd;
+    __ newContentLine = (__) newTd;
     return newContentLine;
   }
 
   @Override
   public void endContentLine(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    FlowContent<?> contentLine,
-    int rowspan,
-    boolean endsInternal
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      FlowContent<?> contentLine,
+      int rowspan,
+      boolean endsInternal
   ) throws JspException, IOException {
     // Lying about "DocumentEE" here, but it makes the compiler happy and is otherwise irrelevant
     @SuppressWarnings("unchecked")
-    TD_c<TR_c<TBODY_c<TABLE_c<DocumentEE>>>> td = (TD_c)contentLine;
+    TD_c<TR_c<TBODY_c<TABLE_c<DocumentEE>>>> td = (TD_c) contentLine;
     TABLE_c<DocumentEE> table = td
         .__()
-      .__()
-    .__();
+        .__()
+        .__();
     assert table != null : "Is fully closed back to TABLE_c";
   }
 
   @Override
   public void contentHorizontalDivider(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    ContentEE<?> content,
-    int[] colspansAndDirections,
-    boolean endsInternal
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      ContentEE<?> content,
+      int[] colspansAndDirections,
+      boolean endsInternal
   ) throws JspException, IOException {
     // Lying about "DocumentEE" here, but it makes the compiler happy and is otherwise irrelevant
     @SuppressWarnings("unchecked")
-    TBODY_c<TABLE_c<DocumentEE>> tbody = (TBODY_c)content;
+    TBODY_c<TABLE_c<DocumentEE>> tbody = (TBODY_c) content;
     tbody.tr__(tr -> {
       for (int c = 0; c < colspansAndDirections.length; c += 2) {
         if (c > 0) {
@@ -807,25 +811,25 @@ public class TextSkin extends Skin {
         }
         int colspan = colspansAndDirections[c];
         tr.td()
-          .colspan(colspan)
-        .__(td -> td
-          .hr__()
-        );
+            .colspan(colspan)
+            .__(td -> td
+                    .hr__()
+            );
       }
     });
   }
 
   @Override
   public void endContent(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    ContentEE<?> content,
-    int[] contentColumnSpans
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      ContentEE<?> content,
+      int[] contentColumnSpans
   ) throws JspException, IOException {
     // Lying about "DocumentEE" here, but it makes the compiler happy and is otherwise irrelevant
     @SuppressWarnings("unchecked")
-    TBODY_c<TABLE_c<DocumentEE>> tbody = (TBODY_c)content;
+    TBODY_c<TABLE_c<DocumentEE>> tbody = (TBODY_c) content;
     final int totalColumns;
     {
       int totalColumns_ = 0;
@@ -838,11 +842,11 @@ public class TextSkin extends Skin {
       totalColumns = totalColumns_;
     }
     tbody.tr__(tr -> tr
-      .td()
-        .colspan(totalColumns)
-      .__(td -> td
-        .hr__()
-      )
+            .td()
+            .colspan(totalColumns)
+            .__(td -> td
+                    .hr__()
+            )
     );
     TABLE_c<DocumentEE> table = tbody.__();
     String copyright = pageAttributes.getCopyright();
@@ -852,12 +856,12 @@ public class TextSkin extends Skin {
     if (copyright != null && !copyright.isEmpty()) {
       String copyright_ = copyright;
       table.tfoot__(tfoot -> tfoot
-        .tr__(tr -> tr
-          .td()
-            .colspan(totalColumns)
-            .style("text-align:center", "font-size:x-small")
-          .__(copyright_)
-        )
+              .tr__(tr -> tr
+                      .td()
+                      .colspan(totalColumns)
+                      .style("text-align:center", "font-size:x-small")
+                      .__(copyright_)
+              )
       );
     }
     table.__();
@@ -865,106 +869,106 @@ public class TextSkin extends Skin {
 
   @Override
   public <
-    PC extends FlowContent<PC>,
-    __ extends FlowContent<__>
+      PC extends FlowContent<PC>,
+      __ extends FlowContent<__>
   > __ startLightArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PC pc,
-    String align,
-    String width,
-    boolean nowrap
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PC pc,
+      String align,
+      String width,
+      boolean nowrap
   ) throws JspException, IOException {
     align = trimNullIfEmpty(align);
     TD_c<TR_c<TBODY_c<TABLE_c<PC>>>> td = pc.table()
-      .clazz("ao-packed")
-      .style("border:5px outset #a0a0a0", getWidthStyle(width))
-    ._c()
-      .tbody_c()
+        .clazz("ao-packed")
+        .style("border:5px outset #a0a0a0", getWidthStyle(width))
+        ._c()
+        .tbody_c()
         .tr_c()
-          .td()
-            .clazz("aoLightRow")
-            .style(
-              "padding:4px",
-              (align != null) ? ("text-align:" + align) : null,
-              nowrap ? "white-space:nowrap" : null
-            )
-          ._c();
+        .td()
+        .clazz("aoLightRow")
+        .style(
+            "padding:4px",
+            (align != null) ? ("text-align:" + align) : null,
+            nowrap ? "white-space:nowrap" : null
+        )
+        ._c();
     @SuppressWarnings("unchecked")
-    __ lightArea = (__)td;
+    __ lightArea = (__) td;
     return lightArea;
   }
 
   @Override
   public void endLightArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    FlowContent<?> lightArea
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      FlowContent<?> lightArea
   ) throws JspException, IOException {
     // Lying about "DocumentEE" here, but it makes the compiler happy and is otherwise irrelevant
     @SuppressWarnings("unchecked")
-    TD_c<TR_c<TBODY_c<TABLE_c<DocumentEE>>>> td = (TD_c)lightArea;
+    TD_c<TR_c<TBODY_c<TABLE_c<DocumentEE>>>> td = (TD_c) lightArea;
     TABLE_c<?> table = td
         .__()
-      .__()
-    .__();
+        .__()
+        .__();
     assert table != null : "Is fully closed back to TABLE_c";
   }
 
   @Override
   public <
-    PC extends FlowContent<PC>,
-    __ extends FlowContent<__>
+      PC extends FlowContent<PC>,
+      __ extends FlowContent<__>
   > __ startWhiteArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PC pc,
-    String align,
-    String width,
-    boolean nowrap
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PC pc,
+      String align,
+      String width,
+      boolean nowrap
   ) throws JspException, IOException {
     align = trimNullIfEmpty(align);
     TD_c<TR_c<TBODY_c<TABLE_c<PC>>>> td = pc.table()
-      .clazz("ao-packed")
-      .style("border:5px outset #a0a0a0", getWidthStyle(width))
-    ._c()
-      .tbody_c()
+        .clazz("ao-packed")
+        .style("border:5px outset #a0a0a0", getWidthStyle(width))
+        ._c()
+        .tbody_c()
         .tr_c()
-          .td()
-            .clazz("aoWhiteRow")
-            .style(
-              "padding:4px",
-              (align != null) ? ("text-align:" + align) : null,
-              nowrap ? "white-space:nowrap" : null
-            )
-          ._c();
+        .td()
+        .clazz("aoWhiteRow")
+        .style(
+            "padding:4px",
+            (align != null) ? ("text-align:" + align) : null,
+            nowrap ? "white-space:nowrap" : null
+        )
+        ._c();
     @SuppressWarnings("unchecked")
-    __ whiteArea = (__)td;
+    __ whiteArea = (__) td;
     return whiteArea;
   }
 
   @Override
   public void endWhiteArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    FlowContent<?> whiteArea
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      FlowContent<?> whiteArea
   ) throws JspException, IOException {
     // Lying about "DocumentEE" here, but it makes the compiler happy and is otherwise irrelevant
     @SuppressWarnings("unchecked")
-    TD_c<TR_c<TBODY_c<TABLE_c<DocumentEE>>>> td = (TD_c)whiteArea;
+    TD_c<TR_c<TBODY_c<TABLE_c<DocumentEE>>>> td = (TD_c) whiteArea;
     TABLE_c<DocumentEE> table = td
         .__()
-      .__()
-    .__();
+        .__()
+        .__();
     assert table != null : "Is fully closed back to TABLE_c";
   }
 
   @Override
   public void printAutoIndex(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    DocumentEE document
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      DocumentEE document
   ) throws JspException, IOException {
     String urlBase = getUrlBase(req);
     //Locale locale = resp.getLocale();
@@ -974,30 +978,30 @@ public class TextSkin extends Skin {
     if (siblings.isEmpty()) {
       List<Parent> parents = pageAttributes.getParents();
       if (!parents.isEmpty()) {
-        siblings = parents.get(parents.size()-1).getChildren();
+        siblings = parents.get(parents.size() - 1).getChildren();
       }
     }
     for (Child sibling : siblings) {
-      String navAlt=sibling.getNavImageAlt();
+      String navAlt = sibling.getNavImageAlt();
       String siblingPath = sibling.getPath();
       if (siblingPath.startsWith("/")) {
-        siblingPath=siblingPath.substring(1);
+        siblingPath = siblingPath.substring(1);
       }
 
       document.unsafe("  <tr>\n"
-      + "    <td style=\"white-space:nowrap\"><a class=\"aoLightLink\" href=\"");
+          + "    <td style=\"white-space:nowrap\"><a class=\"aoLightLink\" href=\"");
       encodeTextInXhtmlAttribute(
-        resp.encodeURL(
-          URIEncoder.encodeURI(
-            urlBase
-            + URIEncoder.encodeURI(siblingPath)
-          )
-        ),
-        document.getRawUnsafe()
+          resp.encodeURL(
+              URIEncoder.encodeURI(
+                  urlBase
+                      + URIEncoder.encodeURI(siblingPath)
+              )
+          ),
+          document.getRawUnsafe()
       );
       document.unsafe("\">").text(navAlt).unsafe("</a></td>\n"
-      + "    <td style=\"width:12px; white-space:nowrap\">\u00A0</td>\n"
-      + "    <td style=\"white-space:nowrap\">");
+          + "    <td style=\"width:12px; white-space:nowrap\">\u00A0</td>\n"
+          + "    <td style=\"white-space:nowrap\">");
       String description = sibling.getDescription();
       if (description != null && !(description = description.trim()).isEmpty()) {
         document.text(description);
@@ -1010,7 +1014,7 @@ public class TextSkin extends Skin {
         }
       }
       document.unsafe("</td>\n"
-      + "  </tr>\n");
+          + "  </tr>\n");
     }
     document.unsafe("</table>\n");
   }
@@ -1038,38 +1042,38 @@ public class TextSkin extends Skin {
   public static void defaultBeginPopupGroup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId) throws IOException {
     String groupIdStr = Long.toString(groupId);
     document.script().out(script -> script.indent()
-      .append("var popupGroupTimer").append(groupIdStr).append("=null;").nli()
-      .append("var popupGroupAuto").append(groupIdStr).append("=null;").nli()
-      .append("function popupGroupHideAllDetails").append(groupIdStr).append("() {").incDepth().nli()
-        .append("var spanElements = document.getElementsByTagName ? document.getElementsByTagName(\"div\") : document.all.tags(\"div\");").nli()
-        .append("for (var c = 0; c < spanElements.length; c++) {").incDepth().nli()
-          .append("if (spanElements[c].id.indexOf(\"aoPopup_").append(groupIdStr).append("_\") == 0) {").incDepth().nli()
+            .append("var popupGroupTimer").append(groupIdStr).append("=null;").nli()
+            .append("var popupGroupAuto").append(groupIdStr).append("=null;").nli()
+            .append("function popupGroupHideAllDetails").append(groupIdStr).append("() {").incDepth().nli()
+            .append("var spanElements = document.getElementsByTagName ? document.getElementsByTagName(\"div\") : document.all.tags(\"div\");").nli()
+            .append("for (var c = 0; c < spanElements.length; c++) {").incDepth().nli()
+            .append("if (spanElements[c].id.indexOf(\"aoPopup_").append(groupIdStr).append("_\") == 0) {").incDepth().nli()
             .append("spanElements[c].style.visibility=\"hidden\";")
-          .decDepth().nli().append('}')
-        .decDepth().nli().append('}')
-      .decDepth().nli().append('}').nli()
-      .append("function popupGroupToggleDetails").append(groupIdStr).append("(popupId) {").incDepth().nli()
-        .append("if (popupGroupTimer").append(groupIdStr).append(" != null) {").incDepth().nli()
-          .append("clearTimeout(popupGroupTimer").append(groupIdStr).append(");").nli()
-        .decDepth().nli().append('}')
-        .append("var elemStyle = document.getElementById(\"aoPopup_").append(groupIdStr).append("_\"+popupId).style;").nli()
-        .append("if (elemStyle.visibility == \"visible\") {").incDepth().nli()
-          .append("elemStyle.visibility=\"hidden\";")
-        .decDepth().nli().append("} else {").incDepth().nli()
-          .append("popupGroupHideAllDetails").append(groupIdStr).append("();").nli()
-          .append("elemStyle.visibility=\"visible\";")
-        .decDepth().nli().append('}')
-      .decDepth().nli().append('}').nli()
-      .append("function popupGroupShowDetails").append(groupIdStr).append("(popupId) {").incDepth().nli()
-        .append("if (popupGroupTimer").append(groupIdStr).append(" != null) {\n").incDepth().nli()
-          .append("clearTimeout(popupGroupTimer").append(groupIdStr).append(");").nli()
-        .decDepth().nli().append('}')
-        .append("var elemStyle = document.getElementById(\"aoPopup_").append(groupIdStr).append("_\"+popupId).style;").nli()
-        .append("if (elemStyle.visibility != \"visible\") {").incDepth().nli()
-          .append("popupGroupHideAllDetails").append(groupIdStr).append("();").nli()
-          .append("elemStyle.visibility=\"visible\";")
-        .decDepth().nli().append('}')
-      .decDepth().nli().append('}')
+            .decDepth().nli().append('}')
+            .decDepth().nli().append('}')
+            .decDepth().nli().append('}').nli()
+            .append("function popupGroupToggleDetails").append(groupIdStr).append("(popupId) {").incDepth().nli()
+            .append("if (popupGroupTimer").append(groupIdStr).append(" != null) {").incDepth().nli()
+            .append("clearTimeout(popupGroupTimer").append(groupIdStr).append(");").nli()
+            .decDepth().nli().append('}')
+            .append("var elemStyle = document.getElementById(\"aoPopup_").append(groupIdStr).append("_\"+popupId).style;").nli()
+            .append("if (elemStyle.visibility == \"visible\") {").incDepth().nli()
+            .append("elemStyle.visibility=\"hidden\";")
+            .decDepth().nli().append("} else {").incDepth().nli()
+            .append("popupGroupHideAllDetails").append(groupIdStr).append("();").nli()
+            .append("elemStyle.visibility=\"visible\";")
+            .decDepth().nli().append('}')
+            .decDepth().nli().append('}').nli()
+            .append("function popupGroupShowDetails").append(groupIdStr).append("(popupId) {").incDepth().nli()
+            .append("if (popupGroupTimer").append(groupIdStr).append(" != null) {\n").incDepth().nli()
+            .append("clearTimeout(popupGroupTimer").append(groupIdStr).append(");").nli()
+            .decDepth().nli().append('}')
+            .append("var elemStyle = document.getElementById(\"aoPopup_").append(groupIdStr).append("_\"+popupId).style;").nli()
+            .append("if (elemStyle.visibility != \"visible\") {").incDepth().nli()
+            .append("popupGroupHideAllDetails").append(groupIdStr).append("();").nli()
+            .append("elemStyle.visibility=\"visible\";")
+            .decDepth().nli().append('}')
+            .decDepth().nli().append('}')
     ).__();
   }
 
@@ -1118,100 +1122,100 @@ public class TextSkin extends Skin {
     Locale locale = resp.getLocale();
 
     document.unsafe("<div id=\"aoPopupAnchor_").unsafe(groupIdStr).unsafe('_').unsafe(popupIdStr).unsafe("\" class=\"aoPopupAnchor\">")
-    .img()
-      .clazz("aoPopupAnchorImg")
-      .src(
-        resp.encodeURL(
-          URIEncoder.encodeURI(
-            urlBase
-            + RESOURCES.getMessage(locale, "popup.src")
-          )
-        )
-      ).alt(RESOURCES.getMessage(locale, "popup.alt"))
-      .width(Integer.parseInt(RESOURCES.getMessage(locale, "popup.width")))
-      .height(Integer.parseInt(RESOURCES.getMessage(locale, "popup.height")))
-      .onmouseover(onmouseover -> onmouseover
-        .append("popupGroupTimer")
-        .append(groupIdStr)
-        .append("=setTimeout(\"popupGroupAuto")
-        .append(groupIdStr)
-        .append("=true; popupGroupShowDetails")
-        .append(groupIdStr)
-        .append('(')
-        .append(popupIdStr)
-        .append(")\", 1000);")
-      ).onmouseout(onmouseout -> onmouseout
-        .append("if (popupGroupAuto")
-        .append(groupIdStr)
-        .append(") popupGroupHideAllDetails")
-        .append(groupIdStr)
-        .append("(); if (popupGroupTimer")
-        .append(groupIdStr)
-        .append(" != null) clearTimeout(popupGroupTimer")
-        .append(groupIdStr)
-        .append(");")
-      ).onclick(onclick -> onclick
-        .append("popupGroupAuto")
-        .append(groupIdStr)
-        .append("=false; popupGroupToggleDetails")
-        .append(groupIdStr)
-        .append('(')
-        .append(popupIdStr)
-        .append(");")
+        .img()
+        .clazz("aoPopupAnchorImg")
+        .src(
+            resp.encodeURL(
+                URIEncoder.encodeURI(
+                    urlBase
+                        + RESOURCES.getMessage(locale, "popup.src")
+                )
+            )
+        ).alt(RESOURCES.getMessage(locale, "popup.alt"))
+        .width(Integer.parseInt(RESOURCES.getMessage(locale, "popup.width")))
+        .height(Integer.parseInt(RESOURCES.getMessage(locale, "popup.height")))
+        .onmouseover(onmouseover -> onmouseover
+                .append("popupGroupTimer")
+                .append(groupIdStr)
+                .append("=setTimeout(\"popupGroupAuto")
+                .append(groupIdStr)
+                .append("=true; popupGroupShowDetails")
+                .append(groupIdStr)
+                .append('(')
+                .append(popupIdStr)
+                .append(")\", 1000);")
+        ).onmouseout(onmouseout -> onmouseout
+            .append("if (popupGroupAuto")
+            .append(groupIdStr)
+            .append(") popupGroupHideAllDetails")
+            .append(groupIdStr)
+            .append("(); if (popupGroupTimer")
+            .append(groupIdStr)
+            .append(" != null) clearTimeout(popupGroupTimer")
+            .append(groupIdStr)
+            .append(");")
+    ).onclick(onclick -> onclick
+            .append("popupGroupAuto")
+            .append(groupIdStr)
+            .append("=false; popupGroupToggleDetails")
+            .append(groupIdStr)
+            .append('(')
+            .append(popupIdStr)
+            .append(");")
     ).__()
-    // Used to be span width=\"100%\"
-    .unsafe("    <div id=\"aoPopup_").unsafe(groupIdStr).unsafe('_').unsafe(popupIdStr).unsafe("\" class=\"aoPopupMain\"");
+        // Used to be span width=\"100%\"
+        .unsafe("    <div id=\"aoPopup_").unsafe(groupIdStr).unsafe('_').unsafe(popupIdStr).unsafe("\" class=\"aoPopupMain\"");
     if (width != null) {
       document.unsafe(" style=\"");
       appendWidthStyle(width, document.getRawUnsafe());
       document.unsafe('"');
     }
     document.unsafe(">\n"
-    + "        <table class=\"aoPopupTable ao-packed\">\n"
-    + "            <tr>\n"
-    + "                <td class=\"aoPopupTL\">")
-    .img()
-      .src(
-        resp.encodeURL(
-          URIEncoder.encodeURI(
-            urlBase + "textskin/popup_topleft.gif"
-          )
-        )
-      ).width(12).height(12).alt("").__()
-    .unsafe("</td>\n"
-    + "                <td class=\"aoPopupTop\" style=\"background-image:url(");
+        + "        <table class=\"aoPopupTable ao-packed\">\n"
+        + "            <tr>\n"
+        + "                <td class=\"aoPopupTL\">")
+        .img()
+        .src(
+            resp.encodeURL(
+                URIEncoder.encodeURI(
+                    urlBase + "textskin/popup_topleft.gif"
+                )
+            )
+        ).width(12).height(12).alt("").__()
+        .unsafe("</td>\n"
+            + "                <td class=\"aoPopupTop\" style=\"background-image:url(");
     encodeTextInXhtmlAttribute(
-      resp.encodeURL(
-        URIEncoder.encodeURI(
-          urlBase + "textskin/popup_top.gif"
-        )
-      ),
-      document.getRawUnsafe()
+        resp.encodeURL(
+            URIEncoder.encodeURI(
+                urlBase + "textskin/popup_top.gif"
+            )
+        ),
+        document.getRawUnsafe()
     );
     document.unsafe(");\"></td>\n"
-    + "                <td class=\"aoPopupTR\">")
-    .img()
-      .src(
-        resp.encodeURL(
-          URIEncoder.encodeURI(
-            urlBase + "textskin/popup_topright.gif"
-          )
-        )
-      ).width(12).height(12).alt("").__()
-    .unsafe("</td>\n"
-    + "            </tr>\n"
-    + "            <tr>\n"
-    + "                <td class=\"aoPopupLeft\" style=\"background-image:url(");
+        + "                <td class=\"aoPopupTR\">")
+        .img()
+        .src(
+            resp.encodeURL(
+                URIEncoder.encodeURI(
+                    urlBase + "textskin/popup_topright.gif"
+                )
+            )
+        ).width(12).height(12).alt("").__()
+        .unsafe("</td>\n"
+            + "            </tr>\n"
+            + "            <tr>\n"
+            + "                <td class=\"aoPopupLeft\" style=\"background-image:url(");
     encodeTextInXhtmlAttribute(
-      resp.encodeURL(
-        URIEncoder.encodeURI(
-          urlBase + "textskin/popup_left.gif"
-        )
-      ),
-      document.getRawUnsafe()
+        resp.encodeURL(
+            URIEncoder.encodeURI(
+                urlBase + "textskin/popup_left.gif"
+            )
+        ),
+        document.getRawUnsafe()
     );
     document.unsafe(");\"></td>\n"
-    + "                <td class=\"aoPopupLightRow\">");
+        + "                <td class=\"aoPopupLightRow\">");
   }
 
   /**
@@ -1231,18 +1235,18 @@ public class TextSkin extends Skin {
     Locale locale = resp.getLocale();
 
     document.img()
-      .clazz("aoPopupClose")
-      .src(
-        resp.encodeURL(
-          URIEncoder.encodeURI(
-            urlBase + RESOURCES.getMessage(locale, "popupClose.src")
-          )
-        )
-      ).alt(RESOURCES.getMessage(locale, "popupClose.alt"))
-      .width(Integer.parseInt(RESOURCES.getMessage(locale, "popupClose.width")))
-      .height(Integer.parseInt(RESOURCES.getMessage(locale, "popupClose.height")))
-      .onclick("popupGroupHideAllDetails" + groupId + "();")
-    .__();
+        .clazz("aoPopupClose")
+        .src(
+            resp.encodeURL(
+                URIEncoder.encodeURI(
+                    urlBase + RESOURCES.getMessage(locale, "popupClose.src")
+                )
+            )
+        ).alt(RESOURCES.getMessage(locale, "popupClose.alt"))
+        .width(Integer.parseInt(RESOURCES.getMessage(locale, "popupClose.width")))
+        .height(Integer.parseInt(RESOURCES.getMessage(locale, "popupClose.height")))
+        .onclick("popupGroupHideAllDetails" + groupId + "();")
+        .__();
   }
 
   /**
@@ -1260,103 +1264,103 @@ public class TextSkin extends Skin {
    */
   public static void defaultEndPopup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId, String width, String urlBase) throws IOException {
     document.unsafe("</td>\n"
-    + "                <td class=\"aoPopupRight\" style=\"background-image:url(");
+        + "                <td class=\"aoPopupRight\" style=\"background-image:url(");
     encodeTextInXhtmlAttribute(
-      resp.encodeURL(
-        URIEncoder.encodeURI(
-          urlBase + "textskin/popup_right.gif"
-        )
-      ),
-      document.getRawUnsafe()
-    );
-    document.unsafe(");\"></td>\n"
-    + "            </tr>\n"
-    + "            <tr>\n"
-    + "                <td class=\"aoPopupBL\">")
-    .img()
-      .src(
         resp.encodeURL(
-          URIEncoder.encodeURI(
-            urlBase + "textskin/popup_bottomleft.gif"
-          )
-        )
-      ).width(12).height(12).alt("").__()
-    .unsafe("</td>\n"
-    + "                <td class=\"aoPopupBottom\" style=\"background-image:url(");
-    encodeTextInXhtmlAttribute(
-      resp.encodeURL(
-        URIEncoder.encodeURI(
-          urlBase + "textskin/popup_bottom.gif"
-        )
-      ),
-      document.getRawUnsafe()
+            URIEncoder.encodeURI(
+                urlBase + "textskin/popup_right.gif"
+            )
+        ),
+        document.getRawUnsafe()
     );
     document.unsafe(");\"></td>\n"
-    + "                <td class=\"aoPopupBR\">");
+        + "            </tr>\n"
+        + "            <tr>\n"
+        + "                <td class=\"aoPopupBL\">")
+        .img()
+        .src(
+            resp.encodeURL(
+                URIEncoder.encodeURI(
+                    urlBase + "textskin/popup_bottomleft.gif"
+                )
+            )
+        ).width(12).height(12).alt("").__()
+        .unsafe("</td>\n"
+            + "                <td class=\"aoPopupBottom\" style=\"background-image:url(");
+    encodeTextInXhtmlAttribute(
+        resp.encodeURL(
+            URIEncoder.encodeURI(
+                urlBase + "textskin/popup_bottom.gif"
+            )
+        ),
+        document.getRawUnsafe()
+    );
+    document.unsafe(");\"></td>\n"
+        + "                <td class=\"aoPopupBR\">");
     document.img()
-      .src(
-        resp.encodeURL(
-          URIEncoder.encodeURI(
-            urlBase + "textskin/popup_bottomright.gif"
-          )
-        )
-      ).width(12).height(12).alt("").__()
-    .unsafe("</td>\n"
-    + "            </tr>\n"
-    + "        </table>\n"
-    + "    </div>\n"
-    + "</div>\n");
+        .src(
+            resp.encodeURL(
+                URIEncoder.encodeURI(
+                    urlBase + "textskin/popup_bottomright.gif"
+                )
+            )
+        ).width(12).height(12).alt("").__()
+        .unsafe("</td>\n"
+            + "            </tr>\n"
+            + "        </table>\n"
+            + "    </div>\n"
+            + "</div>\n");
     String groupIdStr = Long.toString(groupId);
     String popupIdStr = Long.toString(popupId);
     document.script().out(script -> script.append(
         "  // Override onload\n"
-      + "  var aoPopupOldOnload_").append(groupIdStr).append('_').append(popupIdStr).append(" = window.onload;\n"
-      + "  function adjustPositionOnload_").append(groupIdStr).append('_').append(popupIdStr).append("() {\n"
-      + "    adjustPosition_").append(groupIdStr).append('_').append(popupIdStr).append("();\n"
-      + "    if (aoPopupOldOnload_").append(groupIdStr).append('_').append(popupIdStr).append(") {\n"
-      + "      aoPopupOldOnload_").append(groupIdStr).append('_').append(popupIdStr).append("();\n"
-      + "      aoPopupOldOnload_").append(groupIdStr).append('_').append(popupIdStr).append(" = null;\n"
-      + "    }\n"
-      + "  }\n"
-      + "  window.onload = adjustPositionOnload_").append(groupIdStr).append('_').append(popupIdStr).append(";\n"
-      + "  // Override onresize\n"
-      + "  var aoPopupOldOnresize_").append(groupIdStr).append('_').append(popupIdStr).append(" = window.onresize;\n"
-      + "  function adjustPositionOnresize_").append(groupIdStr).append('_').append(popupIdStr).append("() {\n"
-      + "    adjustPosition_").append(groupIdStr).append('_').append(popupIdStr).append("();\n"
-      + "    if (aoPopupOldOnresize_").append(groupIdStr).append('_').append(popupIdStr).append(") {\n"
-      + "      aoPopupOldOnresize_").append(groupIdStr).append('_').append(popupIdStr).append("();\n"
-      + "    }\n"
-      + "  }\n"
-      + "  window.onresize = adjustPositionOnresize_").append(groupIdStr).append('_').append(popupIdStr).append(";\n"
-      + "  function adjustPosition_").append(groupIdStr).append('_').append(popupIdStr).append("() {\n"
-      + "    var popupAnchor = document.getElementById(\"aoPopupAnchor_").append(groupIdStr).append('_').append(popupIdStr).append("\");\n"
-      + "    var popup = document.getElementById(\"aoPopup_").append(groupIdStr).append('_').append(popupIdStr).append("\");\n"
-      + "    // Find the screen position of the anchor\n"
-      + "    var popupAnchorLeft = 0;\n"
-      + "    var obj = popupAnchor;\n"
-      + "    if (obj.offsetParent) {\n"
-      + "      popupAnchorLeft = obj.offsetLeft\n"
-      + "      while (obj = obj.offsetParent) {\n"
-      + "        popupAnchorLeft += obj.offsetLeft\n"
-      + "      }\n"
-      + "    }\n"
-      + "    var popupAnchorRight = popupAnchorLeft + popupAnchor.offsetWidth;\n"
-      + "    // Find the width of the popup\n"
-      + "    var popupWidth = popup.offsetWidth;\n"
-      + "    // Find the width of the screen\n"
-      + "    var screenWidth = (document.compatMode && document.compatMode == \"CSS1Compat\") ? document.documentElement.clientWidth : document.body.clientWidth;\n"
-      + "    // Find the desired screen position of the popup\n"
-      + "    var popupScreenPosition = 0;\n"
-      + "    if (screenWidth <= (popupWidth+12)) {\n"
-      + "      popupScreenPosition = 0;\n"
-      + "    } else {\n"
-      + "      popupScreenPosition = screenWidth - popupWidth - 12;\n"
-      + "      if (popupAnchorRight < popupScreenPosition) popupScreenPosition = popupAnchorRight;\n"
-      + "    }\n"
-      + "    popup.style.left=(popupScreenPosition-popupAnchorLeft)+\"px\";\n"
-      + "  }\n"
-      + "  // Call once at parse time for when the popup is activated while page loading (before onload called)\n"
-      + "  adjustPosition_").append(groupIdStr).append('_').append(popupIdStr).append("();"
+            + "  var aoPopupOldOnload_").append(groupIdStr).append('_').append(popupIdStr).append(" = window.onload;\n"
+        + "  function adjustPositionOnload_").append(groupIdStr).append('_').append(popupIdStr).append("() {\n"
+        + "    adjustPosition_").append(groupIdStr).append('_').append(popupIdStr).append("();\n"
+        + "    if (aoPopupOldOnload_").append(groupIdStr).append('_').append(popupIdStr).append(") {\n"
+        + "      aoPopupOldOnload_").append(groupIdStr).append('_').append(popupIdStr).append("();\n"
+        + "      aoPopupOldOnload_").append(groupIdStr).append('_').append(popupIdStr).append(" = null;\n"
+        + "    }\n"
+        + "  }\n"
+        + "  window.onload = adjustPositionOnload_").append(groupIdStr).append('_').append(popupIdStr).append(";\n"
+        + "  // Override onresize\n"
+        + "  var aoPopupOldOnresize_").append(groupIdStr).append('_').append(popupIdStr).append(" = window.onresize;\n"
+        + "  function adjustPositionOnresize_").append(groupIdStr).append('_').append(popupIdStr).append("() {\n"
+        + "    adjustPosition_").append(groupIdStr).append('_').append(popupIdStr).append("();\n"
+        + "    if (aoPopupOldOnresize_").append(groupIdStr).append('_').append(popupIdStr).append(") {\n"
+        + "      aoPopupOldOnresize_").append(groupIdStr).append('_').append(popupIdStr).append("();\n"
+        + "    }\n"
+        + "  }\n"
+        + "  window.onresize = adjustPositionOnresize_").append(groupIdStr).append('_').append(popupIdStr).append(";\n"
+        + "  function adjustPosition_").append(groupIdStr).append('_').append(popupIdStr).append("() {\n"
+        + "    var popupAnchor = document.getElementById(\"aoPopupAnchor_").append(groupIdStr).append('_').append(popupIdStr).append("\");\n"
+        + "    var popup = document.getElementById(\"aoPopup_").append(groupIdStr).append('_').append(popupIdStr).append("\");\n"
+        + "    // Find the screen position of the anchor\n"
+        + "    var popupAnchorLeft = 0;\n"
+        + "    var obj = popupAnchor;\n"
+        + "    if (obj.offsetParent) {\n"
+        + "      popupAnchorLeft = obj.offsetLeft\n"
+        + "      while (obj = obj.offsetParent) {\n"
+        + "        popupAnchorLeft += obj.offsetLeft\n"
+        + "      }\n"
+        + "    }\n"
+        + "    var popupAnchorRight = popupAnchorLeft + popupAnchor.offsetWidth;\n"
+        + "    // Find the width of the popup\n"
+        + "    var popupWidth = popup.offsetWidth;\n"
+        + "    // Find the width of the screen\n"
+        + "    var screenWidth = (document.compatMode && document.compatMode == \"CSS1Compat\") ? document.documentElement.clientWidth : document.body.clientWidth;\n"
+        + "    // Find the desired screen position of the popup\n"
+        + "    var popupScreenPosition = 0;\n"
+        + "    if (screenWidth <= (popupWidth+12)) {\n"
+        + "      popupScreenPosition = 0;\n"
+        + "    } else {\n"
+        + "      popupScreenPosition = screenWidth - popupWidth - 12;\n"
+        + "      if (popupAnchorRight < popupScreenPosition) popupScreenPosition = popupAnchorRight;\n"
+        + "    }\n"
+        + "    popup.style.left=(popupScreenPosition-popupAnchorLeft)+\"px\";\n"
+        + "  }\n"
+        + "  // Call once at parse time for when the popup is activated while page loading (before onload called)\n"
+        + "  adjustPosition_").append(groupIdStr).append('_').append(popupIdStr).append("();"
     )).__();
   }
 }

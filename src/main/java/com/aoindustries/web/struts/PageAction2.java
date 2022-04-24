@@ -62,6 +62,6 @@ public abstract class PageAction2 extends ActionSupport {
    * Once the page registry is set resolved, this version of the execute method is invoked.
    */
   public abstract String execute(
-    Registry pageRegistry
+      Registry pageRegistry
   ) throws Exception;
 }

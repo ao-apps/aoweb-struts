@@ -40,15 +40,15 @@ public class ChildTag extends PageTag {
   @Override
   @SuppressWarnings("unchecked")
   protected int doEndTag(
-    String title,
-    String navImageAlt,
-    String description,
-    String author,
-    String authorHref,
-    String copyright,
-    String path,
-    String keywords,
-    Collection<Meta> metas
+      String title,
+      String navImageAlt,
+      String description,
+      String author,
+      String authorHref,
+      String copyright,
+      String path,
+      String keywords,
+      Collection<Meta> metas
   ) throws JspException, IOException {
     Child child = new Child(title, navImageAlt, description, author, authorHref, copyright, path, keywords, metas);
     Stack<ParentTag> stack = ParentTag.STACK_REQUEST_ATTRIBUTE.context(pageContext.getRequest()).get();

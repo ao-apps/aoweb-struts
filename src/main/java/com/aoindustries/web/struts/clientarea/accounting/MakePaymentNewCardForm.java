@@ -125,9 +125,9 @@ public class MakePaymentNewCardForm extends AddCreditCardForm implements Seriali
       } else {
         try {
           BigDecimal pa = Money.parseMoneyAmount(
-            ThreadLocale.get(),
-            javaCurrency == null ? null : CurrencyUtil.getSymbol(javaCurrency),
-            this.paymentAmount
+              ThreadLocale.get(),
+              javaCurrency == null ? null : CurrencyUtil.getSymbol(javaCurrency),
+              this.paymentAmount
           );
           if (pa == null) {
             errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.invalid"));

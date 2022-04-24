@@ -49,13 +49,13 @@ public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction 
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    LinuxAccountPasswordSetterForm linuxAccountPasswordSetterForm = (LinuxAccountPasswordSetterForm)form;
+    LinuxAccountPasswordSetterForm linuxAccountPasswordSetterForm = (LinuxAccountPasswordSetterForm) form;
 
     // Validation
     ActionMessages errors = linuxAccountPasswordSetterForm.validate(mapping, request);
@@ -70,9 +70,9 @@ public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction 
     List<String> servers = linuxAccountPasswordSetterForm.getServers();
     List<String> newPasswords = linuxAccountPasswordSetterForm.getNewPasswords();
     List<String> confirmPasswords = linuxAccountPasswordSetterForm.getConfirmPasswords();
-    for (int c=0;c<usernames.size();c++) {
+    for (int c = 0; c < usernames.size(); c++) {
       String newPassword = newPasswords.get(c);
-      if (newPassword.length()>0) {
+      if (newPassword.length() > 0) {
         User.Name username = User.Name.valueOf(usernames.get(c));
         User la = aoConn.getLinux().getUser().get(username);
         if (la == null) {
@@ -89,7 +89,7 @@ public class LinuxAccountPasswordSetterCompletedAction extends PermissionAction 
         }
         UserServer lsa = la.getLinuxServerAccount(server);
         if (lsa == null) {
-          throw new SQLException("Unable to find UserServer: "+username+" on "+hostname);
+          throw new SQLException("Unable to find UserServer: " + username + " on " + hostname);
         }
         lsa.setPassword(newPassword);
         messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("linuxAccountPasswordSetter.field.confirmPasswords.passwordReset"));

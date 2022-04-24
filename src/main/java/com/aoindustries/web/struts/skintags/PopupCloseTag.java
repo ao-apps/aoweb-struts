@@ -54,21 +54,21 @@ public class PopupCloseTag extends TagSupport {
       // Look for containing popupGroup tag
       PopupGroupTag popupGroupTag = JspTagUtils.requireAncestor(PopupTag.TAG_NAME, popupTag, PopupGroupTag.TAG_NAME, PopupGroupTag.class);
 
-      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-      HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+      HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
+      HttpServletResponse resp = (HttpServletResponse) pageContext.getResponse();
       SkinTag.getSkin(req).printPopupClose(
-        req,
-        resp,
-        new DocumentEE(
-          pageContext.getServletContext(),
           req,
           resp,
-          pageContext.getOut(),
-          false, // Do not add extra newlines to JSP
-          false  // Do not add extra indentation to JSP
-        ),
-        popupGroupTag.sequenceId,
-        popupTag.sequenceId
+          new DocumentEE(
+              pageContext.getServletContext(),
+              req,
+              resp,
+              pageContext.getOut(),
+              false, // Do not add extra newlines to JSP
+              false  // Do not add extra indentation to JSP
+          ),
+          popupGroupTag.sequenceId,
+          popupTag.sequenceId
       );
       return SKIP_BODY;
     } catch (IOException e) {

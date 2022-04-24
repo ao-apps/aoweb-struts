@@ -41,30 +41,30 @@ public class VirtualHostingAction extends VirtualHostingStepAction {
 
   @Override
   public ActionForward executeVirtualHostingStep(
-    ActionMapping mapping,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    VirtualHostingSignupSelectPackageForm signupSelectPackageForm,
-    boolean signupSelectPackageFormComplete,
-    SignupDomainForm signupDomainForm,
-    boolean signupDomainFormComplete,
-    SignupOrganizationForm signupOrganizationForm,
-    boolean signupOrganizationFormComplete,
-    SignupTechnicalForm signupTechnicalForm,
-    boolean signupTechnicalFormComplete,
-    SignupBillingInformationForm signupBillingInformationForm,
-    boolean signupBillingInformationFormComplete
+      ActionMapping mapping,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      VirtualHostingSignupSelectPackageForm signupSelectPackageForm,
+      boolean signupSelectPackageFormComplete,
+      SignupDomainForm signupDomainForm,
+      boolean signupDomainFormComplete,
+      SignupOrganizationForm signupOrganizationForm,
+      boolean signupOrganizationFormComplete,
+      SignupTechnicalForm signupTechnicalForm,
+      boolean signupTechnicalFormComplete,
+      SignupBillingInformationForm signupBillingInformationForm,
+      boolean signupBillingInformationFormComplete
   ) throws Exception {
     List<PackageDefinition> packageDefinitions = SignupSelectPackageActionHelper.getPackageDefinitions(getServlet().getServletContext(), PackageCategory.VIRTUAL);
     if (packageDefinitions.size() == 1) {
       response.sendRedirect(
-        response.encodeRedirectURL(
-          URIEncoder.encodeURI(
-            Skin.getSkin(request).getUrlBase(request)
-            + "signup/virtual-hosting-completed.do?packageDefinition="
-            + URIEncoder.encodeURIComponent(Integer.toString(packageDefinitions.get(0).getPkey()))
+          response.encodeRedirectURL(
+              URIEncoder.encodeURI(
+                  Skin.getSkin(request).getUrlBase(request)
+                      + "signup/virtual-hosting-completed.do?packageDefinition="
+                      + URIEncoder.encodeURIComponent(Integer.toString(packageDefinitions.get(0).getPkey()))
+              )
           )
-        )
       );
       return null;
     }

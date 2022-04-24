@@ -47,10 +47,10 @@ public final class SignupHelper {
    * session.
    */
   public static <T extends ActionForm> T getSessionActionForm(
-    ActionServlet servlet,
-    HttpSession session,
-    ScopeEE.Session.Attribute<T> attribute,
-    Supplier<T> factory
+      ActionServlet servlet,
+      HttpSession session,
+      ScopeEE.Session.Attribute<T> attribute,
+      Supplier<T> factory
   ) {
     return attribute.context(session).computeIfAbsent(__ -> {
       T form = factory.get();

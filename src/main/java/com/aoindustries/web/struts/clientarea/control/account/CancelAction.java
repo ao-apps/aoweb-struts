@@ -45,11 +45,11 @@ public class CancelAction  extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
     List<Account> accounts = aoConn.getAccount().getAccount().getRows();
 

@@ -48,13 +48,13 @@ public class MySQLPasswordSetterAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    MySQLPasswordSetterForm mySQLPasswordSetterForm = (MySQLPasswordSetterForm)form;
+    MySQLPasswordSetterForm mySQLPasswordSetterForm = (MySQLPasswordSetterForm) form;
 
     List<UserServer> msus = aoConn.getMysql().getUserServer().getRows();
 

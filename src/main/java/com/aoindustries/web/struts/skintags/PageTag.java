@@ -49,7 +49,7 @@ public abstract class PageTag extends BodyTagSupport {
    * parent PageTag.
    */
   private static final ScopeEE.Request.Attribute<PageTag> PAGE_TAG_ATTRIBUTE =
-    ScopeEE.REQUEST.attribute(PageTag.class.getName());
+      ScopeEE.REQUEST.attribute(PageTag.class.getName());
 
   /**
    * Gets the current page tag (parent or child).
@@ -140,11 +140,11 @@ public abstract class PageTag extends BodyTagSupport {
       }
       String myNavImageAlt = this.navImageAlt;
       if (myNavImageAlt == null || myNavImageAlt.length() == 0) {
-        myNavImageAlt=title;
+        myNavImageAlt = title;
       }
       String myDescription = this.description;
       if (myDescription == null || myDescription.length() == 0) {
-        myDescription=title;
+        myDescription = title;
       }
       return doEndTag(title, myNavImageAlt, myDescription, author, authorHref, copyright, path, keywords, metas);
     } catch (IOException e) {
@@ -158,14 +158,14 @@ public abstract class PageTag extends BodyTagSupport {
   }
 
   protected abstract int doEndTag(
-    String title,
-    String navImageAlt,
-    String description,
-    String author,
-    String authorHref,
-    String copyright,
-    String path,
-    String keywords,
-    Collection<Meta> metas
+      String title,
+      String navImageAlt,
+      String description,
+      String author,
+      String authorHref,
+      String copyright,
+      String path,
+      String keywords,
+      Collection<Meta> metas
   ) throws JspException, IOException;
 }

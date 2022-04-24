@@ -43,7 +43,7 @@ public class ParentTag extends PageTag {
   private static final long serialVersionUID = 1L;
 
   static final ScopeEE.Request.Attribute<Stack<ParentTag>> STACK_REQUEST_ATTRIBUTE =
-    ScopeEE.REQUEST.attribute(ParentTag.class.getName() + ".stack");
+      ScopeEE.REQUEST.attribute(ParentTag.class.getName() + ".stack");
 
   private List<Child> children;
 
@@ -82,15 +82,15 @@ public class ParentTag extends PageTag {
   @Override
   @SuppressWarnings("unchecked")
   protected int doEndTag(
-    String title,
-    String navImageAlt,
-    String description,
-    String author,
-    String authorHref,
-    String copyright,
-    String path,
-    String keywords,
-    Collection<Meta> metas
+      String title,
+      String navImageAlt,
+      String description,
+      String author,
+      String authorHref,
+      String copyright,
+      String path,
+      String keywords,
+      Collection<Meta> metas
   ) throws JspException, IOException {
     Stack<ParentTag> stack = STACK_REQUEST_ATTRIBUTE.context(pageContext.getRequest()).get();
     if (stack != null && !stack.isEmpty() && stack.peek() == this) {
@@ -98,7 +98,7 @@ public class ParentTag extends PageTag {
     }
 
     PageAttributesBodyTag.getPageAttributes(pageContext).addParent(
-      new Parent(title, navImageAlt, description, author, authorHref, copyright, path, keywords, metas, children)
+        new Parent(title, navImageAlt, description, author, authorHref, copyright, path, keywords, metas, children)
     );
     return EVAL_PAGE;
   }

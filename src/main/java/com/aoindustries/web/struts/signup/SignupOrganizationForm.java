@@ -39,7 +39,7 @@ import org.apache.struts.action.ActionMessage;
 public class SignupOrganizationForm extends ActionForm implements Serializable, SessionActionForm {
 
   public static final ScopeEE.Session.Attribute<SignupOrganizationForm> SESSION_ATTRIBUTE =
-    ScopeEE.SESSION.attribute("signupOrganizationForm");
+      ScopeEE.SESSION.attribute("signupOrganizationForm");
 
   private static final long serialVersionUID = 1L;
 
@@ -68,15 +68,15 @@ public class SignupOrganizationForm extends ActionForm implements Serializable, 
   @Override
   public boolean isEmpty() {
     return
-      "".equals(organizationName)
-      && "".equals(organizationPhone)
-      && "".equals(organizationFax)
-      && "".equals(organizationAddress1)
-      && "".equals(organizationAddress2)
-      && "".equals(organizationCity)
-      && "".equals(organizationState)
-      && "".equals(organizationCountry)
-      && "".equals(organizationZip)
+        "".equals(organizationName)
+            && "".equals(organizationPhone)
+            && "".equals(organizationFax)
+            && "".equals(organizationAddress1)
+            && "".equals(organizationAddress2)
+            && "".equals(organizationCity)
+            && "".equals(organizationState)
+            && "".equals(organizationCountry)
+            && "".equals(organizationZip)
     ;
   }
 

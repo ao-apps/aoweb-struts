@@ -55,13 +55,13 @@ public class EditCreditCardAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    EditCreditCardForm editCreditCardForm=(EditCreditCardForm)form;
+    EditCreditCardForm editCreditCardForm = (EditCreditCardForm) form;
 
     String persistenceId = editCreditCardForm.getPersistenceId();
     if (GenericValidator.isBlankOrNull(persistenceId)) {
@@ -121,10 +121,10 @@ public class EditCreditCardAction extends PermissionAction {
   }
 
   private static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
-    EnumSet.of(
-      Permission.Name.get_credit_cards,
-      Permission.Name.edit_credit_card
-    )
+      EnumSet.of(
+          Permission.Name.get_credit_cards,
+          Permission.Name.edit_credit_card
+      )
   );
 
   @Override

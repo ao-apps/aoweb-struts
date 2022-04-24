@@ -35,19 +35,19 @@ public class VirtualDedicated4CompletedAction extends VirtualDedicated4Action {
 
   @Override
   public ActionForward executeVirtualDedicatedStep(
-    ActionMapping mapping,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
-    boolean signupSelectPackageFormComplete,
-    VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
-    boolean signupCustomizeServerFormComplete,
-    SignupOrganizationForm signupOrganizationForm,
-    boolean signupOrganizationFormComplete,
-    SignupTechnicalForm signupTechnicalForm,
-    boolean signupTechnicalFormComplete,
-    SignupBillingInformationForm signupBillingInformationForm,
-    boolean signupBillingInformationFormComplete
+      ActionMapping mapping,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
+      boolean signupSelectPackageFormComplete,
+      VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
+      boolean signupCustomizeServerFormComplete,
+      SignupOrganizationForm signupOrganizationForm,
+      boolean signupOrganizationFormComplete,
+      SignupTechnicalForm signupTechnicalForm,
+      boolean signupTechnicalFormComplete,
+      SignupBillingInformationForm signupBillingInformationForm,
+      boolean signupBillingInformationFormComplete
   ) throws Exception {
     if (!signupSelectPackageFormComplete) {
       return mapping.findForward("virtual-dedicated-server-completed");
@@ -61,19 +61,19 @@ public class VirtualDedicated4CompletedAction extends VirtualDedicated4Action {
     if (!signupTechnicalFormComplete) {
       // Init values for the form
       return super.executeVirtualDedicatedStep(
-        mapping,
-        request,
-        response,
-        signupSelectPackageForm,
-        signupSelectPackageFormComplete,
-        signupCustomizeServerForm,
-        signupCustomizeServerFormComplete,
-        signupOrganizationForm,
-        signupOrganizationFormComplete,
-        signupTechnicalForm,
-        signupTechnicalFormComplete,
-        signupBillingInformationForm,
-        signupBillingInformationFormComplete
+          mapping,
+          request,
+          response,
+          signupSelectPackageForm,
+          signupSelectPackageFormComplete,
+          signupCustomizeServerForm,
+          signupCustomizeServerFormComplete,
+          signupOrganizationForm,
+          signupOrganizationFormComplete,
+          signupTechnicalForm,
+          signupTechnicalFormComplete,
+          signupBillingInformationForm,
+          signupBillingInformationFormComplete
       );
     }
     if (!signupBillingInformationFormComplete) {

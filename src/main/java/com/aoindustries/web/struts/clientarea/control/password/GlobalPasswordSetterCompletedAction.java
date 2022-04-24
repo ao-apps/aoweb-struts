@@ -47,13 +47,13 @@ public class GlobalPasswordSetterCompletedAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    GlobalPasswordSetterForm globalPasswordSetterForm = (GlobalPasswordSetterForm)form;
+    GlobalPasswordSetterForm globalPasswordSetterForm = (GlobalPasswordSetterForm) form;
 
     // Validation
     ActionMessages errors = globalPasswordSetterForm.validate(mapping, request);
@@ -67,9 +67,9 @@ public class GlobalPasswordSetterCompletedAction extends PermissionAction {
     List<String> usernames = globalPasswordSetterForm.getUsernames();
     List<String> newPasswords = globalPasswordSetterForm.getNewPasswords();
     List<String> confirmPasswords = globalPasswordSetterForm.getConfirmPasswords();
-    for (int c=0;c<usernames.size();c++) {
+    for (int c = 0; c < usernames.size(); c++) {
       String newPassword = newPasswords.get(c);
-      if (newPassword.length()>0) {
+      if (newPassword.length() > 0) {
         User.Name username = User.Name.valueOf(usernames.get(c));
         User un = aoConn.getAccount().getUser().get(username);
         if (un == null) {
@@ -87,12 +87,12 @@ public class GlobalPasswordSetterCompletedAction extends PermissionAction {
   }
 
   static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
-    EnumSet.of(
-      Permission.Name.set_business_administrator_password,
-      Permission.Name.set_linux_server_account_password,
-      Permission.Name.set_mysql_server_user_password,
-      Permission.Name.set_postgres_server_user_password
-    )
+      EnumSet.of(
+          Permission.Name.set_business_administrator_password,
+          Permission.Name.set_linux_server_account_password,
+          Permission.Name.set_mysql_server_user_password,
+          Permission.Name.set_postgres_server_user_password
+      )
   );
 
   @Override

@@ -49,13 +49,13 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    PostgreSQLPasswordSetterForm postgreSQLPasswordSetterForm = (PostgreSQLPasswordSetterForm)form;
+    PostgreSQLPasswordSetterForm postgreSQLPasswordSetterForm = (PostgreSQLPasswordSetterForm) form;
 
     // Validation
     ActionMessages errors = postgreSQLPasswordSetterForm.validate(mapping, request);
@@ -71,9 +71,9 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
     List<String> postgreSQLServers = postgreSQLPasswordSetterForm.getPostgreSQLServers();
     List<String> newPasswords = postgreSQLPasswordSetterForm.getNewPasswords();
     List<String> confirmPasswords = postgreSQLPasswordSetterForm.getConfirmPasswords();
-    for (int c=0;c<usernames.size();c++) {
+    for (int c = 0; c < usernames.size(); c++) {
       String newPassword = newPasswords.get(c);
-      if (newPassword.length()>0) {
+      if (newPassword.length() > 0) {
         User.Name username = User.Name.valueOf(usernames.get(c));
         String hostname = servers.get(c);
         Host host = aoConn.getNet().getHost().get(hostname);
@@ -87,11 +87,11 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
         Server.Name serverName = Server.Name.valueOf(postgreSQLServers.get(c));
         Server ps = linuxServer.getPostgresServer(serverName);
         if (ps == null) {
-          throw new SQLException("Unable to find Server: "+serverName+" on "+hostname);
+          throw new SQLException("Unable to find Server: " + serverName + " on " + hostname);
         }
         UserServer psu = ps.getPostgresServerUser(username);
         if (psu == null) {
-          throw new SQLException("Unable to find UserServer: "+username+" on "+serverName+" on "+hostname);
+          throw new SQLException("Unable to find UserServer: " + username + " on " + serverName + " on " + hostname);
         }
         psu.setPassword(newPassword);
         messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("postgreSQLPasswordSetter.field.confirmPasswords.passwordReset"));

@@ -40,30 +40,30 @@ public class VirtualDedicatedAction extends VirtualDedicatedStepAction {
 
   @Override
   public ActionForward executeVirtualDedicatedStep(
-    ActionMapping mapping,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
-    boolean signupSelectPackageFormComplete,
-    VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
-    boolean signupCustomizeServerFormComplete,
-    SignupOrganizationForm signupOrganizationForm,
-    boolean signupOrganizationFormComplete,
-    SignupTechnicalForm signupTechnicalForm,
-    boolean signupTechnicalFormComplete,
-    SignupBillingInformationForm signupBillingInformationForm,
-    boolean signupBillingInformationFormComplete
+      ActionMapping mapping,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm,
+      boolean signupSelectPackageFormComplete,
+      VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm,
+      boolean signupCustomizeServerFormComplete,
+      SignupOrganizationForm signupOrganizationForm,
+      boolean signupOrganizationFormComplete,
+      SignupTechnicalForm signupTechnicalForm,
+      boolean signupTechnicalFormComplete,
+      SignupBillingInformationForm signupBillingInformationForm,
+      boolean signupBillingInformationFormComplete
   ) throws Exception {
     List<SignupSelectServerActionHelper.Host> servers = SignupSelectServerActionHelper.getServers(getServlet().getServletContext(), PackageCategory.VIRTUAL_DEDICATED);
     if (servers.size() == 1) {
       response.sendRedirect(
-        response.encodeRedirectURL(
-          URIEncoder.encodeURI(
-            Skin.getSkin(request).getUrlBase(request)
-            + "signup/virtual-dedicated-server-completed.do?packageDefinition="
-            + URIEncoder.encodeURIComponent(Integer.toString(servers.get(0).getMinimumConfiguration().getPackageDefinition()))
+          response.encodeRedirectURL(
+              URIEncoder.encodeURI(
+                  Skin.getSkin(request).getUrlBase(request)
+                      + "signup/virtual-dedicated-server-completed.do?packageDefinition="
+                      + URIEncoder.encodeURIComponent(Integer.toString(servers.get(0).getMinimumConfiguration().getPackageDefinition()))
+              )
           )
-        )
       );
       return null;
     }

@@ -79,8 +79,8 @@ public class EditCreditCardForm extends CreditCardForm implements Serializable {
     // cardNumber
     String cardNumber = getCardNumber();
     if (
-      !GenericValidator.isBlankOrNull(cardNumber)
-      && !GenericValidator.isCreditCard(CreditCard.numbersOnly(cardNumber))
+        !GenericValidator.isBlankOrNull(cardNumber)
+            && !GenericValidator.isCreditCard(CreditCard.numbersOnly(cardNumber))
     ) {
       errors.add("cardNumber", new ActionMessage("editCreditCardForm.cardNumber.invalid"));
     }
@@ -90,21 +90,21 @@ public class EditCreditCardForm extends CreditCardForm implements Serializable {
     String expirationYear = getExpirationYear();
     if (!GenericValidator.isBlankOrNull(cardNumber)) {
       if (
-        GenericValidator.isBlankOrNull(expirationMonth)
-        || GenericValidator.isBlankOrNull(expirationYear)
+          GenericValidator.isBlankOrNull(expirationMonth)
+              || GenericValidator.isBlankOrNull(expirationYear)
       ) {
         errors.add("expirationDate", new ActionMessage("editCreditCardForm.expirationDate.required"));
       }
     } else {
       // If either month or year provided, both must be provided
       if (
-        !GenericValidator.isBlankOrNull(expirationMonth)
-        && GenericValidator.isBlankOrNull(expirationYear)
+          !GenericValidator.isBlankOrNull(expirationMonth)
+              && GenericValidator.isBlankOrNull(expirationYear)
       ) {
         errors.add("expirationDate", new ActionMessage("editCreditCardForm.expirationDate.monthWithoutYear"));
       } else if (
-        GenericValidator.isBlankOrNull(expirationMonth)
-        && !GenericValidator.isBlankOrNull(expirationYear)
+          GenericValidator.isBlankOrNull(expirationMonth)
+              && !GenericValidator.isBlankOrNull(expirationYear)
       ) {
         errors.add("expirationDate", new ActionMessage("editCreditCardForm.expirationDate.yearWithoutMonth"));
       }

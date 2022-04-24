@@ -41,28 +41,28 @@ public class ResellerAction extends ResellerStepAction {
 
   @Override
   public ActionForward executeResellerStep(
-    ActionMapping mapping,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    ResellerSignupSelectPackageForm signupSelectPackageForm,
-    boolean signupSelectPackageFormComplete,
-    SignupOrganizationForm signupOrganizationForm,
-    boolean signupOrganizationFormComplete,
-    SignupTechnicalForm signupTechnicalForm,
-    boolean signupTechnicalFormComplete,
-    SignupBillingInformationForm signupBillingInformationForm,
-    boolean signupBillingInformationFormComplete
+      ActionMapping mapping,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      ResellerSignupSelectPackageForm signupSelectPackageForm,
+      boolean signupSelectPackageFormComplete,
+      SignupOrganizationForm signupOrganizationForm,
+      boolean signupOrganizationFormComplete,
+      SignupTechnicalForm signupTechnicalForm,
+      boolean signupTechnicalFormComplete,
+      SignupBillingInformationForm signupBillingInformationForm,
+      boolean signupBillingInformationFormComplete
   ) throws Exception {
     List<PackageDefinition> packageDefinitions = SignupSelectPackageActionHelper.getPackageDefinitions(getServlet().getServletContext(), PackageCategory.RESELLER);
     if (packageDefinitions.size() == 1) {
       response.sendRedirect(
-        response.encodeRedirectURL(
-          URIEncoder.encodeURI(
-            Skin.getSkin(request).getUrlBase(request)
-            + "signup/reseller-completed.do?packageDefinition="
-            + URIEncoder.encodeURIComponent(Integer.toString(packageDefinitions.get(0).getPkey()))
+          response.encodeRedirectURL(
+              URIEncoder.encodeURI(
+                  Skin.getSkin(request).getUrlBase(request)
+                      + "signup/reseller-completed.do?packageDefinition="
+                      + URIEncoder.encodeURIComponent(Integer.toString(packageDefinitions.get(0).getPkey()))
+              )
           )
-        )
       );
       return null;
     }

@@ -50,7 +50,7 @@ public class PopupTag extends BodyTagSupport {
    * The request attribute name used to store the sequence.
    */
   private static final ScopeEE.Request.Attribute<Sequence> SEQUENCE_REQUEST_ATTRIBUTE =
-    ScopeEE.REQUEST.attribute(PopupTag.class.getName() + ".sequence");
+      ScopeEE.REQUEST.attribute(PopupTag.class.getName() + ".sequence");
 
   private static final long serialVersionUID = 1L;
 
@@ -69,27 +69,27 @@ public class PopupTag extends BodyTagSupport {
   @Override
   public int doStartTag() throws JspException {
     try {
-      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+      HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
       sequenceId = SEQUENCE_REQUEST_ATTRIBUTE.context(req)
-        .computeIfAbsent(__ -> new UnsynchronizedSequence())
-        .getNextSequenceValue();
+          .computeIfAbsent(__ -> new UnsynchronizedSequence())
+          .getNextSequenceValue();
       // Look for containing popupGroup
       PopupGroupTag popupGroupTag = JspTagUtils.requireAncestor(TAG_NAME, this, PopupGroupTag.TAG_NAME, PopupGroupTag.class);
-      HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+      HttpServletResponse resp = (HttpServletResponse) pageContext.getResponse();
       SkinTag.getSkin(req).beginPopup(
-        req,
-        resp,
-        new DocumentEE(
-          pageContext.getServletContext(),
           req,
           resp,
-          pageContext.getOut(),
-          false, // Do not add extra newlines to JSP
-          false  // Do not add extra indentation to JSP
-        ),
-        popupGroupTag.sequenceId,
-        sequenceId,
-        width
+          new DocumentEE(
+              pageContext.getServletContext(),
+              req,
+              resp,
+              pageContext.getOut(),
+              false, // Do not add extra newlines to JSP
+              false  // Do not add extra indentation to JSP
+          ),
+          popupGroupTag.sequenceId,
+          sequenceId,
+          width
       );
       return EVAL_BODY_INCLUDE;
     } catch (IOException e) {
@@ -102,22 +102,22 @@ public class PopupTag extends BodyTagSupport {
     try {
       // Look for containing popupGroup
       PopupGroupTag popupGroupTag = JspTagUtils.requireAncestor(TAG_NAME, this, PopupGroupTag.TAG_NAME, PopupGroupTag.class);
-      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-      HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+      HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
+      HttpServletResponse resp = (HttpServletResponse) pageContext.getResponse();
       SkinTag.getSkin(req).endPopup(
-        req,
-        resp,
-        new DocumentEE(
-          pageContext.getServletContext(),
           req,
           resp,
-          pageContext.getOut(),
-          false, // Do not add extra newlines to JSP
-          false  // Do not add extra indentation to JSP
-        ),
-        popupGroupTag.sequenceId,
-        sequenceId,
-        width
+          new DocumentEE(
+              pageContext.getServletContext(),
+              req,
+              resp,
+              pageContext.getOut(),
+              false, // Do not add extra newlines to JSP
+              false  // Do not add extra indentation to JSP
+          ),
+          popupGroupTag.sequenceId,
+          sequenceId,
+          width
       );
       return EVAL_PAGE;
     } catch (IOException e) {

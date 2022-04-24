@@ -36,21 +36,21 @@ public class VirtualManaged6CompletedAction extends VirtualManaged6Action {
 
   @Override
   public ActionForward executeVirtualManagedStep(
-    ActionMapping mapping,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
-    boolean signupSelectPackageFormComplete,
-    VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
-    boolean signupCustomizeServerFormComplete,
-    SignupCustomizeManagementForm signupCustomizeManagementForm,
-    boolean signupCustomizeManagementFormComplete,
-    SignupOrganizationForm signupOrganizationForm,
-    boolean signupOrganizationFormComplete,
-    SignupTechnicalForm signupTechnicalForm,
-    boolean signupTechnicalFormComplete,
-    SignupBillingInformationForm signupBillingInformationForm,
-    boolean signupBillingInformationFormComplete
+      ActionMapping mapping,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
+      boolean signupSelectPackageFormComplete,
+      VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
+      boolean signupCustomizeServerFormComplete,
+      SignupCustomizeManagementForm signupCustomizeManagementForm,
+      boolean signupCustomizeManagementFormComplete,
+      SignupOrganizationForm signupOrganizationForm,
+      boolean signupOrganizationFormComplete,
+      SignupTechnicalForm signupTechnicalForm,
+      boolean signupTechnicalFormComplete,
+      SignupBillingInformationForm signupBillingInformationForm,
+      boolean signupBillingInformationFormComplete
   ) throws Exception {
     // Forward to previous steps if they have not been completed
     if (!signupSelectPackageFormComplete) {
@@ -71,21 +71,21 @@ public class VirtualManaged6CompletedAction extends VirtualManaged6Action {
     if (!signupBillingInformationFormComplete) {
       // Init values for the form
       return super.executeVirtualManagedStep(
-        mapping,
-        request,
-        response,
-        signupSelectPackageForm,
-        signupSelectPackageFormComplete,
-        signupCustomizeServerForm,
-        signupCustomizeServerFormComplete,
-        signupCustomizeManagementForm,
-        signupCustomizeManagementFormComplete,
-        signupOrganizationForm,
-        signupOrganizationFormComplete,
-        signupTechnicalForm,
-        signupTechnicalFormComplete,
-        signupBillingInformationForm,
-        signupBillingInformationFormComplete
+          mapping,
+          request,
+          response,
+          signupSelectPackageForm,
+          signupSelectPackageFormComplete,
+          signupCustomizeServerForm,
+          signupCustomizeServerFormComplete,
+          signupCustomizeManagementForm,
+          signupCustomizeManagementFormComplete,
+          signupOrganizationForm,
+          signupOrganizationFormComplete,
+          signupTechnicalForm,
+          signupTechnicalFormComplete,
+          signupBillingInformationForm,
+          signupBillingInformationFormComplete
       );
     }
     return mapping.findForward("virtual-managed-server-7");
@@ -96,7 +96,7 @@ public class VirtualManaged6CompletedAction extends VirtualManaged6Action {
    */
   @Override
   protected void clearCheckboxes(HttpServletRequest request, ActionForm form) {
-    SignupBillingInformationForm signupBillingInformationForm = (SignupBillingInformationForm)form;
+    SignupBillingInformationForm signupBillingInformationForm = (SignupBillingInformationForm) form;
     // Clear the checkboxes if not present in this request
     if (!"on".equals(request.getParameter("billingUseMonthly"))) {
       signupBillingInformationForm.setBillingUseMonthly(false);

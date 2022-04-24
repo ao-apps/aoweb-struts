@@ -63,18 +63,18 @@ public class ContentVerticalDividerTag extends TagSupport {
   public int doStartTag() throws JspException {
     try {
       ContentLineTag contentLineTag = JspTagUtils.requireAncestor(TAG_NAME, this, ContentLineTag.TAG_NAME, ContentLineTag.class);
-      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+      HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
       FlowContent<?> contentLine = contentLineTag.getContentLine();
       contentLine.getDocument().setOut(pageContext.getOut());
       contentLine = SkinTag.getSkin(req).contentVerticalDivider(
-        req,
-        (HttpServletResponse)pageContext.getResponse(),
-        contentLine,
-        visible,
-        colspan,
-        rowspan,
-        align,
-        width
+          req,
+          (HttpServletResponse) pageContext.getResponse(),
+          contentLine,
+          visible,
+          colspan,
+          rowspan,
+          align,
+          width
       );
       contentLineTag.setLastRowSpan(rowspan);
       contentLineTag.setContentLine(contentLine);

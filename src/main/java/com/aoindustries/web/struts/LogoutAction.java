@@ -38,6 +38,7 @@ public class LogoutAction extends ActionSupport {
   private static final long serialVersionUID = 1L;
 
   private String target;
+
   public void setTarget(String target) {
     this.target = target;
   }
@@ -63,11 +64,11 @@ public class LogoutAction extends ActionSupport {
       String targetUrl = LoginAction.getTargetUrl(session, target);
       if (targetUrl != null) {
         response.sendRedirect(
-          response.encodeRedirectURL(
-            URIEncoder.encodeURI(
-              targetUrl
+            response.encodeRedirectURL(
+                URIEncoder.encodeURI(
+                    targetUrl
+                )
             )
-          )
         );
         return null;
       }

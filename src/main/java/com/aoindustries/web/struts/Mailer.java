@@ -56,28 +56,28 @@ public final class Mailer {
    * Sends an email.
    */
   public static void sendEmail(
-    HostAddress smtpServer,
-    String contentType,
-    Charset charset,
-    String fromAddress,
-    String fromPersonal,
-    List<String> tos,
-    String subject,
-    String message
+      HostAddress smtpServer,
+      String contentType,
+      Charset charset,
+      String fromAddress,
+      String fromPersonal,
+      List<String> tos,
+      String subject,
+      String message
   ) throws MessagingException, UnsupportedEncodingException {
     synchronized (mailerLock) {
       System.setProperty("mail.mime.charset", charset.name());
       try {
         // Create the email
-        Properties props=new Properties();
+        Properties props = new Properties();
         props.put("mail.smtp.host", smtpServer);
-        Session mailSession=Session.getDefaultInstance(props, null);
-        Message msg=new MimeMessage(mailSession);
+        Session mailSession = Session.getDefaultInstance(props, null);
+        Message msg = new MimeMessage(mailSession);
         msg.setFrom(
-          new InternetAddress(
-            fromAddress,
-            fromPersonal
-          )
+            new InternetAddress(
+                fromAddress,
+                fromPersonal
+            )
         );
         for (String to : tos) {
           msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to, true));

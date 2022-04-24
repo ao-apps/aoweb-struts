@@ -42,17 +42,17 @@ public enum Formtype {
    * Adds <code>/struts1/commons-validator-1.3.1-compress.js</code> to {@code <head>} for Struts 1.
    */
   STRUTS1 {
-    @Override
-    public void doHead(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, MetadataContent<?> content) throws IOException {
-      content.script().src(
+  @Override
+  public void doHead(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, MetadataContent<?> content) throws IOException {
+    content.script().src(
         resp.encodeURL(
-          URIEncoder.encodeURI(
-            req.getContextPath() + "/struts1/commons-validator-1.3.1-compress.js"
-          )
+            URIEncoder.encodeURI(
+                req.getContextPath() + "/struts1/commons-validator-1.3.1-compress.js"
+            )
         )
-      ).__();
-    }
-  },
+    ).__();
+  }
+},
 
   /**
    * Calls <a href="https://struts.apache.org/tag-developers/head-tag.html">{@code <s:head />}</a> within

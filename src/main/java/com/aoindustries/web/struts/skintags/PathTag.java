@@ -47,6 +47,7 @@ import javax.servlet.jsp.tagext.DynamicAttributes;
 public class PathTag extends EncodingBufferedTag implements ParamsAttribute, DynamicAttributes {
 
   private URIParametersMap params;
+
   // TODO: canonical, absolute, addLastModified?
 
   @Override
@@ -80,7 +81,7 @@ public class PathTag extends EncodingBufferedTag implements ParamsAttribute, Dyn
 
   @Override
   protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-    PageContext pageContext = (PageContext)getJspContext();
+    PageContext pageContext = (PageContext) getJspContext();
     assert capturedBody.trim() == capturedBody : "URLs should have already been trimmed";
     String path = capturedBody.toString();
     path = URIParametersUtils.addParams(path, params);

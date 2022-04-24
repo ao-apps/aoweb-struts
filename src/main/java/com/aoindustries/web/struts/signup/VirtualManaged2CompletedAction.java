@@ -35,21 +35,21 @@ public class VirtualManaged2CompletedAction extends VirtualManaged2Action {
 
   @Override
   public ActionForward executeVirtualManagedStep(
-    ActionMapping mapping,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
-    boolean signupSelectPackageFormComplete,
-    VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
-    boolean signupCustomizeServerFormComplete,
-    SignupCustomizeManagementForm signupCustomizeManagementForm,
-    boolean signupCustomizeManagementFormComplete,
-    SignupOrganizationForm signupOrganizationForm,
-    boolean signupOrganizationFormComplete,
-    SignupTechnicalForm signupTechnicalForm,
-    boolean signupTechnicalFormComplete,
-    SignupBillingInformationForm signupBillingInformationForm,
-    boolean signupBillingInformationFormComplete
+      ActionMapping mapping,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      VirtualManagedSignupSelectPackageForm signupSelectPackageForm,
+      boolean signupSelectPackageFormComplete,
+      VirtualManagedSignupCustomizeServerForm signupCustomizeServerForm,
+      boolean signupCustomizeServerFormComplete,
+      SignupCustomizeManagementForm signupCustomizeManagementForm,
+      boolean signupCustomizeManagementFormComplete,
+      SignupOrganizationForm signupOrganizationForm,
+      boolean signupOrganizationFormComplete,
+      SignupTechnicalForm signupTechnicalForm,
+      boolean signupTechnicalFormComplete,
+      SignupBillingInformationForm signupBillingInformationForm,
+      boolean signupBillingInformationFormComplete
   ) throws Exception {
     if (!signupSelectPackageFormComplete) {
       return mapping.findForward("virtual-managed-server-completed");
@@ -57,21 +57,21 @@ public class VirtualManaged2CompletedAction extends VirtualManaged2Action {
     if (!signupCustomizeServerFormComplete) {
       // Init values for the form
       return super.executeVirtualManagedStep(
-        mapping,
-        request,
-        response,
-        signupSelectPackageForm,
-        signupSelectPackageFormComplete,
-        signupCustomizeServerForm,
-        signupCustomizeServerFormComplete,
-        signupCustomizeManagementForm,
-        signupCustomizeManagementFormComplete,
-        signupOrganizationForm,
-        signupOrganizationFormComplete,
-        signupTechnicalForm,
-        signupTechnicalFormComplete,
-        signupBillingInformationForm,
-        signupBillingInformationFormComplete
+          mapping,
+          request,
+          response,
+          signupSelectPackageForm,
+          signupSelectPackageFormComplete,
+          signupCustomizeServerForm,
+          signupCustomizeServerFormComplete,
+          signupCustomizeManagementForm,
+          signupCustomizeManagementFormComplete,
+          signupOrganizationForm,
+          signupOrganizationFormComplete,
+          signupTechnicalForm,
+          signupTechnicalFormComplete,
+          signupBillingInformationForm,
+          signupBillingInformationFormComplete
       );
     }
     return mapping.findForward("virtual-managed-server-3");

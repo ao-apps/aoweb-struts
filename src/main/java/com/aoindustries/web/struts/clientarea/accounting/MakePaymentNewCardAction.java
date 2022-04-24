@@ -57,13 +57,13 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
 
   @Override
   public ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    MakePaymentNewCardForm makePaymentNewCardForm = (MakePaymentNewCardForm)form;
+    MakePaymentNewCardForm makePaymentNewCardForm = (MakePaymentNewCardForm) form;
 
     Account account;
     try {

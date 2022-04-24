@@ -66,29 +66,29 @@ public class ContentTag extends PageAttributesBodyTag {
 
   private void init() {
     colspans = "1";
-    colspansParsed = new int[] {1};
+    colspansParsed = new int[]{1};
     width = null;
     content = null;
   }
 
   @Override
   public int doStartTag(PageAttributes pageAttributes) throws JspException, IOException {
-    HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-    HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+    HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
+    HttpServletResponse resp = (HttpServletResponse) pageContext.getResponse();
     content = SkinTag.getSkin(req).startContent(
-      req,
-      resp,
-      pageAttributes,
-      new DocumentEE(
-        pageContext.getServletContext(),
         req,
         resp,
-        pageContext.getOut(),
-        false, // Do not add extra newlines to JSP
-        false  // Do not add extra indentation to JSP
-      ),
-      colspansParsed,
-      width
+        pageAttributes,
+        new DocumentEE(
+            pageContext.getServletContext(),
+            req,
+            resp,
+            pageContext.getOut(),
+            false, // Do not add extra newlines to JSP
+            false  // Do not add extra indentation to JSP
+        ),
+        colspansParsed,
+        width
     );
     return EVAL_BODY_INCLUDE;
   }
@@ -96,15 +96,15 @@ public class ContentTag extends PageAttributesBodyTag {
   @Override
   public int doEndTag(PageAttributes pageAttributes) throws JspException, IOException {
     try {
-      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+      HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
       assert content != null;
       content.getDocument().setOut(pageContext.getOut());
       SkinTag.getSkin(req).endContent(
-        req,
-        (HttpServletResponse)pageContext.getResponse(),
-        pageAttributes,
-        content,
-        colspansParsed
+          req,
+          (HttpServletResponse) pageContext.getResponse(),
+          pageAttributes,
+          content,
+          colspansParsed
       );
       return EVAL_PAGE;
     } finally {

@@ -57,12 +57,12 @@ public final class SignupCustomizeManagementActionHelper {
   }
 
   public static void setRequestAttributes(
-    ServletContext servletContext,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    SignupSelectPackageForm signupSelectPackageForm,
-    SignupCustomizeServerForm signupCustomizeServerForm,
-    SignupCustomizeManagementForm signupCustomizeManagementForm
+      ServletContext servletContext,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      SignupSelectPackageForm signupSelectPackageForm,
+      SignupCustomizeServerForm signupCustomizeServerForm,
+      SignupCustomizeManagementForm signupCustomizeManagementForm
   ) throws IOException, SQLException {
     AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
     PackageDefinition packageDefinition = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
@@ -84,14 +84,14 @@ public final class SignupCustomizeManagementActionHelper {
       String resourceName = resource.getName();
       if (resourceName.startsWith("backup_onsite_")) {
         int limitPower = limit.getHardLimit();
-        if (limitPower == PackageDefinitionLimit.UNLIMITED || limitPower>0) {
+        if (limitPower == PackageDefinitionLimit.UNLIMITED || limitPower > 0) {
           // This is per gigabyte of physical space
           Monies additionalRate = Monies.of(limit.getAdditionalRate());
           backupOnsiteOptions.add(new Option(limit.getPkey(), resource.toString(), additionalRate.multiply(BigDecimal.valueOf(totalHardwareDiskSpace))));
         }
       } else if (resourceName.startsWith("backup_offsite_")) {
         int limitPower = limit.getHardLimit();
-        if (limitPower == PackageDefinitionLimit.UNLIMITED || limitPower>0) {
+        if (limitPower == PackageDefinitionLimit.UNLIMITED || limitPower > 0) {
           // This is per gigabyte of physical space
           Monies additionalRate = Monies.of(limit.getAdditionalRate());
           backupOffsiteOptions.add(new Option(limit.getPkey(), resource.toString(), additionalRate.multiply(BigDecimal.valueOf(totalHardwareDiskSpace))));
@@ -107,7 +107,7 @@ public final class SignupCustomizeManagementActionHelper {
         PackageDefinitionLimit limit = packageDefinition.getLimit(resource);
         if (limit != null) {
           int hard = limit.getHardLimit();
-          if (hard == PackageDefinitionLimit.UNLIMITED || hard>0) {
+          if (hard == PackageDefinitionLimit.UNLIMITED || hard > 0) {
             Monies additionalRate = Monies.of(limit.getAdditionalRate());
             distributionScanOptions.add(new Option(limit.getPkey(), resource.toString(), additionalRate));
           }
@@ -123,7 +123,7 @@ public final class SignupCustomizeManagementActionHelper {
         PackageDefinitionLimit limit = packageDefinition.getLimit(resource);
         if (limit != null) {
           int hard = limit.getHardLimit();
-          if (hard == PackageDefinitionLimit.UNLIMITED || hard>0) {
+          if (hard == PackageDefinitionLimit.UNLIMITED || hard > 0) {
             // This is per gigabyte of physical space
             Monies additionalRate = Monies.of(limit.getAdditionalRate());
             additionalRate = additionalRate.multiply(BigDecimal.valueOf(totalHardwareDiskSpace));
@@ -137,7 +137,7 @@ public final class SignupCustomizeManagementActionHelper {
               PackageDefinitionLimit mrLimit = packageDefinition.getLimit(mrResource);
               if (mrLimit != null) {
                 int mrHard = mrLimit.getHardLimit();
-                if (mrHard == PackageDefinitionLimit.UNLIMITED || mrHard>0) {
+                if (mrHard == PackageDefinitionLimit.UNLIMITED || mrHard > 0) {
                   Monies mrAdditionalRate = Monies.of(mrLimit.getAdditionalRate());
                   failoverOptions.add(new Option(mrLimit.getPkey(), mrResource.toString(), additionalRate.add(mrAdditionalRate)));
                 }
@@ -204,12 +204,12 @@ public final class SignupCustomizeManagementActionHelper {
   }
 
   public static void setConfirmationRequestAttributes(
-    ServletContext servletContext,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    SignupSelectPackageForm signupSelectPackageForm,
-    SignupCustomizeServerForm signupCustomizeServerForm,
-    SignupCustomizeManagementForm signupCustomizeManagementForm
+      ServletContext servletContext,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      SignupSelectPackageForm signupSelectPackageForm,
+      SignupCustomizeServerForm signupCustomizeServerForm,
+      SignupCustomizeManagementForm signupCustomizeManagementForm
   ) throws IOException, SQLException {
     // Lookup things needed by the view
     AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
@@ -225,55 +225,55 @@ public final class SignupCustomizeManagementActionHelper {
   }
 
   public static void writeEmailConfirmation(
-    HttpServletRequest request,
-    Union_TBODY_THEAD_TFOOT<?> tbody,
-    AOServConnector rootConn,
-    SignupCustomizeManagementForm signupCustomizeManagementForm
+      HttpServletRequest request,
+      Union_TBODY_THEAD_TFOOT<?> tbody,
+      AOServConnector rootConn,
+      SignupCustomizeManagementForm signupCustomizeManagementForm
   ) throws IOException, SQLException {
     String backupOnsiteOption = getBackupOnsiteOption(rootConn, signupCustomizeManagementForm);
     if (!GenericValidator.isBlankOrNull(backupOnsiteOption)) {
       tbody.tr__(tr -> tr
-        .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-        .td__(PACKAGE_RESOURCES.getMessage("signupCustomizeManagementConfirmation.backupOnsite.prompt"))
-        .td__(backupOnsiteOption)
+              .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+              .td__(PACKAGE_RESOURCES.getMessage("signupCustomizeManagementConfirmation.backupOnsite.prompt"))
+              .td__(backupOnsiteOption)
       );
     }
     String backupOffsiteOption = getBackupOffsiteOption(rootConn, signupCustomizeManagementForm);
     if (!GenericValidator.isBlankOrNull(backupOffsiteOption)) {
       tbody.tr__(tr -> tr
-        .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-        .td__(PACKAGE_RESOURCES.getMessage("signupCustomizeManagementConfirmation.backupOffsite.prompt"))
-        .td__(backupOffsiteOption)
+              .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+              .td__(PACKAGE_RESOURCES.getMessage("signupCustomizeManagementConfirmation.backupOffsite.prompt"))
+              .td__(backupOffsiteOption)
       );
     }
     String backupDvdOption = getBackupDvdOption(rootConn, signupCustomizeManagementForm);
     if (!GenericValidator.isBlankOrNull(backupDvdOption)) {
       tbody.tr__(tr -> tr
-        .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-        .td__(PACKAGE_RESOURCES.getMessage("signupCustomizeManagementConfirmation.backupDvd.prompt"))
-        .td__(backupDvdOption)
+              .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+              .td__(PACKAGE_RESOURCES.getMessage("signupCustomizeManagementConfirmation.backupDvd.prompt"))
+              .td__(backupDvdOption)
       );
     }
     String distributionScanOption = getDistributionScanOption(rootConn, signupCustomizeManagementForm);
     if (!GenericValidator.isBlankOrNull(distributionScanOption)) {
       tbody.tr__(tr -> tr
-        .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-        .td__(PACKAGE_RESOURCES.getMessage("signupCustomizeManagementConfirmation.distributionScan.prompt"))
-        .td__(distributionScanOption)
+              .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+              .td__(PACKAGE_RESOURCES.getMessage("signupCustomizeManagementConfirmation.distributionScan.prompt"))
+              .td__(distributionScanOption)
       );
     }
     String failoverOption = getFailoverOption(rootConn, signupCustomizeManagementForm);
     if (!GenericValidator.isBlankOrNull(failoverOption)) {
       tbody.tr__(tr -> tr
-        .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-        .td__(PACKAGE_RESOURCES.getMessage("signupCustomizeManagementConfirmation.failover.prompt"))
-        .td__(failoverOption)
+              .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+              .td__(PACKAGE_RESOURCES.getMessage("signupCustomizeManagementConfirmation.failover.prompt"))
+              .td__(failoverOption)
       );
     }
     tbody.tr__(tr -> tr
-      .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-      .td__(PACKAGE_RESOURCES.getMessage("signupCustomizeManagementConfirmation.totalMonthlyRate.prompt"))
-      .td__(request.getAttribute("totalMonthlyRate"))
+            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupCustomizeManagementConfirmation.totalMonthlyRate.prompt"))
+            .td__(request.getAttribute("totalMonthlyRate"))
     );
   }
 
@@ -281,10 +281,10 @@ public final class SignupCustomizeManagementActionHelper {
    * Gets the total monthly rate for the server, basic server + hardware options + management options
    */
   public static Monies getTotalMonthlyRate(
-    AOServConnector rootConn,
-    SignupCustomizeServerForm signupCustomizeServerForm,
-    SignupCustomizeManagementForm signupCustomizeManagementForm,
-    PackageDefinition packageDefinition
+      AOServConnector rootConn,
+      SignupCustomizeServerForm signupCustomizeServerForm,
+      SignupCustomizeManagementForm signupCustomizeManagementForm,
+      PackageDefinition packageDefinition
   ) throws SQLException, IOException {
     Monies monthlyRate = SignupCustomizeServerActionHelper.getHardwareMonthlyRate(rootConn, signupCustomizeServerForm, packageDefinition);
 
@@ -336,7 +336,7 @@ public final class SignupCustomizeManagementActionHelper {
         }
         PackageDefinitionLimit failoverPDL = packageDefinition.getLimit(failoverResource);
         if (failoverPDL == null) {
-          throw new SQLException("Unable to find PackageDefinitionLimit: "+Resource.FAILOVER+" on PackageDefinition #"+packageDefinition.getPkey());
+          throw new SQLException("Unable to find PackageDefinitionLimit: " + Resource.FAILOVER + " on PackageDefinition #" + packageDefinition.getPkey());
         }
         Monies additionalRate = Monies.of();
         Money failoverRate = failoverPDL.getAdditionalRate();

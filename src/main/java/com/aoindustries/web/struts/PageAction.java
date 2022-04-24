@@ -48,10 +48,10 @@ public class PageAction extends Action {
    */
   @Override
   public final ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response
   ) throws Exception {
     Registry pageRegistry = RegistryEE.Page.get(request);
     if (pageRegistry == null) {
@@ -67,11 +67,11 @@ public class PageAction extends Action {
    * By default, returns mapping for "success".
    */
   public ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Registry pageRegistry
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Registry pageRegistry
   ) throws Exception {
     return mapping.findForward("success");
   }

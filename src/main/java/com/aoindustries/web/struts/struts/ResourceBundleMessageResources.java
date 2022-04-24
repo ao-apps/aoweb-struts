@@ -68,7 +68,7 @@ public class ResourceBundleMessageResources extends MessageResources implements 
     if (returnNull) {
       return null;
     }
-    return "???"+locale.toString()+"."+key+"???";
+    return "???" + locale.toString() + "." + key + "???";
   }
 
   @Override

@@ -63,14 +63,14 @@ public class AddCreditCardAction extends PermissionAction {
     if (name == null) {
       return null;
     }
-    name=name.trim();
+    name = name.trim();
     if (userLocale.getLanguage().equals(Locale.JAPANESE.getLanguage())) {
       // Last then first
       int pos = name.lastIndexOf(' ');
       if (pos == -1) {
         return "";
       } else {
-        return name.substring(pos+1).trim();
+        return name.substring(pos + 1).trim();
       }
     } else {
       // First then last
@@ -90,7 +90,7 @@ public class AddCreditCardAction extends PermissionAction {
     if (name == null) {
       return null;
     }
-    name=name.trim();
+    name = name.trim();
     if (userLocale.getLanguage().equals(Locale.JAPANESE.getLanguage())) {
       // Last then first
       int pos = name.lastIndexOf(' ');
@@ -105,20 +105,20 @@ public class AddCreditCardAction extends PermissionAction {
       if (pos == -1) {
         return name;
       } else {
-        return name.substring(pos+1).trim();
+        return name.substring(pos + 1).trim();
       }
     }
   }
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    AddCreditCardForm addCreditCardForm=(AddCreditCardForm)form;
+    AddCreditCardForm addCreditCardForm = (AddCreditCardForm) form;
 
     String account_name = addCreditCardForm.getAccount();
     if (GenericValidator.isBlankOrNull(account_name)) {

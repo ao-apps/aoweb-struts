@@ -45,13 +45,13 @@ public class AdministratorPasswordSetterCompletedAction extends AuthenticatedAct
 
   @Override
   public ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    AdministratorPasswordSetterForm administratorPasswordSetterForm = (AdministratorPasswordSetterForm)form;
+    AdministratorPasswordSetterForm administratorPasswordSetterForm = (AdministratorPasswordSetterForm) form;
 
     // Validation
     ActionMessages errors = administratorPasswordSetterForm.validate(mapping, request);
@@ -66,14 +66,14 @@ public class AdministratorPasswordSetterCompletedAction extends AuthenticatedAct
     List<String> usernames = administratorPasswordSetterForm.getUsernames();
     List<String> newPasswords = administratorPasswordSetterForm.getNewPasswords();
     List<String> confirmPasswords = administratorPasswordSetterForm.getConfirmPasswords();
-    for (int c=0;c<usernames.size();c++) {
+    for (int c = 0; c < usernames.size(); c++) {
       String newPassword = newPasswords.get(c);
-      if (newPassword.length()>0) {
+      if (newPassword.length() > 0) {
         User.Name username = User.Name.valueOf(usernames.get(c));
         if (!thisBA.hasPermission(Permission.Name.set_business_administrator_password) && !thisBA.getUsername().getUsername().equals(username)) {
           Permission aoPerm = aoConn.getMaster().getPermission().get(Permission.Name.set_business_administrator_password);
           if (aoPerm == null) {
-            throw new SQLException("Unable to find AOServPermission: "+Permission.Name.set_business_administrator_password);
+            throw new SQLException("Unable to find AOServPermission: " + Permission.Name.set_business_administrator_password);
           }
           request.setAttribute("permission", aoPerm);
           ActionForward forward = mapping.findForward("permission-denied");

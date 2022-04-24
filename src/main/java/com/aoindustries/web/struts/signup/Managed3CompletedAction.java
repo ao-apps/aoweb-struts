@@ -35,21 +35,21 @@ public class Managed3CompletedAction extends Managed3Action {
 
   @Override
   public ActionForward executeManagedStep(
-    ActionMapping mapping,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    ManagedSignupSelectPackageForm signupSelectPackageForm,
-    boolean signupSelectPackageFormComplete,
-    ManagedSignupCustomizeServerForm signupCustomizeServerForm,
-    boolean signupCustomizeServerFormComplete,
-    SignupCustomizeManagementForm signupCustomizeManagementForm,
-    boolean signupCustomizeManagementFormComplete,
-    SignupOrganizationForm signupOrganizationForm,
-    boolean signupOrganizationFormComplete,
-    SignupTechnicalForm signupTechnicalForm,
-    boolean signupTechnicalFormComplete,
-    SignupBillingInformationForm signupBillingInformationForm,
-    boolean signupBillingInformationFormComplete
+      ActionMapping mapping,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      ManagedSignupSelectPackageForm signupSelectPackageForm,
+      boolean signupSelectPackageFormComplete,
+      ManagedSignupCustomizeServerForm signupCustomizeServerForm,
+      boolean signupCustomizeServerFormComplete,
+      SignupCustomizeManagementForm signupCustomizeManagementForm,
+      boolean signupCustomizeManagementFormComplete,
+      SignupOrganizationForm signupOrganizationForm,
+      boolean signupOrganizationFormComplete,
+      SignupTechnicalForm signupTechnicalForm,
+      boolean signupTechnicalFormComplete,
+      SignupBillingInformationForm signupBillingInformationForm,
+      boolean signupBillingInformationFormComplete
   ) throws Exception {
     if (!signupSelectPackageFormComplete) {
       return mapping.findForward("managed-server-completed");
@@ -60,21 +60,21 @@ public class Managed3CompletedAction extends Managed3Action {
     if (!signupCustomizeManagementFormComplete) {
       // Init values for the form
       return super.executeManagedStep(
-        mapping,
-        request,
-        response,
-        signupSelectPackageForm,
-        signupSelectPackageFormComplete,
-        signupCustomizeServerForm,
-        signupCustomizeServerFormComplete,
-        signupCustomizeManagementForm,
-        signupCustomizeManagementFormComplete,
-        signupOrganizationForm,
-        signupOrganizationFormComplete,
-        signupTechnicalForm,
-        signupTechnicalFormComplete,
-        signupBillingInformationForm,
-        signupBillingInformationFormComplete
+          mapping,
+          request,
+          response,
+          signupSelectPackageForm,
+          signupSelectPackageFormComplete,
+          signupCustomizeServerForm,
+          signupCustomizeServerFormComplete,
+          signupCustomizeManagementForm,
+          signupCustomizeManagementFormComplete,
+          signupOrganizationForm,
+          signupOrganizationFormComplete,
+          signupTechnicalForm,
+          signupTechnicalFormComplete,
+          signupBillingInformationForm,
+          signupBillingInformationFormComplete
       );
     }
     if (!signupOrganizationFormComplete) {

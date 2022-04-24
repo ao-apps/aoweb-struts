@@ -51,13 +51,13 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    EditCreditCardForm editCreditCardForm=(EditCreditCardForm)form;
+    EditCreditCardForm editCreditCardForm = (EditCreditCardForm) form;
 
     String persistenceId = editCreditCardForm.getPersistenceId();
     if (GenericValidator.isBlankOrNull(persistenceId)) {
@@ -109,19 +109,19 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
     String profilePhone = profile == null ? null : Strings.trimNullIfEmpty(profile.getPhone());
     String profileFax = profile == null ? null : Strings.trimNullIfEmpty(profile.getFax());
     if (
-      !nullOrBlankEquals(editCreditCardForm.getFirstName(), creditCard.getFirstName())
-      || !nullOrBlankEquals(editCreditCardForm.getLastName(), creditCard.getLastName())
-      || !nullOrBlankEquals(editCreditCardForm.getCompanyName(), creditCard.getCompanyName())
-      || !nullOrBlankEquals(profileEmail, Objects.toString(creditCard.getEmail(), null))
-      || !nullOrBlankEquals(profilePhone, creditCard.getPhone())
-      || !nullOrBlankEquals(profileFax, creditCard.getFax())
-      || !nullOrBlankEquals(editCreditCardForm.getStreetAddress1(), creditCard.getStreetAddress1())
-      || !nullOrBlankEquals(editCreditCardForm.getStreetAddress2(), creditCard.getStreetAddress2())
-      || !nullOrBlankEquals(editCreditCardForm.getCity(), creditCard.getCity())
-      || !nullOrBlankEquals(editCreditCardForm.getState(), creditCard.getState())
-      || !nullOrBlankEquals(editCreditCardForm.getPostalCode(), creditCard.getPostalCode())
-      || !nullOrBlankEquals(editCreditCardForm.getCountryCode(), creditCard.getCountryCode().getCode())
-      || !nullOrBlankEquals(editCreditCardForm.getDescription(), creditCard.getDescription())
+        !nullOrBlankEquals(editCreditCardForm.getFirstName(), creditCard.getFirstName())
+            || !nullOrBlankEquals(editCreditCardForm.getLastName(), creditCard.getLastName())
+            || !nullOrBlankEquals(editCreditCardForm.getCompanyName(), creditCard.getCompanyName())
+            || !nullOrBlankEquals(profileEmail, Objects.toString(creditCard.getEmail(), null))
+            || !nullOrBlankEquals(profilePhone, creditCard.getPhone())
+            || !nullOrBlankEquals(profileFax, creditCard.getFax())
+            || !nullOrBlankEquals(editCreditCardForm.getStreetAddress1(), creditCard.getStreetAddress1())
+            || !nullOrBlankEquals(editCreditCardForm.getStreetAddress2(), creditCard.getStreetAddress2())
+            || !nullOrBlankEquals(editCreditCardForm.getCity(), creditCard.getCity())
+            || !nullOrBlankEquals(editCreditCardForm.getState(), creditCard.getState())
+            || !nullOrBlankEquals(editCreditCardForm.getPostalCode(), creditCard.getPostalCode())
+            || !nullOrBlankEquals(editCreditCardForm.getCountryCode(), creditCard.getCountryCode().getCode())
+            || !nullOrBlankEquals(editCreditCardForm.getDescription(), creditCard.getDescription())
     ) {
       // Update all fields except card number and expiration
       com.aoapps.payments.CreditCard storedCreditCard = CreditCardFactory.getCreditCard(rootCreditCard);
@@ -141,8 +141,8 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
       storedCreditCard.setComments(editCreditCardForm.getDescription());
       // Update persistence
       rootProcessor.updateCreditCard(
-        new AOServConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
-        storedCreditCard
+          new AOServConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
+          storedCreditCard
       );
       updatedCardDetails = true;
     }
@@ -154,26 +154,26 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
     if (!GenericValidator.isBlankOrNull(newCardNumber)) {
       // Update card number and expiration
       rootProcessor.updateCreditCardNumberAndExpiration(
-        new AOServConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
-        CreditCardFactory.getCreditCard(rootCreditCard),
-        newCardNumber,
-        Byte.parseByte(newExpirationMonth),
-        Short.parseShort(newExpirationYear),
-        newCardCode
+          new AOServConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
+          CreditCardFactory.getCreditCard(rootCreditCard),
+          newCardNumber,
+          Byte.parseByte(newExpirationMonth),
+          Short.parseShort(newExpirationYear),
+          newCardCode
       );
       updatedCardNumber = true;
       updatedExpirationDate = true;
     } else {
       if (
-        !GenericValidator.isBlankOrNull(newExpirationMonth)
-        && !GenericValidator.isBlankOrNull(newExpirationYear)
+          !GenericValidator.isBlankOrNull(newExpirationMonth)
+              && !GenericValidator.isBlankOrNull(newExpirationYear)
       ) {
         // Update expiration only
         rootProcessor.updateCreditCardExpiration(
-          new AOServConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
-          CreditCardFactory.getCreditCard(rootCreditCard),
-          Byte.parseByte(newExpirationMonth),
-          Short.parseShort(newExpirationYear)
+            new AOServConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
+            CreditCardFactory.getCreditCard(rootCreditCard),
+            Byte.parseByte(newExpirationMonth),
+            Short.parseShort(newExpirationYear)
         );
         updatedExpirationDate = true;
       }

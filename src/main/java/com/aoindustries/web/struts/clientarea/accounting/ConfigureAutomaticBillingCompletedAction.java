@@ -48,11 +48,11 @@ public class ConfigureAutomaticBillingCompletedAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
     // Account must be selected and accessible
     String account_name = request.getParameter("account");
@@ -71,14 +71,14 @@ public class ConfigureAutomaticBillingCompletedAction extends PermissionAction {
     }
     CreditCard creditCard;
     if (pkey.length() == 0) {
-      creditCard=null;
+      creditCard = null;
     } else {
       creditCard = aoConn.getPayment().getCreditCard().get(Integer.parseInt(pkey));
       if (creditCard == null) {
         return mapping.findForward("credit-card-manager");
       }
       if (!creditCard.getAccount().equals(account)) {
-        throw new SQLException("Requested account and CreditCard account do not match: "+creditCard.getAccount().getName()+" != "+account.getName());
+        throw new SQLException("Requested account and CreditCard account do not match: " + creditCard.getAccount().getName() + " != " + account.getName());
       }
     }
 
@@ -92,10 +92,10 @@ public class ConfigureAutomaticBillingCompletedAction extends PermissionAction {
   }
 
   private static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
-    EnumSet.of(
-      Permission.Name.get_credit_cards,
-      Permission.Name.edit_credit_card
-    )
+      EnumSet.of(
+          Permission.Name.get_credit_cards,
+          Permission.Name.edit_credit_card
+      )
   );
 
   @Override

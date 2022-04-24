@@ -39,7 +39,7 @@ import org.apache.struts.action.ActionMessage;
 public class SignupDomainForm extends ActionForm implements Serializable, SessionActionForm {
 
   public static final ScopeEE.Session.Attribute<SignupDomainForm> SESSION_ATTRIBUTE =
-    ScopeEE.SESSION.attribute("signupDomainForm");
+      ScopeEE.SESSION.attribute("signupDomainForm");
 
   private static final long serialVersionUID = 1L;
 
@@ -54,8 +54,8 @@ public class SignupDomainForm extends ActionForm implements Serializable, Sessio
   @Override
   public boolean isEmpty() {
     return
-      "".equals(choice)
-      && "".equals(domain)
+        "".equals(choice)
+            && "".equals(domain)
     ;
   }
 

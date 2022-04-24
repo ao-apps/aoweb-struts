@@ -70,16 +70,16 @@ public class ContentLineTag extends BodyTagSupport {
     try {
       ContentTag contentTag = JspTagUtils.requireAncestor(TAG_NAME, this, ContentTag.TAG_NAME, ContentTag.class);
 
-      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+      HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
       ContentEE<?> content = contentTag.getContent();
       content.getDocument().setOut(pageContext.getOut());
       contentLine = SkinTag.getSkin(req).startContentLine(
-        req,
-        (HttpServletResponse)pageContext.getResponse(),
-        content,
-        colspan,
-        align,
-        width
+          req,
+          (HttpServletResponse) pageContext.getResponse(),
+          content,
+          colspan,
+          align,
+          width
       );
       return EVAL_BODY_INCLUDE;
     } catch (IOException err) {
@@ -90,15 +90,15 @@ public class ContentLineTag extends BodyTagSupport {
   @Override
   public int doEndTag() throws JspException {
     try {
-      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+      HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
       assert contentLine != null;
       contentLine.getDocument().setOut(pageContext.getOut());
       SkinTag.getSkin(req).endContentLine(
-        req,
-        (HttpServletResponse)pageContext.getResponse(),
-        contentLine,
-        lastRowSpan,
-        endsInternal
+          req,
+          (HttpServletResponse) pageContext.getResponse(),
+          contentLine,
+          lastRowSpan,
+          endsInternal
       );
       return EVAL_PAGE;
     } catch (IOException err) {
@@ -157,7 +157,7 @@ public class ContentLineTag extends BodyTagSupport {
     if (contentLine == null) {
       throw new IllegalStateException();
     }
-    return (__)contentLine;
+    return (__) contentLine;
   }
 
   /**

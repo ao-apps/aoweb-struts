@@ -51,7 +51,7 @@ public class DateTimeTag extends BodyTagSupport {
    * The request attribute name used to store the sequence.
    */
   private static final ScopeEE.Request.Attribute<Sequence> SEQUENCE_REQUEST_ATTRIBUTE =
-    ScopeEE.REQUEST.attribute(DateTimeTag.class.getName() + ".sequence");
+      ScopeEE.REQUEST.attribute(DateTimeTag.class.getName() + ".sequence");
 
   /**
    * Writes a JavaScript script tag that shows a date and time in the user's locale.
@@ -76,39 +76,39 @@ public class DateTimeTag extends BodyTagSupport {
     // Write the shared script only on first sequence
     if (id == 1) {
       scriptOut.append("  function chainWriterUpdateDateTime(id, millis, serverValue) {\n"
-               + "    if (document.getElementById) {\n"
-               + "      var date=new Date(millis);\n"
-               + "      var clientValue=date.getFullYear() + \"-\";\n"
-               + "      var month=date.getMonth()+1;\n"
-               + "      if (month<10) {\n"
-               + "        clientValue+=\"0\";\n"
-               + "      }\n"
-               + "      clientValue+=month+\"-\";\n"
-               + "      var day=date.getDate();\n"
-               + "      if (day<10) {\n"
-               + "        clientValue+=\"0\";\n"
-               + "      }\n"
-               + "      clientValue+=day+\" \";\n"
-               + "      var hour=date.getHours();\n"
-               + "      if (hour<10) {\n"
-               + "        clientValue+=\"0\";\n"
-               + "      }\n"
-               + "      clientValue+=hour+\":\";\n"
-               + "      var minute=date.getMinutes();\n"
-               + "      if (minute<10) {\n"
-               + "        clientValue+=\"0\";\n"
-               + "      }\n"
-               + "      clientValue+=minute+\":\";\n"
-               + "      var second=date.getSeconds();\n"
-               + "      if (second<10) {\n"
-               + "        clientValue+=\"0\";\n"
-               + "      }\n"
-               + "      clientValue+=second;\n"
-               + "      if (clientValue != serverValue) {\n"
-               + "        document.getElementById(\"chainWriterDateTime\"+id).firstChild.nodeValue=clientValue;\n"
-               + "      }\n"
-               + "    }\n"
-               + "  }\n");
+          + "    if (document.getElementById) {\n"
+          + "      var date=new Date(millis);\n"
+          + "      var clientValue=date.getFullYear() + \"-\";\n"
+          + "      var month=date.getMonth()+1;\n"
+          + "      if (month<10) {\n"
+          + "        clientValue+=\"0\";\n"
+          + "      }\n"
+          + "      clientValue+=month+\"-\";\n"
+          + "      var day=date.getDate();\n"
+          + "      if (day<10) {\n"
+          + "        clientValue+=\"0\";\n"
+          + "      }\n"
+          + "      clientValue+=day+\" \";\n"
+          + "      var hour=date.getHours();\n"
+          + "      if (hour<10) {\n"
+          + "        clientValue+=\"0\";\n"
+          + "      }\n"
+          + "      clientValue+=hour+\":\";\n"
+          + "      var minute=date.getMinutes();\n"
+          + "      if (minute<10) {\n"
+          + "        clientValue+=\"0\";\n"
+          + "      }\n"
+          + "      clientValue+=minute+\":\";\n"
+          + "      var second=date.getSeconds();\n"
+          + "      if (second<10) {\n"
+          + "        clientValue+=\"0\";\n"
+          + "      }\n"
+          + "      clientValue+=second;\n"
+          + "      if (clientValue != serverValue) {\n"
+          + "        document.getElementById(\"chainWriterDateTime\"+id).firstChild.nodeValue=clientValue;\n"
+          + "      }\n"
+          + "    }\n"
+          + "  }\n");
     }
     scriptOut.append("  chainWriterUpdateDateTime(");
     scriptOut.append(idString);
@@ -174,18 +174,18 @@ public class DateTimeTag extends BodyTagSupport {
       String millisString = getBodyContent().getString().trim();
       if (!millisString.isEmpty()) {
         Long date = Long.parseLong(millisString);
-        HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         DocumentEE document = new DocumentEE(
-          pageContext.getServletContext(),
-          request,
-          (HttpServletResponse)pageContext.getResponse(),
-          pageContext.getOut(),
-          false, // Do not add extra newlines to JSP
-          false  // Do not add extra indentation to JSP
+            pageContext.getServletContext(),
+            request,
+            (HttpServletResponse) pageContext.getResponse(),
+            pageContext.getOut(),
+            false, // Do not add extra newlines to JSP
+            false  // Do not add extra indentation to JSP
         );
         // Resolve the sequence
         Sequence sequence = SEQUENCE_REQUEST_ATTRIBUTE.context(request)
-          .computeIfAbsent(__ -> new UnsynchronizedSequence());
+            .computeIfAbsent(__ -> new UnsynchronizedSequence());
         // Resolve the scriptOut
         Optional<ScriptGroupTag> scriptGroupTag = JspTagUtils.findAncestor(this, ScriptGroupTag.class);
         if (scriptGroupTag.isPresent()) {

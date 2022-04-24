@@ -43,8 +43,8 @@ public abstract class AuthenticatedServlet extends HttpServlet {
 
   @Override
   public final void doGet(
-    HttpServletRequest request,
-    HttpServletResponse response
+      HttpServletRequest request,
+      HttpServletResponse response
   ) throws IOException {
     // Must be logged in
     HttpSession session = request.getSession(false);
@@ -55,7 +55,7 @@ public abstract class AuthenticatedServlet extends HttpServlet {
       if (!target.endsWith("/login.do")) {
         String queryString = request.getQueryString();
         if (queryString != null) {
-          target = target+'?'+queryString;
+          target = target + '?' + queryString;
         }
         if (session == null) {
           session = request.getSession();
@@ -69,16 +69,16 @@ public abstract class AuthenticatedServlet extends HttpServlet {
       String url;
       if (port != 80 && port != 443) {
         // Development area
-        url = "https://"+request.getServerName()+":11257"+request.getContextPath()+"/login.do";
+        url = "https://" + request.getServerName() + ":11257" + request.getContextPath() + "/login.do";
       } else {
-        url = "https://"+request.getServerName()+request.getContextPath()+"/login.do";
+        url = "https://" + request.getServerName() + request.getContextPath() + "/login.do";
       }
       response.sendRedirect(
-        response.encodeRedirectURL(
-          URIEncoder.encodeURI(
-            url
+          response.encodeRedirectURL(
+              URIEncoder.encodeURI(
+                  url
+              )
           )
-        )
       );
     } else {
       doGet(request, response, aoConn);
@@ -86,8 +86,8 @@ public abstract class AuthenticatedServlet extends HttpServlet {
   }
 
   public abstract void doGet(
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws IOException;
 }

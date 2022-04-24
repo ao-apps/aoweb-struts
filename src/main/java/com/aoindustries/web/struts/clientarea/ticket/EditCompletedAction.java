@@ -51,13 +51,13 @@ public class EditCompletedAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    TicketForm ticketForm = (TicketForm)form;
+    TicketForm ticketForm = (TicketForm) form;
 
     // Look for the existing ticket
     String pkeyS = request.getParameter("pkey");
@@ -123,10 +123,10 @@ public class EditCompletedAction extends PermissionAction {
       ticket.setSummary(ticketForm.getSummary());
       summaryUpdated = true;
     }
-    if (ticketForm.getAnnotationSummary().length()>0) {
+    if (ticketForm.getAnnotationSummary().length() > 0) {
       ticket.addAnnotation(
-        ticketForm.getAnnotationSummary(),
-        ticketForm.getAnnotationDetails()
+          ticketForm.getAnnotationSummary(),
+          ticketForm.getAnnotationDetails()
       );
       annotationAdded = true;
     }
@@ -139,22 +139,22 @@ public class EditCompletedAction extends PermissionAction {
     request.setAttribute("summaryUpdated", summaryUpdated);
     request.setAttribute("annotationAdded", annotationAdded);
     request.setAttribute(
-      "nothingChanged",
-      !accountUpdated
-      && !contactEmailsUpdated
-      && !contactPhoneNumbersUpdated
-      && !clientPriorityUpdated
-      && !summaryUpdated
-      && !annotationAdded
+        "nothingChanged",
+        !accountUpdated
+            && !contactEmailsUpdated
+            && !contactPhoneNumbersUpdated
+            && !clientPriorityUpdated
+            && !summaryUpdated
+            && !annotationAdded
     );
     return mapping.findForward("success");
   }
 
   static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
-    EnumSet.of(
-      Permission.Name.add_ticket,
-      Permission.Name.edit_ticket
-    )
+      EnumSet.of(
+          Permission.Name.add_ticket,
+          Permission.Name.edit_ticket
+      )
   );
 
   @Override

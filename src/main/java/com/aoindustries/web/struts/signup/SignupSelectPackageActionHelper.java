@@ -54,10 +54,10 @@ public final class SignupSelectPackageActionHelper {
   }
 
   public static void setRequestAttributes(
-    ServletContext servletContext,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String packageCategoryName
+      ServletContext servletContext,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      String packageCategoryName
   ) throws IOException, SQLException {
     List<PackageDefinition> packageDefinitions = getPackageDefinitions(servletContext, packageCategoryName);
 
@@ -86,12 +86,12 @@ public final class SignupSelectPackageActionHelper {
   }
 
   private static final Comparator<PackageDefinition> packageDefinitionComparator =
-    (pd1, pd2) -> pd1.getMonthlyRate().compareTo(pd2.getMonthlyRate());
+      (pd1, pd2) -> pd1.getMonthlyRate().compareTo(pd2.getMonthlyRate());
 
   public static void setConfirmationRequestAttributes(
-    ServletContext servletContext,
-    HttpServletRequest request,
-    SignupSelectPackageForm signupSelectPackageForm
+      ServletContext servletContext,
+      HttpServletRequest request,
+      SignupSelectPackageForm signupSelectPackageForm
   ) throws IOException, SQLException {
     // Lookup things needed by the view
     AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
@@ -104,9 +104,9 @@ public final class SignupSelectPackageActionHelper {
 
   public static void writeEmailConfirmation(Union_TBODY_THEAD_TFOOT<?> tbody, PackageDefinition packageDefinition) throws IOException {
     tbody.tr__(tr -> tr
-      .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-      .td__(PACKAGE_RESOURCES.getMessage("signupSelectPackageForm.packageDefinition.prompt"))
-      .td__(packageDefinition.getDisplay())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupSelectPackageForm.packageDefinition.prompt"))
+            .td__(packageDefinition.getDisplay())
     );
   }
 }

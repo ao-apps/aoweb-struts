@@ -30,15 +30,15 @@ public class AowebStrutsSkinTldInitializer extends TagReferenceInitializer {
 
   public AowebStrutsSkinTldInitializer() throws ValidationException {
     super(
-      Maven.properties.getProperty("documented.name") + " Skin Taglib Reference",
-      "Skin Taglib Reference",
-      "/aoweb-struts",
-      "/aoweb-struts-skin.tld",
-      true,
-      Maven.properties.getProperty("documented.javadoc.link.javase"),
-      Maven.properties.getProperty("documented.javadoc.link.javaee"),
-      // Self
-      "com.aoindustries.web.struts.skintags", Maven.properties.getProperty("project.url") + "apidocs/com.aoindustries.web.struts/"
+        Maven.properties.getProperty("documented.name") + " Skin Taglib Reference",
+        "Skin Taglib Reference",
+        "/aoweb-struts",
+        "/aoweb-struts-skin.tld",
+        true,
+        Maven.properties.getProperty("documented.javadoc.link.javase"),
+        Maven.properties.getProperty("documented.javadoc.link.javaee"),
+        // Self
+        "com.aoindustries.web.struts.skintags", Maven.properties.getProperty("project.url") + "apidocs/com.aoindustries.web.struts/"
     );
   }
 }

@@ -43,15 +43,15 @@ public class PageAttributes {
    * The possible values for layout.
    */
   public static final String
-    LAYOUT_NORMAL = "normal",
-    LAYOUT_MINIMAL = "minimal"
+      LAYOUT_NORMAL = "normal",
+      LAYOUT_MINIMAL = "minimal"
   ;
 
   /**
    * The following key is used to store the objects in the page attributes.
    */
   public static final ScopeEE.Request.Attribute<PageAttributes> REQUEST_ATTRIBUTE =
-    ScopeEE.REQUEST.attribute("pageAttributes");
+      ScopeEE.REQUEST.attribute("pageAttributes");
 
   public static class Link {
 

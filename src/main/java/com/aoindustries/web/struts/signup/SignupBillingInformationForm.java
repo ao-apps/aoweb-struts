@@ -42,7 +42,7 @@ import org.apache.struts.action.ActionMessage;
 public class SignupBillingInformationForm extends ActionForm implements Serializable, SessionActionForm {
 
   public static final ScopeEE.Session.Attribute<SignupBillingInformationForm> SESSION_ATTRIBUTE =
-    ScopeEE.SESSION.attribute("signupBillingInformationForm");
+      ScopeEE.SESSION.attribute("signupBillingInformationForm");
 
   private static final long serialVersionUID = 1L;
 
@@ -77,18 +77,18 @@ public class SignupBillingInformationForm extends ActionForm implements Serializ
   @Override
   public boolean isEmpty() {
     return
-      "".equals(billingContact)
-      && "".equals(billingEmail)
-      && !billingUseMonthly
-      && !billingPayOneYear
-      && "".equals(billingCardholderName)
-      && "".equals(billingCardNumber)
-      && "".equals(billingExpirationMonth)
-      && "".equals(billingExpirationYear)
-      && "".equals(billingStreetAddress)
-      && "".equals(billingCity)
-      && "".equals(billingState)
-      && "".equals(billingZip)
+        "".equals(billingContact)
+            && "".equals(billingEmail)
+            && !billingUseMonthly
+            && !billingPayOneYear
+            && "".equals(billingCardholderName)
+            && "".equals(billingCardNumber)
+            && "".equals(billingExpirationMonth)
+            && "".equals(billingExpirationYear)
+            && "".equals(billingStreetAddress)
+            && "".equals(billingCity)
+            && "".equals(billingState)
+            && "".equals(billingZip)
     ;
   }
 
@@ -208,8 +208,8 @@ public class SignupBillingInformationForm extends ActionForm implements Serializ
     }
     if (GenericValidator.isBlankOrNull(billingEmail)) {
       errors.add("billingEmail", new ActionMessage("signupBillingInformationForm.billingEmail.required"));
-    //} else if (!GenericValidator.isEmail(billingEmail)) {
-    //  errors.add("billingEmail", new ActionMessage("signupBillingInformationForm.billingEmail.invalid"));
+      //} else if (!GenericValidator.isEmail(billingEmail)) {
+      //  errors.add("billingEmail", new ActionMessage("signupBillingInformationForm.billingEmail.invalid"));
     } else {
       ValidationResult billingEmailCheck = Email.validate(billingEmail);
       if (!billingEmailCheck.isValid()) {
@@ -225,8 +225,8 @@ public class SignupBillingInformationForm extends ActionForm implements Serializ
       errors.add("billingCardNumber", new ActionMessage("signupBillingInformationForm.billingCardNumber.invalid"));
     }
     if (
-      GenericValidator.isBlankOrNull(billingExpirationMonth)
-      || GenericValidator.isBlankOrNull(billingExpirationYear)
+        GenericValidator.isBlankOrNull(billingExpirationMonth)
+            || GenericValidator.isBlankOrNull(billingExpirationYear)
     ) {
       errors.add("billingExpirationDate", new ActionMessage("signupBillingInformationForm.billingExpirationDate.required"));
     }

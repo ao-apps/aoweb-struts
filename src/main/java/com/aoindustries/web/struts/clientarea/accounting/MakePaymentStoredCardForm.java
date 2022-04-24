@@ -131,9 +131,9 @@ public class MakePaymentStoredCardForm extends ActionForm implements Serializabl
       } else {
         try {
           BigDecimal pa = Money.parseMoneyAmount(
-            ThreadLocale.get(),
-            javaCurrency == null ? null : CurrencyUtil.getSymbol(javaCurrency),
-            this.paymentAmount
+              ThreadLocale.get(),
+              javaCurrency == null ? null : CurrencyUtil.getSymbol(javaCurrency),
+              this.paymentAmount
           );
           if (pa == null) {
             errors.add("paymentAmount", new ActionMessage("makePaymentStoredCardForm.paymentAmount.invalid"));

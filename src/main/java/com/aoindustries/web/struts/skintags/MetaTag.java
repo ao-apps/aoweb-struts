@@ -64,14 +64,14 @@ public class MetaTag extends EncodingBufferedTag implements NameAttribute, Conte
 
   @Override
   protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-    PageContext pageContext = (PageContext)getJspContext();
+    PageContext pageContext = (PageContext) getJspContext();
     Object myContent = content;
     if (myContent == null) {
       myContent = capturedBody.trim().toString();
     }
     Meta meta = new Meta(
-      name,
-      Coercion.toString(myContent)
+        name,
+        Coercion.toString(myContent)
     );
     PageTag pageTag = PageTag.getPageTag(pageContext.getRequest());
     if (pageTag == null) {

@@ -75,6 +75,7 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
   private static final long serialVersionUID = 2L;
 
   private Serialization serialization;
+
   public void setSerialization(String serialization) {
     if (serialization == null) {
       this.serialization = null;
@@ -85,6 +86,7 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
   }
 
   private Doctype doctype;
+
   public void setDoctype(String doctype) {
     if (doctype == null) {
       this.doctype = null;
@@ -95,6 +97,7 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
   }
 
   private Boolean autonli;
+
   public void setAutonli(String autonli) {
     if (autonli == null) {
       this.autonli = null;
@@ -113,6 +116,7 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
   }
 
   private Boolean indent;
+
   public void setIndent(String indent) {
     if (indent == null) {
       this.indent = null;
@@ -131,11 +135,13 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
   }
 
   private String layout;
+
   public void setLayout(String layout) {
     this.layout = layout.trim();
   }
 
   private Formtype formtype;
+
   public void setFormtype(String formtype) {
     if (formtype == null) {
       this.formtype = null;
@@ -146,6 +152,7 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
   }
 
   private String onload;
+
   public void setOnload(String onload) {
     this.onload = onload;
   }
@@ -189,8 +196,8 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
       pageAttributes.setOnload(onload);
 
       ServletContext servletContext = pageContext.getServletContext();
-      HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
-      HttpServletResponse response = (HttpServletResponse)pageContext.getResponse();
+      HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+      HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
 
       if (serialization == null) {
         serialization = SerializationEE.get(servletContext, request);
@@ -242,10 +249,10 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
 
       // Start the skin
       flow = SkinTag.getSkin(request).startPage(
-        request,
-        response,
-        pageAttributes,
-        new DocumentEE(servletContext, request, response, pageContext.getOut(), autonli, indent)
+          request,
+          response,
+          pageAttributes,
+          new DocumentEE(servletContext, request, response, pageContext.getOut(), autonli, indent)
       );
 
       return EVAL_BODY_INCLUDE;
@@ -256,14 +263,14 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
 
   @Override
   public int doEndTag(PageAttributes pageAttributes) throws JspException, IOException {
-    HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
+    HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
     assert flow != null;
     flow.getDocument().setOut(pageContext.getOut());
     SkinTag.getSkin(request).endPage(
-      request,
-      (HttpServletResponse)pageContext.getResponse(),
-      pageAttributes,
-      flow
+        request,
+        (HttpServletResponse) pageContext.getResponse(),
+        pageAttributes,
+        flow
     );
     return EVAL_PAGE;
   }

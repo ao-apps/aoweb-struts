@@ -59,22 +59,22 @@ public class LightAreaTag extends PageAttributesBodyTag {
 
   @Override
   public int doStartTag(PageAttributes pageAttributes) throws JspException, IOException {
-    HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-    HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+    HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
+    HttpServletResponse resp = (HttpServletResponse) pageContext.getResponse();
     lightArea = SkinTag.getSkin(req).startLightArea(
-      req,
-      resp,
-      new DocumentEE(
-        pageContext.getServletContext(),
         req,
         resp,
-        pageContext.getOut(),
-        false, // Do not add extra newlines to JSP
-        false  // Do not add extra indentation to JSP
-      ),
-      align,
-      width,
-      nowrap
+        new DocumentEE(
+            pageContext.getServletContext(),
+            req,
+            resp,
+            pageContext.getOut(),
+            false, // Do not add extra newlines to JSP
+            false  // Do not add extra indentation to JSP
+        ),
+        align,
+        width,
+        nowrap
     );
     return EVAL_BODY_INCLUDE;
   }
@@ -82,13 +82,13 @@ public class LightAreaTag extends PageAttributesBodyTag {
   @Override
   public int doEndTag(PageAttributes pageAttributes) throws JspException, IOException {
     try {
-      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+      HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
       assert lightArea != null;
       lightArea.getDocument().setOut(pageContext.getOut());
       SkinTag.getSkin(req).endLightArea(
-        req,
-        (HttpServletResponse)pageContext.getResponse(),
-        lightArea
+          req,
+          (HttpServletResponse) pageContext.getResponse(),
+          lightArea
       );
       return EVAL_PAGE;
     } finally {

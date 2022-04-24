@@ -49,7 +49,7 @@ import org.apache.struts.action.ActionServlet;
 public class SignupTechnicalForm extends ActionForm implements Serializable, SessionActionForm {
 
   public static final ScopeEE.Session.Attribute<SignupTechnicalForm> SESSION_ATTRIBUTE =
-    ScopeEE.SESSION.attribute("signupTechnicalForm");
+      ScopeEE.SESSION.attribute("signupTechnicalForm");
 
   private static final long serialVersionUID = 1L;
 
@@ -90,21 +90,21 @@ public class SignupTechnicalForm extends ActionForm implements Serializable, Ses
   @Override
   public boolean isEmpty() {
     return
-      "".equals(baName)
-      && "".equals(baTitle)
-      && "".equals(baWorkPhone)
-      && "".equals(baCellPhone)
-      && "".equals(baHomePhone)
-      && "".equals(baFax)
-      && "".equals(baEmail)
-      && "".equals(baAddress1)
-      && "".equals(baAddress2)
-      && "".equals(baCity)
-      && "".equals(baState)
-      && "".equals(baCountry)
-      && "".equals(baZip)
-      && "".equals(baUsername)
-      && "".equals(baPassword)
+        "".equals(baName)
+            && "".equals(baTitle)
+            && "".equals(baWorkPhone)
+            && "".equals(baCellPhone)
+            && "".equals(baHomePhone)
+            && "".equals(baFax)
+            && "".equals(baEmail)
+            && "".equals(baAddress1)
+            && "".equals(baAddress2)
+            && "".equals(baCity)
+            && "".equals(baState)
+            && "".equals(baCountry)
+            && "".equals(baZip)
+            && "".equals(baUsername)
+            && "".equals(baPassword)
     ;
   }
 
@@ -243,8 +243,8 @@ public class SignupTechnicalForm extends ActionForm implements Serializable, Ses
       }
       if (GenericValidator.isBlankOrNull(baEmail)) {
         errors.add("baEmail", new ActionMessage("signupTechnicalForm.baEmail.required"));
-      //} else if (!GenericValidator.isEmail(baEmail)) {
-      //  errors.add("baEmail", new ActionMessage("signupTechnicalForm.baEmail.invalid"));
+        //} else if (!GenericValidator.isEmail(baEmail)) {
+        //  errors.add("baEmail", new ActionMessage("signupTechnicalForm.baEmail.invalid"));
       } else {
         ValidationResult baEmailCheck = Email.validate(baEmail);
         if (!baEmailCheck.isValid()) {

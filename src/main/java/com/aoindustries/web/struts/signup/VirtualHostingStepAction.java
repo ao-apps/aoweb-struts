@@ -43,25 +43,25 @@ public abstract class VirtualHostingStepAction extends PageAction {
    */
   @Override
   public final ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Registry pageRegistry
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Registry pageRegistry
   ) throws Exception {
     // Clear checkboxes that were not part of the request
     clearCheckboxes(request, form);
 
     // Perform redirect if requested a different step
     String selectedStep = request.getParameter("selectedStep");
-    if (selectedStep != null && (selectedStep=selectedStep.trim()).length()>0) {
+    if (selectedStep != null && (selectedStep = selectedStep.trim()).length() > 0) {
       if (
-        "virtual-hosting".equals(selectedStep)
-        || "virtual-hosting-2".equals(selectedStep)
-        || "virtual-hosting-3".equals(selectedStep)
-        || "virtual-hosting-4".equals(selectedStep)
-        || "virtual-hosting-5".equals(selectedStep)
-        || "virtual-hosting-6".equals(selectedStep)
+          "virtual-hosting".equals(selectedStep)
+              || "virtual-hosting-2".equals(selectedStep)
+              || "virtual-hosting-3".equals(selectedStep)
+              || "virtual-hosting-4".equals(selectedStep)
+              || "virtual-hosting-5".equals(selectedStep)
+              || "virtual-hosting-6".equals(selectedStep)
       ) {
         return mapping.findForward(selectedStep);
       }
@@ -94,19 +94,19 @@ public abstract class VirtualHostingStepAction extends PageAction {
     request.setAttribute("signupBillingInformationFormComplete", Boolean.toString(signupBillingInformationFormComplete));
 
     return executeVirtualHostingStep(
-      mapping,
-      request,
-      response,
-      signupSelectPackageForm,
-      signupSelectPackageFormComplete,
-      signupDomainForm,
-      signupDomainFormComplete,
-      signupOrganizationForm,
-      signupOrganizationFormComplete,
-      signupTechnicalForm,
-      signupTechnicalFormComplete,
-      signupBillingInformationForm,
-      signupBillingInformationFormComplete
+        mapping,
+        request,
+        response,
+        signupSelectPackageForm,
+        signupSelectPackageFormComplete,
+        signupDomainForm,
+        signupDomainFormComplete,
+        signupOrganizationForm,
+        signupOrganizationFormComplete,
+        signupTechnicalForm,
+        signupTechnicalFormComplete,
+        signupBillingInformationForm,
+        signupBillingInformationFormComplete
     );
   }
 
@@ -130,18 +130,18 @@ public abstract class VirtualHostingStepAction extends PageAction {
   }
 
   public abstract ActionForward executeVirtualHostingStep(
-    ActionMapping mapping,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    VirtualHostingSignupSelectPackageForm signupSelectPackageForm,
-    boolean signupSelectPackageFormComplete,
-    SignupDomainForm signupDomainForm,
-    boolean signupDomainFormComplete,
-    SignupOrganizationForm signupOrganizationForm,
-    boolean signupOrganizationFormComplete,
-    SignupTechnicalForm signupTechnicalForm,
-    boolean signupTechnicalFormComplete,
-    SignupBillingInformationForm signupBillingInformationForm,
-    boolean signupBillingInformationFormComplete
+      ActionMapping mapping,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      VirtualHostingSignupSelectPackageForm signupSelectPackageForm,
+      boolean signupSelectPackageFormComplete,
+      SignupDomainForm signupDomainForm,
+      boolean signupDomainFormComplete,
+      SignupOrganizationForm signupOrganizationForm,
+      boolean signupOrganizationFormComplete,
+      SignupTechnicalForm signupTechnicalForm,
+      boolean signupTechnicalFormComplete,
+      SignupBillingInformationForm signupBillingInformationForm,
+      boolean signupBillingInformationFormComplete
   ) throws Exception;
 }

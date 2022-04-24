@@ -45,11 +45,11 @@ public class DeleteCreditCardAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
     // Make sure the credit card still exists, redirect to credit-card-manager if doesn't
     CreditCard creditCard = null;
@@ -73,10 +73,10 @@ public class DeleteCreditCardAction extends PermissionAction {
   }
 
   private static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
-    EnumSet.of(
-      Permission.Name.get_credit_cards,
-      Permission.Name.delete_credit_card
-    )
+      EnumSet.of(
+          Permission.Name.get_credit_cards,
+          Permission.Name.delete_credit_card
+      )
   );
 
   @Override

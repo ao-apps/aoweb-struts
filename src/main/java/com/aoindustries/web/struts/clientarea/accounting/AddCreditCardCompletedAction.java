@@ -51,13 +51,13 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    AddCreditCardForm addCreditCardForm=(AddCreditCardForm)form;
+    AddCreditCardForm addCreditCardForm = (AddCreditCardForm) form;
 
     String account_name = addCreditCardForm.getAccount();
     if (GenericValidator.isBlankOrNull(account_name)) {
@@ -96,34 +96,34 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
     String groupName = account_name;
     Profile profile = account.getProfile();
     creditCardProcessor.storeCreditCard(new AOServConnectorPrincipal(rootConn, principalName),
-      new AccountGroup(aoConn.getAccount().getAccount().get(Account.Name.valueOf(account_name)), groupName),
-      new CreditCard(
-        null, // persistenceUniqueId
-        principalName,
-        groupName,
-        null, // providerId
-        null, // providerUniqueId
-        addCreditCardForm.getCardNumber(),
-        null, // maskedCardNumber
-        Byte.parseByte(addCreditCardForm.getExpirationMonth()),
-        Short.parseShort(addCreditCardForm.getExpirationYear()),
-        addCreditCardForm.getCardCode(),
-        addCreditCardForm.getFirstName(),
-        addCreditCardForm.getLastName(),
-        addCreditCardForm.getCompanyName(),
-        MakePaymentNewCardCompletedAction.getFirstBillingEmail(profile),
-        profile == null ? null : Strings.trimNullIfEmpty(profile.getPhone()),
-        profile == null ? null : Strings.trimNullIfEmpty(profile.getFax()),
-        null, // customerId: TODO: Set from account.Account once there is a constant identifier (not subject to set_business_accounting command/API)
-        null, // customerTaxId
-        addCreditCardForm.getStreetAddress1(),
-        addCreditCardForm.getStreetAddress2(),
-        addCreditCardForm.getCity(),
-        addCreditCardForm.getState(),
-        addCreditCardForm.getPostalCode(),
-        addCreditCardForm.getCountryCode(),
-        addCreditCardForm.getDescription()
-      )
+        new AccountGroup(aoConn.getAccount().getAccount().get(Account.Name.valueOf(account_name)), groupName),
+        new CreditCard(
+            null, // persistenceUniqueId
+            principalName,
+            groupName,
+            null, // providerId
+            null, // providerUniqueId
+            addCreditCardForm.getCardNumber(),
+            null, // maskedCardNumber
+            Byte.parseByte(addCreditCardForm.getExpirationMonth()),
+            Short.parseShort(addCreditCardForm.getExpirationYear()),
+            addCreditCardForm.getCardCode(),
+            addCreditCardForm.getFirstName(),
+            addCreditCardForm.getLastName(),
+            addCreditCardForm.getCompanyName(),
+            MakePaymentNewCardCompletedAction.getFirstBillingEmail(profile),
+            profile == null ? null : Strings.trimNullIfEmpty(profile.getPhone()),
+            profile == null ? null : Strings.trimNullIfEmpty(profile.getFax()),
+            null, // customerId: TODO: Set from account.Account once there is a constant identifier (not subject to set_business_accounting command/API)
+            null, // customerTaxId
+            addCreditCardForm.getStreetAddress1(),
+            addCreditCardForm.getStreetAddress2(),
+            addCreditCardForm.getCity(),
+            addCreditCardForm.getState(),
+            addCreditCardForm.getPostalCode(),
+            addCreditCardForm.getCountryCode(),
+            addCreditCardForm.getDescription()
+        )
     );
 
     request.setAttribute("cardNumber", CreditCard.maskCreditCardNumber(addCreditCardForm.getCardNumber()));

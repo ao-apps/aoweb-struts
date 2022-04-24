@@ -41,20 +41,20 @@ public class AutoIndexTag extends TagSupport {
   @Override
   public int doStartTag() throws JspException {
     try {
-      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-      HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+      HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
+      HttpServletResponse resp = (HttpServletResponse) pageContext.getResponse();
       SkinTag.getSkin(req).printAutoIndex(
-        req,
-        resp,
-        PageAttributesBodyTag.getPageAttributes(pageContext),
-        new DocumentEE(
-          pageContext.getServletContext(),
           req,
           resp,
-          pageContext.getOut(),
-          false, // Do not add extra newlines to JSP
-          false  // Do not add extra indentation to JSP
-        )
+          PageAttributesBodyTag.getPageAttributes(pageContext),
+          new DocumentEE(
+              pageContext.getServletContext(),
+              req,
+              resp,
+              pageContext.getOut(),
+              false, // Do not add extra newlines to JSP
+              false  // Do not add extra indentation to JSP
+          )
       );
       return SKIP_BODY;
     } catch (IOException e) {

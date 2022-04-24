@@ -45,11 +45,11 @@ public class PasswordGeneratorAction extends PageAction {
 
   @Override
   public ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Registry pageRegistry
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Registry pageRegistry
   ) throws Exception {
     // Generate the passwords
     List<String> generatedPasswords = new ArrayList<>(NUM_PASSWORDS);

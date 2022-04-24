@@ -70,14 +70,14 @@ public final class MinimalConfirmationCompletedActionHelper {
   // TODO: Have this generate a ticket instead, with full details.  Remove "all except bank card numbers" in other places once done.
   @SuppressWarnings({"UseSpecificCatch", "TooBroadCatch"})
   public static void sendSupportSummaryEmail(
-    ActionServlet servlet,
-    HttpServletRequest request,
-    String pkey,
-    String statusKey,
-    PackageDefinition packageDefinition,
-    SignupOrganizationForm signupOrganizationForm,
-    SignupTechnicalForm signupTechnicalForm,
-    SignupBillingInformationForm signupBillingInformationForm
+      ActionServlet servlet,
+      HttpServletRequest request,
+      String pkey,
+      String statusKey,
+      PackageDefinition packageDefinition,
+      SignupOrganizationForm signupOrganizationForm,
+      SignupTechnicalForm signupTechnicalForm,
+      SignupBillingInformationForm signupBillingInformationForm
   ) {
     try {
       SiteSettings siteSettings = SiteSettings.getInstance(servlet.getServletContext());
@@ -93,14 +93,14 @@ public final class MinimalConfirmationCompletedActionHelper {
    * Sends the customer emails and stores the successAddresses and failureAddresses as request attributes.
    */
   public static void sendCustomerSummaryEmails(
-    ActionServlet servlet,
-    HttpServletRequest request,
-    String pkey,
-    String statusKey,
-    PackageDefinition packageDefinition,
-    SignupOrganizationForm signupOrganizationForm,
-    SignupTechnicalForm signupTechnicalForm,
-    SignupBillingInformationForm signupBillingInformationForm
+      ActionServlet servlet,
+      HttpServletRequest request,
+      String pkey,
+      String statusKey,
+      PackageDefinition packageDefinition,
+      SignupOrganizationForm signupOrganizationForm,
+      SignupTechnicalForm signupTechnicalForm,
+      SignupBillingInformationForm signupBillingInformationForm
   ) {
     Set<String> addresses = new HashSet<>();
     addresses.add(signupTechnicalForm.getBaEmail());
@@ -128,14 +128,14 @@ public final class MinimalConfirmationCompletedActionHelper {
    */
   @SuppressWarnings({"UseSpecificCatch", "TooBroadCatch"})
   private static boolean sendSummaryEmail(
-    ActionServlet servlet,
-    String pkey,
-    String statusKey,
-    String recipient,
-    PackageDefinition packageDefinition,
-    SignupOrganizationForm signupOrganizationForm,
-    SignupTechnicalForm signupTechnicalForm,
-    SignupBillingInformationForm signupBillingInformationForm
+      ActionServlet servlet,
+      String pkey,
+      String statusKey,
+      String recipient,
+      PackageDefinition packageDefinition,
+      SignupOrganizationForm signupOrganizationForm,
+      SignupTechnicalForm signupTechnicalForm,
+      SignupBillingInformationForm signupBillingInformationForm
   ) {
     try {
       String subject = PACKAGE_RESOURCES.getMessage("serverConfirmationCompleted.email.subject", pkey);
@@ -148,29 +148,30 @@ public final class MinimalConfirmationCompletedActionHelper {
       // TODO: Test emails
       StringWriter buffer = new StringWriter();
       Document document = new Document(
-        new EncodingContext() {
-          @Override
-          public Serialization getSerialization() {
-            return Serialization.SGML;
-          }
-          @Override
-          public Doctype getDoctype() {
-            return Doctype.STRICT;
-          }
-          @Override
-          public Charset getCharacterEncoding() {
-            return charset;
-          }
-        },
-        NativeToPosixWriter.getInstance(new FindReplaceWriter(buffer, "\n", "\r\n"))
+          new EncodingContext() {
+            @Override
+            public Serialization getSerialization() {
+              return Serialization.SGML;
+            }
+            @Override
+            public Doctype getDoctype() {
+              return Doctype.STRICT;
+            }
+            @Override
+            public Charset getCharacterEncoding() {
+              return charset;
+            }
+          },
+          NativeToPosixWriter.getInstance(new FindReplaceWriter(buffer, "\n", "\r\n"))
       );
       document.setAutonli(true);
       document.setIndent(true);
       document.xmlDeclaration();
       document.doctype();
       Serialization serialization = document.encodingContext.getSerialization();
-      HtmlTag.beginHtmlTag(userLocale, document.getRawUnsafe(), serialization, (GlobalAttributes)null); document.unsafe("\n"
-      + "<head>\n");
+      HtmlTag.beginHtmlTag(userLocale, document.getRawUnsafe(), serialization, (GlobalAttributes) null);
+      document.unsafe("\n"
+          + "<head>\n");
       String contentType = serialization.getContentType() + "; charset=" + charset;
       HeadUtil.standardMeta(document, contentType);
       document.title__(subject);
@@ -193,48 +194,49 @@ public final class MinimalConfirmationCompletedActionHelper {
         servlet.log("Warning: Unable to find resource: " + TextSkin.TEXTSKIN_CSS);
       }
       document.unsafe("</head>\n"
-      + "<body>\n"
-      + "<table style=\"border:0px\" cellpadding=\"0\" cellspacing=\"0\">\n"
-      + "    <tr><td style=\"white-space:nowrap\" colspan=\"3\">\n"
-      + "        ").unsafe(PACKAGE_RESOURCES.getMessage(statusKey, pkey)).br__().unsafe("\n"
-      + "        ").br__().unsafe("\n"
-      + "        ").unsafe(PACKAGE_RESOURCES.getMessage("serverConfirmationCompleted.belowIsSummary")).br__().unsafe("\n"
-      + "        ").hr__().unsafe("\n"
-      + "    </td></tr>\n"
-      + "    <tr><th colspan=\"3\">").text(PACKAGE_RESOURCES.getMessage("steps.selectPackage.label")).unsafe("</th></tr>\n");
+          + "<body>\n"
+          + "<table style=\"border:0px\" cellpadding=\"0\" cellspacing=\"0\">\n"
+          + "    <tr><td style=\"white-space:nowrap\" colspan=\"3\">\n"
+          + "        ").unsafe(PACKAGE_RESOURCES.getMessage(statusKey, pkey)).br__().unsafe("\n"
+          + "        ").br__().unsafe("\n"
+          + "        ").unsafe(PACKAGE_RESOURCES.getMessage("serverConfirmationCompleted.belowIsSummary")).br__().unsafe("\n"
+          + "        ").hr__().unsafe("\n"
+          + "    </td></tr>\n"
+          + "    <tr><th colspan=\"3\">").text(PACKAGE_RESOURCES.getMessage("steps.selectPackage.label")).unsafe("</th></tr>\n");
       SignupSelectPackageActionHelper.writeEmailConfirmation(document, packageDefinition);
       SiteSettings siteSettings = SiteSettings.getInstance(servlet.getServletContext());
       AOServConnector rootConn = siteSettings.getRootAOServConnector();
       document.unsafe("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-      + "    <tr><th colspan=\"3\">").text(PACKAGE_RESOURCES.getMessage("steps.organizationInfo.label")).unsafe("</th></tr>\n");
+          + "    <tr><th colspan=\"3\">").text(PACKAGE_RESOURCES.getMessage("steps.organizationInfo.label")).unsafe("</th></tr>\n");
       SignupOrganizationActionHelper.writeEmailConfirmation(document, rootConn, signupOrganizationForm);
       document.unsafe("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-      + "    <tr><th colspan=\"3\">").text(PACKAGE_RESOURCES.getMessage("steps.technicalInfo.label")).unsafe("</th></tr>\n");
+          + "    <tr><th colspan=\"3\">").text(PACKAGE_RESOURCES.getMessage("steps.technicalInfo.label")).unsafe("</th></tr>\n");
       SignupTechnicalActionHelper.writeEmailConfirmation(document, rootConn, signupTechnicalForm);
       document.unsafe("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
-      + "    <tr><th colspan=\"3\">").text(PACKAGE_RESOURCES.getMessage("steps.billingInformation.label")).unsafe("</th></tr>\n");
+          + "    <tr><th colspan=\"3\">").text(PACKAGE_RESOURCES.getMessage("steps.billingInformation.label")).unsafe("</th></tr>\n");
       SignupBillingInformationActionHelper.writeEmailConfirmation(document, signupBillingInformationForm);
       document.unsafe("</table>\n"
-      + "</body>\n");
-      HtmlTag.endHtmlTag(document.getRawUnsafe()); document.autoNl();
+          + "</body>\n");
+      HtmlTag.endHtmlTag(document.getRawUnsafe());
+      document.autoNl();
 
       // Send the email
       Brand brand = siteSettings.getBrand();
       Mailer.sendEmail(HostAddress.valueOf(brand.getSignupEmailAddress().getDomain().getLinuxServer().getHostname()),
-        contentType,
-        charset,
-        brand.getSignupEmailAddress().toString(),
-        brand.getSignupEmailDisplay(),
-        Collections.singletonList(recipient),
-        subject,
-        buffer.toString()
+          contentType,
+          charset,
+          brand.getSignupEmailAddress().toString(),
+          brand.getSignupEmailDisplay(),
+          Collections.singletonList(recipient),
+          subject,
+          buffer.toString()
       );
 
       return true;
     } catch (ThreadDeath td) {
       throw td;
     } catch (Throwable t) {
-      servlet.log("Unable to send sign up details to "+recipient, t);
+      servlet.log("Unable to send sign up details to " + recipient, t);
       return false;
     }
   }

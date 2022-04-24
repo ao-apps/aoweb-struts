@@ -51,13 +51,13 @@ public class CreateCompletedAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    TicketForm ticketForm = (TicketForm)form;
+    TicketForm ticketForm = (TicketForm) form;
 
     // Validation
     ActionMessages errors = ticketForm.validate(mapping, request);
@@ -87,17 +87,17 @@ public class CreateCompletedAction extends PermissionAction {
     }
     SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
     int pkey = aoConn.getTicket().getTicket().addTicket(
-      siteSettings.getBrand(),
-      account,
-      language,
-      null,
-      ticketType,
-      null,
-      ticketForm.getSummary(),
-      ticketForm.getDetails(),
-      clientPriority,
-      Profile.splitEmails(ticketForm.getContactEmails()),
-      ticketForm.getContactPhoneNumbers()
+        siteSettings.getBrand(),
+        account,
+        language,
+        null,
+        ticketType,
+        null,
+        ticketForm.getSummary(),
+        ticketForm.getDetails(),
+        clientPriority,
+        Profile.splitEmails(ticketForm.getContactEmails()),
+        ticketForm.getContactPhoneNumbers()
     );
     request.setAttribute("pkey", pkey);
 

@@ -56,8 +56,8 @@ public class AddCreditCardForm extends CreditCardForm implements Serializable {
     String expirationMonth = getExpirationMonth();
     String expirationYear = getExpirationYear();
     if (
-      GenericValidator.isBlankOrNull(expirationMonth)
-      || GenericValidator.isBlankOrNull(expirationYear)
+        GenericValidator.isBlankOrNull(expirationMonth)
+            || GenericValidator.isBlankOrNull(expirationYear)
     ) {
       errors.add("expirationDate", new ActionMessage("addCreditCardForm.expirationDate.required"));
     }

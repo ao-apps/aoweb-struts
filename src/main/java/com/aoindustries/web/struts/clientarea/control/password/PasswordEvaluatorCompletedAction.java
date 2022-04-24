@@ -43,13 +43,13 @@ public class PasswordEvaluatorCompletedAction extends PageAction {
 
   @Override
   public ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Registry pageRegistry
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Registry pageRegistry
   ) throws Exception {
-    PasswordEvaluatorForm passwordEvaluatorForm = (PasswordEvaluatorForm)form;
+    PasswordEvaluatorForm passwordEvaluatorForm = (PasswordEvaluatorForm) form;
 
     ActionMessages errors = passwordEvaluatorForm.validate(mapping, request);
     if (errors != null && !errors.isEmpty()) {

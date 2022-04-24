@@ -129,13 +129,13 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
 
       ServletContext servletContext = getServlet().getServletContext();
 
-      for (int c=0;c<usernames.size();c++) {
+      for (int c = 0; c < usernames.size(); c++) {
         String newPassword = newPasswords.get(c);
         String confirmPassword = confirmPasswords.get(c);
         if (!newPassword.equals(confirmPassword)) {
           errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("postgreSQLPasswordSetter.field.confirmPasswords.mismatch"));
         } else {
-          if (newPassword.length()>0) {
+          if (newPassword.length() > 0) {
             User.Name username = User.Name.valueOf(usernames.get(c));
 
             // Check the password strength
@@ -143,11 +143,11 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
             if (PasswordChecker.hasResults(results)) {
               Serialization serialization = SerializationEE.get(servletContext, request);
               errors.add(
-                "confirmPasswords[" + c + "].confirmPasswords",
-                new ActionMessage(
-                  PasswordChecker.getResultsHtml(results, serialization == Serialization.XML),
-                  false
-                )
+                  "confirmPasswords[" + c + "].confirmPasswords",
+                  new ActionMessage(
+                      PasswordChecker.getResultsHtml(results, serialization == Serialization.XML),
+                      false
+                  )
               );
             }
           }

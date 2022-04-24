@@ -45,8 +45,8 @@ public class TicketForm extends ValidatorForm implements Serializable {
     for (String line : Strings.splitLines(commasOrLines)) {
       for (String word : Strings.split(line, ',')) {
         word = word.trim();
-        if (word.length()>0) {
-          if (result.length()>0) {
+        if (word.length() > 0) {
+          if (result.length() > 0) {
             result.append('\n');
           }
           result.append(word);
@@ -186,7 +186,7 @@ public class TicketForm extends ValidatorForm implements Serializable {
     }
 
     // contactEmails must be valid email addresses
-    if (getContactEmails().length()>0) {
+    if (getContactEmails().length() > 0) {
       for (String email : Strings.splitLines(getContactEmails())) {
         ValidationResult emailCheck = Email.validate(email);
         if (!emailCheck.isValid()) {
@@ -201,7 +201,7 @@ public class TicketForm extends ValidatorForm implements Serializable {
     }
 
     // annotationSummary required with either summary or details provided
-    if (getAnnotationDetails().length()>0 && getAnnotationSummary().length() == 0) {
+    if (getAnnotationDetails().length() > 0 && getAnnotationSummary().length() == 0) {
       errors.add("annotationSummary", new ActionMessage("TicketForm.field.annotationSummary.required"));
     }
     return errors;

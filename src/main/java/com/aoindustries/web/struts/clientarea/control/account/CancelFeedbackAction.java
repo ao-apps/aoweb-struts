@@ -45,11 +45,11 @@ public class CancelFeedbackAction  extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
     String account_name = request.getParameter("account");
     Account account;
@@ -62,7 +62,7 @@ public class CancelFeedbackAction  extends PermissionAction {
       return mapping.findForward("invalid-account");
     }
 
-    CancelFeedbackForm cancelFeedbackForm = (CancelFeedbackForm)form;
+    CancelFeedbackForm cancelFeedbackForm = (CancelFeedbackForm) form;
     cancelFeedbackForm.setAccount(account_name);
 
     // Set request values

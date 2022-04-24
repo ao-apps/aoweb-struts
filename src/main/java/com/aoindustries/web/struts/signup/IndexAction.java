@@ -47,11 +47,11 @@ public class IndexAction extends PageAction {
 
   @Override
   public ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Registry pageRegistry
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Registry pageRegistry
   ) throws Exception {
     AOServConnector rootConn = SiteSettings.getInstance(getServlet().getServletContext()).getRootAOServConnector();
 
@@ -68,95 +68,95 @@ public class IndexAction extends PageAction {
       String categoryName = categories.keySet().iterator().next().getName();
       if (PackageCategory.AOSERV.equals(categoryName)) {
         response.sendRedirect(
-          response.encodeRedirectURL(
-            URIEncoder.encodeURI(
-              urlBase + "signup/aoserv.do"
+            response.encodeRedirectURL(
+                URIEncoder.encodeURI(
+                    urlBase + "signup/aoserv.do"
+                )
             )
-          )
         );
         return null;
       }
       if (PackageCategory.APPLICATION.equals(categoryName)) {
         response.sendRedirect(
-          response.encodeRedirectURL(
-            URIEncoder.encodeURI(
-              urlBase + "signup/application.do"
+            response.encodeRedirectURL(
+                URIEncoder.encodeURI(
+                    urlBase + "signup/application.do"
+                )
             )
-          )
         );
         return null;
       }
       if (PackageCategory.DEDICATED.equals(categoryName)) {
         response.sendRedirect(
-          response.encodeRedirectURL(
-            URIEncoder.encodeURI(
-              urlBase + "signup/dedicated-server.do"
+            response.encodeRedirectURL(
+                URIEncoder.encodeURI(
+                    urlBase + "signup/dedicated-server.do"
+                )
             )
-          )
         );
         return null;
       }
       if (PackageCategory.MANAGED.equals(categoryName)) {
         response.sendRedirect(
-          response.encodeRedirectURL(
-            URIEncoder.encodeURI(
-              urlBase + "signup/managed-server.do"
+            response.encodeRedirectURL(
+                URIEncoder.encodeURI(
+                    urlBase + "signup/managed-server.do"
+                )
             )
-          )
         );
         return null;
       }
       if (PackageCategory.RESELLER.equals(categoryName)) {
         response.sendRedirect(
-          response.encodeRedirectURL(
-            URIEncoder.encodeURI(
-              urlBase + "signup/reseller.do"
+            response.encodeRedirectURL(
+                URIEncoder.encodeURI(
+                    urlBase + "signup/reseller.do"
+                )
             )
-          )
         );
         return null;
       }
       if (PackageCategory.SYSADMIN.equals(categoryName)) {
         response.sendRedirect(
-          response.encodeRedirectURL(
-            URIEncoder.encodeURI(
-              urlBase + "signup/system-administration.do"
+            response.encodeRedirectURL(
+                URIEncoder.encodeURI(
+                    urlBase + "signup/system-administration.do"
+                )
             )
-          )
         );
         return null;
       }
       if (PackageCategory.VIRTUAL.equals(categoryName)) {
         response.sendRedirect(
-          response.encodeRedirectURL(
-            URIEncoder.encodeURI(
-              urlBase + "signup/virtual-hosting.do"
+            response.encodeRedirectURL(
+                URIEncoder.encodeURI(
+                    urlBase + "signup/virtual-hosting.do"
+                )
             )
-          )
         );
         return null;
       }
       if (PackageCategory.VIRTUAL_DEDICATED.equals(categoryName)) {
         response.sendRedirect(
-          response.encodeRedirectURL(
-            URIEncoder.encodeURI(
-              urlBase + "signup/virtual-dedicated-server.do"
+            response.encodeRedirectURL(
+                URIEncoder.encodeURI(
+                    urlBase + "signup/virtual-dedicated-server.do"
+                )
             )
-          )
         );
         return null;
       }
       if (PackageCategory.VIRTUAL_MANAGED.equals(categoryName)) {
         response.sendRedirect(
-          response.encodeRedirectURL(
-            URIEncoder.encodeURI(
-              urlBase + "signup/virtual-managed-server.do"
+            response.encodeRedirectURL(
+                URIEncoder.encodeURI(
+                    urlBase + "signup/virtual-managed-server.do"
+                )
             )
-          )
         );
         return null;
       }
-      throw new ServletException("Unsupported package category: "+categoryName);
+      throw new ServletException("Unsupported package category: " + categoryName);
     }
     request.setAttribute("categories", categories);
     return mapping.findForward("success");

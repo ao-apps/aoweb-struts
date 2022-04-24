@@ -38,21 +38,21 @@ public class Managed7Action extends ManagedStepAction {
 
   @Override
   public ActionForward executeManagedStep(
-    ActionMapping mapping,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    ManagedSignupSelectPackageForm signupSelectPackageForm,
-    boolean signupSelectPackageFormComplete,
-    ManagedSignupCustomizeServerForm signupCustomizeServerForm,
-    boolean signupCustomizeServerFormComplete,
-    SignupCustomizeManagementForm signupCustomizeManagementForm,
-    boolean signupCustomizeManagementFormComplete,
-    SignupOrganizationForm signupOrganizationForm,
-    boolean signupOrganizationFormComplete,
-    SignupTechnicalForm signupTechnicalForm,
-    boolean signupTechnicalFormComplete,
-    SignupBillingInformationForm signupBillingInformationForm,
-    boolean signupBillingInformationFormComplete
+      ActionMapping mapping,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      ManagedSignupSelectPackageForm signupSelectPackageForm,
+      boolean signupSelectPackageFormComplete,
+      ManagedSignupCustomizeServerForm signupCustomizeServerForm,
+      boolean signupCustomizeServerFormComplete,
+      SignupCustomizeManagementForm signupCustomizeManagementForm,
+      boolean signupCustomizeManagementFormComplete,
+      SignupOrganizationForm signupOrganizationForm,
+      boolean signupOrganizationFormComplete,
+      SignupTechnicalForm signupTechnicalForm,
+      boolean signupTechnicalFormComplete,
+      SignupBillingInformationForm signupBillingInformationForm,
+      boolean signupBillingInformationFormComplete
   ) throws Exception {
     if (!signupSelectPackageFormComplete) {
       return mapping.findForward("managed-server-completed");
@@ -74,28 +74,28 @@ public class Managed7Action extends ManagedStepAction {
     }
 
     initRequestAttributes(
-      request,
-      response,
-      signupSelectPackageForm,
-      signupCustomizeServerForm,
-      signupCustomizeManagementForm,
-      signupOrganizationForm,
-      signupTechnicalForm,
-      signupBillingInformationForm
+        request,
+        response,
+        signupSelectPackageForm,
+        signupCustomizeServerForm,
+        signupCustomizeManagementForm,
+        signupOrganizationForm,
+        signupTechnicalForm,
+        signupBillingInformationForm
     );
 
     return mapping.findForward("input");
   }
 
   protected void initRequestAttributes(
-    HttpServletRequest request,
-    HttpServletResponse response,
-    SignupSelectPackageForm signupSelectPackageForm,
-    SignupCustomizeServerForm signupCustomizeServerForm,
-    SignupCustomizeManagementForm signupCustomizeManagementForm,
-    SignupOrganizationForm signupOrganizationForm,
-    SignupTechnicalForm signupTechnicalForm,
-    SignupBillingInformationForm signupBillingInformationForm
+      HttpServletRequest request,
+      HttpServletResponse response,
+      SignupSelectPackageForm signupSelectPackageForm,
+      SignupCustomizeServerForm signupCustomizeServerForm,
+      SignupCustomizeManagementForm signupCustomizeManagementForm,
+      SignupOrganizationForm signupOrganizationForm,
+      SignupTechnicalForm signupTechnicalForm,
+      SignupBillingInformationForm signupBillingInformationForm
   ) throws IOException, SQLException {
     ServletContext servletContext = getServlet().getServletContext();
 

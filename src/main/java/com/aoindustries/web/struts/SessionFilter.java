@@ -61,12 +61,12 @@ public class SessionFilter implements Filter {
 
   @Override
   public void doFilter(
-    ServletRequest request,
-    ServletResponse response,
-    FilterChain chain
+      ServletRequest request,
+      ServletResponse response,
+      FilterChain chain
   ) throws IOException, ServletException {
-    HttpServletRequest httpRequest = (HttpServletRequest)request;
-    SessionResponseWrapper myresponse = new SessionResponseWrapper(httpRequest, (HttpServletResponse)response);
+    HttpServletRequest httpRequest = (HttpServletRequest) request;
+    SessionResponseWrapper myresponse = new SessionResponseWrapper(httpRequest, (HttpServletResponse) response);
     SessionRequestWrapper myrequest = new SessionRequestWrapper(httpRequest);
     chain.doFilter(myrequest, myresponse);
     // Could improve the efficiency by removing temporary sessions proactively here

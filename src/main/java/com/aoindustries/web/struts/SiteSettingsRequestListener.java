@@ -53,13 +53,13 @@ public class SiteSettingsRequestListener implements ServletRequestListener {
     boolean canEditResources = (request instanceof HttpServletRequest) && siteSettings.getCanEditResources();
     EditableResourceBundle.ThreadSettings threadSettings;
     if (canEditResources) {
-      HttpServletRequest httpRequest = (HttpServletRequest)request;
+      HttpServletRequest httpRequest = (HttpServletRequest) request;
       // Check for cookie
       boolean modifyAllText = "visible".equals(Cookies.getCookie(httpRequest, "EditableResourceBundleEditorVisibility")); // TODO: "EditableResourceBundleEditorVisibility" should be a constant?
       threadSettings = new EditableResourceBundle.ThreadSettings(
-        HttpServletUtil.getAbsoluteURL(httpRequest, "/set-resource-bundle-value.do"),
-        EditableResourceBundle.ThreadSettings.Mode.MARKUP,
-        modifyAllText
+          HttpServletUtil.getAbsoluteURL(httpRequest, "/set-resource-bundle-value.do"),
+          EditableResourceBundle.ThreadSettings.Mode.MARKUP,
+          modifyAllText
       );
     } else {
       threadSettings = new EditableResourceBundle.ThreadSettings();

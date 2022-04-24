@@ -69,12 +69,12 @@ public abstract class SignupCustomizeServerForm extends ActionForm implements Se
   @Override
   public boolean isEmpty() {
     return
-      powerOption == -1
-      && cpuOption == -1
-      && ramOption == -1
-      && sataControllerOption == -1
-      && scsiControllerOption == -1
-      && diskOptions.isEmpty()
+        powerOption == -1
+            && cpuOption == -1
+            && ramOption == -1
+            && sataControllerOption == -1
+            && scsiControllerOption == -1
+            && diskOptions.isEmpty()
     ;
   }
 
@@ -161,7 +161,7 @@ public abstract class SignupCustomizeServerForm extends ActionForm implements Se
         boolean found = false;
         for (PackageDefinitionLimit limit : limits) {
           if (limit.getResource().getName().startsWith("hardware_power_")) {
-            found=true;
+            found = true;
             break;
           }
         }
@@ -180,7 +180,7 @@ public abstract class SignupCustomizeServerForm extends ActionForm implements Se
         boolean found = false;
         for (PackageDefinitionLimit limit : limits) {
           if (limit.getResource().getName().startsWith("hardware_disk_controller_sata_")) {
-            found=true;
+            found = true;
             break;
           }
         }
@@ -193,7 +193,7 @@ public abstract class SignupCustomizeServerForm extends ActionForm implements Se
         boolean found = false;
         for (PackageDefinitionLimit limit : limits) {
           if (limit.getResource().getName().startsWith("hardware_disk_controller_scsi_")) {
-            found=true;
+            found = true;
             break;
           }
         }
@@ -214,7 +214,7 @@ public abstract class SignupCustomizeServerForm extends ActionForm implements Se
 
   public boolean isAtLeastOneDiskSelected() {
     for (String diskOption : diskOptions) {
-      if (diskOption != null && diskOption.length()>0 && !diskOption.equals("-1")) {
+      if (diskOption != null && diskOption.length() > 0 && !diskOption.equals("-1")) {
         return true;
       }
     }

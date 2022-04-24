@@ -34,10 +34,10 @@ import org.apache.struts.action.ActionForm;
 public class SignupCustomizeManagementForm extends ActionForm implements Serializable, SessionActionForm {
 
   public static final ScopeEE.Session.Attribute<SignupCustomizeManagementForm> MANAGED_SESSION_ATTRIBUTE =
-    ScopeEE.SESSION.attribute("managedSignupCustomizeManagementForm");
+      ScopeEE.SESSION.attribute("managedSignupCustomizeManagementForm");
 
   public static final ScopeEE.Session.Attribute<SignupCustomizeManagementForm> VIRTUAL_MANAGED_SESSION_ATTRIBUTE =
-    ScopeEE.SESSION.attribute("virtualManagedSignupCustomizeManagementForm");
+      ScopeEE.SESSION.attribute("virtualManagedSignupCustomizeManagementForm");
 
   private static final long serialVersionUID = 1L;
 
@@ -60,12 +60,12 @@ public class SignupCustomizeManagementForm extends ActionForm implements Seriali
   @Override
   public boolean isEmpty() {
     return
-      backupOnsiteOption == -1
-      && backupOffsiteOption == -1
-      && "".equals(backupDvdOption)
-      && distributionScanOption == -1
-      && failoverOption == -1
-      && "false".equalsIgnoreCase(formCompleted)
+        backupOnsiteOption == -1
+            && backupOffsiteOption == -1
+            && "".equals(backupDvdOption)
+            && distributionScanOption == -1
+            && failoverOption == -1
+            && "false".equalsIgnoreCase(formCompleted)
     ;
   }
 

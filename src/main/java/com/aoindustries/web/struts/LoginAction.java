@@ -51,7 +51,7 @@ public class LoginAction extends PageAction {
   private static final int MAX_TARGETS = 100;
 
   private static final ScopeEE.Session.Attribute<Map<String, Identifier>> TARGETS_ATTR =
-    ScopeEE.SESSION.attribute(Constants.TARGETS);
+      ScopeEE.SESSION.attribute(Constants.TARGETS);
 
   /**
    * Adds a target to the user session.
@@ -104,11 +104,11 @@ public class LoginAction extends PageAction {
 
   @Override
   public ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Registry pageRegistry
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Registry pageRegistry
   ) throws Exception {
     HttpSession session = request.getSession(false);
     if (session != null) {

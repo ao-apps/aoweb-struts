@@ -50,11 +50,11 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
     // Make sure the credit card still exists, redirect to credit-card-manager if doesn't
     CreditCard creditCard = null;
@@ -84,8 +84,8 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
     Processor rootAoservCCP = rootCreditCard.getCreditCardProcessor();
     com.aoapps.payments.CreditCardProcessor processor = CreditCardProcessorFactory.getCreditCardProcessor(rootAoservCCP);
     processor.deleteCreditCard(
-      new AOServConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
-      CreditCardFactory.getCreditCard(rootCreditCard)
+        new AOServConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
+        CreditCardFactory.getCreditCard(rootCreditCard)
     );
 
     // Set request attributes

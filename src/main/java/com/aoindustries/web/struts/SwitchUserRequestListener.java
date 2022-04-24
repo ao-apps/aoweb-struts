@@ -44,7 +44,7 @@ public class SwitchUserRequestListener implements ServletRequestListener {
     String su = request.getParameter(Constants.SU);
     if (su != null) {
       if (request instanceof HttpServletRequest) {
-        Constants.SU_REQUESTED.context(((HttpServletRequest)request).getSession()).set(su.trim());
+        Constants.SU_REQUESTED.context(((HttpServletRequest) request).getSession()).set(su.trim());
       }
     }
   }

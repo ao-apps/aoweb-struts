@@ -32,7 +32,7 @@ import java.io.Serializable;
 public class ManagedSignupCustomizeServerForm extends SignupCustomizeServerForm implements Serializable {
 
   public static final ScopeEE.Session.Attribute<ManagedSignupCustomizeServerForm> SESSION_ATTRIBUTE =
-    ScopeEE.SESSION.attribute("managedSignupCustomizeServerForm");
+      ScopeEE.SESSION.attribute("managedSignupCustomizeServerForm");
 
   private static final long serialVersionUID = 1L;
 

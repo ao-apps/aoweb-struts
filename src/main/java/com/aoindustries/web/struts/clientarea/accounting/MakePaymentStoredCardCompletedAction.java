@@ -68,17 +68,17 @@ import org.apache.struts.action.ActionMessages;
 public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardAction {
 
   static final Resources RESOURCES =
-    Resources.getResources(ResourceBundle::getBundle, MakePaymentStoredCardCompletedAction.class);
+      Resources.getResources(ResourceBundle::getBundle, MakePaymentStoredCardCompletedAction.class);
 
   @Override
   public final ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    MakePaymentStoredCardForm makePaymentStoredCardForm = (MakePaymentStoredCardForm)form;
+    MakePaymentStoredCardForm makePaymentStoredCardForm = (MakePaymentStoredCardForm) form;
 
     // Init request values
     Account account;
@@ -102,22 +102,22 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
     if (idString.isEmpty()) {
       StringBuilder href = new StringBuilder();
       href
-        .append(Skin.getSkin(request).getUrlBase(request))
-        .append("clientarea/accounting/make-payment-new-card.do?account=")
-        .append(URIEncoder.encodeURIComponent(request.getParameter("account")));
+          .append(Skin.getSkin(request).getUrlBase(request))
+          .append("clientarea/accounting/make-payment-new-card.do?account=")
+          .append(URIEncoder.encodeURIComponent(request.getParameter("account")));
       String currency = request.getParameter("currency");
       if (!GenericValidator.isBlankOrNull(currency)) {
         href
-          .append("&currency=")
-          .append(URIEncoder.encodeURIComponent(currency));
+            .append("&currency=")
+            .append(URIEncoder.encodeURIComponent(currency));
       }
       // TODO: Many of these after-POST sendRedirect should be converted to 303 redirects
       response.sendRedirect(
-        response.encodeRedirectURL(
-          URIEncoder.encodeURI(
-            href.toString()
+          response.encodeRedirectURL(
+              URIEncoder.encodeURI(
+                  href.toString()
+              )
           )
-        )
       );
       return null;
     }
@@ -179,20 +179,20 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
       String paymentTypeName;
       // TODO: Move to a card-type microproject API and shared with ao-payments implementation
       if (
-        cardInfo.startsWith("34")
-        || cardInfo.startsWith("37")
-        || cardInfo.startsWith("3" + com.aoapps.payments.CreditCard.UNKNOWN_DIGIT)
+          cardInfo.startsWith("34")
+              || cardInfo.startsWith("37")
+              || cardInfo.startsWith("3" + com.aoapps.payments.CreditCard.UNKNOWN_DIGIT)
       ) {
         paymentTypeName = PaymentType.AMEX;
       } else if (cardInfo.startsWith("60")) {
         paymentTypeName = PaymentType.DISCOVER;
       } else if (
-        cardInfo.startsWith("51")
-        || cardInfo.startsWith("52")
-        || cardInfo.startsWith("53")
-        || cardInfo.startsWith("54")
-        || cardInfo.startsWith("55")
-        || cardInfo.startsWith("5" + com.aoapps.payments.CreditCard.UNKNOWN_DIGIT)
+          cardInfo.startsWith("51")
+              || cardInfo.startsWith("52")
+              || cardInfo.startsWith("53")
+              || cardInfo.startsWith("54")
+              || cardInfo.startsWith("55")
+              || cardInfo.startsWith("5" + com.aoapps.payments.CreditCard.UNKNOWN_DIGIT)
       ) {
         paymentTypeName = PaymentType.MASTERCARD;
       } else if (cardInfo.startsWith("4")) {
@@ -210,19 +210,19 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
       }
     }
     int transid = rootConn.getBilling().getTransaction().add(
-      Type.TIME,
-      null,
-      rootAccount,
-      rootAccount,
-      aoConn.getCurrentAdministrator(),
-      paymentTransactionType,
-      RESOURCES.getMessage("transaction.description"),
-      1000,
-      paymentAmount.negate(),
-      paymentType,
-      com.aoapps.payments.CreditCard.getCardNumberDisplay(cardInfo),
-      rootAoProcessor,
-      com.aoindustries.aoserv.client.billing.Transaction.WAITING_CONFIRMATION
+        Type.TIME,
+        null,
+        rootAccount,
+        rootAccount,
+        aoConn.getCurrentAdministrator(),
+        paymentTransactionType,
+        RESOURCES.getMessage("transaction.description"),
+        1000,
+        paymentAmount.negate(),
+        paymentType,
+        com.aoapps.payments.CreditCard.getCardNumberDisplay(cardInfo),
+        rootAoProcessor,
+        com.aoindustries.aoserv.client.billing.Transaction.WAITING_CONFIRMATION
     );
     com.aoindustries.aoserv.client.billing.Transaction aoTransaction = rootConn.getBilling().getTransaction().get(transid);
     if (aoTransaction == null) {
@@ -235,67 +235,67 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
     Transaction transaction;
     if (MakePaymentNewCardCompletedAction.DEBUG_AUTHORIZE_THEN_CAPTURE) {
       transaction = rootProcessor.authorize(
-        principal,
-        accountGroup,
-        new TransactionRequest(
-          false, // testMode
-          request.getRemoteAddr(), // customerIp
-          MakePaymentNewCardCompletedAction.DUPLICATE_WINDOW,
-          Integer.toString(transid), // orderNumber
-          paymentAmount.getCurrency(), // currency
-          paymentAmount.getValue(), // amount
-          null, // taxAmount
-          false, // taxExempt
-          null, // shippingAmount
-          null, // dutyAmount
-          null, // shippingFirstName
-          null, // shippingLastName
-          null, // shippingCompanyName
-          null, // shippingStreetAddress1
-          null, // shippingStreetAddress2
-          null, // shippingCity
-          null, // shippingState
-          null, // shippingPostalCode
-          null, // shippingCountryCode
-          false, // emailCustomer
-          null, // merchantEmail
-          null, // invoiceNumber
-          null, // purchaseOrderNumber
-          RESOURCES.getMessage(Locale.US, "transaction.description") // description
-        ),
-        CreditCardFactory.getCreditCard(rootCreditCard)
+          principal,
+          accountGroup,
+          new TransactionRequest(
+              false, // testMode
+              request.getRemoteAddr(), // customerIp
+              MakePaymentNewCardCompletedAction.DUPLICATE_WINDOW,
+              Integer.toString(transid), // orderNumber
+              paymentAmount.getCurrency(), // currency
+              paymentAmount.getValue(), // amount
+              null, // taxAmount
+              false, // taxExempt
+              null, // shippingAmount
+              null, // dutyAmount
+              null, // shippingFirstName
+              null, // shippingLastName
+              null, // shippingCompanyName
+              null, // shippingStreetAddress1
+              null, // shippingStreetAddress2
+              null, // shippingCity
+              null, // shippingState
+              null, // shippingPostalCode
+              null, // shippingCountryCode
+              false, // emailCustomer
+              null, // merchantEmail
+              null, // invoiceNumber
+              null, // purchaseOrderNumber
+              RESOURCES.getMessage(Locale.US, "transaction.description") // description
+          ),
+          CreditCardFactory.getCreditCard(rootCreditCard)
       );
     } else {
       transaction = rootProcessor.sale(
-        principal,
-        accountGroup,
-        new TransactionRequest(
-          false, // testMode
-          request.getRemoteAddr(), // customerIp
-          MakePaymentNewCardCompletedAction.DUPLICATE_WINDOW,
-          Integer.toString(transid), // orderNumber
-          paymentAmount.getCurrency(), // currency
-          paymentAmount.getValue(), // amount
-          null, // taxAmount
-          false, // taxExempt
-          null, // shippingAmount
-          null, // dutyAmount
-          null, // shippingFirstName
-          null, // shippingLastName
-          null, // shippingCompanyName
-          null, // shippingStreetAddress1
-          null, // shippingStreetAddress2
-          null, // shippingCity
-          null, // shippingState
-          null, // shippingPostalCode
-          null, // shippingCountryCode
-          false, // emailCustomer
-          null, // merchantEmail
-          null, // invoiceNumber
-          null, // purchaseOrderNumber
-          RESOURCES.getMessage(Locale.US, "transaction.description") // description
-        ),
-        CreditCardFactory.getCreditCard(rootCreditCard)
+          principal,
+          accountGroup,
+          new TransactionRequest(
+              false, // testMode
+              request.getRemoteAddr(), // customerIp
+              MakePaymentNewCardCompletedAction.DUPLICATE_WINDOW,
+              Integer.toString(transid), // orderNumber
+              paymentAmount.getCurrency(), // currency
+              paymentAmount.getValue(), // amount
+              null, // taxAmount
+              false, // taxExempt
+              null, // shippingAmount
+              null, // dutyAmount
+              null, // shippingFirstName
+              null, // shippingLastName
+              null, // shippingCompanyName
+              null, // shippingStreetAddress1
+              null, // shippingStreetAddress2
+              null, // shippingCity
+              null, // shippingState
+              null, // shippingPostalCode
+              null, // shippingCountryCode
+              false, // emailCustomer
+              null, // merchantEmail
+              null, // invoiceNumber
+              null, // purchaseOrderNumber
+              RESOURCES.getMessage(Locale.US, "transaction.description") // description
+          ),
+          CreditCardFactory.getCreditCard(rootCreditCard)
       );
     }
     // CreditCard might have been updated on root connector, invalidate and get fresh object always to avoid possible race condition
@@ -318,8 +318,8 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
       {
         // Update transaction as failed
         aoTransaction.declined(
-          Integer.parseInt(transaction.getPersistenceUniqueId()),
-          tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
+            Integer.parseInt(transaction.getPersistenceUniqueId()),
+            tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
         );
         // Get the list of active credit cards stored for this account
         List<CreditCard> allCreditCards = account.getCreditCards();
@@ -342,8 +342,8 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
           case HOLD :
           {
             aoTransaction.held(
-              Integer.parseInt(transaction.getPersistenceUniqueId()),
-              tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
+                Integer.parseInt(transaction.getPersistenceUniqueId()),
+                tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
             );
             request.setAttribute("account", account);
             request.setAttribute("creditCard", creditCard);
@@ -356,8 +356,8 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
           {
             // Update transaction as declined
             aoTransaction.declined(
-              Integer.parseInt(transaction.getPersistenceUniqueId()),
-              tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
+                Integer.parseInt(transaction.getPersistenceUniqueId()),
+                tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
             );
             // Get the list of active credit cards stored for this account
             List<CreditCard> allCreditCards = account.getCreditCards();
@@ -386,8 +386,8 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
                 {
                   // Update transaction as failed
                   aoTransaction.declined(
-                    Integer.parseInt(transaction.getPersistenceUniqueId()),
-                    tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
+                      Integer.parseInt(transaction.getPersistenceUniqueId()),
+                      tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
                   );
                   // Get the list of active credit cards stored for this account
                   List<CreditCard> allCreditCards = account.getCreditCards();
@@ -410,13 +410,13 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
                   break;
                 }
                 default:
-                  throw new RuntimeException("Unexpected value for capture communication result: "+captureResult.getCommunicationResult());
+                  throw new RuntimeException("Unexpected value for capture communication result: " + captureResult.getCommunicationResult());
               }
             }
             // Update transaction as successful
             aoTransaction.approved(
-              Integer.parseInt(transaction.getPersistenceUniqueId()),
-              tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
+                Integer.parseInt(transaction.getPersistenceUniqueId()),
+                tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
             );
             request.setAttribute("account", account);
             request.setAttribute("creditCard", creditCard);
@@ -425,10 +425,10 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
             return mapping.findForward("success");
           }
           default:
-            throw new RuntimeException("Unexpected value for authorization approval result: "+authorizationResult.getApprovalResult());
+            throw new RuntimeException("Unexpected value for authorization approval result: " + authorizationResult.getApprovalResult());
         }
       default:
-        throw new RuntimeException("Unexpected value for authorization communication result: "+authorizationResult.getCommunicationResult());
+        throw new RuntimeException("Unexpected value for authorization communication result: " + authorizationResult.getCommunicationResult());
     }
   }
 }

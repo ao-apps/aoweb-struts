@@ -36,19 +36,19 @@ public class Dedicated5CompletedAction extends Dedicated5Action {
 
   @Override
   public ActionForward executeDedicatedStep(
-    ActionMapping mapping,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    DedicatedSignupSelectPackageForm signupSelectPackageForm,
-    boolean signupSelectPackageFormComplete,
-    DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
-    boolean signupCustomizeServerFormComplete,
-    SignupOrganizationForm signupOrganizationForm,
-    boolean signupOrganizationFormComplete,
-    SignupTechnicalForm signupTechnicalForm,
-    boolean signupTechnicalFormComplete,
-    SignupBillingInformationForm signupBillingInformationForm,
-    boolean signupBillingInformationFormComplete
+      ActionMapping mapping,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      DedicatedSignupSelectPackageForm signupSelectPackageForm,
+      boolean signupSelectPackageFormComplete,
+      DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
+      boolean signupCustomizeServerFormComplete,
+      SignupOrganizationForm signupOrganizationForm,
+      boolean signupOrganizationFormComplete,
+      SignupTechnicalForm signupTechnicalForm,
+      boolean signupTechnicalFormComplete,
+      SignupBillingInformationForm signupBillingInformationForm,
+      boolean signupBillingInformationFormComplete
   ) throws Exception {
     // Forward to previous steps if they have not been completed
     if (!signupSelectPackageFormComplete) {
@@ -66,19 +66,19 @@ public class Dedicated5CompletedAction extends Dedicated5Action {
     if (!signupBillingInformationFormComplete) {
       // Init values for the form
       return super.executeDedicatedStep(
-        mapping,
-        request,
-        response,
-        signupSelectPackageForm,
-        signupSelectPackageFormComplete,
-        signupCustomizeServerForm,
-        signupCustomizeServerFormComplete,
-        signupOrganizationForm,
-        signupOrganizationFormComplete,
-        signupTechnicalForm,
-        signupTechnicalFormComplete,
-        signupBillingInformationForm,
-        signupBillingInformationFormComplete
+          mapping,
+          request,
+          response,
+          signupSelectPackageForm,
+          signupSelectPackageFormComplete,
+          signupCustomizeServerForm,
+          signupCustomizeServerFormComplete,
+          signupOrganizationForm,
+          signupOrganizationFormComplete,
+          signupTechnicalForm,
+          signupTechnicalFormComplete,
+          signupBillingInformationForm,
+          signupBillingInformationFormComplete
       );
     }
     return mapping.findForward("dedicated-server-6");
@@ -89,7 +89,7 @@ public class Dedicated5CompletedAction extends Dedicated5Action {
    */
   @Override
   protected void clearCheckboxes(HttpServletRequest request, ActionForm form) {
-    SignupBillingInformationForm signupBillingInformationForm = (SignupBillingInformationForm)form;
+    SignupBillingInformationForm signupBillingInformationForm = (SignupBillingInformationForm) form;
     // Clear the checkboxes if not present in this request
     if (!"on".equals(request.getParameter("billingUseMonthly"))) {
       signupBillingInformationForm.setBillingUseMonthly(false);

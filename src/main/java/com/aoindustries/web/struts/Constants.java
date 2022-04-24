@@ -46,7 +46,7 @@ public final class Constants {
    * The session key that stores when a {@link #SU} has been requested.
    */
   public static final ScopeEE.Session.Attribute<String> SU_REQUESTED =
-    ScopeEE.SESSION.attribute("suRequested");
+      ScopeEE.SESSION.attribute("suRequested");
 
   /**
    * The session key used to store the effective <code>AOServConnector</code> when the user has successfully authenticated.
@@ -55,20 +55,20 @@ public final class Constants {
    * when session state changing.
    */
   public static final AttributeEE.Name<AOServConnector> AO_CONN =
-    AttributeEE.attribute("aoConn");
+      AttributeEE.attribute("aoConn");
 
   /**
    * The session key used to store the <code>AOServConnector</code> that the user has authenticated as.
    * {@link #SU} will not changes this.
    */
   public static final ScopeEE.Session.Attribute<AOServConnector> AUTHENTICATED_AO_CONN =
-    ScopeEE.SESSION.attribute("authenticatedAoConn");
+      ScopeEE.SESSION.attribute("authenticatedAoConn");
 
   /**
    * The session key that stores the authentication target.
    */
   public static final ScopeEE.Session.Attribute<String> AUTHENTICATION_TARGET =
-    ScopeEE.SESSION.attribute("authenticationTarget");
+      ScopeEE.SESSION.attribute("authenticationTarget");
 
   /**
    * The session key that stores the set of targets that have been recently seen.
@@ -91,7 +91,7 @@ public final class Constants {
    * The request key used to store authentication messages.
    */
   public static final ScopeEE.Request.Attribute<String> AUTHENTICATION_MESSAGE =
-    ScopeEE.REQUEST.attribute("authenticationMessage");
+      ScopeEE.REQUEST.attribute("authenticationMessage");
 
   /**
    * The session key used to store the current <code>layout</code>.  The layout setting
@@ -99,30 +99,30 @@ public final class Constants {
    */
   // Matches ao-web-framework/WebSiteRequest.LAYOUT
   public static final ScopeEE.Session.Attribute<String> LAYOUT =
-    ScopeEE.SESSION.attribute("layout");
+      ScopeEE.SESSION.attribute("layout");
 
   /**
    * The request key used to store the current <code>Skin</code>.
    */
   public static final ScopeEE.Request.Attribute<Skin> SKIN =
-    ScopeEE.REQUEST.attribute("skin");
+      ScopeEE.REQUEST.attribute("skin");
 
   /**
    * The request key used to store the current <code>SiteSettings</code>.
    */
   public static final ScopeEE.Request.Attribute<SiteSettings> SITE_SETTINGS =
-    ScopeEE.REQUEST.attribute("siteSettings");
+      ScopeEE.REQUEST.attribute("siteSettings");
 
   /**
    * The request key used to store the current <code>Locale</code>.
    */
   // TODO: Do not store in request, use response locale instead
   public static final ScopeEE.Request.Attribute<Locale> LOCALE =
-    ScopeEE.REQUEST.attribute("locale");
+      ScopeEE.REQUEST.attribute("locale");
 
   /**
    * The request key used to store the <code>List&lt;Permission&gt;</code> that ALL must be allowed for the specified task.
    */
   public static final ScopeEE.Request.Attribute<List<Permission>> PERMISSION_DENIED =
-    ScopeEE.REQUEST.attribute("permissionDenied");
+      ScopeEE.REQUEST.attribute("permissionDenied");
 }

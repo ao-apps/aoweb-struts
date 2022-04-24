@@ -46,118 +46,118 @@ public class SkinTagTEI extends TagExtraInfo {
     List<ValidationMessage> messages = new ArrayList<>();
     Object serializationAttr = data.getAttribute("serialization");
     if (
-      serializationAttr != null
-      && serializationAttr != TagData.REQUEST_TIME_VALUE
+        serializationAttr != null
+            && serializationAttr != TagData.REQUEST_TIME_VALUE
     ) {
-      String serialization = ((String)serializationAttr).trim(); // TODO: normalizeSerialization
+      String serialization = ((String) serializationAttr).trim(); // TODO: normalizeSerialization
       if (!serialization.isEmpty() && !"auto".equalsIgnoreCase(serialization)) {
         try {
           Serialization.valueOf(serialization.toUpperCase(Locale.ROOT));
         } catch (IllegalArgumentException e) {
           messages.add(
-            new ValidationMessage(
-              data.getId(),
-              HtmlTag.RESOURCES.getMessage("serialization.invalid", serialization)
-            )
+              new ValidationMessage(
+                  data.getId(),
+                  HtmlTag.RESOURCES.getMessage("serialization.invalid", serialization)
+              )
           );
         }
       }
     }
     Object doctypeAttr = data.getAttribute("doctype");
     if (
-      doctypeAttr != null
-      && doctypeAttr != TagData.REQUEST_TIME_VALUE
+        doctypeAttr != null
+            && doctypeAttr != TagData.REQUEST_TIME_VALUE
     ) {
-      String doctype = ((String)doctypeAttr).trim(); // TODO: normalizeDoctype
+      String doctype = ((String) doctypeAttr).trim(); // TODO: normalizeDoctype
       if (!doctype.isEmpty() && !"default".equalsIgnoreCase(doctype)) {
         try {
           Doctype.valueOf(doctype.toUpperCase(Locale.ROOT));
         } catch (IllegalArgumentException e) {
           messages.add(
-            new ValidationMessage(
-              data.getId(),
-              HtmlTag.RESOURCES.getMessage("doctype.invalid", doctype)
-            )
+              new ValidationMessage(
+                  data.getId(),
+                  HtmlTag.RESOURCES.getMessage("doctype.invalid", doctype)
+              )
           );
         }
       }
     }
     Object autonliAttr = data.getAttribute("autonli");
     if (
-      autonliAttr != null
-      && autonliAttr != TagData.REQUEST_TIME_VALUE
+        autonliAttr != null
+            && autonliAttr != TagData.REQUEST_TIME_VALUE
     ) {
-      String autonli = ((String)autonliAttr).trim(); // TODO: normalizeAutonli
+      String autonli = ((String) autonliAttr).trim(); // TODO: normalizeAutonli
       if (
-        !autonli.isEmpty()
-        && !"auto".equalsIgnoreCase(autonli)
-        && !"true".equalsIgnoreCase(autonli)
-        && !"false".equalsIgnoreCase(autonli)
+          !autonli.isEmpty()
+              && !"auto".equalsIgnoreCase(autonli)
+              && !"true".equalsIgnoreCase(autonli)
+              && !"false".equalsIgnoreCase(autonli)
       ) {
         messages.add(
-          new ValidationMessage(
-            data.getId(),
-            HtmlTag.RESOURCES.getMessage("autonli.invalid", autonli)
-          )
+            new ValidationMessage(
+                data.getId(),
+                HtmlTag.RESOURCES.getMessage("autonli.invalid", autonli)
+            )
         );
       }
     }
     Object indentAttr = data.getAttribute("indent");
     if (
-      indentAttr != null
-      && indentAttr != TagData.REQUEST_TIME_VALUE
+        indentAttr != null
+            && indentAttr != TagData.REQUEST_TIME_VALUE
     ) {
-      String indent = ((String)indentAttr).trim(); // TODO: normalizeIndent
+      String indent = ((String) indentAttr).trim(); // TODO: normalizeIndent
       if (
-        !indent.isEmpty()
-        && !"auto".equalsIgnoreCase(indent)
-        && !"true".equalsIgnoreCase(indent)
-        && !"false".equalsIgnoreCase(indent)
+          !indent.isEmpty()
+              && !"auto".equalsIgnoreCase(indent)
+              && !"true".equalsIgnoreCase(indent)
+              && !"false".equalsIgnoreCase(indent)
       ) {
         messages.add(
-          new ValidationMessage(
-            data.getId(),
-            HtmlTag.RESOURCES.getMessage("indent.invalid", indent)
-          )
+            new ValidationMessage(
+                data.getId(),
+                HtmlTag.RESOURCES.getMessage("indent.invalid", indent)
+            )
         );
       }
     }
     Object layoutAttr = data.getAttribute(Constants.LAYOUT.getName());
     if (
-      layoutAttr != null
-      && layoutAttr != TagData.REQUEST_TIME_VALUE
+        layoutAttr != null
+            && layoutAttr != TagData.REQUEST_TIME_VALUE
     ) {
-      String layout = ((String)layoutAttr).trim();
+      String layout = ((String) layoutAttr).trim();
       if (!PageAttributes.LAYOUT_NORMAL.equals(layout) && !PageAttributes.LAYOUT_MINIMAL.equals(layout)) {
         messages.add(
-          new ValidationMessage(
-            data.getId(),
-            PACKAGE_RESOURCES.getMessage(
-              //"Invalid value for layout, must be either \"normal\" or \"minimal\"",
-              //Locale.getDefault(),
-              "skintags.SkinTagTEI.validate.layout.invalid"
+            new ValidationMessage(
+                data.getId(),
+                PACKAGE_RESOURCES.getMessage(
+                    //"Invalid value for layout, must be either \"normal\" or \"minimal\"",
+                    //Locale.getDefault(),
+                    "skintags.SkinTagTEI.validate.layout.invalid"
+                )
             )
-          )
         );
       }
     }
     Object formtypeAttr = data.getAttribute("formtype");
     if (
-      formtypeAttr != null
-      && formtypeAttr != TagData.REQUEST_TIME_VALUE
+        formtypeAttr != null
+            && formtypeAttr != TagData.REQUEST_TIME_VALUE
     ) {
-      String formtype = ((String)formtypeAttr).trim(); // TODO: normalizeFormtype
+      String formtype = ((String) formtypeAttr).trim(); // TODO: normalizeFormtype
       if (!formtype.isEmpty() && !"none".equalsIgnoreCase(formtype)) {
         try {
           Formtype.valueOf(formtype.toUpperCase(Locale.ROOT));
         } catch (IllegalArgumentException e) {
           messages.add(
-            new ValidationMessage(
-              data.getId(),
-              PACKAGE_RESOURCES.getMessage(
-                "skintags.SkinTagTEI.validate.formtype.invalid"
+              new ValidationMessage(
+                  data.getId(),
+                  PACKAGE_RESOURCES.getMessage(
+                      "skintags.SkinTagTEI.validate.formtype.invalid"
+                  )
               )
-            )
           );
         }
       }

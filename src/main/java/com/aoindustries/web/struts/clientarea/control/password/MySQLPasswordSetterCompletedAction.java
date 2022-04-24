@@ -49,13 +49,13 @@ public class MySQLPasswordSetterCompletedAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    MySQLPasswordSetterForm mySQLPasswordSetterForm = (MySQLPasswordSetterForm)form;
+    MySQLPasswordSetterForm mySQLPasswordSetterForm = (MySQLPasswordSetterForm) form;
 
     // Validation
     ActionMessages errors = mySQLPasswordSetterForm.validate(mapping, request);
@@ -71,9 +71,9 @@ public class MySQLPasswordSetterCompletedAction extends PermissionAction {
     List<String> mySQLServers = mySQLPasswordSetterForm.getMySQLServers();
     List<String> newPasswords = mySQLPasswordSetterForm.getNewPasswords();
     List<String> confirmPasswords = mySQLPasswordSetterForm.getConfirmPasswords();
-    for (int c=0;c<usernames.size();c++) {
+    for (int c = 0; c < usernames.size(); c++) {
       String newPassword = newPasswords.get(c);
-      if (newPassword.length()>0) {
+      if (newPassword.length() > 0) {
         User.Name username = User.Name.valueOf(usernames.get(c));
         String hostname = servers.get(c);
         Host host = aoConn.getNet().getHost().get(hostname);
@@ -87,11 +87,11 @@ public class MySQLPasswordSetterCompletedAction extends PermissionAction {
         Server.Name serverName = Server.Name.valueOf(mySQLServers.get(c));
         Server ms = linuxServer.getMySQLServer(serverName);
         if (ms == null) {
-          throw new SQLException("Unable to find Server: "+serverName+" on "+hostname);
+          throw new SQLException("Unable to find Server: " + serverName + " on " + hostname);
         }
         UserServer msu = ms.getMySQLServerUser(username);
         if (msu == null) {
-          throw new SQLException("Unable to find UserServer: "+username+" on "+serverName+" on "+hostname);
+          throw new SQLException("Unable to find UserServer: " + username + " on " + serverName + " on " + hostname);
         }
         msu.setPassword(newPassword);
         messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("mySQLPasswordSetter.field.confirmPasswords.passwordReset"));

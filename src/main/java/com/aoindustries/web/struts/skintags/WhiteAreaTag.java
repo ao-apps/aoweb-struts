@@ -59,22 +59,22 @@ public class WhiteAreaTag extends PageAttributesBodyTag {
 
   @Override
   public int doStartTag(PageAttributes pageAttributes) throws JspException, IOException {
-    HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
-    HttpServletResponse resp = (HttpServletResponse)pageContext.getResponse();
+    HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
+    HttpServletResponse resp = (HttpServletResponse) pageContext.getResponse();
     whiteArea = SkinTag.getSkin(req).startWhiteArea(
-      req,
-      resp,
-      new DocumentEE(
-        pageContext.getServletContext(),
         req,
         resp,
-        pageContext.getOut(),
-        false, // Do not add extra newlines to JSP
-        false  // Do not add extra indentation to JSP
-      ),
-      align,
-      width,
-      nowrap
+        new DocumentEE(
+            pageContext.getServletContext(),
+            req,
+            resp,
+            pageContext.getOut(),
+            false, // Do not add extra newlines to JSP
+            false  // Do not add extra indentation to JSP
+        ),
+        align,
+        width,
+        nowrap
     );
     return EVAL_BODY_INCLUDE;
   }
@@ -83,12 +83,12 @@ public class WhiteAreaTag extends PageAttributesBodyTag {
   public int doEndTag(PageAttributes pageAttributes) throws JspException, IOException {
     try {
       assert whiteArea != null;
-      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+      HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
       whiteArea.getDocument().setOut(pageContext.getOut());
       SkinTag.getSkin(req).endWhiteArea(
-        req,
-        (HttpServletResponse)pageContext.getResponse(),
-        whiteArea
+          req,
+          (HttpServletResponse) pageContext.getResponse(),
+          whiteArea
       );
       return EVAL_PAGE;
     } finally {

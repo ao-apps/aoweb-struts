@@ -48,11 +48,11 @@ public class CreditCardManagerAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
     TransactionTable transactionTable = aoConn.getBilling().getTransaction();
     Account currentAccount = aoConn.getCurrentAdministrator().getUsername().getPackage().getAccount();
@@ -62,17 +62,17 @@ public class CreditCardManagerAction extends PermissionAction {
     for (Account account : aoConn.getAccount().getAccount().getRows()) {
       List<CreditCard> creditCards = account.getCreditCards();
       if (
-        // Always show own account
-        currentAccount.equals(account)
-        // Show any account with stored cards
-        || !creditCards.isEmpty()
-        || (
-          // Active and not billing parent
-          account.getCanceled() == null
-          && !account.billParent()
-        )
-        // Has any non-zero balance
-        || !transactionTable.getAccountBalance(account).isZero()
+          // Always show own account
+          currentAccount.equals(account)
+              // Show any account with stored cards
+              || !creditCards.isEmpty()
+              || (
+              // Active and not billing parent
+              account.getCanceled() == null
+                  && !account.billParent()
+          )
+              // Has any non-zero balance
+              || !transactionTable.getAccountBalance(account).isZero()
       ) {
         boolean hasActiveCard = false;
         for (CreditCard cc : creditCards) {

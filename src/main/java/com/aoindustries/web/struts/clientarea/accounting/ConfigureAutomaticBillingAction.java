@@ -49,11 +49,11 @@ public class ConfigureAutomaticBillingAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
     // Account must be selected and accessible
     String account_name = request.getParameter("account");
@@ -92,10 +92,10 @@ public class ConfigureAutomaticBillingAction extends PermissionAction {
   }
 
   private static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
-    EnumSet.of(
-      Permission.Name.get_credit_cards,
-      Permission.Name.edit_credit_card
-    )
+      EnumSet.of(
+          Permission.Name.get_credit_cards,
+          Permission.Name.edit_credit_card
+      )
   );
 
   @Override

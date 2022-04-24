@@ -54,8 +54,8 @@ public class ContentTitleTag extends EncodingBufferedTag {
 
   @Override
   protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-    PageContext pageContext = (PageContext)getJspContext();
-    HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+    PageContext pageContext = (PageContext) getJspContext();
+    HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
     String title = capturedBody.trim().toString();
 
     // TODO: Should we instead set request attributes instead of tag ancestors?  This would allow tag interaction across include boundaries.
@@ -70,11 +70,11 @@ public class ContentTitleTag extends EncodingBufferedTag {
     ContentEE<?> content = contentTag.getContent();
     content.getDocument().setOut(pageContext.getOut());
     SkinTag.getSkin(req).contentTitle(
-      req,
-      (HttpServletResponse)pageContext.getResponse(),
-      content,
-      title,
-      totalColspan
+        req,
+        (HttpServletResponse) pageContext.getResponse(),
+        content,
+        title,
+        totalColspan
     );
   }
 }

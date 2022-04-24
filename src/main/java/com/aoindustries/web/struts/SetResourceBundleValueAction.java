@@ -40,11 +40,11 @@ public class SetResourceBundleValueAction extends PageAction {
 
   @Override
   public ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Registry pageRegistry
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Registry pageRegistry
   ) throws Exception {
     // If disabled, return 404 status
     SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
@@ -76,7 +76,7 @@ public class SetResourceBundleValueAction extends PageAction {
     if (!(resourceBundle instanceof ModifiableResourceBundle)) {
       throw new AssertionError("resourceBundle is not a ModifiableResourceBundle");
     }
-    ((ModifiableResourceBundle)resourceBundle).setString(key, value, modified);
+    ((ModifiableResourceBundle) resourceBundle).setString(key, value, modified);
 
     // Set request parameters
     request.setAttribute("baseName", baseName);

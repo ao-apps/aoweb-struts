@@ -48,7 +48,7 @@ public class AuthorHrefTag extends EncodingBufferedTag {
 
   @Override
   protected void doTag(BufferResult capturedBody, Writer out) throws JspException, IOException {
-    PageContext pageContext = (PageContext)getJspContext();
+    PageContext pageContext = (PageContext) getJspContext();
     String authorHref = capturedBody.trim().toString();
     PageTag pageTag = PageTag.getPageTag(pageContext.getRequest());
     if (pageTag == null) {

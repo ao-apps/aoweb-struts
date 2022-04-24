@@ -43,25 +43,25 @@ public abstract class DedicatedStepAction extends PageAction {
    */
   @Override
   public final ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Registry pageRegistry
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Registry pageRegistry
   ) throws Exception {
     // Clear checkboxes that were not part of the request
     clearCheckboxes(request, form);
 
     // Perform redirect if requested a different step
     String selectedStep = request.getParameter("selectedStep");
-    if (selectedStep != null && (selectedStep=selectedStep.trim()).length()>0) {
+    if (selectedStep != null && (selectedStep = selectedStep.trim()).length() > 0) {
       if (
-        "dedicated-server".equals(selectedStep)
-        || "dedicated-server-2".equals(selectedStep)
-        || "dedicated-server-3".equals(selectedStep)
-        || "dedicated-server-4".equals(selectedStep)
-        || "dedicated-server-5".equals(selectedStep)
-        || "dedicated-server-6".equals(selectedStep)
+          "dedicated-server".equals(selectedStep)
+              || "dedicated-server-2".equals(selectedStep)
+              || "dedicated-server-3".equals(selectedStep)
+              || "dedicated-server-4".equals(selectedStep)
+              || "dedicated-server-5".equals(selectedStep)
+              || "dedicated-server-6".equals(selectedStep)
       ) {
         return mapping.findForward(selectedStep);
       }
@@ -94,19 +94,19 @@ public abstract class DedicatedStepAction extends PageAction {
     request.setAttribute("signupBillingInformationFormComplete", Boolean.toString(signupBillingInformationFormComplete));
 
     return executeDedicatedStep(
-      mapping,
-      request,
-      response,
-      signupSelectPackageForm,
-      signupSelectPackageFormComplete,
-      signupCustomizeServerForm,
-      signupCustomizeServerFormComplete,
-      signupOrganizationForm,
-      signupOrganizationFormComplete,
-      signupTechnicalForm,
-      signupTechnicalFormComplete,
-      signupBillingInformationForm,
-      signupBillingInformationFormComplete
+        mapping,
+        request,
+        response,
+        signupSelectPackageForm,
+        signupSelectPackageFormComplete,
+        signupCustomizeServerForm,
+        signupCustomizeServerFormComplete,
+        signupOrganizationForm,
+        signupOrganizationFormComplete,
+        signupTechnicalForm,
+        signupTechnicalFormComplete,
+        signupBillingInformationForm,
+        signupBillingInformationFormComplete
     );
   }
 
@@ -130,18 +130,18 @@ public abstract class DedicatedStepAction extends PageAction {
   }
 
   public abstract ActionForward executeDedicatedStep(
-    ActionMapping mapping,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    DedicatedSignupSelectPackageForm signupSelectPackageForm,
-    boolean signupSelectPackageFormComplete,
-    DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
-    boolean signupCustomizeServerFormComplete,
-    SignupOrganizationForm signupOrganizationForm,
-    boolean signupOrganizationFormComplete,
-    SignupTechnicalForm signupTechnicalForm,
-    boolean signupTechnicalFormComplete,
-    SignupBillingInformationForm signupBillingInformationForm,
-    boolean signupBillingInformationFormComplete
+      ActionMapping mapping,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      DedicatedSignupSelectPackageForm signupSelectPackageForm,
+      boolean signupSelectPackageFormComplete,
+      DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
+      boolean signupCustomizeServerFormComplete,
+      SignupOrganizationForm signupOrganizationForm,
+      boolean signupOrganizationFormComplete,
+      SignupTechnicalForm signupTechnicalForm,
+      boolean signupTechnicalFormComplete,
+      SignupBillingInformationForm signupBillingInformationForm,
+      boolean signupBillingInformationFormComplete
   ) throws Exception;
 }

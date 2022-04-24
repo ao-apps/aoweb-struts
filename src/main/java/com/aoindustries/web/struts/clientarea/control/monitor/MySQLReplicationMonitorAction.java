@@ -55,15 +55,15 @@ import org.apache.struts.action.ActionMapping;
 public class MySQLReplicationMonitorAction extends PermissionAction {
 
   private static final Resources RESOURCES =
-    Resources.getResources(ResourceBundle::getBundle, MySQLReplicationMonitorAction.class);
+      Resources.getResources(ResourceBundle::getBundle, MySQLReplicationMonitorAction.class);
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
     SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
     AOServConnector rootConn = siteSettings.getRootAOServConnector();
@@ -111,11 +111,11 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
             MysqlReplication.SlaveStatus slaveStatus = fmr.getSlaveStatus();
             if (slaveStatus == null) {
               replications.add(
-                new ReplicationRow(
-                  true,
-                  slave,
-                  RESOURCES.getMessage("slaveNotRunning")
-                )
+                  new ReplicationRow(
+                      true,
+                      slave,
+                      RESOURCES.getMessage("slaveNotRunning")
+                  )
               );
             } else {
               String secondsBehindMaster = slaveStatus.getSecondsBehindMaster();
@@ -132,35 +132,35 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                 }
               }
               replications.add(
-                new ReplicationRow(
-                  error,
-                  slave,
-                  slaveStatus.getSlaveIOState(),
-                  slaveStatus.getMasterLogFile(),
-                  slaveStatus.getReadMasterLogPos(),
-                  slaveStatus.getSlaveIORunning(),
-                  slaveStatus.getSlaveSQLRunning(),
-                  slaveStatus.getLastErrno(),
-                  slaveStatus.getLastError(),
-                  secondsBehindMaster
-                )
+                  new ReplicationRow(
+                      error,
+                      slave,
+                      slaveStatus.getSlaveIOState(),
+                      slaveStatus.getMasterLogFile(),
+                      slaveStatus.getReadMasterLogPos(),
+                      slaveStatus.getSlaveIORunning(),
+                      slaveStatus.getSlaveSQLRunning(),
+                      slaveStatus.getLastErrno(),
+                      slaveStatus.getLastError(),
+                      secondsBehindMaster
+                  )
               );
             }
           } catch (SQLException err) {
             replications.add(
-              new ReplicationRow(
-                true,
-                slave,
-                RESOURCES.getMessage("sqlException", err.getMessage())
-              )
+                new ReplicationRow(
+                    true,
+                    slave,
+                    RESOURCES.getMessage("sqlException", err.getMessage())
+                )
             );
           } catch (IOException err) {
             replications.add(
-              new ReplicationRow(
-                true,
-                slave,
-                RESOURCES.getMessage("ioException", err.getMessage())
-              )
+                new ReplicationRow(
+                    true,
+                    slave,
+                    RESOURCES.getMessage("ioException", err.getMessage())
+                )
             );
           }
         }
@@ -171,35 +171,35 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
           masterStatus = mysqlServer.getMasterStatus();
           if (masterStatus == null) {
             mysqlServerRow = new MySQLServerRow(
-              mysqlServer.getVersion().getVersion(),
-              server.toString(),
-              RESOURCES.getMessage("masterNotRunning"),
-              replications
+                mysqlServer.getVersion().getVersion(),
+                server.toString(),
+                RESOURCES.getMessage("masterNotRunning"),
+                replications
             );
           } else {
             mysqlServerRow = new MySQLServerRow(
-              mysqlServer.getVersion().getVersion(),
-              server.toString(),
-              masterStatus.getFile(),
-              masterStatus.getPosition(),
-              replications
+                mysqlServer.getVersion().getVersion(),
+                server.toString(),
+                masterStatus.getFile(),
+                masterStatus.getPosition(),
+                replications
             );
           }
         } catch (SQLException err) {
           masterStatus = null;
           mysqlServerRow = new MySQLServerRow(
-            mysqlServer.getVersion().getVersion(),
-            server.toString(),
-            RESOURCES.getMessage("sqlException", err.getMessage()),
-            replications
+              mysqlServer.getVersion().getVersion(),
+              server.toString(),
+              RESOURCES.getMessage("sqlException", err.getMessage()),
+              replications
           );
         } catch (IOException err) {
           masterStatus = null;
           mysqlServerRow = new MySQLServerRow(
-            mysqlServer.getVersion().getVersion(),
-            server.toString(),
-            RESOURCES.getMessage("ioException", err.getMessage()),
-            replications
+              mysqlServer.getVersion().getVersion(),
+              server.toString(),
+              RESOURCES.getMessage("ioException", err.getMessage()),
+              replications
           );
         }
         /*
@@ -252,10 +252,10 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
   }
 
   private static final Set<Permission.Name> permissions = Collections.unmodifiableSet(
-    EnumSet.of(
-      Permission.Name.get_mysql_master_status,
-      Permission.Name.get_mysql_slave_status
-    )
+      EnumSet.of(
+          Permission.Name.get_mysql_master_status,
+          Permission.Name.get_mysql_slave_status
+      )
   );
 
   @Override
@@ -352,16 +352,16 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
     }
 
     private ReplicationRow(
-      boolean error,
-      DomainName slave,
-      String slaveIOState,
-      String slaveLogFile,
-      String slaveLogPos,
-      String slaveIORunning,
-      String slaveSQLRunning,
-      String lastErrno,
-      String lastError,
-      String secondsBehindMaster
+        boolean error,
+        DomainName slave,
+        String slaveIOState,
+        String slaveLogFile,
+        String slaveLogPos,
+        String slaveIORunning,
+        String slaveSQLRunning,
+        String lastErrno,
+        String lastError,
+        String secondsBehindMaster
     ) {
       this.error = error;
       this.slave = slave;

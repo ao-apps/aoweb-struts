@@ -112,20 +112,20 @@ public class FilteredHttpSession implements HttpSession {
     if (value != null) {
       // These names are always allowed
       if (
-        !Constants.AUTHENTICATION_TARGET.getName().equals(name)
-        && !Constants.TARGETS.equals(name)
-        && !Constants.LAYOUT.getName().equals(name)
-        && !Constants.SU_REQUESTED.getName().equals(name)
-        && !Constants.AO_CONN.getName().equals(name)
-        && !Constants.AUTHENTICATED_AO_CONN.getName().equals(name)
-        // Struts 1
-        && !Globals.LOCALE_KEY.getName().equals(name)
-        // TODO: Is there a Struts 2 locale key?
-        // JSTL 1.2
-        && !ScopeEE.Session.REQUEST_CHAR_SET.getName().equals(name)
-        && !AttributeEE.Jstl.FMT_LOCALE.context((HttpSession)null).getName().equals(name)
-        // Must be an SessionActionForm if none of the above
-        && !(value instanceof SessionActionForm)
+          !Constants.AUTHENTICATION_TARGET.getName().equals(name)
+              && !Constants.TARGETS.equals(name)
+              && !Constants.LAYOUT.getName().equals(name)
+              && !Constants.SU_REQUESTED.getName().equals(name)
+              && !Constants.AO_CONN.getName().equals(name)
+              && !Constants.AUTHENTICATED_AO_CONN.getName().equals(name)
+              // Struts 1
+              && !Globals.LOCALE_KEY.getName().equals(name)
+              // TODO: Is there a Struts 2 locale key?
+              // JSTL 1.2
+              && !ScopeEE.Session.REQUEST_CHAR_SET.getName().equals(name)
+              && !AttributeEE.Jstl.FMT_LOCALE.context((HttpSession) null).getName().equals(name)
+              // Must be an SessionActionForm if none of the above
+              && !(value instanceof SessionActionForm)
       ) {
         throw new AssertionError(PACKAGE_RESOURCES.getMessage("FilteredHttpSession.unexpectedSessionAttribute", name, value.getClass().getName()));
       }

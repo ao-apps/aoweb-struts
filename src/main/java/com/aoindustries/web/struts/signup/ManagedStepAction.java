@@ -43,26 +43,26 @@ public abstract class ManagedStepAction extends PageAction {
    */
   @Override
   public final ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Registry pageRegistry
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Registry pageRegistry
   ) throws Exception {
     // Clear checkboxes that were not part of the request
     clearCheckboxes(request, form);
 
     // Perform redirect if requested a different step
     String selectedStep = request.getParameter("selectedStep");
-    if (selectedStep != null && (selectedStep=selectedStep.trim()).length()>0) {
+    if (selectedStep != null && (selectedStep = selectedStep.trim()).length() > 0) {
       if (
-        "managed-server".equals(selectedStep)
-        || "managed-server-2".equals(selectedStep)
-        || "managed-server-3".equals(selectedStep)
-        || "managed-server-4".equals(selectedStep)
-        || "managed-server-5".equals(selectedStep)
-        || "managed-server-6".equals(selectedStep)
-        || "managed-server-7".equals(selectedStep)
+          "managed-server".equals(selectedStep)
+              || "managed-server-2".equals(selectedStep)
+              || "managed-server-3".equals(selectedStep)
+              || "managed-server-4".equals(selectedStep)
+              || "managed-server-5".equals(selectedStep)
+              || "managed-server-6".equals(selectedStep)
+              || "managed-server-7".equals(selectedStep)
       ) {
         return mapping.findForward(selectedStep);
       }
@@ -104,21 +104,21 @@ public abstract class ManagedStepAction extends PageAction {
     request.setAttribute("signupBillingInformationFormComplete", Boolean.toString(signupBillingInformationFormComplete));
 
     return executeManagedStep(
-      mapping,
-      request,
-      response,
-      signupSelectPackageForm,
-      signupSelectPackageFormComplete,
-      signupCustomizeServerForm,
-      signupCustomizeServerFormComplete,
-      signupCustomizeManagementForm,
-      signupCustomizeManagementFormComplete,
-      signupOrganizationForm,
-      signupOrganizationFormComplete,
-      signupTechnicalForm,
-      signupTechnicalFormComplete,
-      signupBillingInformationForm,
-      signupBillingInformationFormComplete
+        mapping,
+        request,
+        response,
+        signupSelectPackageForm,
+        signupSelectPackageFormComplete,
+        signupCustomizeServerForm,
+        signupCustomizeServerFormComplete,
+        signupCustomizeManagementForm,
+        signupCustomizeManagementFormComplete,
+        signupOrganizationForm,
+        signupOrganizationFormComplete,
+        signupTechnicalForm,
+        signupTechnicalFormComplete,
+        signupBillingInformationForm,
+        signupBillingInformationFormComplete
     );
   }
 
@@ -142,20 +142,20 @@ public abstract class ManagedStepAction extends PageAction {
   }
 
   public abstract ActionForward executeManagedStep(
-    ActionMapping mapping,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    ManagedSignupSelectPackageForm signupSelectPackageForm,
-    boolean signupSelectPackageFormComplete,
-    ManagedSignupCustomizeServerForm signupCustomizeServerForm,
-    boolean signupCustomizeServerFormComplete,
-    SignupCustomizeManagementForm signupCustomizeManagementForm,
-    boolean signupCustomizeManagementFormComplete,
-    SignupOrganizationForm signupOrganizationForm,
-    boolean signupOrganizationFormComplete,
-    SignupTechnicalForm signupTechnicalForm,
-    boolean signupTechnicalFormComplete,
-    SignupBillingInformationForm signupBillingInformationForm,
-    boolean signupBillingInformationFormComplete
+      ActionMapping mapping,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      ManagedSignupSelectPackageForm signupSelectPackageForm,
+      boolean signupSelectPackageFormComplete,
+      ManagedSignupCustomizeServerForm signupCustomizeServerForm,
+      boolean signupCustomizeServerFormComplete,
+      SignupCustomizeManagementForm signupCustomizeManagementForm,
+      boolean signupCustomizeManagementFormComplete,
+      SignupOrganizationForm signupOrganizationForm,
+      boolean signupOrganizationFormComplete,
+      SignupTechnicalForm signupTechnicalForm,
+      boolean signupTechnicalFormComplete,
+      SignupBillingInformationForm signupBillingInformationForm,
+      boolean signupBillingInformationFormComplete
   ) throws Exception;
 }

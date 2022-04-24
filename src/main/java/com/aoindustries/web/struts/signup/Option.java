@@ -32,16 +32,16 @@ import java.util.Comparator;
 public class Option {
 
   public static final Comparator<Option> priceComparator =
-    (pdl1, pdl2) -> pdl1.getPriceDifference().compareTo(pdl2.getPriceDifference());
+      (pdl1, pdl2) -> pdl1.getPriceDifference().compareTo(pdl2.getPriceDifference());
 
   private final int packageDefinitionLimit;
   private final String display;
   private final Monies priceDifference;
 
   public Option(
-    int packageDefinitionLimit,
-    String display,
-    Monies priceDifference
+      int packageDefinitionLimit,
+      String display,
+      Monies priceDifference
   ) {
     this.packageDefinitionLimit = packageDefinitionLimit;
     this.display = display;

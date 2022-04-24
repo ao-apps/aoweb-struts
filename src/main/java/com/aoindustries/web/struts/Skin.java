@@ -69,16 +69,16 @@ public abstract class Skin {
     // Lynx and BlackBerry default to text
     String agent;
     if (req instanceof HttpServletRequest) {
-      agent = ((HttpServletRequest)req).getHeader("user-agent");
+      agent = ((HttpServletRequest) req).getHeader("user-agent");
     } else {
       agent = null;
     }
     if (
-      agent != null
-      && (
-        agent.toLowerCase().contains("lynx")
-        || agent.startsWith("BlackBerry")
-      )
+        agent != null
+            && (
+            agent.toLowerCase().contains("lynx")
+                || agent.startsWith("BlackBerry")
+        )
     ) {
       for (Skin skin : skins) {
         if (skin.getName().equals(TextSkin.NAME)) {
@@ -115,7 +115,7 @@ public abstract class Skin {
     HttpSession session;
     if (req instanceof HttpServletRequest) {
       // TODO: Avoid creating session and don't store in session for default layout?
-      session = ((HttpServletRequest)req).getSession();
+      session = ((HttpServletRequest) req).getSession();
     } else {
       assert req != null;
       session = null;
@@ -195,10 +195,10 @@ public abstract class Skin {
    * Directional references.
    */
   public static final int
-    NONE = 0,
-    UP = 1,
-    DOWN = 2,
-    UP_AND_DOWN = 3
+      NONE = 0,
+      UP = 1,
+      DOWN = 2,
+      UP_AND_DOWN = 3
   ;
 
   /**
@@ -213,30 +213,30 @@ public abstract class Skin {
         Language language = languages.get(0);
         AnyURI uri = language.getUri();
         head.link(AnyLINK.Rel.ALTERNATE).hreflang("x-default").href(
-          resp.encodeURL(
-            URIEncoder.encodeURI(
-              (
-                uri == null
-                ? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
-                : uri
-              ).toASCIIString()
+            resp.encodeURL(
+                URIEncoder.encodeURI(
+                    (
+                        uri == null
+                            ? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
+                            : uri
+                    ).toASCIIString()
+                )
             )
-          )
         ).__();
       }
       // All languages
       for (Language language : languages) {
         AnyURI uri = language.getUri();
         head.link(AnyLINK.Rel.ALTERNATE).hreflang(language.getCode()).href(
-          resp.encodeURL(
-            URIEncoder.encodeURI(
-              (
-                uri == null
-                ? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
-                : uri
-              ).toASCIIString()
+            resp.encodeURL(
+                URIEncoder.encodeURI(
+                    (
+                        uri == null
+                            ? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
+                            : uri
+                    ).toASCIIString()
+                )
             )
-          )
         ).__();
       }
     }
@@ -278,11 +278,11 @@ public abstract class Skin {
    */
   @SuppressWarnings("NoopMethodInAbstractClass")
   public void configureResources(
-    ServletContext servletContext,
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    Registry requestRegistry
+      ServletContext servletContext,
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      Registry requestRegistry
   ) {
     // Do nothing
   }
@@ -302,10 +302,10 @@ public abstract class Skin {
    * @see  DoctypeEE#get(javax.servlet.ServletContext, javax.servlet.ServletRequest)
    */
   public abstract <__ extends FlowContent<__>> __ startPage(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    DocumentEE document
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      DocumentEE document
   ) throws JspException, IOException;
 
   /**
@@ -322,10 +322,10 @@ public abstract class Skin {
    * @see  DoctypeEE#get(javax.servlet.ServletContext, javax.servlet.ServletRequest)
    */
   public abstract void endPage(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    FlowContent<?> flow
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      FlowContent<?> flow
   ) throws JspException, IOException;
 
   /**
@@ -345,11 +345,11 @@ public abstract class Skin {
    * @see  DoctypeEE#get(javax.servlet.ServletContext, javax.servlet.ServletRequest)
    */
   public final <__ extends FlowContent<__>, Ex extends Throwable> void doPage(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    DocumentEE document,
-    JspConsumerE<? super __, Ex> body
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      DocumentEE document,
+      JspConsumerE<? super __, Ex> body
   ) throws JspException, IOException, Ex {
     __ flow = startPage(req, resp, pageAttributes, document);
     if (body != null) {
@@ -375,11 +375,11 @@ public abstract class Skin {
    * @see  DoctypeEE#get(javax.servlet.ServletContext, javax.servlet.ServletRequest)
    */
   public final <Ex extends Throwable> void doPage(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    DocumentEE document,
-    JspRunnableE<Ex> body
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      DocumentEE document,
+      JspRunnableE<Ex> body
   ) throws JspException, IOException, Ex {
     FlowContent<?> flow = startPage(req, resp, pageAttributes, document);
     if (body != null) {
@@ -409,15 +409,15 @@ public abstract class Skin {
    *          and {@link #endContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[])}.
    */
   public final <
-    PC extends FlowContent<PC>,
-    __ extends ContentEE<__>
+      PC extends FlowContent<PC>,
+      __ extends ContentEE<__>
   > __ startContent(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    PC pc
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      PC pc
   ) throws JspException, IOException {
-    return startContent(req, resp, pageAttributes, pc, new int[] {1}, null);
+    return startContent(req, resp, pageAttributes, pc, new int[]{1}, null);
   }
 
   /**
@@ -443,17 +443,17 @@ public abstract class Skin {
    *          and {@link #endContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[])}.
    */
   public final <
-    PC extends FlowContent<PC>,
-    __ extends ContentEE<__>
+      PC extends FlowContent<PC>,
+      __ extends ContentEE<__>
   > __ startContent(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    PC pc,
-    int contentColumns,
-    String width
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      PC pc,
+      int contentColumns,
+      String width
   ) throws JspException, IOException {
-    return startContent(req, resp, pageAttributes, pc, new int[] {contentColumns}, width);
+    return startContent(req, resp, pageAttributes, pc, new int[]{contentColumns}, width);
   }
 
   /**
@@ -479,15 +479,15 @@ public abstract class Skin {
    *          and {@link #endContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[])}.
    */
   public abstract <
-    PC extends FlowContent<PC>,
-    __ extends ContentEE<__>
+      PC extends FlowContent<PC>,
+      __ extends ContentEE<__>
   > __ startContent(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    PC pc,
-    int[] contentColumnSpans,
-    String width
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      PC pc,
+      int[] contentColumnSpans,
+      String width
   ) throws JspException, IOException;
 
   /**
@@ -499,10 +499,10 @@ public abstract class Skin {
    *                  or {@link #startContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public final void contentTitle(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    ContentEE<?> content
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      ContentEE<?> content
   ) throws JspException, IOException {
     contentTitle(req, resp, content, pageAttributes.getTitle(), 1);
   }
@@ -516,11 +516,11 @@ public abstract class Skin {
    *                  or {@link #startContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public final void contentTitle(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    ContentEE<?> content,
-    int contentColumns
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      ContentEE<?> content,
+      int contentColumns
   ) throws JspException, IOException {
     contentTitle(req, resp, content, pageAttributes.getTitle(), contentColumns);
   }
@@ -534,10 +534,10 @@ public abstract class Skin {
    *                  or {@link #startContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public final void contentTitle(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    ContentEE<?> content,
-    String title
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      ContentEE<?> content,
+      String title
   ) throws JspException, IOException {
     contentTitle(req, resp, content, title, 1);
   }
@@ -551,11 +551,11 @@ public abstract class Skin {
    *                  or {@link #startContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public abstract void contentTitle(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    ContentEE<?> content,
-    String title,
-    int contentColumns
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      ContentEE<?> content,
+      String title,
+      int contentColumns
   ) throws JspException, IOException;
 
   /**
@@ -574,9 +574,9 @@ public abstract class Skin {
    *          and {@link #endContentLine(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)}.
    */
   public final <__ extends FlowContent<__>> __ startContentLine(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    ContentEE<?> content
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      ContentEE<?> content
   ) throws JspException, IOException {
     return startContentLine(req, resp, content, 1, null, null);
   }
@@ -597,12 +597,12 @@ public abstract class Skin {
    *          and {@link #endContentLine(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)}.
    */
   public abstract <__ extends FlowContent<__>> __ startContentLine(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    ContentEE<?> content,
-    int colspan,
-    String align,
-    String width
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      ContentEE<?> content,
+      int colspan,
+      String align,
+      String width
   ) throws JspException, IOException;
 
   /**
@@ -621,9 +621,9 @@ public abstract class Skin {
    *          and {@link #endContentLine(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)}.
    */
   public final <__ extends FlowContent<__>> __ contentVerticalDivider(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    FlowContent<?> contentLine
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      FlowContent<?> contentLine
   ) throws JspException, IOException {
     return contentVerticalDivider(req, resp, contentLine, true, 1, 1, null, null);
   }
@@ -644,14 +644,14 @@ public abstract class Skin {
    *          and {@link #endContentLine(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)}.
    */
   public abstract <__ extends FlowContent<__>> __ contentVerticalDivider(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    FlowContent<?> contentLine,
-    boolean visible, // TODO: This should be an enum, or maybe "int direction" like ao-web-framework:WebPageLayout.java
-    int colspan,
-    int rowspan,
-    String align,
-    String width
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      FlowContent<?> contentLine,
+      boolean visible, // TODO: This should be an enum, or maybe "int direction" like ao-web-framework:WebPageLayout.java
+      int colspan,
+      int rowspan,
+      String align,
+      String width
   ) throws JspException, IOException;
 
   /**
@@ -664,9 +664,9 @@ public abstract class Skin {
    *                      or {@link #contentVerticalDivider(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)}.
    */
   public final void endContentLine(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    FlowContent<?> contentLine
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      FlowContent<?> contentLine
   ) throws JspException, IOException {
     endContentLine(req, resp, contentLine, 1, false);
   }
@@ -681,11 +681,11 @@ public abstract class Skin {
    *                      or {@link #contentVerticalDivider(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)}.
    */
   public abstract void endContentLine(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    FlowContent<?> contentLine,
-    int rowspan,
-    boolean endsInternal
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      FlowContent<?> contentLine,
+      int rowspan,
+      boolean endsInternal
   ) throws JspException, IOException;
 
   /**
@@ -700,13 +700,13 @@ public abstract class Skin {
    * @see  #endContentLine(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
-    __ extends FlowContent<__>,
-    Ex extends Throwable
+      __ extends FlowContent<__>,
+      Ex extends Throwable
   > void contentLine(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    ContentEE<?> content,
-    JspConsumerE<? super __, Ex> contentLine
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      ContentEE<?> content,
+      JspConsumerE<? super __, Ex> contentLine
   ) throws JspException, IOException, Ex {
     this.<__, Ex>contentLine(req, resp, content, 1, null, null, 1, false, contentLine);
   }
@@ -723,13 +723,13 @@ public abstract class Skin {
    * @see  #endContentLine(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
-    __ extends FlowContent<__>,
-    Ex extends Throwable
+      __ extends FlowContent<__>,
+      Ex extends Throwable
   > void contentLine(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    ContentEE<?> content,
-    JspRunnableE<Ex> contentLine
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      ContentEE<?> content,
+      JspRunnableE<Ex> contentLine
   ) throws JspException, IOException, Ex {
     contentLine(req, resp, content, 1, null, null, 1, false, contentLine);
   }
@@ -746,24 +746,24 @@ public abstract class Skin {
    * @see  #endContentLine(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)
    */
   public final <
-    __ extends FlowContent<__>,
-    Ex extends Throwable
+      __ extends FlowContent<__>,
+      Ex extends Throwable
   > void contentLine(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    ContentEE<?> content,
-    int colspan,
-    String align,
-    String width,
-    int endRowspan,
-    boolean endsInternal,
-    JspConsumerE<? super __, Ex> contentLine
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      ContentEE<?> content,
+      int colspan,
+      String align,
+      String width,
+      int endRowspan,
+      boolean endsInternal,
+      JspConsumerE<? super __, Ex> contentLine
   ) throws JspException, IOException, Ex {
-    __ flow = startContentLine(req, resp, content, colspan, align, width); {
-      if (contentLine != null) {
-        contentLine.accept(flow);
-      }
-    } endContentLine(req, resp, flow, endRowspan, endsInternal);
+    __ flow = startContentLine(req, resp, content, colspan, align, width);
+    if (contentLine != null) {
+      contentLine.accept(flow);
+    }
+    endContentLine(req, resp, flow, endRowspan, endsInternal);
   }
 
   /**
@@ -778,24 +778,24 @@ public abstract class Skin {
    * @see  #endContentLine(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)
    */
   public final <
-    __ extends FlowContent<__>,
-    Ex extends Throwable
+      __ extends FlowContent<__>,
+      Ex extends Throwable
   > void contentLine(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    ContentEE<?> content,
-    int colspan,
-    String align,
-    String width,
-    int endRowspan,
-    boolean endsInternal,
-    JspRunnableE<Ex> contentLine
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      ContentEE<?> content,
+      int colspan,
+      String align,
+      String width,
+      int endRowspan,
+      boolean endsInternal,
+      JspRunnableE<Ex> contentLine
   ) throws JspException, IOException, Ex {
-    __ flow = startContentLine(req, resp, content, colspan, align, width); {
-      if (contentLine != null) {
-        contentLine.run();
-      }
-    } endContentLine(req, resp, flow, endRowspan, endsInternal);
+    __ flow = startContentLine(req, resp, content, colspan, align, width);
+    if (contentLine != null) {
+      contentLine.run();
+    }
+    endContentLine(req, resp, flow, endRowspan, endsInternal);
   }
 
   /**
@@ -807,11 +807,11 @@ public abstract class Skin {
    *                  or {@link #startContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public final void contentHorizontalDivider(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    ContentEE<?> content
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      ContentEE<?> content
   ) throws JspException, IOException {
-    contentHorizontalDivider(req, resp, content, new int[] {1}, false);
+    contentHorizontalDivider(req, resp, content, new int[]{1}, false);
   }
 
   /**
@@ -823,13 +823,13 @@ public abstract class Skin {
    *                  or {@link #startContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public final void contentHorizontalDivider(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    ContentEE<?> content,
-    int colspan,
-    boolean endsInternal
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      ContentEE<?> content,
+      int colspan,
+      boolean endsInternal
   ) throws JspException, IOException {
-    contentHorizontalDivider(req, resp, content, new int[] {colspan}, endsInternal);
+    contentHorizontalDivider(req, resp, content, new int[]{colspan}, endsInternal);
   }
 
   /**
@@ -841,11 +841,11 @@ public abstract class Skin {
    *                  or {@link #startContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public abstract void contentHorizontalDivider(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    ContentEE<?> content,
-    int[] colspansAndDirections,
-    boolean endsInternal
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      ContentEE<?> content,
+      int[] colspansAndDirections,
+      boolean endsInternal
   ) throws JspException, IOException;
 
   /**
@@ -857,12 +857,12 @@ public abstract class Skin {
    *                  or {@link #startContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public final void endContent(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    ContentEE<?> content
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      ContentEE<?> content
   ) throws JspException, IOException {
-    endContent(req, resp, pageAttributes, content, new int[] {1});
+    endContent(req, resp, pageAttributes, content, new int[]{1});
   }
 
   /**
@@ -874,13 +874,13 @@ public abstract class Skin {
    *                  or {@link #startContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public final void endContent(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    ContentEE<?> content,
-    int contentColumns
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      ContentEE<?> content,
+      int contentColumns
   ) throws JspException, IOException {
-    endContent(req, resp, pageAttributes, content, new int[] {contentColumns});
+    endContent(req, resp, pageAttributes, content, new int[]{contentColumns});
   }
 
   /**
@@ -892,11 +892,11 @@ public abstract class Skin {
    *                  or {@link #startContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public abstract void endContent(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    ContentEE<?> content,
-    int[] contentColumnSpans
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      ContentEE<?> content,
+      int[] contentColumnSpans
   ) throws JspException, IOException;
 
   /**
@@ -912,17 +912,17 @@ public abstract class Skin {
    * @see  #endContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)
    */
   public final <
-    PC extends FlowContent<PC>,
-    __ extends ContentEE<__>,
-    Ex extends Throwable
+      PC extends FlowContent<PC>,
+      __ extends ContentEE<__>,
+      Ex extends Throwable
   > void content(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    PC pc,
-    JspConsumerE<? super __, Ex> content
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      PC pc,
+      JspConsumerE<? super __, Ex> content
   ) throws JspException, IOException, Ex {
-    this.<PC, __, Ex>content(req, resp, pageAttributes, pc, new int[] {1}, null, new int[] {1}, content);
+    this.<PC, __, Ex>content(req, resp, pageAttributes, pc, new int[]{1}, null, new int[]{1}, content);
   }
 
   /**
@@ -938,17 +938,17 @@ public abstract class Skin {
    * @see  #endContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)
    */
   public final <
-    PC extends FlowContent<PC>,
-    __ extends ContentEE<__>,
-    Ex extends Throwable
+      PC extends FlowContent<PC>,
+      __ extends ContentEE<__>,
+      Ex extends Throwable
   > void content(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    PC pc,
-    JspRunnableE<Ex> content
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      PC pc,
+      JspRunnableE<Ex> content
   ) throws JspException, IOException, Ex {
-    content(req, resp, pageAttributes, pc, new int[] {1}, null, new int[] {1}, content);
+    content(req, resp, pageAttributes, pc, new int[]{1}, null, new int[]{1}, content);
   }
 
   /**
@@ -964,20 +964,20 @@ public abstract class Skin {
    * @see  #endContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)
    */
   public final <
-    PC extends FlowContent<PC>,
-    __ extends ContentEE<__>,
-    Ex extends Throwable
+      PC extends FlowContent<PC>,
+      __ extends ContentEE<__>,
+      Ex extends Throwable
   > void content(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    PC pc,
-    int startContentColumns,
-    String width,
-    int endContentColumns,
-    JspConsumerE<? super __, Ex> content
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      PC pc,
+      int startContentColumns,
+      String width,
+      int endContentColumns,
+      JspConsumerE<? super __, Ex> content
   ) throws JspException, IOException, Ex {
-    this.<PC, __, Ex>content(req, resp, pageAttributes, pc, new int[] {startContentColumns}, width, new int[] {endContentColumns}, content);
+    this.<PC, __, Ex>content(req, resp, pageAttributes, pc, new int[]{startContentColumns}, width, new int[]{endContentColumns}, content);
   }
 
   /**
@@ -993,20 +993,20 @@ public abstract class Skin {
    * @see  #endContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)
    */
   public final <
-    PC extends FlowContent<PC>,
-    __ extends ContentEE<__>,
-    Ex extends Throwable
+      PC extends FlowContent<PC>,
+      __ extends ContentEE<__>,
+      Ex extends Throwable
   > void content(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    PC pc,
-    int startContentColumns,
-    String width,
-    int endContentColumns,
-    JspRunnableE<Ex> content
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      PC pc,
+      int startContentColumns,
+      String width,
+      int endContentColumns,
+      JspRunnableE<Ex> content
   ) throws JspException, IOException, Ex {
-    content(req, resp, pageAttributes, pc, new int[] {startContentColumns}, width, new int[] {endContentColumns}, content);
+    content(req, resp, pageAttributes, pc, new int[]{startContentColumns}, width, new int[]{endContentColumns}, content);
   }
 
   /**
@@ -1022,24 +1022,24 @@ public abstract class Skin {
    * @see  #endContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[])
    */
   public final <
-    PC extends FlowContent<PC>,
-    __ extends ContentEE<__>,
-    Ex extends Throwable
+      PC extends FlowContent<PC>,
+      __ extends ContentEE<__>,
+      Ex extends Throwable
   > void content(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    PC pc,
-    int[] startContentColumnSpans,
-    String width,
-    int[] endContentColumnSpans,
-    JspConsumerE<? super __, Ex> content
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      PC pc,
+      int[] startContentColumnSpans,
+      String width,
+      int[] endContentColumnSpans,
+      JspConsumerE<? super __, Ex> content
   ) throws JspException, IOException, Ex {
-    __ contentEE = startContent(req, resp, pageAttributes, pc, startContentColumnSpans, width); {
-      if (content != null) {
-        content.accept(contentEE);
-      }
-    } endContent(req, resp, pageAttributes, contentEE, endContentColumnSpans);
+    __ contentEE = startContent(req, resp, pageAttributes, pc, startContentColumnSpans, width);
+    if (content != null) {
+      content.accept(contentEE);
+    }
+    endContent(req, resp, pageAttributes, contentEE, endContentColumnSpans);
   }
 
   /**
@@ -1055,24 +1055,24 @@ public abstract class Skin {
    * @see  #endContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[])
    */
   public final <
-    PC extends FlowContent<PC>,
-    __ extends ContentEE<__>,
-    Ex extends Throwable
+      PC extends FlowContent<PC>,
+      __ extends ContentEE<__>,
+      Ex extends Throwable
   > void content(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    PC pc,
-    int[] startContentColumnSpans,
-    String width,
-    int[] endContentColumnSpans,
-    JspRunnableE<Ex> content
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      PC pc,
+      int[] startContentColumnSpans,
+      String width,
+      int[] endContentColumnSpans,
+      JspRunnableE<Ex> content
   ) throws JspException, IOException, Ex {
-    __ contentEE = startContent(req, resp, pageAttributes, pc, startContentColumnSpans, width); {
-      if (content != null) {
-        content.run();
-      }
-    } endContent(req, resp, pageAttributes, contentEE, endContentColumnSpans);
+    __ contentEE = startContent(req, resp, pageAttributes, pc, startContentColumnSpans, width);
+    if (content != null) {
+      content.run();
+    }
+    endContent(req, resp, pageAttributes, contentEE, endContentColumnSpans);
   }
 
   /**
@@ -1086,12 +1086,12 @@ public abstract class Skin {
    *          to finish the area.
    */
   public final <
-    PC extends FlowContent<PC>,
-    __ extends FlowContent<__>
+      PC extends FlowContent<PC>,
+      __ extends FlowContent<__>
   > __ startLightArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PC pc
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PC pc
   ) throws JspException, IOException {
     return startLightArea(req, resp, pc, null, null, false);
   }
@@ -1107,15 +1107,15 @@ public abstract class Skin {
    *          to finish the area.
    */
   public abstract <
-    PC extends FlowContent<PC>,
-    __ extends FlowContent<__>
+      PC extends FlowContent<PC>,
+      __ extends FlowContent<__>
   > __ startLightArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PC pc,
-    String align,
-    String width,
-    boolean nowrap
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PC pc,
+      String align,
+      String width,
+      boolean nowrap
   ) throws JspException, IOException;
 
   /**
@@ -1126,9 +1126,9 @@ public abstract class Skin {
    *                    or {@link #startLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)}.
    */
   public abstract void endLightArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    FlowContent<?> lightArea
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      FlowContent<?> lightArea
   ) throws JspException, IOException;
 
   /**
@@ -1144,20 +1144,20 @@ public abstract class Skin {
    * @see  #endLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
-    PC extends FlowContent<PC>,
-    __ extends FlowContent<__>,
-    Ex extends Throwable
+      PC extends FlowContent<PC>,
+      __ extends FlowContent<__>,
+      Ex extends Throwable
   > void lightArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PC pc,
-    JspConsumerE<? super __, Ex> lightArea
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PC pc,
+      JspConsumerE<? super __, Ex> lightArea
   ) throws JspException, IOException, Ex {
-    __ flow = startLightArea(req, resp, pc); {
-      if (lightArea != null) {
-        lightArea.accept(flow);
-      }
-    } endLightArea(req, resp, flow);
+    __ flow = startLightArea(req, resp, pc);
+    if (lightArea != null) {
+      lightArea.accept(flow);
+    }
+    endLightArea(req, resp, flow);
   }
 
   /**
@@ -1172,19 +1172,19 @@ public abstract class Skin {
    * @see  #endLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
-    PC extends FlowContent<PC>,
-    Ex extends Throwable
+      PC extends FlowContent<PC>,
+      Ex extends Throwable
   > void lightArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PC pc,
-    JspRunnableE<Ex> lightArea
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PC pc,
+      JspRunnableE<Ex> lightArea
   ) throws JspException, IOException, Ex {
-    FlowContent<?> flow = startLightArea(req, resp, pc); {
-      if (lightArea != null) {
-        lightArea.run();
-      }
-    } endLightArea(req, resp, flow);
+    FlowContent<?> flow = startLightArea(req, resp, pc);
+    if (lightArea != null) {
+      lightArea.run();
+    }
+    endLightArea(req, resp, flow);
   }
 
   /**
@@ -1200,23 +1200,23 @@ public abstract class Skin {
    * @see  #endLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
-    PC extends FlowContent<PC>,
-    __ extends FlowContent<__>,
-    Ex extends Throwable
+      PC extends FlowContent<PC>,
+      __ extends FlowContent<__>,
+      Ex extends Throwable
   > void lightArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PC pc,
-    String align,
-    String width,
-    boolean nowrap,
-    JspConsumerE<? super __, Ex> lightArea
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PC pc,
+      String align,
+      String width,
+      boolean nowrap,
+      JspConsumerE<? super __, Ex> lightArea
   ) throws JspException, IOException, Ex {
-    __ flow = startLightArea(req, resp, pc, align, width, nowrap); {
-      if (lightArea != null) {
-        lightArea.accept(flow);
-      }
-    } endLightArea(req, resp, flow);
+    __ flow = startLightArea(req, resp, pc, align, width, nowrap);
+    if (lightArea != null) {
+      lightArea.accept(flow);
+    }
+    endLightArea(req, resp, flow);
   }
 
   /**
@@ -1231,22 +1231,22 @@ public abstract class Skin {
    * @see  #endLightArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
-    PC extends FlowContent<PC>,
-    Ex extends Throwable
+      PC extends FlowContent<PC>,
+      Ex extends Throwable
   > void lightArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PC pc,
-    String align,
-    String width,
-    boolean nowrap,
-    JspRunnableE<Ex> lightArea
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PC pc,
+      String align,
+      String width,
+      boolean nowrap,
+      JspRunnableE<Ex> lightArea
   ) throws JspException, IOException, Ex {
-    FlowContent<?> flow = startLightArea(req, resp, pc, align, width, nowrap); {
-      if (lightArea != null) {
-        lightArea.run();
-      }
-    } endLightArea(req, resp, flow);
+    FlowContent<?> flow = startLightArea(req, resp, pc, align, width, nowrap);
+    if (lightArea != null) {
+      lightArea.run();
+    }
+    endLightArea(req, resp, flow);
   }
 
   /**
@@ -1260,12 +1260,12 @@ public abstract class Skin {
    *          to finish the area.
    */
   public final <
-    PC extends FlowContent<PC>,
-    __ extends FlowContent<__>
+      PC extends FlowContent<PC>,
+      __ extends FlowContent<__>
   > __ startWhiteArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PC pc
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PC pc
   ) throws JspException, IOException {
     return startWhiteArea(req, resp, pc, null, null, false);
   }
@@ -1281,15 +1281,15 @@ public abstract class Skin {
    *          to finish the area.
    */
   public abstract <
-    PC extends FlowContent<PC>,
-    __ extends FlowContent<__>
+      PC extends FlowContent<PC>,
+      __ extends FlowContent<__>
   > __ startWhiteArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PC pc,
-    String align,
-    String width,
-    boolean nowrap
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PC pc,
+      String align,
+      String width,
+      boolean nowrap
   ) throws JspException, IOException;
 
   /**
@@ -1300,9 +1300,9 @@ public abstract class Skin {
    *                    or {@link #startWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)}.
    */
   public abstract void endWhiteArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    FlowContent<?> whiteArea
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      FlowContent<?> whiteArea
   ) throws JspException, IOException;
 
   /**
@@ -1318,20 +1318,20 @@ public abstract class Skin {
    * @see  #endWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
-    PC extends FlowContent<PC>,
-    __ extends FlowContent<__>,
-    Ex extends Throwable
+      PC extends FlowContent<PC>,
+      __ extends FlowContent<__>,
+      Ex extends Throwable
   > void whiteArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PC pc,
-    JspConsumerE<? super __, Ex> whiteArea
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PC pc,
+      JspConsumerE<? super __, Ex> whiteArea
   ) throws JspException, IOException, Ex {
-    __ flow = startWhiteArea(req, resp, pc); {
-      if (whiteArea != null) {
-        whiteArea.accept(flow);
-      }
-    } endWhiteArea(req, resp, flow);
+    __ flow = startWhiteArea(req, resp, pc);
+    if (whiteArea != null) {
+      whiteArea.accept(flow);
+    }
+    endWhiteArea(req, resp, flow);
   }
 
   /**
@@ -1346,19 +1346,19 @@ public abstract class Skin {
    * @see  #endWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
-    PC extends FlowContent<PC>,
-    Ex extends Throwable
+      PC extends FlowContent<PC>,
+      Ex extends Throwable
   > void whiteArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PC pc,
-    JspRunnableE<Ex> whiteArea
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PC pc,
+      JspRunnableE<Ex> whiteArea
   ) throws JspException, IOException, Ex {
-    FlowContent<?> flow = startWhiteArea(req, resp, pc); {
-      if (whiteArea != null) {
-        whiteArea.run();
-      }
-    } endWhiteArea(req, resp, flow);
+    FlowContent<?> flow = startWhiteArea(req, resp, pc);
+    if (whiteArea != null) {
+      whiteArea.run();
+    }
+    endWhiteArea(req, resp, flow);
   }
 
   /**
@@ -1374,23 +1374,23 @@ public abstract class Skin {
    * @see  #endWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
-    PC extends FlowContent<PC>,
-    __ extends FlowContent<__>,
-    Ex extends Throwable
+      PC extends FlowContent<PC>,
+      __ extends FlowContent<__>,
+      Ex extends Throwable
   > void whiteArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PC pc,
-    String align,
-    String width,
-    boolean nowrap,
-    JspConsumerE<? super __, Ex> whiteArea
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PC pc,
+      String align,
+      String width,
+      boolean nowrap,
+      JspConsumerE<? super __, Ex> whiteArea
   ) throws JspException, IOException, Ex {
-    __ flow = startWhiteArea(req, resp, pc, align, width, nowrap); {
-      if (whiteArea != null) {
-        whiteArea.accept(flow);
-      }
-    } endWhiteArea(req, resp, flow);
+    __ flow = startWhiteArea(req, resp, pc, align, width, nowrap);
+    if (whiteArea != null) {
+      whiteArea.accept(flow);
+    }
+    endWhiteArea(req, resp, flow);
   }
 
   /**
@@ -1405,22 +1405,22 @@ public abstract class Skin {
    * @see  #endWhiteArea(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
-    PC extends FlowContent<PC>,
-    Ex extends Throwable
+      PC extends FlowContent<PC>,
+      Ex extends Throwable
   > void whiteArea(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PC pc,
-    String align,
-    String width,
-    boolean nowrap,
-    JspRunnableE<Ex> whiteArea
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PC pc,
+      String align,
+      String width,
+      boolean nowrap,
+      JspRunnableE<Ex> whiteArea
   ) throws JspException, IOException, Ex {
-    FlowContent<?> flow = startWhiteArea(req, resp, pc, align, width, nowrap); {
-      if (whiteArea != null) {
-        whiteArea.run();
-      }
-    } endWhiteArea(req, resp, flow);
+    FlowContent<?> flow = startWhiteArea(req, resp, pc, align, width, nowrap);
+    if (whiteArea != null) {
+      whiteArea.run();
+    }
+    endWhiteArea(req, resp, flow);
   }
 
   public static class Language {
@@ -1437,14 +1437,14 @@ public abstract class Skin {
      * @param uri the constant URL to use or {@code null} to have automatically set.
      */
     public Language(
-      String code,
-      com.aoapps.lang.i18n.Resources resources,
-      String displayKey,
-      String flagOnSrcKey,
-      String flagOffSrcKey,
-      String flagWidthKey,
-      String flagHeightKey,
-      AnyURI uri
+        String code,
+        com.aoapps.lang.i18n.Resources resources,
+        String displayKey,
+        String flagOnSrcKey,
+        String flagOffSrcKey,
+        String flagWidthKey,
+        String flagHeightKey,
+        AnyURI uri
     ) {
       this.code = code;
       this.resources = resources;
@@ -1493,10 +1493,10 @@ public abstract class Skin {
    * Prints the auto index of all the page siblings.
    */
   public abstract void printAutoIndex(
-    HttpServletRequest req,
-    HttpServletResponse resp,
-    PageAttributes pageAttributes,
-    DocumentEE document
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      PageAttributes pageAttributes,
+      DocumentEE document
   ) throws JspException, IOException;
 
   /**

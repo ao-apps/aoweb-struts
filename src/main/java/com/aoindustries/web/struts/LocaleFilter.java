@@ -98,7 +98,7 @@ public class LocaleFilter implements Filter {
   public static Locale getEffectiveLocale(SiteSettings siteSettings, ServletRequest request, ServletResponse response) throws IOException, SQLException {
     HttpSession session;
     if (request instanceof HttpServletRequest) {
-      session = ((HttpServletRequest)request).getSession();
+      session = ((HttpServletRequest) request).getSession();
     } else {
       assert request != null;
       session = null;
@@ -106,7 +106,7 @@ public class LocaleFilter implements Filter {
     List<Skin.Language> languages = siteSettings.getLanguages(request);
     Locale locale = Globals.LOCALE_KEY.context(session).get();
     String language = request.getParameter(Constants.LANGUAGE);
-    if (language != null && (language=language.trim()).length()>0) {
+    if (language != null && (language = language.trim()).length() > 0) {
       // Make sure is a supported language
       for (Skin.Language possLanguage : languages) {
         String code = possLanguage.getCode();

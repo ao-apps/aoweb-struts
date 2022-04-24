@@ -64,35 +64,35 @@ public class ContentHorizontalDividerTag extends TagSupport {
       ContentTag contentTag = JspTagUtils.requireAncestor(TAG_NAME, this, ContentTag.TAG_NAME, ContentTag.class);
 
       List<String> list = Strings.splitCommaSpace(colspansAndDirections);
-      if ((list.size()&1) == 0) {
+      if ((list.size() & 1) == 0) {
         throw new LocalizedJspTagException(PACKAGE_RESOURCES, "skintags.ContentHorizontalDivider.colspansAndDirections.mustBeOddNumberElements");
       }
       int[] array = new int[list.size()];
-      for (int c=0;c<list.size();c+=2) {
-        if (c>0) {
-          String direction = list.get(c-1);
+      for (int c = 0; c < list.size(); c += 2) {
+        if (c > 0) {
+          String direction = list.get(c - 1);
           if ("up".equalsIgnoreCase(direction)) {
-            array[c-1]=Skin.UP;
+            array[c - 1] = Skin.UP;
           } else if ("down".equalsIgnoreCase(direction)) {
-            array[c-1]=Skin.DOWN;
+            array[c - 1] = Skin.DOWN;
           } else if ("upAndDown".equalsIgnoreCase(direction)) {
-            array[c-1]=Skin.UP_AND_DOWN;
+            array[c - 1] = Skin.UP_AND_DOWN;
           } else {
             throw new LocalizedJspTagException(PACKAGE_RESOURCES, "skintags.ContentHorizontalDivider.colspansAndDirections.invalidDirection", direction);
           }
         }
-        array[c]=Integer.parseInt(list.get(c));
+        array[c] = Integer.parseInt(list.get(c));
       }
 
-      HttpServletRequest req = (HttpServletRequest)pageContext.getRequest();
+      HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
       ContentEE<?> content = contentTag.getContent();
       content.getDocument().setOut(pageContext.getOut());
       SkinTag.getSkin(req).contentHorizontalDivider(
-        req,
-        (HttpServletResponse)pageContext.getResponse(),
-        content,
-        array,
-        endsInternal
+          req,
+          (HttpServletResponse) pageContext.getResponse(),
+          content,
+          array,
+          endsInternal
       );
       return SKIP_BODY;
     } catch (IOException err) {

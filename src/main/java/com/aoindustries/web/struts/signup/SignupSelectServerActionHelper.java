@@ -54,10 +54,10 @@ public final class SignupSelectServerActionHelper {
   }
 
   public static void setRequestAttributes(
-    ServletContext servletContext,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String packageCategoryName
+      ServletContext servletContext,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      String packageCategoryName
   ) throws IOException, SQLException {
     List<Host> servers = getServers(servletContext, packageCategoryName);
 
@@ -77,10 +77,10 @@ public final class SignupSelectServerActionHelper {
     for (PackageDefinition packageDefinition : packageDefinitions) {
       if (packageDefinition.isActive()) {
         servers.add(
-          new Host(
-            ServerConfiguration.getMinimumConfiguration(packageDefinition),
-            ServerConfiguration.getMaximumConfiguration(packageDefinition)
-          )
+            new Host(
+                ServerConfiguration.getMinimumConfiguration(packageDefinition),
+                ServerConfiguration.getMaximumConfiguration(packageDefinition)
+            )
         );
       }
     }
@@ -95,8 +95,8 @@ public final class SignupSelectServerActionHelper {
     private final ServerConfiguration maximumConfiguration;
 
     private Host(
-      ServerConfiguration minimumConfiguration,
-      ServerConfiguration maximumConfiguration
+        ServerConfiguration minimumConfiguration,
+        ServerConfiguration maximumConfiguration
     ) {
       this.minimumConfiguration = minimumConfiguration;
       this.maximumConfiguration = maximumConfiguration;
@@ -119,9 +119,9 @@ public final class SignupSelectServerActionHelper {
   }
 
   public static void setConfirmationRequestAttributes(
-    ServletContext servletContext,
-    HttpServletRequest request,
-    SignupSelectPackageForm signupSelectPackageForm
+      ServletContext servletContext,
+      HttpServletRequest request,
+      SignupSelectPackageForm signupSelectPackageForm
   ) throws IOException, SQLException {
     // Lookup things needed by the view
     AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
@@ -134,9 +134,9 @@ public final class SignupSelectServerActionHelper {
 
   public static void writeEmailConfirmation(Union_TBODY_THEAD_TFOOT<?> tbody, PackageDefinition packageDefinition) throws IOException {
     tbody.tr__(tr -> tr
-      .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-      .td__(PACKAGE_RESOURCES.getMessage("signupSelectServerForm.packageDefinition.prompt"))
-      .td__(packageDefinition.getDisplay())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupSelectServerForm.packageDefinition.prompt"))
+            .td__(packageDefinition.getDisplay())
     );
   }
 }

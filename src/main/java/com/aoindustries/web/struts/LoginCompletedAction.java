@@ -47,17 +47,17 @@ public class LoginCompletedAction extends PageAction {
   private static final Logger logger = Logger.getLogger(LoginCompletedAction.class.getName());
 
   private static final com.aoapps.lang.i18n.Resources RESOURCES =
-    com.aoapps.lang.i18n.Resources.getResources(ResourceBundle::getBundle, LoginCompletedAction.class);
+      com.aoapps.lang.i18n.Resources.getResources(ResourceBundle::getBundle, LoginCompletedAction.class);
 
   @Override
   public ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Registry pageRegistry
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Registry pageRegistry
   ) throws Exception {
-    LoginForm loginForm = (LoginForm)form;
+    LoginForm loginForm = (LoginForm) form;
 
     ActionMessages errors = loginForm.validate(mapping, request);
     if (errors != null && !errors.isEmpty()) {
@@ -82,28 +82,28 @@ public class LoginCompletedAction extends PageAction {
       String target = Constants.AUTHENTICATION_TARGET.context(session).replace(null);
       if (target != null && !target.isEmpty()) {
         response.sendRedirect(
-          response.encodeRedirectURL(
-            URIEncoder.encodeURI(
-              target
+            response.encodeRedirectURL(
+                URIEncoder.encodeURI(
+                    target
+                )
             )
-          )
         );
         return null;
       }
 
       // Redirect to the clientarea instead of returning mapping because of switch from HTTPS to HTTP
       response.sendRedirect(
-        response.encodeRedirectURL(
-          URIEncoder.encodeURI(
-            Skin.getSkin(request).getUrlBase(request) + "clientarea/index.do"
+          response.encodeRedirectURL(
+              URIEncoder.encodeURI(
+                  Skin.getSkin(request).getUrlBase(request) + "clientarea/index.do"
+              )
           )
-        )
       );
       return null;
       // Return success
       //return mapping.findForward("success");
     } catch (IOException err) {
-      String message=err.getMessage();
+      String message = err.getMessage();
       if (message != null) {
         if (message.contains("Unable to find Administrator")) {
           message = RESOURCES.getMessage("accountNotFound");
@@ -112,7 +112,7 @@ public class LoginCompletedAction extends PageAction {
         } else if (message.contains("Administrator disabled")) {
           message = RESOURCES.getMessage("accountDisabled");
         } else {
-          message=null;
+          message = null;
         }
       }
       if (message != null) {

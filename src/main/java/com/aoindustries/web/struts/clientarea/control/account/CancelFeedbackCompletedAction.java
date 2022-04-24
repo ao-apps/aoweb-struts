@@ -45,13 +45,13 @@ public class CancelFeedbackCompletedAction  extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
-    CancelFeedbackForm cancelFeedbackForm = (CancelFeedbackForm)form;
+    CancelFeedbackForm cancelFeedbackForm = (CancelFeedbackForm) form;
     String account_name = cancelFeedbackForm.getAccount();
     String reason = cancelFeedbackForm.getReason();
 

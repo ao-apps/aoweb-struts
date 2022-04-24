@@ -120,13 +120,13 @@ public class LinuxAccountPasswordSetterForm extends ActionForm implements Serial
 
       ServletContext servletContext = getServlet().getServletContext();
 
-      for (int c=0;c<usernames.size();c++) {
+      for (int c = 0; c < usernames.size(); c++) {
         String newPassword = newPasswords.get(c);
         String confirmPassword = confirmPasswords.get(c);
         if (!newPassword.equals(confirmPassword)) {
           errors.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("linuxAccountPasswordSetter.field.confirmPasswords.mismatch"));
         } else {
-          if (newPassword.length()>0) {
+          if (newPassword.length() > 0) {
             User.Name username = User.Name.valueOf(usernames.get(c));
             User la = aoConn.getLinux().getUser().get(username);
             if (la == null) {
@@ -137,11 +137,11 @@ public class LinuxAccountPasswordSetterForm extends ActionForm implements Serial
               if (PasswordChecker.hasResults(results)) {
                 Serialization serialization = SerializationEE.get(servletContext, request);
                 errors.add(
-                  "confirmPasswords[" + c + "].confirmPasswords",
-                  new ActionMessage(
-                    PasswordChecker.getResultsHtml(results, serialization == Serialization.XML),
-                    false
-                  )
+                    "confirmPasswords[" + c + "].confirmPasswords",
+                    new ActionMessage(
+                        PasswordChecker.getResultsHtml(results, serialization == Serialization.XML),
+                        false
+                    )
                 );
               }
             }

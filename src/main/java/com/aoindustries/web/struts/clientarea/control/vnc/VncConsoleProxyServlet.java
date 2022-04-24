@@ -35,8 +35,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author  AO Industries, Inc.
  */
 @WebServlet(
-  urlPatterns = "/clientarea/control/vnc/vnc-console-proxy",
-  loadOnStartup = 3
+    urlPatterns = "/clientarea/control/vnc/vnc-console-proxy",
+    loadOnStartup = 3
 )
 public class VncConsoleProxyServlet extends HttpServlet {
 

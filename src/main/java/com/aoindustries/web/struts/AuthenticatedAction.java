@@ -56,11 +56,11 @@ public abstract class AuthenticatedAction extends PageAction {
 
   @Override
   public final ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Registry pageRegistry
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Registry pageRegistry
   ) throws Exception {
     // Handle login
     AOServConnector aoConn = getAoConn(request, response);
@@ -69,7 +69,7 @@ public abstract class AuthenticatedAction extends PageAction {
       if (!target.endsWith("/login.do")) {
         String queryString = request.getQueryString();
         if (queryString != null) {
-          target = target+'?'+queryString;
+          target = target + '?' + queryString;
         }
         Constants.AUTHENTICATION_TARGET.context(request.getSession()).set(target);
       } else {
@@ -145,11 +145,11 @@ public abstract class AuthenticatedAction extends PageAction {
    * The default implementation of this method simply returns the mapping of "success".
    */
   public ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    AOServConnector aoConn
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AOServConnector aoConn
   ) throws Exception {
     return mapping.findForward("success");
   }

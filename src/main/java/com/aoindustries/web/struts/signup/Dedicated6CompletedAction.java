@@ -43,19 +43,19 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
 
   @Override
   public ActionForward executeDedicatedStep(
-    ActionMapping mapping,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    DedicatedSignupSelectPackageForm signupSelectPackageForm,
-    boolean signupSelectPackageFormComplete,
-    DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
-    boolean signupCustomizeServerFormComplete,
-    SignupOrganizationForm signupOrganizationForm,
-    boolean signupOrganizationFormComplete,
-    SignupTechnicalForm signupTechnicalForm,
-    boolean signupTechnicalFormComplete,
-    SignupBillingInformationForm signupBillingInformationForm,
-    boolean signupBillingInformationFormComplete
+      ActionMapping mapping,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      DedicatedSignupSelectPackageForm signupSelectPackageForm,
+      boolean signupSelectPackageFormComplete,
+      DedicatedSignupCustomizeServerForm signupCustomizeServerForm,
+      boolean signupCustomizeServerFormComplete,
+      SignupOrganizationForm signupOrganizationForm,
+      boolean signupOrganizationFormComplete,
+      SignupTechnicalForm signupTechnicalForm,
+      boolean signupTechnicalFormComplete,
+      SignupBillingInformationForm signupBillingInformationForm,
+      boolean signupBillingInformationFormComplete
   ) throws Exception {
     // Forward to previous steps if they have not been completed
     if (!signupSelectPackageFormComplete) {
@@ -76,13 +76,13 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
 
     // Let the parent class do the initialization of the request attributes for both the emails and the final JSP
     initRequestAttributes(
-      request,
-      response,
-      signupSelectPackageForm,
-      signupCustomizeServerForm,
-      signupOrganizationForm,
-      signupTechnicalForm,
-      signupBillingInformationForm
+        request,
+        response,
+        signupSelectPackageForm,
+        signupCustomizeServerForm,
+        signupOrganizationForm,
+        signupTechnicalForm,
+        signupBillingInformationForm
     );
 
     // Used later
@@ -98,35 +98,35 @@ public class Dedicated6CompletedAction extends Dedicated6Action {
 
     // Store to the database
     ServerConfirmationCompletedActionHelper.storeToDatabase(myServlet, request, rootConn, packageDefinition, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm, options);
-    String pkey = (String)request.getAttribute("pkey");
-    String statusKey = (String)request.getAttribute("statusKey");
+    String pkey = (String) request.getAttribute("pkey");
+    String statusKey = (String) request.getAttribute("statusKey");
 
     // Send confirmation email to support
     ServerConfirmationCompletedActionHelper.sendSupportSummaryEmail(
-      myServlet,
-      request,
-      pkey,
-      statusKey,
-      packageDefinition,
-      signupCustomizeServerForm,
-      null,
-      signupOrganizationForm,
-      signupTechnicalForm,
-      signupBillingInformationForm
+        myServlet,
+        request,
+        pkey,
+        statusKey,
+        packageDefinition,
+        signupCustomizeServerForm,
+        null,
+        signupOrganizationForm,
+        signupTechnicalForm,
+        signupBillingInformationForm
     );
 
     // Send confirmation email to customer
     ServerConfirmationCompletedActionHelper.sendCustomerSummaryEmails(
-      myServlet,
-      request,
-      pkey,
-      statusKey,
-      packageDefinition,
-      signupCustomizeServerForm,
-      null,
-      signupOrganizationForm,
-      signupTechnicalForm,
-      signupBillingInformationForm
+        myServlet,
+        request,
+        pkey,
+        statusKey,
+        packageDefinition,
+        signupCustomizeServerForm,
+        null,
+        signupOrganizationForm,
+        signupTechnicalForm,
+        signupBillingInformationForm
     );
 
     // Clear dedicated signup-specific forms from the session

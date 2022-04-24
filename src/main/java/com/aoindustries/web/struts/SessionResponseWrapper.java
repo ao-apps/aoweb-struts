@@ -94,31 +94,31 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
       String protocol;
       String remaining;
       if (
-        // 7: "http://".length()
-        url.length() > 7
-        && url.charAt(5) == '/'
-        && url.charAt(6) == '/'
-        && URIParser.isScheme(url, "http")
+          // 7: "http://".length()
+          url.length() > 7
+              && url.charAt(5) == '/'
+              && url.charAt(6) == '/'
+              && URIParser.isScheme(url, "http")
       ) {
         protocol = url.substring(0, 7);
         remaining = url.substring(7);
       } else if (
-        // 8: "https://".length()
-        url.length() > 8
-        && url.charAt(6) == '/'
-        && url.charAt(7) == '/'
-        && URIParser.isScheme(url, "https")
+          // 8: "https://".length()
+          url.length() > 8
+              && url.charAt(6) == '/'
+              && url.charAt(7) == '/'
+              && URIParser.isScheme(url, "https")
       ) {
         protocol = url.substring(0, 8);
         remaining = url.substring(8);
       } else if (
-        URIParser.isScheme(url, "javascript")
-        || URIParser.isScheme(url, "mailto")
-        || URIParser.isScheme(url, "telnet")
-        || URIParser.isScheme(url, "tel")
-        || URIParser.isScheme(url, "cid")
-        || URIParser.isScheme(url, "file")
-        || URIParser.isScheme(url, "data")
+          URIParser.isScheme(url, "javascript")
+              || URIParser.isScheme(url, "mailto")
+              || URIParser.isScheme(url, "telnet")
+              || URIParser.isScheme(url, "tel")
+              || URIParser.isScheme(url, "cid")
+              || URIParser.isScheme(url, "file")
+              || URIParser.isScheme(url, "data")
       ) {
         return url;
       } else {
@@ -133,8 +133,8 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
       String host = colonPos == -1 ? hostPort : hostPort.substring(0, colonPos);
       String encoded;
       if (
-        // TODO: What about [...] IPv6 addresses?
-        host.equalsIgnoreCase(request.getServerName())
+          // TODO: What about [...] IPv6 addresses?
+          host.equalsIgnoreCase(request.getServerName())
       ) {
         String withCookies = addNoCookieParameters(canonical, siteSettings, languages, remaining.substring(slashPos), isRedirect);
         int newUrlLen = protocol.length() + hostPort.length() + withCookies.length();
@@ -189,33 +189,33 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
       // Don't add for certains file types
       // TODO: This list is getting long.  Use a map?
       if (
-        // Matches LocaleFilter.java
-        // Matches NoSessionFilter.java
-        // Is SessionResponseWrapper.java
-        // Related to LastModifiedServlet.java
-        // Related to ao-mime-types/…/web-fragment.xml
-        // Related to ContentType.java
-        // Related to MimeType.java
-        !iri.pathEndsWithIgnoreCase(".bmp")
-        && !iri.pathEndsWithIgnoreCase(".css")
-        && !iri.pathEndsWithIgnoreCase(".dia")
-        && !iri.pathEndsWithIgnoreCase(".exe")
-        && !iri.pathEndsWithIgnoreCase(".gif")
-        && !iri.pathEndsWithIgnoreCase(".ico")
-        && !iri.pathEndsWithIgnoreCase(".jpeg")
-        && !iri.pathEndsWithIgnoreCase(".jpg")
-        && !iri.pathEndsWithIgnoreCase(".js")
-        && !iri.pathEndsWithIgnoreCase(".png")
-        && !iri.pathEndsWithIgnoreCase(".svg")
-        && !iri.pathEndsWithIgnoreCase(".txt")
-        && !iri.pathEndsWithIgnoreCase(".webp")
-        && !iri.pathEndsWithIgnoreCase(".zip")
-        // Web development
-        && !iri.pathEndsWithIgnoreCase(".less")
-        && !iri.pathEndsWithIgnoreCase(".sass")
-        && !iri.pathEndsWithIgnoreCase(".scss")
-        && !iri.pathEndsWithIgnoreCase(".css.map")
-        && !iri.pathEndsWithIgnoreCase(".js.map")
+          // Matches LocaleFilter.java
+          // Matches NoSessionFilter.java
+          // Is SessionResponseWrapper.java
+          // Related to LastModifiedServlet.java
+          // Related to ao-mime-types/…/web-fragment.xml
+          // Related to ContentType.java
+          // Related to MimeType.java
+          !iri.pathEndsWithIgnoreCase(".bmp")
+              && !iri.pathEndsWithIgnoreCase(".css")
+              && !iri.pathEndsWithIgnoreCase(".dia")
+              && !iri.pathEndsWithIgnoreCase(".exe")
+              && !iri.pathEndsWithIgnoreCase(".gif")
+              && !iri.pathEndsWithIgnoreCase(".ico")
+              && !iri.pathEndsWithIgnoreCase(".jpeg")
+              && !iri.pathEndsWithIgnoreCase(".jpg")
+              && !iri.pathEndsWithIgnoreCase(".js")
+              && !iri.pathEndsWithIgnoreCase(".png")
+              && !iri.pathEndsWithIgnoreCase(".svg")
+              && !iri.pathEndsWithIgnoreCase(".txt")
+              && !iri.pathEndsWithIgnoreCase(".webp")
+              && !iri.pathEndsWithIgnoreCase(".zip")
+              // Web development
+              && !iri.pathEndsWithIgnoreCase(".less")
+              && !iri.pathEndsWithIgnoreCase(".sass")
+              && !iri.pathEndsWithIgnoreCase(".scss")
+              && !iri.pathEndsWithIgnoreCase(".css.map")
+              && !iri.pathEndsWithIgnoreCase(".js.map")
       ) {
         if (!canonical && session != null) {
           // Use the default servlet container jsessionid when any session object exists besides
@@ -225,25 +225,25 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
           while (attributeNames.hasMoreElements()) {
             String name = attributeNames.nextElement();
             if (
-              !Constants.TARGETS.equals(name)
-              && !Constants.LAYOUT.getName().equals(name)
-              && !Constants.SU_REQUESTED.getName().equals(name)
-              // Struts 1
-              && !Globals.LOCALE_KEY.getName().equals(name)
-              // TODO: Is there a Struts 2 locale key?
-              // JSTL 1.2
-              && !ScopeEE.Session.REQUEST_CHAR_SET.getName().equals(name)
-              && !AttributeEE.Jstl.FMT_LOCALE.context((HttpSession)null).getName().equals(name)
-              // Allow session-based temporary file context
-              && !TempFileContextEE.SESSION_ATTRIBUTE.getName().equals(name)
-              // Allow session-based web resource registry
-              && !RegistryEE.Session.SESSION_ATTRIBUTE.getName().equals(name)
+                !Constants.TARGETS.equals(name)
+                    && !Constants.LAYOUT.getName().equals(name)
+                    && !Constants.SU_REQUESTED.getName().equals(name)
+                    // Struts 1
+                    && !Globals.LOCALE_KEY.getName().equals(name)
+                    // TODO: Is there a Struts 2 locale key?
+                    // JSTL 1.2
+                    && !ScopeEE.Session.REQUEST_CHAR_SET.getName().equals(name)
+                    && !AttributeEE.Jstl.FMT_LOCALE.context((HttpSession) null).getName().equals(name)
+                    // Allow session-based temporary file context
+                    && !TempFileContextEE.SESSION_ATTRIBUTE.getName().equals(name)
+                    // Allow session-based web resource registry
+                    && !RegistryEE.Session.SESSION_ATTRIBUTE.getName().equals(name)
             ) {
               // These will always trigger jsessionid
               if (
-                Constants.AUTHENTICATION_TARGET.getName().equals(name)
-                || Constants.AO_CONN.getName().equals(name)
-                || Constants.AUTHENTICATED_AO_CONN.getName().equals(name)
+                  Constants.AUTHENTICATION_TARGET.getName().equals(name)
+                      || Constants.AO_CONN.getName().equals(name)
+                      || Constants.AUTHENTICATED_AO_CONN.getName().equals(name)
               ) {
                 whyNeedsJsessionid = name;
                 break;
@@ -251,14 +251,14 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
               // Must be an SessionActionForm if none of the above
               Object sessionObject = session.getAttribute(name);
               if (sessionObject instanceof SessionActionForm) {
-                SessionActionForm sessionActionForm = (SessionActionForm)sessionObject;
+                SessionActionForm sessionActionForm = (SessionActionForm) sessionObject;
                 if (!sessionActionForm.isEmpty()) {
                   whyNeedsJsessionid = name;
                   break;
                 }
               } else {
                 Class<?> clazz = (sessionObject == null) ? null : sessionObject.getClass();
-                throw new AssertionError("Session object is neither an expected value nor a SessionActionForm.  name="+name+", sessionObject.class="+(clazz == null ? null : clazz.getName()));
+                throw new AssertionError("Session object is neither an expected value nor a SessionActionForm.  name=" + name + ", sessionObject.class=" + (clazz == null ? null : clazz.getName()));
               }
             }
           }
@@ -266,10 +266,10 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             if (HttpServletUtil.isGooglebot(request)) {
               // Create or update a ticket about the problem
               logger.logp(
-                Level.WARNING,
-                SessionResponseWrapper.class.getName(),
-                "addNoCookieParameters",
-                "Refusing to send jsessionid to Googlebot eventhough request would normally need jsessionid.  Other search engines may be affected.  Reason: "+whyNeedsJsessionid
+                  Level.WARNING,
+                  SessionResponseWrapper.class.getName(),
+                  "addNoCookieParameters",
+                  "Refusing to send jsessionid to Googlebot eventhough request would normally need jsessionid.  Other search engines may be affected.  Reason: " + whyNeedsJsessionid
               );
             } else {
               // System.out.println("DEBUG: Why needs jsessionid: "+whyNeedsJsessionid);
@@ -283,7 +283,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
 
         if (session != null) {
           // Only add the language if there is more than one possibility
-          if (languages.size()>1) {
+          if (languages.size() > 1) {
             Locale locale = Globals.LOCALE_KEY.context(session).get();
             if (locale != null) {
               String code = locale.getLanguage();
@@ -310,7 +310,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
           if (!canonical) {
             // Only add the layout if there is more than one possibility
             List<Skin> skins = siteSettings.getSkins();
-            if (skins.size()>1) {
+            if (skins.size() > 1) {
               String layout = Constants.LAYOUT.context(session).get();
               if (layout != null) {
                 // Don't add if is the default layout

@@ -46,13 +46,13 @@ public class ContactCompletedAction extends PageAction {
 
   @Override
   public ActionForward execute(
-    ActionMapping mapping,
-    ActionForm form,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Registry pageRegistry
+      ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Registry pageRegistry
   ) throws Exception {
-    ContactForm contactForm = (ContactForm)form;
+    ContactForm contactForm = (ContactForm) form;
 
     // Validation
     ActionMessages errors = contactForm.validate(mapping, request);
@@ -81,17 +81,17 @@ public class ContactCompletedAction extends PageAction {
     }
     Email from = Email.valueOf(contactForm.getFrom());
     rootConn.getTicket().getTicket().addTicket(
-      siteSettings.getBrand(),
-      null,
-      language,
-      null,
-      ticketType,
-      from,
-      contactForm.getSubject(),
-      contactForm.getMessage(),
-      clientPriority,
-      Collections.singleton(from),
-      ""
+        siteSettings.getBrand(),
+        null,
+        language,
+        null,
+        ticketType,
+        from,
+        contactForm.getSubject(),
+        contactForm.getMessage(),
+        clientPriority,
+        Collections.singleton(from),
+        ""
     );
 
     return mapping.findForward("success");

@@ -81,7 +81,7 @@ public class ServerConfiguration {
       if (resourceName.startsWith("hardware_power_")) {
         int limitPower = limit.getHardLimit();
         if (limitPower > 0) {
-          if (limitPower>maxPowers) {
+          if (limitPower > maxPowers) {
             maxPowers = limitPower;
           }
           if (cheapestPower == null) {
@@ -97,7 +97,7 @@ public class ServerConfiguration {
       } else if (resourceName.startsWith("hardware_processor_")) {
         int limitCpu = limit.getHardLimit();
         if (limitCpu > 0) {
-          if (limitCpu>maxCPUs) {
+          if (limitCpu > maxCPUs) {
             maxCPUs = limitCpu;
           }
           if (cheapestCPU == null) {
@@ -113,7 +113,7 @@ public class ServerConfiguration {
       } else if (resourceName.startsWith("hardware_ram_")) {
         int limitRAM = limit.getHardLimit();
         if (limitRAM > 0) {
-          if (limitRAM>maxRAMs) {
+          if (limitRAM > maxRAMs) {
             maxRAMs = limitRAM;
           }
           if (cheapestRAM == null) {
@@ -129,7 +129,7 @@ public class ServerConfiguration {
       } else if (resourceName.startsWith("hardware_disk_controller_sata_")) {
         int limitSataController = limit.getHardLimit();
         if (limitSataController > 0) {
-          if (limitSataController>maxSataControllers) {
+          if (limitSataController > maxSataControllers) {
             maxSataControllers = limitSataController;
           }
           if (cheapestSataController == null) {
@@ -145,7 +145,7 @@ public class ServerConfiguration {
       } else if (resourceName.startsWith("hardware_disk_controller_scsi_")) {
         int limitScsiController = limit.getHardLimit();
         if (limitScsiController > 0) {
-          if (limitScsiController>maxScsiControllers) {
+          if (limitScsiController > maxScsiControllers) {
             maxScsiControllers = limitScsiController;
           }
           if (cheapestScsiController == null) {
@@ -170,7 +170,7 @@ public class ServerConfiguration {
               cheapestDisk = limit;
             }
           }
-          if (hardLimit>maxDisks) {
+          if (hardLimit > maxDisks) {
             maxDisks = hardLimit;
           }
         }
@@ -254,16 +254,16 @@ public class ServerConfiguration {
     minimumMonthly = minimumMonthly.add(cheapestDisk.getAdditionalRate());
 
     return new ServerConfiguration(
-      packageDefinition.getPkey(),
-      packageDefinition.getDisplay(),
-      minimumPower.toString(),
-      minimumCpu.toString(),
-      minimumRam.toString(),
-      minimumSataController.toString(),
-      minimumScsiController.toString(),
-      minimumDisk,
-      setup,
-      minimumMonthly.isZero() ? null : minimumMonthly
+        packageDefinition.getPkey(),
+        packageDefinition.getDisplay(),
+        minimumPower.toString(),
+        minimumCpu.toString(),
+        minimumRam.toString(),
+        minimumSataController.toString(),
+        minimumScsiController.toString(),
+        minimumDisk,
+        setup,
+        minimumMonthly.isZero() ? null : minimumMonthly
     );
   }
 
@@ -292,7 +292,7 @@ public class ServerConfiguration {
       if (resourceName.startsWith("hardware_power_")) {
         int limitPower = limit.getHardLimit();
         if (limitPower > 0) {
-          if (limitPower>maxPowers) {
+          if (limitPower > maxPowers) {
             maxPowers = limitPower;
           }
           if (expensivePower == null) {
@@ -308,7 +308,7 @@ public class ServerConfiguration {
       } else if (resourceName.startsWith("hardware_processor_")) {
         int limitCpu = limit.getHardLimit();
         if (limitCpu > 0) {
-          if (limitCpu>maxCPUs) {
+          if (limitCpu > maxCPUs) {
             maxCPUs = limitCpu;
           }
           if (expensiveCPU == null) {
@@ -324,7 +324,7 @@ public class ServerConfiguration {
       } else if (resourceName.startsWith("hardware_ram_")) {
         int limitRAM = limit.getHardLimit();
         if (limitRAM > 0) {
-          if (limitRAM>maxRAMs) {
+          if (limitRAM > maxRAMs) {
             maxRAMs = limitRAM;
           }
           if (expensiveRAM == null) {
@@ -340,7 +340,7 @@ public class ServerConfiguration {
       } else if (resourceName.startsWith("hardware_disk_controller_sata_")) {
         int limitSataController = limit.getHardLimit();
         if (limitSataController > 0) {
-          if (limitSataController>maxSataControllers) {
+          if (limitSataController > maxSataControllers) {
             maxSataControllers = limitSataController;
           }
           if (expensiveSataController == null) {
@@ -356,7 +356,7 @@ public class ServerConfiguration {
       } else if (resourceName.startsWith("hardware_disk_controller_scsi_")) {
         int limitScsiController = limit.getHardLimit();
         if (limitScsiController > 0) {
-          if (limitScsiController>maxScsiControllers) {
+          if (limitScsiController > maxScsiControllers) {
             maxScsiControllers = limitScsiController;
           }
           if (expensiveScsiController == null) {
@@ -372,7 +372,7 @@ public class ServerConfiguration {
       } else if (resourceName.startsWith("hardware_disk_")) {
         int limitDisk = limit.getHardLimit();
         if (limitDisk > 0) {
-          if (limitDisk>maxDisks) {
+          if (limitDisk > maxDisks) {
             maxDisks = limitDisk;
           }
           if (expensiveDisk == null) {
@@ -422,7 +422,7 @@ public class ServerConfiguration {
       throw new SQLException("Unable to find expensiveRAM");
     }
     StringBuilder maximumRam = new StringBuilder();
-    if (maxRAMs>1) {
+    if (maxRAMs > 1) {
       maximumRam.append(maxRAMs).append('×');
     }
     maximumRam.append(expensiveRAM.getResource().toString());
@@ -435,7 +435,7 @@ public class ServerConfiguration {
     // Build the SATA controller description
     StringBuilder maximumSataController = new StringBuilder();
     if (expensiveSataController != null) {
-      if (maxSataControllers>1) {
+      if (maxSataControllers > 1) {
         maximumSataController.append(maxSataControllers).append('×');
       }
       maximumSataController.append(expensiveSataController.getResource().toString());
@@ -449,7 +449,7 @@ public class ServerConfiguration {
     // Build the SCSI controller description
     StringBuilder maximumScsiController = new StringBuilder();
     if (expensiveScsiController != null) {
-      if (maxScsiControllers>1) {
+      if (maxScsiControllers > 1) {
         maximumScsiController.append(maxScsiControllers).append('×');
       }
       maximumScsiController.append(expensiveScsiController.getResource().toString());
@@ -469,16 +469,16 @@ public class ServerConfiguration {
     }
 
     return new ServerConfiguration(
-      packageDefinition.getPkey(),
-      packageDefinition.getDisplay(),
-      maximumPower.toString(),
-      maximumCpu.toString(),
-      maximumRam.toString(),
-      maximumSataController.toString(),
-      maximumScsiController.toString(),
-      maximumDisk,
-      setup,
-      maximumMonthly.isZero() ? null : maximumMonthly
+        packageDefinition.getPkey(),
+        packageDefinition.getDisplay(),
+        maximumPower.toString(),
+        maximumCpu.toString(),
+        maximumRam.toString(),
+        maximumSataController.toString(),
+        maximumScsiController.toString(),
+        maximumDisk,
+        setup,
+        maximumMonthly.isZero() ? null : maximumMonthly
     );
   }
 
@@ -494,16 +494,16 @@ public class ServerConfiguration {
   private final Monies monthly;
 
   public ServerConfiguration(
-    int packageDefinition,
-    String name,
-    String power,
-    String cpu,
-    String ram,
-    String sataController,
-    String scsiController,
-    String disk,
-    Money setup,
-    Monies monthly
+      int packageDefinition,
+      String name,
+      String power,
+      String cpu,
+      String ram,
+      String sataController,
+      String scsiController,
+      String disk,
+      Money setup,
+      Monies monthly
   ) {
     this.packageDefinition = packageDefinition;
     this.name = name;
