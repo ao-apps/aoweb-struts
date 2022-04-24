@@ -156,7 +156,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
             <configuration>
               <target xmlns:if="ant:if" xmlns:unless="ant:unless">
                 <mkdir dir="${project.build.directory}/substitute-templates" />
-                <copy todir="${project.build.directory}/substitute-templates">
+                <copy overwrite="true" todir="${project.build.directory}/substitute-templates">
                   <fileset dir="${project.basedir}/src/main/webapp" includes="WEB-INF/struts-config*.xml.template, WEB-INF/web.xml.template" />
                 </copy>
                 <!-- WEB-INF/struts-config-clientarea-accounting.xml -->
@@ -176,6 +176,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                 </condition>
                 <copy
                   unless:set="struts-config-clientarea-accounting.xml.matches"
+                  overwrite="true"
                   file="${project.build.directory}/substitute-templates/WEB-INF/struts-config-clientarea-accounting.xml.template"
                   tofile="${project.basedir}/src/main/webapp/WEB-INF/struts-config-clientarea-accounting.xml"
                 />
@@ -201,6 +202,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                 </condition>
                 <copy
                   unless:set="struts-config-clientarea-control.xml.matches"
+                  overwrite="true"
                   file="${project.build.directory}/substitute-templates/WEB-INF/struts-config-clientarea-control.xml.template"
                   tofile="${project.basedir}/src/main/webapp/WEB-INF/struts-config-clientarea-control.xml"
                 />
@@ -226,6 +228,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                 </condition>
                 <copy
                   unless:set="struts-config-clientarea-ticket.xml.matches"
+                  overwrite="true"
                   file="${project.build.directory}/substitute-templates/WEB-INF/struts-config-clientarea-ticket.xml.template"
                   tofile="${project.basedir}/src/main/webapp/WEB-INF/struts-config-clientarea-ticket.xml"
                 />
@@ -251,6 +254,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                 </condition>
                 <copy
                   unless:set="struts-config-clientarea.xml.matches"
+                  overwrite="true"
                   file="${project.build.directory}/substitute-templates/WEB-INF/struts-config-clientarea.xml.template"
                   tofile="${project.basedir}/src/main/webapp/WEB-INF/struts-config-clientarea.xml"
                 />
@@ -276,6 +280,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                 </condition>
                 <copy
                   unless:set="struts-config-signup.xml.matches"
+                  overwrite="true"
                   file="${project.build.directory}/substitute-templates/WEB-INF/struts-config-signup.xml.template"
                   tofile="${project.basedir}/src/main/webapp/WEB-INF/struts-config-signup.xml"
                 />
@@ -309,6 +314,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                 </condition>
                 <copy
                   unless:set="struts-config.xml.matches"
+                  overwrite="true"
                   file="${project.build.directory}/substitute-templates/WEB-INF/struts-config.xml.template"
                   tofile="${project.basedir}/src/main/webapp/WEB-INF/struts-config.xml"
                 />
@@ -374,6 +380,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                 </condition>
                 <copy
                   unless:set="web.xml.matches"
+                  overwrite="true"
                   file="${project.build.directory}/substitute-templates/WEB-INF/web.xml.template"
                   tofile="${project.basedir}/src/main/webapp/WEB-INF/web.xml"
                 />
