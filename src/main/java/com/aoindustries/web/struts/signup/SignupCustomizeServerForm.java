@@ -214,7 +214,7 @@ public abstract class SignupCustomizeServerForm extends ActionForm implements Se
 
   public boolean isAtLeastOneDiskSelected() {
     for (String diskOption : diskOptions) {
-      if (diskOption != null && diskOption.length() > 0 && !diskOption.equals("-1")) {
+      if (diskOption != null && diskOption.length() > 0 && !"-1".equals(diskOption)) {
         return true;
       }
     }

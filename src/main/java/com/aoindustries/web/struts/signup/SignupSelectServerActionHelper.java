@@ -112,6 +112,9 @@ public final class SignupSelectServerActionHelper {
   }
 
   private static class ServerComparator implements Comparator<Host> {
+    private ServerComparator() {
+    }
+
     @Override
     public int compare(Host s1, Host s2) {
       return s1.getMinimumConfiguration().getMonthly().compareTo(s2.getMinimumConfiguration().getMonthly());

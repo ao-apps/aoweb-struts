@@ -268,7 +268,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
     private final String version;
     private final String master;
     private final List<ReplicationRow> replications;
-    private boolean error = false;
+    private boolean error;
     private final String lineError;
     private final String masterLogFile;
     private final String masterLogPos;

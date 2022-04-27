@@ -319,7 +319,7 @@ public final class SignupCustomizeServerActionHelper {
     }
     for (int c = 0; c < formDiskOptions.size(); c++) {
       String s = formDiskOptions.get(c);
-      if (s != null && s.length() > 0 && !s.equals("-1")) {
+      if (s != null && s.length() > 0 && !"-1".equals(s)) {
         int pkey = Integer.parseInt(s);
         PackageDefinitionLimit pdl = rootConn.getBilling().getPackageDefinitionLimit().get(pkey);
         if (pdl == null || !packageDefinition.equals(pdl.getPackageDefinition())) {
@@ -355,7 +355,7 @@ public final class SignupCustomizeServerActionHelper {
           firstOption = options.get(1);
         }
         String defaultSelected = Integer.toString(firstOption.getPackageDefinitionLimit());
-        if (formDiskOptions.size() <= c || formDiskOptions.get(c) == null || formDiskOptions.get(c).length() == 0 || formDiskOptions.get(c).equals("-1")) {
+        if (formDiskOptions.size() <= c || formDiskOptions.get(c) == null || formDiskOptions.get(c).length() == 0 || "-1".equals(formDiskOptions.get(c))) {
           formDiskOptions.set(c, defaultSelected);
         }
       } else {
@@ -448,7 +448,7 @@ public final class SignupCustomizeServerActionHelper {
 
     // Add the disk options
     for (String pkey : signupCustomizeServerForm.getDiskOptions()) {
-      if (pkey != null && pkey.length() > 0 && !pkey.equals("-1")) {
+      if (pkey != null && pkey.length() > 0 && !"-1".equals(pkey)) {
         PackageDefinitionLimit diskPDL = rootConn.getBilling().getPackageDefinitionLimit().get(Integer.parseInt(pkey));
         if (diskPDL != null) {
           monthlyRate = monthlyRate.add(diskPDL.getAdditionalRate());
@@ -524,7 +524,7 @@ public final class SignupCustomizeServerActionHelper {
   public static List<String> getDiskOptions(AOServConnector rootConn, SignupCustomizeServerForm signupCustomizeServerForm) throws IOException, SQLException {
     List<String> diskOptions = new ArrayList<>();
     for (String pkey : signupCustomizeServerForm.getDiskOptions()) {
-      if (pkey != null && pkey.length() > 0 && !pkey.equals("-1")) {
+      if (pkey != null && pkey.length() > 0 && !"-1".equals(pkey)) {
         PackageDefinitionLimit diskPDL = rootConn.getBilling().getPackageDefinitionLimit().get(Integer.parseInt(pkey));
         if (diskPDL != null) {
           diskOptions.add(diskPDL.getResource().toString());

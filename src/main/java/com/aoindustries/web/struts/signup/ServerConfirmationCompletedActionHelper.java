@@ -95,7 +95,7 @@ public final class ServerConfirmationCompletedActionHelper {
     // Disk options
     int number = 0;
     for (String diskOption : signupCustomizeServerForm.getDiskOptions()) {
-      if (diskOption != null && diskOption.length() > 0 && !diskOption.equals("-1")) {
+      if (diskOption != null && diskOption.length() > 0 && !"-1".equals(diskOption)) {
         options.put("diskOptions[" + (number++) + "]", diskOption);
       }
     }

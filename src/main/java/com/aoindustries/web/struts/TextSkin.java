@@ -198,7 +198,7 @@ public class TextSkin extends Skin {
       PageAttributes pageAttributes,
       DocumentEE document
   ) throws JspException, IOException {
-    boolean isOkResponseStatus = (resp.getStatus() == HttpServletResponse.SC_OK);
+    boolean isOkResponseStatus = resp.getStatus() == HttpServletResponse.SC_OK;
     ServletContext servletContext = req.getServletContext();
     SiteSettings settings = SiteSettings.getInstance(servletContext);
     Brand brand;

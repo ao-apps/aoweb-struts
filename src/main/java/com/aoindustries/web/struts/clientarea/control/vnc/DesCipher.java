@@ -110,13 +110,13 @@ public final class DesCipher {
     int[] pcr = new int[56];
     int[] kn = new int[32];
 
-    for (j = 0; j < 56; ++j) {
+    for (j = 0; j < 56; j++) {
       l = pc1[j];
       m = l & 07;
       pc1m[j] = ((keyBlock[l >>> 3] & bytebit[m]) != 0) ? 1 : 0;
     }
 
-    for (i = 0; i < 16; ++i) {
+    for (i = 0; i < 16; i++) {
       if (encrypting) {
         m = i << 1;
       } else {
@@ -124,7 +124,7 @@ public final class DesCipher {
       }
       n = m + 1;
       kn[m] = kn[n] = 0;
-      for (j = 0; j < 28; ++j) {
+      for (j = 0; j < 28; j++) {
         l = j + totrot[i];
         if (l < 28) {
           pcr[j] = pc1m[l];
@@ -132,7 +132,7 @@ public final class DesCipher {
           pcr[j] = pc1m[l - 28];
         }
       }
-      for (j = 28; j < 56; ++j) {
+      for (j = 28; j < 56; j++) {
         l = j + totrot[i];
         if (l < 56) {
           pcr[j] = pc1m[l];
@@ -140,7 +140,7 @@ public final class DesCipher {
           pcr[j] = pc1m[l - 28];
         }
       }
-      for (j = 0; j < 24; ++j) {
+      for (j = 0; j < 24; j++) {
         if (pcr[pc2[j]] != 0) {
           kn[m] |= bigbyte[j];
         }
@@ -157,7 +157,7 @@ public final class DesCipher {
     int rawi, KnLi;
     int i;
 
-    for (i = 0, rawi = 0, KnLi = 0; i < 16; ++i) {
+    for (i = 0, rawi = 0, KnLi = 0; i < 16; i++) {
       raw0 = raw[rawi++];
       raw1 = raw[rawi++];
       KnL[KnLi]  = (raw0 & 0x00fc0000) <<   6;
@@ -168,7 +168,7 @@ public final class DesCipher {
       KnL[KnLi]  = (raw0 & 0x0003f000) <<  12;
       KnL[KnLi] |= (raw0 & 0x0000003f) <<  16;
       KnL[KnLi] |= (raw1 & 0x0003f000) >>>  4;
-      KnL[KnLi] |= (raw1 & 0x0000003f);
+      KnL[KnLi] |= raw1 & 0x0000003f;
       ++KnLi;
     }
   }
@@ -203,19 +203,19 @@ public final class DesCipher {
 
     work   = ((leftt >>>  4) ^ right) & 0x0f0f0f0f;
     right ^= work;
-    leftt ^= (work << 4);
+    leftt ^= work << 4;
 
     work   = ((leftt >>> 16) ^ right) & 0x0000ffff;
     right ^= work;
-    leftt ^= (work << 16);
+    leftt ^= work << 16;
 
     work   = ((right >>>  2) ^ leftt) & 0x33333333;
     leftt ^= work;
-    right ^= (work << 2);
+    right ^= work << 2;
 
     work   = ((right >>>  8) ^ leftt) & 0x00ff00ff;
     leftt ^= work;
-    right ^= (work << 8);
+    right ^= work << 8;
     right  = (right << 1) | ((right >>> 31) & 1);
 
     work   = (leftt ^ right) & 0xaaaaaaaa;
@@ -223,7 +223,7 @@ public final class DesCipher {
     right ^= work;
     leftt  = (leftt << 1) | ((leftt >>> 31) & 1);
 
-    for (round = 0; round < 8; ++round) {
+    for (round = 0; round < 8; round++) {
       work   = (right << 28) | (right >>> 4);
       work  ^= keys[keysi++];
       fval   = SP7[work         & 0x0000003f];
@@ -257,16 +257,16 @@ public final class DesCipher {
     leftt  = (leftt << 31) | (leftt >>> 1);
     work   = ((leftt >>>  8) ^ right) & 0x00ff00ff;
     right ^= work;
-    leftt ^= (work << 8);
+    leftt ^= work << 8;
     work   = ((leftt >>>  2) ^ right) & 0x33333333;
     right ^= work;
-    leftt ^= (work << 2);
+    leftt ^= work << 2;
     work   = ((right >>> 16) ^ leftt) & 0x0000ffff;
     leftt ^= work;
-    right ^= (work << 16);
+    right ^= work << 16;
     work   = ((right >>>  4) ^ leftt) & 0x0f0f0f0f;
     leftt ^= work;
-    right ^= (work << 4);
+    right ^= work << 4;
     outInts[0] = right;
     outInts[1] = leftt;
   }
@@ -460,18 +460,18 @@ public final class DesCipher {
 
   /// Squash bytes down to ints.
   public static void squashBytesToInts(byte[] inBytes, int inOff, int[] outInts, int outOff, int intLen) {
-    for (int i = 0; i < intLen; ++i) {
+    for (int i = 0; i < intLen; i++) {
       outInts[outOff + i] =
-          ((inBytes[inOff + i * 4    ] & 0xff) << 24) |
-              ((inBytes[inOff + i * 4 + 1] & 0xff) << 16) |
-              ((inBytes[inOff + i * 4 + 2] & 0xff) <<  8) |
-              (inBytes[inOff + i * 4 + 3] & 0xff);
+          ((inBytes[inOff + i * 4    ] & 0xff) << 24)
+              | ((inBytes[inOff + i * 4 + 1] & 0xff) << 16)
+              | ((inBytes[inOff + i * 4 + 2] & 0xff) <<  8)
+              | (inBytes[inOff + i * 4 + 3] & 0xff);
     }
   }
 
   /// Spread ints into bytes.
   public static void spreadIntsToBytes(int[] inInts, int inOff, byte[] outBytes, int outOff, int intLen) {
-    for (int i = 0; i < intLen; ++i) {
+    for (int i = 0; i < intLen; i++) {
       outBytes[outOff + i * 4    ] = (byte) ( inInts[inOff + i] >>> 24 );
       outBytes[outOff + i * 4 + 1] = (byte) ( inInts[inOff + i] >>> 16 );
       outBytes[outOff + i * 4 + 2] = (byte) ( inInts[inOff + i] >>>  8 );
