@@ -25,20 +25,21 @@ package com.aoindustries.web.struts.signup;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 /**
  * @author  AO Industries, Inc.
  */
-public class AOServCompletedAction extends AOServAction {
+public class Aoserv4CompletedAction extends Aoserv4Action {
 
   @Override
-  public ActionForward executeAOServStep(
+  public ActionForward executeAoservStep(
       ActionMapping mapping,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServSignupSelectPackageForm signupSelectPackageForm,
+      AoservSignupSelectPackageForm signupSelectPackageForm,
       boolean signupSelectPackageFormComplete,
       SignupOrganizationForm signupOrganizationForm,
       boolean signupOrganizationFormComplete,
@@ -47,8 +48,19 @@ public class AOServCompletedAction extends AOServAction {
       SignupBillingInformationForm signupBillingInformationForm,
       boolean signupBillingInformationFormComplete
   ) throws Exception {
+    // Forward to previous steps if they have not been completed
     if (!signupSelectPackageFormComplete) {
-      return super.executeAOServStep(
+      return mapping.findForward("aoserv-completed");
+    }
+    if (!signupOrganizationFormComplete) {
+      return mapping.findForward("aoserv-2-completed");
+    }
+    if (!signupTechnicalFormComplete) {
+      return mapping.findForward("aoserv-3-completed");
+    }
+    if (!signupBillingInformationFormComplete) {
+      // Init values for the form
+      return super.executeAoservStep(
           mapping,
           request,
           response,
@@ -62,16 +74,22 @@ public class AOServCompletedAction extends AOServAction {
           signupBillingInformationFormComplete
       );
     }
-    if (!signupOrganizationFormComplete) {
-      return mapping.findForward("aoserv-2");
-    }
-    if (!signupTechnicalFormComplete) {
-      return mapping.findForward("aoserv-3");
-    }
-    if (!signupBillingInformationFormComplete) {
-      return mapping.findForward("aoserv-4");
-    }
     return mapping.findForward("aoserv-5");
+  }
+
+  /**
+   * Clears checkboxes when not in form.
+   */
+  @Override
+  protected void clearCheckboxes(HttpServletRequest request, ActionForm form) {
+    SignupBillingInformationForm signupBillingInformationForm = (SignupBillingInformationForm) form;
+    // Clear the checkboxes if not present in this request
+    if (!"on".equals(request.getParameter("billingUseMonthly"))) {
+      signupBillingInformationForm.setBillingUseMonthly(false);
+    }
+    if (!"on".equals(request.getParameter("billingPayOneYear"))) {
+      signupBillingInformationForm.setBillingPayOneYear(false);
+    }
   }
 
   /**

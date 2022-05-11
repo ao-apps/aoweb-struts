@@ -25,7 +25,7 @@ package com.aoindustries.web.struts.clientarea.control.monitor;
 
 import com.aoapps.lang.i18n.Resources;
 import com.aoapps.net.DomainName;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.backup.BackupPartition;
 import com.aoindustries.aoserv.client.backup.FileReplication;
 import com.aoindustries.aoserv.client.backup.MysqlReplication;
@@ -52,10 +52,10 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author  AO Industries, Inc.
  */
-public class MySQLReplicationMonitorAction extends PermissionAction {
+public class MysqlReplicationMonitorAction extends PermissionAction {
 
   private static final Resources RESOURCES =
-      Resources.getResources(ResourceBundle::getBundle, MySQLReplicationMonitorAction.class);
+      Resources.getResources(ResourceBundle::getBundle, MysqlReplicationMonitorAction.class);
 
   @Override
   public ActionForward executePermissionGranted(
@@ -63,12 +63,12 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
-    AOServConnector rootConn = siteSettings.getRootAOServConnector();
+    AoservConnector rootConn = siteSettings.getRootAoservConnector();
 
-    List<MySQLServerRow> mysqlServerRows = new ArrayList<>();
+    List<MysqlServerRow> mysqlServerRows = new ArrayList<>();
     List<Server> mysqlServers = aoConn.getMysql().getServer().getRows();
     for (Server mysqlServer : mysqlServers) {
       com.aoindustries.aoserv.client.linux.Server linuxServer = mysqlServer.getLinuxServer();
@@ -76,7 +76,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
       try {
         failoverServer = linuxServer.getFailoverServer();
       } catch (SQLException err) {
-        // May be filtered, need to use RootAOServConnector
+        // May be filtered, need to use RootAoservConnector
         failoverServer = rootConn.getLinux().getServer().get(linuxServer.getPkey()).getFailoverServer();
       }
 
@@ -86,7 +86,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
         server.append(" on ").append(failoverServer.getHostname());
       }
 
-      List<MysqlReplication> fmrs = mysqlServer.getFailoverMySQLReplications();
+      List<MysqlReplication> fmrs = mysqlServer.getFailoverMysqlReplications();
       if (!fmrs.isEmpty()) {
         // Query the slaves first, this way the master will always appear equal to or ahead of the slaves
         // since we can't query them both exactly at the same time.
@@ -101,7 +101,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
             FileReplication ffr = fmr.getFailoverFileReplication();
             BackupPartition bp = ffr.getBackupPartition();
             if (bp == null) {
-              // May be filtered, need to use RootAOServConnector
+              // May be filtered, need to use RootAoservConnector
               slave = rootConn.getBackup().getFileReplication().get(ffr.getPkey()).getBackupPartition().getLinuxServer().getHostname();
             } else {
               slave = bp.getLinuxServer().getHostname();
@@ -135,11 +135,11 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
                   new ReplicationRow(
                       error,
                       slave,
-                      slaveStatus.getSlaveIOState(),
+                      slaveStatus.getSlaveIoState(),
                       slaveStatus.getMasterLogFile(),
                       slaveStatus.getReadMasterLogPos(),
-                      slaveStatus.getSlaveIORunning(),
-                      slaveStatus.getSlaveSQLRunning(),
+                      slaveStatus.getSlaveIoRunning(),
+                      slaveStatus.getSlaveSqlRunning(),
                       slaveStatus.getLastErrno(),
                       slaveStatus.getLastError(),
                       secondsBehindMaster
@@ -166,18 +166,18 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
         }
         // Next, query the master and add the results to the rows
         Server.MasterStatus masterStatus;
-        MySQLServerRow mysqlServerRow;
+        MysqlServerRow mysqlServerRow;
         try {
           masterStatus = mysqlServer.getMasterStatus();
           if (masterStatus == null) {
-            mysqlServerRow = new MySQLServerRow(
+            mysqlServerRow = new MysqlServerRow(
                 mysqlServer.getVersion().getVersion(),
                 server.toString(),
                 RESOURCES.getMessage("masterNotRunning"),
                 replications
             );
           } else {
-            mysqlServerRow = new MySQLServerRow(
+            mysqlServerRow = new MysqlServerRow(
                 mysqlServer.getVersion().getVersion(),
                 server.toString(),
                 masterStatus.getFile(),
@@ -187,7 +187,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
           }
         } catch (SQLException err) {
           masterStatus = null;
-          mysqlServerRow = new MySQLServerRow(
+          mysqlServerRow = new MysqlServerRow(
               mysqlServer.getVersion().getVersion(),
               server.toString(),
               RESOURCES.getMessage("sqlException", err.getMessage()),
@@ -195,7 +195,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
           );
         } catch (IOException err) {
           masterStatus = null;
-          mysqlServerRow = new MySQLServerRow(
+          mysqlServerRow = new MysqlServerRow(
               mysqlServer.getVersion().getVersion(),
               server.toString(),
               RESOURCES.getMessage("ioException", err.getMessage()),
@@ -263,7 +263,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
     return permissions;
   }
 
-  public static class MySQLServerRow {
+  public static class MysqlServerRow {
 
     private final String version;
     private final String master;
@@ -273,7 +273,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
     private final String masterLogFile;
     private final String masterLogPos;
 
-    private MySQLServerRow(String version, String master, String lineError, List<ReplicationRow> replications) {
+    private MysqlServerRow(String version, String master, String lineError, List<ReplicationRow> replications) {
       this.version = version;
       this.master = master;
       this.replications = replications;
@@ -283,7 +283,7 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
       this.masterLogPos = null;
     }
 
-    private MySQLServerRow(String version, String master, String masterLogFile, String masterLogPos, List<ReplicationRow> replications) {
+    private MysqlServerRow(String version, String master, String masterLogFile, String masterLogPos, List<ReplicationRow> replications) {
       this.version = version;
       this.master = master;
       this.replications = replications;
@@ -327,11 +327,11 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
     private final boolean error;
     private final DomainName slave;
     private final String lineError;
-    private final String slaveIOState;
+    private final String slaveIoState;
     private final String slaveLogFile;
     private final String slaveLogPos;
-    private final String slaveIORunning;
-    private final String slaveSQLRunning;
+    private final String slaveIoRunning;
+    private final String slaveSqlRunning;
     private final String lastErrno;
     private final String lastError;
     private final String secondsBehindMaster;
@@ -340,11 +340,11 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
       this.error = error;
       this.slave = slave;
       this.lineError = lineError;
-      this.slaveIOState = null;
+      this.slaveIoState = null;
       this.slaveLogFile = null;
       this.slaveLogPos = null;
-      this.slaveIORunning = null;
-      this.slaveSQLRunning = null;
+      this.slaveIoRunning = null;
+      this.slaveSqlRunning = null;
       this.lastErrno = null;
       this.lastError = null;
       this.secondsBehindMaster = null;
@@ -354,11 +354,11 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
     private ReplicationRow(
         boolean error,
         DomainName slave,
-        String slaveIOState,
+        String slaveIoState,
         String slaveLogFile,
         String slaveLogPos,
-        String slaveIORunning,
-        String slaveSQLRunning,
+        String slaveIoRunning,
+        String slaveSqlRunning,
         String lastErrno,
         String lastError,
         String secondsBehindMaster
@@ -366,11 +366,11 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
       this.error = error;
       this.slave = slave;
       this.lineError = null;
-      this.slaveIOState = slaveIOState;
+      this.slaveIoState = slaveIoState;
       this.slaveLogFile = slaveLogFile;
       this.slaveLogPos = slaveLogPos;
-      this.slaveIORunning = slaveIORunning;
-      this.slaveSQLRunning = slaveSQLRunning;
+      this.slaveIoRunning = slaveIoRunning;
+      this.slaveSqlRunning = slaveSqlRunning;
       this.lastErrno = lastErrno;
       this.lastError = lastError;
       this.secondsBehindMaster = secondsBehindMaster;
@@ -388,8 +388,8 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
       return lineError;
     }
 
-    public String getSlaveIOState() {
-      return slaveIOState;
+    public String getSlaveIoState() {
+      return slaveIoState;
     }
 
     public String getSlaveLogFile() {
@@ -400,12 +400,12 @@ public class MySQLReplicationMonitorAction extends PermissionAction {
       return slaveLogPos;
     }
 
-    public String getSlaveIORunning() {
-      return slaveIORunning;
+    public String getSlaveIoRunning() {
+      return slaveIoRunning;
     }
 
-    public String getSlaveSQLRunning() {
-      return slaveSQLRunning;
+    public String getSlaveSqlRunning() {
+      return slaveSqlRunning;
     }
 
     public String getLastErrno() {

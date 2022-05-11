@@ -23,11 +23,12 @@
 
 package com.aoindustries.web.struts.signup;
 
+import static com.aoindustries.web.struts.signup.Resources.PACKAGE_RESOURCES;
+
 import com.aoapps.html.Union_TBODY_THEAD_TFOOT;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.payment.CountryCode;
 import com.aoindustries.web.struts.SiteSettings;
-import static com.aoindustries.web.struts.signup.Resources.PACKAGE_RESOURCES;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public final class SignupOrganizationActionHelper {
       ServletContext servletContext,
       HttpServletRequest request
   ) throws IOException, SQLException {
-    AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
+    AoservConnector rootConn = SiteSettings.getInstance(servletContext).getRootAoservConnector();
 
     // Build the list of countries
     List<CountryOption> countryOptions = getCountryOptions(rootConn);
@@ -64,12 +65,12 @@ public final class SignupOrganizationActionHelper {
 
   /**
    * Gets the options for use in a country list.
-   * Note: you probably want to use the RootAOServConnector to provide a more helpful list than a
+   * Note: you probably want to use the RootAoservConnector to provide a more helpful list than a
    * default user connector.
    *
-   * @see  SiteSettings#getRootAOServConnector()
+   * @see  SiteSettings#getRootAoservConnector()
    */
-  public static List<CountryOption> getCountryOptions(AOServConnector aoConn) throws IOException, SQLException {
+  public static List<CountryOption> getCountryOptions(AoservConnector aoConn) throws IOException, SQLException {
     // Build the list of countries
     List<CountryOption> countryOptions = new ArrayList<>();
     countryOptions.add(new CountryOption("", "---"));
@@ -106,7 +107,7 @@ public final class SignupOrganizationActionHelper {
     }
   }
 
-  public static String getOrganizationCountry(AOServConnector rootConn, SignupOrganizationForm signupOrganizationForm) throws IOException, SQLException {
+  public static String getOrganizationCountry(AoservConnector rootConn, SignupOrganizationForm signupOrganizationForm) throws IOException, SQLException {
     return rootConn.getPayment().getCountryCode().get(signupOrganizationForm.getOrganizationCountry()).getName();
   }
 
@@ -116,7 +117,7 @@ public final class SignupOrganizationActionHelper {
       SignupOrganizationForm signupOrganizationForm
   ) throws IOException, SQLException {
     // Lookup things needed by the view
-    AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
+    AoservConnector rootConn = SiteSettings.getInstance(servletContext).getRootAoservConnector();
 
     // Store as request attribute for the view
     request.setAttribute("organizationCountry", getOrganizationCountry(rootConn, signupOrganizationForm));
@@ -124,55 +125,55 @@ public final class SignupOrganizationActionHelper {
 
   public static void writeEmailConfirmation(
       Union_TBODY_THEAD_TFOOT<?> tbody,
-      AOServConnector rootConn,
+      AoservConnector rootConn,
       SignupOrganizationForm signupOrganizationForm
   ) throws IOException, SQLException {
     tbody.tr__(tr -> tr
-            .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-            .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationName.prompt"))
-            .td__(signupOrganizationForm.getOrganizationName())
+        .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+        .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationName.prompt"))
+        .td__(signupOrganizationForm.getOrganizationName())
     )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationPhone.prompt"))
-                .td__(signupOrganizationForm.getOrganizationPhone())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationPhone.prompt"))
+            .td__(signupOrganizationForm.getOrganizationPhone())
         )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationFax.prompt"))
-                .td__(signupOrganizationForm.getOrganizationFax())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationFax.prompt"))
+            .td__(signupOrganizationForm.getOrganizationFax())
         )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationAddress1.prompt"))
-                .td__(signupOrganizationForm.getOrganizationAddress1())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationAddress1.prompt"))
+            .td__(signupOrganizationForm.getOrganizationAddress1())
         );
     if (!GenericValidator.isBlankOrNull(signupOrganizationForm.getOrganizationAddress2())) {
       tbody.tr__(tr -> tr
-              .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-              .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationAddress2.prompt"))
-              .td__(signupOrganizationForm.getOrganizationAddress2())
+          .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+          .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationAddress2.prompt"))
+          .td__(signupOrganizationForm.getOrganizationAddress2())
       );
     }
     tbody.tr__(tr -> tr
-            .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-            .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationCity.prompt"))
-            .td__(signupOrganizationForm.getOrganizationCity())
+        .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+        .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationCity.prompt"))
+        .td__(signupOrganizationForm.getOrganizationCity())
     )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationState.prompt"))
-                .td__(signupOrganizationForm.getOrganizationState())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationState.prompt"))
+            .td__(signupOrganizationForm.getOrganizationState())
         )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationCountry.prompt"))
-                .td__(getOrganizationCountry(rootConn, signupOrganizationForm))
+            .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationCountry.prompt"))
+            .td__(getOrganizationCountry(rootConn, signupOrganizationForm))
         )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationZip.prompt"))
-                .td__(signupOrganizationForm.getOrganizationZip())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupOrganizationForm.organizationZip.prompt"))
+            .td__(signupOrganizationForm.getOrganizationZip())
         );
   }
 }

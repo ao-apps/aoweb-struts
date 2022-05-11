@@ -25,7 +25,7 @@ package com.aoindustries.web.struts.clientarea.accounting;
 
 import com.aoapps.lang.validation.ValidationException;
 import com.aoapps.net.URIEncoder;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Account;
 import com.aoindustries.aoserv.client.billing.Currency;
 import com.aoindustries.aoserv.client.master.Permission;
@@ -60,7 +60,7 @@ public class MakePaymentSelectCardAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn,
+      AoservConnector aoConn,
       List<Permission> permissions
   ) throws Exception {
     // Redirect when they don't have permissions to retrieve stored cards
@@ -91,7 +91,7 @@ public class MakePaymentSelectCardAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     Account account;
     try {
@@ -139,8 +139,8 @@ public class MakePaymentSelectCardAction extends PermissionAction {
       // Store to request attributes, return success
       request.setAttribute("account", account);
       request.setAttribute("creditCards", creditCards);
-      Payment lastCCT = account.getLastCreditCardTransaction();
-      request.setAttribute("lastPaymentCreditCard", lastCCT == null ? null : lastCCT.getCreditCardProviderUniqueId());
+      Payment lastPaymentCreditCard = account.getLastCreditCardTransaction();
+      request.setAttribute("lastPaymentCreditCard", lastPaymentCreditCard == null ? null : lastPaymentCreditCard.getCreditCardProviderUniqueId());
       return mapping.findForward("success");
     }
   }

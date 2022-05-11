@@ -27,14 +27,14 @@ import com.aoapps.hodgepodge.io.AOPool;
 import com.aoapps.hodgepodge.io.stream.StreamableInput;
 import com.aoapps.hodgepodge.io.stream.StreamableOutput;
 import com.aoapps.net.InetAddress;
-import com.aoindustries.aoserv.client.AOServClientConfiguration;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservClientConfiguration;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.infrastructure.VirtualServer;
 import com.aoindustries.aoserv.client.linux.Server;
 import com.aoindustries.aoserv.client.schema.AoservProtocol;
-import com.aoindustries.aoserv.daemon.client.AOServDaemonConnection;
-import com.aoindustries.aoserv.daemon.client.AOServDaemonConnector;
-import com.aoindustries.aoserv.daemon.client.AOServDaemonProtocol;
+import com.aoindustries.aoserv.daemon.client.AoservDaemonConnection;
+import com.aoindustries.aoserv.daemon.client.AoservDaemonConnector;
+import com.aoindustries.aoserv.daemon.client.AoservDaemonProtocol;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -105,7 +105,7 @@ public class VncConsoleProxySocketHandler {
   };
 
   @SuppressWarnings({"UseSpecificCatch", "TooBroadCatch", "UtilityClassWithPublicConstructor", "CallToThreadStartDuringObjectConstruction"})
-  public VncConsoleProxySocketHandler(final ServletContext servletContext, final AOServConnector rootConn, final Socket socket) {
+  public VncConsoleProxySocketHandler(final ServletContext servletContext, final AoservConnector rootConn, final Socket socket) {
     // This thread will read from socket
     Thread thread = new Thread(
         () -> {
@@ -157,7 +157,7 @@ public class VncConsoleProxySocketHandler {
             socketOut.write(2);
             // VNC Authentication
             byte[] challenge = new byte[16];
-            AOServConnector.getSecureRandom().nextBytes(challenge);
+            AoservConnector.getSecureRandom().nextBytes(challenge);
             socketOut.write(challenge);
             socketOut.flush();
             byte[] response = new byte[16];
@@ -194,7 +194,7 @@ public class VncConsoleProxySocketHandler {
               // Connect through AOServ Platform
               Server.DaemonAccess daemonAccess = virtualServer.requestVncConsoleAccess();
               logger.fine("Got daemon access");
-              AOServDaemonConnector daemonConnector = AOServDaemonConnector.getConnector(
+              AoservDaemonConnector daemonConnector = AoservDaemonConnector.getConnector(
                   daemonAccess.getHost(),
                   InetAddress.UNSPECIFIED_IPV4,
                   daemonAccess.getPort(),
@@ -202,14 +202,14 @@ public class VncConsoleProxySocketHandler {
                   null,
                   100,
                   AOPool.DEFAULT_MAX_CONNECTION_AGE,
-                  AOServClientConfiguration.getSslTruststorePath(),
-                  AOServClientConfiguration.getSslTruststorePassword()
+                  AoservClientConfiguration.getSslTruststorePath(),
+                  AoservClientConfiguration.getSslTruststorePassword()
               );
               logger.fine("Got daemon connector");
-              try (AOServDaemonConnection daemonConn = daemonConnector.getConnection()) {
+              try (AoservDaemonConnection daemonConn = daemonConnector.getConnection()) {
                 logger.fine("Got daemon connection");
                 try {
-                  final StreamableOutput daemonOut = daemonConn.getRequestOut(AOServDaemonProtocol.VNC_CONSOLE);
+                  final StreamableOutput daemonOut = daemonConn.getRequestOut(AoservDaemonProtocol.VNC_CONSOLE);
                   daemonOut.writeLong(daemonAccess.getKey());
                   daemonOut.flush();
                   logger.fine("Sent daemon request");
@@ -217,7 +217,7 @@ public class VncConsoleProxySocketHandler {
                   final StreamableInput daemonIn = daemonConn.getResponseIn();
                   int result = daemonIn.read();
                   logger.fine("Got daemon result");
-                  if (result == AOServDaemonProtocol.NEXT) {
+                  if (result == AoservDaemonProtocol.NEXT) {
                     // Authenticate to actual VNC
                     // Protocol Version handshake
                     for (int c = 0; c < protocolVersion_3_3.length; c++) {
@@ -234,40 +234,40 @@ public class VncConsoleProxySocketHandler {
                     }
                     daemonOut.write(protocolVersion_3_3);
                     daemonOut.flush();
-                    // Security Type
-                    {
-                      int securityType1 = daemonIn.read();
-                      if (securityType1 == -1) {
-                        throw new EOFException("EOF from daemonIn reading securityType1");
+                      // Security Type
+                      {
+                        int securityType1 = daemonIn.read();
+                        if (securityType1 == -1) {
+                          throw new EOFException("EOF from daemonIn reading securityType1");
+                        }
+                        int securityType2 = daemonIn.read();
+                        if (securityType2 == -1) {
+                          throw new EOFException("EOF from daemonIn reading securityType2");
+                        }
+                        int securityType3 = daemonIn.read();
+                        if (securityType3 == -1) {
+                          throw new EOFException("EOF from daemonIn reading securityType3");
+                        }
+                        int securityType4 = daemonIn.read();
+                        if (securityType4 == -1) {
+                          throw new EOFException("EOF from daemonIn reading securityType4");
+                        }
+                        if (
+                            securityType1 != 0
+                                || securityType2 != 0
+                                || securityType3 != 0
+                                || securityType4 != 2
+                        ) {
+                          throw new IOException(
+                              "Mismatched security type from VNC server through daemon: ("
+                                  + securityType1
+                                  + ", " + securityType2
+                                  + ", " + securityType3
+                                  + ", " + securityType4
+                                  + ")"
+                          );
+                        }
                       }
-                      int securityType2 = daemonIn.read();
-                      if (securityType2 == -1) {
-                        throw new EOFException("EOF from daemonIn reading securityType2");
-                      }
-                      int securityType3 = daemonIn.read();
-                      if (securityType3 == -1) {
-                        throw new EOFException("EOF from daemonIn reading securityType3");
-                      }
-                      int securityType4 = daemonIn.read();
-                      if (securityType4 == -1) {
-                        throw new EOFException("EOF from daemonIn reading securityType4");
-                      }
-                      if (
-                          securityType1 != 0
-                              || securityType2 != 0
-                              || securityType3 != 0
-                              || securityType4 != 2
-                      ) {
-                        throw new IOException(
-                            "Mismatched security type from VNC server through daemon: ("
-                                + securityType1
-                                + ", " + securityType2
-                                + ", " + securityType3
-                                + ", " + securityType4
-                                + ")"
-                        );
-                      }
-                    }
                     // VNC Authentication
                     for (int c = 0; c < 16; c++) {
                       int b = daemonIn.read();
@@ -319,7 +319,8 @@ public class VncConsoleProxySocketHandler {
                             logger.log(Level.SEVERE, null, t);
                           }
                         },
-                        VncConsoleProxySocketHandler.class.getSimpleName() + ": " + socket.getInetAddress() + ":" + socket.getPort() + " -> " + socket.getLocalAddress() + ":" + socket.getLocalPort() + ", socketIn -> daemonOut: " + virtualServer.getHost().getName()
+                        VncConsoleProxySocketHandler.class.getSimpleName() + ": " + socket.getInetAddress() + ":" + socket.getPort()
+                            + " -> " + socket.getLocalAddress() + ":" + socket.getLocalPort() + ", socketIn -> daemonOut: " + virtualServer.getHost().getName()
                     );
                     inThread.setDaemon(true); // Don't prevent JVM shutdown
                     inThread.setPriority(Thread.NORM_PRIORITY + 2); // Higher priority for higher performance
@@ -333,9 +334,9 @@ public class VncConsoleProxySocketHandler {
                       socketOut.flush();
                     }
                   } else {
-                    if (result == AOServDaemonProtocol.IO_EXCEPTION) {
+                    if (result == AoservDaemonProtocol.IO_EXCEPTION) {
                       throw new IOException(daemonIn.readUTF());
-                    } else if (result == AOServDaemonProtocol.SQL_EXCEPTION) {
+                    } else if (result == AoservDaemonProtocol.SQL_EXCEPTION) {
                       throw new SQLException(daemonIn.readUTF());
                     } else if (result == -1) {
                       throw new EOFException("EOF from daemonIn");
@@ -367,7 +368,8 @@ public class VncConsoleProxySocketHandler {
             }
           }
         },
-        VncConsoleProxySocketHandler.class.getSimpleName() + ": " + socket.getInetAddress() + ":" + socket.getPort() + " -> " + socket.getLocalAddress() + ":" + socket.getLocalPort() + ", daemonIn -> socketOut"
+        VncConsoleProxySocketHandler.class.getSimpleName() + ": " + socket.getInetAddress() + ":" + socket.getPort()
+            + " -> " + socket.getLocalAddress() + ":" + socket.getLocalPort() + ", daemonIn -> socketOut"
     );
     thread.setDaemon(true); // Don't prevent JVM shutdown
     thread.setPriority(Thread.NORM_PRIORITY + 2); // Higher priority for higher performance

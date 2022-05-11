@@ -54,10 +54,10 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                     <td>
                       <c:choose>
                         <c:when test="${siteSettings.brand.aowebStrutsVncBind.port.port < 5900}">
-                          <c:out value="${siteSettings.brand.aowebStrutsHttpsURL.host}" />::<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port}" />
+                          <c:out value="${siteSettings.brand.aowebStrutsHttpsUrl.host}" />::<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port}" />
                         </c:when>
                         <c:otherwise>
-                          <c:out value="${siteSettings.brand.aowebStrutsHttpsURL.host}" />:<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port - 5900}" />
+                          <c:out value="${siteSettings.brand.aowebStrutsHttpsUrl.host}" />:<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port - 5900}" />
                         </c:otherwise>
                       </c:choose>
                     </td>

@@ -47,11 +47,11 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                   <th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.masterLogPos" /></th>
                   <th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.slave" /></th>
                   <th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.secondsBehindMaster" /></th>
-                  <th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.slaveIOState" /></th>
+                  <th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.slaveIoState" /></th>
                   <th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.slaveLogFile" /></th>
                   <th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.slaveLogPos" /></th>
-                  <th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.slaveIORunning" /></th>
-                  <th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.slaveSQLRunning" /></th>
+                  <th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.slaveIoRunning" /></th>
+                  <th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.slaveSqlRunning" /></th>
                   <th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.lastErrno" /></th>
                   <th style="white-space:pre"><ao:message key="mysqlReplicationMonitor.header.lastError" /></th>
                 </tr>
@@ -112,7 +112,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                         </td>
                         <td style="white-space:nowrap">
                           <logic:equal name="replicationRow" property="error" value="true"><span class="error"></logic:equal>
-                          <ao:write name="replicationRow" property="slaveIOState" />
+                          <ao:write name="replicationRow" property="slaveIoState" />
                           <logic:equal name="replicationRow" property="error" value="true"></span></logic:equal>
                         </td>
                         <td style="white-space:nowrap">
@@ -127,12 +127,12 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                         </td>
                         <td style="white-space:nowrap">
                           <logic:equal name="replicationRow" property="error" value="true"><span class="error"></logic:equal>
-                          <ao:write name="replicationRow" property="slaveIORunning" />
+                          <ao:write name="replicationRow" property="slaveIoRunning" />
                           <logic:equal name="replicationRow" property="error" value="true"></span></logic:equal>
                         </td>
                         <td style="white-space:nowrap">
                           <logic:equal name="replicationRow" property="error" value="true"><span class="error"></logic:equal>
-                          <ao:write name="replicationRow" property="slaveSQLRunning" />
+                          <ao:write name="replicationRow" property="slaveSqlRunning" />
                           <logic:equal name="replicationRow" property="error" value="true"></span></logic:equal>
                         </td>
                         <td style="white-space:nowrap;text-align:right">

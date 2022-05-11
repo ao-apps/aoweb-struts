@@ -23,7 +23,7 @@
 
 package com.aoindustries.web.struts.clientarea.control.vnc;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.net.Bind;
 import com.aoindustries.aoserv.client.reseller.Brand;
 import com.aoindustries.web.struts.SiteSettings;
@@ -81,7 +81,7 @@ public class VncConsoleProxySocketServer implements Runnable {
         Brand brand = siteSettings.getBrand();
         Bind vncBind = brand.getAowebStrutsVncBind();
         InetAddress inetAddress = InetAddress.getByName(vncBind.getIpAddress().getInetAddress().toString());
-        AOServConnector rootConn = siteSettings.getRootAOServConnector();
+        AoservConnector rootConn = siteSettings.getRootAoservConnector();
         // Init SSL without using system properties because default SSLContext may be already set
         // From: http://java.sun.com/j2se/1.5.0/docs/guide/security/jsse/JSSERefGuide.html  "Multiple and Dynamic Keystores"
         KeyStore.Builder fsBuilder = KeyStore.Builder.newInstance(

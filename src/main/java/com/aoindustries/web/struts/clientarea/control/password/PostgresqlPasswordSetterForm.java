@@ -28,7 +28,7 @@ import com.aoapps.encoding.Serialization;
 import com.aoapps.encoding.servlet.SerializationEE;
 import com.aoapps.lang.exception.WrappedException;
 import com.aoapps.lang.validation.ValidationException;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.password.PasswordChecker;
 import com.aoindustries.aoserv.client.postgresql.User;
 import com.aoindustries.web.struts.AuthenticatedAction;
@@ -45,13 +45,13 @@ import org.apache.struts.action.ActionMessage;
 /**
  * @author AO Industries, Inc.
  */
-public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializable {
+public class PostgresqlPasswordSetterForm extends ActionForm implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   private List<String> packages;
   private List<String> usernames;
-  private List<String> postgreSQLServers;
+  private List<String> postgresqlServers;
   private List<String> servers;
   private List<String> newPasswords;
   private List<String> confirmPasswords;
@@ -61,7 +61,7 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
     super.reset(mapping, request);
     setPackages(new AutoGrowArrayList<>());
     setUsernames(new AutoGrowArrayList<>());
-    setPostgreSQLServers(new AutoGrowArrayList<>());
+    setPostgresqlServers(new AutoGrowArrayList<>());
     setServers(new AutoGrowArrayList<>());
     setNewPasswords(new AutoGrowArrayList<>());
     setConfirmPasswords(new AutoGrowArrayList<>());
@@ -83,12 +83,12 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
     this.usernames = usernames;
   }
 
-  public final List<String> getPostgreSQLServers() {
-    return postgreSQLServers;
+  public final List<String> getPostgresqlServers() {
+    return postgresqlServers;
   }
 
-  public final void setPostgreSQLServers(List<String> postgreSQLServers) {
-    this.postgreSQLServers = postgreSQLServers;
+  public final void setPostgresqlServers(List<String> postgresqlServers) {
+    this.postgresqlServers = postgresqlServers;
   }
 
   public final List<String> getServers() {
@@ -122,7 +122,7 @@ public class PostgreSQLPasswordSetterForm extends ActionForm implements Serializ
       if (errors == null) {
         errors = new ActionErrors();
       }
-      AOServConnector aoConn = AuthenticatedAction.getAoConn(request, null);
+      AoservConnector aoConn = AuthenticatedAction.getAoConn(request, null);
       if (aoConn == null) {
         throw new RuntimeException("aoConn is null");
       }

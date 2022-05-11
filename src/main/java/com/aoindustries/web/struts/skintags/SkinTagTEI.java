@@ -23,12 +23,13 @@
 
 package com.aoindustries.web.struts.skintags;
 
+import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
+
 import com.aoapps.encoding.Doctype;
 import com.aoapps.encoding.Serialization;
 import com.aoapps.taglib.HtmlTag;
 import com.aoindustries.web.struts.Constants;
 import com.aoindustries.web.struts.Formtype;
-import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;

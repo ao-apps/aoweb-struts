@@ -26,7 +26,7 @@ package com.aoindustries.web.struts;
 import com.aoapps.lang.validation.ValidationException;
 import com.aoapps.servlet.attribute.AttributeEE;
 import com.aoapps.web.resources.registry.Registry;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.linux.User;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -41,7 +41,7 @@ import org.apache.struts.action.ActionMapping;
 /**
  * Ensures the user is logged in.  Forwards to "login" if not logged in.  Otherwise, it sets the
  * request attribute {@link Constants#AO_CONN} and then calls
- * <code>execute(ActionMapping,ActionForm,HttpServletRequest,HttpServletResponse,Locale,Skin,AOServConnector)</code>.
+ * <code>execute(ActionMapping,ActionForm,HttpServletRequest,HttpServletResponse,Locale,Skin,AoservConnector)</code>.
  * The default implementation of this new <code>execute</code> method simply returns the mapping
  * of "success".<br>
  * <br>
@@ -63,7 +63,7 @@ public abstract class AuthenticatedAction extends PageAction {
       Registry pageRegistry
   ) throws Exception {
     // Handle login
-    AOServConnector aoConn = getAoConn(request, response);
+    AoservConnector aoConn = getAoConn(request, response);
     if (aoConn == null) {
       String target = request.getRequestURL().toString();
       if (!target.endsWith("/login.do")) {
@@ -85,19 +85,19 @@ public abstract class AuthenticatedAction extends PageAction {
   }
 
   /**
-   * Gets the AOServConnector that represents the actual login id.  This will not change when
+   * Gets the AoservConnector that represents the actual login id.  This will not change when
    * the user performs a switch user ({@link Constants#SU})..
    */
-  public static AOServConnector getAuthenticatedAoConn(HttpServletRequest request, HttpServletResponse response) {
+  public static AoservConnector getAuthenticatedAoConn(HttpServletRequest request, HttpServletResponse response) {
     return Constants.AUTHENTICATED_AO_CONN.context(request.getSession(false)).get();
   }
 
   /**
-   * Gets the AOServConnector for the user or <code>null</code> if not logged in.
+   * Gets the AoservConnector for the user or <code>null</code> if not logged in.
    * This also handles the {@link Constants#SU} behavior that was stored in the session by {@link SwitchUserRequestListener}.
    */
-  public static AOServConnector getAoConn(HttpServletRequest request, HttpServletResponse response) {
-    AOServConnector authenticatedAoConn = getAuthenticatedAoConn(request, response);
+  public static AoservConnector getAoConn(HttpServletRequest request, HttpServletResponse response) {
+    AoservConnector authenticatedAoConn = getAuthenticatedAoConn(request, response);
     // Not logged in
     if (authenticatedAoConn == null) {
       return null;
@@ -110,7 +110,7 @@ public abstract class AuthenticatedAction extends PageAction {
     if (su != null) {
       suRequestedAttribute.remove();
       try {
-        AOServConnector aoConn;
+        AoservConnector aoConn;
         if (su.isEmpty()) {
           aoConn = authenticatedAoConn;
         } else {
@@ -130,7 +130,7 @@ public abstract class AuthenticatedAction extends PageAction {
     }
 
     // Look for previous effective user
-    AOServConnector aoConn = Constants.AO_CONN.context(session).get();
+    AoservConnector aoConn = Constants.AO_CONN.context(session).get();
     if (aoConn != null) {
       return aoConn;
     }
@@ -149,7 +149,7 @@ public abstract class AuthenticatedAction extends PageAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     return mapping.findForward("success");
   }

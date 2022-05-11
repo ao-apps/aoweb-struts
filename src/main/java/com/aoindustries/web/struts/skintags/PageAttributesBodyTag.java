@@ -44,7 +44,7 @@ public abstract class PageAttributesBodyTag extends BodyTagSupport {
   }
 
   static PageAttributes getPageAttributes(ServletRequest request) {
-    return PageAttributes.REQUEST_ATTRIBUTE.context(request).computeIfAbsent(__ -> new PageAttributes());
+    return PageAttributes.REQUEST_ATTRIBUTE.context(request).computeIfAbsent(name -> new PageAttributes());
   }
 
   static PageAttributes getPageAttributes(PageContext pageContext) {
@@ -52,6 +52,8 @@ public abstract class PageAttributesBodyTag extends BodyTagSupport {
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @deprecated  You should probably be implementing in {@link #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)}
    *
    * @see  #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)
@@ -85,6 +87,8 @@ public abstract class PageAttributesBodyTag extends BodyTagSupport {
   }*/
 
   /**
+   * {@inheritDoc}
+   *
    * @deprecated  You should probably be implementing in {@link #doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)}
    *
    * @see  #doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)

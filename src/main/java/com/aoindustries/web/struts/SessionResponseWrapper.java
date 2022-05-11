@@ -278,7 +278,7 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
           }
         }
 
-        URIParameters splitURIParameters = null;
+        URIParameters splitUriParameters = null;
         MutableURIParameters cookieParams = null;
 
         if (session != null) {
@@ -292,10 +292,10 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
               if (!code.equals(defaultLocale.getLanguage())) {
                 for (Skin.Language language : languages) {
                   if (language.getCode().equals(code)) {
-                    if (splitURIParameters == null) {
-                      splitURIParameters = URIParametersUtils.of(iri.getQueryString());
+                    if (splitUriParameters == null) {
+                      splitUriParameters = URIParametersUtils.of(iri.getQueryString());
                     }
-                    if (!splitURIParameters.getParameterMap().containsKey(Constants.LANGUAGE)) {
+                    if (!splitUriParameters.getParameterMap().containsKey(Constants.LANGUAGE)) {
                       if (cookieParams == null) {
                         cookieParams = new URIParametersMap();
                       }
@@ -319,10 +319,10 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
                   // Make sure it is one of the allowed skins
                   for (Skin skin : skins) {
                     if (skin.getName().equals(layout)) {
-                      if (splitURIParameters == null) {
-                        splitURIParameters = URIParametersUtils.of(iri.getQueryString());
+                      if (splitUriParameters == null) {
+                        splitUriParameters = URIParametersUtils.of(iri.getQueryString());
                       }
-                      if (!splitURIParameters.getParameterMap().containsKey(Constants.LAYOUT.getName())) {
+                      if (!splitUriParameters.getParameterMap().containsKey(Constants.LAYOUT.getName())) {
                         if (cookieParams == null) {
                           cookieParams = new URIParametersMap();
                         }
@@ -337,10 +337,10 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
             // Add any switch-user
             String su = Constants.SU_REQUESTED.context(session).get();
             if (su != null && !su.isEmpty()) {
-              if (splitURIParameters == null) {
-                splitURIParameters = URIParametersUtils.of(iri.getQueryString());
+              if (splitUriParameters == null) {
+                splitUriParameters = URIParametersUtils.of(iri.getQueryString());
               }
-              if (!splitURIParameters.getParameterMap().containsKey(Constants.SU)) {
+              if (!splitUriParameters.getParameterMap().containsKey(Constants.SU)) {
                 if (cookieParams == null) {
                   cookieParams = new URIParametersMap();
                 }

@@ -25,7 +25,7 @@ package com.aoindustries.web.struts.signup;
 
 import com.aoapps.net.URIEncoder;
 import com.aoapps.web.resources.registry.Registry;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.billing.PackageCategory;
 import com.aoindustries.aoserv.client.billing.PackageDefinition;
 import com.aoindustries.web.struts.PageAction;
@@ -53,7 +53,7 @@ public class IndexAction extends PageAction {
       HttpServletResponse response,
       Registry pageRegistry
   ) throws Exception {
-    AOServConnector rootConn = SiteSettings.getInstance(getServlet().getServletContext()).getRootAOServConnector();
+    AoservConnector rootConn = SiteSettings.getInstance(getServlet().getServletContext()).getRootAoservConnector();
 
     // Determine the active packages per category
     Map<PackageCategory, List<PackageDefinition>> categories = rootConn.getCurrentAdministrator().getUsername().getPackage().getAccount().getActivePackageDefinitions();

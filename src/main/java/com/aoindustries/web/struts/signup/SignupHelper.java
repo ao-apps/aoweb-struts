@@ -52,7 +52,7 @@ public final class SignupHelper {
       ScopeEE.Session.Attribute<T> attribute,
       Supplier<T> factory
   ) {
-    return attribute.context(session).computeIfAbsent(__ -> {
+    return attribute.context(session).computeIfAbsent(name -> {
       T form = factory.get();
       form.setServlet(servlet);
       return form;

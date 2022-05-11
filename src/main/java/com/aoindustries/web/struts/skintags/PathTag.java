@@ -69,6 +69,8 @@ public class PathTag extends EncodingBufferedTag implements ParamsAttribute, Dyn
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @see  ParamUtils#addDynamicAttribute(java.lang.String, java.lang.String, java.lang.Object, java.util.List, com.aoapps.taglib.ParamsAttribute)
    */
   @Override

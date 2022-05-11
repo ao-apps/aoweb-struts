@@ -23,7 +23,7 @@
 
 package com.aoindustries.web.struts.clientarea.control.password;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.mysql.Server;
 import com.aoindustries.aoserv.client.mysql.User;
@@ -40,11 +40,11 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 /**
- * Prepares for MySQL user password setting.  Populates lists in mySQLPasswordSetterForm.
+ * Prepares for MySQL user password setting.  Populates lists in mysqlPasswordSetterForm.
  *
  * @author  AO Industries, Inc.
  */
-public class MySQLPasswordSetterAction extends PermissionAction {
+public class MysqlPasswordSetterAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
@@ -52,26 +52,26 @@ public class MySQLPasswordSetterAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
-    MySQLPasswordSetterForm mySQLPasswordSetterForm = (MySQLPasswordSetterForm) form;
+    MysqlPasswordSetterForm mysqlPasswordSetterForm = (MysqlPasswordSetterForm) form;
 
     List<UserServer> msus = aoConn.getMysql().getUserServer().getRows();
 
     List<String> packages = new ArrayList<>(msus.size());
     List<String> usernames = new ArrayList<>(msus.size());
-    List<String> mySQLServers = new ArrayList<>(msus.size());
+    List<String> mysqlServers = new ArrayList<>(msus.size());
     List<String> servers = new ArrayList<>(msus.size());
     List<String> newPasswords = new ArrayList<>(msus.size());
     List<String> confirmPasswords = new ArrayList<>(msus.size());
     for (UserServer msu : msus) {
       if (msu.canSetPassword()) {
-        User mu = msu.getMySQLUser();
+        User mu = msu.getMysqlUser();
         com.aoindustries.aoserv.client.account.User un = mu.getUsername();
-        Server ms = msu.getMySQLServer();
+        Server ms = msu.getMysqlServer();
         packages.add(un.getPackage().getName().toString());
         usernames.add(un.getUsername().toString());
-        mySQLServers.add(ms.getName().toString());
+        mysqlServers.add(ms.getName().toString());
         servers.add(ms.getLinuxServer().getHostname().toString());
         newPasswords.add("");
         confirmPasswords.add("");
@@ -79,12 +79,12 @@ public class MySQLPasswordSetterAction extends PermissionAction {
     }
 
     // Store to the form
-    mySQLPasswordSetterForm.setPackages(packages);
-    mySQLPasswordSetterForm.setUsernames(usernames);
-    mySQLPasswordSetterForm.setMySQLServers(mySQLServers);
-    mySQLPasswordSetterForm.setServers(servers);
-    mySQLPasswordSetterForm.setNewPasswords(newPasswords);
-    mySQLPasswordSetterForm.setConfirmPasswords(confirmPasswords);
+    mysqlPasswordSetterForm.setPackages(packages);
+    mysqlPasswordSetterForm.setUsernames(usernames);
+    mysqlPasswordSetterForm.setMysqlServers(mysqlServers);
+    mysqlPasswordSetterForm.setServers(servers);
+    mysqlPasswordSetterForm.setNewPasswords(newPasswords);
+    mysqlPasswordSetterForm.setConfirmPasswords(confirmPasswords);
 
     return mapping.findForward("success");
   }

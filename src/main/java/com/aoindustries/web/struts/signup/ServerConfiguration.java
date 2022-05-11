@@ -57,19 +57,19 @@ public class ServerConfiguration {
   }
 
   public static ServerConfiguration getMinimumConfiguration(PackageDefinition packageDefinition) throws SQLException, IOException {
-    List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
+    final List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
 
     // Calculate the total minimum monthly
-    Money setup = packageDefinition.getSetupFee();
+    final Money setup = packageDefinition.getSetupFee();
     Monies minimumMonthly = Monies.of(packageDefinition.getMonthlyRate());
 
     // Find the maximum number of different resources and the cheapest options
     int maxPowers = 0;
     PackageDefinitionLimit cheapestPower = null;
-    int maxCPUs = 0;
-    PackageDefinitionLimit cheapestCPU = null;
-    int maxRAMs = 0;
-    PackageDefinitionLimit cheapestRAM = null;
+    int maxCpus = 0;
+    PackageDefinitionLimit cheapestCpu = null;
+    int maxRams = 0;
+    PackageDefinitionLimit cheapestRam = null;
     int maxSataControllers = 0;
     PackageDefinitionLimit cheapestSataController = null;
     int maxScsiControllers = 0;
@@ -97,32 +97,32 @@ public class ServerConfiguration {
       } else if (resourceName.startsWith("hardware_processor_")) {
         int limitCpu = limit.getHardLimit();
         if (limitCpu > 0) {
-          if (limitCpu > maxCPUs) {
-            maxCPUs = limitCpu;
+          if (limitCpu > maxCpus) {
+            maxCpus = limitCpu;
           }
-          if (cheapestCPU == null) {
-            cheapestCPU = limit;
+          if (cheapestCpu == null) {
+            cheapestCpu = limit;
           } else {
             Monies additionalRate = Monies.of(limit.getAdditionalRate());
-            Monies cheapestRate = Monies.of(cheapestCPU.getAdditionalRate());
+            Monies cheapestRate = Monies.of(cheapestCpu.getAdditionalRate());
             if (additionalRate.compareTo(cheapestRate) < 0) {
-              cheapestCPU = limit;
+              cheapestCpu = limit;
             }
           }
         }
       } else if (resourceName.startsWith("hardware_ram_")) {
-        int limitRAM = limit.getHardLimit();
-        if (limitRAM > 0) {
-          if (limitRAM > maxRAMs) {
-            maxRAMs = limitRAM;
+        int limitRam = limit.getHardLimit();
+        if (limitRam > 0) {
+          if (limitRam > maxRams) {
+            maxRams = limitRam;
           }
-          if (cheapestRAM == null) {
-            cheapestRAM = limit;
+          if (cheapestRam == null) {
+            cheapestRam = limit;
           } else {
             Monies additionalRate = Monies.of(limit.getAdditionalRate());
-            Monies cheapestRate = Monies.of(cheapestRAM.getAdditionalRate());
+            Monies cheapestRate = Monies.of(cheapestRam.getAdditionalRate());
             if (additionalRate.compareTo(cheapestRate) < 0) {
-              cheapestRAM = limit;
+              cheapestRam = limit;
             }
           }
         }
@@ -176,11 +176,11 @@ public class ServerConfiguration {
         }
       }
     }
-    if (cheapestCPU == null) {
-      throw new SQLException("Unable to find cheapestCPU");
+    if (cheapestCpu == null) {
+      throw new SQLException("Unable to find cheapestCpu");
     }
-    if (cheapestRAM == null) {
-      throw new SQLException("Unable to find cheapestRAM");
+    if (cheapestRam == null) {
+      throw new SQLException("Unable to find cheapestRam");
     }
     if (cheapestDisk == null) {
       throw new SQLException("Unable to find cheapestDisk");
@@ -201,29 +201,29 @@ public class ServerConfiguration {
     }
 
     // Build the CPU descriptions
-    if (cheapestCPU == null) {
-      throw new SQLException("Unable to find cheapestCPU");
+    if (cheapestCpu == null) {
+      throw new SQLException("Unable to find cheapestCpu");
     }
     StringBuilder minimumCpu = new StringBuilder();
-    if (maxCPUs != 1) {
-      minimumCpu.append(maxCPUs).append('×');
+    if (maxCpus != 1) {
+      minimumCpu.append(maxCpus).append('×');
     }
-    minimumCpu.append(cheapestCPU.getResource().toString());
+    minimumCpu.append(cheapestCpu.getResource().toString());
 
     // Add the CPU costs
-    if (cheapestCPU.getAdditionalRate() != null) {
-      minimumMonthly = minimumMonthly.add(cheapestCPU.getAdditionalRate().multiply(BigDecimal.valueOf(maxCPUs)));
+    if (cheapestCpu.getAdditionalRate() != null) {
+      minimumMonthly = minimumMonthly.add(cheapestCpu.getAdditionalRate().multiply(BigDecimal.valueOf(maxCpus)));
     }
 
     // Build the RAM description
-    if (cheapestRAM == null) {
-      throw new SQLException("Unable to find cheapestRAM");
+    if (cheapestRam == null) {
+      throw new SQLException("Unable to find cheapestRam");
     }
     StringBuilder minimumRam = new StringBuilder();
-    minimumRam.append(cheapestRAM.getResource().toString());
+    minimumRam.append(cheapestRam.getResource().toString());
 
     // Add the RAM cost
-    minimumMonthly = minimumMonthly.add(cheapestRAM.getAdditionalRate());
+    minimumMonthly = minimumMonthly.add(cheapestRam.getAdditionalRate());
 
     // Build the SATA controller description
     StringBuilder minimumSataController = new StringBuilder();
@@ -268,19 +268,19 @@ public class ServerConfiguration {
   }
 
   public static ServerConfiguration getMaximumConfiguration(PackageDefinition packageDefinition) throws SQLException, IOException {
-    List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
+    final List<PackageDefinitionLimit> limits = packageDefinition.getLimits();
 
     // Calculate the total maximum monthly
-    Money setup = packageDefinition.getSetupFee();
+    final Money setup = packageDefinition.getSetupFee();
     Monies maximumMonthly = Monies.of(packageDefinition.getMonthlyRate());
 
     // Find the maximum number of different resources and the most expensive options
     int maxPowers = 0;
     PackageDefinitionLimit expensivePower = null;
-    int maxCPUs = 0;
-    PackageDefinitionLimit expensiveCPU = null;
-    int maxRAMs = 0;
-    PackageDefinitionLimit expensiveRAM = null;
+    int maxCpus = 0;
+    PackageDefinitionLimit expensiveCpu = null;
+    int maxRams = 0;
+    PackageDefinitionLimit expensiveRam = null;
     int maxSataControllers = 0;
     PackageDefinitionLimit expensiveSataController = null;
     int maxScsiControllers = 0;
@@ -308,32 +308,32 @@ public class ServerConfiguration {
       } else if (resourceName.startsWith("hardware_processor_")) {
         int limitCpu = limit.getHardLimit();
         if (limitCpu > 0) {
-          if (limitCpu > maxCPUs) {
-            maxCPUs = limitCpu;
+          if (limitCpu > maxCpus) {
+            maxCpus = limitCpu;
           }
-          if (expensiveCPU == null) {
-            expensiveCPU = limit;
+          if (expensiveCpu == null) {
+            expensiveCpu = limit;
           } else {
             Monies additionalRate = Monies.of(limit.getAdditionalRate());
-            Monies expensiveRate = Monies.of(expensiveCPU.getAdditionalRate());
+            Monies expensiveRate = Monies.of(expensiveCpu.getAdditionalRate());
             if (additionalRate.compareTo(expensiveRate) > 0) {
-              expensiveCPU = limit;
+              expensiveCpu = limit;
             }
           }
         }
       } else if (resourceName.startsWith("hardware_ram_")) {
-        int limitRAM = limit.getHardLimit();
-        if (limitRAM > 0) {
-          if (limitRAM > maxRAMs) {
-            maxRAMs = limitRAM;
+        int limitRam = limit.getHardLimit();
+        if (limitRam > 0) {
+          if (limitRam > maxRams) {
+            maxRams = limitRam;
           }
-          if (expensiveRAM == null) {
-            expensiveRAM = limit;
+          if (expensiveRam == null) {
+            expensiveRam = limit;
           } else {
             Monies additionalRate = Monies.of(limit.getAdditionalRate());
-            Monies expensiveRate = Monies.of(expensiveRAM.getAdditionalRate());
+            Monies expensiveRate = Monies.of(expensiveRam.getAdditionalRate());
             if (additionalRate.compareTo(expensiveRate) > 0) {
-              expensiveRAM = limit;
+              expensiveRam = limit;
             }
           }
         }
@@ -403,33 +403,33 @@ public class ServerConfiguration {
     }
 
     // Build the CPU descriptions
-    if (expensiveCPU == null) {
-      throw new SQLException("Unable to find expensiveCPU");
+    if (expensiveCpu == null) {
+      throw new SQLException("Unable to find expensiveCpu");
     }
     StringBuilder maximumCpu = new StringBuilder();
-    if (maxCPUs != 1) {
-      maximumCpu.append(maxCPUs).append('×');
+    if (maxCpus != 1) {
+      maximumCpu.append(maxCpus).append('×');
     }
-    maximumCpu.append(expensiveCPU.getResource().toString());
+    maximumCpu.append(expensiveCpu.getResource().toString());
 
     // Add the CPU costs
-    if (expensiveCPU.getAdditionalRate() != null) {
-      maximumMonthly = maximumMonthly.add(expensiveCPU.getAdditionalRate().multiply(BigDecimal.valueOf(maxCPUs)));
+    if (expensiveCpu.getAdditionalRate() != null) {
+      maximumMonthly = maximumMonthly.add(expensiveCpu.getAdditionalRate().multiply(BigDecimal.valueOf(maxCpus)));
     }
 
     // Build the RAM description
-    if (expensiveRAM == null) {
-      throw new SQLException("Unable to find expensiveRAM");
+    if (expensiveRam == null) {
+      throw new SQLException("Unable to find expensiveRam");
     }
     StringBuilder maximumRam = new StringBuilder();
-    if (maxRAMs > 1) {
-      maximumRam.append(maxRAMs).append('×');
+    if (maxRams > 1) {
+      maximumRam.append(maxRams).append('×');
     }
-    maximumRam.append(expensiveRAM.getResource().toString());
+    maximumRam.append(expensiveRam.getResource().toString());
 
     // Add the RAM cost
-    if (expensiveRAM.getAdditionalRate() != null) {
-      maximumMonthly = maximumMonthly.add(expensiveRAM.getAdditionalRate().multiply(BigDecimal.valueOf(maxRAMs)));
+    if (expensiveRam.getAdditionalRate() != null) {
+      maximumMonthly = maximumMonthly.add(expensiveRam.getAdditionalRate().multiply(BigDecimal.valueOf(maxRams)));
     }
 
     // Build the SATA controller description

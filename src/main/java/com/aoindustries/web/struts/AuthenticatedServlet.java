@@ -24,7 +24,7 @@
 package com.aoindustries.web.struts;
 
 import com.aoapps.net.URIEncoder;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import java.io.IOException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +48,7 @@ public abstract class AuthenticatedServlet extends HttpServlet {
   ) throws IOException {
     // Must be logged in
     HttpSession session = request.getSession(false);
-    AOServConnector aoConn = Constants.AO_CONN.context(session).get();
+    AoservConnector aoConn = Constants.AO_CONN.context(session).get();
     if (aoConn == null) {
       // Save target for later
       String target = request.getRequestURL().toString();
@@ -88,6 +88,6 @@ public abstract class AuthenticatedServlet extends HttpServlet {
   public abstract void doGet(
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws IOException;
 }

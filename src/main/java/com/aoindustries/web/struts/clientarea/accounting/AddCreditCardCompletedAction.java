@@ -26,11 +26,11 @@ package com.aoindustries.web.struts.clientarea.accounting;
 import com.aoapps.lang.Strings;
 import com.aoapps.payments.CreditCard;
 import com.aoapps.payments.CreditCardProcessor;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Account;
 import com.aoindustries.aoserv.client.account.Profile;
-import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.AccountGroup;
+import com.aoindustries.aoserv.creditcards.AoservConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.web.struts.SiteSettings;
 import java.sql.SQLException;
@@ -55,7 +55,7 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     AddCreditCardForm addCreditCardForm = (AddCreditCardForm) form;
 
@@ -81,7 +81,7 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
 
     // Get the credit card processor for the root connector of this website
     SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
-    AOServConnector rootConn = siteSettings.getRootAOServConnector();
+    AoservConnector rootConn = siteSettings.getRootAoservConnector();
     CreditCardProcessor creditCardProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootConn);
     if (creditCardProcessor == null) {
       throw new SQLException("Unable to find enabled CreditCardProcessor for root connector");
@@ -95,7 +95,7 @@ public class AddCreditCardCompletedAction extends AddCreditCardAction {
     String principalName = aoConn.getCurrentAdministrator().getUsername().getUsername().toString();
     String groupName = account_name;
     Profile profile = account.getProfile();
-    creditCardProcessor.storeCreditCard(new AOServConnectorPrincipal(rootConn, principalName),
+    creditCardProcessor.storeCreditCard(new AoservConnectorPrincipal(rootConn, principalName),
         new AccountGroup(aoConn.getAccount().getAccount().get(Account.Name.valueOf(account_name)), groupName),
         new CreditCard(
             null, // persistenceUniqueId

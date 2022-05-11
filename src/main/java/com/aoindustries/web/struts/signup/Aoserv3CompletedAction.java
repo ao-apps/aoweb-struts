@@ -23,9 +23,6 @@
 
 package com.aoindustries.web.struts.signup;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForward;
@@ -34,14 +31,14 @@ import org.apache.struts.action.ActionMapping;
 /**
  * @author  AO Industries, Inc.
  */
-public class AOServ5Action extends AOServStepAction {
+public class Aoserv3CompletedAction extends Aoserv3Action {
 
   @Override
-  public ActionForward executeAOServStep(
+  public ActionForward executeAoservStep(
       ActionMapping mapping,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServSignupSelectPackageForm signupSelectPackageForm,
+      AoservSignupSelectPackageForm signupSelectPackageForm,
       boolean signupSelectPackageFormComplete,
       SignupOrganizationForm signupOrganizationForm,
       boolean signupOrganizationFormComplete,
@@ -57,37 +54,32 @@ public class AOServ5Action extends AOServStepAction {
       return mapping.findForward("aoserv-2-completed");
     }
     if (!signupTechnicalFormComplete) {
-      return mapping.findForward("aoserv-3-completed");
+      // Init values for the form
+      return super.executeAoservStep(
+          mapping,
+          request,
+          response,
+          signupSelectPackageForm,
+          signupSelectPackageFormComplete,
+          signupOrganizationForm,
+          signupOrganizationFormComplete,
+          signupTechnicalForm,
+          signupTechnicalFormComplete,
+          signupBillingInformationForm,
+          signupBillingInformationFormComplete
+      );
     }
     if (!signupBillingInformationFormComplete) {
-      return mapping.findForward("aoserv-4-completed");
+      return mapping.findForward("aoserv-4");
     }
-
-    initRequestAttributes(
-        request,
-        response,
-        signupSelectPackageForm,
-        signupOrganizationForm,
-        signupTechnicalForm,
-        signupBillingInformationForm
-    );
-
-    return mapping.findForward("input");
+    return mapping.findForward("aoserv-5");
   }
 
-  protected void initRequestAttributes(
-      HttpServletRequest request,
-      HttpServletResponse response,
-      SignupSelectPackageForm signupSelectPackageForm,
-      SignupOrganizationForm signupOrganizationForm,
-      SignupTechnicalForm signupTechnicalForm,
-      SignupBillingInformationForm signupBillingInformationForm
-  ) throws IOException, SQLException {
-    ServletContext servletContext = getServlet().getServletContext();
-
-    SignupSelectPackageActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectPackageForm);
-    SignupOrganizationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupOrganizationForm);
-    SignupTechnicalActionHelper.setConfirmationRequestAttributes(servletContext, request, signupTechnicalForm);
-    SignupBillingInformationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupBillingInformationForm);
+  /**
+   * Errors are not cleared for the complete step.
+   */
+  @Override
+  protected void clearErrors(HttpServletRequest req) {
+    // Do nothing
   }
 }

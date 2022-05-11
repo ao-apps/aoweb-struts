@@ -28,7 +28,7 @@ import com.aoapps.lang.i18n.CurrencyUtil;
 import com.aoapps.lang.i18n.Money;
 import com.aoapps.lang.i18n.ThreadLocale;
 import com.aoapps.payments.TransactionResult;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.web.struts.SiteSettings;
 import java.io.IOException;
 import java.io.Serializable;
@@ -53,7 +53,7 @@ public class MakePaymentNewCardForm extends AddCreditCardForm implements Seriali
   private String paymentAmount;
 
   /**
-   * Should be one of "", "store", "automatic"
+   * Should be one of "", "store", "automatic".
    */
   private String storeCard;
 
@@ -103,7 +103,7 @@ public class MakePaymentNewCardForm extends AddCreditCardForm implements Seriali
       } else {
         ActionServlet myServlet = getServlet();
         if (myServlet != null) {
-          AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
+          AoservConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAoservConnector();
           com.aoindustries.aoserv.client.billing.Currency aoservCurrency = rootConn.getBilling().getCurrency().get(currency);
           if (aoservCurrency != null) {
             javaCurrency = aoservCurrency.getCurrency();

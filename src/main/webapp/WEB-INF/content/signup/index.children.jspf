@@ -23,7 +23,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
-<c:set var="rootConn" value="${siteSettings.rootAOServConnector}" />
+<c:set var="rootConn" value="${siteSettings.rootAoservConnector}" />
 <c:set var="activePackageDefinitions" value="${rootConn.currentAdministrator.username['package'].account.activePackageDefinitions}" />
 <c:set var="packageCategories" value="${rootConn.billing.PackageCategory.map}" />
 <c:if test="${activePackageDefinitions[packageCategories.application] != null}">

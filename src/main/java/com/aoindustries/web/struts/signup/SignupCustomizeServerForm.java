@@ -26,7 +26,7 @@ package com.aoindustries.web.struts.signup;
 import com.aoapps.collections.AutoGrowArrayList;
 import com.aoapps.lang.exception.WrappedException;
 import com.aoapps.servlet.attribute.ScopeEE;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.billing.PackageDefinition;
 import com.aoindustries.aoserv.client.billing.PackageDefinitionLimit;
 import com.aoindustries.web.struts.SessionActionForm;
@@ -74,8 +74,7 @@ public abstract class SignupCustomizeServerForm extends ActionForm implements Se
             && ramOption == -1
             && sataControllerOption == -1
             && scsiControllerOption == -1
-            && diskOptions.isEmpty()
-    ;
+            && diskOptions.isEmpty();
   }
 
   public final int getPowerOption() {
@@ -136,9 +135,9 @@ public abstract class SignupCustomizeServerForm extends ActionForm implements Se
       ActionServlet myServlet = getServlet();
 
       // Find the connector
-      AOServConnector rootConn;
+      AoservConnector rootConn;
       if (myServlet != null) {
-        rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
+        rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAoservConnector();
       } else {
         rootConn = null;
       }

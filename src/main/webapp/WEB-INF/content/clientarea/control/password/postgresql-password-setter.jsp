@@ -35,10 +35,10 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
           <%@include file="../../../permission-denied.jspf" %>
         </logic:present>
         <logic:notPresent scope="request" name="permissionDenied">
-          <logic:empty scope="request" name="postgreSQLPasswordSetterForm" property="packages">
+          <logic:empty scope="request" name="postgresqlPasswordSetterForm" property="packages">
             <b><ao:message key="postgreSQLPasswordSetter.noAccounts" /></b>
           </logic:empty>
-          <logic:notEmpty scope="request" name="postgreSQLPasswordSetterForm" property="packages">
+          <logic:notEmpty scope="request" name="postgresqlPasswordSetterForm" property="packages">
             <html:form action="/password/postgresql-password-setter-completed">
               <skin:lightArea>
                 <table class="ao-no-border">
@@ -63,7 +63,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                     </tr>
                   </thead>
                   <tbody>
-                    <logic:iterate scope="request" name="postgreSQLPasswordSetterForm" property="packages" id="pack" indexId="index">
+                    <logic:iterate scope="request" name="postgresqlPasswordSetterForm" property="packages" id="pack" indexId="index">
                       <tr>
                         <logic:greaterThan name="packagesSize" value="1">
                           <td><ao:write name="pack" /></td>
@@ -71,14 +71,14 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                         <td>
                           <html:hidden property='<%= "packages[" + index + "]" %>' />
                           <code><html:hidden property='<%= "usernames[" + index + "]" %>' write="true" /></code>
-                          <html:hidden property='<%= "postgreSQLServers[" + index + "]" %>' />
+                          <html:hidden property='<%= "postgresqlServers[" + index + "]" %>' />
                           <html:hidden property='<%= "servers[" + index + "]" %>' />
                         </td>
                         <logic:greaterThan name="postgresServersSize" value="1">
-                          <td><code><ao:write name="postgreSQLPasswordSetterForm" property='<%= "postgreSQLServers[" + index + "]" %>' /></code></td>
+                          <td><code><ao:write name="postgresqlPasswordSetterForm" property='<%= "postgresqlServers[" + index + "]" %>' /></code></td>
                         </logic:greaterThan>
                         <logic:greaterThan name="serversSize" value="1">
-                          <td><code><ao:write name="postgreSQLPasswordSetterForm" property='<%= "servers[" + index + "]" %>' /></code></td>
+                          <td><code><ao:write name="postgresqlPasswordSetterForm" property='<%= "servers[" + index + "]" %>' /></code></td>
                         </logic:greaterThan>
                         <td><html:password size="20" property='<%= "newPasswords[" + index + "]" %>' /></td>
                         <td style="white-space:nowrap">

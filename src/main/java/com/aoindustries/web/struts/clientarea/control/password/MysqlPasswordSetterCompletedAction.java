@@ -23,12 +23,12 @@
 
 package com.aoindustries.web.struts.clientarea.control.password;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.master.Permission;
+import com.aoindustries.aoserv.client.mysql.Server;
+import com.aoindustries.aoserv.client.mysql.User;
+import com.aoindustries.aoserv.client.mysql.UserServer;
 import com.aoindustries.aoserv.client.net.Host;
-import com.aoindustries.aoserv.client.postgresql.Server;
-import com.aoindustries.aoserv.client.postgresql.User;
-import com.aoindustries.aoserv.client.postgresql.UserServer;
 import com.aoindustries.web.struts.PermissionAction;
 import java.sql.SQLException;
 import java.util.Collections;
@@ -45,7 +45,7 @@ import org.apache.struts.action.ActionMessages;
 /**
  * @author  AO Industries, Inc.
  */
-public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
+public class MysqlPasswordSetterCompletedAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
@@ -53,12 +53,12 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
-    PostgreSQLPasswordSetterForm postgreSQLPasswordSetterForm = (PostgreSQLPasswordSetterForm) form;
+    MysqlPasswordSetterForm mysqlPasswordSetterForm = (MysqlPasswordSetterForm) form;
 
     // Validation
-    ActionMessages errors = postgreSQLPasswordSetterForm.validate(mapping, request);
+    ActionMessages errors = mysqlPasswordSetterForm.validate(mapping, request);
     if (errors != null && !errors.isEmpty()) {
       saveErrors(request, errors);
       return mapping.findForward("input");
@@ -66,35 +66,35 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
 
     // Reset passwords here and clear the passwords from the form
     ActionMessages messages = new ActionMessages();
-    List<String> usernames = postgreSQLPasswordSetterForm.getUsernames();
-    List<String> servers = postgreSQLPasswordSetterForm.getServers();
-    List<String> postgreSQLServers = postgreSQLPasswordSetterForm.getPostgreSQLServers();
-    List<String> newPasswords = postgreSQLPasswordSetterForm.getNewPasswords();
-    List<String> confirmPasswords = postgreSQLPasswordSetterForm.getConfirmPasswords();
+    List<String> usernames = mysqlPasswordSetterForm.getUsernames();
+    List<String> servers = mysqlPasswordSetterForm.getServers();
+    List<String> mysqlServers = mysqlPasswordSetterForm.getMysqlServers();
+    List<String> newPasswords = mysqlPasswordSetterForm.getNewPasswords();
+    List<String> confirmPasswords = mysqlPasswordSetterForm.getConfirmPasswords();
     for (int c = 0; c < usernames.size(); c++) {
       String newPassword = newPasswords.get(c);
       if (newPassword.length() > 0) {
-        User.Name username = User.Name.valueOf(usernames.get(c));
-        String hostname = servers.get(c);
-        Host host = aoConn.getNet().getHost().get(hostname);
+        final User.Name username = User.Name.valueOf(usernames.get(c));
+        final String hostname = servers.get(c);
+        final Host host = aoConn.getNet().getHost().get(hostname);
         if (host == null) {
           throw new SQLException("Unable to find Host: " + host);
         }
         com.aoindustries.aoserv.client.linux.Server linuxServer = host.getLinuxServer();
         if (linuxServer == null) {
-          throw new SQLException("Unable to find Server: " + host);
+          throw new SQLException("Unable to find Server: " + linuxServer);
         }
-        Server.Name serverName = Server.Name.valueOf(postgreSQLServers.get(c));
-        Server ps = linuxServer.getPostgresServer(serverName);
-        if (ps == null) {
+        Server.Name serverName = Server.Name.valueOf(mysqlServers.get(c));
+        Server ms = linuxServer.getMysqlServer(serverName);
+        if (ms == null) {
           throw new SQLException("Unable to find Server: " + serverName + " on " + hostname);
         }
-        UserServer psu = ps.getPostgresServerUser(username);
-        if (psu == null) {
+        UserServer msu = ms.getMysqlServerUser(username);
+        if (msu == null) {
           throw new SQLException("Unable to find UserServer: " + username + " on " + serverName + " on " + hostname);
         }
-        psu.setPassword(newPassword);
-        messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("postgreSQLPasswordSetter.field.confirmPasswords.passwordReset"));
+        msu.setPassword(newPassword);
+        messages.add("confirmPasswords[" + c + "].confirmPasswords", new ActionMessage("mySQLPasswordSetter.field.confirmPasswords.passwordReset"));
         newPasswords.set(c, "");
         confirmPasswords.set(c, "");
       }
@@ -106,6 +106,6 @@ public class PostgreSQLPasswordSetterCompletedAction extends PermissionAction {
 
   @Override
   public Set<Permission.Name> getPermissions() {
-    return Collections.singleton(Permission.Name.set_postgres_server_user_password);
+    return Collections.singleton(Permission.Name.set_mysql_server_user_password);
   }
 }

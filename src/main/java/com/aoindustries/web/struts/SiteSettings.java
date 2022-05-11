@@ -28,7 +28,7 @@ import com.aoapps.lang.exception.ConfigurationException;
 import com.aoapps.lang.exception.WrappedException;
 import com.aoapps.lang.validation.ValidationException;
 import com.aoapps.servlet.attribute.ScopeEE;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.User;
 import com.aoindustries.aoserv.client.reseller.Brand;
 import java.io.IOException;
@@ -60,7 +60,10 @@ public class SiteSettings {
   private static final ScopeEE.Application.Attribute<SiteSettings> APPLICATION_ATTRIBUTE =
       ScopeEE.APPLICATION.attribute(SiteSettings.class.getName());
 
-  @WebListener
+  /**
+   * Loads the {@link SiteSettings} during {@linkplain ServletContextListener application start-up}.
+   */
+  @WebListener("Loads the SiteSettings during application start-up.")
   public static class Initializer implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
@@ -77,7 +80,7 @@ public class SiteSettings {
    * Gets the proper settings instance as configured in the web.xml file.
    */
   public static SiteSettings getInstance(ServletContext servletContext) {
-    return APPLICATION_ATTRIBUTE.context(servletContext).computeIfAbsent(__ -> {
+    return APPLICATION_ATTRIBUTE.context(servletContext).computeIfAbsent(name -> {
       String classname = Strings.trimNullIfEmpty(servletContext.getInitParameter(INIT_PARAM_NAME));
       if (classname == null || classname.equals(SiteSettings.class.getName())) {
         return new SiteSettings(servletContext);
@@ -102,14 +105,16 @@ public class SiteSettings {
   }
   // </editor-fold>
   // <editor-fold desc="Skins">
+
   private static final List<Skin> skins = Collections.singletonList((Skin) TextSkin.getInstance());
 
   /**
    * Gets the unmodifiable list of skins supported by this site.
-   *
+   * <p>
    * The first one in the list will be used as the default skin, except
    * if Text mode is determined as the default, then any skin named {@link TextSkin#NAME}
    * will be the default if available.
+   * </p>
    */
   public List<Skin> getSkins() {
     return skins;
@@ -118,11 +123,11 @@ public class SiteSettings {
   // </editor-fold>
   // <editor-fold desc="AOServ Integration">
   /**
-   * Gets the username for the root AOServConnector.
+   * Gets the username for the root AoservConnector.
    *
-   * @see #getRootAOServConnector()
+   * @see #getRootAoservConnector()
    */
-  protected User.Name getRootAOServConnectorUsername() {
+  protected User.Name getRootAoservConnectorUsername() {
     try {
       return User.Name.valueOf(servletContext.getInitParameter("root.aoserv.client.username"));
     } catch (ValidationException e) {
@@ -131,42 +136,42 @@ public class SiteSettings {
   }
 
   /**
-   * Gets the password for the root AOServConnector.
+   * Gets the password for the root AoservConnector.
    *
-   * @see #getRootAOServConnector()
+   * @see #getRootAoservConnector()
    */
-  protected String getRootAOServConnectorPassword() {
+  protected String getRootAoservConnectorPassword() {
     return servletContext.getInitParameter("root.aoserv.client.password");
   }
 
-  private AOServConnector rootAOServConnector = null;
-  private final Object rootAOServConnectorLock = new Object();
+  private AoservConnector rootAoservConnector = null;
+  private final Object rootAoservConnectorLock = new Object();
 
   /**
    * Gets the root connector.  Because this potentially has unrestricted privileges, this must be used at an absolute minimum for situations
    * where a user isn't logged-in but access to the master is required, such as for sign up requests.
    */
-  public AOServConnector getRootAOServConnector() throws ConfigurationException {
-    synchronized (rootAOServConnectorLock) {
-      if (rootAOServConnector == null) {
-        rootAOServConnector = AOServConnector.getConnector(
-            getRootAOServConnectorUsername(),
-            getRootAOServConnectorPassword()
+  public AoservConnector getRootAoservConnector() throws ConfigurationException {
+    synchronized (rootAoservConnectorLock) {
+      if (rootAoservConnector == null) {
+        rootAoservConnector = AoservConnector.getConnector(
+            getRootAoservConnectorUsername(),
+            getRootAoservConnectorPassword()
         );
       }
-      return rootAOServConnector;
+      return rootAoservConnector;
     }
   }
 
   /**
    * Gets the Brand for this site.  The returned instance has the permissions of the
-   * site's RootAOServConnector and should therefore be used carefully to not
+   * site's RootAoservConnector and should therefore be used carefully to not
    * allow privilege escalation.
    */
   public Brand getBrand() throws IOException, SQLException {
-    Brand brand = getRootAOServConnector().getCurrentAdministrator().getUsername().getPackage().getAccount().getBrand();
+    Brand brand = getRootAoservConnector().getCurrentAdministrator().getUsername().getPackage().getAccount().getBrand();
     if (brand == null) {
-      throw new SQLException("Unable to find Brand for username=" + getRootAOServConnectorUsername());
+      throw new SQLException("Unable to find Brand for username=" + getRootAoservConnectorUsername());
     }
     return brand;
   }
@@ -175,12 +180,15 @@ public class SiteSettings {
   // <editor-fold desc="Languages">
   /**
    * Gets the unmodifiable list of languages supported by this site.
-   *
+   * <p>
    * The flags are obtained from http://commons.wikimedia.org/wiki/National_insignia
-   *
+   * </p>
+   * <p>
    * Then they are scaled to a height of 24 pixels, rendered in gimp 2.
-   *
+   * </p>
+   * <p>
    * The off version is created by filling with black, opacity 25% in gimp 2.
+   * </p>
    */
   public List<Skin.Language> getLanguages(ServletRequest req) throws IOException, SQLException {
     HttpSession session;

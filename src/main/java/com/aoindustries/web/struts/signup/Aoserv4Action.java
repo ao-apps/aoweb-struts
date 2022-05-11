@@ -27,18 +27,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessages;
 
 /**
  * @author  AO Industries, Inc.
  */
-public class AOServ2CompletedAction extends AOServ2Action {
+public class Aoserv4Action extends AoservStepAction {
 
   @Override
-  public ActionForward executeAOServStep(
+  public ActionForward executeAoservStep(
       ActionMapping mapping,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServSignupSelectPackageForm signupSelectPackageForm,
+      AoservSignupSelectPackageForm signupSelectPackageForm,
       boolean signupSelectPackageFormComplete,
       SignupOrganizationForm signupOrganizationForm,
       boolean signupOrganizationFormComplete,
@@ -51,35 +52,24 @@ public class AOServ2CompletedAction extends AOServ2Action {
       return mapping.findForward("aoserv-completed");
     }
     if (!signupOrganizationFormComplete) {
-      // Init values for the form
-      return super.executeAOServStep(
-          mapping,
-          request,
-          response,
-          signupSelectPackageForm,
-          signupSelectPackageFormComplete,
-          signupOrganizationForm,
-          signupOrganizationFormComplete,
-          signupTechnicalForm,
-          signupTechnicalFormComplete,
-          signupBillingInformationForm,
-          signupBillingInformationFormComplete
-      );
+      return mapping.findForward("aoserv-2-completed");
     }
     if (!signupTechnicalFormComplete) {
-      return mapping.findForward("aoserv-3");
+      return mapping.findForward("aoserv-3-completed");
     }
-    if (!signupBillingInformationFormComplete) {
-      return mapping.findForward("aoserv-4");
-    }
-    return mapping.findForward("aoserv-5");
+
+    SignupBillingInformationActionHelper.setRequestAttributes(request);
+
+    // Clear errors if they should not be displayed
+    clearErrors(request);
+
+    return mapping.findForward("input");
   }
 
   /**
-   * Errors are not cleared for the complete step.
+   * May clear specific errors here.
    */
-  @Override
-  protected void clearErrors(HttpServletRequest req) {
-    // Do nothing
+  protected void clearErrors(HttpServletRequest request) {
+    saveErrors(request, new ActionMessages());
   }
 }

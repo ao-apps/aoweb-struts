@@ -24,6 +24,7 @@
 package com.aoindustries.web.struts.aowebtags;
 
 import static com.aoapps.encoding.JavaScriptInXhtmlEncoder.encodeJavascriptInXhtml;
+
 import com.aoapps.html.servlet.DocumentEE;
 import com.aoapps.html.servlet.Union_Palpable_Phrasing;
 import com.aoapps.lang.util.Sequence;
@@ -185,7 +186,7 @@ public class DateTimeTag extends BodyTagSupport {
         );
         // Resolve the sequence
         Sequence sequence = SEQUENCE_REQUEST_ATTRIBUTE.context(request)
-            .computeIfAbsent(__ -> new UnsynchronizedSequence());
+            .computeIfAbsent(name -> new UnsynchronizedSequence());
         // Resolve the scriptOut
         Optional<ScriptGroupTag> scriptGroupTag = JspTagUtils.findAncestor(this, ScriptGroupTag.class);
         if (scriptGroupTag.isPresent()) {

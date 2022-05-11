@@ -23,24 +23,25 @@
 
 package com.aoindustries.web.struts.clientarea.control.vnc;
 
+import static com.aoindustries.web.struts.clientarea.control.vnc.VncConsoleProxySocketHandler.desCipher;
+import static com.aoindustries.web.struts.clientarea.control.vnc.VncConsoleProxySocketHandler.protocolVersion_3_3;
+import static com.aoindustries.web.struts.clientarea.control.vnc.VncConsoleProxySocketHandler.protocolVersion_3_5;
+import static com.aoindustries.web.struts.clientarea.control.vnc.VncConsoleProxySocketHandler.protocolVersion_3_8;
+
 import com.aoapps.hodgepodge.io.AOPool;
 import com.aoapps.hodgepodge.io.stream.StreamableInput;
 import com.aoapps.hodgepodge.io.stream.StreamableOutput;
 import com.aoapps.lang.Throwables;
 import com.aoapps.net.InetAddress;
-import com.aoindustries.aoserv.client.AOServClientConfiguration;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservClientConfiguration;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.infrastructure.VirtualServer;
 import com.aoindustries.aoserv.client.linux.Server;
 import com.aoindustries.aoserv.client.schema.AoservProtocol;
-import com.aoindustries.aoserv.daemon.client.AOServDaemonConnection;
-import com.aoindustries.aoserv.daemon.client.AOServDaemonConnector;
-import com.aoindustries.aoserv.daemon.client.AOServDaemonProtocol;
+import com.aoindustries.aoserv.daemon.client.AoservDaemonConnection;
+import com.aoindustries.aoserv.daemon.client.AoservDaemonConnector;
+import com.aoindustries.aoserv.daemon.client.AoservDaemonProtocol;
 import com.aoindustries.web.struts.SiteSettings;
-import static com.aoindustries.web.struts.clientarea.control.vnc.VncConsoleProxySocketHandler.desCipher;
-import static com.aoindustries.web.struts.clientarea.control.vnc.VncConsoleProxySocketHandler.protocolVersion_3_3;
-import static com.aoindustries.web.struts.clientarea.control.vnc.VncConsoleProxySocketHandler.protocolVersion_3_5;
-import static com.aoindustries.web.struts.clientarea.control.vnc.VncConsoleProxySocketHandler.protocolVersion_3_8;
 import java.io.ByteArrayOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
@@ -75,7 +76,10 @@ public class VncConsoleProxyWebsocketServer {
 
   private static ServletContext servletContext;
 
-  @WebListener
+  /**
+   * Initializes the VNC console proxy websocket server during {@linkplain ServletContextListener application start-up}.
+   */
+  @WebListener("Initializes the VNC console proxy websocket server during application start-up.")
   public static class Initializer implements ServletContextListener {
 
     @Override
@@ -105,7 +109,7 @@ public class VncConsoleProxyWebsocketServer {
   private volatile Future<Void> protocolFuture;
   private volatile Future<Void> authFuture;
   private volatile Future<Void> proxyFuture;
-  private volatile AOServDaemonConnection daemonConn;
+  private volatile AoservDaemonConnection daemonConn;
   private volatile StreamableInput daemonIn;
   private volatile StreamableOutput daemonOut;
   private volatile Thread outThread;
@@ -125,24 +129,24 @@ public class VncConsoleProxyWebsocketServer {
   @OnClose
   public void onClose(Session session, CloseReason reason) throws IOException {
     logger.fine("closing session.id: " + session.getId() + ", reason: " + reason);
-    StreamableInput _daemonIn = daemonIn;
-    if (_daemonIn != null) {
-      _daemonIn.close();
+    StreamableInput myDaemonIn = daemonIn;
+    if (myDaemonIn != null) {
+      myDaemonIn.close();
     }
-    StreamableOutput _daemonOut = daemonOut;
-    if (_daemonOut != null) {
-      _daemonOut.close();
+    StreamableOutput myDaemonOut = daemonOut;
+    if (myDaemonOut != null) {
+      myDaemonOut.close();
     }
-    AOServDaemonConnection _daemonConn = daemonConn;
-    if (_daemonConn != null) {
+    AoservDaemonConnection myDaemonConn = daemonConn;
+    if (myDaemonConn != null) {
       // Always close after VNC tunnel since this is a connection-terminal command
       daemonConn = null;
-      _daemonConn.abort();
+      myDaemonConn.abort();
     }
-    Thread _outThread = outThread;
-    if (_outThread != null) {
+    Thread myOutThread = outThread;
+    if (myOutThread != null) {
       outThread = null;
-      _outThread.interrupt();
+      myOutThread.interrupt();
     }
   }
 
@@ -187,7 +191,7 @@ public class VncConsoleProxyWebsocketServer {
         synchronized (this) {
           assert challenge == null;
           challenge = new byte[16];
-          AOServConnector.getSecureRandom().nextBytes(challenge);
+          AoservConnector.getSecureRandom().nextBytes(challenge);
           System.arraycopy(challenge, 0, auth, 4, 16);
         }
         authFuture = session.getAsyncRemote().sendBinary(ByteBuffer.wrap(auth));
@@ -213,7 +217,7 @@ public class VncConsoleProxyWebsocketServer {
           throw new IllegalStateException("ServletContext not initialized by " + Initializer.class.getName());
         }
         SiteSettings siteSettings = SiteSettings.getInstance(servletContext);
-        AOServConnector rootConn = siteSettings.getRootAOServConnector();
+        AoservConnector rootConn = siteSettings.getRootAoservConnector();
         for (VirtualServer vs : rootConn.getInfrastructure().getVirtualServer().getRows()) {
           String vncPassword = vs.getVncPassword();
           if (vncPassword != null && !vncPassword.equals(AoservProtocol.FILTERED)) {
@@ -239,7 +243,7 @@ public class VncConsoleProxyWebsocketServer {
           // Connect through AOServ Platform
           Server.DaemonAccess daemonAccess = virtualServer.requestVncConsoleAccess();
           logger.fine("Got daemon access");
-          AOServDaemonConnector daemonConnector = AOServDaemonConnector.getConnector(
+          AoservDaemonConnector daemonConnector = AoservDaemonConnector.getConnector(
               daemonAccess.getHost(),
               InetAddress.UNSPECIFIED_IPV4,
               daemonAccess.getPort(),
@@ -247,22 +251,22 @@ public class VncConsoleProxyWebsocketServer {
               null,
               100,
               AOPool.DEFAULT_MAX_CONNECTION_AGE,
-              AOServClientConfiguration.getSslTruststorePath(),
-              AOServClientConfiguration.getSslTruststorePassword()
+              AoservClientConfiguration.getSslTruststorePath(),
+              AoservClientConfiguration.getSslTruststorePassword()
           );
           logger.fine("Got daemon connector");
-          AOServDaemonConnection _daemonConn = daemonConnector.getConnection();
-          daemonConn = _daemonConn;
+          AoservDaemonConnection myDaemonConn = daemonConnector.getConnection();
+          daemonConn = myDaemonConn;
           logger.fine("Got daemon connection");
-          daemonOut = _daemonConn.getRequestOut(AOServDaemonProtocol.VNC_CONSOLE);
+          daemonOut = myDaemonConn.getRequestOut(AoservDaemonProtocol.VNC_CONSOLE);
           daemonOut.writeLong(daemonAccess.getKey());
           daemonOut.flush();
           logger.fine("Sent daemon request");
 
-          daemonIn = _daemonConn.getResponseIn();
+          daemonIn = myDaemonConn.getResponseIn();
           int result = daemonIn.read();
           logger.fine("Got daemon result");
-          if (result == AOServDaemonProtocol.NEXT) {
+          if (result == AoservDaemonProtocol.NEXT) {
             // Authenticate to actual VNC
             // Protocol Version handshake
             for (int c = 0; c < protocolVersion_3_3.length; c++) {
@@ -279,40 +283,40 @@ public class VncConsoleProxyWebsocketServer {
             }
             daemonOut.write(protocolVersion_3_3);
             daemonOut.flush();
-            // Security Type
-            {
-              int securityType1 = daemonIn.read();
-              if (securityType1 == -1) {
-                throw new EOFException("EOF from daemonIn reading securityType1");
+              // Security Type
+              {
+                int securityType1 = daemonIn.read();
+                if (securityType1 == -1) {
+                  throw new EOFException("EOF from daemonIn reading securityType1");
+                }
+                int securityType2 = daemonIn.read();
+                if (securityType2 == -1) {
+                  throw new EOFException("EOF from daemonIn reading securityType2");
+                }
+                int securityType3 = daemonIn.read();
+                if (securityType3 == -1) {
+                  throw new EOFException("EOF from daemonIn reading securityType3");
+                }
+                int securityType4 = daemonIn.read();
+                if (securityType4 == -1) {
+                  throw new EOFException("EOF from daemonIn reading securityType4");
+                }
+                if (
+                    securityType1 != 0
+                        || securityType2 != 0
+                        || securityType3 != 0
+                        || securityType4 != 2
+                ) {
+                  throw new IOException(
+                      "Mismatched security type from VNC server through daemon: ("
+                          + securityType1
+                          + ", " + securityType2
+                          + ", " + securityType3
+                          + ", " + securityType4
+                          + ")"
+                  );
+                }
               }
-              int securityType2 = daemonIn.read();
-              if (securityType2 == -1) {
-                throw new EOFException("EOF from daemonIn reading securityType2");
-              }
-              int securityType3 = daemonIn.read();
-              if (securityType3 == -1) {
-                throw new EOFException("EOF from daemonIn reading securityType3");
-              }
-              int securityType4 = daemonIn.read();
-              if (securityType4 == -1) {
-                throw new EOFException("EOF from daemonIn reading securityType4");
-              }
-              if (
-                  securityType1 != 0
-                      || securityType2 != 0
-                      || securityType3 != 0
-                      || securityType4 != 2
-              ) {
-                throw new IOException(
-                    "Mismatched security type from VNC server through daemon: ("
-                        + securityType1
-                        + ", " + securityType2
-                        + ", " + securityType3
-                        + ", " + securityType4
-                        + ")"
-                );
-              }
-            }
             // VNC Authentication
             byte[] daemonChallenge = new byte[16];
             for (int c = 0; c < 16; c++) {
@@ -340,7 +344,7 @@ public class VncConsoleProxyWebsocketServer {
             // daemonIn -> socketOut in another thread
             assert outThread == null;
             @SuppressWarnings({"BroadCatchBlock", "AssignmentToCatchBlockParameter"})
-            Thread _outThread = new Thread(
+            Thread myOutThread = new Thread(
                 () -> {
                   try {
                     try {
@@ -355,7 +359,7 @@ public class VncConsoleProxyWebsocketServer {
                     } finally {
                       logger.fine("EOF at daemonIn, closing daemonConn");
                       // Always close after VNC tunnel since this is a connection-terminal command
-                      _daemonConn.abort();
+                      myDaemonConn.abort();
                     }
                   } catch (ThreadDeath td) {
                     throw td;
@@ -370,17 +374,17 @@ public class VncConsoleProxyWebsocketServer {
                 },
                 "VncConsoleProxyWebsocketServer daemonIn->socketOut: " + virtualServer.getHost().getName()
             );
-            _outThread.setDaemon(true); // Don't prevent JVM shutdown
-            _outThread.setPriority(Thread.NORM_PRIORITY + 2); // Higher priority for higher performance
-            outThread = _outThread;
-            _outThread.start();
+            myOutThread.setDaemon(true); // Don't prevent JVM shutdown
+            myOutThread.setPriority(Thread.NORM_PRIORITY + 2); // Higher priority for higher performance
+            outThread = myOutThread;
+            myOutThread.start();
             phase = Phase.Proxy;
           } else {
             String errMessage = null;
             try {
-              if (result == AOServDaemonProtocol.IO_EXCEPTION) {
+              if (result == AoservDaemonProtocol.IO_EXCEPTION) {
                 throw new IOException(errMessage = daemonIn.readUTF());
-              } else if (result == AOServDaemonProtocol.SQL_EXCEPTION) {
+              } else if (result == AoservDaemonProtocol.SQL_EXCEPTION) {
                 throw new SQLException(errMessage = daemonIn.readUTF());
               } else if (result == -1) {
                 throw new EOFException(errMessage = "EOF from daemonIn");

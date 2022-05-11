@@ -103,12 +103,12 @@ public abstract class Skin {
    * </ol>
    */
   public static Skin getSkin(SiteSettings settings, ServletRequest req) {
-    {
-      Skin skin = Constants.SKIN.context(req).get();
-      if (skin != null) {
-        return skin;
+      {
+        Skin skin = Constants.SKIN.context(req).get();
+        if (skin != null) {
+          return skin;
+        }
       }
-    }
 
     List<Skin> skins = settings.getSkins();
 
@@ -198,32 +198,37 @@ public abstract class Skin {
       NONE = 0,
       UP = 1,
       DOWN = 2,
-      UP_AND_DOWN = 3
-  ;
+      UP_AND_DOWN = 3;
 
   /**
    * Prints the links to the alternate translations of this page.
    *
    * <a href="https://support.google.com/webmasters/answer/189077?hl=en">https://support.google.com/webmasters/answer/189077?hl=en</a>
    */
-  public static <__ extends Union_Metadata_Phrasing<__>> void printAlternativeLinks(HttpServletRequest req, HttpServletResponse resp, __ head, String fullPath, List<Language> languages) throws IOException {
+  public static <__ extends Union_Metadata_Phrasing<__>> void printAlternativeLinks(
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      __ head,
+      String fullPath,
+      List<Language> languages
+  ) throws IOException {
     if (languages.size() > 1) {
-      // Default language
-      {
-        Language language = languages.get(0);
-        AnyURI uri = language.getUri();
-        head.link(AnyLINK.Rel.ALTERNATE).hreflang("x-default").href(
-            resp.encodeURL(
-                URIEncoder.encodeURI(
-                    (
-                        uri == null
-                            ? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
-                            : uri
-                    ).toASCIIString()
-                )
-            )
-        ).__();
-      }
+        // Default language
+        {
+          Language language = languages.get(0);
+          AnyURI uri = language.getUri();
+          head.link(AnyLINK.Rel.ALTERNATE).hreflang("x-default").href(
+              resp.encodeURL(
+                  URIEncoder.encodeURI(
+                      (
+                          uri == null
+                              ? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
+                              : uri
+                      ).toASCIIString()
+                  )
+              )
+          ).__();
+        }
       // All languages
       for (Language language : languages) {
         AnyURI uri = language.getUri();
@@ -411,7 +416,7 @@ public abstract class Skin {
   public final <
       PC extends FlowContent<PC>,
       __ extends ContentEE<__>
-  > __ startContent(
+      > __ startContent(
       HttpServletRequest req,
       HttpServletResponse resp,
       PageAttributes pageAttributes,
@@ -445,7 +450,7 @@ public abstract class Skin {
   public final <
       PC extends FlowContent<PC>,
       __ extends ContentEE<__>
-  > __ startContent(
+      > __ startContent(
       HttpServletRequest req,
       HttpServletResponse resp,
       PageAttributes pageAttributes,
@@ -481,7 +486,7 @@ public abstract class Skin {
   public abstract <
       PC extends FlowContent<PC>,
       __ extends ContentEE<__>
-  > __ startContent(
+      > __ startContent(
       HttpServletRequest req,
       HttpServletResponse resp,
       PageAttributes pageAttributes,
@@ -702,7 +707,7 @@ public abstract class Skin {
   public final <
       __ extends FlowContent<__>,
       Ex extends Throwable
-  > void contentLine(
+      > void contentLine(
       HttpServletRequest req,
       HttpServletResponse resp,
       ContentEE<?> content,
@@ -725,7 +730,7 @@ public abstract class Skin {
   public final <
       __ extends FlowContent<__>,
       Ex extends Throwable
-  > void contentLine(
+      > void contentLine(
       HttpServletRequest req,
       HttpServletResponse resp,
       ContentEE<?> content,
@@ -748,7 +753,7 @@ public abstract class Skin {
   public final <
       __ extends FlowContent<__>,
       Ex extends Throwable
-  > void contentLine(
+      > void contentLine(
       HttpServletRequest req,
       HttpServletResponse resp,
       ContentEE<?> content,
@@ -780,7 +785,7 @@ public abstract class Skin {
   public final <
       __ extends FlowContent<__>,
       Ex extends Throwable
-  > void contentLine(
+      > void contentLine(
       HttpServletRequest req,
       HttpServletResponse resp,
       ContentEE<?> content,
@@ -915,7 +920,7 @@ public abstract class Skin {
       PC extends FlowContent<PC>,
       __ extends ContentEE<__>,
       Ex extends Throwable
-  > void content(
+      > void content(
       HttpServletRequest req,
       HttpServletResponse resp,
       PageAttributes pageAttributes,
@@ -941,7 +946,7 @@ public abstract class Skin {
       PC extends FlowContent<PC>,
       __ extends ContentEE<__>,
       Ex extends Throwable
-  > void content(
+      > void content(
       HttpServletRequest req,
       HttpServletResponse resp,
       PageAttributes pageAttributes,
@@ -967,7 +972,7 @@ public abstract class Skin {
       PC extends FlowContent<PC>,
       __ extends ContentEE<__>,
       Ex extends Throwable
-  > void content(
+      > void content(
       HttpServletRequest req,
       HttpServletResponse resp,
       PageAttributes pageAttributes,
@@ -996,7 +1001,7 @@ public abstract class Skin {
       PC extends FlowContent<PC>,
       __ extends ContentEE<__>,
       Ex extends Throwable
-  > void content(
+      > void content(
       HttpServletRequest req,
       HttpServletResponse resp,
       PageAttributes pageAttributes,
@@ -1025,7 +1030,7 @@ public abstract class Skin {
       PC extends FlowContent<PC>,
       __ extends ContentEE<__>,
       Ex extends Throwable
-  > void content(
+      > void content(
       HttpServletRequest req,
       HttpServletResponse resp,
       PageAttributes pageAttributes,
@@ -1035,11 +1040,11 @@ public abstract class Skin {
       int[] endContentColumnSpans,
       JspConsumerE<? super __, Ex> content
   ) throws JspException, IOException, Ex {
-    __ contentEE = startContent(req, resp, pageAttributes, pc, startContentColumnSpans, width);
+    __ contentEe = startContent(req, resp, pageAttributes, pc, startContentColumnSpans, width);
     if (content != null) {
-      content.accept(contentEE);
+      content.accept(contentEe);
     }
-    endContent(req, resp, pageAttributes, contentEE, endContentColumnSpans);
+    endContent(req, resp, pageAttributes, contentEe, endContentColumnSpans);
   }
 
   /**
@@ -1058,7 +1063,7 @@ public abstract class Skin {
       PC extends FlowContent<PC>,
       __ extends ContentEE<__>,
       Ex extends Throwable
-  > void content(
+      > void content(
       HttpServletRequest req,
       HttpServletResponse resp,
       PageAttributes pageAttributes,
@@ -1068,11 +1073,11 @@ public abstract class Skin {
       int[] endContentColumnSpans,
       JspRunnableE<Ex> content
   ) throws JspException, IOException, Ex {
-    __ contentEE = startContent(req, resp, pageAttributes, pc, startContentColumnSpans, width);
+    __ contentEe = startContent(req, resp, pageAttributes, pc, startContentColumnSpans, width);
     if (content != null) {
       content.run();
     }
-    endContent(req, resp, pageAttributes, contentEE, endContentColumnSpans);
+    endContent(req, resp, pageAttributes, contentEe, endContentColumnSpans);
   }
 
   /**
@@ -1088,7 +1093,7 @@ public abstract class Skin {
   public final <
       PC extends FlowContent<PC>,
       __ extends FlowContent<__>
-  > __ startLightArea(
+      > __ startLightArea(
       HttpServletRequest req,
       HttpServletResponse resp,
       PC pc
@@ -1109,7 +1114,7 @@ public abstract class Skin {
   public abstract <
       PC extends FlowContent<PC>,
       __ extends FlowContent<__>
-  > __ startLightArea(
+      > __ startLightArea(
       HttpServletRequest req,
       HttpServletResponse resp,
       PC pc,
@@ -1147,7 +1152,7 @@ public abstract class Skin {
       PC extends FlowContent<PC>,
       __ extends FlowContent<__>,
       Ex extends Throwable
-  > void lightArea(
+      > void lightArea(
       HttpServletRequest req,
       HttpServletResponse resp,
       PC pc,
@@ -1174,7 +1179,7 @@ public abstract class Skin {
   public final <
       PC extends FlowContent<PC>,
       Ex extends Throwable
-  > void lightArea(
+      > void lightArea(
       HttpServletRequest req,
       HttpServletResponse resp,
       PC pc,
@@ -1203,7 +1208,7 @@ public abstract class Skin {
       PC extends FlowContent<PC>,
       __ extends FlowContent<__>,
       Ex extends Throwable
-  > void lightArea(
+      > void lightArea(
       HttpServletRequest req,
       HttpServletResponse resp,
       PC pc,
@@ -1233,7 +1238,7 @@ public abstract class Skin {
   public final <
       PC extends FlowContent<PC>,
       Ex extends Throwable
-  > void lightArea(
+      > void lightArea(
       HttpServletRequest req,
       HttpServletResponse resp,
       PC pc,
@@ -1262,7 +1267,7 @@ public abstract class Skin {
   public final <
       PC extends FlowContent<PC>,
       __ extends FlowContent<__>
-  > __ startWhiteArea(
+      > __ startWhiteArea(
       HttpServletRequest req,
       HttpServletResponse resp,
       PC pc
@@ -1283,7 +1288,7 @@ public abstract class Skin {
   public abstract <
       PC extends FlowContent<PC>,
       __ extends FlowContent<__>
-  > __ startWhiteArea(
+      > __ startWhiteArea(
       HttpServletRequest req,
       HttpServletResponse resp,
       PC pc,
@@ -1321,7 +1326,7 @@ public abstract class Skin {
       PC extends FlowContent<PC>,
       __ extends FlowContent<__>,
       Ex extends Throwable
-  > void whiteArea(
+      > void whiteArea(
       HttpServletRequest req,
       HttpServletResponse resp,
       PC pc,
@@ -1348,7 +1353,7 @@ public abstract class Skin {
   public final <
       PC extends FlowContent<PC>,
       Ex extends Throwable
-  > void whiteArea(
+      > void whiteArea(
       HttpServletRequest req,
       HttpServletResponse resp,
       PC pc,
@@ -1377,7 +1382,7 @@ public abstract class Skin {
       PC extends FlowContent<PC>,
       __ extends FlowContent<__>,
       Ex extends Throwable
-  > void whiteArea(
+      > void whiteArea(
       HttpServletRequest req,
       HttpServletResponse resp,
       PC pc,
@@ -1407,7 +1412,7 @@ public abstract class Skin {
   public final <
       PC extends FlowContent<PC>,
       Ex extends Throwable
-  > void whiteArea(
+      > void whiteArea(
       HttpServletRequest req,
       HttpServletResponse resp,
       PC pc,

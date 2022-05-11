@@ -23,7 +23,7 @@
 
 package com.aoindustries.web.struts.clientarea.accounting;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Account;
 import com.aoindustries.aoserv.client.billing.TransactionTable;
 import com.aoindustries.aoserv.client.master.Permission;
@@ -52,7 +52,7 @@ public class CreditCardManagerAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     TransactionTable transactionTable = aoConn.getBilling().getTransaction();
     Account currentAccount = aoConn.getCurrentAdministrator().getUsername().getPackage().getAccount();

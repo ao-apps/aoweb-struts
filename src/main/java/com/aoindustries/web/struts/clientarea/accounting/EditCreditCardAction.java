@@ -23,7 +23,7 @@
 
 package com.aoindustries.web.struts.clientarea.accounting;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.payment.CreditCard;
 import com.aoindustries.web.struts.PermissionAction;
@@ -59,7 +59,7 @@ public class EditCreditCardAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     EditCreditCardForm editCreditCardForm = (EditCreditCardForm) form;
 
@@ -113,7 +113,7 @@ public class EditCreditCardAction extends PermissionAction {
     }
 
     // Build the list of countries
-    List<SignupOrganizationActionHelper.CountryOption> countryOptions = SignupOrganizationActionHelper.getCountryOptions(SiteSettings.getInstance(context).getRootAOServConnector());
+    List<SignupOrganizationActionHelper.CountryOption> countryOptions = SignupOrganizationActionHelper.getCountryOptions(SiteSettings.getInstance(context).getRootAoservConnector());
 
     // Store to request attributes
     request.setAttribute("expirationYears", expirationYears);

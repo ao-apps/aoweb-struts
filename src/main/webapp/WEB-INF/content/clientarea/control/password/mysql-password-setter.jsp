@@ -35,10 +35,10 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
           <%@include file="../../../permission-denied.jspf" %>
         </logic:present>
         <logic:notPresent scope="request" name="permissionDenied">
-          <logic:empty scope="request" name="mySQLPasswordSetterForm" property="packages">
+          <logic:empty scope="request" name="mysqlPasswordSetterForm" property="packages">
             <b><ao:message key="mySQLPasswordSetter.noAccounts" /></b>
           </logic:empty>
-          <logic:notEmpty scope="request" name="mySQLPasswordSetterForm" property="packages">
+          <logic:notEmpty scope="request" name="mysqlPasswordSetterForm" property="packages">
             <html:form action="/password/mysql-password-setter-completed">
               <skin:lightArea>
                 <table class="ao-no-border">
@@ -51,7 +51,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                       <th><ao:message key="mySQLPasswordSetter.header.username" /></th>
                       <bean:size scope="request" name="aoConn" property="mysql.Server.map" id="mysqlServersSize" />
                       <logic:greaterThan name="mysqlServersSize" value="1">
-                        <th><ao:message key="mySQLPasswordSetter.header.mySQLServer" /></th>
+                        <th><ao:message key="mySQLPasswordSetter.header.mysqlServer" /></th>
                       </logic:greaterThan>
                       <bean:size scope="request" name="aoConn" property="linux.Server.map" id="serversSize" />
                       <logic:greaterThan name="serversSize" value="1">
@@ -63,7 +63,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                     </tr>
                   </thead>
                   <tbody>
-                    <logic:iterate scope="request" name="mySQLPasswordSetterForm" property="packages" id="pack" indexId="index">
+                    <logic:iterate scope="request" name="mysqlPasswordSetterForm" property="packages" id="pack" indexId="index">
                       <tr>
                         <logic:greaterThan name="packagesSize" value="1">
                           <td><ao:write name="pack" /></td>
@@ -71,14 +71,14 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                         <td>
                           <html:hidden property='<%= "packages[" + index + "]" %>' />
                           <code><html:hidden property='<%= "usernames[" + index + "]" %>' write="true" /></code>
-                          <html:hidden property='<%= "mySQLServers[" + index + "]" %>' />
+                          <html:hidden property='<%= "mysqlServers[" + index + "]" %>' />
                           <html:hidden property='<%= "servers[" + index + "]" %>' />
                         </td>
                         <logic:greaterThan name="mysqlServersSize" value="1">
-                          <td><code><ao:write name="mySQLPasswordSetterForm" property='<%= "mySQLServers[" + index + "]" %>' /></code></td>
+                          <td><code><ao:write name="mysqlPasswordSetterForm" property='<%= "mysqlServers[" + index + "]" %>' /></code></td>
                         </logic:greaterThan>
                         <logic:greaterThan name="serversSize" value="1">
-                          <td><code><ao:write name="mySQLPasswordSetterForm" property='<%= "servers[" + index + "]" %>' /></code></td>
+                          <td><code><ao:write name="mysqlPasswordSetterForm" property='<%= "servers[" + index + "]" %>' /></code></td>
                         </logic:greaterThan>
                         <td><html:password size="20" property='<%= "newPasswords[" + index + "]" %>' /></td>
                         <td style="white-space:nowrap">

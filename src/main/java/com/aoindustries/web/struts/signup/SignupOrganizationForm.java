@@ -76,8 +76,7 @@ public class SignupOrganizationForm extends ActionForm implements Serializable, 
             && "".equals(organizationCity)
             && "".equals(organizationState)
             && "".equals(organizationCountry)
-            && "".equals(organizationZip)
-    ;
+            && "".equals(organizationZip);
   }
 
   public final String getOrganizationName() {

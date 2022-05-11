@@ -23,7 +23,7 @@
 
 package com.aoindustries.web.struts.clientarea.control.password;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Administrator;
 import com.aoindustries.aoserv.client.account.User;
 import com.aoindustries.aoserv.client.master.Permission;
@@ -50,13 +50,14 @@ public class AdministratorPasswordSetterAction extends AuthenticatedAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     AdministratorPasswordSetterForm administratorPasswordSetterForm = (AdministratorPasswordSetterForm) form;
 
-    Administrator thisBA = aoConn.getCurrentAdministrator();
+    Administrator thisAdministrator = aoConn.getCurrentAdministrator();
 
-    List<Administrator> bas = thisBA.hasPermission(Permission.Name.set_business_administrator_password) ? aoConn.getAccount().getAdministrator().getRows() : Collections.singletonList(thisBA);
+    List<Administrator> bas = thisAdministrator.hasPermission(Permission.Name.set_business_administrator_password)
+        ? aoConn.getAccount().getAdministrator().getRows() : Collections.singletonList(thisAdministrator);
 
     List<String> packages = new ArrayList<>(bas.size());
     List<String> usernames = new ArrayList<>(bas.size());

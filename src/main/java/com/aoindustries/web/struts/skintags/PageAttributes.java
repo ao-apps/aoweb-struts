@@ -23,11 +23,12 @@
 
 package com.aoindustries.web.struts.skintags;
 
+import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
+
 import com.aoapps.lang.LocalizedIllegalArgumentException;
 import com.aoapps.lang.Strings;
 import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoindustries.web.struts.Formtype;
-import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -42,10 +43,12 @@ public class PageAttributes {
   /**
    * The possible values for layout.
    */
-  public static final String
-      LAYOUT_NORMAL = "normal",
-      LAYOUT_MINIMAL = "minimal"
-  ;
+  public static final String LAYOUT_NORMAL = "normal";
+
+  /**
+   * The possible values for layout.
+   */
+  public static final String LAYOUT_MINIMAL = "minimal";
 
   /**
    * The following key is used to store the objects in the page attributes.

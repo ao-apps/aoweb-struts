@@ -44,12 +44,12 @@ web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
   <description>@{project.description}</description>
 
   <context-param>
-    <description>Configuration for root AOServConnector</description>
+    <description>Configuration for root AoservConnector</description>
     <param-name>root.aoserv.client.username</param-name>
     <param-value />
   </context-param>
   <context-param>
-    <description>Configuration for root AOServConnector</description>
+    <description>Configuration for root AoservConnector</description>
     <param-name>root.aoserv.client.password</param-name>
     <param-value />
   </context-param>

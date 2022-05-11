@@ -23,7 +23,7 @@
 
 package com.aoindustries.web.struts;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Administrator;
 import com.aoindustries.aoserv.client.master.Permission;
 import java.sql.SQLException;
@@ -39,11 +39,12 @@ import org.apache.struts.action.ActionMapping;
 
 /**
  * Makes sure the authenticated user has the necessary permissions to perform the requested task.
- * If they do not, sets the request attribute "permissionDenied" with the <code>List&lt;AOServConnector&gt;</code> and returns mapping for "permissionDenied".
+ * If they do not, sets the request attribute "permissionDenied" with the <code>List&lt;AoservConnector&gt;</code> and returns mapping for "permissionDenied".
  * Otherwise, if all the permissions have been granted, calls <code>executePermissionGranted</code>.
- *
+ * <p>
  * The default implementation of this new <code>executePermissionGranted</code> method simply returns the mapping
  * of "success".
+ * </p>
  *
  * @author  AO Industries, Inc.
  */
@@ -55,7 +56,7 @@ public abstract class PermissionAction extends AuthenticatedAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     Set<Permission.Name> permissions = getPermissions();
 
@@ -72,15 +73,15 @@ public abstract class PermissionAction extends AuthenticatedAction {
       );
     }
 
-    Administrator thisBA = aoConn.getCurrentAdministrator();
+    Administrator thisAdministrator = aoConn.getCurrentAdministrator();
     // Return denied on first missing permission
     for (Permission.Name permission : permissions) {
-      if (!thisBA.hasPermission(permission)) {
+      if (!thisAdministrator.hasPermission(permission)) {
         List<Permission> aoPerms = new ArrayList<>(permissions.size());
         for (Permission.Name requiredPermission : permissions) {
           Permission aoPerm = aoConn.getMaster().getPermission().get(requiredPermission);
           if (aoPerm == null) {
-            throw new SQLException("Unable to find AOServPermission: " + requiredPermission);
+            throw new SQLException("Unable to find AoservPermission: " + requiredPermission);
           }
           aoPerms.add(aoPerm);
         }
@@ -108,7 +109,7 @@ public abstract class PermissionAction extends AuthenticatedAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     return mapping.findForward("success");
   }
@@ -123,7 +124,7 @@ public abstract class PermissionAction extends AuthenticatedAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn,
+      AoservConnector aoConn,
       List<Permission> permissions
   ) throws Exception {
     Constants.PERMISSION_DENIED.context(request).set(permissions);

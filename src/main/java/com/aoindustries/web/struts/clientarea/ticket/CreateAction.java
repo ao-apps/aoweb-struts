@@ -23,7 +23,7 @@
 
 package com.aoindustries.web.struts.clientarea.ticket;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Administrator;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.ticket.Priority;
@@ -49,7 +49,7 @@ public class CreateAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     TicketForm ticketForm = (TicketForm) form;
     Administrator currentAdministrator = aoConn.getCurrentAdministrator();

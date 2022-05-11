@@ -25,9 +25,16 @@ package com.aoindustries.web.struts.book;
 
 import com.aoapps.lang.validation.ValidationException;
 import com.semanticcms.tagreference.TagReferenceInitializer;
+import javax.servlet.ServletContainerInitializer;
 
+/**
+ * Initializes a tag reference during {@linkplain ServletContainerInitializer application start-up}.
+ */
 public class AowebStrutsSkinTldInitializer extends TagReferenceInitializer {
 
+  /**
+   * Parses the TLD file.
+   */
   public AowebStrutsSkinTldInitializer() throws ValidationException {
     super(
         Maven.properties.getProperty("documented.name") + " Skin Taglib Reference",

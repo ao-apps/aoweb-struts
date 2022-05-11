@@ -56,7 +56,7 @@ public class ParentTag extends PageTag {
   @Override
   public int doStartTag() throws JspException {
     ServletRequest request = pageContext.getRequest();
-    Stack<ParentTag> stack = STACK_REQUEST_ATTRIBUTE.context(request).computeIfAbsent(__ -> new Stack<>());
+    Stack<ParentTag> stack = STACK_REQUEST_ATTRIBUTE.context(request).computeIfAbsent(name -> new Stack<>());
     stack.push(this);
     return super.doStartTag();
   }

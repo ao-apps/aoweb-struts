@@ -24,7 +24,7 @@
 package com.aoindustries.web.struts;
 
 import com.aoapps.lang.util.ErrorPrinter;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.ticket.TicketLoggingHandler;
 import java.util.Enumeration;
 import java.util.concurrent.Callable;
@@ -37,7 +37,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 /**
- * Logs to tickets using {@link SiteSettings#getRootAOServConnector()}
+ * Logs to tickets using {@link SiteSettings#getRootAoservConnector()}
  * and {@link TicketLoggingHandler}.
  * <p>
  * Only adds itself if there are no loggers with any handler that is a
@@ -98,7 +98,7 @@ public class TicketLoggingInitializer implements ServletContextListener {
         if (DEBUG) {
           servletContext.log("Handler not found, adding");
         }
-        AOServConnector rootConn = siteSettings.getRootAOServConnector();
+        AoservConnector rootConn = siteSettings.getRootAoservConnector();
         try {
           logManager.getLogger("").addHandler(
               handler = TicketLoggingHandler.getHandler(

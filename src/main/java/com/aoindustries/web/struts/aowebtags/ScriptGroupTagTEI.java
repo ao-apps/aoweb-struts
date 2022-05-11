@@ -24,6 +24,7 @@
 package com.aoindustries.web.struts.aowebtags;
 
 import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
+
 import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.ValidationMessage;

@@ -23,7 +23,7 @@
 
 package com.aoindustries.web.struts.clientarea.ticket;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.ticket.Status;
 import com.aoindustries.aoserv.client.ticket.Ticket;
 import com.aoindustries.web.struts.AuthenticatedAction;
@@ -48,7 +48,7 @@ public class IndexAction  extends AuthenticatedAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     List<Ticket> tickets = aoConn.getTicket().getTicket().getRows();
 
@@ -60,8 +60,8 @@ public class IndexAction  extends AuthenticatedAction {
       //    type.equals(TicketType.SUPPORT)
       //    || type.equals(TicketType.PROJECTS)
       //) {
-        // Do not show junk or deleted tickets
-        String status = ticket.getStatus().getStatus();
+      // Do not show junk or deleted tickets
+      String status = ticket.getStatus().getStatus();
       if (
           !status.equals(Status.JUNK)
               && !status.equals(Status.DELETED)

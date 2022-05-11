@@ -64,9 +64,9 @@ public class LoginAction extends PageAction {
     }
     Identifier id;
     HttpSession hs = session.get();
-    Map<String, Identifier> targets = TARGETS_ATTR.context(hs).computeIfAbsent(__ -> new LRUMap<>(MAX_TARGETS));
+    Map<String, Identifier> targets = TARGETS_ATTR.context(hs).computeIfAbsent(name -> new LRUMap<>(MAX_TARGETS));
     synchronized (targets) {
-      id = targets.computeIfAbsent(targetUrl, __ -> new Identifier());
+      id = targets.computeIfAbsent(targetUrl, name -> new Identifier());
     }
     return id.toString();
   }

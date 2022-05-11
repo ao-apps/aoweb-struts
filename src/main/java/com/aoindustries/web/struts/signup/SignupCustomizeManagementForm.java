@@ -65,8 +65,7 @@ public class SignupCustomizeManagementForm extends ActionForm implements Seriali
             && "".equals(backupDvdOption)
             && distributionScanOption == -1
             && failoverOption == -1
-            && "false".equalsIgnoreCase(formCompleted)
-    ;
+            && "false".equalsIgnoreCase(formCompleted);
   }
 
   public final int getBackupOnsiteOption() {

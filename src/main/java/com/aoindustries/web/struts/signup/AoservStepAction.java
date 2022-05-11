@@ -36,7 +36,7 @@ import org.apache.struts.action.ActionMessages;
 /**
  * @author  AO Industries, Inc.
  */
-public abstract class AOServStepAction extends PageAction {
+public abstract class AoservStepAction extends PageAction {
 
   /**
    * Initializes the step details.
@@ -68,10 +68,14 @@ public abstract class AOServStepAction extends PageAction {
 
     HttpSession session = request.getSession();
 
-    AOServSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, AOServSignupSelectPackageForm.SESSION_ATTRIBUTE, AOServSignupSelectPackageForm::new);
-    SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(servlet, session, SignupOrganizationForm.SESSION_ATTRIBUTE, SignupOrganizationForm::new);
-    SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.SESSION_ATTRIBUTE, SignupTechnicalForm::new);
-    SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.SESSION_ATTRIBUTE, SignupBillingInformationForm::new);
+    AoservSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(
+        servlet, session, AoservSignupSelectPackageForm.SESSION_ATTRIBUTE, AoservSignupSelectPackageForm::new);
+    SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(
+        servlet, session, SignupOrganizationForm.SESSION_ATTRIBUTE, SignupOrganizationForm::new);
+    SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(
+        servlet, session, SignupTechnicalForm.SESSION_ATTRIBUTE, SignupTechnicalForm::new);
+    SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(
+        servlet, session, SignupBillingInformationForm.SESSION_ATTRIBUTE, SignupBillingInformationForm::new);
 
     ActionMessages signupSelectPackageFormErrors = signupSelectPackageForm.validate(mapping, request);
     ActionMessages signupOrganizationFormErrors = signupOrganizationForm.validate(mapping, request);
@@ -88,7 +92,7 @@ public abstract class AOServStepAction extends PageAction {
     request.setAttribute("signupTechnicalFormComplete", Boolean.toString(signupTechnicalFormComplete));
     request.setAttribute("signupBillingInformationFormComplete", Boolean.toString(signupBillingInformationFormComplete));
 
-    return executeAOServStep(
+    return executeAoservStep(
         mapping,
         request,
         response,
@@ -122,11 +126,11 @@ public abstract class AOServStepAction extends PageAction {
     return false;
   }
 
-  public abstract ActionForward executeAOServStep(
+  public abstract ActionForward executeAoservStep(
       ActionMapping mapping,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServSignupSelectPackageForm signupSelectPackageForm,
+      AoservSignupSelectPackageForm signupSelectPackageForm,
       boolean signupSelectPackageFormComplete,
       SignupOrganizationForm signupOrganizationForm,
       boolean signupOrganizationFormComplete,

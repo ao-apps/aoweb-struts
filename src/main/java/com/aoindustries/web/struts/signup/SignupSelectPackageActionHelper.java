@@ -23,13 +23,14 @@
 
 package com.aoindustries.web.struts.signup;
 
+import static com.aoindustries.web.struts.signup.Resources.PACKAGE_RESOURCES;
+
 import com.aoapps.html.Union_TBODY_THEAD_TFOOT;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Account;
 import com.aoindustries.aoserv.client.billing.PackageCategory;
 import com.aoindustries.aoserv.client.billing.PackageDefinition;
 import com.aoindustries.web.struts.SiteSettings;
-import static com.aoindustries.web.struts.signup.Resources.PACKAGE_RESOURCES;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public final class SignupSelectPackageActionHelper {
    * Gets the active package definitions ordered by monthly rate.
    */
   public static List<PackageDefinition> getPackageDefinitions(ServletContext servletContext, String packageCategoryName) throws IOException, SQLException {
-    AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
+    AoservConnector rootConn = SiteSettings.getInstance(servletContext).getRootAoservConnector();
     PackageCategory category = rootConn.getBilling().getPackageCategory().get(packageCategoryName);
     Account rootAccount = rootConn.getCurrentAdministrator().getUsername().getPackage().getAccount();
     List<PackageDefinition> packageDefinitions = rootAccount.getPackageDefinitions(category);
@@ -94,7 +95,7 @@ public final class SignupSelectPackageActionHelper {
       SignupSelectPackageForm signupSelectPackageForm
   ) throws IOException, SQLException {
     // Lookup things needed by the view
-    AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
+    AoservConnector rootConn = SiteSettings.getInstance(servletContext).getRootAoservConnector();
     PackageDefinition packageDefinition = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
 
     // Store as request attribute for the view
@@ -104,9 +105,9 @@ public final class SignupSelectPackageActionHelper {
 
   public static void writeEmailConfirmation(Union_TBODY_THEAD_TFOOT<?> tbody, PackageDefinition packageDefinition) throws IOException {
     tbody.tr__(tr -> tr
-            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-            .td__(PACKAGE_RESOURCES.getMessage("signupSelectPackageForm.packageDefinition.prompt"))
-            .td__(packageDefinition.getDisplay())
+        .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+        .td__(PACKAGE_RESOURCES.getMessage("signupSelectPackageForm.packageDefinition.prompt"))
+        .td__(packageDefinition.getDisplay())
     );
   }
 }

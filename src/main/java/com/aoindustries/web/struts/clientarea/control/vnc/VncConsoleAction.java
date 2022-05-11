@@ -23,7 +23,7 @@
 
 package com.aoindustries.web.struts.clientarea.control.vnc;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.infrastructure.VirtualServer;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.schema.AoservProtocol;
@@ -51,7 +51,7 @@ public class VncConsoleAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     List<VirtualServer> virtualServers = aoConn.getInfrastructure().getVirtualServer().getRows();
     List<VirtualServer> vncVirtualServers = new ArrayList<>(virtualServers.size());

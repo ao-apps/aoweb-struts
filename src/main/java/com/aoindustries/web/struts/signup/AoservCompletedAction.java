@@ -31,14 +31,14 @@ import org.apache.struts.action.ActionMapping;
 /**
  * @author  AO Industries, Inc.
  */
-public class AOServ3CompletedAction extends AOServ3Action {
+public class AoservCompletedAction extends AoservAction {
 
   @Override
-  public ActionForward executeAOServStep(
+  public ActionForward executeAoservStep(
       ActionMapping mapping,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServSignupSelectPackageForm signupSelectPackageForm,
+      AoservSignupSelectPackageForm signupSelectPackageForm,
       boolean signupSelectPackageFormComplete,
       SignupOrganizationForm signupOrganizationForm,
       boolean signupOrganizationFormComplete,
@@ -48,14 +48,7 @@ public class AOServ3CompletedAction extends AOServ3Action {
       boolean signupBillingInformationFormComplete
   ) throws Exception {
     if (!signupSelectPackageFormComplete) {
-      return mapping.findForward("aoserv-completed");
-    }
-    if (!signupOrganizationFormComplete) {
-      return mapping.findForward("aoserv-2-completed");
-    }
-    if (!signupTechnicalFormComplete) {
-      // Init values for the form
-      return super.executeAOServStep(
+      return super.executeAoservStep(
           mapping,
           request,
           response,
@@ -68,6 +61,12 @@ public class AOServ3CompletedAction extends AOServ3Action {
           signupBillingInformationForm,
           signupBillingInformationFormComplete
       );
+    }
+    if (!signupOrganizationFormComplete) {
+      return mapping.findForward("aoserv-2");
+    }
+    if (!signupTechnicalFormComplete) {
+      return mapping.findForward("aoserv-3");
     }
     if (!signupBillingInformationFormComplete) {
       return mapping.findForward("aoserv-4");

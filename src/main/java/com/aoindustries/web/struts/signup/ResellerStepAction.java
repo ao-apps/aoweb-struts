@@ -68,10 +68,14 @@ public abstract class ResellerStepAction extends PageAction {
 
     HttpSession session = request.getSession();
 
-    ResellerSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, ResellerSignupSelectPackageForm.SESSION_ATTRIBUTE, ResellerSignupSelectPackageForm::new);
-    SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(servlet, session, SignupOrganizationForm.SESSION_ATTRIBUTE, SignupOrganizationForm::new);
-    SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.SESSION_ATTRIBUTE, SignupTechnicalForm::new);
-    SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.SESSION_ATTRIBUTE, SignupBillingInformationForm::new);
+    ResellerSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(
+        servlet, session, ResellerSignupSelectPackageForm.SESSION_ATTRIBUTE, ResellerSignupSelectPackageForm::new);
+    SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(
+        servlet, session, SignupOrganizationForm.SESSION_ATTRIBUTE, SignupOrganizationForm::new);
+    SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(
+        servlet, session, SignupTechnicalForm.SESSION_ATTRIBUTE, SignupTechnicalForm::new);
+    SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(
+        servlet, session, SignupBillingInformationForm.SESSION_ATTRIBUTE, SignupBillingInformationForm::new);
 
     ActionMessages signupSelectPackageFormErrors = signupSelectPackageForm.validate(mapping, request);
     ActionMessages signupOrganizationFormErrors = signupOrganizationForm.validate(mapping, request);

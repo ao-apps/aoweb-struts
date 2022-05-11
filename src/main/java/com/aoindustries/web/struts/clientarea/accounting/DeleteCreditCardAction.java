@@ -23,7 +23,7 @@
 
 package com.aoindustries.web.struts.clientarea.accounting;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.payment.CreditCard;
 import com.aoindustries.web.struts.PermissionAction;
@@ -49,7 +49,7 @@ public class DeleteCreditCardAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     // Make sure the credit card still exists, redirect to credit-card-manager if doesn't
     CreditCard creditCard = null;

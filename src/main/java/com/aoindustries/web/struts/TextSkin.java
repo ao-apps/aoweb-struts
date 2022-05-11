@@ -23,16 +23,20 @@
 
 package com.aoindustries.web.struts;
 
-import com.aoapps.encoding.Doctype;
-import com.aoapps.encoding.Serialization;
 import static com.aoapps.encoding.TextInJavaScriptEncoder.textInJavascriptEncoder;
 import static com.aoapps.encoding.TextInXhtmlAttributeEncoder.encodeTextInXhtmlAttribute;
 import static com.aoapps.encoding.TextInXhtmlEncoder.textInXhtmlEncoder;
+import static com.aoapps.lang.Strings.trimNullIfEmpty;
+import static com.aoapps.taglib.AttributeUtils.appendWidthStyle;
+import static com.aoapps.taglib.AttributeUtils.getWidthStyle;
+
+import com.aoapps.encoding.Doctype;
+import com.aoapps.encoding.Serialization;
 import com.aoapps.encoding.servlet.SerializationEE;
 import com.aoapps.hodgepodge.i18n.EditableResourceBundle;
 import com.aoapps.html.any.AnyLINK;
 import com.aoapps.html.any.AnyMETA;
-import com.aoapps.html.any.attributes.Enum.Method;
+import com.aoapps.html.any.attributes.enumeration.Method;
 import com.aoapps.html.servlet.BODY;
 import com.aoapps.html.servlet.BODY_c;
 import com.aoapps.html.servlet.ContentEE;
@@ -48,21 +52,18 @@ import com.aoapps.html.servlet.Union_Metadata_Phrasing;
 import com.aoapps.html.util.GoogleAnalytics;
 import com.aoapps.html.util.HeadUtil;
 import com.aoapps.html.util.ImagePreload;
-import static com.aoapps.lang.Strings.trimNullIfEmpty;
 import com.aoapps.net.AnyURI;
 import com.aoapps.net.EmptyURIParameters;
 import com.aoapps.net.URIEncoder;
 import com.aoapps.servlet.lastmodified.AddLastModified;
 import com.aoapps.servlet.lastmodified.LastModifiedUtil;
 import com.aoapps.style.AoStyle;
-import static com.aoapps.taglib.AttributeUtils.appendWidthStyle;
-import static com.aoapps.taglib.AttributeUtils.getWidthStyle;
 import com.aoapps.web.resources.registry.Group;
 import com.aoapps.web.resources.registry.Registry;
 import com.aoapps.web.resources.registry.Style;
 import com.aoapps.web.resources.renderer.Renderer;
 import com.aoapps.web.resources.servlet.RegistryEE;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.reseller.Brand;
 import com.aoindustries.web.struts.skintags.Child;
 import com.aoindustries.web.struts.skintags.PageAttributes;
@@ -101,17 +102,20 @@ public class TextSkin extends Skin {
 
   static final com.aoapps.lang.i18n.Resources RESOURCES = com.aoapps.lang.i18n.Resources.getResources(ResourceBundle::getBundle, TextSkin.class);
 
-  @WebListener
+  /**
+   * Registers the text skin styles in {@link RegistryEE}.
+   */
+  @WebListener("Registers the text skin styles in RegistryEE.")
   public static class Initializer implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
       RegistryEE.Application.get(event.getServletContext())
           .getGroup(RESOURCE_GROUP)
-          .styles
-          .add(
-              AoStyle.AO_STYLE,
-              TEXTSKIN_CSS
-          );
+              .styles
+              .add(
+                  AoStyle.AO_STYLE,
+                  TEXTSKIN_CSS
+              );
     }
 
     @Override
@@ -198,46 +202,46 @@ public class TextSkin extends Skin {
       PageAttributes pageAttributes,
       DocumentEE document
   ) throws JspException, IOException {
-    boolean isOkResponseStatus = resp.getStatus() == HttpServletResponse.SC_OK;
-    ServletContext servletContext = req.getServletContext();
-    SiteSettings settings = SiteSettings.getInstance(servletContext);
-    Brand brand;
+    final boolean isOkResponseStatus = resp.getStatus() == HttpServletResponse.SC_OK;
+    final ServletContext servletContext = req.getServletContext();
+    final SiteSettings settings = SiteSettings.getInstance(servletContext);
+    final Brand brand;
     try {
       brand = settings.getBrand();
     } catch (SQLException e) {
       throw new JspException(e);
     }
-    String trackingId = brand.getAowebStrutsGoogleAnalyticsNewTrackingCode();
-    List<Language> languages;
+    final String trackingId = brand.getAowebStrutsGoogleAnalyticsNewTrackingCode();
+    final List<Language> languages;
     try {
       languages = settings.getLanguages(req);
     } catch (SQLException e) {
       throw new JspException(e);
     }
-    String layout = pageAttributes.getLayout();
+    final String layout = pageAttributes.getLayout();
     if (!layout.equals(PageAttributes.LAYOUT_NORMAL)) {
       throw new JspException("TODO: Implement layout: " + layout);
     }
-    Locale locale = resp.getLocale();
-    String urlBase = getUrlBase(req);
+    final Locale locale = resp.getLocale();
+    final String urlBase = getUrlBase(req);
     final String path;
-    {
-      String path_ = pageAttributes.getPath();
-      if (path_ == null) {
-        throw new NullPointerException("pageAttributes.path is null");
+      {
+        String pathTmp = pageAttributes.getPath();
+        if (pathTmp == null) {
+          throw new NullPointerException("pageAttributes.path is null");
+        }
+        if (pathTmp.startsWith("/")) {
+          pathTmp = pathTmp.substring(1);
+        }
+        path = pathTmp;
       }
-      if (path_.startsWith("/")) {
-        path_ = path_.substring(1);
-      }
-      path = path_;
-    }
     final String fullPath = urlBase + path;
-    List<Skin> skins = settings.getSkins();
-    List<Parent> parents = pageAttributes.getParents();
-    AOServConnector aoConn = AuthenticatedAction.getAoConn(req, resp);
+    final List<Skin> skins = settings.getSkins();
+    final List<Parent> parents = pageAttributes.getParents();
+    final AoservConnector aoConn = AuthenticatedAction.getAoConn(req, resp);
     // Do this before getting session, since session may be conditionally created by path in LoginAction
-    String target = LoginAction.addTarget(req::getSession, fullPath);
-    HttpSession session = req.getSession(false);
+    final String target = LoginAction.addTarget(req::getSession, fullPath);
+    final HttpSession session = req.getSession(false);
     //if (session == null) {
     //  session = req.getSession(false); // Get again, just in case of authentication
     //}
@@ -376,216 +380,216 @@ public class TextSkin extends Skin {
         .tbody_c()
         .tr_c()
         .td().style("vertical-align:top").__(td -> {
-      printLogo(req, resp, pageAttributes, td, urlBase);
-      td.hr__();
-      boolean isLoggedIn = aoConn != null;
-      if (isLoggedIn) {
-        td.text(RESOURCES.getMessage(locale, "logoutPrompt"))
-            .form()
-            .style("display:inline")
-            .id("logout_form")
-            .method(Method.Value.POST)
-            .action(resp.encodeURL(URIEncoder.encodeURI(urlBase + "logout.do")))
-            .__(form -> form
+          printLogo(req, resp, pageAttributes, td, urlBase);
+          td.hr__();
+          boolean isLoggedIn = aoConn != null;
+          if (isLoggedIn) {
+            td.text(RESOURCES.getMessage(locale, "logoutPrompt"))
+                .form()
+                .style("display:inline")
+                .id("logout_form")
+                .method(Method.Value.POST)
+                .action(resp.encodeURL(URIEncoder.encodeURI(urlBase + "logout.do")))
+                .__(form -> form
                     .div().style("display:inline").__(div -> {
-                  if (target != null) {
-                    div.input().hidden().name("target").value(target).__();
-                  }
-                  // TODO: Variant that takes ResourceBundle?
-                  div.input().submit__(RESOURCES.getMessage(locale, "logoutButtonLabel"));
-                })
-            );
-      } else {
-        td.text(RESOURCES.getMessage(locale, "loginPrompt"))
-            .form()
-            .style("display:inline")
-            .id("login_form")
-            .method(Method.Value.POST)
-            .action(resp.encodeURL(URIEncoder.encodeURI(urlBase + "login.do")))
-            .__(form -> form
+                      if (target != null) {
+                        div.input().hidden().name("target").value(target).__();
+                      }
+                      // TODO: Variant that takes ResourceBundle?
+                      div.input().submit__(RESOURCES.getMessage(locale, "logoutButtonLabel"));
+                    })
+                );
+          } else {
+            td.text(RESOURCES.getMessage(locale, "loginPrompt"))
+                .form()
+                .style("display:inline")
+                .id("login_form")
+                .method(Method.Value.POST)
+                .action(resp.encodeURL(URIEncoder.encodeURI(urlBase + "login.do")))
+                .__(form -> form
                     .div().style("display:inline").__(div -> {
-                  // Only include the target when they are in the /clientarea/ part of the site
-                  if (path.startsWith("clientarea/") && target != null) {
-                    div.input().hidden().name("target").value(target).__();
-                  }
-                  div.input().submit__(RESOURCES.getMessage(locale, "loginButtonLabel"));
-                })
-            );
-      }
-      td.hr__()
-          .div().style("white-space:nowrap").__(div -> {
-        if (skins.size() > 1) {
-          div.script().out(script -> {
-            script.append("function selectLayout(layout) {\n");
-            for (Skin skin : skins) {
-              script.append("  if (layout == ").text(skin.getName()).append(") window.top.location.href=").text(
-                  resp.encodeURL(
-                      new AnyURI(fullPath)
-                          .addEncodedParameter(Constants.LAYOUT.getName(), URIEncoder.encodeURIComponent(skin.getName()))
-                          .toASCIIString()
-                  )
-              ).append(";\n");
-            }
-            script.append('}');
-          }).__()
-              .form().action("").style("display:inline").__(form -> form
-                  .div().style("display:inline").__(div2 -> div2
-                      .text(RESOURCES.getMessage(locale, "layoutPrompt"))
-                      .select().name("layout_selector").onchange("selectLayout(this.form.layout_selector.options[this.form.layout_selector.selectedIndex].value);").__(select -> {
+                      // Only include the target when they are in the /clientarea/ part of the site
+                      if (path.startsWith("clientarea/") && target != null) {
+                        div.input().hidden().name("target").value(target).__();
+                      }
+                      div.input().submit__(RESOURCES.getMessage(locale, "loginButtonLabel"));
+                    })
+                );
+          }
+          td.hr__()
+              .div().style("white-space:nowrap").__(div -> {
+                if (skins.size() > 1) {
+                  div.script().out(script -> {
+                    script.append("function selectLayout(layout) {\n");
                     for (Skin skin : skins) {
-                      select.option()
-                          .value(skin.getName())
-                          .selected(getName().equals(skin.getName()))
-                          .__(skin.getDisplay(req, resp));
+                      script.append("  if (layout == ").text(skin.getName()).append(") window.top.location.href=").text(
+                          resp.encodeURL(
+                              new AnyURI(fullPath)
+                                  .addEncodedParameter(Constants.LAYOUT.getName(), URIEncoder.encodeURIComponent(skin.getName()))
+                                  .toASCIIString()
+                          )
+                      ).append(";\n");
                     }
-                  })
-              )
-          ).br__();
-        }
-        if (languages.size() > 1) {
-          for (Language language : languages) {
-            AnyURI uri = language.getUri();
-            if (language.getCode().equalsIgnoreCase(locale.getLanguage())) {
-              div.nbsp().a()
-                  .href(
-                      resp.encodeURL(
-                          URIEncoder.encodeURI(
-                              (
-                                  uri == null
-                                      ? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
-                                      : uri
-                              ).toASCIIString()
-                          )
+                    script.append('}');
+                  }).__()
+                      .form().action("").style("display:inline").__(form -> form
+                          .div().style("display:inline").__(div2 -> div2
+                              .text(RESOURCES.getMessage(locale, "layoutPrompt"))
+                              .select().name("layout_selector").onchange("selectLayout(this.form.layout_selector.options[this.form.layout_selector.selectedIndex].value);").__(select -> {
+                                for (Skin skin : skins) {
+                                  select.option()
+                                      .value(skin.getName())
+                                      .selected(getName().equals(skin.getName()))
+                                      .__(skin.getDisplay(req, resp));
+                                }
+                              })
                       )
-                  )
-                  .hreflang(language.getCode())
-                  .__(a -> a
-                          .img()
-                          .src(
+                  ).br__();
+                }
+                if (languages.size() > 1) {
+                  for (Language language : languages) {
+                    AnyURI uri = language.getUri();
+                    if (language.getCode().equalsIgnoreCase(locale.getLanguage())) {
+                      div.nbsp().a()
+                          .href(
                               resp.encodeURL(
                                   URIEncoder.encodeURI(
-                                      urlBase + language.getFlagOnSrc(req, locale)
+                                      (
+                                          uri == null
+                                              ? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
+                                              : uri
+                                      ).toASCIIString()
                                   )
                               )
-                          ).style("border:1px solid; vertical-align:bottom")
-                          .width(language.getFlagWidth(req, locale))
-                          .height(language.getFlagHeight(req, locale))
-                          .alt(language.getDisplay(req, locale))
-                          .__()
-                  );
-            } else {
-              div.nbsp().a()
-                  .href(
-                      resp.encodeURL(
-                          URIEncoder.encodeURI(
-                              (
-                                  uri == null
-                                      ? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
-                                      : uri
-                              ).toASCIIString()
                           )
-                      )
-                  )
-                  .hreflang(language.getCode())
-                  .onmouseover(onmouseover -> onmouseover
-                          .append("document.images[").text("flagSelector_" + language.getCode()).append("].src=").text(
-                          resp.encodeURL(
-                              URIEncoder.encodeURI(
-                                  urlBase
-                                      + language.getFlagOnSrc(req, locale)
-                              )
-                          )
-                      ).append(';')
-                  )
-                  .onmouseout(onmouseout -> onmouseout
-                          .append("document.images[").text("flagSelector_" + language.getCode()).append("].src=").text(
-                          resp.encodeURL(
-                              URIEncoder.encodeURI(
-                                  urlBase
-                                      + language.getFlagOffSrc(req, locale)
-                              )
-                          )
-                      ).append(';')
-                  )
-                  .__(a -> a
-                          .img()
-                          .src(
+                          .hreflang(language.getCode())
+                          .__(a -> a
+                              .img()
+                              .src(
+                                  resp.encodeURL(
+                                      URIEncoder.encodeURI(
+                                          urlBase + language.getFlagOnSrc(req, locale)
+                                      )
+                                  )
+                              ).style("border:1px solid; vertical-align:bottom")
+                              .width(language.getFlagWidth(req, locale))
+                              .height(language.getFlagHeight(req, locale))
+                              .alt(language.getDisplay(req, locale))
+                              .__()
+                      );
+                    } else {
+                      div.nbsp().a()
+                          .href(
                               resp.encodeURL(
                                   URIEncoder.encodeURI(
-                                      urlBase
-                                          + language.getFlagOffSrc(req, locale)
+                                      (
+                                          uri == null
+                                              ? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
+                                              : uri
+                                      ).toASCIIString()
                                   )
                               )
-                          ).id("flagSelector_" + language.getCode())
-                          .style("border:1px solid; vertical-align:bottom")
-                          .width(language.getFlagWidth(req, locale))
-                          .height(language.getFlagHeight(req, locale))
-                          .alt(language.getDisplay(req, locale))
-                          .__()
-                  );
-              ImagePreload.writeImagePreloadScript(
-                  resp.encodeURL(
-                      URIEncoder.encodeURI(
-                          urlBase + language.getFlagOnSrc(req, locale)
+                          )
+                          .hreflang(language.getCode())
+                          .onmouseover(onmouseover -> onmouseover
+                              .append("document.images[").text("flagSelector_" + language.getCode()).append("].src=").text(
+                                  resp.encodeURL(
+                                      URIEncoder.encodeURI(
+                                          urlBase
+                                              + language.getFlagOnSrc(req, locale)
+                                      )
+                                  )
+                              ).append(';')
+                          )
+                          .onmouseout(onmouseout -> onmouseout
+                              .append("document.images[").text("flagSelector_" + language.getCode()).append("].src=").text(
+                                  resp.encodeURL(
+                                      URIEncoder.encodeURI(
+                                          urlBase
+                                              + language.getFlagOffSrc(req, locale)
+                                      )
+                                  )
+                              ).append(';')
+                          )
+                          .__(a -> a
+                              .img()
+                              .src(
+                                  resp.encodeURL(
+                                      URIEncoder.encodeURI(
+                                          urlBase
+                                              + language.getFlagOffSrc(req, locale)
+                                      )
+                                  )
+                              ).id("flagSelector_" + language.getCode())
+                              .style("border:1px solid; vertical-align:bottom")
+                              .width(language.getFlagWidth(req, locale))
+                              .height(language.getFlagHeight(req, locale))
+                              .alt(language.getDisplay(req, locale))
+                              .__()
+                      );
+                      ImagePreload.writeImagePreloadScript(
+                          resp.encodeURL(
+                              URIEncoder.encodeURI(
+                                  urlBase + language.getFlagOnSrc(req, locale)
+                              )
+                          ),
+                          div
+                      );
+                    }
+                  }
+                  div.br__();
+                }
+                printSearch(req, resp, div);
+              })
+              .hr__()
+              // Display the parents
+              .b__(RESOURCES.getMessage(locale, "currentLocation")).br__()
+              .div().style("white-space:nowrap").__(div -> {
+                for (Parent parent : parents) {
+                  String navAlt = parent.getNavImageAlt();
+                  String parentPath = parent.getPath();
+                  if (parentPath.startsWith("/")) {
+                    parentPath = parentPath.substring(1);
+                  }
+                  div.a(
+                      resp.encodeURL(
+                          URIEncoder.encodeURI(
+                              urlBase
+                                  + URIEncoder.encodeURI(parentPath)
+                          )
                       )
-                  ),
-                  div
-              );
-            }
-          }
-          div.br__();
-        }
-        printSearch(req, resp, div);
-      })
-          .hr__()
-          // Display the parents
-          .b__(RESOURCES.getMessage(locale, "currentLocation")).br__()
-          .div().style("white-space:nowrap").__(div -> {
-        for (Parent parent : parents) {
-          String navAlt = parent.getNavImageAlt();
-          String parentPath = parent.getPath();
-          if (parentPath.startsWith("/")) {
-            parentPath = parentPath.substring(1);
-          }
-          div.a(
-              resp.encodeURL(
-                  URIEncoder.encodeURI(
-                      urlBase
-                          + URIEncoder.encodeURI(parentPath)
-                  )
-              )
-          ).__(navAlt).br__();
-        }
-        // Always include the current page in the current location area
-        div.a(resp.encodeURL(URIEncoder.encodeURI(fullPath))).__(pageAttributes.getNavImageAlt()).br__();
-      })
-          .hr__()
-          // Related Pages
-          .b__(RESOURCES.getMessage(locale, "relatedPages")).br__()
-          .div().style("white-space:nowrap").__(div -> {
-        List<Child> related = pageAttributes.getChildren();
-        if (related.isEmpty() && !parents.isEmpty()) {
-          related = parents.get(parents.size() - 1).getChildren();
-        }
-        for (Child tpage : related) {
-          String navAlt = tpage.getNavImageAlt();
-          String siblingPath = tpage.getPath();
-          if (siblingPath.startsWith("/")) {
-            siblingPath = siblingPath.substring(1);
-          }
-          div.a(
-              resp.encodeURL(
-                  URIEncoder.encodeURI(
-                      urlBase
-                          + URIEncoder.encodeURI(siblingPath)
-                  )
-              )
-          ).__(navAlt).br__();
-        }
-      })
-          .hr__();
-      printBelowRelatedPages(req, td);
-    })
+                  ).__(navAlt).br__();
+                }
+                // Always include the current page in the current location area
+                div.a(resp.encodeURL(URIEncoder.encodeURI(fullPath))).__(pageAttributes.getNavImageAlt()).br__();
+              })
+              .hr__()
+              // Related Pages
+              .b__(RESOURCES.getMessage(locale, "relatedPages")).br__()
+              .div().style("white-space:nowrap").__(div -> {
+                List<Child> related = pageAttributes.getChildren();
+                if (related.isEmpty() && !parents.isEmpty()) {
+                  related = parents.get(parents.size() - 1).getChildren();
+                }
+                for (Child tpage : related) {
+                  String navAlt = tpage.getNavImageAlt();
+                  String siblingPath = tpage.getPath();
+                  if (siblingPath.startsWith("/")) {
+                    siblingPath = siblingPath.substring(1);
+                  }
+                  div.a(
+                      resp.encodeURL(
+                          URIEncoder.encodeURI(
+                              urlBase
+                                  + URIEncoder.encodeURI(siblingPath)
+                          )
+                      )
+                  ).__(navAlt).br__();
+                }
+              })
+              .hr__();
+          printBelowRelatedPages(req, td);
+        })
         .td().style("vertical-align:top")._c();
     printCommonPages(req, resp, td_c);
     @SuppressWarnings("unchecked")
@@ -593,7 +597,13 @@ public class TextSkin extends Skin {
     return flow;
   }
 
-  public static <__ extends Union_Metadata_Phrasing<__>> void defaultPrintLinks(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, __ head, PageAttributes pageAttributes) throws IOException {
+  public static <__ extends Union_Metadata_Phrasing<__>> void defaultPrintLinks(
+      ServletContext servletContext,
+      HttpServletRequest req,
+      HttpServletResponse resp,
+      __ head,
+      PageAttributes pageAttributes
+  ) throws IOException {
     for (PageAttributes.Link link : pageAttributes.getLinks()) {
       String href = link.getHref();
       String rel = link.getRel();
@@ -650,7 +660,7 @@ public class TextSkin extends Skin {
   public <
       PC extends FlowContent<PC>,
       __ extends ContentEE<__>
-  > __ startContent(
+      > __ startContent(
       HttpServletRequest req,
       HttpServletResponse resp,
       PageAttributes pageAttributes,
@@ -660,26 +670,26 @@ public class TextSkin extends Skin {
   ) throws JspException, IOException {
     width = trimNullIfEmpty(width);
     final int totalColumns;
-    {
-      int totalColumns_ = 0;
-      for (int c = 0; c < contentColumnSpans.length; c++) {
-        if (c > 0) {
-          totalColumns_++;
+      {
+        int totalColumnsTmp = 0;
+        for (int c = 0; c < contentColumnSpans.length; c++) {
+          if (c > 0) {
+            totalColumnsTmp++;
+          }
+          totalColumnsTmp += contentColumnSpans[c];
         }
-        totalColumns_ += contentColumnSpans[c];
+        totalColumns = totalColumnsTmp;
       }
-      totalColumns = totalColumns_;
-    }
     TBODY_c<TABLE_c<PC>> tbody = pc.table()
         .clazz("ao-packed")
         .style(getWidthStyle(width))
         ._c()
         .thead__(thead -> thead
-                .tr__(tr -> tr
-                        .td().colspan(totalColumns).__(td -> td
-                            .hr__()
-                    )
+            .tr__(tr -> tr
+                .td().colspan(totalColumns).__(td -> td
+                    .hr__()
                 )
+            )
         )
         .tbody_c();
     @SuppressWarnings("unchecked")
@@ -806,14 +816,15 @@ public class TextSkin extends Skin {
             case UP_AND_DOWN:
               tr.td__('\u00A0');
               break;
-            default: throw new IllegalArgumentException("Unknown direction: " + direction);
+            default:
+              throw new IllegalArgumentException("Unknown direction: " + direction);
           }
         }
         int colspan = colspansAndDirections[c];
         tr.td()
             .colspan(colspan)
             .__(td -> td
-                    .hr__()
+                .hr__()
             );
       }
     });
@@ -831,22 +842,22 @@ public class TextSkin extends Skin {
     @SuppressWarnings("unchecked")
     TBODY_c<TABLE_c<DocumentEE>> tbody = (TBODY_c) content;
     final int totalColumns;
-    {
-      int totalColumns_ = 0;
-      for (int c = 0; c < contentColumnSpans.length; c++) {
-        if (c > 0) {
-          totalColumns_ += 1;
+      {
+        int totalColumnsTmp = 0;
+        for (int c = 0; c < contentColumnSpans.length; c++) {
+          if (c > 0) {
+            totalColumnsTmp += 1;
+          }
+          totalColumnsTmp += contentColumnSpans[c];
         }
-        totalColumns_ += contentColumnSpans[c];
+        totalColumns = totalColumnsTmp;
       }
-      totalColumns = totalColumns_;
-    }
     tbody.tr__(tr -> tr
-            .td()
-            .colspan(totalColumns)
-            .__(td -> td
-                    .hr__()
-            )
+        .td()
+        .colspan(totalColumns)
+        .__(td -> td
+            .hr__()
+        )
     );
     TABLE_c<DocumentEE> table = tbody.__();
     String copyright = pageAttributes.getCopyright();
@@ -854,14 +865,14 @@ public class TextSkin extends Skin {
       copyright = copyright.trim();
     }
     if (copyright != null && !copyright.isEmpty()) {
-      String copyright_ = copyright;
+      final String copyrightFinal = copyright;
       table.tfoot__(tfoot -> tfoot
-              .tr__(tr -> tr
-                      .td()
-                      .colspan(totalColumns)
-                      .style("text-align:center", "font-size:x-small")
-                      .__(copyright_)
-              )
+          .tr__(tr -> tr
+              .td()
+              .colspan(totalColumns)
+              .style("text-align:center", "font-size:x-small")
+              .__(copyrightFinal)
+          )
       );
     }
     table.__();
@@ -871,7 +882,7 @@ public class TextSkin extends Skin {
   public <
       PC extends FlowContent<PC>,
       __ extends FlowContent<__>
-  > __ startLightArea(
+      > __ startLightArea(
       HttpServletRequest req,
       HttpServletResponse resp,
       PC pc,
@@ -919,7 +930,7 @@ public class TextSkin extends Skin {
   public <
       PC extends FlowContent<PC>,
       __ extends FlowContent<__>
-  > __ startWhiteArea(
+      > __ startWhiteArea(
       HttpServletRequest req,
       HttpServletResponse resp,
       PC pc,
@@ -982,7 +993,7 @@ public class TextSkin extends Skin {
       }
     }
     for (Child sibling : siblings) {
-      String navAlt = sibling.getNavImageAlt();
+      final String navAlt = sibling.getNavImageAlt();
       String siblingPath = sibling.getPath();
       if (siblingPath.startsWith("/")) {
         siblingPath = siblingPath.substring(1);
@@ -1042,38 +1053,38 @@ public class TextSkin extends Skin {
   public static void defaultBeginPopupGroup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId) throws IOException {
     String groupIdStr = Long.toString(groupId);
     document.script().out(script -> script.indent()
-            .append("var popupGroupTimer").append(groupIdStr).append("=null;").nli()
-            .append("var popupGroupAuto").append(groupIdStr).append("=null;").nli()
-            .append("function popupGroupHideAllDetails").append(groupIdStr).append("() {").incDepth().nli()
-            .append("var spanElements = document.getElementsByTagName ? document.getElementsByTagName(\"div\") : document.all.tags(\"div\");").nli()
-            .append("for (var c = 0; c < spanElements.length; c++) {").incDepth().nli()
-            .append("if (spanElements[c].id.indexOf(\"aoPopup_").append(groupIdStr).append("_\") == 0) {").incDepth().nli()
-            .append("spanElements[c].style.visibility=\"hidden\";")
-            .decDepth().nli().append('}')
-            .decDepth().nli().append('}')
-            .decDepth().nli().append('}').nli()
-            .append("function popupGroupToggleDetails").append(groupIdStr).append("(popupId) {").incDepth().nli()
-            .append("if (popupGroupTimer").append(groupIdStr).append(" != null) {").incDepth().nli()
-            .append("clearTimeout(popupGroupTimer").append(groupIdStr).append(");").nli()
-            .decDepth().nli().append('}')
-            .append("var elemStyle = document.getElementById(\"aoPopup_").append(groupIdStr).append("_\"+popupId).style;").nli()
-            .append("if (elemStyle.visibility == \"visible\") {").incDepth().nli()
-            .append("elemStyle.visibility=\"hidden\";")
-            .decDepth().nli().append("} else {").incDepth().nli()
-            .append("popupGroupHideAllDetails").append(groupIdStr).append("();").nli()
-            .append("elemStyle.visibility=\"visible\";")
-            .decDepth().nli().append('}')
-            .decDepth().nli().append('}').nli()
-            .append("function popupGroupShowDetails").append(groupIdStr).append("(popupId) {").incDepth().nli()
-            .append("if (popupGroupTimer").append(groupIdStr).append(" != null) {\n").incDepth().nli()
-            .append("clearTimeout(popupGroupTimer").append(groupIdStr).append(");").nli()
-            .decDepth().nli().append('}')
-            .append("var elemStyle = document.getElementById(\"aoPopup_").append(groupIdStr).append("_\"+popupId).style;").nli()
-            .append("if (elemStyle.visibility != \"visible\") {").incDepth().nli()
-            .append("popupGroupHideAllDetails").append(groupIdStr).append("();").nli()
-            .append("elemStyle.visibility=\"visible\";")
-            .decDepth().nli().append('}')
-            .decDepth().nli().append('}')
+        .append("var popupGroupTimer").append(groupIdStr).append("=null;").nli()
+        .append("var popupGroupAuto").append(groupIdStr).append("=null;").nli()
+        .append("function popupGroupHideAllDetails").append(groupIdStr).append("() {").incDepth().nli()
+        .append("var spanElements = document.getElementsByTagName ? document.getElementsByTagName(\"div\") : document.all.tags(\"div\");").nli()
+        .append("for (var c = 0; c < spanElements.length; c++) {").incDepth().nli()
+        .append("if (spanElements[c].id.indexOf(\"aoPopup_").append(groupIdStr).append("_\") == 0) {").incDepth().nli()
+        .append("spanElements[c].style.visibility=\"hidden\";")
+        .decDepth().nli().append('}')
+        .decDepth().nli().append('}')
+        .decDepth().nli().append('}').nli()
+        .append("function popupGroupToggleDetails").append(groupIdStr).append("(popupId) {").incDepth().nli()
+        .append("if (popupGroupTimer").append(groupIdStr).append(" != null) {").incDepth().nli()
+        .append("clearTimeout(popupGroupTimer").append(groupIdStr).append(");").nli()
+        .decDepth().nli().append('}')
+        .append("var elemStyle = document.getElementById(\"aoPopup_").append(groupIdStr).append("_\"+popupId).style;").nli()
+        .append("if (elemStyle.visibility == \"visible\") {").incDepth().nli()
+        .append("elemStyle.visibility=\"hidden\";")
+        .decDepth().nli().append("} else {").incDepth().nli()
+        .append("popupGroupHideAllDetails").append(groupIdStr).append("();").nli()
+        .append("elemStyle.visibility=\"visible\";")
+        .decDepth().nli().append('}')
+        .decDepth().nli().append('}').nli()
+        .append("function popupGroupShowDetails").append(groupIdStr).append("(popupId) {").incDepth().nli()
+        .append("if (popupGroupTimer").append(groupIdStr).append(" != null) {\n").incDepth().nli()
+        .append("clearTimeout(popupGroupTimer").append(groupIdStr).append(");").nli()
+        .decDepth().nli().append('}')
+        .append("var elemStyle = document.getElementById(\"aoPopup_").append(groupIdStr).append("_\"+popupId).style;").nli()
+        .append("if (elemStyle.visibility != \"visible\") {").incDepth().nli()
+        .append("popupGroupHideAllDetails").append(groupIdStr).append("();").nli()
+        .append("elemStyle.visibility=\"visible\";")
+        .decDepth().nli().append('}')
+        .decDepth().nli().append('}')
     ).__();
   }
 
@@ -1135,15 +1146,15 @@ public class TextSkin extends Skin {
         .width(Integer.parseInt(RESOURCES.getMessage(locale, "popup.width")))
         .height(Integer.parseInt(RESOURCES.getMessage(locale, "popup.height")))
         .onmouseover(onmouseover -> onmouseover
-                .append("popupGroupTimer")
-                .append(groupIdStr)
-                .append("=setTimeout(\"popupGroupAuto")
-                .append(groupIdStr)
-                .append("=true; popupGroupShowDetails")
-                .append(groupIdStr)
-                .append('(')
-                .append(popupIdStr)
-                .append(")\", 1000);")
+            .append("popupGroupTimer")
+            .append(groupIdStr)
+            .append("=setTimeout(\"popupGroupAuto")
+            .append(groupIdStr)
+            .append("=true; popupGroupShowDetails")
+            .append(groupIdStr)
+            .append('(')
+            .append(popupIdStr)
+            .append(")\", 1000);")
         ).onmouseout(onmouseout -> onmouseout
             .append("if (popupGroupAuto")
             .append(groupIdStr)
@@ -1154,7 +1165,7 @@ public class TextSkin extends Skin {
             .append(" != null) clearTimeout(popupGroupTimer")
             .append(groupIdStr)
             .append(");")
-    ).onclick(onclick -> onclick
+        ).onclick(onclick -> onclick
             .append("popupGroupAuto")
             .append(groupIdStr)
             .append("=false; popupGroupToggleDetails")
@@ -1162,7 +1173,7 @@ public class TextSkin extends Skin {
             .append('(')
             .append(popupIdStr)
             .append(");")
-    ).__()
+        ).__()
         // Used to be span width=\"100%\"
         .unsafe("    <div id=\"aoPopup_").unsafe(groupIdStr).unsafe('_').unsafe(popupIdStr).unsafe("\" class=\"aoPopupMain\"");
     if (width != null) {

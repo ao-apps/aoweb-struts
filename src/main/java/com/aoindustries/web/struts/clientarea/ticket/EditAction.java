@@ -24,7 +24,7 @@
 package com.aoindustries.web.struts.clientarea.ticket;
 
 import com.aoapps.lang.Strings;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Account;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.ticket.Ticket;
@@ -49,9 +49,9 @@ public class EditAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
-    TicketForm ticketForm = (TicketForm) form;
+    final TicketForm ticketForm = (TicketForm) form;
 
     // Look for the existing ticket
     String pkeyS = request.getParameter("pkey");

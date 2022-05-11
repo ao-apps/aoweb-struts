@@ -23,7 +23,7 @@
 
 package com.aoindustries.web.struts.signup;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.billing.PackageDefinition;
 import com.aoindustries.web.struts.SiteSettings;
 import java.util.HashMap;
@@ -37,14 +37,14 @@ import org.apache.struts.action.ActionServlet;
 /**
  * @author  AO Industries, Inc.
  */
-public class AOServ5CompletedAction extends AOServ5Action {
+public class Aoserv5CompletedAction extends Aoserv5Action {
 
   @Override
-  public ActionForward executeAOServStep(
+  public ActionForward executeAoservStep(
       ActionMapping mapping,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServSignupSelectPackageForm signupSelectPackageForm,
+      AoservSignupSelectPackageForm signupSelectPackageForm,
       boolean signupSelectPackageFormComplete,
       SignupOrganizationForm signupOrganizationForm,
       boolean signupOrganizationFormComplete,
@@ -80,7 +80,7 @@ public class AOServ5CompletedAction extends AOServ5Action {
     // Used later
     ActionServlet myServlet = getServlet();
     SiteSettings siteSettings = SiteSettings.getInstance(myServlet.getServletContext());
-    AOServConnector rootConn = siteSettings.getRootAOServConnector();
+    AoservConnector rootConn = siteSettings.getRootAoservConnector();
     PackageDefinition packageDefinition = rootConn.getBilling().getPackageDefinition().get(signupSelectPackageForm.getPackageDefinition());
 
     // Build the options map
@@ -116,7 +116,7 @@ public class AOServ5CompletedAction extends AOServ5Action {
     );
 
     // Clear aoserv signup-specific forms from the session
-    AOServSignupSelectPackageForm.SESSION_ATTRIBUTE.context(request.getSession(false)).remove();
+    AoservSignupSelectPackageForm.SESSION_ATTRIBUTE.context(request.getSession(false)).remove();
 
     return mapping.findForward("success");
   }

@@ -23,13 +23,14 @@
 
 package com.aoindustries.web.struts.aowebtags;
 
+import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
+
 import com.aoapps.encoding.JavaScriptWriter;
 import com.aoapps.html.servlet.DocumentEE;
 import com.aoapps.lang.util.Sequence;
 import com.aoapps.lang.util.UnsynchronizedSequence;
 import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoapps.servlet.jsp.LocalizedJspTagException;
-import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
 import java.io.CharArrayWriter;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
@@ -98,7 +99,7 @@ public class ScriptGroupTag extends BodyTagSupport {
           if ("none".equals(onloadMode)) {
             scriptOut.writeTo(script);
           } else {
-            Sequence sequence = SEQUENCE_REQUEST_ATTRIBUTE.context(request).computeIfAbsent(__ -> new UnsynchronizedSequence());
+            Sequence sequence = SEQUENCE_REQUEST_ATTRIBUTE.context(request).computeIfAbsent(name -> new UnsynchronizedSequence());
             String sequenceId = Long.toString(sequence.getNextSequenceValue());
             boolean wroteScript = false;
             script.write("  var scriptOutOldOnload");

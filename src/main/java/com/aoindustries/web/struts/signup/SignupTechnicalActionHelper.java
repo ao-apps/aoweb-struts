@@ -23,11 +23,12 @@
 
 package com.aoindustries.web.struts.signup;
 
+import static com.aoindustries.web.struts.signup.Resources.PACKAGE_RESOURCES;
+
 import com.aoapps.html.Union_TBODY_THEAD_TFOOT;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.password.PasswordGenerator;
 import com.aoindustries.web.struts.SiteSettings;
-import static com.aoindustries.web.struts.signup.Resources.PACKAGE_RESOURCES;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public final class SignupTechnicalActionHelper {
       HttpServletRequest request,
       SignupTechnicalForm signupTechnicalForm
   ) throws IOException, SQLException {
-    AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
+    AoservConnector rootConn = SiteSettings.getInstance(servletContext).getRootAoservConnector();
 
     // Build the list of countries
     List<SignupOrganizationActionHelper.CountryOption> countryOptions = SignupOrganizationActionHelper.getCountryOptions(rootConn);
@@ -75,7 +76,7 @@ public final class SignupTechnicalActionHelper {
     request.setAttribute("passwords", passwords);
   }
 
-  public static String getBaCountry(AOServConnector rootConn, SignupTechnicalForm signupTechnicalForm) throws IOException, SQLException {
+  public static String getBaCountry(AoservConnector rootConn, SignupTechnicalForm signupTechnicalForm) throws IOException, SQLException {
     String baCountry = signupTechnicalForm.getBaCountry();
     return baCountry == null || baCountry.length() == 0 ? "" : rootConn.getPayment().getCountryCode().get(baCountry).getName();
   }
@@ -86,7 +87,7 @@ public final class SignupTechnicalActionHelper {
       SignupTechnicalForm signupTechnicalForm
   ) throws IOException, SQLException {
     // Lookup things needed by the view
-    AOServConnector rootConn = SiteSettings.getInstance(servletContext).getRootAOServConnector();
+    AoservConnector rootConn = SiteSettings.getInstance(servletContext).getRootAoservConnector();
 
     // Store as request attribute for the view
     request.setAttribute("baCountry", getBaCountry(rootConn, signupTechnicalForm));
@@ -94,85 +95,85 @@ public final class SignupTechnicalActionHelper {
 
   public static void writeEmailConfirmation(
       Union_TBODY_THEAD_TFOOT<?> tbody,
-      AOServConnector rootConn,
+      AoservConnector rootConn,
       SignupTechnicalForm signupTechnicalForm
   ) throws IOException, SQLException {
     tbody.tr__(tr -> tr
-            .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-            .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baName.prompt"))
-            .td__(signupTechnicalForm.getBaName())
+        .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+        .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baName.prompt"))
+        .td__(signupTechnicalForm.getBaName())
     )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baTitle.prompt"))
-                .td__(signupTechnicalForm.getBaTitle())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baTitle.prompt"))
+            .td__(signupTechnicalForm.getBaTitle())
         )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baWorkPhone.prompt"))
-                .td__(signupTechnicalForm.getBaWorkPhone())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baWorkPhone.prompt"))
+            .td__(signupTechnicalForm.getBaWorkPhone())
         )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baCellPhone.prompt"))
-                .td__(signupTechnicalForm.getBaCellPhone())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baCellPhone.prompt"))
+            .td__(signupTechnicalForm.getBaCellPhone())
         )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baHomePhone.prompt"))
-                .td__(signupTechnicalForm.getBaHomePhone())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baHomePhone.prompt"))
+            .td__(signupTechnicalForm.getBaHomePhone())
         )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baFax.prompt"))
-                .td__(signupTechnicalForm.getBaFax())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baFax.prompt"))
+            .td__(signupTechnicalForm.getBaFax())
         )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baEmail.prompt"))
-                .td__(signupTechnicalForm.getBaEmail())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baEmail.prompt"))
+            .td__(signupTechnicalForm.getBaEmail())
         )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baAddress1.prompt"))
-                .td__(signupTechnicalForm.getBaAddress1())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baAddress1.prompt"))
+            .td__(signupTechnicalForm.getBaAddress1())
         );
     if (!GenericValidator.isBlankOrNull(signupTechnicalForm.getBaAddress2())) {
       tbody.tr__(tr -> tr
-              .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-              .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baAddress2.prompt"))
-              .td__(signupTechnicalForm.getBaAddress2())
+          .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+          .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baAddress2.prompt"))
+          .td__(signupTechnicalForm.getBaAddress2())
       );
     }
     tbody.tr__(tr -> tr
-            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-            .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baCity.prompt"))
-            .td__(signupTechnicalForm.getBaCity())
+        .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+        .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baCity.prompt"))
+        .td__(signupTechnicalForm.getBaCity())
     )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baState.prompt"))
-                .td__(signupTechnicalForm.getBaState())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baState.prompt"))
+            .td__(signupTechnicalForm.getBaState())
         )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baCountry.prompt"))
-                .td__(getBaCountry(rootConn, signupTechnicalForm))
+            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baCountry.prompt"))
+            .td__(getBaCountry(rootConn, signupTechnicalForm))
         )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baZip.prompt"))
-                .td__(signupTechnicalForm.getBaZip())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baZip.prompt"))
+            .td__(signupTechnicalForm.getBaZip())
         )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baUsername.prompt"))
-                .td__(signupTechnicalForm.getBaUsername())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.required"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baUsername.prompt"))
+            .td__(signupTechnicalForm.getBaUsername())
         )
         .tr__(tr -> tr
-                .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
-                .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baPassword.prompt"))
-                .td__(signupTechnicalForm.getBaPassword())
+            .td__(PACKAGE_RESOURCES.getMessage("signup.notRequired"))
+            .td__(PACKAGE_RESOURCES.getMessage("signupTechnicalForm.baPassword.prompt"))
+            .td__(signupTechnicalForm.getBaPassword())
         );
   }
 }

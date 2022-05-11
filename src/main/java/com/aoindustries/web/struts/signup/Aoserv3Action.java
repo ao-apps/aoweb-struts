@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2009, 2015, 2016, 2018, 2019, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2009, 2016, 2019, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,11 +23,6 @@
 
 package com.aoindustries.web.struts.signup;
 
-import com.aoapps.net.URIEncoder;
-import com.aoindustries.aoserv.client.billing.PackageCategory;
-import com.aoindustries.aoserv.client.billing.PackageDefinition;
-import com.aoindustries.web.struts.Skin;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForward;
@@ -37,14 +32,14 @@ import org.apache.struts.action.ActionMessages;
 /**
  * @author  AO Industries, Inc.
  */
-public class AOServAction extends AOServStepAction {
+public class Aoserv3Action extends AoservStepAction {
 
   @Override
-  public ActionForward executeAOServStep(
+  public ActionForward executeAoservStep(
       ActionMapping mapping,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServSignupSelectPackageForm signupSelectPackageForm,
+      AoservSignupSelectPackageForm signupSelectPackageForm,
       boolean signupSelectPackageFormComplete,
       SignupOrganizationForm signupOrganizationForm,
       boolean signupOrganizationFormComplete,
@@ -53,20 +48,14 @@ public class AOServAction extends AOServStepAction {
       SignupBillingInformationForm signupBillingInformationForm,
       boolean signupBillingInformationFormComplete
   ) throws Exception {
-    List<PackageDefinition> packageDefinitions = SignupSelectPackageActionHelper.getPackageDefinitions(getServlet().getServletContext(), PackageCategory.AOSERV);
-    if (packageDefinitions.size() == 1) {
-      response.sendRedirect(
-          response.encodeRedirectURL(
-              URIEncoder.encodeURI(
-                  Skin.getSkin(request).getUrlBase(request)
-                      + "signup/aoserv-completed.do?packageDefinition="
-                      + URIEncoder.encodeURIComponent(Integer.toString(packageDefinitions.get(0).getPkey()))
-              )
-          )
-      );
-      return null;
+    if (!signupSelectPackageFormComplete) {
+      return mapping.findForward("aoserv-completed");
     }
-    SignupSelectPackageActionHelper.setRequestAttributes(getServlet().getServletContext(), request, response, PackageCategory.AOSERV);
+    if (!signupOrganizationFormComplete) {
+      return mapping.findForward("aoserv-2-completed");
+    }
+
+    SignupTechnicalActionHelper.setRequestAttributes(getServlet().getServletContext(), request, signupTechnicalForm);
 
     // Clear errors if they should not be displayed
     clearErrors(request);

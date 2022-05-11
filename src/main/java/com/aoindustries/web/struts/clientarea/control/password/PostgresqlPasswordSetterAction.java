@@ -23,7 +23,7 @@
 
 package com.aoindustries.web.struts.clientarea.control.password;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.postgresql.Server;
 import com.aoindustries.aoserv.client.postgresql.User;
@@ -40,11 +40,11 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 /**
- * Prepares for administrator password setting.  Populates lists in postgreSQLPasswordSetterForm.
+ * Prepares for administrator password setting.  Populates lists in postgresqlPasswordSetterForm.
  *
  * @author  AO Industries, Inc.
  */
-public class PostgreSQLPasswordSetterAction extends PermissionAction {
+public class PostgresqlPasswordSetterAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(
@@ -52,15 +52,15 @@ public class PostgreSQLPasswordSetterAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
-    PostgreSQLPasswordSetterForm postgreSQLPasswordSetterForm = (PostgreSQLPasswordSetterForm) form;
+    PostgresqlPasswordSetterForm postgresqlPasswordSetterForm = (PostgresqlPasswordSetterForm) form;
 
     List<UserServer> psus = aoConn.getPostgresql().getUserServer().getRows();
 
     List<String> packages = new ArrayList<>(psus.size());
     List<String> usernames = new ArrayList<>(psus.size());
-    List<String> postgreSQLServers = new ArrayList<>(psus.size());
+    List<String> postgresqlServers = new ArrayList<>(psus.size());
     List<String> servers = new ArrayList<>(psus.size());
     List<String> newPasswords = new ArrayList<>(psus.size());
     List<String> confirmPasswords = new ArrayList<>(psus.size());
@@ -71,7 +71,7 @@ public class PostgreSQLPasswordSetterAction extends PermissionAction {
         Server ps = psu.getPostgresServer();
         packages.add(un.getPackage().getName().toString());
         usernames.add(un.getUsername().toString());
-        postgreSQLServers.add(ps.getName().toString());
+        postgresqlServers.add(ps.getName().toString());
         servers.add(ps.getLinuxServer().getHostname().toString());
         newPasswords.add("");
         confirmPasswords.add("");
@@ -79,12 +79,12 @@ public class PostgreSQLPasswordSetterAction extends PermissionAction {
     }
 
     // Store to the form
-    postgreSQLPasswordSetterForm.setPackages(packages);
-    postgreSQLPasswordSetterForm.setUsernames(usernames);
-    postgreSQLPasswordSetterForm.setPostgreSQLServers(postgreSQLServers);
-    postgreSQLPasswordSetterForm.setServers(servers);
-    postgreSQLPasswordSetterForm.setNewPasswords(newPasswords);
-    postgreSQLPasswordSetterForm.setConfirmPasswords(confirmPasswords);
+    postgresqlPasswordSetterForm.setPackages(packages);
+    postgresqlPasswordSetterForm.setUsernames(usernames);
+    postgresqlPasswordSetterForm.setPostgresqlServers(postgresqlServers);
+    postgresqlPasswordSetterForm.setServers(servers);
+    postgresqlPasswordSetterForm.setNewPasswords(newPasswords);
+    postgresqlPasswordSetterForm.setConfirmPasswords(confirmPasswords);
 
     return mapping.findForward("success");
   }

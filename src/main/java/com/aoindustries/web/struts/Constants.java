@@ -25,7 +25,7 @@ package com.aoindustries.web.struts;
 
 import com.aoapps.servlet.attribute.AttributeEE;
 import com.aoapps.servlet.attribute.ScopeEE;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.master.Permission;
 import java.util.List;
 import java.util.Locale;
@@ -49,19 +49,19 @@ public final class Constants {
       ScopeEE.SESSION.attribute("suRequested");
 
   /**
-   * The session key used to store the effective <code>AOServConnector</code> when the user has successfully authenticated.
+   * The session key used to store the effective <code>AoservConnector</code> when the user has successfully authenticated.
    * Any {@link #SU} can change this.
    * Also stored per-request as request attribute once authentication resolved, this way a request is consistent even
    * when session state changing.
    */
-  public static final AttributeEE.Name<AOServConnector> AO_CONN =
+  public static final AttributeEE.Name<AoservConnector> AO_CONN =
       AttributeEE.attribute("aoConn");
 
   /**
-   * The session key used to store the <code>AOServConnector</code> that the user has authenticated as.
+   * The session key used to store the <code>AoservConnector</code> that the user has authenticated as.
    * {@link #SU} will not changes this.
    */
-  public static final ScopeEE.Session.Attribute<AOServConnector> AUTHENTICATED_AO_CONN =
+  public static final ScopeEE.Session.Attribute<AoservConnector> AUTHENTICATED_AO_CONN =
       ScopeEE.SESSION.attribute("authenticatedAoConn");
 
   /**

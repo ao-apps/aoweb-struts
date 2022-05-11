@@ -23,7 +23,7 @@
 
 package com.aoindustries.web.struts.clientarea.accounting;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Account;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.payment.CreditCard;
@@ -52,7 +52,7 @@ public class ConfigureAutomaticBillingCompletedAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     // Account must be selected and accessible
     String account_name = request.getParameter("account");

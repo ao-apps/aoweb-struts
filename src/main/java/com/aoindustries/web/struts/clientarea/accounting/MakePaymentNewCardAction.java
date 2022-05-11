@@ -26,7 +26,7 @@ package com.aoindustries.web.struts.clientarea.accounting;
 import com.aoapps.lang.i18n.Money;
 import com.aoapps.lang.validation.ValidationException;
 import com.aoapps.payments.CreditCard;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Account;
 import com.aoindustries.aoserv.client.account.Administrator;
 import com.aoindustries.aoserv.client.account.Profile;
@@ -61,7 +61,7 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     MakePaymentNewCardForm makePaymentNewCardForm = (MakePaymentNewCardForm) form;
 
@@ -87,18 +87,18 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
       makePaymentNewCardForm.setStreetAddress2(profile.getAddress2());
       makePaymentNewCardForm.setCity(profile.getCity());
       makePaymentNewCardForm.setState(profile.getState());
-      makePaymentNewCardForm.setPostalCode(profile.getZIP());
+      makePaymentNewCardForm.setPostalCode(profile.getZip());
       makePaymentNewCardForm.setCountryCode(profile.getCountry().getCode());
     } else {
-      Administrator thisBA = aoConn.getCurrentAdministrator();
-      makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(thisBA.getName(), locale));
-      makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(thisBA.getName(), locale));
-      makePaymentNewCardForm.setStreetAddress1(thisBA.getAddress1());
-      makePaymentNewCardForm.setStreetAddress2(thisBA.getAddress2());
-      makePaymentNewCardForm.setCity(thisBA.getCity());
-      makePaymentNewCardForm.setState(thisBA.getState());
-      makePaymentNewCardForm.setPostalCode(thisBA.getZIP());
-      makePaymentNewCardForm.setCountryCode(thisBA.getCountry() == null ? "" : thisBA.getCountry().getCode());
+      Administrator thisAdministrator = aoConn.getCurrentAdministrator();
+      makePaymentNewCardForm.setFirstName(AddCreditCardAction.getFirstName(thisAdministrator.getName(), locale));
+      makePaymentNewCardForm.setLastName(AddCreditCardAction.getLastName(thisAdministrator.getName(), locale));
+      makePaymentNewCardForm.setStreetAddress1(thisAdministrator.getAddress1());
+      makePaymentNewCardForm.setStreetAddress2(thisAdministrator.getAddress2());
+      makePaymentNewCardForm.setCity(thisAdministrator.getCity());
+      makePaymentNewCardForm.setState(thisAdministrator.getState());
+      makePaymentNewCardForm.setPostalCode(thisAdministrator.getZip());
+      makePaymentNewCardForm.setCountryCode(thisAdministrator.getCountry() == null ? "" : thisAdministrator.getCountry().getCode());
     }
 
     initRequestAttributes(request, getServlet().getServletContext());
@@ -132,7 +132,7 @@ public class MakePaymentNewCardAction extends AuthenticatedAction {
 
     // Build the list of countries
     // We use the root connector to provide a better set of country values
-    List<SignupOrganizationActionHelper.CountryOption> countryOptions = SignupOrganizationActionHelper.getCountryOptions(SiteSettings.getInstance(context).getRootAOServConnector());
+    List<SignupOrganizationActionHelper.CountryOption> countryOptions = SignupOrganizationActionHelper.getCountryOptions(SiteSettings.getInstance(context).getRootAoservConnector());
 
     // Store to request attributes
     request.setAttribute("expirationYears", expirationYears);

@@ -28,7 +28,7 @@ import com.aoapps.lang.validation.ValidationException;
 import com.aoapps.lang.validation.ValidationResult;
 import com.aoapps.net.Email;
 import com.aoapps.servlet.attribute.ScopeEE;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.User;
 import com.aoindustries.web.struts.SessionActionForm;
 import com.aoindustries.web.struts.SiteSettings;
@@ -104,8 +104,7 @@ public class SignupTechnicalForm extends ActionForm implements Serializable, Ses
             && "".equals(baCountry)
             && "".equals(baZip)
             && "".equals(baUsername)
-            && "".equals(baPassword)
-    ;
+            && "".equals(baPassword);
   }
 
   public final String getBaName() {
@@ -256,7 +255,7 @@ public class SignupTechnicalForm extends ActionForm implements Serializable, Ses
       } else {
         ActionServlet myServlet = getServlet();
         if (myServlet != null) {
-          AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
+          AoservConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAoservConnector();
           String lowerUsername = baUsername.toLowerCase();
           ValidationResult check = User.Name.validate(lowerUsername);
           if (!check.isValid()) {

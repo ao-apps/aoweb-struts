@@ -85,11 +85,11 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                       </tr>
                     </logic:notEmpty>
                     <logic:empty  name="ticket" property="createdBy">
-                      <logic:notEmpty name="siteSettings" property='<%= "rootAOServConnector.ticket.Ticket.map("+ticket.getPkey()+")" %>'>
-                        <logic:notEmpty name="siteSettings" property='<%= "rootAOServConnector.ticket.Ticket.map("+ticket.getPkey()+").createdBy" %>'>
+                      <logic:notEmpty name="siteSettings" property='<%= "rootAoservConnector.ticket.Ticket.map("+ticket.getPkey()+")" %>'>
+                        <logic:notEmpty name="siteSettings" property='<%= "rootAoservConnector.ticket.Ticket.map("+ticket.getPkey()+").createdBy" %>'>
                           <tr>
                             <td style="white-space:nowrap"><ao:message key="edit.label.createdBy" /></td>
-                            <td><ao:write name="siteSettings" property='<%= "rootAOServConnector.ticket.Ticket.map("+ticket.getPkey()+").createdBy.name" %>' /></td>
+                            <td><ao:write name="siteSettings" property='<%= "rootAoservConnector.ticket.Ticket.map("+ticket.getPkey()+").createdBy.name" %>' /></td>
                           </tr>
                         </logic:notEmpty>
                       </logic:notEmpty>
@@ -230,9 +230,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                               <ao:write name="action" property="administrator.name" />
                             </logic:notEmpty>
                             <logic:empty  name="action" property="administrator">
-                              <logic:notEmpty name="siteSettings" property='<%= "rootAOServConnector.ticket.Action.map("+action.getPkey()+")" %>'>
-                                <logic:notEmpty name="siteSettings" property='<%= "rootAOServConnector.ticket.Action.map("+action.getPkey()+").administrator" %>'>
-                                  <ao:write name="siteSettings" property='<%= "rootAOServConnector.ticket.Action.map("+action.getPkey()+").administrator.name" %>' />
+                              <logic:notEmpty name="siteSettings" property='<%= "rootAoservConnector.ticket.Action.map("+action.getPkey()+")" %>'>
+                                <logic:notEmpty name="siteSettings" property='<%= "rootAoservConnector.ticket.Action.map("+action.getPkey()+").administrator" %>'>
+                                  <ao:write name="siteSettings" property='<%= "rootAoservConnector.ticket.Action.map("+action.getPkey()+").administrator.name" %>' />
                                 </logic:notEmpty>
                               </logic:notEmpty>
                             </logic:empty>

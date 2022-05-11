@@ -23,23 +23,25 @@
 
 package com.aoindustries.web.struts.signup;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 /**
  * @author  AO Industries, Inc.
  */
-public class AOServ4CompletedAction extends AOServ4Action {
+public class Aoserv5Action extends AoservStepAction {
 
   @Override
-  public ActionForward executeAOServStep(
+  public ActionForward executeAoservStep(
       ActionMapping mapping,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServSignupSelectPackageForm signupSelectPackageForm,
+      AoservSignupSelectPackageForm signupSelectPackageForm,
       boolean signupSelectPackageFormComplete,
       SignupOrganizationForm signupOrganizationForm,
       boolean signupOrganizationFormComplete,
@@ -48,7 +50,6 @@ public class AOServ4CompletedAction extends AOServ4Action {
       SignupBillingInformationForm signupBillingInformationForm,
       boolean signupBillingInformationFormComplete
   ) throws Exception {
-    // Forward to previous steps if they have not been completed
     if (!signupSelectPackageFormComplete) {
       return mapping.findForward("aoserv-completed");
     }
@@ -59,44 +60,34 @@ public class AOServ4CompletedAction extends AOServ4Action {
       return mapping.findForward("aoserv-3-completed");
     }
     if (!signupBillingInformationFormComplete) {
-      // Init values for the form
-      return super.executeAOServStep(
-          mapping,
-          request,
-          response,
-          signupSelectPackageForm,
-          signupSelectPackageFormComplete,
-          signupOrganizationForm,
-          signupOrganizationFormComplete,
-          signupTechnicalForm,
-          signupTechnicalFormComplete,
-          signupBillingInformationForm,
-          signupBillingInformationFormComplete
-      );
+      return mapping.findForward("aoserv-4-completed");
     }
-    return mapping.findForward("aoserv-5");
+
+    initRequestAttributes(
+        request,
+        response,
+        signupSelectPackageForm,
+        signupOrganizationForm,
+        signupTechnicalForm,
+        signupBillingInformationForm
+    );
+
+    return mapping.findForward("input");
   }
 
-  /**
-   * Clears checkboxes when not in form.
-   */
-  @Override
-  protected void clearCheckboxes(HttpServletRequest request, ActionForm form) {
-    SignupBillingInformationForm signupBillingInformationForm = (SignupBillingInformationForm) form;
-    // Clear the checkboxes if not present in this request
-    if (!"on".equals(request.getParameter("billingUseMonthly"))) {
-      signupBillingInformationForm.setBillingUseMonthly(false);
-    }
-    if (!"on".equals(request.getParameter("billingPayOneYear"))) {
-      signupBillingInformationForm.setBillingPayOneYear(false);
-    }
-  }
+  protected void initRequestAttributes(
+      HttpServletRequest request,
+      HttpServletResponse response,
+      SignupSelectPackageForm signupSelectPackageForm,
+      SignupOrganizationForm signupOrganizationForm,
+      SignupTechnicalForm signupTechnicalForm,
+      SignupBillingInformationForm signupBillingInformationForm
+  ) throws IOException, SQLException {
+    ServletContext servletContext = getServlet().getServletContext();
 
-  /**
-   * Errors are not cleared for the complete step.
-   */
-  @Override
-  protected void clearErrors(HttpServletRequest req) {
-    // Do nothing
+    SignupSelectPackageActionHelper.setConfirmationRequestAttributes(servletContext, request, signupSelectPackageForm);
+    SignupOrganizationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupOrganizationForm);
+    SignupTechnicalActionHelper.setConfirmationRequestAttributes(servletContext, request, signupTechnicalForm);
+    SignupBillingInformationActionHelper.setConfirmationRequestAttributes(servletContext, request, signupBillingInformationForm);
   }
 }

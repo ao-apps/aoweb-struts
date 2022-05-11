@@ -25,7 +25,7 @@ package com.aoindustries.web.struts;
 
 import com.aoapps.net.URIEncoder;
 import com.aoapps.web.resources.registry.Registry;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.linux.User;
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -70,7 +70,7 @@ public class LoginCompletedAction extends PageAction {
 
     try {
       // Get connector
-      AOServConnector aoConn = AOServConnector.getConnector(username, password);
+      AoservConnector aoConn = AoservConnector.getConnector(username, password);
       aoConn.ping();
 
       // Store in session

@@ -51,8 +51,7 @@ public class LinkTag extends EncodingBufferedTag
     HrefAttribute,
     ParamsAttribute,
     TypeAttribute,
-    DynamicAttributes
-{
+    DynamicAttributes {
 
   @Override
   public MediaType getContentType() {
@@ -105,6 +104,8 @@ public class LinkTag extends EncodingBufferedTag
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @see  ParamUtils#addDynamicAttribute(java.lang.String, java.lang.String, java.lang.Object, java.util.List, com.aoapps.taglib.ParamsAttribute)
    */
   @Override

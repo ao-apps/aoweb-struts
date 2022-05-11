@@ -69,11 +69,16 @@ public abstract class VirtualDedicatedStepAction extends PageAction {
 
     HttpSession session = request.getSession();
 
-    VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, VirtualDedicatedSignupSelectPackageForm.SESSION_ATTRIBUTE, VirtualDedicatedSignupSelectPackageForm::new);
-    VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm = SignupHelper.getSessionActionForm(servlet, session, VirtualDedicatedSignupCustomizeServerForm.SESSION_ATTRIBUTE, VirtualDedicatedSignupCustomizeServerForm::new);
-    SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(servlet, session, SignupOrganizationForm.SESSION_ATTRIBUTE, SignupOrganizationForm::new);
-    SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.SESSION_ATTRIBUTE, SignupTechnicalForm::new);
-    SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.SESSION_ATTRIBUTE, SignupBillingInformationForm::new);
+    VirtualDedicatedSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(
+        servlet, session, VirtualDedicatedSignupSelectPackageForm.SESSION_ATTRIBUTE, VirtualDedicatedSignupSelectPackageForm::new);
+    VirtualDedicatedSignupCustomizeServerForm signupCustomizeServerForm = SignupHelper.getSessionActionForm(
+        servlet, session, VirtualDedicatedSignupCustomizeServerForm.SESSION_ATTRIBUTE, VirtualDedicatedSignupCustomizeServerForm::new);
+    SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(
+        servlet, session, SignupOrganizationForm.SESSION_ATTRIBUTE, SignupOrganizationForm::new);
+    SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(
+        servlet, session, SignupTechnicalForm.SESSION_ATTRIBUTE, SignupTechnicalForm::new);
+    SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(
+        servlet, session, SignupBillingInformationForm.SESSION_ATTRIBUTE, SignupBillingInformationForm::new);
 
     ActionMessages signupSelectPackageFormErrors = signupSelectPackageForm.validate(mapping, request);
     ActionMessages signupCustomizeServerFormErrors = signupCustomizeServerForm.validate(mapping, request);

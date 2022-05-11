@@ -88,8 +88,7 @@ public class SignupBillingInformationForm extends ActionForm implements Serializ
             && "".equals(billingStreetAddress)
             && "".equals(billingCity)
             && "".equals(billingState)
-            && "".equals(billingZip)
-    ;
+            && "".equals(billingZip);
   }
 
   /*

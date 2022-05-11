@@ -23,11 +23,11 @@
 
 package com.aoindustries.web.struts.clientarea.accounting;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.payment.CreditCard;
 import com.aoindustries.aoserv.client.payment.Processor;
-import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
+import com.aoindustries.aoserv.creditcards.AoservConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.CreditCardFactory;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.web.struts.PermissionAction;
@@ -54,7 +54,7 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     // Make sure the credit card still exists, redirect to credit-card-manager if doesn't
     CreditCard creditCard = null;
@@ -74,17 +74,17 @@ public class DeleteCreditCardCompletedAction extends PermissionAction {
 
     // Lookup the card in the root connector (to get access to the processor)
     SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
-    AOServConnector rootConn = siteSettings.getRootAOServConnector();
+    AoservConnector rootConn = siteSettings.getRootAoservConnector();
     CreditCard rootCreditCard = rootConn.getPayment().getCreditCard().get(creditCard.getId());
     if (rootCreditCard == null) {
       throw new SQLException("Unable to find CreditCard: " + creditCard.getId());
     }
 
     // Delete the card from the bank and persistence
-    Processor rootAoservCCP = rootCreditCard.getCreditCardProcessor();
-    com.aoapps.payments.CreditCardProcessor processor = CreditCardProcessorFactory.getCreditCardProcessor(rootAoservCCP);
+    Processor rootAoservCreditCardProcessor = rootCreditCard.getCreditCardProcessor();
+    com.aoapps.payments.CreditCardProcessor processor = CreditCardProcessorFactory.getCreditCardProcessor(rootAoservCreditCardProcessor);
     processor.deleteCreditCard(
-        new AOServConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
+        new AoservConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
         CreditCardFactory.getCreditCard(rootCreditCard)
     );
 

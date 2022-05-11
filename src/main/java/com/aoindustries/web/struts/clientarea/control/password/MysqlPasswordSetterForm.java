@@ -28,7 +28,7 @@ import com.aoapps.encoding.Serialization;
 import com.aoapps.encoding.servlet.SerializationEE;
 import com.aoapps.lang.exception.WrappedException;
 import com.aoapps.lang.validation.ValidationException;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.mysql.User;
 import com.aoindustries.aoserv.client.password.PasswordChecker;
 import com.aoindustries.web.struts.AuthenticatedAction;
@@ -45,13 +45,13 @@ import org.apache.struts.action.ActionMessage;
 /**
  * @author AO Industries, Inc.
  */
-public class MySQLPasswordSetterForm extends ActionForm implements Serializable {
+public class MysqlPasswordSetterForm extends ActionForm implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   private List<String> packages;
   private List<String> usernames;
-  private List<String> mySQLServers;
+  private List<String> mysqlServers;
   private List<String> servers;
   private List<String> newPasswords;
   private List<String> confirmPasswords;
@@ -61,7 +61,7 @@ public class MySQLPasswordSetterForm extends ActionForm implements Serializable 
     super.reset(mapping, request);
     setPackages(new AutoGrowArrayList<>());
     setUsernames(new AutoGrowArrayList<>());
-    setMySQLServers(new AutoGrowArrayList<>());
+    setMysqlServers(new AutoGrowArrayList<>());
     setServers(new AutoGrowArrayList<>());
     setNewPasswords(new AutoGrowArrayList<>());
     setConfirmPasswords(new AutoGrowArrayList<>());
@@ -83,12 +83,12 @@ public class MySQLPasswordSetterForm extends ActionForm implements Serializable 
     this.usernames = usernames;
   }
 
-  public List<String> getMySQLServers() {
-    return mySQLServers;
+  public List<String> getMysqlServers() {
+    return mysqlServers;
   }
 
-  public void setMySQLServers(List<String> mySQLServers) {
-    this.mySQLServers = mySQLServers;
+  public void setMysqlServers(List<String> mysqlServers) {
+    this.mysqlServers = mysqlServers;
   }
 
   public List<String> getServers() {
@@ -122,7 +122,7 @@ public class MySQLPasswordSetterForm extends ActionForm implements Serializable 
       if (errors == null) {
         errors = new ActionErrors();
       }
-      AOServConnector aoConn = AuthenticatedAction.getAoConn(request, null);
+      AoservConnector aoConn = AuthenticatedAction.getAoConn(request, null);
       if (aoConn == null) {
         throw new RuntimeException("aoConn is null");
       }

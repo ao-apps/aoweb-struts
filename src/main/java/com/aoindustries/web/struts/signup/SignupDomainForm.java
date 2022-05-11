@@ -55,8 +55,7 @@ public class SignupDomainForm extends ActionForm implements Serializable, Sessio
   public boolean isEmpty() {
     return
         "".equals(choice)
-            && "".equals(domain)
-    ;
+            && "".equals(domain);
   }
 
   public final String getChoice() {

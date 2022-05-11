@@ -24,7 +24,7 @@
 package com.aoindustries.web.struts.signup;
 
 import com.aoapps.lang.exception.WrappedException;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Account;
 import com.aoindustries.aoserv.client.billing.PackageCategory;
 import com.aoindustries.aoserv.client.billing.PackageDefinition;
@@ -76,7 +76,7 @@ public abstract class SignupSelectPackageForm extends ActionForm implements Seri
       // Must be one of the active package_definitions
       ActionServlet myServlet = getServlet();
       if (myServlet != null) {
-        AOServConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAOServConnector();
+        AoservConnector rootConn = SiteSettings.getInstance(myServlet.getServletContext()).getRootAoservConnector();
         PackageCategory category = rootConn.getBilling().getPackageCategory().get(getPackageCategory());
         Account rootAccount = rootConn.getCurrentAdministrator().getUsername().getPackage().getAccount();
 

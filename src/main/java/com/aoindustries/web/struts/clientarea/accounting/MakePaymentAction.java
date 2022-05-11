@@ -27,7 +27,7 @@ import com.aoapps.collections.AoCollections;
 import com.aoapps.lang.i18n.Money;
 import com.aoapps.lang.i18n.Monies;
 import com.aoapps.net.URIEncoder;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Account;
 import com.aoindustries.aoserv.client.billing.TransactionTable;
 import com.aoindustries.web.struts.AuthenticatedAction;
@@ -55,7 +55,7 @@ public class MakePaymentAction extends AuthenticatedAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     TransactionTable transactionTable = aoConn.getBilling().getTransaction();
     Account thisAccount = aoConn.getCurrentAdministrator().getUsername().getPackage().getAccount();

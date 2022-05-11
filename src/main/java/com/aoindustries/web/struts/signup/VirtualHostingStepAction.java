@@ -69,11 +69,16 @@ public abstract class VirtualHostingStepAction extends PageAction {
 
     HttpSession session = request.getSession();
 
-    VirtualHostingSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(servlet, session, VirtualHostingSignupSelectPackageForm.SESSION_ATTRIBUTE, VirtualHostingSignupSelectPackageForm::new);
-    SignupDomainForm signupDomainForm = SignupHelper.getSessionActionForm(servlet, session, SignupDomainForm.SESSION_ATTRIBUTE, SignupDomainForm::new);
-    SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(servlet, session, SignupOrganizationForm.SESSION_ATTRIBUTE, SignupOrganizationForm::new);
-    SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(servlet, session, SignupTechnicalForm.SESSION_ATTRIBUTE, SignupTechnicalForm::new);
-    SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(servlet, session, SignupBillingInformationForm.SESSION_ATTRIBUTE, SignupBillingInformationForm::new);
+    VirtualHostingSignupSelectPackageForm signupSelectPackageForm = SignupHelper.getSessionActionForm(
+        servlet, session, VirtualHostingSignupSelectPackageForm.SESSION_ATTRIBUTE, VirtualHostingSignupSelectPackageForm::new);
+    SignupDomainForm signupDomainForm = SignupHelper.getSessionActionForm(
+        servlet, session, SignupDomainForm.SESSION_ATTRIBUTE, SignupDomainForm::new);
+    SignupOrganizationForm signupOrganizationForm = SignupHelper.getSessionActionForm(
+        servlet, session, SignupOrganizationForm.SESSION_ATTRIBUTE, SignupOrganizationForm::new);
+    SignupTechnicalForm signupTechnicalForm = SignupHelper.getSessionActionForm(
+        servlet, session, SignupTechnicalForm.SESSION_ATTRIBUTE, SignupTechnicalForm::new);
+    SignupBillingInformationForm signupBillingInformationForm = SignupHelper.getSessionActionForm(
+        servlet, session, SignupBillingInformationForm.SESSION_ATTRIBUTE, SignupBillingInformationForm::new);
 
     ActionMessages signupSelectPackageFormErrors = signupSelectPackageForm.validate(mapping, request);
     ActionMessages signupDomainFormErrors = signupDomainForm.validate(mapping, request);

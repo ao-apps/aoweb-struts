@@ -104,43 +104,43 @@ public final class DesCipher {
   }
 
   // Turn an 8-byte key into internal keys.
-  private void deskey(byte[] keyBlock, boolean encrypting, int[] KnL) {
-    int i, j, l, m, n;
+  private void deskey(byte[] keyBlock, boolean encrypting, int[] knL) {
     int[] pc1m = new int[56];
     int[] pcr = new int[56];
     int[] kn = new int[32];
 
-    for (j = 0; j < 56; j++) {
-      l = pc1[j];
-      m = l & 07;
+    for (int j = 0; j < 56; j++) {
+      int l = pc1[j];
+      int m = l & 07;
       pc1m[j] = ((keyBlock[l >>> 3] & bytebit[m]) != 0) ? 1 : 0;
     }
 
-    for (i = 0; i < 16; i++) {
+    for (int i = 0; i < 16; i++) {
+      int m;
       if (encrypting) {
         m = i << 1;
       } else {
         m = (15 - i) << 1;
       }
-      n = m + 1;
+      int n = m + 1;
       kn[m] = kn[n] = 0;
-      for (j = 0; j < 28; j++) {
-        l = j + totrot[i];
+      for (int j = 0; j < 28; j++) {
+        int l = j + totrot[i];
         if (l < 28) {
           pcr[j] = pc1m[l];
         } else {
           pcr[j] = pc1m[l - 28];
         }
       }
-      for (j = 28; j < 56; j++) {
-        l = j + totrot[i];
+      for (int j = 28; j < 56; j++) {
+        int l = j + totrot[i];
         if (l < 56) {
           pcr[j] = pc1m[l];
         } else {
           pcr[j] = pc1m[l - 28];
         }
       }
-      for (j = 0; j < 24; j++) {
+      for (int j = 0; j < 24; j++) {
         if (pcr[pc2[j]] != 0) {
           kn[m] |= bigbyte[j];
         }
@@ -149,27 +149,23 @@ public final class DesCipher {
         }
       }
     }
-    cookey(kn, KnL);
+    cookey(kn, knL);
   }
 
-  private void cookey(int[] raw, int[] KnL) {
-    int raw0, raw1;
-    int rawi, KnLi;
-    int i;
-
-    for (i = 0, rawi = 0, KnLi = 0; i < 16; i++) {
-      raw0 = raw[rawi++];
-      raw1 = raw[rawi++];
-      KnL[KnLi]  = (raw0 & 0x00fc0000) <<   6;
-      KnL[KnLi] |= (raw0 & 0x00000fc0) <<  10;
-      KnL[KnLi] |= (raw1 & 0x00fc0000) >>> 10;
-      KnL[KnLi] |= (raw1 & 0x00000fc0) >>>  6;
-      ++KnLi;
-      KnL[KnLi]  = (raw0 & 0x0003f000) <<  12;
-      KnL[KnLi] |= (raw0 & 0x0000003f) <<  16;
-      KnL[KnLi] |= (raw1 & 0x0003f000) >>>  4;
-      KnL[KnLi] |= raw1 & 0x0000003f;
-      ++KnLi;
+  private void cookey(int[] raw, int[] knL) {
+    for (int i = 0, rawi = 0, knLi = 0; i < 16; i++) {
+      int raw0 = raw[rawi++];
+      int raw1 = raw[rawi++];
+      knL[knLi]  = (raw0 & 0x00fc0000) <<   6;
+      knL[knLi] |= (raw0 & 0x00000fc0) <<  10;
+      knL[knLi] |= (raw1 & 0x00fc0000) >>> 10;
+      knL[knLi] |= (raw1 & 0x00000fc0) >>>  6;
+      ++knLi;
+      knL[knLi]  = (raw0 & 0x0003f000) <<  12;
+      knL[knLi] |= (raw0 & 0x0000003f) <<  16;
+      knL[knLi] |= (raw1 & 0x0003f000) >>>  4;
+      knL[knLi] |= raw1 & 0x0000003f;
+      ++knLi;
     }
   }
 
@@ -194,13 +190,10 @@ public final class DesCipher {
 
   // The DES function.
   private void des(int[] inInts, int[] outInts, int[] keys) {
-    int fval, work, right, leftt;
-    int round;
-    int keysi = 0;
+    int leftt = inInts[0];
+    int right = inInts[1];
 
-    leftt = inInts[0];
-    right = inInts[1];
-
+    int work;
     work   = ((leftt >>>  4) ^ right) & 0x0f0f0f0f;
     right ^= work;
     leftt ^= work << 4;
@@ -223,9 +216,11 @@ public final class DesCipher {
     right ^= work;
     leftt  = (leftt << 1) | ((leftt >>> 31) & 1);
 
-    for (round = 0; round < 8; round++) {
+    int keysi = 0;
+    for (int round = 0; round < 8; round++) {
       work   = (right << 28) | (right >>> 4);
       work  ^= keys[keysi++];
+      int fval;
       fval   = SP7[work         & 0x0000003f];
       fval  |= SP5[(work >>>  8) & 0x0000003f];
       fval  |= SP3[(work >>> 16) & 0x0000003f];
@@ -472,10 +467,10 @@ public final class DesCipher {
   /// Spread ints into bytes.
   public static void spreadIntsToBytes(int[] inInts, int inOff, byte[] outBytes, int outOff, int intLen) {
     for (int i = 0; i < intLen; i++) {
-      outBytes[outOff + i * 4    ] = (byte) ( inInts[inOff + i] >>> 24 );
-      outBytes[outOff + i * 4 + 1] = (byte) ( inInts[inOff + i] >>> 16 );
-      outBytes[outOff + i * 4 + 2] = (byte) ( inInts[inOff + i] >>>  8 );
-      outBytes[outOff + i * 4 + 3] = (byte)   inInts[inOff + i];
+      outBytes[outOff + i * 4    ] = (byte) (inInts[inOff + i] >>> 24);
+      outBytes[outOff + i * 4 + 1] = (byte) (inInts[inOff + i] >>> 16);
+      outBytes[outOff + i * 4 + 2] = (byte) (inInts[inOff + i] >>>  8);
+      outBytes[outOff + i * 4 + 3] = (byte)  inInts[inOff + i];
     }
   }
 }

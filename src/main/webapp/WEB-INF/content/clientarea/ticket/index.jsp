@@ -115,9 +115,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                         <ao:write name="ticket" property="createdBy.name" />
                       </logic:notEmpty>
                       <logic:empty  name="ticket" property="createdBy">
-                        <logic:notEmpty name="siteSettings" property='<%= "rootAOServConnector.ticket.Ticket.map("+ticket.getPkey()+")" %>'>
-                          <logic:notEmpty name="siteSettings" property='<%= "rootAOServConnector.ticket.Ticket.map("+ticket.getPkey()+").createdBy" %>'>
-                            <ao:write name="siteSettings" property='<%= "rootAOServConnector.ticket.Ticket.map("+ticket.getPkey()+").createdBy.name" %>' />
+                        <logic:notEmpty name="siteSettings" property='<%= "rootAoservConnector.ticket.Ticket.map("+ticket.getPkey()+")" %>'>
+                          <logic:notEmpty name="siteSettings" property='<%= "rootAoservConnector.ticket.Ticket.map("+ticket.getPkey()+").createdBy" %>'>
+                            <ao:write name="siteSettings" property='<%= "rootAoservConnector.ticket.Ticket.map("+ticket.getPkey()+").createdBy.name" %>' />
                           </logic:notEmpty>
                         </logic:notEmpty>
                       </logic:empty>

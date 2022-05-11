@@ -30,9 +30,9 @@ import java.io.Serializable;
 /**
  * @author  AO Industries, Inc.
  */
-public class AOServSignupSelectPackageForm extends SignupSelectPackageForm implements Serializable {
+public class AoservSignupSelectPackageForm extends SignupSelectPackageForm implements Serializable {
 
-  public static final ScopeEE.Session.Attribute<AOServSignupSelectPackageForm> SESSION_ATTRIBUTE =
+  public static final ScopeEE.Session.Attribute<AoservSignupSelectPackageForm> SESSION_ATTRIBUTE =
       ScopeEE.SESSION.attribute("aoservSignupSelectPackageForm");
 
   private static final long serialVersionUID = 1L;

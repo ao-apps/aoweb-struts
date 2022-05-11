@@ -141,7 +141,7 @@ public class ContentLineTag extends BodyTagSupport {
   }
 
   /**
-   * The row span on endContentLine either either 1 or the rowspan of the last contentVerticalDivider
+   * The row span on endContentLine either either 1 or the rowspan of the last contentVerticalDivider.
    */
   void setLastRowSpan(int lastRowSpan) {
     this.lastRowSpan = lastRowSpan;

@@ -23,11 +23,12 @@
 
 package com.aoindustries.web.struts.skintags;
 
+import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
+
 import com.aoapps.html.servlet.ContentEE;
 import com.aoapps.lang.Strings;
 import com.aoapps.servlet.jsp.LocalizedJspTagException;
 import com.aoapps.servlet.jsp.tagext.JspTagUtils;
-import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
 import com.aoindustries.web.struts.Skin;
 import java.io.IOException;
 import java.util.List;

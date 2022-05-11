@@ -61,7 +61,7 @@ public class LightDarkTableRowTag extends BodyTagSupport {
     try {
       JspWriter out = pageContext.getOut();
       out.write("<tr class=\"");
-      boolean isDark = pageAttributeId.context(pageContext).computeIfAbsent(__ -> false);
+      boolean isDark = pageAttributeId.context(pageContext).computeIfAbsent(name -> false);
       out.write(isDark ? "aoDarkRow" : "aoLightRow");
       out.write("\">");
       return EVAL_BODY_INCLUDE;
@@ -73,7 +73,7 @@ public class LightDarkTableRowTag extends BodyTagSupport {
   @Override
   public int doEndTag() throws JspException {
     try {
-      boolean isDark = pageAttributeId.context(pageContext).computeIfAbsent(__ -> false);
+      boolean isDark = pageAttributeId.context(pageContext).computeIfAbsent(name -> false);
       pageAttributeId.context(pageContext).set(!isDark);
       pageContext.getOut().write("</tr>");
       return EVAL_PAGE;

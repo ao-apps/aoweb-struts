@@ -23,6 +23,8 @@
 
 package com.aoindustries.web.struts.skintags;
 
+import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
+
 import com.aoapps.encoding.Doctype;
 import com.aoapps.encoding.Serialization;
 import com.aoapps.encoding.servlet.DoctypeEE;
@@ -37,7 +39,6 @@ import com.aoapps.taglib.HtmlTag;
 import com.aoindustries.web.struts.Constants;
 import com.aoindustries.web.struts.Formtype;
 import com.aoindustries.web.struts.Globals;
-import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
 import com.aoindustries.web.struts.Skin;
 import java.io.IOException;
 import java.util.Locale;
@@ -195,9 +196,9 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
       pageAttributes.setFormtype(formtype);
       pageAttributes.setOnload(onload);
 
-      ServletContext servletContext = pageContext.getServletContext();
-      HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-      HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
+      final ServletContext servletContext = pageContext.getServletContext();
+      final HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+      final HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
 
       if (serialization == null) {
         serialization = SerializationEE.get(servletContext, request);

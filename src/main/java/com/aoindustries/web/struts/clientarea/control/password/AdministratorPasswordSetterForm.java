@@ -28,7 +28,7 @@ import com.aoapps.encoding.Serialization;
 import com.aoapps.encoding.servlet.SerializationEE;
 import com.aoapps.lang.exception.WrappedException;
 import com.aoapps.lang.validation.ValidationException;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Administrator;
 import com.aoindustries.aoserv.client.linux.User;
 import com.aoindustries.aoserv.client.password.PasswordChecker;
@@ -103,7 +103,7 @@ public class AdministratorPasswordSetterForm extends ActionForm implements Seria
       if (errors == null) {
         errors = new ActionErrors();
       }
-      AOServConnector aoConn = AuthenticatedAction.getAoConn(request, null);
+      AoservConnector aoConn = AuthenticatedAction.getAoConn(request, null);
       if (aoConn == null) {
         throw new RuntimeException("aoConn is null");
       }

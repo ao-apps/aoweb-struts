@@ -24,7 +24,7 @@
 package com.aoindustries.web.struts.clientarea.accounting;
 
 import com.aoapps.payments.CreditCard;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Account;
 import com.aoindustries.aoserv.client.account.Administrator;
 import com.aoindustries.aoserv.client.account.Profile;
@@ -116,7 +116,7 @@ public class AddCreditCardAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     AddCreditCardForm addCreditCardForm = (AddCreditCardForm) form;
 
@@ -141,18 +141,18 @@ public class AddCreditCardAction extends PermissionAction {
       addCreditCardForm.setStreetAddress2(profile.getAddress2());
       addCreditCardForm.setCity(profile.getCity());
       addCreditCardForm.setState(profile.getState());
-      addCreditCardForm.setPostalCode(profile.getZIP());
+      addCreditCardForm.setPostalCode(profile.getZip());
       addCreditCardForm.setCountryCode(profile.getCountry().getCode());
     } else {
-      Administrator thisBA = aoConn.getCurrentAdministrator();
-      addCreditCardForm.setFirstName(getFirstName(thisBA.getName(), locale));
-      addCreditCardForm.setLastName(getLastName(thisBA.getName(), locale));
-      addCreditCardForm.setStreetAddress1(thisBA.getAddress1());
-      addCreditCardForm.setStreetAddress2(thisBA.getAddress2());
-      addCreditCardForm.setCity(thisBA.getCity());
-      addCreditCardForm.setState(thisBA.getState());
-      addCreditCardForm.setPostalCode(thisBA.getZIP());
-      addCreditCardForm.setCountryCode(thisBA.getCountry() == null ? "" : thisBA.getCountry().getCode());
+      Administrator thisAdministrator = aoConn.getCurrentAdministrator();
+      addCreditCardForm.setFirstName(getFirstName(thisAdministrator.getName(), locale));
+      addCreditCardForm.setLastName(getLastName(thisAdministrator.getName(), locale));
+      addCreditCardForm.setStreetAddress1(thisAdministrator.getAddress1());
+      addCreditCardForm.setStreetAddress2(thisAdministrator.getAddress2());
+      addCreditCardForm.setCity(thisAdministrator.getCity());
+      addCreditCardForm.setState(thisAdministrator.getState());
+      addCreditCardForm.setPostalCode(thisAdministrator.getZip());
+      addCreditCardForm.setCountryCode(thisAdministrator.getCountry() == null ? "" : thisAdministrator.getCountry().getCode());
     }
 
     initRequestAttributes(request, getServlet().getServletContext());
@@ -170,7 +170,7 @@ public class AddCreditCardAction extends PermissionAction {
 
     // Build the list of countries
     // We use the root connector to provide a better set of country values
-    List<SignupOrganizationActionHelper.CountryOption> countryOptions = SignupOrganizationActionHelper.getCountryOptions(SiteSettings.getInstance(context).getRootAOServConnector());
+    List<SignupOrganizationActionHelper.CountryOption> countryOptions = SignupOrganizationActionHelper.getCountryOptions(SiteSettings.getInstance(context).getRootAoservConnector());
 
     // Store to request attributes
     request.setAttribute("expirationYears", expirationYears);

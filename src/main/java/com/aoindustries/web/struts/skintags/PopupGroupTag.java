@@ -62,7 +62,7 @@ public class PopupGroupTag extends BodyTagSupport {
       HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
       HttpServletResponse resp = (HttpServletResponse) pageContext.getResponse();
       sequenceId = SEQUENCE_REQUEST_ATTRIBUTE.context(req)
-          .computeIfAbsent(__ -> new UnsynchronizedSequence())
+          .computeIfAbsent(name -> new UnsynchronizedSequence())
           .getNextSequenceValue();
       SkinTag.getSkin(req).beginPopupGroup(
           req,

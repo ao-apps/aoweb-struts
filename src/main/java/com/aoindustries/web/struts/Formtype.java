@@ -42,17 +42,17 @@ public enum Formtype {
    * Adds <code>/struts1/commons-validator-1.3.1-compress.js</code> to {@code <head>} for Struts 1.
    */
   STRUTS1 {
-  @Override
-  public void doHead(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, MetadataContent<?> content) throws IOException {
-    content.script().src(
-        resp.encodeURL(
-            URIEncoder.encodeURI(
-                req.getContextPath() + "/struts1/commons-validator-1.3.1-compress.js"
-            )
-        )
-    ).__();
-  }
-},
+    @Override
+    public void doHead(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, MetadataContent<?> content) throws IOException {
+      content.script().src(
+          resp.encodeURL(
+              URIEncoder.encodeURI(
+                  req.getContextPath() + "/struts1/commons-validator-1.3.1-compress.js"
+              )
+          )
+      ).__();
+    }
+  },
 
   /**
    * Calls <a href="https://struts.apache.org/tag-developers/head-tag.html">{@code <s:head />}</a> within
@@ -64,9 +64,9 @@ public enum Formtype {
   STRUTS2 {
     @Override
     public void doHead(ServletContext servletContext, HttpServletRequest req, HttpServletResponse resp, MetadataContent<?> content) throws JspException, IOException {
-      final String STRUTS2_HEAD_INCLUDE = "/WEB-INF/struts2/head.jsp";
+      final String struts2HeadInclude = "/WEB-INF/struts2/head.jsp";
       try {
-        servletContext.getRequestDispatcher(STRUTS2_HEAD_INCLUDE).include(req, resp);
+        servletContext.getRequestDispatcher(struts2HeadInclude).include(req, resp);
       } catch (ServletException e) {
         throw new JspException(e);
       }

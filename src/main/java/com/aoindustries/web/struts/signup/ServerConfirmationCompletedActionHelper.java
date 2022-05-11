@@ -23,6 +23,8 @@
 
 package com.aoindustries.web.struts.signup;
 
+import static com.aoindustries.web.struts.signup.Resources.PACKAGE_RESOURCES;
+
 import com.aoapps.encoding.Doctype;
 import com.aoapps.encoding.EncodingContext;
 import com.aoapps.encoding.Serialization;
@@ -38,7 +40,7 @@ import com.aoapps.net.HostAddress;
 import com.aoapps.net.InetAddress;
 import com.aoapps.taglib.GlobalAttributes;
 import com.aoapps.taglib.HtmlTag;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.billing.PackageDefinition;
 import com.aoindustries.aoserv.client.linux.User;
 import com.aoindustries.aoserv.client.payment.CountryCode;
@@ -46,7 +48,6 @@ import com.aoindustries.aoserv.client.reseller.Brand;
 import com.aoindustries.web.struts.Mailer;
 import com.aoindustries.web.struts.SiteSettings;
 import com.aoindustries.web.struts.TextSkin;
-import static com.aoindustries.web.struts.signup.Resources.PACKAGE_RESOURCES;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -116,7 +117,7 @@ public final class ServerConfirmationCompletedActionHelper {
   public static void storeToDatabase(
       ActionServlet servlet,
       HttpServletRequest request,
-      AOServConnector rootConn,
+      AoservConnector rootConn,
       PackageDefinition packageDefinition,
       SignupOrganizationForm signupOrganizationForm,
       SignupTechnicalForm signupTechnicalForm,
@@ -200,7 +201,9 @@ public final class ServerConfirmationCompletedActionHelper {
   ) {
     try {
       SiteSettings siteSettings = SiteSettings.getInstance(servlet.getServletContext());
-      sendSummaryEmail(servlet, request, pkey, statusKey, siteSettings.getBrand().getAowebStrutsSignupAdminAddress(), packageDefinition, signupCustomizeServerForm, signupCustomizeManagementForm, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm);
+      sendSummaryEmail(servlet, request, pkey, statusKey, siteSettings.getBrand().getAowebStrutsSignupAdminAddress(),
+          packageDefinition, signupCustomizeServerForm, signupCustomizeManagementForm, signupOrganizationForm,
+          signupTechnicalForm, signupBillingInformationForm);
     } catch (ThreadDeath td) {
       throw td;
     } catch (Throwable t) {
@@ -231,7 +234,9 @@ public final class ServerConfirmationCompletedActionHelper {
     Iterator<String> iter = addresses.iterator();
     while (iter.hasNext()) {
       String address = iter.next();
-      boolean success = sendSummaryEmail(servlet, request, pkey, statusKey, address, packageDefinition, signupCustomizeServerForm, signupCustomizeManagementForm, signupOrganizationForm, signupTechnicalForm, signupBillingInformationForm);
+      boolean success = sendSummaryEmail(servlet, request, pkey, statusKey, address, packageDefinition,
+          signupCustomizeServerForm, signupCustomizeManagementForm, signupOrganizationForm, signupTechnicalForm,
+          signupBillingInformationForm);
       if (success) {
         successAddresses.add(address);
       } else {
@@ -262,25 +267,27 @@ public final class ServerConfirmationCompletedActionHelper {
       SignupBillingInformationForm signupBillingInformationForm
   ) {
     try {
-      String subject = PACKAGE_RESOURCES.getMessage("serverConfirmationCompleted.email.subject", pkey);
+      final String subject = PACKAGE_RESOURCES.getMessage("serverConfirmationCompleted.email.subject", pkey);
 
       // Find the locale and related resource bundles
-      Locale userLocale = ThreadLocale.get();
-      Charset charset = AnyDocument.ENCODING; // TODO: US-ASCII with automatic entity encoding
+      final Locale userLocale = ThreadLocale.get();
+      final Charset charset = AnyDocument.ENCODING; // TODO: US-ASCII with automatic entity encoding
 
       // Generate the email contents
       // TODO: Test emails
-      StringWriter buffer = new StringWriter();
+      final StringWriter buffer = new StringWriter();
       Document document = new Document(
           new EncodingContext() {
             @Override
             public Serialization getSerialization() {
               return Serialization.SGML;
             }
+
             @Override
             public Doctype getDoctype() {
               return Doctype.STRICT;
             }
+
             @Override
             public Charset getCharacterEncoding() {
               return charset;
@@ -331,7 +338,7 @@ public final class ServerConfirmationCompletedActionHelper {
       document.unsafe("    <tr><td colspan=\"3\">&#160;</td></tr>\n"
           + "    <tr><th colspan=\"3\">").text(PACKAGE_RESOURCES.getMessage("steps.customizeServer.label")).unsafe("</th></tr>\n");
       SiteSettings siteSettings = SiteSettings.getInstance(servlet.getServletContext());
-      AOServConnector rootConn = siteSettings.getRootAOServConnector();
+      AoservConnector rootConn = siteSettings.getRootAoservConnector();
       SignupCustomizeServerActionHelper.writeEmailConfirmation(request, document, rootConn, packageDefinition, signupCustomizeServerForm);
       if (signupCustomizeManagementForm != null) {
         document.unsafe("    <tr><td colspan=\"3\">&#160;</td></tr>\n"

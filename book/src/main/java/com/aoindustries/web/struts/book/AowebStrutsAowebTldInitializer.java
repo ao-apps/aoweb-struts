@@ -25,9 +25,16 @@ package com.aoindustries.web.struts.book;
 
 import com.aoapps.lang.validation.ValidationException;
 import com.semanticcms.tagreference.TagReferenceInitializer;
+import javax.servlet.ServletContainerInitializer;
 
+/**
+ * Initializes a tag reference during {@linkplain ServletContainerInitializer application start-up}.
+ */
 public class AowebStrutsAowebTldInitializer extends TagReferenceInitializer {
 
+  /**
+   * Parses the TLD file.
+   */
   public AowebStrutsAowebTldInitializer() throws ValidationException {
     super(
         Maven.properties.getProperty("documented.name") + " AOWeb Taglib Reference",

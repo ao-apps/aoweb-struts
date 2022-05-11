@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
 Copyright (C) 2009, 2016, 2019, 2021, 2022  AO Industries, Inc.
@@ -40,8 +40,8 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
     <form-bean name="passwordEvaluatorForm" type="com.aoindustries.web.struts.clientarea.control.password.PasswordEvaluatorForm" />
     <form-bean name="administratorPasswordSetterForm" type="com.aoindustries.web.struts.clientarea.control.password.AdministratorPasswordSetterForm" />
     <form-bean name="linuxAccountPasswordSetterForm" type="com.aoindustries.web.struts.clientarea.control.password.LinuxAccountPasswordSetterForm" />
-    <form-bean name="mySQLPasswordSetterForm" type="com.aoindustries.web.struts.clientarea.control.password.MySQLPasswordSetterForm" />
-    <form-bean name="postgreSQLPasswordSetterForm" type="com.aoindustries.web.struts.clientarea.control.password.PostgreSQLPasswordSetterForm" />
+    <form-bean name="mysqlPasswordSetterForm" type="com.aoindustries.web.struts.clientarea.control.password.MysqlPasswordSetterForm" />
+    <form-bean name="postgresqlPasswordSetterForm" type="com.aoindustries.web.struts.clientarea.control.password.PostgresqlPasswordSetterForm" />
     <form-bean name="globalPasswordSetterForm" type="com.aoindustries.web.struts.clientarea.control.password.GlobalPasswordSetterForm" />
   </form-beans>
 
@@ -97,7 +97,7 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
     </action>
     <action
       path="/monitor/mysql-replication-monitor"
-      type="com.aoindustries.web.struts.clientarea.control.monitor.MySQLReplicationMonitorAction"
+      type="com.aoindustries.web.struts.clientarea.control.monitor.MysqlReplicationMonitorAction"
     >
       <forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/monitor/mysql-replication-monitor.jsp" redirect="false" />
       <forward name="success" module="" path="/WEB-INF/content/clientarea/control/monitor/mysql-replication-monitor.jsp" redirect="false" />
@@ -175,20 +175,20 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
     </action>
     <action
       path="/password/mysql-password-setter"
-      name="mySQLPasswordSetterForm"
+      name="mysqlPasswordSetterForm"
       scope="request"
       validate="false"
-      type="com.aoindustries.web.struts.clientarea.control.password.MySQLPasswordSetterAction"
+      type="com.aoindustries.web.struts.clientarea.control.password.MysqlPasswordSetterAction"
     >
       <forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/password/mysql-password-setter.jsp" redirect="false" />
       <forward name="success" module="" path="/WEB-INF/content/clientarea/control/password/mysql-password-setter.jsp" redirect="false" />
     </action>
     <action
       path="/password/mysql-password-setter-completed"
-      name="mySQLPasswordSetterForm"
+      name="mysqlPasswordSetterForm"
       scope="request"
       validate="false"
-      type="com.aoindustries.web.struts.clientarea.control.password.MySQLPasswordSetterCompletedAction"
+      type="com.aoindustries.web.struts.clientarea.control.password.MysqlPasswordSetterCompletedAction"
     >
       <forward name="input" module="" path="/WEB-INF/content/clientarea/control/password/mysql-password-setter.jsp" redirect="false" />
       <forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/password/mysql-password-setter.jsp" redirect="false" />
@@ -196,20 +196,20 @@ struts-config-clientarea-control.xml.messageResources Additional message resourc
     </action>
     <action
       path="/password/postgresql-password-setter"
-      name="postgreSQLPasswordSetterForm"
+      name="postgresqlPasswordSetterForm"
       scope="request"
       validate="false"
-      type="com.aoindustries.web.struts.clientarea.control.password.PostgreSQLPasswordSetterAction"
+      type="com.aoindustries.web.struts.clientarea.control.password.PostgresqlPasswordSetterAction"
     >
       <forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/password/postgresql-password-setter.jsp" redirect="false" />
       <forward name="success" module="" path="/WEB-INF/content/clientarea/control/password/postgresql-password-setter.jsp" redirect="false" />
     </action>
     <action
       path="/password/postgresql-password-setter-completed"
-      name="postgreSQLPasswordSetterForm"
+      name="postgresqlPasswordSetterForm"
       scope="request"
       validate="false"
-      type="com.aoindustries.web.struts.clientarea.control.password.PostgreSQLPasswordSetterCompletedAction"
+      type="com.aoindustries.web.struts.clientarea.control.password.PostgresqlPasswordSetterCompletedAction"
     >
       <forward name="permission-denied" module="" path="/WEB-INF/content/clientarea/control/password/postgresql-password-setter.jsp" redirect="false" />
       <forward name="input" module="" path="/WEB-INF/content/clientarea/control/password/postgresql-password-setter.jsp" redirect="false" />

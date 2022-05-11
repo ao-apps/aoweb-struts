@@ -23,9 +23,10 @@
 
 package com.aoindustries.web.struts;
 
+import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
+
 import com.aoapps.servlet.attribute.AttributeEE;
 import com.aoapps.servlet.attribute.ScopeEE;
-import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
 import java.util.Enumeration;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -33,7 +34,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Filters setAttribute to make sure all session objects are precisely as
  * expected by <code>SessionResponseWrapper</code> to ensure proper conditional
- * use of <code>jsessionid</code>
+ * use of <code>jsessionid</code>.
  *
  * @author  AO Industries, Inc.
  */

@@ -25,7 +25,7 @@ package com.aoindustries.web.struts;
 
 import com.aoapps.net.Email;
 import com.aoapps.web.resources.registry.Registry;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.ticket.Language;
 import com.aoindustries.aoserv.client.ticket.Priority;
 import com.aoindustries.aoserv.client.ticket.TicketType;
@@ -62,7 +62,7 @@ public class ContactCompletedAction extends PageAction {
     }
 
     SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
-    AOServConnector rootConn = siteSettings.getRootAOServConnector();
+    AoservConnector rootConn = siteSettings.getRootAoservConnector();
     Locale locale = response.getLocale();
     Language language = rootConn.getTicket().getLanguage().get(locale.getLanguage());
     if (language == null) {

@@ -71,7 +71,7 @@ public class PopupTag extends BodyTagSupport {
     try {
       HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
       sequenceId = SEQUENCE_REQUEST_ATTRIBUTE.context(req)
-          .computeIfAbsent(__ -> new UnsynchronizedSequence())
+          .computeIfAbsent(name -> new UnsynchronizedSequence())
           .getNextSequenceValue();
       // Look for containing popupGroup
       PopupGroupTag popupGroupTag = JspTagUtils.requireAncestor(TAG_NAME, this, PopupGroupTag.TAG_NAME, PopupGroupTag.class);

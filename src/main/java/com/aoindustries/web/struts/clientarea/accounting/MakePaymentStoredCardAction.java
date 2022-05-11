@@ -26,7 +26,7 @@ package com.aoindustries.web.struts.clientarea.accounting;
 import com.aoapps.lang.i18n.Money;
 import com.aoapps.lang.validation.ValidationException;
 import com.aoapps.net.URIEncoder;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Account;
 import com.aoindustries.aoserv.client.billing.Currency;
 import com.aoindustries.aoserv.client.master.Permission;
@@ -59,7 +59,7 @@ public class MakePaymentStoredCardAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn,
+      AoservConnector aoConn,
       List<Permission> permissions
   ) throws Exception {
     // Redirect when they don't have permissions to retrieve stored cards
@@ -90,7 +90,7 @@ public class MakePaymentStoredCardAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     MakePaymentStoredCardForm makePaymentStoredCardForm = (MakePaymentStoredCardForm) form;
 

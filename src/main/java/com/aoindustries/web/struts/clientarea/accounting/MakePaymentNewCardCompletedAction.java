@@ -34,7 +34,7 @@ import com.aoapps.payments.TokenizedCreditCard;
 import com.aoapps.payments.Transaction;
 import com.aoapps.payments.TransactionRequest;
 import com.aoapps.payments.TransactionResult;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Account;
 import com.aoindustries.aoserv.client.account.Profile;
 import com.aoindustries.aoserv.client.billing.Currency;
@@ -42,8 +42,8 @@ import com.aoindustries.aoserv.client.billing.TransactionType;
 import com.aoindustries.aoserv.client.payment.CreditCard;
 import com.aoindustries.aoserv.client.payment.PaymentType;
 import com.aoindustries.aoserv.client.schema.Type;
-import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.AccountGroup;
+import com.aoindustries.aoserv.creditcards.AoservConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.web.struts.SiteSettings;
 import java.io.IOException;
@@ -92,14 +92,14 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
-    MakePaymentNewCardForm makePaymentNewCardForm = (MakePaymentNewCardForm) form;
+    final MakePaymentNewCardForm makePaymentNewCardForm = (MakePaymentNewCardForm) form;
 
     // Init request values
     initRequestAttributes(request, getServlet().getServletContext());
 
-    Account account;
+    final Account account;
     try {
       account = aoConn.getAccount().getAccount().get(Account.Name.valueOf(makePaymentNewCardForm.getAccount()));
     } catch (ValidationException e) {
@@ -112,25 +112,25 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
     request.setAttribute("account", account);
 
     // Validation
-    ActionMessages errors = makePaymentNewCardForm.validate(mapping, request);
+    final ActionMessages errors = makePaymentNewCardForm.validate(mapping, request);
     if (errors != null && !errors.isEmpty()) {
       saveErrors(request, errors);
 
       return mapping.findForward("input");
     }
 
-    Currency currency = aoConn.getBilling().getCurrency().get(makePaymentNewCardForm.getCurrency());
+    final Currency currency = aoConn.getBilling().getCurrency().get(makePaymentNewCardForm.getCurrency());
     assert currency != null : "A valid form must have a valid currency";
 
     // Convert to money
-    Money paymentAmount = new Money(currency.getCurrency(), new BigDecimal(makePaymentNewCardForm.getPaymentAmount()));
+    final Money paymentAmount = new Money(currency.getCurrency(), new BigDecimal(makePaymentNewCardForm.getPaymentAmount()));
 
     // Encapsulate the values into a new credit card
-    String cardNumber = makePaymentNewCardForm.getCardNumber();
-    String principalName = aoConn.getCurrentAdministrator().getUsername().getUsername().toString();
-    String groupName = account.getName().toString();
-    Profile profile = account.getProfile();
-    com.aoapps.payments.CreditCard newCreditCard = new com.aoapps.payments.CreditCard(
+    final String cardNumber = makePaymentNewCardForm.getCardNumber();
+    final String principalName = aoConn.getCurrentAdministrator().getUsername().getUsername().toString();
+    final String groupName = account.getName().toString();
+    final Profile profile = account.getProfile();
+    final com.aoapps.payments.CreditCard newCreditCard = new com.aoapps.payments.CreditCard(
         null, // persistenceUniqueId
         principalName,
         groupName,
@@ -160,7 +160,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
 
     // Perform the transaction
     SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
-    AOServConnector rootConn = siteSettings.getRootAOServConnector();
+    AoservConnector rootConn = siteSettings.getRootAoservConnector();
 
     // 1) Pick a processor
     CreditCardProcessor rootProcessor = CreditCardProcessorFactory.getCreditCardProcessor(rootConn);
@@ -183,39 +183,39 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
     }
     String cardInfo = com.aoapps.payments.CreditCard.maskCreditCardNumber(cardNumber);
     PaymentType paymentType;
-    {
-      String paymentTypeName;
-      // TODO: Move to a card-type microproject API and shared with ao-payments implementation
-      if (
-          cardNumber.startsWith("34")
-              || cardNumber.startsWith("37")
-              || cardNumber.startsWith("3" + com.aoapps.payments.CreditCard.UNKNOWN_DIGIT)) {
-        paymentTypeName = PaymentType.AMEX;
-      } else if (cardNumber.startsWith("60")) {
-        paymentTypeName = PaymentType.DISCOVER;
-      } else if (
-          cardNumber.startsWith("51")
-              || cardNumber.startsWith("52")
-              || cardNumber.startsWith("53")
-              || cardNumber.startsWith("54")
-              || cardNumber.startsWith("55")
-              || cardNumber.startsWith("5" + com.aoapps.payments.CreditCard.UNKNOWN_DIGIT)
-      ) {
-        paymentTypeName = PaymentType.MASTERCARD;
-      } else if (cardNumber.startsWith("4")) {
-        paymentTypeName = PaymentType.VISA;
-      } else {
-        paymentTypeName = null;
-      }
-      if (paymentTypeName == null) {
-        paymentType = null;
-      } else {
-        paymentType = rootConn.getPayment().getPaymentType().get(paymentTypeName);
-        if (paymentType == null) {
-          throw new SQLException("Unable to find PaymentType: " + paymentTypeName);
+      {
+        String paymentTypeName;
+        // TODO: Move to a card-type microproject API and shared with ao-payments implementation
+        if (
+            cardNumber.startsWith("34")
+                || cardNumber.startsWith("37")
+                || cardNumber.startsWith("3" + com.aoapps.payments.CreditCard.UNKNOWN_DIGIT)) {
+          paymentTypeName = PaymentType.AMEX;
+        } else if (cardNumber.startsWith("60")) {
+          paymentTypeName = PaymentType.DISCOVER;
+        } else if (
+            cardNumber.startsWith("51")
+                || cardNumber.startsWith("52")
+                || cardNumber.startsWith("53")
+                || cardNumber.startsWith("54")
+                || cardNumber.startsWith("55")
+                || cardNumber.startsWith("5" + com.aoapps.payments.CreditCard.UNKNOWN_DIGIT)
+        ) {
+          paymentTypeName = PaymentType.MASTERCARD;
+        } else if (cardNumber.startsWith("4")) {
+          paymentTypeName = PaymentType.VISA;
+        } else {
+          paymentTypeName = null;
+        }
+        if (paymentTypeName == null) {
+          paymentType = null;
+        } else {
+          paymentType = rootConn.getPayment().getPaymentType().get(paymentTypeName);
+          if (paymentType == null) {
+            throw new SQLException("Unable to find PaymentType: " + paymentTypeName);
+          }
         }
       }
-    }
     int transid = rootConn.getBilling().getTransaction().add(
         Type.TIME,
         null,
@@ -240,7 +240,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
     // TODO: This currently implementation provides disconnected first payment and stored card in Stripe.
 
     // 3) Process
-    AOServConnectorPrincipal principal = new AOServConnectorPrincipal(rootConn, principalName);
+    AoservConnectorPrincipal principal = new AoservConnectorPrincipal(rootConn, principalName);
     AccountGroup accountGroup = new AccountGroup(rootAccount, groupName);
     Transaction transaction;
     if (DEBUG_AUTHORIZE_THEN_CAPTURE) {
@@ -314,10 +314,9 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
     AuthorizationResult authorizationResult = transaction.getAuthorizationResult();
     TokenizedCreditCard tokenizedCreditCard = authorizationResult.getTokenizedCreditCard();
     switch (authorizationResult.getCommunicationResult()) {
-      case LOCAL_ERROR :
-      case IO_ERROR :
-      case GATEWAY_ERROR :
-      {
+      case LOCAL_ERROR:
+      case IO_ERROR:
+      case GATEWAY_ERROR: {
         // Update transaction as failed
         aoTransaction.declined(
             Integer.parseInt(transaction.getPersistenceUniqueId()),
@@ -335,11 +334,10 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
         }
         return mapping.findForward("error");
       }
-      case SUCCESS :
+      case SUCCESS:
         // Check approval result
         switch (authorizationResult.getApprovalResult()) {
-          case HOLD :
-          {
+          case HOLD: {
             // Update transaction as held
             aoTransaction.held(
                 Integer.parseInt(transaction.getPersistenceUniqueId()),
@@ -384,8 +382,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
             }
             return mapping.findForward("hold");
           }
-          case DECLINED :
-          {
+          case DECLINED: {
             // Update transaction as declined
             aoTransaction.declined(
                 Integer.parseInt(transaction.getPersistenceUniqueId()),
@@ -396,16 +393,14 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
             request.setAttribute("declineReason", authorizationResult.getDeclineReason().toString());
             return mapping.findForward("declined");
           }
-          case APPROVED :
-          {
+          case APPROVED: {
             if (DEBUG_AUTHORIZE_THEN_CAPTURE) {
               // Perform capture in second step
               CaptureResult captureResult = rootProcessor.capture(principal, transaction);
               switch (captureResult.getCommunicationResult()) {
-                case LOCAL_ERROR :
-                case IO_ERROR :
-                case GATEWAY_ERROR :
-                {
+                case LOCAL_ERROR:
+                case IO_ERROR:
+                case GATEWAY_ERROR: {
                   // Update transaction as failed
                   aoTransaction.declined(
                       Integer.parseInt(transaction.getPersistenceUniqueId()),
@@ -423,8 +418,7 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
                   }
                   return mapping.findForward("error");
                 }
-                case SUCCESS :
-                {
+                case SUCCESS: {
                   // Continue with processing of SUCCESS below, same as used for direct sale(...)
                   break;
                 }
@@ -483,7 +477,12 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
     }
   }
 
-  private void storeCard(CreditCardProcessor rootProcessor, AOServConnectorPrincipal principal, AccountGroup accountGroup, com.aoapps.payments.CreditCard newCreditCard) throws SQLException, IOException {
+  private void storeCard(
+      CreditCardProcessor rootProcessor,
+      AoservConnectorPrincipal principal,
+      AccountGroup accountGroup,
+      com.aoapps.payments.CreditCard newCreditCard
+  ) throws SQLException, IOException {
     rootProcessor.storeCreditCard(
         principal,
         accountGroup,
@@ -493,10 +492,10 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
 
   /**
    * @param  rootConn  Since rootConn is used to store the card, it must also be used to get the new instance.
-   *                   Otherwise there is a race condition between the non-root AOServConnector getting the invalidation signal
+   *                   Otherwise there is a race condition between the non-root AoservConnector getting the invalidation signal
    *                   and this method being called.
    */
-  private void setAutomatic(AOServConnector rootConn, com.aoapps.payments.CreditCard newCreditCard, Account account) throws SQLException, IOException {
+  private void setAutomatic(AoservConnector rootConn, com.aoapps.payments.CreditCard newCreditCard, Account account) throws SQLException, IOException {
     String persistenceUniqueId = newCreditCard.getPersistenceUniqueId();
     CreditCard creditCard = rootConn.getPayment().getCreditCard().get(Integer.parseInt(persistenceUniqueId));
     if (creditCard == null) {

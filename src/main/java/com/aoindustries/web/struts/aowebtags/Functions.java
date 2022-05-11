@@ -29,7 +29,7 @@ import com.aoapps.servlet.filter.FunctionContext;
 import java.util.Currency;
 
 /**
- * EL functions.
+ * Tag library function implementations.
  *
  * @author  AO Industries, Inc.
  */

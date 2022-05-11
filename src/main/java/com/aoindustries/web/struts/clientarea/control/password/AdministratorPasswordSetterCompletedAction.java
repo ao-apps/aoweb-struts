@@ -23,7 +23,7 @@
 
 package com.aoindustries.web.struts.clientarea.control.password;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Administrator;
 import com.aoindustries.aoserv.client.linux.User;
 import com.aoindustries.aoserv.client.master.Permission;
@@ -49,7 +49,7 @@ public class AdministratorPasswordSetterCompletedAction extends AuthenticatedAct
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     AdministratorPasswordSetterForm administratorPasswordSetterForm = (AdministratorPasswordSetterForm) form;
 
@@ -61,7 +61,7 @@ public class AdministratorPasswordSetterCompletedAction extends AuthenticatedAct
     }
 
     // Reset passwords here and clear the passwords from the form
-    Administrator thisBA = aoConn.getCurrentAdministrator();
+    Administrator thisAdministrator = aoConn.getCurrentAdministrator();
     ActionMessages messages = new ActionMessages();
     List<String> usernames = administratorPasswordSetterForm.getUsernames();
     List<String> newPasswords = administratorPasswordSetterForm.getNewPasswords();
@@ -70,10 +70,10 @@ public class AdministratorPasswordSetterCompletedAction extends AuthenticatedAct
       String newPassword = newPasswords.get(c);
       if (newPassword.length() > 0) {
         User.Name username = User.Name.valueOf(usernames.get(c));
-        if (!thisBA.hasPermission(Permission.Name.set_business_administrator_password) && !thisBA.getUsername().getUsername().equals(username)) {
+        if (!thisAdministrator.hasPermission(Permission.Name.set_business_administrator_password) && !thisAdministrator.getUsername().getUsername().equals(username)) {
           Permission aoPerm = aoConn.getMaster().getPermission().get(Permission.Name.set_business_administrator_password);
           if (aoPerm == null) {
-            throw new SQLException("Unable to find AOServPermission: " + Permission.Name.set_business_administrator_password);
+            throw new SQLException("Unable to find AoservPermission: " + Permission.Name.set_business_administrator_password);
           }
           request.setAttribute("permission", aoPerm);
           ActionForward forward = mapping.findForward("permission-denied");

@@ -25,10 +25,10 @@ package com.aoindustries.web.struts.clientarea.accounting;
 
 import com.aoapps.lang.Strings;
 import com.aoapps.payments.CreditCardProcessor;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.Profile;
 import com.aoindustries.aoserv.client.payment.CreditCard;
-import com.aoindustries.aoserv.creditcards.AOServConnectorPrincipal;
+import com.aoindustries.aoserv.creditcards.AoservConnectorPrincipal;
 import com.aoindustries.aoserv.creditcards.CreditCardFactory;
 import com.aoindustries.aoserv.creditcards.CreditCardProcessorFactory;
 import com.aoindustries.web.struts.SiteSettings;
@@ -55,7 +55,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     EditCreditCardForm editCreditCardForm = (EditCreditCardForm) form;
 
@@ -97,7 +97,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
 
     // Root connector used to get processor
     SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
-    AOServConnector rootConn = siteSettings.getRootAOServConnector();
+    AoservConnector rootConn = siteSettings.getRootAoservConnector();
     CreditCard rootCreditCard = rootConn.getPayment().getCreditCard().get(creditCard.getPkey());
     if (rootCreditCard == null) {
       throw new SQLException("Unable to find CreditCard: " + creditCard.getPkey());
@@ -141,7 +141,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
       storedCreditCard.setComments(editCreditCardForm.getDescription());
       // Update persistence
       rootProcessor.updateCreditCard(
-          new AOServConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
+          new AoservConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
           storedCreditCard
       );
       updatedCardDetails = true;
@@ -154,7 +154,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
     if (!GenericValidator.isBlankOrNull(newCardNumber)) {
       // Update card number and expiration
       rootProcessor.updateCreditCardNumberAndExpiration(
-          new AOServConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
+          new AoservConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
           CreditCardFactory.getCreditCard(rootCreditCard),
           newCardNumber,
           Byte.parseByte(newExpirationMonth),
@@ -170,7 +170,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
       ) {
         // Update expiration only
         rootProcessor.updateCreditCardExpiration(
-            new AOServConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
+            new AoservConnectorPrincipal(rootConn, aoConn.getCurrentAdministrator().getUsername().getUsername().toString()),
             CreditCardFactory.getCreditCard(rootCreditCard),
             Byte.parseByte(newExpirationMonth),
             Short.parseShort(newExpirationYear)

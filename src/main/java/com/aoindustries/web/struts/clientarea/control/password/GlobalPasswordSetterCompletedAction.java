@@ -23,7 +23,7 @@
 
 package com.aoindustries.web.struts.clientarea.control.password;
 
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.account.User;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.web.struts.PermissionAction;
@@ -51,7 +51,7 @@ public class GlobalPasswordSetterCompletedAction extends PermissionAction {
       ActionForm form,
       HttpServletRequest request,
       HttpServletResponse response,
-      AOServConnector aoConn
+      AoservConnector aoConn
   ) throws Exception {
     GlobalPasswordSetterForm globalPasswordSetterForm = (GlobalPasswordSetterForm) form;
 
