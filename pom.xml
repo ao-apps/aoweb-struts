@@ -143,6 +143,14 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
           <excludeCoordinates>
             <exclude><groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId><version>${struts-core.version}</version></exclude>
           </excludeCoordinates>
+          <excludeVulnerabilityIds>
+            <!--
+              Exclude sonatype-2016-0104: https://ossindex.sonatype.org/vulnerability/sonatype-2016-0104
+              We only include struts2-config-browser-plugin in the "development" profile, which is never used in
+              deployed or published artifacts.
+            -->
+            <exclude>sonatype-2016-0104</exclude>
+          </excludeVulnerabilityIds>
         </configuration>
       </plugin>
       <plugin>
