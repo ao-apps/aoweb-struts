@@ -779,11 +779,10 @@ public class TextSkin extends Skin {
     // Lying about "DocumentEE" here, but it makes the compiler happy and is otherwise irrelevant
     @SuppressWarnings("unchecked")
     TD_c<TR_c<TBODY_c<TABLE_c<DocumentEE>>>> td = (TD_c) contentLine;
-    TABLE_c<DocumentEE> table = td
-        .__()
+    TBODY_c<TABLE_c<DocumentEE>> tbody = td
         .__()
         .__();
-    assert table != null : "Is fully closed back to TABLE_c";
+    assert tbody != null : "Is fully closed back to TBODY_c";
   }
 
   @Override
@@ -919,6 +918,7 @@ public class TextSkin extends Skin {
         .__()
         .__();
     assert table != null : "Is fully closed back to TABLE_c";
+    ((TABLE_c<?>)table).__();
   }
 
   @Override
@@ -967,6 +967,7 @@ public class TextSkin extends Skin {
         .__()
         .__();
     assert table != null : "Is fully closed back to TABLE_c";
+    ((TABLE_c<?>)table).__();
   }
 
   @Override
