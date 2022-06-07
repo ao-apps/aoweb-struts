@@ -918,7 +918,7 @@ public class TextSkin extends Skin {
         .__()
         .__();
     assert table != null : "Is fully closed back to TABLE_c";
-    ((TABLE_c<?>)table).__();
+    ((TABLE_c<?>) table).__();
   }
 
   @Override
@@ -967,7 +967,7 @@ public class TextSkin extends Skin {
         .__()
         .__();
     assert table != null : "Is fully closed back to TABLE_c";
-    ((TABLE_c<?>)table).__();
+    ((TABLE_c<?>) table).__();
   }
 
   @Override

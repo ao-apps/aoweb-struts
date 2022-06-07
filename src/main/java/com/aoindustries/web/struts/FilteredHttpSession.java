@@ -122,6 +122,8 @@ public class FilteredHttpSession implements HttpSession {
               // Struts 1
               && !Globals.LOCALE_KEY.getName().equals(name)
               // TODO: Is there a Struts 2 locale key?
+              // Struts 2 version 6.0.0
+              && !"nonce".equals(name)
               // JSTL 1.2
               && !ScopeEE.Session.REQUEST_CHAR_SET.getName().equals(name)
               && !AttributeEE.Jstl.FMT_LOCALE.context((HttpSession) null).getName().equals(name)

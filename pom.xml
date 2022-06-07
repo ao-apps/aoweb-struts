@@ -65,7 +65,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 
     <!-- Dependencies -->
     <commons-collections4.version>4.4</commons-collections4.version>
-    <struts2.version>2.5.30</struts2.version>
+    <struts2.version>6.0.0</struts2.version>
   </properties>
 
   <name>AOWeb Struts</name>
@@ -1570,6 +1570,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.commons</groupId><artifactId>commons-text</artifactId><version>1.9</version>
+      </dependency>
+      <dependency>
         <groupId>org.freemarker</groupId><artifactId>freemarker</artifactId><version>2.3.31</version>
       </dependency>
       <dependency>
@@ -1586,7 +1589,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.17.2</version>
       </dependency>
       <dependency>
-        <groupId>ognl</groupId><artifactId>ognl</artifactId><version>3.1.29</version>
+        <groupId>ognl</groupId><artifactId>ognl</artifactId><version>3.3.2</version>
       </dependency>
       <dependency>
         <groupId>oro</groupId><artifactId>oro</artifactId><version>2.0.8</version>
