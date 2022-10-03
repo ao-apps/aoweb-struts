@@ -424,22 +424,22 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
           <archiveClasses>true</archiveClasses>
           <warSourceExcludes>
             <!-- This file only exists so NetBeans knows the path to deploy the application. -->
-            META-INF/context.xml,
-            <!-- Excludes files used in template substitutions -->
-            WEB-INF/struts-config*.xml.actions,
-            WEB-INF/struts-config*.xml.messageResources,
-            WEB-INF/web.xml.contextParams,
-            WEB-INF/web.xml.struts2Mappings,
-            WEB-INF/web.xml.strutsInitParams,
-            WEB-INF/web.xml.servlets,
-            WEB-INF/web.xml.servletMappingsPre,
-            WEB-INF/web.xml.servletMappingsPost
+            META-INF/context.xml
+            <!-- Exclude files used in template substitutions -->
+            ,WEB-INF/struts-config*.xml.actions
+            ,WEB-INF/struts-config*.xml.messageResources
+            ,WEB-INF/web.xml.contextParams
+            ,WEB-INF/web.xml.struts2Mappings
+            ,WEB-INF/web.xml.strutsInitParams
+            ,WEB-INF/web.xml.servlets
+            ,WEB-INF/web.xml.servletMappingsPre
+            ,WEB-INF/web.xml.servletMappingsPost
           </warSourceExcludes>
           <packagingExcludes>
-            <!-- META-INF/context.xml is used for local development deployment only -->
-            META-INF/context.xml,
-            <!-- Additional excludes -->
-            aoweb-struts-devel-*.jar
+            <!-- Default Excludes -->
+            META-INF/context.xml
+            <!-- Additional Excludes -->
+            ,aoweb-struts-devel-*.jar
           </packagingExcludes>
         </configuration>
       </plugin>
@@ -1387,9 +1387,12 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                 </manifestEntries>
               </archive>
               <packagingExcludes>
-                <!-- META-INF/context.xml is used for local development deployment only -->
-                META-INF/context.xml,
-                WEB-INF/classes/module-info.class
+                <!-- Default Excludes -->
+                META-INF/context.xml
+                <!-- Additional Excludes -->
+                ,aoweb-struts-devel-*.jar
+                <!-- Exclude module-info due to named dependencies-->
+                ,WEB-INF/classes/module-info.class
               </packagingExcludes>
               <!-- There is no way to exclude module-info.class from secondary artifact, just don't attach -->
               <attachClasses>false</attachClasses>
