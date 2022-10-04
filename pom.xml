@@ -423,8 +423,8 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <configuration>
           <archiveClasses>true</archiveClasses>
           <warSourceExcludes>
-            <!-- This file only exists so NetBeans knows the path to deploy the application. -->
-            META-INF/context.xml
+            <!-- Default Excludes -->
+            ${maven-war-plugin.warSourceExcludes.default}
             <!-- Exclude files used in template substitutions -->
             ,WEB-INF/struts-config*.xml.actions
             ,WEB-INF/struts-config*.xml.messageResources
@@ -437,7 +437,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
           </warSourceExcludes>
           <packagingExcludes>
             <!-- Default Excludes -->
-            META-INF/context.xml
+            ${maven-war-plugin.packagingExcludes.default}
             <!-- Additional Excludes -->
             ,aoweb-struts-devel-*.jar
           </packagingExcludes>
@@ -1388,7 +1388,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
               </archive>
               <packagingExcludes>
                 <!-- Default Excludes -->
-                META-INF/context.xml
+                ${maven-war-plugin.packagingExcludes.default}
                 <!-- Additional Excludes -->
                 ,aoweb-struts-devel-*.jar
                 <!-- Exclude module-info due to named dependencies-->
