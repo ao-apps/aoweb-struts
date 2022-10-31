@@ -111,6 +111,7 @@ public class LocaleFilter implements Filter {
       for (Skin.Language possLanguage : languages) {
         String code = possLanguage.getCode();
         if (code.equals(language)) {
+          // Java 19: Deprecation of Locale Class Constructors, see https://bugs.openjdk.org/browse/JDK-8282819
           locale = locale == null ? new Locale(code) : new Locale(code, locale.getCountry(), locale.getVariant());
           if (session != null) {
             Globals.LOCALE_KEY.context(session).set(locale);
@@ -154,6 +155,7 @@ public class LocaleFilter implements Filter {
   }
 
   private static Locale getDefaultLocale(List<Skin.Language> languages) {
+    // Java 19: Deprecation of Locale Class Constructors, see https://bugs.openjdk.org/browse/JDK-8282819
     return new Locale(languages.get(0).getCode());
   }
 }

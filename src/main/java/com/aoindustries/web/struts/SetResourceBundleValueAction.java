@@ -62,6 +62,7 @@ public class SetResourceBundleValueAction extends PageAction {
       }
     }*/
     String baseName = request.getParameter("baseName");
+    // Java 19: Deprecation of Locale Class Constructors, see https://bugs.openjdk.org/browse/JDK-8282819
     Locale locale = new Locale(request.getParameter("locale")); // TODO: Parse country and variant, too.
     String key = request.getParameter("key");
     String value = request.getParameter("value");
