@@ -65,7 +65,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 
     <!-- Dependencies -->
     <commons-collections4.version>4.4</commons-collections4.version>
-    <struts2.version>6.0.3</struts2.version>
+    <struts2.version>6.1.1</struts2.version>
   </properties>
 
   <name>AOWeb Struts</name>
@@ -1538,9 +1538,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <dependency>
         <groupId>org.ow2.asm</groupId><artifactId>asm</artifactId><version>9.4</version>
-      </dependency>
-      <dependency>
-        <groupId>org.ow2.asm</groupId><artifactId>asm-analysis</artifactId><version>9.4</version>
       </dependency>
       <dependency>
         <groupId>org.ow2.asm</groupId><artifactId>asm-commons</artifactId><version>9.4</version>
