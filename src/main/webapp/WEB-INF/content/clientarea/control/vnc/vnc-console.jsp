@@ -1,6 +1,6 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2009, 2016, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
+Copyright (C) 2009, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -64,7 +64,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                     <td><ao:message key="vncConsole.sslRequired.yes" /></td>
                     <td><code><c:out value="${vncVirtualServer.vncPassword}" /></code></td>
                     <td style="white-space:nowrap">
-                      <ao:a href="/clientarea/control/vnc/noVNC-1.4.0/vnc.html#autoconnect=true&path=${ao:encodeURIComponent(empty pageContext.request.contextPath ? '' : fn:substringAfter(pageContext.request.contextPath, '/').concat('/'))}${ao:encodeURIComponent('clientarea/control/vnc/vnc-console-websocket')}&password=${ao:encodeURIComponent(vncVirtualServer.vncPassword)}&shared=false&show_dot=true">
+                      <ao:a href="/clientarea/control/vnc/noVNC-1.3.0/vnc.html#autoconnect=true&path=${ao:encodeURIComponent(empty pageContext.request.contextPath ? '' : fn:substringAfter(pageContext.request.contextPath, '/').concat('/'))}${ao:encodeURIComponent('clientarea/control/vnc/vnc-console-websocket')}&password=${ao:encodeURIComponent(vncVirtualServer.vncPassword)}&shared=false&show_dot=true">
                         <ao:message key="vncConsole.connectNow.link" />
                         <%--
                         <ao:onclick>
