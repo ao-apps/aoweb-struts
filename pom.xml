@@ -1573,7 +1573,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>org.apache.commons</groupId><artifactId>commons-text</artifactId><version>1.10.0</version>
       </dependency>
       <dependency>
-        <groupId>org.freemarker</groupId><artifactId>freemarker</artifactId><version>2.3.31</version>
+        <groupId>org.freemarker</groupId><artifactId>freemarker</artifactId><version>2.3.32</version>
       </dependency>
       <dependency>
         <groupId>org.javassist</groupId><artifactId>javassist</artifactId><version>3.29.2-GA</version>
