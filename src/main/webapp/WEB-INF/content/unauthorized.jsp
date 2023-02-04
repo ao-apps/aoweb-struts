@@ -1,6 +1,6 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2021, 2022  AO Industries, Inc.
+Copyright (C) 2021, 2022, 2023  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -26,31 +26,29 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
   if (exception != null) {
     log(null, exception);
   }
-  // Set the error status
   if (!response.isCommitted()) {
+    // Set the error status
     response.setStatus(HttpServletResponse. SC_UNAUTHORIZED);
-  }
 
-  // Set siteSettings request attribute if not yet done
-  com.aoindustries.web.struts.SiteSettings siteSettings = com.aoindustries.web.struts.Constants.SITE_SETTINGS.context(request).get();
-  if (siteSettings == null) {
-    siteSettings = com.aoindustries.web.struts.SiteSettings.getInstance(getServletContext());
-    com.aoindustries.web.struts.Constants.SITE_SETTINGS.context(request).set(siteSettings);
-  }
+    // Set siteSettings request attribute if not yet done
+    com.aoindustries.web.struts.SiteSettings siteSettings = com.aoindustries.web.struts.Constants.SITE_SETTINGS.context(request).get();
+    if (siteSettings == null) {
+      siteSettings = com.aoindustries.web.struts.SiteSettings.getInstance(getServletContext());
+      com.aoindustries.web.struts.Constants.SITE_SETTINGS.context(request).set(siteSettings);
+    }
 
-  // Set locale request attribute if not yet done
-  if (com.aoindustries.web.struts.Constants.LOCALE.context(request).get() == null) {
-    java.util.Locale locale = com.aoindustries.web.struts.LocaleFilter.getEffectiveLocale(siteSettings, request, response);
-    com.aoindustries.web.struts.Constants.LOCALE.context(request).set(locale);
-  }
+    // Set locale request attribute if not yet done
+    if (com.aoindustries.web.struts.Constants.LOCALE.context(request).get() == null) {
+      java.util.Locale locale = com.aoindustries.web.struts.LocaleFilter.getEffectiveLocale(siteSettings, request, response);
+      com.aoindustries.web.struts.Constants.LOCALE.context(request).set(locale);
+    }
 
-  // Set the skin request attribute if not yet done
-  if (com.aoindustries.web.struts.Constants.SKIN.context(request).get() == null) {
-    com.aoindustries.web.struts.Skin skin = com.aoindustries.web.struts.Skin.getSkin(siteSettings, request);
-    com.aoindustries.web.struts.Constants.SKIN.context(request).set(skin);
-  }
-%>
-<ao:bundle basename="com.aoindustries.web.struts.i18n.ApplicationResources">
+    // Set the skin request attribute if not yet done
+    if (com.aoindustries.web.struts.Constants.SKIN.context(request).get() == null) {
+      com.aoindustries.web.struts.Skin skin = com.aoindustries.web.struts.Skin.getSkin(siteSettings, request);
+      com.aoindustries.web.struts.Constants.SKIN.context(request).set(skin);
+    }
+%><ao:bundle basename="com.aoindustries.web.struts.i18n.ApplicationResources">
   <skin:path>/unauthorized.do</skin:path>
   <skin:title><ao:message key="unauthorized.title" /></skin:title>
   <skin:navImageAlt><ao:message key="unauthorized.navImageAlt" /></skin:navImageAlt>
@@ -67,4 +65,4 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </skin:contentLine>
     </skin:content>
   </skin:skin>
-</ao:bundle>
+</ao:bundle><% { %>
