@@ -33,6 +33,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
   <packaging>war</packaging>
 
   <properties>
+    <project.build.outputTimestamp>2023-02-08T21:06:04Z</project.build.outputTimestamp>
     <module.name>com.aoindustries.web.struts</module.name>
     <javadoc.breadcrumbs><![CDATA[<a target="${javadoc.target}" href="${project.url}">${project.name}</a>]]></javadoc.breadcrumbs>
     <description.html><![CDATA[Template webapp for legacy Struts-based site framework with <a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ Platform</a> control panels.]]></description.html>
