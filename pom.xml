@@ -1275,7 +1275,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         </dependency>
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-io-buffer-devel</artifactId> -->
         <dependency>
-          <groupId>com.aoapps</groupId><artifactId>ao-lang-devel</artifactId><version>5.2.0-POST-SNAPSHOT</version>
+          <groupId>com.aoapps</groupId><artifactId>ao-lang-devel</artifactId><version>5.3.0-SNAPSHOT</version>
           <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -1283,7 +1283,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
           <scope>runtime</scope>
         </dependency>
         <dependency>
-          <groupId>com.aoapps</groupId><artifactId>ao-payments-api-devel</artifactId><version>2.0.0-POST-SNAPSHOT</version>
+          <groupId>com.aoapps</groupId><artifactId>ao-payments-api-devel</artifactId><version>3.0.0-SNAPSHOT</version>
           <scope>runtime</scope>
         </dependency>
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-security-devel</artifactId> -->
@@ -1438,13 +1438,13 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>com.aoapps</groupId><artifactId>ao-io-buffer</artifactId><version>4.1.0${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
-        <groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.2.0${POST-SNAPSHOT}</version>
+        <groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.3.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-net-types</artifactId><version>2.0.2${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
-        <groupId>com.aoapps</groupId><artifactId>ao-payments-api</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
+        <groupId>com.aoapps</groupId><artifactId>ao-payments-api</artifactId><version>3.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-security</artifactId><version>3.1.0${POST-SNAPSHOT}</version>
@@ -1483,7 +1483,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>com.aoindustries</groupId><artifactId>aoserv-client</artifactId><version>1.91.8${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
-        <groupId>com.aoindustries</groupId><artifactId>aoserv-credit-cards</artifactId><version>3.0.0${POST-SNAPSHOT}</version>
+        <groupId>com.aoindustries</groupId><artifactId>aoserv-credit-cards</artifactId><version>3.1.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
       <dependency>
         <groupId>com.aoindustries</groupId><artifactId>aoserv-daemon-client</artifactId><version>1.90.0${POST-SNAPSHOT}</version>
