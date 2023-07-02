@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2020, 2021, 2022  AO Industries, Inc.
+Copyright (C) 2020, 2021, 2022, 2023  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -43,6 +43,11 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <rule groupId="com.stripe" artifactId="stripe-java" comparisonMethod="maven">
       <ignoreVersions>
         <ignoreVersion type="regex">.*-beta\.[0-9]+</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="org.apache.logging.log4" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="regex">.*-alpha[0-9]*</ignoreVersion>
       </ignoreVersions>
     </rule>
   </rules>
