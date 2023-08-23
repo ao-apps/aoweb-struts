@@ -50,6 +50,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- TODO: When updating new than struts2-6.2.0 make sure this is correct to still ignore -->
         <ignoreVersion type="exact">3.4.0</ignoreVersion>
         <ignoreVersion type="exact">3.4.1</ignoreVersion>
+        <ignoreVersion type="exact">3.4.2</ignoreVersion>
       </ignoreVersions>
     </rule>
     <rule groupId="org.apache.logging.log4" comparisonMethod="maven">
