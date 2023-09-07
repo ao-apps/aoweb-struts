@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2009-2013, 2016, 2017, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2009-2013, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -143,9 +143,9 @@ public class VncConsoleProxySocketHandler {
                           || "Remote host closed connection during handshake".equals(message)
                   )
               ) {
-                level = Level.FINE;
-              } else {
                 level = Level.SEVERE;
+              } else {
+                level = Level.FINE;
               }
               logger.log(level, null, err);
               return;
