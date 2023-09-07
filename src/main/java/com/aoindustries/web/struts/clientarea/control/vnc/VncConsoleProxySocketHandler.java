@@ -114,10 +114,10 @@ public class VncConsoleProxySocketHandler {
             final InputStream socketIn = socket.getInputStream();
 
             // Find which server is being connected to based on the authentication information
-            // Protocol Version handshake
-            socketOut.write(protocolVersion_3_3);
-            socketOut.flush();
             try {
+              // Protocol Version handshake
+              socketOut.write(protocolVersion_3_3);
+              socketOut.flush();
               for (int c = 0; c < protocolVersion_3_3.length; c++) {
                 int b = socketIn.read();
                 if (b == -1) {
