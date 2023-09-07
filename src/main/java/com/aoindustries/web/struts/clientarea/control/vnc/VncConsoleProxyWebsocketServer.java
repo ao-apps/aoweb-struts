@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2023  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -372,7 +372,7 @@ public class VncConsoleProxyWebsocketServer {
                     logger.log(Level.SEVERE, null, t);
                   }
                 },
-                "VncConsoleProxyWebsocketServer daemonIn->socketOut: " + virtualServer.getHost().getName()
+                "VncConsoleProxyWebsocketServer daemonIn → socketOut: " + virtualServer.getHost().getName()
             );
             myOutThread.setDaemon(true); // Don't prevent JVM shutdown
             myOutThread.setPriority(Thread.NORM_PRIORITY + 2); // Higher priority for higher performance

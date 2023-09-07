@@ -320,7 +320,7 @@ public class VncConsoleProxySocketHandler {
                           }
                         },
                         VncConsoleProxySocketHandler.class.getSimpleName() + ": " + socket.getInetAddress() + ":" + socket.getPort()
-                            + " -> " + socket.getLocalAddress() + ":" + socket.getLocalPort() + ", socketIn -> daemonOut: " + virtualServer.getHost().getName()
+                            + " → " + socket.getLocalAddress() + ":" + socket.getLocalPort() + ", socketIn → daemonOut: " + virtualServer.getHost().getName()
                     );
                     inThread.setDaemon(true); // Don't prevent JVM shutdown
                     inThread.setPriority(Thread.NORM_PRIORITY + 2); // Higher priority for higher performance
@@ -369,7 +369,7 @@ public class VncConsoleProxySocketHandler {
           }
         },
         VncConsoleProxySocketHandler.class.getSimpleName() + ": " + socket.getInetAddress() + ":" + socket.getPort()
-            + " -> " + socket.getLocalAddress() + ":" + socket.getLocalPort() + ", daemonIn -> socketOut"
+            + " → " + socket.getLocalAddress() + ":" + socket.getLocalPort() + ", daemonIn → socketOut"
     );
     thread.setDaemon(true); // Don't prevent JVM shutdown
     thread.setPriority(Thread.NORM_PRIORITY + 2); // Higher priority for higher performance
