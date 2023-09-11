@@ -61,6 +61,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <log4j2.xwork2.level>warn</log4j2.xwork2.level>
     <log4j2.root.level>info</log4j2.root.level>
 
+    <!-- Plugins -->
+    <org.codehaus.gmaven.groovy-maven-plugin.version>2.1.1</org.codehaus.gmaven.groovy-maven-plugin.version>
+
     <!-- Dependencies -->
     <commons-collections4.version>4.4</commons-collections4.version>
     <struts2.version>6.2.0</struts2.version>
@@ -152,7 +155,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId><version>2.1.1</version>
+        <groupId>org.codehaus.gmaven</groupId><artifactId>groovy-maven-plugin</artifactId><version>${org.codehaus.gmaven.groovy-maven-plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId><artifactId>maven-antrun-plugin</artifactId>
