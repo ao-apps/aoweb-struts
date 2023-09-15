@@ -411,11 +411,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
             <dependency>com.semanticcms:semanticcms-core-taglib</dependency>
             <dependency>org.apache.struts:struts-taglib</dependency>
             <dependency>org.apache.struts:struts2-convention-plugin</dependency>
-            <!-- Runtime Direct -->
-            <dependency>com.aoapps:ao-mime-mappings</dependency>
-            <dependency>org.apache.logging.log4j:log4j-core</dependency>
-            <dependency>com.semanticcms:semanticcms-core-servlet</dependency>
-            <dependency>org.apache.taglibs:taglibs-standard-impl</dependency>
           </usedDependencies>
         </configuration>
       </plugin>
@@ -1351,7 +1346,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- Runtime Transitive -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-concurrent-devel</artifactId> -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-subrequest-devel</artifactId> -->
-        <!-- BOM -->
+        <!-- Imports -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom-devel</artifactId> -->
       </dependencies>
     </profile>
@@ -1636,9 +1631,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-servlet-subrequest</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
       </dependency>
-      <!-- BOM -->
+      <!-- Imports -->
       <dependency>
-        <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom</artifactId><version>7.0.1${POST-SNAPSHOT}</version>
+        <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom</artifactId><version>7.0.1-POST-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -1778,6 +1773,12 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <dependency>
       <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId>
       <scope>runtime</scope>
+    </dependency>
+    <!-- Imports (Reactor build order only) -->
+    <dependency>
+      <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom</artifactId><version>7.0.1-POST-SNAPSHOT</version>
+      <type>pom</type>
+      <exclusions><exclusion><artifactId>*</artifactId><groupId>*</groupId></exclusion></exclusions>
     </dependency>
   </dependencies>
 </project>
