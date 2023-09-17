@@ -58,7 +58,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <session.cookie.secure>true</session.cookie.secure>
 
     <!-- Struts 2 -->
-    <struts.devMode>false</struts.devMode>
     <log4j2.struts2.level>warn</log4j2.struts2.level>
     <log4j2.xwork2.level>warn</log4j2.xwork2.level>
     <log4j2.root.level>info</log4j2.root.level>
@@ -1230,7 +1229,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- Allow unsecure session cookies in development -->
         <session.cookie.secure>false</session.cookie.secure>
         <!-- Struts 2 -->
-        <struts.devMode>true</struts.devMode>
         <log4j2.struts2.level>info</log4j2.struts2.level>
         <log4j2.xwork2.level>info</log4j2.xwork2.level>
       </properties>
