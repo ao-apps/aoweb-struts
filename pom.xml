@@ -1339,7 +1339,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- Runtime Direct -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings-devel</artifactId> -->
         <dependency>
-          <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet-devel</artifactId><version>1.18.4-POST-SNAPSHOT</version>
+          <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet-devel</artifactId><version>1.19.0-SNAPSHOT</version>
           <scope>runtime</scope>
         </dependency>
         <!-- No -devel: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl-devel</artifactId> -->
@@ -1621,7 +1621,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId><version>2.20.0</version>
       </dependency>
       <dependency>
-        <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet</artifactId><version>1.18.4${POST-SNAPSHOT}</version>
+        <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet</artifactId><version>1.19.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
       <!-- javaee-web-api-bom: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId> -->
       <!-- Runtime Transitive -->
