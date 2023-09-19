@@ -41,6 +41,11 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <documented.artifactId>aoweb-struts</documented.artifactId>
     <documented.name>AOWeb Struts</documented.name>
     <documented.description>Template webapp for legacy Struts-based site framework with AOServ Platform control panels.</documented.description>
+    <javadoc.breadcrumbs><![CDATA[<a target="${javadoc.target}" href="${project.url}">${project.name}</a>]]></javadoc.breadcrumbs>
+    <javadoc.taglibReference><![CDATA[
+      <li><a target="${javadoc.target}" href="${project.url}aoweb-struts-aoweb.tld/">AOWeb Taglib Reference</a></li>
+      <li><a target="${javadoc.target}" href="${project.url}aoweb-struts-skin.tld/">Skin Taglib Reference</a></li>
+    ]]></javadoc.taglibReference>
 
     <description.html><![CDATA[Documentation for <a target="${javadoc.target}" href="${project.url}">${documented.name}</a> in <a target="${javadoc.target}" href="https://semanticcms.com/">SemanticCMS</a> format.]]></description.html>
     <!-- TODO: Remove once moved to platform.aoapps.com -->
