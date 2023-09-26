@@ -48,8 +48,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <sonar.projectKey>com.aoapps.platform:aoapps-brands<!-- TODO: ${project.groupId}:${project.artifactId} --></sonar.projectKey>
     <!-- TODO: Implement tests -->
     <sonar.coverage.exclusions>**.*</sonar.coverage.exclusions>
-    <!-- Dependencies -->
-    <struts-core.version>1.3.10</struts-core.version>
     <!-- com.aoindustries is on original Sonatype Nexus Repository Manager -->
     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
 
@@ -63,10 +61,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 
     <!-- Plugins -->
     <org.codehaus.gmaven.groovy-maven-plugin.version>2.1.1</org.codehaus.gmaven.groovy-maven-plugin.version>
-
-    <!-- Dependencies -->
-    <commons-collections4.version>4.4</commons-collections4.version>
-    <struts2.version>6.3.0.1</struts2.version>
   </properties>
 
   <name>AOWeb Struts</name>
@@ -142,7 +136,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <configuration>
           <!-- TODO: Upgrade to Struts 2 -->
           <excludeCoordinates>
-            <exclude><groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId><version>${struts-core.version}</version></exclude>
+            <exclude><groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId><version>1.3.10</version></exclude>
           </excludeCoordinates>
           <excludeVulnerabilityIds>
             <!--
@@ -1176,7 +1170,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                   <location>${project.build.directory}/offlineLinks/com.aoindustries/aoserv-daemon-client</location>
                 </offlineLink>
                 <offlineLink>
-                  <url>https://commons.apache.org/proper/commons-collections/javadocs/api-${commons-collections4.version}/</url>
+                  <url>https://commons.apache.org/proper/commons-collections/javadocs/api-${org.apache.commons:commons-collections4:jar.version}/</url>
                   <location>${project.build.directory}/offlineLinks/org.apache.commons/commons-collections4</location>
                 </offlineLink>
                 <offlineLink>
@@ -1189,7 +1183,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                 <!-- ao-javadoc-offline: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId><classifier>javadoc</classifier> -->
                 <!-- JSP Only: <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><classifier>javadoc</classifier> -->
                 <offlineLink>
-                  <url>https://tool.oschina.net/uploads/apidocs/struts-${struts-core.version}/</url>
+                  <url>https://tool.oschina.net/uploads/apidocs/struts-${org.apache.struts:struts-core:jar.version}/</url>
                   <location>${project.build.directory}/offlineLinks/org.apache.struts/struts-core</location>
                 </offlineLink>
                 <!-- JSP Only: <groupId>org.apache.struts</groupId><artifactId>struts-taglib</artifactId><classifier>javadoc</classifier> -->
@@ -1234,7 +1228,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <dependencies>
         <!-- Struts 2 Debugging: https://struts.apache.org/getting-started/debugging-struts.html -->
         <dependency>
-          <groupId>org.apache.struts</groupId><artifactId>struts2-config-browser-plugin</artifactId><version>${struts2.version}</version>
+          <groupId>org.apache.struts</groupId><artifactId>struts2-config-browser-plugin</artifactId><version>6.3.0.1</version>
           <scope>runtime</scope>
         </dependency>
         <!-- Own -devel package -->
@@ -1502,7 +1496,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>com.aoindustries</groupId><artifactId>aoserv-daemon-client</artifactId><version>1.90.0${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.commons</groupId><artifactId>commons-collections4</artifactId><version>${commons-collections4.version}</version>
+        <groupId>org.apache.commons</groupId><artifactId>commons-collections4</artifactId><version>4.4</version>
       </dependency>
       <dependency>
         <groupId>commons-validator</groupId><artifactId>commons-validator</artifactId><version>1.7</version>
@@ -1526,16 +1520,16 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><version>1.15.2${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId><version>${struts-core.version}</version>
+        <groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId><version>1.3.10</version>
       </dependency>
       <dependency>
         <groupId>org.apache.struts</groupId><artifactId>struts-taglib</artifactId><version>1.3.10</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId><version>${struts2.version}</version>
+        <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId><version>6.3.0.1</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId><version>${struts2.version}</version>
+        <groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId><version>6.3.0.1</version>
       </dependency>
       <!-- Transitive -->
       <dependency>
