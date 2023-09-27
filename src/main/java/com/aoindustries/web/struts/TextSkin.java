@@ -203,7 +203,6 @@ public class TextSkin extends Skin {
       PageAttributes pageAttributes,
       DocumentEE document
   ) throws JspException, IOException {
-    final boolean isOkResponseStatus = resp.getStatus() == HttpServletResponse.SC_OK;
     final ServletContext servletContext = req.getServletContext();
     final SiteSettings settings = SiteSettings.getInstance(servletContext);
     final Brand brand;
@@ -268,7 +267,7 @@ public class TextSkin extends Skin {
     html_c.head__(head -> {
       // If this is not the default skin, then robots noindex
       boolean robotsMetaUsed = false;
-      if (!isOkResponseStatus || !getName().equals(skins.get(0).getName())) {
+      if (resp.getStatus() != HttpServletResponse.SC_OK || !getName().equals(skins.get(0).getName())) {
         head.meta().name(AnyMETA.Name.ROBOTS).content("noindex, nofollow").__();
         robotsMetaUsed = true;
       }
@@ -323,7 +322,7 @@ public class TextSkin extends Skin {
         head.meta().name("copyright").content(copyright).__();
       }
       // If this is an authenticated page, redirect to session timeout after one hour
-      if (isOkResponseStatus && aoConn != null && session != null) {
+      if (resp.getStatus() == HttpServletResponse.SC_OK && aoConn != null && session != null) {
         head.meta().httpEquiv(AnyMETA.HttpEquiv.REFRESH).content(content -> {
           content.write(Integer.toString(Math.max(60, session.getMaxInactiveInterval() - 60)));
           content.write(";URL=");
@@ -353,7 +352,7 @@ public class TextSkin extends Skin {
           }
         }
       }
-      if (isOkResponseStatus) {
+      if (resp.getStatus() == HttpServletResponse.SC_OK) {
         String googleVerify = brand.getAowebStrutsGoogleVerifyContent();
         if (googleVerify != null) {
           head.meta().name("verify-v1").content(googleVerify).__();
