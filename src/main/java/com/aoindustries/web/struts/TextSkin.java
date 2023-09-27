@@ -246,14 +246,14 @@ public class TextSkin extends Skin {
     //  session = req.getSession(false); // Get again, just in case of authentication
     //}
     // Locate registries
-    Registry requestRegistry = RegistryEE.Request.get(servletContext, req);
+    final Registry requestRegistry = RegistryEE.Request.get(servletContext, req);
     Registry pageRegistry0 = RegistryEE.Page.get(req);
     if (pageRegistry0 == null) {
       // Create a new page-scope registry
       pageRegistry0 = new Registry();
       RegistryEE.Page.set(req, pageRegistry0);
     }
-    Registry pageRegistry = pageRegistry0;
+    final Registry pageRegistry = pageRegistry0;
     // Configure skin resources
     configureResources(servletContext, req, resp, pageAttributes, requestRegistry);
     // Configure page resources
@@ -686,8 +686,8 @@ public class TextSkin extends Skin {
     );
     // Locate registries
     ServletContext servletContext = req.getServletContext();
-    Registry requestRegistry = RegistryEE.Request.get(servletContext, req);
-    Registry pageRegistry = RegistryEE.Page.get(req);
+    final Registry requestRegistry = RegistryEE.Request.get(servletContext, req);
+    final Registry pageRegistry = RegistryEE.Page.get(req);
     if (pageRegistry == null) {
       throw new JspException("page-scope registry not found.");
     }
