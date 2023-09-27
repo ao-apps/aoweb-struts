@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2013, 2015, 2016, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2013, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -60,6 +60,7 @@ import com.aoapps.servlet.lastmodified.LastModifiedUtil;
 import com.aoapps.style.AoStyle;
 import com.aoapps.web.resources.registry.Group;
 import com.aoapps.web.resources.registry.Registry;
+import com.aoapps.web.resources.registry.Script;
 import com.aoapps.web.resources.registry.Style;
 import com.aoapps.web.resources.renderer.Renderer;
 import com.aoapps.web.resources.servlet.RegistryEE;
@@ -245,9 +246,23 @@ public class TextSkin extends Skin {
     //if (session == null) {
     //  session = req.getSession(false); // Get again, just in case of authentication
     //}
+    // Locate registries
+    Registry requestRegistry = RegistryEE.Request.get(servletContext, req);
+    Registry pageRegistry0 = RegistryEE.Page.get(req);
+    if (pageRegistry0 == null) {
+      // Create a new page-scope registry
+      pageRegistry0 = new Registry();
+      RegistryEE.Page.set(req, pageRegistry0);
+    }
+    Registry pageRegistry = pageRegistry0;
+    // Configure skin resources
+    configureResources(servletContext, req, resp, pageAttributes, requestRegistry);
+    // Configure page resources
+    // None yet: page.configureResources(servletContext, req, resp, this, pageRegistry);
     // Write doctype
     document.xmlDeclaration();
     document.doctype();
+    Doctype doctype = document.encodingContext.getDoctype();
     // Write <html>
     HTML_c<DocumentEE> html_c = document.html().lang()._c();
     html_c.head__(head -> {
@@ -258,16 +273,27 @@ public class TextSkin extends Skin {
         robotsMetaUsed = true;
       }
       HeadUtil.standardMeta(head, resp.getContentType());
-      Doctype doctype = document.encodingContext.getDoctype();
       if (doctype == Doctype.HTML5) {
         GoogleAnalytics.writeGlobalSiteTag(head, trackingId);
       } else {
         GoogleAnalytics.writeAnalyticsJs(head, trackingId);
       }
+      // Render scripts
+      Renderer.get(servletContext).renderScripts(
+          req,
+          resp,
+          head,
+          true, // registeredActivations
+          null, // No additional activations
+          Script.Position.HEAD_START,
+          requestRegistry,
+          RegistryEE.Session.get(req.getSession(false)), // Lookup each time since session might have been created
+          pageRegistry
+      );
       // Mobile support
       head.meta().name(AnyMETA.Name.VIEWPORT).content("width=device-width, initial-scale=1.0").__();
       // Authors
-      // TODO: 3.0.0: dcterms copyright
+      // TODO: dcterms copyright
       String author = pageAttributes.getAuthor();
       if (author != null && !(author = author.trim()).isEmpty()) {
         head.meta().name(AnyMETA.Name.AUTHOR).content(author).__();
@@ -275,7 +301,7 @@ public class TextSkin extends Skin {
       String authorHref = pageAttributes.getAuthorHref();
       if (authorHref != null && !(authorHref = authorHref.trim()).isEmpty()) {
         head.link(AnyLINK.Rel.AUTHOR).href(
-            // TODO: RFC 3986-only always?
+            // TODO: RFC 3986-only always? (this should be replaced by Dublic core)
             resp.encodeURL(
                 URIEncoder.encodeURI(authorHref) // TODO: Conditionally convert from context-relative paths
             )
@@ -290,10 +316,10 @@ public class TextSkin extends Skin {
       if (keywords != null && !(keywords = keywords.trim()).isEmpty()) {
         head.meta().name(AnyMETA.Name.KEYWORDS).content(keywords).__();
       }
-      // TODO: 3.0.0: Review HTML 4/HTML 5 differences from here
+      // TODO: Review HTML 4/HTML 5 differences from here
       String copyright = pageAttributes.getCopyright();
       if (copyright != null && !(copyright = copyright.trim()).isEmpty()) {
-        // TODO: 3.0.0: Dublin Core: https://stackoverflow.com/questions/6665312/is-the-copyright-meta-tag-valid-in-html5
+        // TODO: Dublin Core: https://stackoverflow.com/questions/6665312/is-the-copyright-meta-tag-valid-in-html5
         head.meta().name("copyright").content(copyright).__();
       }
       // If this is an authenticated page, redirect to session timeout after one hour
@@ -335,16 +361,6 @@ public class TextSkin extends Skin {
       }
       printAlternativeLinks(req, resp, head, fullPath, languages);
 
-      // Configure skin resources
-      Registry requestRegistry = RegistryEE.Request.get(servletContext, req);
-      configureResources(servletContext, req, resp, pageAttributes, requestRegistry);
-      // Configure page resources
-      Registry pageRegistry = RegistryEE.Page.get(req);
-      if (pageRegistry == null) {
-        // Create a new page-scope registry
-        pageRegistry = new Registry();
-        RegistryEE.Page.set(req, pageRegistry);
-      }
       // Render links
       Renderer.get(servletContext).renderStyles(
           req,
@@ -352,8 +368,8 @@ public class TextSkin extends Skin {
           head,
           true, // registeredActivations
           null, // No additional activations
-          requestRegistry, // request-scope
-          RegistryEE.Session.get(req.getSession(false)), // session-scope
+          requestRegistry,
+          RegistryEE.Session.get(req.getSession(false)), // Lookup each time since session might have been created
           pageRegistry
       );
       defaultPrintLinks(servletContext, req, resp, head, pageAttributes);
@@ -364,6 +380,18 @@ public class TextSkin extends Skin {
       }
       printFavIcon(req, resp, head, urlBase);
       // TODO: Canonical?
+      // Render scripts
+      Renderer.get(servletContext).renderScripts(
+          req,
+          resp,
+          head,
+          true, // registeredActivations
+          null, // No additional activations
+          Script.Position.HEAD_END,
+          requestRegistry,
+          RegistryEE.Session.get(req.getSession(false)), // Lookup each time since session might have been created
+          pageRegistry
+      );
     });
     BODY<HTML_c<DocumentEE>> body = html_c.body();
     String onload = pageAttributes.getOnload();
@@ -371,6 +399,18 @@ public class TextSkin extends Skin {
       body.onload(onload);
     }
     BODY_c<HTML_c<DocumentEE>> body_c = body._c();
+    // Render scripts
+    Renderer.get(servletContext).renderScripts(
+        req,
+        resp,
+        body_c,
+        true, // registeredActivations
+        null, // No additional activations
+        Script.Position.BODY_START,
+        requestRegistry,
+        RegistryEE.Session.get(req.getSession(false)), // Lookup each time since session might have been created
+        pageRegistry
+    );
     TD_c<TR_c<TBODY_c<TABLE_c<BODY_c<HTML_c<DocumentEE>>>>>> td_c = body_c.table().cellspacing(10).cellpadding(0)._c()
         .tbody_c()
         .tr_c()
@@ -645,6 +685,25 @@ public class TextSkin extends Skin {
         4,
         true
     );
+    // Locate registries
+    ServletContext servletContext = req.getServletContext();
+    Registry requestRegistry = RegistryEE.Request.get(servletContext, req);
+    Registry pageRegistry = RegistryEE.Page.get(req);
+    if (pageRegistry == null) {
+      throw new JspException("page-scope registry not found.");
+    }
+    // Render scripts
+    Renderer.get(servletContext).renderScripts(
+        req,
+        resp,
+        body_c,
+        true, // registeredActivations
+        null, // No additional activations
+        Script.Position.BODY_END,
+        requestRegistry,
+        RegistryEE.Session.get(req.getSession(false)), // Lookup each time since session might have been created
+        pageRegistry
+    );
     DocumentEE document = body_c
         .__()
         .__();
@@ -859,13 +918,13 @@ public class TextSkin extends Skin {
       copyright = copyright.trim();
     }
     if (copyright != null && !copyright.isEmpty()) {
-      final String copyrightFinal = copyright;
+      String myCopyright = copyright;
       table.tfoot__(tfoot -> tfoot
           .tr__(tr -> tr
               .td()
               .colspan(totalColumns)
               .style("text-align:center", "font-size:x-small")
-              .__(copyrightFinal)
+              .__(myCopyright)
           )
       );
     }
