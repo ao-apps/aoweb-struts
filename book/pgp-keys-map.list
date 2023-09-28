@@ -1,0 +1,61 @@
+#
+# aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
+# Copyright (C) 2023  AO Industries, Inc.
+#     support@aoindustries.com
+#     7262 Bull Pen Cir
+#     Mobile, AL 36695
+#
+# This file is part of aoweb-struts.
+#
+# aoweb-struts is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# aoweb-struts is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
+#
+
+# TODO: Get merged into upstream s4u/pgp-keys-map
+# Direct
+com.google.api:gax:2.33.0 = 0x47504B76CF89C15C0512D9AFE16AB52D79FD224F
+com.google.auth:google-auth-library-credentials:1.19.0 = 0x47504B76CF89C15C0512D9AFE16AB52D79FD224F
+com.google.auth:google-auth-library-oauth2-http:1.19.0 = 0x47504B76CF89C15C0512D9AFE16AB52D79FD224F
+com.google.cloud:google-cloud-recaptchaenterprise:3.21.0 = 0x47504B76CF89C15C0512D9AFE16AB52D79FD224F
+com.google.api.grpc:proto-google-cloud-recaptchaenterprise-v1:3.21.0 = 0x47504B76CF89C15C0512D9AFE16AB52D79FD224F
+# Transitive
+com.google.api:api-common:2.16.0 = 0x47504B76CF89C15C0512D9AFE16AB52D79FD224F
+com.google.auto.value:auto-value-annotations:1.10.2 = 0xC7BE5BCC9FEC15518CFDA882B0F3710FA64900E7
+com.google.api:gax-grpc:2.33.0 = 0x47504B76CF89C15C0512D9AFE16AB52D79FD224F
+com.google.api:gax-httpjson:2.33.0 = 0x47504B76CF89C15C0512D9AFE16AB52D79FD224F
+com.google.http-client:google-http-client:1.43.3 = 0x47504B76CF89C15C0512D9AFE16AB52D79FD224F
+com.google.http-client:google-http-client-gson:1.43.3 = 0x47504B76CF89C15C0512D9AFE16AB52D79FD224F
+io.grpc:grpc-alts:1.56.1 = 0xB02335AA54CCF21E52BBF9ABD9C565AA72BA2FDD
+io.grpc:grpc-api:1.56.1 = 0xB02335AA54CCF21E52BBF9ABD9C565AA72BA2FDD
+io.grpc:grpc-auth:1.56.1 = 0xB02335AA54CCF21E52BBF9ABD9C565AA72BA2FDD
+io.grpc:grpc-context:1.56.1 = 0xB02335AA54CCF21E52BBF9ABD9C565AA72BA2FDD
+io.grpc:grpc-core:1.56.1 = 0xB02335AA54CCF21E52BBF9ABD9C565AA72BA2FDD
+io.grpc:grpc-grpclb:1.56.1 = 0xB02335AA54CCF21E52BBF9ABD9C565AA72BA2FDD
+io.grpc:grpc-netty-shaded:1.56.1 = 0xB02335AA54CCF21E52BBF9ABD9C565AA72BA2FDD
+io.grpc:grpc-protobuf:1.56.1 = 0xB02335AA54CCF21E52BBF9ABD9C565AA72BA2FDD
+io.grpc:grpc-protobuf-lite:1.56.1 = 0xB02335AA54CCF21E52BBF9ABD9C565AA72BA2FDD
+io.grpc:grpc-stub:1.56.1 = 0xB02335AA54CCF21E52BBF9ABD9C565AA72BA2FDD
+io.opencensus:opencensus-api:0.31.1 = 0x600EA202B1EC682F4A788E5AAC7A514BC9F9BB70
+io.opencensus:opencensus-contrib-http-util:0.31.1 = 0x600EA202B1EC682F4A788E5AAC7A514BC9F9BB70
+com.google.api.grpc:proto-google-cloud-recaptchaenterprise-v1beta1:0.63.0 = 0x47504B76CF89C15C0512D9AFE16AB52D79FD224F
+com.google.api.grpc:proto-google-common-protos:2.24.0 = 0x47504B76CF89C15C0512D9AFE16AB52D79FD224F
+com.google.protobuf:protobuf-java-util:3.23.2 = 0x187366A3FFE6BF8F94B9136A9987B20C8F6A3064
+org.threeten:threetenbp:1.6.8 = 0xB41089A2DA79B0FA5810252872385FF0AF338D52
+# Runtime Transitive
+com.google.android:annotations:4.1.1.4 = 0x0F07D1201BDDAB67CFB84EB479752DB6C966F0B8
+io.grpc:grpc-googleapis:1.56.1 = 0xB02335AA54CCF21E52BBF9ABD9C565AA72BA2FDD
+io.grpc:grpc-services:1.56.1 = 0xB02335AA54CCF21E52BBF9ABD9C565AA72BA2FDD
+io.grpc:grpc-xds:1.56.1 = 0xB02335AA54CCF21E52BBF9ABD9C565AA72BA2FDD
+io.opencensus:opencensus-proto:0.2.0 = 0x54A26BFDC7ECDD39BA4C123AC3BAB45F4AF71FAB
+io.perfmark:perfmark-api:0.26.0 = 0xC6F7D1C804C821F49AF3BFC13AD93C3C677A106E
+com.google.re2j:re2j:1.7 = 0x6847BFA6411965A23F08C6366A97BB242496B68A
