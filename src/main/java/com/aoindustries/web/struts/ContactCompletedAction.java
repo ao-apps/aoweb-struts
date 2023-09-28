@@ -149,6 +149,9 @@ public class ContactCompletedAction extends PageAction {
         recaptchaScore = assessment.getRiskAnalysis().getScore();
         logger.info(() -> "The reCAPTCHA score is: " + recaptchaScore);
         // Get the assessment name (id). Use this to annotate the assessment.
+        // TODO: Store assessment id then give feedback back into reCAPTCHA when change ticket status?
+        // This would require aoserv-master being able to make API calls on behalf of each brand.
+        // Only do once we get false negative/positives and need to correct.
         String assessmentName = assessment.getName();
         logger.info(() -> "Assessment name: " + assessmentName.substring(assessmentName.lastIndexOf('/') + 1));
         if (recaptchaScore <= RECAPTCHA_FORBID_SCORE) {
