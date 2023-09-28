@@ -1030,10 +1030,35 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                       <includes>element-list, package-list</includes>
                       <outputDirectory>${project.build.directory}/offlineLinks/commons-validator/commons-validator</outputDirectory>
                     </artifactItem>
+                    <artifactItem>
+                      <groupId>com.google.api</groupId><artifactId>gax</artifactId><classifier>javadoc</classifier>
+                      <includes>element-list, package-list</includes>
+                      <outputDirectory>${project.build.directory}/offlineLinks/com.google.api/gax</outputDirectory>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>com.google.auth</groupId><artifactId>google-auth-library-credentials</artifactId><classifier>javadoc</classifier>
+                      <includes>element-list, package-list</includes>
+                      <outputDirectory>${project.build.directory}/offlineLinks/com.google.auth/google-auth-library-credentials</outputDirectory>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>com.google.auth</groupId><artifactId>google-auth-library-oauth2-http</artifactId><classifier>javadoc</classifier>
+                      <includes>element-list, package-list</includes>
+                      <outputDirectory>${project.build.directory}/offlineLinks/com.google.auth/google-auth-library-oauth2-http</outputDirectory>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>com.google.cloud</groupId><artifactId>google-cloud-recaptchaenterprise</artifactId><classifier>javadoc</classifier>
+                      <includes>element-list, package-list</includes>
+                      <outputDirectory>${project.build.directory}/offlineLinks/com.google.cloud/google-cloud-recaptchaenterprise</outputDirectory>
+                    </artifactItem>
                     <!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><classifier>javadoc</classifier> -->
                     <!-- ao-javadoc-offline: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><classifier>javadoc</classifier> -->
                     <!-- ao-javadoc-offline: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId><classifier>javadoc</classifier> -->
                     <!-- ao-javadoc-offline: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId><classifier>javadoc</classifier> -->
+                    <artifactItem>
+                      <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1</artifactId><classifier>javadoc</classifier>
+                      <includes>element-list, package-list</includes>
+                      <outputDirectory>${project.build.directory}/offlineLinks/com.google.api.grpc/proto-google-cloud-recaptchaenterprise-v1</outputDirectory>
+                    </artifactItem>
                     <!-- JSP Only: <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><classifier>javadoc</classifier> -->
                     <artifactItem>
                       <groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId><classifier>javadoc</classifier>
@@ -1177,10 +1202,30 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                   <url>https://commons.apache.org/proper/commons-validator/apidocs/</url>
                   <location>${project.build.directory}/offlineLinks/commons-validator/commons-validator</location>
                 </offlineLink>
+                <offlineLink>
+                  <url>https://javadoc.io/doc/com.google.api/gax/${com.google.api:gax:jar.version}/</url>
+                  <location>${project.build.directory}/offlineLinks/com.google.api/gax</location>
+                </offlineLink>
+                <offlineLink>
+                  <url>https://javadoc.io/doc/com.google.auth/google-auth-library-credentials/${com.google.auth:google-auth-library-credentials:jar.version}/</url>
+                  <location>${project.build.directory}/offlineLinks/com.google.auth/google-auth-library-credentials</location>
+                </offlineLink>
+                <offlineLink>
+                  <url>https://javadoc.io/doc/com.google.auth/google-auth-library-oauth2-http/${com.google.auth:google-auth-library-oauth2-http:jar.version}/</url>
+                  <location>${project.build.directory}/offlineLinks/com.google.auth/google-auth-library-oauth2-http</location>
+                </offlineLink>
+                <offlineLink>
+                  <url>https://javadoc.io/doc/com.google.cloud/google-cloud-recaptchaenterprise/${com.google.cloud:google-cloud-recaptchaenterprise:jar.version}/</url>
+                  <location>${project.build.directory}/offlineLinks/com.google.cloud/google-cloud-recaptchaenterprise</location>
+                </offlineLink>
                 <!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><classifier>javadoc</classifier> -->
                 <!-- ao-javadoc-offline: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><classifier>javadoc</classifier> -->
                 <!-- ao-javadoc-offline: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId><classifier>javadoc</classifier> -->
                 <!-- ao-javadoc-offline: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId><classifier>javadoc</classifier> -->
+                <offlineLink>
+                  <url>https://javadoc.io/doc/com.google.api.grpc/proto-google-cloud-recaptchaenterprise-v1/${com.google.api.grpc:proto-google-cloud-recaptchaenterprise-v1:jar.version}/</url>
+                  <location>${project.build.directory}/offlineLinks/com.google.api.grpc/proto-google-cloud-recaptchaenterprise-v1</location>
+                </offlineLink>
                 <!-- JSP Only: <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><classifier>javadoc</classifier> -->
                 <offlineLink>
                   <url>https://tool.oschina.net/uploads/apidocs/struts-${org.apache.struts:struts-core:jar.version}/</url>
@@ -1302,45 +1347,107 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>com.aoindustries</groupId><artifactId>aoserv-daemon-client-devel</artifactId> -->
         <!-- No -devel: <groupId>org.apache.commons</groupId><artifactId>commons-collections4-devel</artifactId> -->
         <!-- No -devel: <groupId>commons-validator</groupId><artifactId>commons-validator-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.api</groupId><artifactId>gax-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.auth</groupId><artifactId>google-auth-library-credentials-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.auth</groupId><artifactId>google-auth-library-oauth2-http-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.cloud</groupId><artifactId>google-cloud-recaptchaenterprise-devel</artifactId> -->
         <!-- No -devel: <groupId>com.sun.mail</groupId><artifactId>javax.mail-devel</artifactId> -->
         <!-- No -devel: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api-devel</artifactId> -->
         <!-- No -devel: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api-devel</artifactId> -->
         <!-- No -devel: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1-devel</artifactId> -->
         <dependency>
           <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib-devel</artifactId><version>1.15.2-POST-SNAPSHOT</version>
           <scope>runtime</scope>
         </dependency>
         <!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts-core-devel</artifactId> -->
         <!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts-taglib-devel</artifactId> -->
-        <!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId> -->
-        <!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId> -->
+        <!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts2-core-devel</artifactId> -->
         <!-- Transitive -->
         <!-- No -devel: <groupId>javax.activation</groupId><artifactId>activation-devel</artifactId> -->
         <!-- No -devel: <groupId>antlr</groupId><artifactId>antlr-devel</artifactId> -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-tempfiles-devel</artifactId> -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-tlds-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.api</groupId><artifactId>api-common-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.ow2.asm</groupId><artifactId>asm-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.ow2.asm</groupId><artifactId>asm-commons-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.ow2.asm</groupId><artifactId>asm-tree-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.auto.value</groupId><artifactId>auto-value-annotations-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.checkerframework</groupId><artifactId>checker-qual-devel</artifactId> -->
         <!-- No -devel: <groupId>commons-beanutils</groupId><artifactId>commons-beanutils-devel</artifactId> -->
         <!-- No -devel: <groupId>commons-chain</groupId><artifactId>commons-chain-devel</artifactId> -->
+        <!-- No -devel: <groupId>commons-codec</groupId><artifactId>commons-codec-devel</artifactId> -->
         <!-- No -devel: <groupId>commons-collections</groupId><artifactId>commons-collections-devel</artifactId> -->
         <!-- No -devel: <groupId>commons-digester</groupId><artifactId>commons-digester-devel</artifactId> -->
+        <!-- No -devel: <groupId>commons-fileupload</groupId><artifactId>commons-fileupload-devel</artifactId> -->
+        <!-- No -devel: <groupId>commons-io</groupId><artifactId>commons-io-devel</artifactId> -->
         <!-- No -devel: <groupId>org.apache.commons</groupId><artifactId>commons-lang3-devel</artifactId> -->
         <!-- No -devel: <groupId>commons-logging</groupId><artifactId>commons-logging-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.apache.commons</groupId><artifactId>commons-text-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.conscrypt</groupId><artifactId>conscrypt-openjdk-uber-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.errorprone</groupId><artifactId>error_prone_annotations-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.guava</groupId><artifactId>failureaccess-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.freemarker</groupId><artifactId>freemarker-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.api</groupId><artifactId>gax-grpc-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.api</groupId><artifactId>gax-httpjson-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.http-client</groupId><artifactId>google-http-client-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.http-client</groupId><artifactId>google-http-client-gson-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-alts-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-api-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-auth-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-context-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-core-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-grpclb-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-netty-shaded-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-protobuf-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-protobuf-lite-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-stub-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.code.gson</groupId><artifactId>gson-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.guava</groupId><artifactId>guava-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.apache.httpcomponents</groupId><artifactId>httpclient-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.apache.httpcomponents</groupId><artifactId>httpcore-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.j2objc</groupId><artifactId>j2objc-annotations-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.javassist</groupId><artifactId>javassist-devel</artifactId> -->
+        <!-- No -devel: <groupId>javax.annotation</groupId><artifactId>javax.annotation-api-devel</artifactId> -->
+        <!-- No -devel: <groupId>javax.el</groupId><artifactId>javax.el-api-devel</artifactId> -->
         <!-- No -devel: <groupId>joda-time</groupId><artifactId>joda-time-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.code.findbugs</groupId><artifactId>jsr305-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.guava</groupId><artifactId>listenablefuture-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api-devel</artifactId> -->
+        <!-- No -devel: <groupId>ognl</groupId><artifactId>ognl-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-api-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-contrib-http-util-devel</artifactId> -->
         <!-- No -devel: <groupId>oro</groupId><artifactId>oro-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1beta1-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-common-protos-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.protobuf</groupId><artifactId>protobuf-java-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.protobuf</groupId><artifactId>protobuf-java-util-devel</artifactId> -->
         <!-- No -devel: <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-model-devel</artifactId> -->
         <!-- No -devel: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.threeten</groupId><artifactId>threetenbp-devel</artifactId> -->
         <!-- Runtime Direct -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core-devel</artifactId> -->
         <dependency>
           <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet-devel</artifactId><version>1.20.0-SNAPSHOT</version>
           <scope>runtime</scope>
         </dependency>
         <!-- No -devel: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl-devel</artifactId> -->
         <!-- Runtime Transitive -->
+        <!-- No -devel: <groupId>org.codehaus.mojo</groupId><artifactId>animal-sniffer-annotations-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.android</groupId><artifactId>annotations-devel</artifactId> -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-concurrent-devel</artifactId> -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-subrequest-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-googleapis-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-services-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-xds-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-proto-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.perfmark</groupId><artifactId>perfmark-api-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.re2j</groupId><artifactId>re2j-devel</artifactId> -->
         <!-- Imports -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.google.cloud</groupId><artifactId>libraries-bom-devel</artifactId> -->
       </dependencies>
     </profile>
     <profile>
@@ -1501,6 +1608,10 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <dependency>
         <groupId>commons-validator</groupId><artifactId>commons-validator</artifactId><version>1.7</version>
       </dependency>
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.api</groupId><artifactId>gax</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.auth</groupId><artifactId>google-auth-library-credentials</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.auth</groupId><artifactId>google-auth-library-oauth2-http</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.cloud</groupId><artifactId>google-cloud-recaptchaenterprise</artifactId> -->
       <dependency>
         <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><version>1.6.2</version>
       </dependency>
@@ -1516,6 +1627,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId><version>1.1</version>
         <scope>provided</scope>
       </dependency>
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1</artifactId> -->
       <dependency>
         <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><version>1.15.2${POST-SNAPSHOT}</version>
       </dependency>
@@ -1544,6 +1656,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-tlds</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
       </dependency>
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.api</groupId><artifactId>api-common</artifactId> -->
       <dependency>
         <groupId>org.ow2.asm</groupId><artifactId>asm</artifactId><version>9.5</version>
       </dependency>
@@ -1553,12 +1666,15 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <dependency>
         <groupId>org.ow2.asm</groupId><artifactId>asm-tree</artifactId><version>9.5</version>
       </dependency>
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.auto.value</groupId><artifactId>auto-value-annotations</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>org.checkerframework</groupId><artifactId>checker-qual</artifactId> -->
       <dependency>
         <groupId>commons-beanutils</groupId><artifactId>commons-beanutils</artifactId><version>1.9.4</version>
       </dependency>
       <dependency>
         <groupId>commons-chain</groupId><artifactId>commons-chain</artifactId><version>1.2</version>
       </dependency>
+      <!-- com.google.cloud:libraries-bom: <groupId>commons-codec</groupId><artifactId>commons-codec</artifactId> -->
       <dependency>
         <groupId>commons-collections</groupId><artifactId>commons-collections</artifactId><version>3.2.2</version>
       </dependency>
@@ -1580,12 +1696,35 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <dependency>
         <groupId>org.apache.commons</groupId><artifactId>commons-text</artifactId><version>1.10.0</version>
       </dependency>
+      <!-- com.google.cloud:libraries-bom: <groupId>org.conscrypt</groupId><artifactId>conscrypt-openjdk-uber</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.errorprone</groupId><artifactId>error_prone_annotations</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.guava</groupId><artifactId>failureaccess</artifactId> -->
       <dependency>
         <groupId>org.freemarker</groupId><artifactId>freemarker</artifactId><version>2.3.32</version>
       </dependency>
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.api</groupId><artifactId>gax-grpc</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.api</groupId><artifactId>gax-httpjson</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.http-client</groupId><artifactId>google-http-client</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.http-client</groupId><artifactId>google-http-client-gson</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-alts</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-api</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-auth</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-context</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-core</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-grpclb</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-netty-shaded</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-protobuf</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-protobuf-lite</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-stub</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.code.gson</groupId><artifactId>gson</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.guava</groupId><artifactId>guava</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>org.apache.httpcomponents</groupId><artifactId>httpclient</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>org.apache.httpcomponents</groupId><artifactId>httpcore</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.j2objc</groupId><artifactId>j2objc-annotations</artifactId> -->
       <dependency>
         <groupId>org.javassist</groupId><artifactId>javassist</artifactId><version>3.29.2-GA</version>
       </dependency>
+      <!-- com.google.cloud:libraries-bom: <groupId>javax.annotation</groupId><artifactId>javax.annotation-api</artifactId> -->
       <dependency>
         <groupId>javax.el</groupId><artifactId>javax.el-api</artifactId><version>3.0.0</version>
         <scope>provided</scope>
@@ -1593,19 +1732,28 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <dependency>
         <groupId>joda-time</groupId><artifactId>joda-time</artifactId><version>2.12.5</version>
       </dependency>
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.guava</groupId><artifactId>listenablefuture</artifactId> -->
       <dependency>
         <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.20.0</version>
       </dependency>
       <dependency>
         <groupId>ognl</groupId><artifactId>ognl</artifactId><version>3.3.4</version>
       </dependency>
+      <!-- com.google.cloud:libraries-bom: <groupId>io.opencensus</groupId><artifactId>opencensus-api</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.opencensus</groupId><artifactId>opencensus-contrib-http-util</artifactId> -->
       <dependency>
         <groupId>oro</groupId><artifactId>oro</artifactId><version>2.0.8</version>
       </dependency>
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1beta1</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-common-protos</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.protobuf</groupId><artifactId>protobuf-java</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.protobuf</groupId><artifactId>protobuf-java-util</artifactId> -->
       <dependency>
         <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-model</artifactId><version>1.14.1${POST-SNAPSHOT}</version>
       </dependency>
       <!-- javaee-web-api-bom: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>org.threeten</groupId><artifactId>threetenbp</artifactId> -->
       <!-- Runtime Direct -->
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings</artifactId><version>1.2.0${POST-SNAPSHOT}</version>
@@ -1618,15 +1766,28 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <!-- javaee-web-api-bom: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId> -->
       <!-- Runtime Transitive -->
+      <!-- com.google.cloud:libraries-bom: <groupId>org.codehaus.mojo</groupId><artifactId>animal-sniffer-annotations</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.android</groupId><artifactId>annotations</artifactId> -->
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-concurrent</artifactId><version>4.0.5${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-servlet-subrequest</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
       </dependency>
+      <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-googleapis</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-services</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-xds</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.opencensus</groupId><artifactId>opencensus-proto</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.perfmark</groupId><artifactId>perfmark-api</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>com.google.re2j</groupId><artifactId>re2j</artifactId> -->
       <!-- Imports -->
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom</artifactId><version>7.0.1-POST-SNAPSHOT</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId><artifactId>libraries-bom</artifactId><version>26.23.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -1723,6 +1884,18 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <groupId>commons-validator</groupId><artifactId>commons-validator</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.google.api</groupId><artifactId>gax</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.auth</groupId><artifactId>google-auth-library-credentials</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.auth</groupId><artifactId>google-auth-library-oauth2-http</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.cloud</groupId><artifactId>google-cloud-recaptchaenterprise</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId>
     </dependency>
     <dependency>
@@ -1733,6 +1906,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     </dependency>
     <dependency>
       <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1</artifactId>
     </dependency>
     <dependency>
       <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId>

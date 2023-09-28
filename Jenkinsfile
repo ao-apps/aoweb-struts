@@ -39,22 +39,133 @@ def upstreamProjects = [
   // "development" profile
   // Plugins
   // No Jenkins: <groupId>org.apache.struts</groupId><artifactId>struts2-config-browser-plugin</artifactId>
-  // Direct
+  // Own -devel package
   'aoweb-struts-devel', // <groupId>com.aoindustries</groupId><artifactId>aoweb-struts-devel</artifactId>
+  // Direct
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-collections-devel</artifactId>
   'oss/encoding-devel', // <groupId>com.aoapps</groupId><artifactId>ao-encoding-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-encoding-servlet-devel</artifactId>
   'oss/encoding-taglib-devel', // <groupId>com.aoapps</groupId><artifactId>ao-encoding-taglib-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-devel</artifactId>
   'oss/fluent-html-any-devel', // <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-any-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-servlet-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-util-devel</artifactId>
   'oss/hodgepodge-devel', // <groupId>com.aoapps</groupId><artifactId>ao-hodgepodge-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-io-buffer-devel</artifactId>
   'oss/lang-devel', // <groupId>com.aoapps</groupId><artifactId>ao-lang-devel</artifactId>
   'oss/net-types-devel', // <groupId>com.aoapps</groupId><artifactId>ao-net-types-devel</artifactId>
   'oss/payments/api-devel', // <groupId>com.aoapps</groupId><artifactId>ao-payments-api-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-security-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-filter-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-last-modified-devel</artifactId>
   'oss/servlet-util-devel', // <groupId>com.aoapps</groupId><artifactId>ao-servlet-util-devel</artifactId>
   'oss/sql-devel', // <groupId>com.aoapps</groupId><artifactId>ao-sql-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-style-devel</artifactId>
   'oss/taglib-devel', // <groupId>com.aoapps</groupId><artifactId>ao-taglib-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-tempfiles-servlet-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-web-resources-registry-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-web-resources-renderer-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-web-resources-servlet-devel</artifactId>
   'aoserv/client-devel', // <groupId>com.aoindustries</groupId><artifactId>aoserv-client-devel</artifactId>
+  // No -devel: <groupId>com.aoindustries</groupId><artifactId>aoserv-credit-cards-devel</artifactId>
+  // No -devel: <groupId>com.aoindustries</groupId><artifactId>aoserv-daemon-client-devel</artifactId>
+  // No -devel: <groupId>org.apache.commons</groupId><artifactId>commons-collections4-devel</artifactId>
+  // No -devel: <groupId>commons-validator</groupId><artifactId>commons-validator-devel</artifactId>
+  // No -devel: <groupId>com.google.api</groupId><artifactId>gax-devel</artifactId>
+  // No -devel: <groupId>com.google.auth</groupId><artifactId>google-auth-library-credentials-devel</artifactId>
+  // No -devel: <groupId>com.google.auth</groupId><artifactId>google-auth-library-oauth2-http-devel</artifactId>
+  // No -devel: <groupId>com.google.cloud</groupId><artifactId>google-cloud-recaptchaenterprise-devel</artifactId>
+  // No -devel: <groupId>com.sun.mail</groupId><artifactId>javax.mail-devel</artifactId>
+  // No -devel: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api-devel</artifactId>
+  // No -devel: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api-devel</artifactId>
+  // No -devel: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api-devel</artifactId>
+  // No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1-devel</artifactId>
   'semanticcms-1.x/core/taglib-devel', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib-devel</artifactId>
+  // No -devel: <groupId>org.apache.struts</groupId><artifactId>struts-core-devel</artifactId>
+  // No -devel: <groupId>org.apache.struts</groupId><artifactId>struts-taglib-devel</artifactId>
+  // No -devel: <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin-devel</artifactId>
+  // No -devel: <groupId>org.apache.struts</groupId><artifactId>struts2-core-devel</artifactId>
+  // Transitive
+  // No -devel: <groupId>javax.activation</groupId><artifactId>activation-devel</artifactId>
+  // No -devel: <groupId>antlr</groupId><artifactId>antlr-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-tempfiles-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-tlds-devel</artifactId>
+  // No -devel: <groupId>com.google.api</groupId><artifactId>api-common-devel</artifactId>
+  // No -devel: <groupId>org.ow2.asm</groupId><artifactId>asm-devel</artifactId>
+  // No -devel: <groupId>org.ow2.asm</groupId><artifactId>asm-commons-devel</artifactId>
+  // No -devel: <groupId>org.ow2.asm</groupId><artifactId>asm-tree-devel</artifactId>
+  // No -devel: <groupId>com.google.auto.value</groupId><artifactId>auto-value-annotations-devel</artifactId>
+  // No -devel: <groupId>org.checkerframework</groupId><artifactId>checker-qual-devel</artifactId>
+  // No -devel: <groupId>commons-beanutils</groupId><artifactId>commons-beanutils-devel</artifactId>
+  // No -devel: <groupId>commons-chain</groupId><artifactId>commons-chain-devel</artifactId>
+  // No -devel: <groupId>commons-codec</groupId><artifactId>commons-codec-devel</artifactId>
+  // No -devel: <groupId>commons-collections</groupId><artifactId>commons-collections-devel</artifactId>
+  // No -devel: <groupId>commons-digester</groupId><artifactId>commons-digester-devel</artifactId>
+  // No -devel: <groupId>commons-fileupload</groupId><artifactId>commons-fileupload-devel</artifactId>
+  // No -devel: <groupId>commons-io</groupId><artifactId>commons-io-devel</artifactId>
+  // No -devel: <groupId>org.apache.commons</groupId><artifactId>commons-lang3-devel</artifactId>
+  // No -devel: <groupId>commons-logging</groupId><artifactId>commons-logging-devel</artifactId>
+  // No -devel: <groupId>org.apache.commons</groupId><artifactId>commons-text-devel</artifactId>
+  // No -devel: <groupId>org.conscrypt</groupId><artifactId>conscrypt-openjdk-uber-devel</artifactId>
+  // No -devel: <groupId>com.google.errorprone</groupId><artifactId>error_prone_annotations-devel</artifactId>
+  // No -devel: <groupId>com.google.guava</groupId><artifactId>failureaccess-devel</artifactId>
+  // No -devel: <groupId>org.freemarker</groupId><artifactId>freemarker-devel</artifactId>
+  // No -devel: <groupId>com.google.api</groupId><artifactId>gax-grpc-devel</artifactId>
+  // No -devel: <groupId>com.google.api</groupId><artifactId>gax-httpjson-devel</artifactId>
+  // No -devel: <groupId>com.google.http-client</groupId><artifactId>google-http-client-devel</artifactId>
+  // No -devel: <groupId>com.google.http-client</groupId><artifactId>google-http-client-gson-devel</artifactId>
+  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-alts-devel</artifactId>
+  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-api-devel</artifactId>
+  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-auth-devel</artifactId>
+  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-context-devel</artifactId>
+  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-core-devel</artifactId>
+  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-grpclb-devel</artifactId>
+  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-netty-shaded-devel</artifactId>
+  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-protobuf-devel</artifactId>
+  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-protobuf-lite-devel</artifactId>
+  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-stub-devel</artifactId>
+  // No -devel: <groupId>com.google.code.gson</groupId><artifactId>gson-devel</artifactId>
+  // No -devel: <groupId>com.google.guava</groupId><artifactId>guava-devel</artifactId>
+  // No -devel: <groupId>org.apache.httpcomponents</groupId><artifactId>httpclient-devel</artifactId>
+  // No -devel: <groupId>org.apache.httpcomponents</groupId><artifactId>httpcore-devel</artifactId>
+  // No -devel: <groupId>com.google.j2objc</groupId><artifactId>j2objc-annotations-devel</artifactId>
+  // No -devel: <groupId>org.javassist</groupId><artifactId>javassist-devel</artifactId>
+  // No -devel: <groupId>javax.annotation</groupId><artifactId>javax.annotation-api-devel</artifactId>
+  // No -devel: <groupId>javax.el</groupId><artifactId>javax.el-api-devel</artifactId>
+  // No -devel: <groupId>joda-time</groupId><artifactId>joda-time-devel</artifactId>
+  // No -devel: <groupId>com.google.code.findbugs</groupId><artifactId>jsr305-devel</artifactId>
+  // No -devel: <groupId>com.google.guava</groupId><artifactId>listenablefuture-devel</artifactId>
+  // No -devel: <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api-devel</artifactId>
+  // No -devel: <groupId>ognl</groupId><artifactId>ognl-devel</artifactId>
+  // No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-api-devel</artifactId>
+  // No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-contrib-http-util-devel</artifactId>
+  // No -devel: <groupId>oro</groupId><artifactId>oro-devel</artifactId>
+  // No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1beta1-devel</artifactId>
+  // No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-common-protos-devel</artifactId>
+  // No -devel: <groupId>com.google.protobuf</groupId><artifactId>protobuf-java-devel</artifactId>
+  // No -devel: <groupId>com.google.protobuf</groupId><artifactId>protobuf-java-util-devel</artifactId>
+  // No -devel: <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-model-devel</artifactId>
+  // No -devel: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec-devel</artifactId>
+  // No -devel: <groupId>org.threeten</groupId><artifactId>threetenbp-devel</artifactId>
   // Runtime Direct
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings-devel</artifactId>
+  // No -devel: <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core-devel</artifactId>
   'semanticcms-1.x/core/servlet-devel', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet-devel</artifactId>
+  // No -devel: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl-devel</artifactId>
+  // Runtime Transitive
+  // No -devel: <groupId>org.codehaus.mojo</groupId><artifactId>animal-sniffer-annotations-devel</artifactId>
+  // No -devel: <groupId>com.google.android</groupId><artifactId>annotations-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-concurrent-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-subrequest-devel</artifactId>
+  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-googleapis-devel</artifactId>
+  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-services-devel</artifactId>
+  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-xds-devel</artifactId>
+  // No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-proto-devel</artifactId>
+  // No -devel: <groupId>io.perfmark</groupId><artifactId>perfmark-api-devel</artifactId>
+  // No -devel: <groupId>com.google.re2j</groupId><artifactId>re2j-devel</artifactId>
+  // Imports
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom-devel</artifactId>
+  // No -devel: <groupId>com.google.cloud</groupId><artifactId>libraries-bom-devel</artifactId>
 
   // Direct
   'oss/collections', // <groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId>
@@ -86,10 +197,15 @@ def upstreamProjects = [
   'aoserv/daemon-client', // <groupId>com.aoindustries</groupId><artifactId>aoserv-daemon-client</artifactId>
   // No Jenkins: <groupId>org.apache.commons</groupId><artifactId>commons-collections4</artifactId>
   // No Jenkins: <groupId>commons-validator</groupId><artifactId>commons-validator</artifactId>
+  // No Jenkins: <groupId>com.google.api</groupId><artifactId>gax</artifactId>
+  // No Jenkins: <groupId>com.google.auth</groupId><artifactId>google-auth-library-credentials</artifactId>
+  // No Jenkins: <groupId>com.google.auth</groupId><artifactId>google-auth-library-oauth2-http</artifactId>
+  // No Jenkins: <groupId>com.google.cloud</groupId><artifactId>google-cloud-recaptchaenterprise</artifactId>
   // No Jenkins: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId>
   // No Jenkins: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId>
   // No Jenkins: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId>
   // No Jenkins: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId>
+  // No Jenkins: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1</artifactId>
   'semanticcms-1.x/core/taglib', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId>
   // No Jenkins: <groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId>
   // No Jenkins: <groupId>org.apache.struts</groupId><artifactId>struts-taglib</artifactId>

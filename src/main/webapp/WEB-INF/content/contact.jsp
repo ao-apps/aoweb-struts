@@ -1,6 +1,6 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2000-2009, 2015, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+Copyright (C) 2000-2009, 2015, 2016, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -21,11 +21,47 @@ You should have received a copy of the GNU Lesser General Public License
 along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 --%>
 <%@ page language="java" pageEncoding="UTF-8" %>
+<%@ page import="com.aoindustries.aoserv.client.AoservConnector" %>
+<%@ page import="com.aoapps.web.resources.registry.Group" %>
+<%@ page import="com.aoapps.web.resources.registry.Script" %>
+<%@ page import="com.aoapps.web.resources.servlet.RegistryEE" %>
+<%@ page import="com.aoindustries.web.struts.AuthenticatedAction" %>
+<%@ page import="com.aoindustries.web.struts.ContactCompletedAction" %>
+<%@ page import="com.aoindustries.web.struts.ReCaptcha" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
 <%@include file="/WEB-INF/taglibs.jspf" %>
 
 <%@include file="add-parents.jspf" %>
 <%@include file="contact.meta.jspf" %>
-<skin:skin formtype="struts1" onload="document.forms['contactForm'].from.select(); document.forms['contactForm'].from.focus();">
+<%!
+  private static final Group.Name RESOURCE_GROUP = new Group.Name("/contact.jsp");
+%>
+<%
+  // Check if logged-in
+  AoservConnector authenticatedAoConn = AuthenticatedAction.getAuthenticatedAoConn(request, response);
+  pageContext.setAttribute("authenticatedAoConn", authenticatedAoConn);
+
+  if (authenticatedAoConn == null) {
+    // TODO: <wr:script src="https://www.google.com/recaptcha/enterprise.js" async="true" defer="true" />
+    Script enterpriseJs = Script.builder()
+        .uri("https://www.google.com/recaptcha/enterprise.js?hl="
+            + URLEncoder.encode(response.getLocale().toLanguageTag(), StandardCharsets.UTF_8))
+        .async(true)
+        .defer(true)
+        .build();
+    RegistryEE.Page.get(request)
+        .activate(RESOURCE_GROUP)
+        .getGroup(RESOURCE_GROUP)
+            .scripts
+            .add(enterpriseJs);
+    // reCAPTCHA settings
+    pageContext.setAttribute("recaptchaSitekey", ReCaptcha.getSitekey(pageContext.getServletContext()));
+    pageContext.setAttribute("recaptchaAction", ContactCompletedAction.RECAPTCHA_ACTION);
+  }
+%>
+<%-- reCAPTCHA does not work in xml mode, forcing sgml --%>
+<skin:skin serialization="sgml" formtype="struts1" onload="document.forms['contactForm'].from.select(); document.forms['contactForm'].from.focus();">
   <skin:content colspans="3" width="600">
     <ao:bundle basename="com.aoindustries.web.struts.i18n.ApplicationResources">
       <skin:contentTitle><ao:message key="contact.title" /></skin:contentTitle>
@@ -120,6 +156,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
           <html:form action="/contact-completed" onsubmit="return validateContactForm(this);">
             <table class="ao-packed">
               <tbody>
+                <%-- TODO: Default to authenticatedAoConn email address when logged-in (not considering "su") --%>
                 <tr>
                   <td style="white-space:nowrap"><ao:message key="contact.field.from.prompt" /></td>
                   <td><html:text size="30" property="from" /></td>
@@ -132,13 +169,38 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                 </tr>
                 <tr><td colspan='2'>&#160;</td></tr>
                 <tr><td colspan='2'><ao:message key="contact.field.message.prompt" /></td></tr>
-                <tr><td colspan='2'><html:textarea property="message" cols="60" rows="12" /></td></tr>
+                <tr><td colspan='2'><html:textarea property="message" cols="80" rows="12" /></td></tr>
               </tbody>
               <tfoot>
                 <tr>
                   <td colspan="2" style="text-align:center">
-                    <ao:br />
-                    <ao:input type="submit" value="${ao:message('contact.field.submit.label')}" />
+                    <c:if test="${pageScope.authenticatedAoConn == null}">
+                      <ao:script>
+                        function enableSubmitButton() {
+                          document.getElementById("submitButton").disabled = false;
+                        }
+                        function disableSubmitButton() {
+                          document.getElementById("submitButton").disabled = true;
+                        }
+                      </ao:script>
+                      <div
+                        class="g-recaptcha"
+                        style="display:inline-block; margin-top:0.5em; margin-bottom:0.5em"
+                        data-sitekey="${fn:escapeXml(recaptchaSitekey)}"
+                        data-action="${fn:escapeXml(recaptchaAction)}"
+                        data-callback="enableSubmitButton"
+                        data-expired-callback="disableSubmitButton"
+                      ></div>
+                    </c:if>
+                    <div>
+                      <ao:input
+                        id="submitButton"
+                        style="margin-top:0.5em; margin-bottom:0.5em"
+                        type="submit"
+                        value="${ao:message('contact.field.submit.label')}"
+                        disabled="${pageScope.authenticatedAoConn == null}"
+                      />
+                    </div>
                   </td>
                 </tr>
               </tfoot>
