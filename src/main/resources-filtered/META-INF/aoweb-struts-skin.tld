@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2007-2009, 2016, 2017, 2019, 2020, 2021, 2022  AO Industries, Inc.
+Copyright (C) 2007-2009, 2016, 2017, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -192,7 +192,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
   </tag>
   <tag>
     <!-- datePublished="2016-10-07T16:24:47-05:00" -->
-    <!-- dateModified="2021-09-05T21:51:52-05:00" -->
+    <!-- dateModified="2023-10-03T00:39:18Z" -->
     <description><![CDATA[
       <p>
         Provides a meta to its
@@ -223,7 +223,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <name>name</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>java.lang.String</type>
+      <type>java.lang.Object</type>
     </attribute>
     <attribute>
       <description><![CDATA[
@@ -241,7 +241,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
   </tag>
   <tag>
     <!-- datePublished="2016-10-07T16:24:47-05:00" -->
-    <!-- dateModified="2021-09-25T23:27:50-05:00" -->
+    <!-- dateModified="2023-10-03T00:39:18Z" -->
     <description><![CDATA[
       <p>
         Adds a link tag to <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">this page</a>.
@@ -332,7 +332,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <name>type</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <type>java.lang.String</type>
+      <type>java.lang.Object</type>
     </attribute>
     <dynamic-attributes>true</dynamic-attributes>
   </tag>
