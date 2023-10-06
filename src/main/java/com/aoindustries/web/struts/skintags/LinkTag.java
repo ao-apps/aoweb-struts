@@ -101,7 +101,7 @@ public class LinkTag extends EncodingBufferedTag
   }
 
   @Override
-  public void setType(Object type) throws IOException {
+  public void setType(Object type) {
     type = Type.type.normalize(type);
     this.type = (type == null) ? null : Coercion.toString(type);
   }
