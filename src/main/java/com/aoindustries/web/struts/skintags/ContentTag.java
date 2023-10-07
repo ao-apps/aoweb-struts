@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2020, 2021, 2022, 2023  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -28,6 +28,7 @@ import com.aoapps.html.servlet.DocumentEE;
 import com.aoapps.lang.Strings;
 import com.aoindustries.web.struts.Skin;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,13 +55,18 @@ public class ContentTag extends PageAttributesBodyTag {
     return array;
   }
 
-  private String colspans;
-  private int[] colspansParsed;
-  private String width;
+  private transient String colspans;
+  private transient int[] colspansParsed;
+  private transient String width;
   // Values only used between doStartTag and doEndTag
   private transient ContentEE<?> content;
 
   public ContentTag() {
+    init();
+  }
+
+  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
     init();
   }
 

@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -41,6 +41,7 @@ import com.aoindustries.web.struts.Formtype;
 import com.aoindustries.web.struts.Globals;
 import com.aoindustries.web.struts.Skin;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -73,9 +74,14 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
     init();
   }
 
+  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
+    init();
+  }
+
   private static final long serialVersionUID = 2L;
 
-  private Serialization serialization;
+  private transient Serialization serialization;
 
   public void setSerialization(String serialization) {
     if (serialization == null) {
@@ -86,7 +92,7 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
     }
   }
 
-  private Doctype doctype;
+  private transient Doctype doctype;
 
   public void setDoctype(String doctype) {
     if (doctype == null) {
@@ -97,7 +103,7 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
     }
   }
 
-  private Boolean autonli;
+  private transient Boolean autonli;
 
   public void setAutonli(String autonli) {
     if (autonli == null) {
@@ -116,7 +122,7 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
     }
   }
 
-  private Boolean indent;
+  private transient Boolean indent;
 
   public void setIndent(String indent) {
     if (indent == null) {
@@ -135,13 +141,13 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
     }
   }
 
-  private String layout;
+  private transient String layout;
 
   public void setLayout(String layout) {
     this.layout = layout.trim();
   }
 
-  private Formtype formtype;
+  private transient Formtype formtype;
 
   public void setFormtype(String formtype) {
     if (formtype == null) {
@@ -152,7 +158,7 @@ public class SkinTag extends PageAttributesBodyTag implements TryCatchFinally {
     }
   }
 
-  private String onload;
+  private transient String onload;
 
   public void setOnload(String onload) {
     this.onload = onload;

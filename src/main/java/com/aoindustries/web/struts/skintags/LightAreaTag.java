@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2019, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2019, 2021, 2022, 2023  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -26,6 +26,7 @@ package com.aoindustries.web.struts.skintags;
 import com.aoapps.html.servlet.DocumentEE;
 import com.aoapps.html.servlet.FlowContent;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
@@ -40,13 +41,18 @@ public class LightAreaTag extends PageAttributesBodyTag {
 
   private static final long serialVersionUID = 1L;
 
-  private String align;
-  private String width;
-  private boolean nowrap;
+  private transient String align;
+  private transient String width;
+  private transient boolean nowrap;
   // Values only used between doStartTag and doEndTag
   private transient FlowContent<?> lightArea;
 
   public LightAreaTag() {
+    init();
+  }
+
+  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
     init();
   }
 

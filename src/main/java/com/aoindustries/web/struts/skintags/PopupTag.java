@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2020, 2021, 2022, 2023  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -29,6 +29,7 @@ import com.aoapps.lang.util.UnsynchronizedSequence;
 import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoapps.servlet.jsp.tagext.JspTagUtils;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
@@ -55,10 +56,15 @@ public class PopupTag extends BodyTagSupport {
   private static final long serialVersionUID = 1L;
 
   @SuppressWarnings("PackageVisibleField")
-  long sequenceId;
-  private String width;
+  transient long sequenceId;
+  private transient String width;
 
   public PopupTag() {
+    init();
+  }
+
+  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
     init();
   }
 

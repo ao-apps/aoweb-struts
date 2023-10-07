@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -45,7 +45,7 @@ public class ParentTag extends PageTag {
   static final ScopeEE.Request.Attribute<Stack<ParentTag>> STACK_REQUEST_ATTRIBUTE =
       ScopeEE.REQUEST.attribute(ParentTag.class.getName() + ".stack");
 
-  private List<Child> children;
+  private transient List<Child> children;
 
   @Override
   protected void init() {

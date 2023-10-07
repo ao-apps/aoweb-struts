@@ -37,7 +37,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     shortTitle="Changelog"
     tocLevels="1"
     datePublished="2016-10-29T22:19:41-05:00"
-    dateModified="2022-05-04T04:08:06-05:00"
+    dateModified="2023-10-07T03:54:47Z"
   >
     <c:set var="latestRelease" value="2.0.0" />
     <c:if test="${
@@ -171,6 +171,10 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
           <li>Now properly restoring Thread interrupted state on <code>InterruptedException</code>.</li>
           <li>Removed package category and related signup forms for backup and colocation.</li>
           <li>Performed <ao:a href="https://checkstyle.org/">Checkstyle</ao:a> clean-up.</li>
+          <li>
+            Improved support for taglib serialization: marked attribute fields <code>transient</code> and calling
+            <code>init()</code> from <code>readObject(…)</code>.
+          </li>
 
           <li>TODO: On next release, also publish relocations for old aoweb-struts-core, aoweb-struts-resources, and aoweb-struts-webapp.</li>
         </ul>

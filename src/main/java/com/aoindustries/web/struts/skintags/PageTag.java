@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -29,6 +29,7 @@ import com.aoapps.lang.attribute.Attribute;
 import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoapps.servlet.jsp.LocalizedJspTagException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.servlet.ServletRequest;
@@ -59,18 +60,23 @@ public abstract class PageTag extends BodyTagSupport {
     return PAGE_TAG_ATTRIBUTE.context(request).get();
   }
 
-  private String title;
-  private String navImageAlt;
-  private String description;
-  private String author;
-  private String authorHref;
-  private String copyright;
-  private String path;
-  private String keywords;
-  private Collection<Meta> metas;
+  private transient String title;
+  private transient String navImageAlt;
+  private transient String description;
+  private transient String author;
+  private transient String authorHref;
+  private transient String copyright;
+  private transient String path;
+  private transient String keywords;
+  private transient Collection<Meta> metas;
 
   protected PageTag() {
     init(); // TODO: Switch to TryCatchFinally style, review all
+  }
+
+  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
+    init();
   }
 
   protected void init() {
@@ -85,7 +91,7 @@ public abstract class PageTag extends BodyTagSupport {
     metas = null;
   }
 
-  private Attribute.OldValue oldPageTag;
+  private transient Attribute.OldValue oldPageTag;
 
   @Override
   public int doStartTag() throws JspException {

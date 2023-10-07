@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2009, 2016, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2009, 2016, 2020, 2021, 2022, 2023  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -25,6 +25,7 @@ package com.aoindustries.web.struts.skintags;
 
 import com.aoapps.servlet.attribute.ScopeEE;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
@@ -37,9 +38,14 @@ public class LightDarkTableRowTag extends BodyTagSupport {
 
   private static final long serialVersionUID = 1L;
 
-  private ScopeEE.Page.Attribute<Boolean> pageAttributeId;
+  private transient ScopeEE.Page.Attribute<Boolean> pageAttributeId;
 
   public LightDarkTableRowTag() {
+    init();
+  }
+
+  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
     init();
   }
 

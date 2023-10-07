@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2009, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2009, 2016, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -33,6 +33,7 @@ import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoapps.servlet.jsp.LocalizedJspTagException;
 import java.io.CharArrayWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
@@ -59,11 +60,16 @@ public class ScriptGroupTag extends BodyTagSupport {
 
   private static final long serialVersionUID = 1L;
 
-  private String onloadMode;
+  private transient String onloadMode;
 
-  private CharArrayWriter scriptOut = new CharArrayWriter();
+  private transient CharArrayWriter scriptOut = new CharArrayWriter();
 
   public ScriptGroupTag() {
+    init();
+  }
+
+  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
     init();
   }
 
