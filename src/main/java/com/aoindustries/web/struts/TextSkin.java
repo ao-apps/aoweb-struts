@@ -30,7 +30,6 @@ import static com.aoapps.lang.Strings.trimNullIfEmpty;
 import static com.aoapps.taglib.AttributeUtils.appendWidthStyle;
 import static com.aoapps.taglib.AttributeUtils.getWidthStyle;
 
-import com.aoapps.encoding.Doctype;
 import com.aoapps.encoding.Serialization;
 import com.aoapps.encoding.servlet.SerializationEE;
 import com.aoapps.hodgepodge.i18n.EditableResourceBundle;
@@ -261,7 +260,6 @@ public class TextSkin extends Skin {
     // Write doctype
     document.xmlDeclaration();
     document.doctype();
-    Doctype doctype = document.encodingContext.getDoctype();
     // Write <html>
     HTML_c<DocumentEE> html_c = document.html().lang()._c();
     html_c.head__(head -> {
@@ -272,11 +270,7 @@ public class TextSkin extends Skin {
         robotsMetaUsed = true;
       }
       HeadUtil.standardMeta(head, resp.getContentType());
-      if (doctype == Doctype.HTML5) {
-        GoogleAnalytics.writeGlobalSiteTag(head, trackingId);
-      } else {
-        GoogleAnalytics.writeAnalyticsJs(head, trackingId);
-      }
+      GoogleAnalytics.writeScriptByDoctype(head, trackingId);
       // Render scripts
       Renderer.get(servletContext).renderScripts(
           req,
