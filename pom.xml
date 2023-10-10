@@ -1399,6 +1399,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-context-devel</artifactId> -->
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-core-devel</artifactId> -->
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-grpclb-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-inprocess-devel</artifactId> -->
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-netty-shaded-devel</artifactId> -->
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-protobuf-devel</artifactId> -->
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-protobuf-lite-devel</artifactId> -->
@@ -1441,6 +1442,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-subrequest-devel</artifactId> -->
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-googleapis-devel</artifactId> -->
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-services-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-util-devel</artifactId> -->
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-xds-devel</artifactId> -->
         <!-- No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-proto-devel</artifactId> -->
         <!-- No -devel: <groupId>io.perfmark</groupId><artifactId>perfmark-api-devel</artifactId> -->
@@ -1712,6 +1714,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-context</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-core</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-grpclb</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-inprocess</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-netty-shaded</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-protobuf</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-protobuf-lite</artifactId> -->
@@ -1776,6 +1779,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-googleapis</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-services</artifactId> -->
+      <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-util</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-xds</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.opencensus</groupId><artifactId>opencensus-proto</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.perfmark</groupId><artifactId>perfmark-api</artifactId> -->
@@ -1787,7 +1791,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.google.cloud</groupId><artifactId>libraries-bom</artifactId><version>26.23.0</version>
+        <groupId>com.google.cloud</groupId><artifactId>libraries-bom</artifactId><version>26.24.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

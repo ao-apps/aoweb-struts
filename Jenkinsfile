@@ -120,6 +120,7 @@ def upstreamProjects = [
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-context-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-core-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-grpclb-devel</artifactId>
+  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-inprocess-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-netty-shaded-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-protobuf-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-protobuf-lite-devel</artifactId>
@@ -159,6 +160,7 @@ def upstreamProjects = [
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-subrequest-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-googleapis-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-services-devel</artifactId>
+  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-util-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-xds-devel</artifactId>
   // No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-proto-devel</artifactId>
   // No -devel: <groupId>io.perfmark</groupId><artifactId>perfmark-api-devel</artifactId>
