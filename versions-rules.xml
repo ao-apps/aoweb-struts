@@ -62,244 +62,102 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       Begin versions provided by com.google.cloud:libraries-bom.
       This is copied to aoweb-struts/versions-rules.xml, brands/versions-rules.xml, and all brands/*/versions-rules.xml
     -->
-    <rule groupId="com.google.api" artifactId="api-common" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- api-common-2.17.1 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">2.18.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api" artifactId="gapic-generator-java" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- gapic-generator-java-2.26.1 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">2.27.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api" artifactId="gax" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- gax-2.34.1 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">2.35.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api" artifactId="gax-rpc" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- gax-rpc-2.34.1 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">2.35.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api" artifactId="gax-httpjson" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- gax-httpjson-2.34.1 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">2.35.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-datastore-admin-v1" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- grpc-google-cloud-datastore-admin-v1-2.17.2 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">2.17.3</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-logging-v2" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- grpc-google-cloud-logging-v2-0.104.10 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">0.104.11</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-pubsub-v1" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- grpc-google-cloud-pubsub-v1-1.107.5 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">1.107.6</ignoreVersion>
-      </ignoreVersions>
-    </rule>
     <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-spanner-admin-database-v1" comparisonMethod="maven">
       <ignoreVersions>
-        <!-- grpc-google-cloud-spanner-admin-database-v1-6.49.0 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">6.50.0</ignoreVersion>
+        <!-- grpc-google-cloud-spanner-admin-database-v1-6.50.1 selected by com.google.cloud:libraries-bom-26.25.0 -->
+        <ignoreVersion type="exact">6.51.0</ignoreVersion>
       </ignoreVersions>
     </rule>
     <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-spanner-admin-instance-v1" comparisonMethod="maven">
       <ignoreVersions>
-        <!-- grpc-google-cloud-spanner-admin-instance-v1-6.49.0 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">6.50.0</ignoreVersion>
+        <!-- grpc-google-cloud-spanner-admin-instance-v1-6.50.1 selected by com.google.cloud:libraries-bom-26.25.0 -->
+        <ignoreVersion type="exact">6.51.0</ignoreVersion>
       </ignoreVersions>
     </rule>
     <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-spanner-v1" comparisonMethod="maven">
       <ignoreVersions>
-        <!-- grpc-google-cloud-spanner-v1-6.49.0 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">6.50.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="grpc-google-common-protos" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- grpc-google-common-protos-2.25.1 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">2.26.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="grpc-google-iam-v1" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- grpc-google-iam-v1-1.20.1 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">1.21.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="grpc-google-iam-v2" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- grpc-google-iam-v2-1.20.1 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">1.21.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="grpc-google-iam-v2beta" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- grpc-google-iam-v2beta-1.20.1 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">1.21.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-datastore-admin-v1" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- proto-google-cloud-datastore-admin-v1-2.17.2 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">2.17.3</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-datastore-v1" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- proto-google-cloud-datastore-v1-0.108.2 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">0.108.3</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-logging-v2" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- proto-google-cloud-logging-v2-0.104.10 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">0.104.11</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-pubsub-v1" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- proto-google-cloud-pubsub-v1-1.107.5 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">1.107.6</ignoreVersion>
+        <!-- grpc-google-cloud-spanner-v1-6.50.1 selected by com.google.cloud:libraries-bom-26.25.0 -->
+        <ignoreVersion type="exact">6.51.0</ignoreVersion>
       </ignoreVersions>
     </rule>
     <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-spanner-admin-database-v1" comparisonMethod="maven">
       <ignoreVersions>
-        <!-- proto-google-cloud-spanner-admin-database-v1-6.49.0 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">6.50.0</ignoreVersion>
+        <!-- proto-google-cloud-spanner-admin-database-v1-6.50.1 selected by com.google.cloud:libraries-bom-26.25.0 -->
+        <ignoreVersion type="exact">6.51.0</ignoreVersion>
       </ignoreVersions>
     </rule>
     <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-spanner-admin-instance-v1" comparisonMethod="maven">
       <ignoreVersions>
-        <!-- proto-google-cloud-spanner-admin-instance-v1-6.49.0 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">6.50.0</ignoreVersion>
+        <!-- proto-google-cloud-spanner-admin-instance-v1-6.50.1 selected by com.google.cloud:libraries-bom-26.25.0 -->
+        <ignoreVersion type="exact">6.51.0</ignoreVersion>
       </ignoreVersions>
     </rule>
     <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-spanner-v1" comparisonMethod="maven">
       <ignoreVersions>
-        <!-- proto-google-cloud-spanner-v1-6.49.0 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">6.50.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="proto-google-common-protos" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- proto-google-common-protos-2.25.1 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">2.26.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="proto-google-iam-v1" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- proto-google-iam-v1-1.20.1 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">1.21.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="proto-google-iam-v2" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- proto-google-iam-v2-1.20.1 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">1.21.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="proto-google-iam-v2beta" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- proto-google-iam-v2beta-1.20.1 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">1.21.0</ignoreVersion>
+        <!-- proto-google-cloud-spanner-v1-6.50.1 selected by com.google.cloud:libraries-bom-26.25.0 -->
+        <ignoreVersion type="exact">6.51.0</ignoreVersion>
       </ignoreVersions>
     </rule>
     <rule groupId="com.google.auth" artifactId="google-auth-library-appengine" comparisonMethod="maven">
       <ignoreVersions>
-        <!-- google-auth-library-appengine-1.19.0 selected by com.google.cloud:libraries-bom-26.24.0 -->
+        <!-- google-auth-library-appengine-1.19.0 selected by com.google.cloud:libraries-bom-26.25.0 -->
         <ignoreVersion type="exact">1.20.0</ignoreVersion>
       </ignoreVersions>
     </rule>
     <rule groupId="com.google.auth" artifactId="google-auth-library-credentials" comparisonMethod="maven">
       <ignoreVersions>
-        <!-- google-auth-library-credentials-1.19.0 selected by com.google.cloud:libraries-bom-26.24.0 -->
+        <!-- google-auth-library-credentials-1.19.0 selected by com.google.cloud:libraries-bom-26.25.0 -->
         <ignoreVersion type="exact">1.20.0</ignoreVersion>
       </ignoreVersions>
     </rule>
     <rule groupId="com.google.auth" artifactId="google-auth-library-oauth2-http" comparisonMethod="maven">
       <ignoreVersions>
-        <!-- google-auth-library-oauth2-http-1.19.0 selected by com.google.cloud:libraries-bom-26.24.0 -->
+        <!-- google-auth-library-oauth2-http-1.19.0 selected by com.google.cloud:libraries-bom-26.25.0 -->
         <ignoreVersion type="exact">1.20.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.auto.value" artifactId="auto-value-annotations" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- auto-value-annotations-1.10.2 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">1.10.4</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.cloud" artifactId="google-cloud-core" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- google-cloud-core-2.24.1 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">2.25.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.cloud" artifactId="google-cloud-core-grpc" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- google-cloud-core-grpc-2.24.1 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">2.25.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.cloud" artifactId="google-cloud-core-http" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- google-cloud-core-http-2.24.1 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">2.25.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.cloud" artifactId="google-cloud-datastore" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- google-cloud-datastore-2.17.2 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">2.17.3</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.cloud" artifactId="google-cloud-logging" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- google-cloud-logging-3.15.10 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">3.15.11</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.cloud" artifactId="google-cloud-pubsub" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- google-cloud-pubsub-1.125.5 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">1.125.6</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.auto.value" artifactId="auto-value-annotations" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- auto-value-annotations-1.10.2 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">1.10.3</ignoreVersion>
-        <ignoreVersion type="exact">1.10.4</ignoreVersion>
       </ignoreVersions>
     </rule>
     <rule groupId="com.google.cloud" artifactId="google-cloud-spanner" comparisonMethod="maven">
       <ignoreVersions>
-        <!-- google-cloud-spanner-6.49.0 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">6.50.0</ignoreVersion>
+        <!-- google-cloud-spanner-6.50.1 selected by com.google.cloud:libraries-bom-26.25.0 -->
+        <ignoreVersion type="exact">6.51.0</ignoreVersion>
       </ignoreVersions>
     </rule>
     <rule groupId="com.google.cloud" artifactId="google-cloud-spanner-executor" comparisonMethod="maven">
       <ignoreVersions>
-        <!-- google-cloud-spanner-executor-6.49.0 selected by com.google.cloud:libraries-bom-26.24.0 -->
-        <ignoreVersion type="exact">6.50.0</ignoreVersion>
+        <!-- google-cloud-spanner-executor-6.50.1 selected by com.google.cloud:libraries-bom-26.25.0 -->
+        <ignoreVersion type="exact">6.51.0</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="com.google.cloud" artifactId="google-cloud-spanner-jdbc" comparisonMethod="maven">
+      <ignoreVersions>
+        <!-- google-cloud-spanner-jdbc-2.14.0 selected by com.google.cloud:libraries-bom-26.25.0 -->
+        <ignoreVersion type="exact">2.14.1</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="com.google.guava" artifactId="guava" comparisonMethod="maven">
+      <ignoreVersions>
+        <!-- guava-32.1.2-jre selected by com.google.cloud:libraries-bom-26.25.0 -->
+        <ignoreVersion type="exact">32.1.3-android</ignoreVersion>
+        <ignoreVersion type="exact">32.1.3-jre</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="com.google.guava" artifactId="guava-gwt" comparisonMethod="maven">
+      <ignoreVersions>
+        <!-- guava-gwt-32.1.2-jre selected by com.google.cloud:libraries-bom-26.25.0 -->
+        <ignoreVersion type="exact">32.1.3-android</ignoreVersion>
+        <ignoreVersion type="exact">32.1.3-jre</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="com.google.guava" artifactId="guava-testlib" comparisonMethod="maven">
+      <ignoreVersions>
+        <!-- guava-testlib-32.1.2-jre selected by com.google.cloud:libraries-bom-26.25.0 -->
+        <ignoreVersion type="exact">32.1.3-android</ignoreVersion>
+        <ignoreVersion type="exact">32.1.3-jre</ignoreVersion>
       </ignoreVersions>
     </rule>
     <rule groupId="com.google.protobuf" artifactId="protobuf-java" comparisonMethod="maven">
       <ignoreVersions>
-        <!-- protobuf-java-3.24.3 selected by com.google.cloud:libraries-bom-26.24.0 -->
+        <!-- protobuf-java-3.24.3 selected by com.google.cloud:libraries-bom-26.25.0 -->
         <ignoreVersion type="exact">3.24.4</ignoreVersion>
         <ignoreVersion type="exact">4.0.0-rc-1</ignoreVersion>
         <ignoreVersion type="exact">4.0.0-rc-2</ignoreVersion>
@@ -307,7 +165,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     </rule>
     <rule groupId="com.google.protobuf" artifactId="protobuf-java-util" comparisonMethod="maven">
       <ignoreVersions>
-        <!-- protobuf-java-util-3.24.3 selected by com.google.cloud:libraries-bom-26.24.0 -->
+        <!-- protobuf-java-util-3.24.3 selected by com.google.cloud:libraries-bom-26.25.0 -->
         <ignoreVersion type="exact">3.24.4</ignoreVersion>
         <ignoreVersion type="exact">4.0.0-rc-1</ignoreVersion>
         <ignoreVersion type="exact">4.0.0-rc-2</ignoreVersion>
@@ -315,7 +173,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     </rule>
     <rule groupId="com.google.protobuf" artifactId="protobuf-kotlin" comparisonMethod="maven">
       <ignoreVersions>
-        <!-- protobuf-kotlin-3.24.3 selected by com.google.cloud:libraries-bom-26.24.0 -->
+        <!-- protobuf-kotlin-3.24.3 selected by com.google.cloud:libraries-bom-26.25.0 -->
         <ignoreVersion type="exact">3.24.4</ignoreVersion>
       </ignoreVersions>
     </rule>
