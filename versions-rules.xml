@@ -62,120 +62,333 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       Begin versions provided by com.google.cloud:libraries-bom.
       This is copied to aoweb-struts/versions-rules.xml, brands/versions-rules.xml, and all brands/*/versions-rules.xml
     -->
-    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-spanner-admin-database-v1" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- grpc-google-cloud-spanner-admin-database-v1-6.50.1 selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">6.51.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-spanner-admin-instance-v1" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- grpc-google-cloud-spanner-admin-instance-v1-6.50.1 selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">6.51.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-spanner-v1" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- grpc-google-cloud-spanner-v1-6.50.1 selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">6.51.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-spanner-admin-database-v1" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- proto-google-cloud-spanner-admin-database-v1-6.50.1 selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">6.51.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-spanner-admin-instance-v1" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- proto-google-cloud-spanner-admin-instance-v1-6.50.1 selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">6.51.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-spanner-v1" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- proto-google-cloud-spanner-v1-6.50.1 selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">6.51.0</ignoreVersion>
-      </ignoreVersions>
-    </rule>
-    <rule groupId="com.google.auth" artifactId="google-auth-library-appengine" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- google-auth-library-appengine-1.19.0 selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">1.20.0</ignoreVersion>
-      </ignoreVersions>
+    <!-- Direct -->
+    <rule groupId="com.google.api" artifactId="gax" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
     <rule groupId="com.google.auth" artifactId="google-auth-library-credentials" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- google-auth-library-credentials-1.19.0 selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">1.20.0</ignoreVersion>
-      </ignoreVersions>
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
     <rule groupId="com.google.auth" artifactId="google-auth-library-oauth2-http" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- google-auth-library-oauth2-http-1.19.0 selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">1.20.0</ignoreVersion>
-      </ignoreVersions>
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
-    <rule groupId="com.google.cloud" artifactId="google-cloud-spanner" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- google-cloud-spanner-6.50.1 selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">6.51.0</ignoreVersion>
-      </ignoreVersions>
+    <rule groupId="com.google.cloud" artifactId="google-cloud-recaptchaenterprise" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
-    <rule groupId="com.google.cloud" artifactId="google-cloud-spanner-executor" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- google-cloud-spanner-executor-6.50.1 selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">6.51.0</ignoreVersion>
-      </ignoreVersions>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-recaptchaenterprise-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
-    <rule groupId="com.google.cloud" artifactId="google-cloud-spanner-jdbc" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- google-cloud-spanner-jdbc-2.14.0 selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">2.14.1</ignoreVersion>
-      </ignoreVersions>
+    <!-- Transitive -->
+    <rule groupId="com.google.api" artifactId="api-common" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.auto.value" artifactId="auto-value-annotations" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="org.checkerframework" artifactId="checker-qual" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="commons-codec" artifactId="commons-codec" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="org.conscrypt" artifactId="conscrypt-openjdk-uber" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.errorprone" artifactId="error_prone_annotations" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.guava" artifactId="failureaccess" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api" artifactId="gax-grpc" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api" artifactId="gax-httpjson" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.http-client" artifactId="google-http-client" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.http-client" artifactId="google-http-client-gson" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-alts" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-api" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-auth" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-context" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-core" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-grpclb" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-inprocess" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-netty-shaded" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-protobuf" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-protobuf-lite" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-stub" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.code.gson" artifactId="gson" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
     <rule groupId="com.google.guava" artifactId="guava" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- guava-32.1.2-jre selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">32.1.3-android</ignoreVersion>
-        <ignoreVersion type="exact">32.1.3-jre</ignoreVersion>
-      </ignoreVersions>
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
-    <rule groupId="com.google.guava" artifactId="guava-gwt" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- guava-gwt-32.1.2-jre selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">32.1.3-android</ignoreVersion>
-        <ignoreVersion type="exact">32.1.3-jre</ignoreVersion>
-      </ignoreVersions>
+    <rule groupId="org.apache.httpcomponents" artifactId="httpclient" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
-    <rule groupId="com.google.guava" artifactId="guava-testlib" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- guava-testlib-32.1.2-jre selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">32.1.3-android</ignoreVersion>
-        <ignoreVersion type="exact">32.1.3-jre</ignoreVersion>
-      </ignoreVersions>
+    <rule groupId="org.apache.httpcomponents" artifactId="httpcore" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.j2objc" artifactId="j2objc-annotations" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="javax.annotation" artifactId="javax.annotation-api" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.code.findbugs" artifactId="jsr305" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.guava" artifactId="listenablefuture" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.opencensus" artifactId="opencensus-api" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.opencensus" artifactId="opencensus-contrib-http-util" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-recaptchaenterprise-v1beta1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-common-protos" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
     <rule groupId="com.google.protobuf" artifactId="protobuf-java" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- protobuf-java-3.24.3 selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">3.24.4</ignoreVersion>
-        <ignoreVersion type="exact">4.0.0-rc-1</ignoreVersion>
-        <ignoreVersion type="exact">4.0.0-rc-2</ignoreVersion>
-      </ignoreVersions>
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
     <rule groupId="com.google.protobuf" artifactId="protobuf-java-util" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- protobuf-java-util-3.24.3 selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">3.24.4</ignoreVersion>
-        <ignoreVersion type="exact">4.0.0-rc-1</ignoreVersion>
-        <ignoreVersion type="exact">4.0.0-rc-2</ignoreVersion>
-      </ignoreVersions>
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="org.threeten" artifactId="threetenbp" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <!-- Runtime Transitive -->
+    <rule groupId="org.codehaus.mojo" artifactId="animal-sniffer-annotations" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.android" artifactId="annotations" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-googleapis" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-services" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-util" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-xds" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.opencensus" artifactId="opencensus-proto" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.perfmark" artifactId="perfmark-api" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.re2j" artifactId="re2j" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <!-- More that are not part of the project but reported by versions:display-dependency-updates -->
+    <rule groupId="com.google.api" artifactId="gapic-generator-java" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="gapic-google-cloud-storage-v2" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-datastore-admin-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-firestore-admin-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-firestore-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-pubsub-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-spanner-admin-database-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-spanner-admin-instance-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-spanner-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-storage-v2" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="grpc-google-common-protos" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="grpc-google-iam-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="grpc-google-iam-v2" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="grpc-google-iam-v2beta" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-datastore-admin-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-datastore-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-firestore-admin-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-firestore-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-pubsub-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-spanner-admin-database-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-spanner-admin-instance-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-spanner-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-storage-v2" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-iam-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-iam-v2" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-iam-v2beta" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.auth" artifactId="google-auth-library-appengine" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.cloud" artifactId="google-cloud-core" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.cloud" artifactId="google-cloud-core-grpc" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.cloud" artifactId="google-cloud-core-http" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.cloud" artifactId="google-cloud-datastore" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.cloud" artifactId="google-cloud-firestore" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.cloud" artifactId="google-cloud-firestore-admin" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.cloud" artifactId="google-cloud-nio" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.cloud" artifactId="google-cloud-pubsub" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.cloud" artifactId="google-cloud-spanner" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.cloud" artifactId="google-cloud-spanner-executor" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.cloud" artifactId="google-cloud-spanner-jdbc" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.cloud" artifactId="google-cloud-storage" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.cloud" artifactId="proto-google-cloud-firestore-bundle-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
     <rule groupId="com.google.protobuf" artifactId="protobuf-kotlin" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- protobuf-kotlin-3.24.3 selected by com.google.cloud:libraries-bom-26.25.0 -->
-        <ignoreVersion type="exact">3.24.4</ignoreVersion>
-      </ignoreVersions>
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-all" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-android" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-benchmarks" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-binder" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-census" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-cronet" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-gcp-observability" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-interop-testing" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-netty" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-okhttp" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-rls" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-servlet" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-servlet-jakarta" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-testing" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="grpc-testing-proto" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="io.grpc" artifactId="protoc-gen-grpc-java" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
     <!--
       End versions provided by com.google.cloud:libraries-bom.
