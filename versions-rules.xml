@@ -390,6 +390,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <rule groupId="io.grpc" artifactId="protoc-gen-grpc-java" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
+    <rule groupId="org.graalvm.sdk" artifactId="graal-sdk" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
     <!--
       End versions provided by com.google.cloud:libraries-bom.
     -->
