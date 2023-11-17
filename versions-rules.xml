@@ -225,6 +225,15 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <rule groupId="com.google.api.grpc" artifactId="gapic-google-cloud-storage-v2" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
+    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-bigquerystorage-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-bigquerystorage-v1beta1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-bigquerystorage-v1beta2" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
     <rule groupId="com.google.api.grpc" artifactId="grpc-google-cloud-datastore-admin-v1" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
@@ -259,6 +268,15 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
     <rule groupId="com.google.api.grpc" artifactId="grpc-google-iam-v2beta" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-bigquerystorage-v1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-bigquerystorage-v1beta1" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-bigquerystorage-v1beta2" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
     <rule groupId="com.google.api.grpc" artifactId="proto-google-cloud-datastore-admin-v1" comparisonMethod="maven">
@@ -300,6 +318,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <rule groupId="com.google.auth" artifactId="google-auth-library-appengine" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
+    <rule groupId="com.google.cloud" artifactId="google-cloud-bigquerystorage" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
     <rule groupId="com.google.cloud" artifactId="google-cloud-core" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
@@ -334,6 +355,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
     <rule groupId="com.google.cloud" artifactId="google-cloud-storage" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.cloud" artifactId="grpc-gcp" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
     <rule groupId="com.google.cloud" artifactId="proto-google-cloud-firestore-bundle-v1" comparisonMethod="maven">
