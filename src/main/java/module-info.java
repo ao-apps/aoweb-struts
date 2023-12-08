@@ -80,7 +80,7 @@ module com.aoindustries.web.struts {
   requires com.aoindustries.aoserv.payments; // <groupId>com.aoindustries</groupId><artifactId>aoserv-credit-cards</artifactId>
   requires com.aoindustries.aoserv.daemon.client; // <groupId>com.aoindustries</groupId><artifactId>aoserv-daemon-client</artifactId>
   requires org.apache.commons.collections4; // <groupId>org.apache.commons</groupId><artifactId>commons-collections4</artifactId>
-  requires commons.validator; // <groupId>commons-validator</groupId><artifactId>commons-validator</artifactId>
+  requires org.apache.commons.validator; // <groupId>commons-validator</groupId><artifactId>commons-validator</artifactId>
   requires gax; // <groupId>com.google.api</groupId><artifactId>gax</artifactId>
   requires com.google.auth; // <groupId>com.google.auth</groupId><artifactId>google-auth-library-credentials</artifactId>
   requires com.google.auth.oauth2; // <groupId>com.google.auth</groupId><artifactId>google-auth-library-oauth2-http</artifactId>
