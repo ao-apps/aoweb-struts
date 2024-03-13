@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -93,7 +93,6 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
     boolean updatedCardDetails = false;
     boolean updatedCardNumber = false;
     boolean updatedExpirationDate = false;
-    boolean reactivatedCard = false;
 
     // Root connector used to get processor
     SiteSettings siteSettings = SiteSettings.getInstance(getServlet().getServletContext());
@@ -179,6 +178,7 @@ public class EditCreditCardCompletedAction extends EditCreditCardAction {
       }
     }
 
+    boolean reactivatedCard = false;
     if (!creditCard.getIsActive()) {
       // Reactivate if not active
       creditCard.reactivate();

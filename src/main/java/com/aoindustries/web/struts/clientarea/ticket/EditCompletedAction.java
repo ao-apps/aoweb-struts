@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2000-2009, 2016, 2018, 2019, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2000-2009, 2016, 2018, 2019, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -84,29 +84,24 @@ public class EditCompletedAction extends PermissionAction {
       return mapping.findForward("input");
     }
 
-    // Request attribute defaults
-    boolean accountUpdated = false;
-    boolean contactEmailsUpdated = false;
-    boolean contactPhoneNumbersUpdated = false;
-    boolean clientPriorityUpdated = false;
-    boolean summaryUpdated = false;
-    boolean annotationAdded = false;
-
     // Update anything that changed
     Account newAccount = aoConn.getAccount().getAccount().get(Account.Name.valueOf(ticketForm.getAccount()));
     if (newAccount == null) {
       throw new SQLException("Unable to find Account: " + ticketForm.getAccount());
     }
     Account oldAccount = ticket.getAccount();
+    boolean accountUpdated = false;
     if (!newAccount.equals(oldAccount)) {
       ticket.setAccount(oldAccount, newAccount);
       accountUpdated = true;
     }
     Set<Email> contactEmails = Profile.splitEmails(ticketForm.getContactEmails());
+    boolean contactEmailsUpdated = false;
     if (!contactEmails.equals(ticket.getContactEmails())) {
       ticket.setContactEmails(contactEmails);
       contactEmailsUpdated = true;
     }
+    boolean contactPhoneNumbersUpdated = false;
     if (!ticketForm.getContactPhoneNumbers().equals(ticket.getContactPhoneNumbers())) {
       ticket.setContactPhoneNumbers(ticketForm.getContactPhoneNumbers());
       contactPhoneNumbersUpdated = true;
@@ -115,14 +110,17 @@ public class EditCompletedAction extends PermissionAction {
     if (clientPriority == null) {
       throw new SQLException("Unable to find Priority: " + ticketForm.getClientPriority());
     }
+    boolean clientPriorityUpdated = false;
     if (!clientPriority.equals(ticket.getClientPriority())) {
       ticket.setClientPriority(clientPriority);
       clientPriorityUpdated = true;
     }
+    boolean summaryUpdated = false;
     if (!ticketForm.getSummary().equals(ticket.getSummary())) {
       ticket.setSummary(ticketForm.getSummary());
       summaryUpdated = true;
     }
+    boolean annotationAdded = false;
     if (ticketForm.getAnnotationSummary().length() > 0) {
       ticket.addAnnotation(
           ticketForm.getAnnotationSummary(),

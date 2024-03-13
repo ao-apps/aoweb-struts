@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2009, 2016, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
+ * Copyright (C) 2009, 2016, 2019, 2020, 2021, 2022, 2023, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -107,13 +107,13 @@ public class ScriptGroupTag extends BodyTagSupport {
           } else {
             Sequence sequence = SEQUENCE_REQUEST_ATTRIBUTE.context(request).computeIfAbsent(name -> new UnsynchronizedSequence());
             String sequenceId = Long.toString(sequence.getNextSequenceValue());
-            boolean wroteScript = false;
             script.write("  var scriptOutOldOnload");
             script.write(sequenceId);
             script.write("=window.onload;\n"
                 + "  function scriptOutOnload");
             script.write(sequenceId);
             script.write("() {\n");
+            boolean wroteScript = false;
             if ("before".equals(onloadMode)) {
               scriptOut.writeTo(script);
               wroteScript = true;

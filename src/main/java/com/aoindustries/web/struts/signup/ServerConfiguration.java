@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2018, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -61,7 +61,6 @@ public class ServerConfiguration {
 
     // Calculate the total minimum monthly
     final Money setup = packageDefinition.getSetupFee();
-    Monies minimumMonthly = Monies.of(packageDefinition.getMonthlyRate());
 
     // Find the maximum number of different resources and the cheapest options
     int maxPowers = 0;
@@ -196,6 +195,7 @@ public class ServerConfiguration {
     }
 
     // Add the Power costs
+    Monies minimumMonthly = Monies.of(packageDefinition.getMonthlyRate());
     if (cheapestPower != null && cheapestPower.getAdditionalRate() != null) {
       minimumMonthly = minimumMonthly.add(cheapestPower.getAdditionalRate().multiply(BigDecimal.valueOf(maxPowers)));
     }
