@@ -1738,7 +1738,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.guava</groupId><artifactId>listenablefuture</artifactId> -->
       <dependency>
-        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.22.1</version>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.23.1</version>
       </dependency>
       <dependency>
         <groupId>ognl</groupId><artifactId>ognl</artifactId><version>3.3.4</version>
@@ -1762,7 +1762,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings</artifactId><version>1.2.0${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId><version>2.22.1</version>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId><version>2.23.1</version>
       </dependency>
       <dependency>
         <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet</artifactId><version>1.20.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
