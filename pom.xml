@@ -1733,7 +1733,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>joda-time</groupId><artifactId>joda-time</artifactId><version>2.12.6</version>
+        <groupId>joda-time</groupId><artifactId>joda-time</artifactId><version>2.12.7</version>
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.guava</groupId><artifactId>listenablefuture</artifactId> -->
