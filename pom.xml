@@ -1660,13 +1660,13 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.api</groupId><artifactId>api-common</artifactId> -->
       <dependency>
-        <groupId>org.ow2.asm</groupId><artifactId>asm</artifactId><version>9.6</version>
+        <groupId>org.ow2.asm</groupId><artifactId>asm</artifactId><version>9.7</version>
       </dependency>
       <dependency>
-        <groupId>org.ow2.asm</groupId><artifactId>asm-commons</artifactId><version>9.6</version>
+        <groupId>org.ow2.asm</groupId><artifactId>asm-commons</artifactId><version>9.7</version>
       </dependency>
       <dependency>
-        <groupId>org.ow2.asm</groupId><artifactId>asm-tree</artifactId><version>9.6</version>
+        <groupId>org.ow2.asm</groupId><artifactId>asm-tree</artifactId><version>9.7</version>
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.auto.value</groupId><artifactId>auto-value-annotations</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>org.checkerframework</groupId><artifactId>checker-qual</artifactId> -->
