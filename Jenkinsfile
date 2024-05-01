@@ -123,7 +123,6 @@ def upstreamProjects = [
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-inprocess-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-netty-shaded-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-protobuf-devel</artifactId>
-  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-protobuf-lite-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-stub-devel</artifactId>
   // No -devel: <groupId>com.google.code.gson</groupId><artifactId>gson-devel</artifactId>
   // No -devel: <groupId>com.google.guava</groupId><artifactId>guava-devel</artifactId>
@@ -140,6 +139,8 @@ def upstreamProjects = [
   // No -devel: <groupId>ognl</groupId><artifactId>ognl-devel</artifactId>
   // No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-api-devel</artifactId>
   // No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-contrib-http-util-devel</artifactId>
+  // No -devel: <groupId>io.opentelemetry</groupId><artifactId>opentelemetry-api-devel</artifactId>
+  // No -devel: <groupId>io.opentelemetry</groupId><artifactId>opentelemetry-context-devel</artifactId>
   // No -devel: <groupId>oro</groupId><artifactId>oro-devel</artifactId>
   // No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1beta1-devel</artifactId>
   // No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-common-protos-devel</artifactId>
@@ -159,6 +160,7 @@ def upstreamProjects = [
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-concurrent-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-subrequest-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-googleapis-devel</artifactId>
+  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-protobuf-lite-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-services-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-util-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-xds-devel</artifactId>
