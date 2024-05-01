@@ -134,9 +134,14 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <plugin>
         <groupId>org.sonatype.ossindex.maven</groupId><artifactId>ossindex-maven-plugin</artifactId>
         <configuration>
-          <!-- TODO: Upgrade to Struts 2 -->
           <excludeCoordinates>
+            <!-- TODO: Upgrade to Struts 2 -->
             <exclude><groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId><version>1.3.10</version></exclude>
+            <!-- TODO:
+              See if vulnerabilities still reported in threetenbp > 1.6.9:
+              https://ossindex.sonatype.org/component/pkg:maven/org.threeten/threetenbp@1.6.9
+            -->
+            <exclude><groupId>org.threeten</groupId><artifactId>threetenbp</artifactId><version>1.6.9</version></exclude>
           </excludeCoordinates>
           <excludeVulnerabilityIds>
             <!--
