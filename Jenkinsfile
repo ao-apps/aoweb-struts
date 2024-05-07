@@ -95,6 +95,7 @@ def upstreamProjects = [
   // No -devel: <groupId>org.ow2.asm</groupId><artifactId>asm-commons-devel</artifactId>
   // No -devel: <groupId>org.ow2.asm</groupId><artifactId>asm-tree-devel</artifactId>
   // No -devel: <groupId>com.google.auto.value</groupId><artifactId>auto-value-annotations-devel</artifactId>
+  // No -devel: <groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine-devel</artifactId>
   // No -devel: <groupId>org.checkerframework</groupId><artifactId>checker-qual-devel</artifactId>
   // No -devel: <groupId>commons-beanutils</groupId><artifactId>commons-beanutils-devel</artifactId>
   // No -devel: <groupId>commons-chain</groupId><artifactId>commons-chain-devel</artifactId>
