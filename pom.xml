@@ -1302,7 +1302,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         </dependency>
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-devel</artifactId> -->
         <dependency>
-          <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-any-devel</artifactId><version>0.8.0-SNAPSHOT</version>
+          <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-any-devel</artifactId><version>0.8.0-POST-SNAPSHOT</version>
           <scope>runtime</scope>
         </dependency>
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-servlet-devel</artifactId> -->
@@ -1547,7 +1547,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>com.aoapps</groupId><artifactId>ao-fluent-html</artifactId><version>0.7.0${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
-        <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-any</artifactId><version>0.8.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+        <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-any</artifactId><version>0.8.0${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-servlet</artifactId><version>0.7.0${POST-SNAPSHOT}</version>
