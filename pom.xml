@@ -1362,7 +1362,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1-devel</artifactId> -->
         <dependency>
-          <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib-devel</artifactId><version>1.16.0-SNAPSHOT</version>
+          <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib-devel</artifactId><version>1.16.0-POST-SNAPSHOT</version>
           <scope>runtime</scope>
         </dependency>
         <!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts-core-devel</artifactId> -->
@@ -1639,7 +1639,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1</artifactId> -->
       <dependency>
-        <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><version>1.16.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+        <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><version>1.16.0${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId><version>1.3.10</version>
