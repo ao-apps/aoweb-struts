@@ -140,8 +140,6 @@ def upstreamProjects = [
   // No -devel: <groupId>ognl</groupId><artifactId>ognl-devel</artifactId>
   // No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-api-devel</artifactId>
   // No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-contrib-http-util-devel</artifactId>
-  // No -devel: <groupId>io.opentelemetry</groupId><artifactId>opentelemetry-api-devel</artifactId>
-  // No -devel: <groupId>io.opentelemetry</groupId><artifactId>opentelemetry-context-devel</artifactId>
   // No -devel: <groupId>oro</groupId><artifactId>oro-devel</artifactId>
   // No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1beta1-devel</artifactId>
   // No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-common-protos-devel</artifactId>

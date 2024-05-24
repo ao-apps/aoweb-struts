@@ -117,6 +117,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <rule groupId="com.google.j2objc" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
+    <rule groupId="com.google.oauth-client" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
     <rule groupId="com.google.protobuf" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>

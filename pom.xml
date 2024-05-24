@@ -1424,8 +1424,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>ognl</groupId><artifactId>ognl-devel</artifactId> -->
         <!-- No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-api-devel</artifactId> -->
         <!-- No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-contrib-http-util-devel</artifactId> -->
-        <!-- No -devel: <groupId>io.opentelemetry</groupId><artifactId>opentelemetry-api-devel</artifactId> -->
-        <!-- No -devel: <groupId>io.opentelemetry</groupId><artifactId>opentelemetry-context-devel</artifactId> -->
         <!-- No -devel: <groupId>oro</groupId><artifactId>oro-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1beta1-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-common-protos-devel</artifactId> -->
@@ -1755,8 +1753,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>io.opencensus</groupId><artifactId>opencensus-api</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.opencensus</groupId><artifactId>opencensus-contrib-http-util</artifactId> -->
-      <!-- com.google.cloud:libraries-bom: <groupId>io.opentelemetry</groupId><artifactId>opentelemetry-api</artifactId> -->
-      <!-- com.google.cloud:libraries-bom: <groupId>io.opentelemetry</groupId><artifactId>opentelemetry-context</artifactId> -->
       <dependency>
         <groupId>oro</groupId><artifactId>oro</artifactId><version>2.0.8</version>
       </dependency>
@@ -1804,7 +1800,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.google.cloud</groupId><artifactId>libraries-bom</artifactId><version>26.38.0</version>
+        <groupId>com.google.cloud</groupId><artifactId>libraries-bom</artifactId><version>26.39.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
