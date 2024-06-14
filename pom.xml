@@ -41,6 +41,10 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <li><a target="${javadoc.target}" href="${project.url}aoweb-struts-aoweb.tld/">AOWeb Taglib Reference</a></li>
       <li><a target="${javadoc.target}" href="${project.url}aoweb-struts-skin.tld/">Skin Taglib Reference</a></li>
     ]]></javadoc.taglibReference>
+    <!-- Java 17 -->
+    <javase.version>17</javase.version>
+    <javase.release>17</javase.release>
+    <javadoc.link.javase>${javadoc.link.javase.17}</javadoc.link.javase>
 
     <description.html><![CDATA[Template webapp for legacy Struts-based site framework with <a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ Platform</a> control panels.]]></description.html>
 
