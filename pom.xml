@@ -53,6 +53,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <!-- TODO: Implement tests -->
     <sonar.coverage.exclusions>**.*</sonar.coverage.exclusions>
     <!-- com.aoindustries is on original Sonatype Nexus Repository Manager -->
+    <nexusServerId>ossrh-aoindustries</nexusServerId>
     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
 
     <!-- Require secure session cookies in production -->
