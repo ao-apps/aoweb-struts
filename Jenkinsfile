@@ -163,7 +163,6 @@ def upstreamProjects = [
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-services-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-util-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-xds-devel</artifactId>
-  // No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-proto-devel</artifactId>
   // No -devel: <groupId>io.perfmark</groupId><artifactId>perfmark-api-devel</artifactId>
   // No -devel: <groupId>com.google.re2j</groupId><artifactId>re2j-devel</artifactId>
   // Imports

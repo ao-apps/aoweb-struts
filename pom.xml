@@ -1455,7 +1455,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-services-devel</artifactId> -->
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-util-devel</artifactId> -->
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-xds-devel</artifactId> -->
-        <!-- No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-proto-devel</artifactId> -->
         <!-- No -devel: <groupId>io.perfmark</groupId><artifactId>perfmark-api-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.re2j</groupId><artifactId>re2j-devel</artifactId> -->
         <!-- Imports -->
@@ -1797,7 +1796,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-services</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-util</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-xds</artifactId> -->
-      <!-- com.google.cloud:libraries-bom: <groupId>io.opencensus</groupId><artifactId>opencensus-proto</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.perfmark</groupId><artifactId>perfmark-api</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.re2j</groupId><artifactId>re2j</artifactId> -->
       <!-- Imports -->
@@ -1807,7 +1805,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.google.cloud</groupId><artifactId>libraries-bom</artifactId><version>26.44.0</version>
+        <groupId>com.google.cloud</groupId><artifactId>libraries-bom</artifactId><version>26.45.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
