@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2009-2013, 2015, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2009-2013, 2015, 2016, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -56,15 +56,13 @@ public class TimeTag extends BodyTagSupport {
 
   /**
    * Writes a JavaScript script tag that a time in the user's locale.
-   * <p>
-   * Because this needs to modify the DOM it can lead to poor performance or large data sets.
+   *
+   * <p>Because this needs to modify the DOM it can lead to poor performance or large data sets.
    * To provide more performance options, the JavaScript is written to scriptOut.  This could
-   * then be buffered into one long script to execute at once or using body.onload.
-   * </p>
-   * <p>
-   * The provided sequence should start at one for any given HTML page because parts of the
-   * script will only be written when the sequence is equal to one.
-   * </p>
+   * then be buffered into one long script to execute at once or using body.onload.</p>
+   *
+   * <p>The provided sequence should start at one for any given HTML page because parts of the
+   * script will only be written when the sequence is equal to one.</p>
    *
    * @see  SQLUtility#formatTime(long)
    */
@@ -110,15 +108,13 @@ public class TimeTag extends BodyTagSupport {
   /**
    * Writes a JavaScript script tag that a time in the user's locale.
    * Prints nothing when the date is {@code null}.
-   * <p>
-   * Because this needs to modify the DOM it can lead to poor performance or large data sets.
+   *
+   * <p>Because this needs to modify the DOM it can lead to poor performance or large data sets.
    * To provide more performance options, the JavaScript is written to scriptOut.  This could
-   * then be buffered into one long script to execute at once or using body.onload.
-   * </p>
-   * <p>
-   * The provided sequence should start at one for any given HTML page because parts of the
-   * script will only be written when the sequence is equal to one.
-   * </p>
+   * then be buffered into one long script to execute at once or using body.onload.</p>
+   *
+   * <p>The provided sequence should start at one for any given HTML page because parts of the
+   * script will only be written when the sequence is equal to one.</p>
    *
    * @see  SQLUtility#formatTime(java.lang.Long)
    */
@@ -131,15 +127,13 @@ public class TimeTag extends BodyTagSupport {
   /**
    * Writes a JavaScript script tag that a time in the user's locale.
    * Prints nothing when the date is {@code null}.
-   * <p>
-   * Because this needs to modify the DOM it can lead to poor performance or large data sets.
+   *
+   * <p>Because this needs to modify the DOM it can lead to poor performance or large data sets.
    * To provide more performance options, the JavaScript is written to scriptOut.  This could
-   * then be buffered into one long script to execute at once or using body.onload.
-   * </p>
-   * <p>
-   * The provided sequence should start at one for any given HTML page because parts of the
-   * script will only be written when the sequence is equal to one.
-   * </p>
+   * then be buffered into one long script to execute at once or using body.onload.</p>
+   *
+   * <p>The provided sequence should start at one for any given HTML page because parts of the
+   * script will only be written when the sequence is equal to one.</p>
    *
    * @see  SQLUtility#formatTime(java.util.Date)
    */

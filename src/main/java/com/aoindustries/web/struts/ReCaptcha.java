@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2023  AO Industries, Inc.
+ * Copyright (C) 2023, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -106,9 +106,8 @@ public final class ReCaptcha {
 
   /**
    * Builds the settings with credentials obtained from {@link #getGoogleCredentialsJson(javax.servlet.ServletContext)}.
-   * <p>
-   * See <a href="https://stackoverflow.com/a/65106296/7121505">How to point GOOGLE_APPLICATION_CREDENTIALS to my JSON file? - Stack Overflow</a>.
-   * </p>
+   *
+   * <p>See <a href="https://stackoverflow.com/a/65106296/7121505">How to point GOOGLE_APPLICATION_CREDENTIALS to my JSON file? - Stack Overflow</a>.</p>
    */
   public static RecaptchaEnterpriseServiceSettings createSettings(ServletContext servletContext) throws IOException, ServletException {
     GoogleCredentials credentials;

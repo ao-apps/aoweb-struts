@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2018, 2019, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2018, 2019, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -41,10 +41,9 @@ import org.apache.struts.action.ActionMapping;
  * Makes sure the authenticated user has the necessary permissions to perform the requested task.
  * If they do not, sets the request attribute "permissionDenied" with the <code>List&lt;AoservConnector&gt;</code> and returns mapping for "permissionDenied".
  * Otherwise, if all the permissions have been granted, calls <code>executePermissionGranted</code>.
- * <p>
- * The default implementation of this new <code>executePermissionGranted</code> method simply returns the mapping
- * of "success".
- * </p>
+ *
+ * <p>The default implementation of this new <code>executePermissionGranted</code> method simply returns the mapping
+ * of "success".</p>
  *
  * @author  AO Industries, Inc.
  */

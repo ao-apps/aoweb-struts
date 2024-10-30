@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -57,9 +57,8 @@ public enum Formtype {
   /**
    * Calls <a href="https://struts.apache.org/tag-developers/head-tag.html">{@code <s:head />}</a> within
    * {@code <head>} for <a href="https://struts.apache.org/">Struts 2</a>.
-   * <p>
-   * See <code>/WEB-INF/struts2/head.jsp</code>
-   * </p>
+   *
+   * <p>See <code>/WEB-INF/struts2/head.jsp</code></p>
    */
   STRUTS2 {
     @Override

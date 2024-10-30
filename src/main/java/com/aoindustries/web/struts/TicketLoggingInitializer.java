@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2018, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -39,11 +39,10 @@ import javax.servlet.annotation.WebListener;
 /**
  * Logs to tickets using {@link SiteSettings#getRootAoservConnector()}
  * and {@link TicketLoggingHandler}.
- * <p>
- * Only adds itself if there are no loggers with any handler that is a
+ *
+ * <p>Only adds itself if there are no loggers with any handler that is a
  * {@link TicketLoggingHandler}.  Thus, any <code>logging.properties</code>
- * configuration will take priority.
- * </p>
+ * configuration will take priority.</p>
  *
  * @author  AO Industries, Inc.
  */

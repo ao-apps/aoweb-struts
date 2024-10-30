@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -172,10 +172,9 @@ public class PageAttributes {
   /**
    * Gets an optional set of additional links to include for this page
    * in the order they should be added.
-   * <p>
-   * Please note, that any links to stylesheets here are never optimized.  Please
-   * prefer the {@link com.aoapps.web.resources.servlet.RegistryEE.Page page-scope web resource registry}.
-   * </p>
+   *
+   * <p>Please note, that any links to stylesheets here are never optimized.  Please
+   * prefer the {@link com.aoapps.web.resources.servlet.RegistryEE.Page page-scope web resource registry}.</p>
    */
   @SuppressWarnings("ReturnOfCollectionOrArrayField") // Returning unmodifiable
   public List<Link> getLinks() {
@@ -191,10 +190,9 @@ public class PageAttributes {
   /**
    * Adds an additional link to include for this page
    * in the order they should be added.
-   * <p>
-   * Please note, that any links to stylesheets here are never optimized.  Please
-   * prefer the {@link com.aoapps.web.resources.servlet.RegistryEE.Page page-scope web resource registry}.
-   * </p>
+   *
+   * <p>Please note, that any links to stylesheets here are never optimized.  Please
+   * prefer the {@link com.aoapps.web.resources.servlet.RegistryEE.Page page-scope web resource registry}.</p>
    */
   public void addLink(String rel, String href, String type) {
     if (links == null) {

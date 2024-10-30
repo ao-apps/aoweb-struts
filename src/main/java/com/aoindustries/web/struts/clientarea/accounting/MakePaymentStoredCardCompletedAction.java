@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2015, 2016, 2017, 2018, 2019, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -314,110 +314,116 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
     switch (authorizationResult.getCommunicationResult()) {
       case LOCAL_ERROR:
       case IO_ERROR:
-      case GATEWAY_ERROR: {
-        // Update transaction as failed
-        aoTransaction.declined(
-            Integer.parseInt(transaction.getPersistenceUniqueId()),
-            tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
-        );
-        // Get the list of active credit cards stored for this account
-        List<CreditCard> allCreditCards = account.getCreditCards();
-        List<CreditCard> creditCards = new ArrayList<>(allCreditCards.size());
-        for (CreditCard creditCardTmp : allCreditCards) {
-          if (creditCardTmp.getDeactivatedOn() == null) {
-            creditCards.add(creditCardTmp);
+      case GATEWAY_ERROR:
+        {
+          // Update transaction as failed
+          aoTransaction.declined(
+              Integer.parseInt(transaction.getPersistenceUniqueId()),
+              tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
+          );
+          // Get the list of active credit cards stored for this account
+          List<CreditCard> allCreditCards = account.getCreditCards();
+          List<CreditCard> creditCards = new ArrayList<>(allCreditCards.size());
+          for (CreditCard creditCardTmp : allCreditCards) {
+            if (creditCardTmp.getDeactivatedOn() == null) {
+              creditCards.add(creditCardTmp);
+            }
           }
+          // Store to request attributes, return success
+          request.setAttribute("account", account);
+          request.setAttribute("creditCards", creditCards);
+          request.setAttribute("lastPaymentCreditCard", creditCard.getProviderUniqueId());
+          request.setAttribute("errorReason", authorizationResult.getErrorCode().toString());
+          return mapping.findForward("error");
         }
-        // Store to request attributes, return success
-        request.setAttribute("account", account);
-        request.setAttribute("creditCards", creditCards);
-        request.setAttribute("lastPaymentCreditCard", creditCard.getProviderUniqueId());
-        request.setAttribute("errorReason", authorizationResult.getErrorCode().toString());
-        return mapping.findForward("error");
-      }
       case SUCCESS:
         // Check approval result
         switch (authorizationResult.getApprovalResult()) {
-          case HOLD: {
-            aoTransaction.held(
-                Integer.parseInt(transaction.getPersistenceUniqueId()),
-                tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
-            );
-            request.setAttribute("account", account);
-            request.setAttribute("creditCard", creditCard);
-            request.setAttribute("transaction", transaction);
-            request.setAttribute("aoTransaction", aoTransaction);
-            request.setAttribute("reviewReason", authorizationResult.getReviewReason().toString());
-            return mapping.findForward("hold");
-          }
-          case DECLINED: {
-            // Update transaction as declined
-            aoTransaction.declined(
-                Integer.parseInt(transaction.getPersistenceUniqueId()),
-                tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
-            );
-            // Get the list of active credit cards stored for this account
-            List<CreditCard> allCreditCards = account.getCreditCards();
-            List<CreditCard> creditCards = new ArrayList<>(allCreditCards.size());
-            for (CreditCard creditCardTmp : allCreditCards) {
-              if (creditCardTmp.getDeactivatedOn() == null) {
-                creditCards.add(creditCardTmp);
-              }
+          case HOLD:
+            {
+              aoTransaction.held(
+                  Integer.parseInt(transaction.getPersistenceUniqueId()),
+                  tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
+              );
+              request.setAttribute("account", account);
+              request.setAttribute("creditCard", creditCard);
+              request.setAttribute("transaction", transaction);
+              request.setAttribute("aoTransaction", aoTransaction);
+              request.setAttribute("reviewReason", authorizationResult.getReviewReason().toString());
+              return mapping.findForward("hold");
             }
-            // Store to request attributes, return success
-            request.setAttribute("account", account);
-            request.setAttribute("creditCards", creditCards);
-            request.setAttribute("lastPaymentCreditCard", creditCard.getProviderUniqueId());
-            request.setAttribute("declineReason", authorizationResult.getDeclineReason().toString());
-            return mapping.findForward("declined");
-          }
-          case APPROVED: {
-            if (MakePaymentNewCardCompletedAction.DEBUG_AUTHORIZE_THEN_CAPTURE) {
-              // Perform capture in second step
-              CaptureResult captureResult = rootProcessor.capture(principal, transaction);
-              switch (captureResult.getCommunicationResult()) {
-                case LOCAL_ERROR:
-                case IO_ERROR:
-                case GATEWAY_ERROR: {
-                  // Update transaction as failed
-                  aoTransaction.declined(
-                      Integer.parseInt(transaction.getPersistenceUniqueId()),
-                      tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
-                  );
-                  // Get the list of active credit cards stored for this account
-                  List<CreditCard> allCreditCards = account.getCreditCards();
-                  List<CreditCard> creditCards = new ArrayList<>(allCreditCards.size());
-                  for (CreditCard creditCardTmp : allCreditCards) {
-                    if (creditCardTmp.getDeactivatedOn() == null) {
-                      creditCards.add(creditCardTmp);
+          case DECLINED:
+            {
+              // Update transaction as declined
+              aoTransaction.declined(
+                  Integer.parseInt(transaction.getPersistenceUniqueId()),
+                  tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
+              );
+              // Get the list of active credit cards stored for this account
+              List<CreditCard> allCreditCards = account.getCreditCards();
+              List<CreditCard> creditCards = new ArrayList<>(allCreditCards.size());
+              for (CreditCard creditCardTmp : allCreditCards) {
+                if (creditCardTmp.getDeactivatedOn() == null) {
+                  creditCards.add(creditCardTmp);
+                }
+              }
+              // Store to request attributes, return success
+              request.setAttribute("account", account);
+              request.setAttribute("creditCards", creditCards);
+              request.setAttribute("lastPaymentCreditCard", creditCard.getProviderUniqueId());
+              request.setAttribute("declineReason", authorizationResult.getDeclineReason().toString());
+              return mapping.findForward("declined");
+            }
+          case APPROVED:
+            {
+              if (MakePaymentNewCardCompletedAction.DEBUG_AUTHORIZE_THEN_CAPTURE) {
+                // Perform capture in second step
+                CaptureResult captureResult = rootProcessor.capture(principal, transaction);
+                switch (captureResult.getCommunicationResult()) {
+                  case LOCAL_ERROR:
+                  case IO_ERROR:
+                  case GATEWAY_ERROR:
+                    {
+                      // Update transaction as failed
+                      aoTransaction.declined(
+                          Integer.parseInt(transaction.getPersistenceUniqueId()),
+                          tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
+                      );
+                      // Get the list of active credit cards stored for this account
+                      List<CreditCard> allCreditCards = account.getCreditCards();
+                      List<CreditCard> creditCards = new ArrayList<>(allCreditCards.size());
+                      for (CreditCard creditCardTmp : allCreditCards) {
+                        if (creditCardTmp.getDeactivatedOn() == null) {
+                          creditCards.add(creditCardTmp);
+                        }
+                      }
+                      // Store to request attributes, return success
+                      request.setAttribute("account", account);
+                      request.setAttribute("creditCards", creditCards);
+                      request.setAttribute("lastPaymentCreditCard", creditCard.getProviderUniqueId());
+                      request.setAttribute("errorReason", authorizationResult.getErrorCode().toString());
+                      return mapping.findForward("error");
                     }
-                  }
-                  // Store to request attributes, return success
-                  request.setAttribute("account", account);
-                  request.setAttribute("creditCards", creditCards);
-                  request.setAttribute("lastPaymentCreditCard", creditCard.getProviderUniqueId());
-                  request.setAttribute("errorReason", authorizationResult.getErrorCode().toString());
-                  return mapping.findForward("error");
+                  case SUCCESS:
+                    {
+                      // Continue with processing of SUCCESS below, same as used for direct sale(...)
+                      break;
+                    }
+                  default:
+                    throw new RuntimeException("Unexpected value for capture communication result: " + captureResult.getCommunicationResult());
                 }
-                case SUCCESS: {
-                  // Continue with processing of SUCCESS below, same as used for direct sale(...)
-                  break;
-                }
-                default:
-                  throw new RuntimeException("Unexpected value for capture communication result: " + captureResult.getCommunicationResult());
               }
+              // Update transaction as successful
+              aoTransaction.approved(
+                  Integer.parseInt(transaction.getPersistenceUniqueId()),
+                  tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
+              );
+              request.setAttribute("account", account);
+              request.setAttribute("creditCard", creditCard);
+              request.setAttribute("transaction", transaction);
+              request.setAttribute("aoTransaction", aoTransaction);
+              return mapping.findForward("success");
             }
-            // Update transaction as successful
-            aoTransaction.approved(
-                Integer.parseInt(transaction.getPersistenceUniqueId()),
-                tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
-            );
-            request.setAttribute("account", account);
-            request.setAttribute("creditCard", creditCard);
-            request.setAttribute("transaction", transaction);
-            request.setAttribute("aoTransaction", aoTransaction);
-            return mapping.findForward("success");
-          }
           default:
             throw new RuntimeException("Unexpected value for authorization approval result: " + authorizationResult.getApprovalResult());
         }

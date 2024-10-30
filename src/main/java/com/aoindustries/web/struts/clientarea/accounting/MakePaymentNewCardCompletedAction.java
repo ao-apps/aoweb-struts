@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -316,159 +316,165 @@ public class MakePaymentNewCardCompletedAction extends MakePaymentNewCardAction 
     switch (authorizationResult.getCommunicationResult()) {
       case LOCAL_ERROR:
       case IO_ERROR:
-      case GATEWAY_ERROR: {
-        // Update transaction as failed
-        aoTransaction.declined(
-            Integer.parseInt(transaction.getPersistenceUniqueId()),
-            tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
-        );
+      case GATEWAY_ERROR:
+        {
+          // Update transaction as failed
+          aoTransaction.declined(
+              Integer.parseInt(transaction.getPersistenceUniqueId()),
+              tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
+          );
 
-        TransactionResult.ErrorCode errorCode = authorizationResult.getErrorCode();
-        ActionMessages mappedErrors = makePaymentNewCardForm.mapTransactionError(errorCode);
-        if (mappedErrors == null || mappedErrors.isEmpty()) {
-          // Not mapped, store to request attributes as generate error (to be displayed separate from specific fields)
-          request.setAttribute("errorReason", errorCode.toString());
-        } else {
-          // Store for display with specific fields
-          saveErrors(request, mappedErrors);
+          TransactionResult.ErrorCode errorCode = authorizationResult.getErrorCode();
+          ActionMessages mappedErrors = makePaymentNewCardForm.mapTransactionError(errorCode);
+          if (mappedErrors == null || mappedErrors.isEmpty()) {
+            // Not mapped, store to request attributes as generate error (to be displayed separate from specific fields)
+            request.setAttribute("errorReason", errorCode.toString());
+          } else {
+            // Store for display with specific fields
+            saveErrors(request, mappedErrors);
+          }
+          return mapping.findForward("error");
         }
-        return mapping.findForward("error");
-      }
       case SUCCESS:
         // Check approval result
         switch (authorizationResult.getApprovalResult()) {
-          case HOLD: {
-            // Update transaction as held
-            aoTransaction.held(
-                Integer.parseInt(transaction.getPersistenceUniqueId()),
-                tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
-            );
+          case HOLD:
+            {
+              // Update transaction as held
+              aoTransaction.held(
+                  Integer.parseInt(transaction.getPersistenceUniqueId()),
+                  tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
+              );
 
-            // Store to request attributes
-            request.setAttribute("transaction", transaction);
-            request.setAttribute("aoTransaction", aoTransaction);
-            request.setAttribute("reviewReason", authorizationResult.getReviewReason().toString());
+              // Store to request attributes
+              request.setAttribute("transaction", transaction);
+              request.setAttribute("aoTransaction", aoTransaction);
+              request.setAttribute("reviewReason", authorizationResult.getReviewReason().toString());
 
-            String storeCard = makePaymentNewCardForm.getStoreCard();
-            if (
-                "store".equals(storeCard)
-                    || "automatic".equals(storeCard)
-            ) {
-              // Store card
-              boolean storeSuccess;
-              try {
-                storeCard(rootProcessor, principal, accountGroup, newCreditCard);
-                request.setAttribute("cardStored", "true");
-                storeSuccess = true;
-              } catch (ThreadDeath td) {
-                throw td;
-              } catch (Throwable t) {
-                getServlet().log("Unable to store card", t);
-                request.setAttribute("storeError", t);
-                storeSuccess = false;
-              }
-              if (storeSuccess && "automatic".equals(storeCard)) {
-                // Set automatic
+              String storeCard = makePaymentNewCardForm.getStoreCard();
+              if (
+                  "store".equals(storeCard)
+                      || "automatic".equals(storeCard)
+              ) {
+                // Store card
+                boolean storeSuccess;
                 try {
-                  setAutomatic(rootConn, newCreditCard, account);
-                  request.setAttribute("cardSetAutomatic", "true");
+                  storeCard(rootProcessor, principal, accountGroup, newCreditCard);
+                  request.setAttribute("cardStored", "true");
+                  storeSuccess = true;
                 } catch (ThreadDeath td) {
                   throw td;
                 } catch (Throwable t) {
-                  getServlet().log("Unable to set automatic", t);
-                  request.setAttribute("setAutomaticError", t);
+                  getServlet().log("Unable to store card", t);
+                  request.setAttribute("storeError", t);
+                  storeSuccess = false;
                 }
-              }
-            }
-            return mapping.findForward("hold");
-          }
-          case DECLINED: {
-            // Update transaction as declined
-            aoTransaction.declined(
-                Integer.parseInt(transaction.getPersistenceUniqueId()),
-                tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
-            );
-
-            // Store to request attributes
-            request.setAttribute("declineReason", authorizationResult.getDeclineReason().toString());
-            return mapping.findForward("declined");
-          }
-          case APPROVED: {
-            if (DEBUG_AUTHORIZE_THEN_CAPTURE) {
-              // Perform capture in second step
-              CaptureResult captureResult = rootProcessor.capture(principal, transaction);
-              switch (captureResult.getCommunicationResult()) {
-                case LOCAL_ERROR:
-                case IO_ERROR:
-                case GATEWAY_ERROR: {
-                  // Update transaction as failed
-                  aoTransaction.declined(
-                      Integer.parseInt(transaction.getPersistenceUniqueId()),
-                      tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
-                  );
-
-                  TransactionResult.ErrorCode errorCode = authorizationResult.getErrorCode();
-                  ActionMessages mappedErrors = makePaymentNewCardForm.mapTransactionError(errorCode);
-                  if (mappedErrors == null || mappedErrors.isEmpty()) {
-                    // Not mapped, store to request attributes as generate error (to be displayed separate from specific fields)
-                    request.setAttribute("errorReason", errorCode.toString());
-                  } else {
-                    // Store for display with specific fields
-                    saveErrors(request, mappedErrors);
+                if (storeSuccess && "automatic".equals(storeCard)) {
+                  // Set automatic
+                  try {
+                    setAutomatic(rootConn, newCreditCard, account);
+                    request.setAttribute("cardSetAutomatic", "true");
+                  } catch (ThreadDeath td) {
+                    throw td;
+                  } catch (Throwable t) {
+                    getServlet().log("Unable to set automatic", t);
+                    request.setAttribute("setAutomaticError", t);
                   }
-                  return mapping.findForward("error");
                 }
-                case SUCCESS: {
-                  // Continue with processing of SUCCESS below, same as used for direct sale(...)
-                  break;
-                }
-                default:
-                  throw new RuntimeException("Unexpected value for capture communication result: " + captureResult.getCommunicationResult());
               }
+              return mapping.findForward("hold");
             }
-            // Update transaction as successful
-            aoTransaction.approved(
-                Integer.parseInt(transaction.getPersistenceUniqueId()),
-                tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
-            );
+          case DECLINED:
+            {
+              // Update transaction as declined
+              aoTransaction.declined(
+                  Integer.parseInt(transaction.getPersistenceUniqueId()),
+                  tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
+              );
 
-            // Store to request attributes
-            request.setAttribute("transaction", transaction);
-            request.setAttribute("aoTransaction", aoTransaction);
+              // Store to request attributes
+              request.setAttribute("declineReason", authorizationResult.getDeclineReason().toString());
+              return mapping.findForward("declined");
+            }
+          case APPROVED:
+            {
+              if (DEBUG_AUTHORIZE_THEN_CAPTURE) {
+                // Perform capture in second step
+                CaptureResult captureResult = rootProcessor.capture(principal, transaction);
+                switch (captureResult.getCommunicationResult()) {
+                  case LOCAL_ERROR:
+                  case IO_ERROR:
+                  case GATEWAY_ERROR:
+                    {
+                      // Update transaction as failed
+                      aoTransaction.declined(
+                          Integer.parseInt(transaction.getPersistenceUniqueId()),
+                          tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
+                      );
 
-            String storeCard = makePaymentNewCardForm.getStoreCard();
-            if (
-                "store".equals(storeCard)
-                    || "automatic".equals(storeCard)
-            ) {
-              // Store card
-              boolean storeSuccess;
-              try {
-                storeCard(rootProcessor, principal, accountGroup, newCreditCard);
-                request.setAttribute("cardStored", "true");
-                storeSuccess = true;
-              } catch (ThreadDeath td) {
-                throw td;
-              } catch (Throwable t) {
-                getServlet().log("Unable to store card", t);
-                request.setAttribute("storeError", t);
-                storeSuccess = false;
+                      TransactionResult.ErrorCode errorCode = authorizationResult.getErrorCode();
+                      ActionMessages mappedErrors = makePaymentNewCardForm.mapTransactionError(errorCode);
+                      if (mappedErrors == null || mappedErrors.isEmpty()) {
+                        // Not mapped, store to request attributes as generate error (to be displayed separate from specific fields)
+                        request.setAttribute("errorReason", errorCode.toString());
+                      } else {
+                        // Store for display with specific fields
+                        saveErrors(request, mappedErrors);
+                      }
+                      return mapping.findForward("error");
+                    }
+                  case SUCCESS:
+                    {
+                      // Continue with processing of SUCCESS below, same as used for direct sale(...)
+                      break;
+                    }
+                  default:
+                    throw new RuntimeException("Unexpected value for capture communication result: " + captureResult.getCommunicationResult());
+                }
               }
-              if (storeSuccess && "automatic".equals(storeCard)) {
-                // Set automatic
+              // Update transaction as successful
+              aoTransaction.approved(
+                  Integer.parseInt(transaction.getPersistenceUniqueId()),
+                  tokenizedCreditCard == null ? null : com.aoapps.payments.CreditCard.getCardNumberDisplay(tokenizedCreditCard.getReplacementMaskedCardNumber())
+              );
+
+              // Store to request attributes
+              request.setAttribute("transaction", transaction);
+              request.setAttribute("aoTransaction", aoTransaction);
+
+              String storeCard = makePaymentNewCardForm.getStoreCard();
+              if (
+                  "store".equals(storeCard)
+                      || "automatic".equals(storeCard)
+              ) {
+                // Store card
+                boolean storeSuccess;
                 try {
-                  setAutomatic(rootConn, newCreditCard, account);
-                  request.setAttribute("cardSetAutomatic", "true");
+                  storeCard(rootProcessor, principal, accountGroup, newCreditCard);
+                  request.setAttribute("cardStored", "true");
+                  storeSuccess = true;
                 } catch (ThreadDeath td) {
                   throw td;
                 } catch (Throwable t) {
-                  getServlet().log("Unable to set automatic", t);
-                  request.setAttribute("setAutomaticError", t);
+                  getServlet().log("Unable to store card", t);
+                  request.setAttribute("storeError", t);
+                  storeSuccess = false;
+                }
+                if (storeSuccess && "automatic".equals(storeCard)) {
+                  // Set automatic
+                  try {
+                    setAutomatic(rootConn, newCreditCard, account);
+                    request.setAttribute("cardSetAutomatic", "true");
+                  } catch (ThreadDeath td) {
+                    throw td;
+                  } catch (Throwable t) {
+                    getServlet().log("Unable to set automatic", t);
+                    request.setAttribute("setAutomaticError", t);
+                  }
                 }
               }
+              return mapping.findForward("success");
             }
-            return mapping.findForward("success");
-          }
           default:
             throw new RuntimeException("Unexpected value for authorization approval result: " + authorizationResult.getApprovalResult());
         }

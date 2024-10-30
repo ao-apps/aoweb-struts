@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2009-2013, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2009-2013, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -110,11 +110,10 @@ public class SiteSettings {
 
   /**
    * Gets the unmodifiable list of skins supported by this site.
-   * <p>
-   * The first one in the list will be used as the default skin, except
+   *
+   * <p>The first one in the list will be used as the default skin, except
    * if Text mode is determined as the default, then any skin named {@link TextSkin#NAME}
-   * will be the default if available.
-   * </p>
+   * will be the default if available.</p>
    */
   public List<Skin> getSkins() {
     return skins;
@@ -180,15 +179,12 @@ public class SiteSettings {
   // <editor-fold desc="Languages">
   /**
    * Gets the unmodifiable list of languages supported by this site.
-   * <p>
-   * The flags are obtained from http://commons.wikimedia.org/wiki/National_insignia
-   * </p>
-   * <p>
-   * Then they are scaled to a height of 24 pixels, rendered in gimp 2.
-   * </p>
-   * <p>
-   * The off version is created by filling with black, opacity 25% in gimp 2.
-   * </p>
+   *
+   * <p>The flags are obtained from http://commons.wikimedia.org/wiki/National_insignia</p>
+   *
+   * <p>Then they are scaled to a height of 24 pixels, rendered in gimp 2.</p>
+   *
+   * <p>The off version is created by filling with black, opacity 25% in gimp 2.</p>
    */
   public List<Skin.Language> getLanguages(ServletRequest req) throws IOException, SQLException {
     HttpSession session;

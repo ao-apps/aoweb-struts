@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -86,13 +86,14 @@ public class LocaleFilter implements Filter {
 
 
   /**
-   * <p>
    * Gets the effective locale for the request.  If the requested language is not
    * one of the enabled languages for this site, will set to the default language
    * (the first in the language list).
-   * </p>
+   *
    * <p>Also allows the parameter {@link Constants#LANGUAGE} to override the current settings.</p>
+   *
    * <p>This also sets the struts, JSTL, and response locales to the same value.</p>
+   *
    * <p>The {@linkplain ThreadLocale thread locale} is not set.</p>
    */
   public static Locale getEffectiveLocale(SiteSettings siteSettings, ServletRequest request, ServletResponse response) throws IOException, SQLException {
