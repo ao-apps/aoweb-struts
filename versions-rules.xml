@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2020, 2021, 2022, 2023, 2024  AO Industries, Inc.
+Copyright (C) 2020, 2021, 2022, 2023, 2024, 2025  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -38,6 +38,16 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <ignoreVersions>
         <!-- TODO: When updating new than struts2-6.6.1 make sure this is correct to still ignore -->
         <ignoreVersion type="regex">3\.[0-9]+\.[0-9]+</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="commons-beanutils" artifactId="commons-beanutils" comparisonMethod="maven">
+      <ignoreVersions>
+        <!--
+          TODO: commons-beanutils-1.10.0 includes a new module-info.class specifying a new module name of
+          "org.apache.commons.beanutils" while commons-validator-1.9.0 references the old name "commons.beanutils".
+          Stay on commons-beanutils-1.9.4 util commons-validator-1.9.0 is updated to reference the new module name.
+        -->
+        <ignoreVersion type="exact">1.10.0</ignoreVersion>
       </ignoreVersions>
     </rule>
     <rule groupId="commons-collections" artifactId="commons-collections" comparisonMethod="maven">

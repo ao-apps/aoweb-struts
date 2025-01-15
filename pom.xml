@@ -1684,7 +1684,12 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>org.checkerframework</groupId><artifactId>checker-qual</artifactId> -->
       <dependency>
-        <groupId>commons-beanutils</groupId><artifactId>commons-beanutils</artifactId><version>1.10.0</version>
+        <!--
+          TODO: commons-beanutils-1.10.0 includes a new module-info.class specifying a new module name of
+          "org.apache.commons.beanutils" while commons-validator-1.9.0 references the old name "commons.beanutils".
+          Stay on commons-beanutils-1.9.4 util commons-validator-1.9.0 is updated to reference the new module name.
+        -->
+        <groupId>commons-beanutils</groupId><artifactId>commons-beanutils</artifactId><version>1.9.4</version>
       </dependency>
       <dependency>
         <groupId>commons-chain</groupId><artifactId>commons-chain</artifactId><version>1.2</version>
