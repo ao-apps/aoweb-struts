@@ -81,6 +81,18 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </ignoreVersions>
     </rule>
     <!--
+      struts2-7.* is for Jakarta EE, not Java EE.  Stay on 6.* until we're moving to Jakarta EE.
+    -->
+    <rule groupId="org.apache.struts" artifactId="struts2-config-browser-plugin" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">7\..*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="org.apache.struts" artifactId="struts2-convention-plugin" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">7\..*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="org.apache.struts" artifactId="struts2-core" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">7\..*</ignoreVersion></ignoreVersions>
+    </rule>
+    <!--
       Begin versions provided by com.google.cloud:libraries-bom.
       This is copied to aoweb-struts/versions-rules.xml, brands/versions-rules.xml, and all brands/*/versions-rules.xml
     -->
