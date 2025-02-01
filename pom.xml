@@ -1318,7 +1318,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         </dependency>
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-io-buffer-devel</artifactId> -->
         <dependency>
-          <groupId>com.aoapps</groupId><artifactId>ao-lang-devel</artifactId><version>5.6.0-POST-SNAPSHOT</version>
+          <groupId>com.aoapps</groupId><artifactId>ao-lang-devel</artifactId><version>5.7.0-SNAPSHOT</version>
           <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -1564,7 +1564,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>com.aoapps</groupId><artifactId>ao-io-buffer</artifactId><version>4.1.0${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
-        <groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.6.0${POST-SNAPSHOT}</version>
+        <groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.7.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-net-types</artifactId><version>3.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
