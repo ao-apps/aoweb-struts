@@ -69,13 +69,14 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     </rule>
     <rule groupId="ognl" comparisonMethod="ognl">
       <ignoreVersions>
-        <!-- TODO: When updating new than struts2-6.7.0 make sure this is correct to still ignore -->
+        <!-- TODO: Staying on ognl-3.3.5 for struts2-6.7.0 -->
         <ignoreVersion type="exact">3.4.0</ignoreVersion>
         <ignoreVersion type="exact">3.4.1</ignoreVersion>
         <ignoreVersion type="exact">3.4.2</ignoreVersion>
         <ignoreVersion type="exact">3.4.3</ignoreVersion>
         <ignoreVersion type="exact">3.4.4</ignoreVersion>
         <ignoreVersion type="exact">3.4.5</ignoreVersion>
+        <ignoreVersion type="exact">3.4.6</ignoreVersion>
       </ignoreVersions>
     </rule>
     <rule groupId="org.apache.logging.log4j" comparisonMethod="maven">
