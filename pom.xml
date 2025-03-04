@@ -1376,6 +1376,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts2-core-devel</artifactId> -->
         <!-- Transitive -->
         <!-- No -devel: <groupId>javax.activation</groupId><artifactId>activation-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.codehaus.mojo</groupId><artifactId>animal-sniffer-annotations-devel</artifactId> -->
         <!-- No -devel: <groupId>antlr</groupId><artifactId>antlr-devel</artifactId> -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-tempfiles-devel</artifactId> -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-tlds-devel</artifactId> -->
@@ -1446,7 +1447,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         </dependency>
         <!-- No -devel: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl-devel</artifactId> -->
         <!-- Runtime Transitive -->
-        <!-- No -devel: <groupId>org.codehaus.mojo</groupId><artifactId>animal-sniffer-annotations-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.android</groupId><artifactId>annotations-devel</artifactId> -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-concurrent-devel</artifactId> -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-subrequest-devel</artifactId> -->
@@ -1659,6 +1659,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <dependency>
         <groupId>javax.activation</groupId><artifactId>activation</artifactId><version>1.1.1</version>
       </dependency>
+      <!-- com.google.cloud:libraries-bom: <groupId>org.codehaus.mojo</groupId><artifactId>animal-sniffer-annotations</artifactId> -->
       <dependency>
         <groupId>antlr</groupId><artifactId>antlr</artifactId><version>2.7.7</version>
       </dependency>
@@ -1792,7 +1793,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <!-- javaee-web-api-bom: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId> -->
       <!-- Runtime Transitive -->
-      <!-- com.google.cloud:libraries-bom: <groupId>org.codehaus.mojo</groupId><artifactId>animal-sniffer-annotations</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.android</groupId><artifactId>annotations</artifactId> -->
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-concurrent</artifactId><version>4.1.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
@@ -1814,7 +1814,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.google.cloud</groupId><artifactId>libraries-bom</artifactId><version>26.55.0</version>
+        <groupId>com.google.cloud</groupId><artifactId>libraries-bom</artifactId><version>26.56.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

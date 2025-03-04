@@ -87,6 +87,7 @@ def upstreamProjects = [
   // No -devel: <groupId>org.apache.struts</groupId><artifactId>struts2-core-devel</artifactId>
   // Transitive
   // No -devel: <groupId>javax.activation</groupId><artifactId>activation-devel</artifactId>
+  // No -devel: <groupId>org.codehaus.mojo</groupId><artifactId>animal-sniffer-annotations-devel</artifactId>
   // No -devel: <groupId>antlr</groupId><artifactId>antlr-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-tempfiles-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-tlds-devel</artifactId>
@@ -154,7 +155,6 @@ def upstreamProjects = [
   'semanticcms-1.x/core/servlet-devel', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet-devel</artifactId>
   // No -devel: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl-devel</artifactId>
   // Runtime Transitive
-  // No -devel: <groupId>org.codehaus.mojo</groupId><artifactId>animal-sniffer-annotations-devel</artifactId>
   // No -devel: <groupId>com.google.android</groupId><artifactId>annotations-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-concurrent-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-subrequest-devel</artifactId>
