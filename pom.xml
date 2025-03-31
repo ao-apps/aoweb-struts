@@ -1771,10 +1771,10 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1beta1</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-common-protos</artifactId> -->
       <dependency>
-        <groupId>com.google.protobuf</groupId><artifactId>protobuf-java</artifactId><version>4.30.0</version>
+        <groupId>com.google.protobuf</groupId><artifactId>protobuf-java</artifactId><version>4.30.2</version>
       </dependency>
       <dependency>
-        <groupId>com.google.protobuf</groupId><artifactId>protobuf-java-util</artifactId><version>4.30.0</version>
+        <groupId>com.google.protobuf</groupId><artifactId>protobuf-java-util</artifactId><version>4.30.2</version>
       </dependency>
       <dependency>
         <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-model</artifactId><version>1.14.1${POST-SNAPSHOT}</version>
