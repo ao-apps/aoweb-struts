@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2024, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -175,40 +175,40 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
     }
     final String cardInfo = creditCard.getCardInfo();
     final PaymentType paymentType;
-      {
-        String paymentTypeName;
-        // TODO: Move to a card-type microproject API and shared with ao-payments implementation
-        if (
-            cardInfo.startsWith("34")
-                || cardInfo.startsWith("37")
-                || cardInfo.startsWith("3" + com.aoapps.payments.CreditCard.UNKNOWN_DIGIT)
-        ) {
-          paymentTypeName = PaymentType.AMEX;
-        } else if (cardInfo.startsWith("60")) {
-          paymentTypeName = PaymentType.DISCOVER;
-        } else if (
-            cardInfo.startsWith("51")
-                || cardInfo.startsWith("52")
-                || cardInfo.startsWith("53")
-                || cardInfo.startsWith("54")
-                || cardInfo.startsWith("55")
-                || cardInfo.startsWith("5" + com.aoapps.payments.CreditCard.UNKNOWN_DIGIT)
-        ) {
-          paymentTypeName = PaymentType.MASTERCARD;
-        } else if (cardInfo.startsWith("4")) {
-          paymentTypeName = PaymentType.VISA;
-        } else {
-          paymentTypeName = null;
-        }
-        if (paymentTypeName == null) {
-          paymentType = null;
-        } else {
-          paymentType = rootConn.getPayment().getPaymentType().get(paymentTypeName);
-          if (paymentType == null) {
-            throw new SQLException("Unable to find PaymentType: " + paymentTypeName);
-          }
+    {
+      String paymentTypeName;
+      // TODO: Move to a card-type microproject API and shared with ao-payments implementation
+      if (
+          cardInfo.startsWith("34")
+              || cardInfo.startsWith("37")
+              || cardInfo.startsWith("3" + com.aoapps.payments.CreditCard.UNKNOWN_DIGIT)
+      ) {
+        paymentTypeName = PaymentType.AMEX;
+      } else if (cardInfo.startsWith("60")) {
+        paymentTypeName = PaymentType.DISCOVER;
+      } else if (
+          cardInfo.startsWith("51")
+              || cardInfo.startsWith("52")
+              || cardInfo.startsWith("53")
+              || cardInfo.startsWith("54")
+              || cardInfo.startsWith("55")
+              || cardInfo.startsWith("5" + com.aoapps.payments.CreditCard.UNKNOWN_DIGIT)
+      ) {
+        paymentTypeName = PaymentType.MASTERCARD;
+      } else if (cardInfo.startsWith("4")) {
+        paymentTypeName = PaymentType.VISA;
+      } else {
+        paymentTypeName = null;
+      }
+      if (paymentTypeName == null) {
+        paymentType = null;
+      } else {
+        paymentType = rootConn.getPayment().getPaymentType().get(paymentTypeName);
+        if (paymentType == null) {
+          throw new SQLException("Unable to find PaymentType: " + paymentTypeName);
         }
       }
+    }
     int transid = rootConn.getBilling().getTransaction().add(
         Type.TIME,
         null,
@@ -298,15 +298,15 @@ public class MakePaymentStoredCardCompletedAction extends MakePaymentStoredCardA
           CreditCardFactory.getCreditCard(rootCreditCard)
       );
     }
-      // CreditCard might have been updated on root connector, invalidate and get fresh object always to avoid possible race condition
-      {
-        aoConn.getPayment().getCreditCard().clearCache();
-        CreditCard newCreditCard = aoConn.getPayment().getCreditCard().get(id);
-        if (newCreditCard != null) {
-          creditCard = newCreditCard;
-          request.setAttribute("creditCard", creditCard);
-        }
+    // CreditCard might have been updated on root connector, invalidate and get fresh object always to avoid possible race condition
+    {
+      aoConn.getPayment().getCreditCard().clearCache();
+      CreditCard newCreditCard = aoConn.getPayment().getCreditCard().get(id);
+      if (newCreditCard != null) {
+        creditCard = newCreditCard;
+        request.setAttribute("creditCard", creditCard);
       }
+    }
 
     // 4) Decline/approve based on results
     AuthorizationResult authorizationResult = transaction.getAuthorizationResult();

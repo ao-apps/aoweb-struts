@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2013, 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2007-2013, 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2024, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -103,12 +103,12 @@ public abstract class Skin {
    * </ol>
    */
   public static Skin getSkin(SiteSettings settings, ServletRequest req) {
-      {
-        Skin skin = Constants.SKIN.context(req).get();
-        if (skin != null) {
-          return skin;
-        }
+    {
+      Skin skin = Constants.SKIN.context(req).get();
+      if (skin != null) {
+        return skin;
       }
+    }
 
     List<Skin> skins = settings.getSkins();
 
@@ -213,22 +213,22 @@ public abstract class Skin {
       List<Language> languages
   ) throws IOException {
     if (languages.size() > 1) {
-        // Default language
-        {
-          Language language = languages.get(0);
-          AnyURI uri = language.getUri();
-          head.link(AnyLINK.Rel.ALTERNATE).hreflang("x-default").href(
-              resp.encodeURL(
-                  URIEncoder.encodeURI(
-                      (
-                          uri == null
-                              ? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
-                              : uri
-                      ).toASCIIString()
-                  )
-              )
-          ).__();
-        }
+      // Default language
+      {
+        Language language = languages.get(0);
+        AnyURI uri = language.getUri();
+        head.link(AnyLINK.Rel.ALTERNATE).hreflang("x-default").href(
+            resp.encodeURL(
+                URIEncoder.encodeURI(
+                    (
+                        uri == null
+                            ? new AnyURI(fullPath).addEncodedParameter(Constants.LANGUAGE, URIEncoder.encodeURIComponent(language.getCode()))
+                            : uri
+                    ).toASCIIString()
+                )
+            )
+        ).__();
+      }
       // All languages
       for (Language language : languages) {
         AnyURI uri = language.getUri();

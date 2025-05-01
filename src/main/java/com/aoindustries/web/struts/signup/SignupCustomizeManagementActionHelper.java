@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2015, 2016, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -99,55 +99,55 @@ public final class SignupCustomizeManagementActionHelper {
         }
       }
     }
-      // Distribution scan option
-      {
-        Resource resource = rootConn.getBilling().getResource().get(Resource.DISTRIBUTION_SCAN);
-        if (resource == null) {
-          servletContext.log(null, new SQLException("Unable to find Resource: " + Resource.DISTRIBUTION_SCAN));
-        } else {
-          PackageDefinitionLimit limit = packageDefinition.getLimit(resource);
-          if (limit != null) {
-            int hard = limit.getHardLimit();
-            if (hard == PackageDefinitionLimit.UNLIMITED || hard > 0) {
-              Monies additionalRate = Monies.of(limit.getAdditionalRate());
-              distributionScanOptions.add(new Option(limit.getPkey(), resource.toString(), additionalRate));
-            }
+    // Distribution scan option
+    {
+      Resource resource = rootConn.getBilling().getResource().get(Resource.DISTRIBUTION_SCAN);
+      if (resource == null) {
+        servletContext.log(null, new SQLException("Unable to find Resource: " + Resource.DISTRIBUTION_SCAN));
+      } else {
+        PackageDefinitionLimit limit = packageDefinition.getLimit(resource);
+        if (limit != null) {
+          int hard = limit.getHardLimit();
+          if (hard == PackageDefinitionLimit.UNLIMITED || hard > 0) {
+            Monies additionalRate = Monies.of(limit.getAdditionalRate());
+            distributionScanOptions.add(new Option(limit.getPkey(), resource.toString(), additionalRate));
           }
         }
       }
-      // Failover option
-      {
-        Resource resource = rootConn.getBilling().getResource().get(Resource.FAILOVER);
-        if (resource == null) {
-          servletContext.log(null, new SQLException("Unable to find Resource: " + Resource.FAILOVER));
-        } else {
-          PackageDefinitionLimit limit = packageDefinition.getLimit(resource);
-          if (limit != null) {
-            int hard = limit.getHardLimit();
-            if (hard == PackageDefinitionLimit.UNLIMITED || hard > 0) {
-              // This is per gigabyte of physical space
-              Monies additionalRate = Monies.of(limit.getAdditionalRate());
-              additionalRate = additionalRate.multiply(BigDecimal.valueOf(totalHardwareDiskSpace));
-              failoverOptions.add(new Option(limit.getPkey(), resource.toString(), additionalRate));
+    }
+    // Failover option
+    {
+      Resource resource = rootConn.getBilling().getResource().get(Resource.FAILOVER);
+      if (resource == null) {
+        servletContext.log(null, new SQLException("Unable to find Resource: " + Resource.FAILOVER));
+      } else {
+        PackageDefinitionLimit limit = packageDefinition.getLimit(resource);
+        if (limit != null) {
+          int hard = limit.getHardLimit();
+          if (hard == PackageDefinitionLimit.UNLIMITED || hard > 0) {
+            // This is per gigabyte of physical space
+            Monies additionalRate = Monies.of(limit.getAdditionalRate());
+            additionalRate = additionalRate.multiply(BigDecimal.valueOf(totalHardwareDiskSpace));
+            failoverOptions.add(new Option(limit.getPkey(), resource.toString(), additionalRate));
 
-              // Only once the failover option is available will the MySQL replication option be available
-              Resource mrResource = rootConn.getBilling().getResource().get(Resource.MYSQL_REPLICATION);
-              if (mrResource == null) {
-                servletContext.log(null, new SQLException("Unable to find Resource: " + Resource.MYSQL_REPLICATION));
-              } else {
-                PackageDefinitionLimit mrLimit = packageDefinition.getLimit(mrResource);
-                if (mrLimit != null) {
-                  int mrHard = mrLimit.getHardLimit();
-                  if (mrHard == PackageDefinitionLimit.UNLIMITED || mrHard > 0) {
-                    Monies mrAdditionalRate = Monies.of(mrLimit.getAdditionalRate());
-                    failoverOptions.add(new Option(mrLimit.getPkey(), mrResource.toString(), additionalRate.add(mrAdditionalRate)));
-                  }
+            // Only once the failover option is available will the MySQL replication option be available
+            Resource mrResource = rootConn.getBilling().getResource().get(Resource.MYSQL_REPLICATION);
+            if (mrResource == null) {
+              servletContext.log(null, new SQLException("Unable to find Resource: " + Resource.MYSQL_REPLICATION));
+            } else {
+              PackageDefinitionLimit mrLimit = packageDefinition.getLimit(mrResource);
+              if (mrLimit != null) {
+                int mrHard = mrLimit.getHardLimit();
+                if (mrHard == PackageDefinitionLimit.UNLIMITED || mrHard > 0) {
+                  Monies mrAdditionalRate = Monies.of(mrLimit.getAdditionalRate());
+                  failoverOptions.add(new Option(mrLimit.getPkey(), mrResource.toString(), additionalRate.add(mrAdditionalRate)));
                 }
               }
             }
           }
         }
       }
+    }
 
     if (!backupOnsiteOptions.isEmpty()) {
       backupOnsiteOptions.add(0, new Option(-1, "No On-Site Backup", Monies.of()));

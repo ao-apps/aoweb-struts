@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2021, 2022, 2023  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2023, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -283,40 +283,40 @@ public class VncConsoleProxyWebsocketServer {
             }
             daemonOut.write(protocolVersion_3_3);
             daemonOut.flush();
-              // Security Type
-              {
-                int securityType1 = daemonIn.read();
-                if (securityType1 == -1) {
-                  throw new EOFException("EOF from daemonIn reading securityType1");
-                }
-                int securityType2 = daemonIn.read();
-                if (securityType2 == -1) {
-                  throw new EOFException("EOF from daemonIn reading securityType2");
-                }
-                int securityType3 = daemonIn.read();
-                if (securityType3 == -1) {
-                  throw new EOFException("EOF from daemonIn reading securityType3");
-                }
-                int securityType4 = daemonIn.read();
-                if (securityType4 == -1) {
-                  throw new EOFException("EOF from daemonIn reading securityType4");
-                }
-                if (
-                    securityType1 != 0
-                        || securityType2 != 0
-                        || securityType3 != 0
-                        || securityType4 != 2
-                ) {
-                  throw new IOException(
-                      "Mismatched security type from VNC server through daemon: ("
-                          + securityType1
-                          + ", " + securityType2
-                          + ", " + securityType3
-                          + ", " + securityType4
-                          + ")"
-                  );
-                }
+            // Security Type
+            {
+              int securityType1 = daemonIn.read();
+              if (securityType1 == -1) {
+                throw new EOFException("EOF from daemonIn reading securityType1");
               }
+              int securityType2 = daemonIn.read();
+              if (securityType2 == -1) {
+                throw new EOFException("EOF from daemonIn reading securityType2");
+              }
+              int securityType3 = daemonIn.read();
+              if (securityType3 == -1) {
+                throw new EOFException("EOF from daemonIn reading securityType3");
+              }
+              int securityType4 = daemonIn.read();
+              if (securityType4 == -1) {
+                throw new EOFException("EOF from daemonIn reading securityType4");
+              }
+              if (
+                  securityType1 != 0
+                      || securityType2 != 0
+                      || securityType3 != 0
+                      || securityType4 != 2
+              ) {
+                throw new IOException(
+                    "Mismatched security type from VNC server through daemon: ("
+                        + securityType1
+                        + ", " + securityType2
+                        + ", " + securityType3
+                        + ", " + securityType4
+                        + ")"
+                );
+              }
+            }
             // VNC Authentication
             byte[] daemonChallenge = new byte[16];
             for (int c = 0; c < 16; c++) {

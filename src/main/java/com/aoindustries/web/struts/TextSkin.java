@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2013, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
+ * Copyright (C) 2007-2013, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -224,16 +224,16 @@ public class TextSkin extends Skin {
     final Locale locale = resp.getLocale();
     final String urlBase = getUrlBase(req);
     final String path;
-      {
-        String pathTmp = pageAttributes.getPath();
-        if (pathTmp == null) {
-          throw new NullPointerException("pageAttributes.path is null");
-        }
-        if (pathTmp.startsWith("/")) {
-          pathTmp = pathTmp.substring(1);
-        }
-        path = pathTmp;
+    {
+      String pathTmp = pageAttributes.getPath();
+      if (pathTmp == null) {
+        throw new NullPointerException("pageAttributes.path is null");
       }
+      if (pathTmp.startsWith("/")) {
+        pathTmp = pathTmp.substring(1);
+      }
+      path = pathTmp;
+    }
     final String fullPath = urlBase + path;
     final List<Skin> skins = settings.getSkins();
     final List<Parent> parents = pageAttributes.getParents();
@@ -717,16 +717,16 @@ public class TextSkin extends Skin {
   ) throws JspException, IOException {
     width = trimNullIfEmpty(width);
     final int totalColumns;
-      {
-        int totalColumnsTmp = 0;
-        for (int c = 0; c < contentColumnSpans.length; c++) {
-          if (c > 0) {
-            totalColumnsTmp++;
-          }
-          totalColumnsTmp += contentColumnSpans[c];
+    {
+      int totalColumnsTmp = 0;
+      for (int c = 0; c < contentColumnSpans.length; c++) {
+        if (c > 0) {
+          totalColumnsTmp++;
         }
-        totalColumns = totalColumnsTmp;
+        totalColumnsTmp += contentColumnSpans[c];
       }
+      totalColumns = totalColumnsTmp;
+    }
     TBODY_c<TABLE_c<PC>> tbody = pc.table()
         .clazz("ao-packed")
         .style(getWidthStyle(width))
@@ -888,16 +888,16 @@ public class TextSkin extends Skin {
     @SuppressWarnings("unchecked")
     TBODY_c<TABLE_c<DocumentEE>> tbody = (TBODY_c) content;
     final int totalColumns;
-      {
-        int totalColumnsTmp = 0;
-        for (int c = 0; c < contentColumnSpans.length; c++) {
-          if (c > 0) {
-            totalColumnsTmp += 1;
-          }
-          totalColumnsTmp += contentColumnSpans[c];
+    {
+      int totalColumnsTmp = 0;
+      for (int c = 0; c < contentColumnSpans.length; c++) {
+        if (c > 0) {
+          totalColumnsTmp += 1;
         }
-        totalColumns = totalColumnsTmp;
+        totalColumnsTmp += contentColumnSpans[c];
       }
+      totalColumns = totalColumnsTmp;
+    }
     tbody.tr__(tr -> tr
         .td()
         .colspan(totalColumns)
