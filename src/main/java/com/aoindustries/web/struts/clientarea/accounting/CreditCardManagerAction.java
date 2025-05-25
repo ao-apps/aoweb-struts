@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2018, 2019, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2018, 2019, 2021, 2022, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -70,7 +70,7 @@ public class CreditCardManagerAction extends PermissionAction {
               // Active and not billing parent
               account.getCanceled() == null
                   && !account.billParent()
-          )
+            )
               // Has any non-zero balance
               || !transactionTable.getAccountBalance(account).isZero()
       ) {

@@ -78,7 +78,7 @@ public abstract class Skin {
             && (
             agent.toLowerCase().contains("lynx")
                 || agent.startsWith("BlackBerry")
-        )
+          )
     ) {
       for (Skin skin : skins) {
         if (skin.getName().equals(TextSkin.NAME)) {

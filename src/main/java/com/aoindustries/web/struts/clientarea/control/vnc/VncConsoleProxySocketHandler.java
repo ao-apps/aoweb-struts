@@ -141,7 +141,7 @@ public class VncConsoleProxySocketHandler {
                       "Remote host terminated the handshake".equals(message)
                           // Java 8
                           || "Remote host closed connection during handshake".equals(message)
-                  )
+                    )
               ) {
                 level = Level.SEVERE;
               } else {
