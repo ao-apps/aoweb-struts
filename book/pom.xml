@@ -48,9 +48,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     ]]></javadoc.taglibReference>
 
     <description.html><![CDATA[Documentation for <a target="${javadoc.target}" href="${project.url}">${documented.name}</a> in <a target="${javadoc.target}" href="https://semanticcms.com/">SemanticCMS</a> format.]]></description.html>
-    <!-- com.aoindustries is on original Sonatype Nexus Repository Manager -->
-    <nexusServerId>ossrh-aoindustries</nexusServerId>
-    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
     <!-- SonarQube -->
     <sonar.projectKey>com.aoapps.platform:aoapps-brands-book<!-- TODO: ${project.groupId}:${project.artifactId} --></sonar.projectKey>
   </properties>
@@ -109,9 +106,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
   <repositories>
     <!-- Repository required here, too, so can find parent -->
     <repository>
-      <id>sonatype-nexus-snapshots-s01</id>
-      <name>Sonatype Nexus Snapshots S01</name>
-      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+      <id>central-snapshots</id>
+      <name>Central Snapshot Repository</name>
+      <url>https://central.sonatype.com/repository/maven-snapshots/</url>
       <releases>
         <enabled>false</enabled>
       </releases>
@@ -235,7 +232,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <!-- javaee-web-api-bom: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId> -->
       <dependency>
-        <groupId>com.semanticcms</groupId><artifactId>semanticcms-changelog-taglib</artifactId><version>1.7.1${POST-SNAPSHOT}</version>
+        <groupId>com.semanticcms</groupId><artifactId>semanticcms-changelog-taglib</artifactId><version>1.8.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
       <dependency>
         <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><version>1.16.0${POST-SNAPSHOT}</version>

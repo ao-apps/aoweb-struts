@@ -25,7 +25,7 @@ Template webapp for legacy Struts-based site framework with [AOServ Platform](ht
 * [AOWeb Taglib Reference](https://aoindustries.com/aoweb-struts/aoweb-struts-aoweb.tld/)
 * [Skin Taglib Reference](https://aoindustries.com/aoweb-struts/aoweb-struts-skin.tld/)
 * [API Docs](https://aoindustries.com/aoweb-struts/apidocs/)
-* [Maven Central Repository](https://central.sonatype.com/artifact/com.aoindustries/aoweb-struts)
+* [Central Repository](https://central.sonatype.com/artifact/com.aoindustries/aoweb-struts)
 * [GitHub](https://github.com/ao-apps/aoweb-struts)
 
 ## Contact Us
