@@ -152,12 +152,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
               deployed or published artifacts.
             -->
             <exclude>sonatype-2016-0104</exclude>
-            <!--
-              We do not use an bean property values from untrusted sources, so do not expect to be affected by
-              CVE-2025-48734.  Furthermore, we are stuck on commons-beanutils-1.9.4 until commons-validator-1.9.0 is
-              updated to reference the new module name.
-            -->
-            <exclude>CVE-2025-48734</exclude>
           </excludeVulnerabilityIds>
         </configuration>
       </plugin>
@@ -1621,7 +1615,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>org.apache.commons</groupId><artifactId>commons-collections4</artifactId><version>4.5.0</version>
       </dependency>
       <dependency>
-        <groupId>commons-validator</groupId><artifactId>commons-validator</artifactId><version>1.9.0</version>
+        <groupId>commons-validator</groupId><artifactId>commons-validator</artifactId><version>1.10.0</version>
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.api</groupId><artifactId>gax</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.auth</groupId><artifactId>google-auth-library-credentials</artifactId> -->
@@ -1688,11 +1682,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>org.checkerframework</groupId><artifactId>checker-qual</artifactId> -->
       <dependency>
-        <!--
-          TODO: commons-beanutils-1.10.1 includes a new module-info.class specifying a new module name of
-          "org.apache.commons.beanutils" while commons-validator-1.9.0 references the old name "commons.beanutils".
-          Stay on commons-beanutils-1.9.4 util commons-validator-1.9.0 is updated to reference the new module name.
-        -->
         <groupId>commons-beanutils</groupId><artifactId>commons-beanutils</artifactId><version>1.9.4</version>
       </dependency>
       <dependency>
