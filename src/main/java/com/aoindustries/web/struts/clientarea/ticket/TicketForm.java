@@ -193,10 +193,10 @@ public class TicketForm extends ValidatorForm implements Serializable {
           errors.add("contactEmails", new ActionMessage(emailCheck.toString(), false));
           break;
         }
-        //if (!GenericValidator.isEmail(email)) {
-        //  errors.add("contactEmails", new ActionMessage("TicketForm.field.contactEmails.invalid"));
-        //  break;
-        //}
+        // if (!GenericValidator.isEmail(email)) {
+        //   errors.add("contactEmails", new ActionMessage("TicketForm.field.contactEmails.invalid"));
+        //   break;
+        // }
       }
     }
 

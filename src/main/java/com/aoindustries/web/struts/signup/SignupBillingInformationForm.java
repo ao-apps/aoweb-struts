@@ -207,8 +207,8 @@ public class SignupBillingInformationForm extends ActionForm implements Serializ
     }
     if (GenericValidator.isBlankOrNull(billingEmail)) {
       errors.add("billingEmail", new ActionMessage("signupBillingInformationForm.billingEmail.required"));
-      //} else if (!GenericValidator.isEmail(billingEmail)) {
-      //  errors.add("billingEmail", new ActionMessage("signupBillingInformationForm.billingEmail.invalid"));
+      // } else if (!GenericValidator.isEmail(billingEmail)) {
+      //   errors.add("billingEmail", new ActionMessage("signupBillingInformationForm.billingEmail.invalid"));
     } else {
       ValidationResult billingEmailCheck = Email.validate(billingEmail);
       if (!billingEmailCheck.isValid()) {

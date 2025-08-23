@@ -55,11 +55,11 @@ public class IndexAction  extends AuthenticatedAction {
     List<Ticket> filteredTickets = new ArrayList<>(tickets.size());
     for (Ticket ticket : tickets) {
       // Only show support or project tickets here
-      //String type = ticket.getTicketType().getType();
-      //if (
-      //    type.equals(TicketType.SUPPORT)
-      //    || type.equals(TicketType.PROJECTS)
-      //) {
+      // String type = ticket.getTicketType().getType();
+      // if (
+      //     type.equals(TicketType.SUPPORT)
+      //     || type.equals(TicketType.PROJECTS)
+      // ) {
       // Do not show junk or deleted tickets
       String status = ticket.getStatus().getStatus();
       if (
@@ -68,7 +68,7 @@ public class IndexAction  extends AuthenticatedAction {
       ) {
         filteredTickets.add(ticket);
       }
-      //}
+      // }
     }
 
     // Set request values

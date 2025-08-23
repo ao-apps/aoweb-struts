@@ -53,9 +53,9 @@ public abstract class Page {
     if (path == null) {
       throw new IllegalArgumentException("path is null");
     }
-    //if (keywords == null) {
-    //  throw new IllegalArgumentException("keywords is null");
-    //}
+    // if (keywords == null) {
+    //   throw new IllegalArgumentException("keywords is null");
+    // }
     this.title = title;
     this.navImageAlt = navImageAlt;
     this.description = description;

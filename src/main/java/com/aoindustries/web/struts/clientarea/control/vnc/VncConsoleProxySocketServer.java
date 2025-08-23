@@ -98,7 +98,7 @@ public class VncConsoleProxySocketServer implements Runnable {
 
         // Create the server socket
         SSLServerSocketFactory socketFactory = ctx.getServerSocketFactory();
-        //SSLServerSocketFactory socketFactory = (SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
+        // SSLServerSocketFactory socketFactory = (SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
         try (SSLServerSocket SS = (SSLServerSocket) socketFactory.createServerSocket(vncBind.getPort().getPort(), 50, inetAddress)) {
           while (currentThread == this.thread && !currentThread.isInterrupted()) {
             Socket socket = SS.accept();

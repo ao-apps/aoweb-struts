@@ -134,8 +134,8 @@ public class SkinTagTEI extends TagExtraInfo {
             new ValidationMessage(
                 data.getId(),
                 PACKAGE_RESOURCES.getMessage(
-                    //"Invalid value for layout, must be either \"normal\" or \"minimal\"",
-                    //Locale.getDefault(),
+                    // "Invalid value for layout, must be either \"normal\" or \"minimal\"",
+                    // Locale.getDefault(),
                     "skintags.SkinTagTEI.validate.layout.invalid"
                 )
             )

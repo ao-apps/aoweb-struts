@@ -66,7 +66,7 @@ public class SetResourceBundleValueAction extends PageAction {
     Locale locale = new Locale(request.getParameter("locale")); // TODO: Parse country and variant, too.
     String key = request.getParameter("key");
     String value = request.getParameter("value");
-    //for (int c=0;c<value.length();c++) System.out.println(Integer.toHexString(value.charAt(c)));
+    // for (int c=0;c<value.length();c++) System.out.println(Integer.toHexString(value.charAt(c)));
     boolean modified = Boolean.parseBoolean(request.getParameter("modified"));
 
     // Find the bundle

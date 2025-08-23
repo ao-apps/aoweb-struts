@@ -241,9 +241,9 @@ public class TextSkin extends Skin {
     // Do this before getting session, since session may be conditionally created by path in LoginAction
     final String target = LoginAction.addTarget(req::getSession, fullPath);
     final HttpSession session = req.getSession(false);
-    //if (session == null) {
-    //  session = req.getSession(false); // Get again, just in case of authentication
-    //}
+    // if (session == null) {
+    //   session = req.getSession(false); // Get again, just in case of authentication
+    // }
     // Locate registries
     final Registry requestRegistry = RegistryEE.Request.get(servletContext, req);
     Registry pageRegistry0 = RegistryEE.Page.get(req);
@@ -1030,7 +1030,7 @@ public class TextSkin extends Skin {
       DocumentEE document
   ) throws JspException, IOException {
     String urlBase = getUrlBase(req);
-    //Locale locale = resp.getLocale();
+    // Locale locale = resp.getLocale();
 
     document.unsafe("<table cellpadding=\"0\" cellspacing=\"10\">\n");
     List<Child> siblings = pageAttributes.getChildren();

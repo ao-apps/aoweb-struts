@@ -101,7 +101,7 @@ public class LoginCompletedAction extends PageAction {
       );
       return null;
       // Return success
-      //return mapping.findForward("success");
+      // return mapping.findForward("success");
     } catch (IOException err) {
       String message = err.getMessage();
       if (message != null) {

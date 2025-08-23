@@ -97,7 +97,7 @@ public final class DesCipher {
   private final int[] encryptKeys = new int[32];
   private final int[] decryptKeys = new int[32];
 
-  /// Set the key.
+  // Set the key.
   public void setKey(byte[] key) {
     deskey(key, true, encryptKeys);
     deskey(key, false, decryptKeys);
@@ -174,14 +174,14 @@ public final class DesCipher {
 
   private final int[] tempInts = new int[2];
 
-  /// Encrypt a block of eight bytes.
+  // Encrypt a block of eight bytes.
   public void encrypt(byte[] clearText, int clearOff, byte[] cipherText, int cipherOff) {
     squashBytesToInts(clearText, clearOff, tempInts, 0, 2);
     des(tempInts, tempInts, encryptKeys);
     spreadIntsToBytes(tempInts, 0, cipherText, cipherOff, 2);
   }
 
-  /// Decrypt a block of eight bytes.
+  // Decrypt a block of eight bytes.
   public void decrypt(byte[] cipherText, int cipherOff, byte[] clearText, int clearOff) {
     squashBytesToInts(cipherText, cipherOff, tempInts, 0, 2);
     des(tempInts, tempInts, decryptKeys);
@@ -453,7 +453,7 @@ public final class DesCipher {
 
   // Routines taken from other parts of the Acme utilities.
 
-  /// Squash bytes down to ints.
+  // Squash bytes down to ints.
   public static void squashBytesToInts(byte[] inBytes, int inOff, int[] outInts, int outOff, int intLen) {
     for (int i = 0; i < intLen; i++) {
       outInts[outOff + i] =
@@ -464,7 +464,7 @@ public final class DesCipher {
     }
   }
 
-  /// Spread ints into bytes.
+  // Spread ints into bytes.
   public static void spreadIntsToBytes(int[] inInts, int inOff, byte[] outBytes, int outOff, int intLen) {
     for (int i = 0; i < intLen; i++) {
       outBytes[outOff + i * 4    ] = (byte) (inInts[inOff + i] >>> 24);

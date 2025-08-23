@@ -242,8 +242,8 @@ public class SignupTechnicalForm extends ActionForm implements Serializable, Ses
       }
       if (GenericValidator.isBlankOrNull(baEmail)) {
         errors.add("baEmail", new ActionMessage("signupTechnicalForm.baEmail.required"));
-        //} else if (!GenericValidator.isEmail(baEmail)) {
-        //  errors.add("baEmail", new ActionMessage("signupTechnicalForm.baEmail.invalid"));
+        // } else if (!GenericValidator.isEmail(baEmail)) {
+        //   errors.add("baEmail", new ActionMessage("signupTechnicalForm.baEmail.invalid"));
       } else {
         ValidationResult baEmailCheck = Email.validate(baEmail);
         if (!baEmailCheck.isValid()) {

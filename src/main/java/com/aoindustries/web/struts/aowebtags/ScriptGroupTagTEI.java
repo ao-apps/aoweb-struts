@@ -48,8 +48,8 @@ public class ScriptGroupTagTEI extends TagExtraInfo {
           new ValidationMessage(
               data.getId(),
               PACKAGE_RESOURCES.getMessage(
-                  //"Invalid value for onloadMode, should be one of \"none\", \"before\", or \"after\": {0}",
-                  //Locale.getDefault(),
+                  // "Invalid value for onloadMode, should be one of \"none\", \"before\", or \"after\": {0}",
+                  // Locale.getDefault(),
                   "aowebtags.ScriptGroupTag.onloadMode.invalid",
                   o
               )
