@@ -169,7 +169,6 @@ public final class DesCipher {
     }
   }
 
-
   // Block encryption routines.
 
   private final int[] tempInts = new int[2];
@@ -265,7 +264,6 @@ public final class DesCipher {
     outInts[0] = right;
     outInts[1] = leftt;
   }
-
 
   // Tables, permutations, S-boxes, etc.
 

@@ -84,7 +84,6 @@ public class LocaleFilter implements Filter {
     // Nothing to do
   }
 
-
   /**
    * Gets the effective locale for the request.  If the requested language is not
    * one of the enabled languages for this site, will set to the default language
