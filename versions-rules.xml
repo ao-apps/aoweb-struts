@@ -58,6 +58,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     </rule>
     <rule groupId="ognl" comparisonMethod="ognl">
       <ignoreVersions>
+        <ignoreVersion type="regex">.*-BETA[0-9]+</ignoreVersion>
         <!-- TODO: Staying on ognl-3.3.5 for struts2-6.8.0 -->
         <ignoreVersion type="regex">3\.4\.[0-9]+</ignoreVersion>
       </ignoreVersions>
