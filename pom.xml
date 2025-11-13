@@ -1712,7 +1712,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>org.conscrypt</groupId><artifactId>conscrypt-openjdk-uber</artifactId> -->
       <dependency>
-        <groupId>com.google.errorprone</groupId><artifactId>error_prone_annotations</artifactId><version>2.43.0</version>
+        <groupId>com.google.errorprone</groupId><artifactId>error_prone_annotations</artifactId><version>2.44.0</version>
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.guava</groupId><artifactId>failureaccess</artifactId> -->
       <dependency>
