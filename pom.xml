@@ -1616,7 +1616,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>org.apache.commons</groupId><artifactId>commons-collections4</artifactId><version>4.5.0</version>
       </dependency>
       <dependency>
-        <groupId>commons-validator</groupId><artifactId>commons-validator</artifactId><version>1.10.0</version>
+        <groupId>commons-validator</groupId><artifactId>commons-validator</artifactId><version>1.10.1</version>
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.api</groupId><artifactId>gax</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.auth</groupId><artifactId>google-auth-library-credentials</artifactId> -->
