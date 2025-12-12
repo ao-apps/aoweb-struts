@@ -8,14 +8,14 @@
 [![semantic versioning: 2.0.0](https://aoindustries.com/ao-badges/semver-2.0.0.svg)](https://semver.org/spec/v2.0.0.html)
 [![license: LGPL v3](https://aoindustries.com/ao-badges/license-lgpl-3.0.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 
-[![Build](https://github.com/ao-apps/aoweb-struts/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/ao-apps/aoweb-struts/actions?query=workflow%3ABuild)
+[![Build](https://github.com/ao-apps/aoweb-struts/actions/workflows/build.yml/badge.svg?branch=javaee)](https://github.com/ao-apps/aoweb-struts/actions?query=workflow%3ABuild)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.aoindustries/aoweb-struts/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.aoindustries/aoweb-struts)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands&metric=alert_status)](https://sonarcloud.io/dashboard?branch=master&id=com.aoapps.platform%3Aaoapps-brands)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands&metric=ncloc)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands&metric=ncloc)  
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands&metric=reliability_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands&metric=Reliability)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands&metric=security_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands&metric=Security)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands&metric=sqale_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands&metric=Maintainability)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps.platform%3Aaoapps-brands&metric=coverage)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps.platform%3Aaoapps-brands&metric=Coverage)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?branch=javaee&project=com.aoapps.platform%3Aaoapps-brands&metric=alert_status)](https://sonarcloud.io/dashboard?branch=javaee&id=com.aoapps.platform%3Aaoapps-brands)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?branch=javaee&project=com.aoapps.platform%3Aaoapps-brands&metric=ncloc)](https://sonarcloud.io/component_measures?branch=javaee&id=com.aoapps.platform%3Aaoapps-brands&metric=ncloc)  
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?branch=javaee&project=com.aoapps.platform%3Aaoapps-brands&metric=reliability_rating)](https://sonarcloud.io/component_measures?branch=javaee&id=com.aoapps.platform%3Aaoapps-brands&metric=Reliability)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?branch=javaee&project=com.aoapps.platform%3Aaoapps-brands&metric=security_rating)](https://sonarcloud.io/component_measures?branch=javaee&id=com.aoapps.platform%3Aaoapps-brands&metric=Security)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?branch=javaee&project=com.aoapps.platform%3Aaoapps-brands&metric=sqale_rating)](https://sonarcloud.io/component_measures?branch=javaee&id=com.aoapps.platform%3Aaoapps-brands&metric=Maintainability)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?branch=javaee&project=com.aoapps.platform%3Aaoapps-brands&metric=coverage)](https://sonarcloud.io/component_measures?branch=javaee&id=com.aoapps.platform%3Aaoapps-brands&metric=Coverage)
 
 Template webapp for legacy Struts-based site framework with [AOServ Platform](https://aoindustries.com/aoserv/) control panels.
 

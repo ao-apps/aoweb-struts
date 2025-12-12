@@ -38,7 +38,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <subproject.subpath>devel/</subproject.subpath>
     <module.name>com.aoindustries.web.struts.devel</module.name>
     <!-- SonarQube -->
-    <sonar.projectKey>com.aoapps.platform:aoapps-brands-devel<!-- TODO: ${project.groupId}:${project.artifactId} --></sonar.projectKey>
+    <sonar.projectKey>com.aoapps.platform:aoapps-brands-devel:javaee<!-- TODO: ${project.groupId}:${project.artifactId}:javaee --></sonar.projectKey>
   </properties>
 
   <name>AOWeb Struts Devel</name>
