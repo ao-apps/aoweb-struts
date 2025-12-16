@@ -40,12 +40,12 @@ def upstreamProjects = [
   // Plugins
   // No Jenkins: <groupId>org.apache.struts</groupId><artifactId>struts2-config-browser-plugin</artifactId>
   // Own -devel package
-  'aoweb-struts-devel', // <groupId>com.aoindustries</groupId><artifactId>aoweb-struts-devel</artifactId>
+  'aoweb-struts-devel-javaee', // <groupId>com.aoindustries</groupId><artifactId>aoweb-struts-devel</artifactId>
   // Direct
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-collections-devel</artifactId>
   'oss/encoding-devel', // <groupId>com.aoapps</groupId><artifactId>ao-encoding-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-encoding-servlet-devel</artifactId>
-  'oss/encoding-taglib-devel', // <groupId>com.aoapps</groupId><artifactId>ao-encoding-taglib-devel</artifactId>
+  'oss/encoding-taglib-devel-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-encoding-taglib-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-devel</artifactId>
   'oss/fluent-html-any-devel', // <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-any-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-servlet-devel</artifactId>
@@ -58,10 +58,10 @@ def upstreamProjects = [
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-security-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-filter-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-last-modified-devel</artifactId>
-  'oss/servlet-util-devel', // <groupId>com.aoapps</groupId><artifactId>ao-servlet-util-devel</artifactId>
+  'oss/servlet-util-devel-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-servlet-util-devel</artifactId>
   'oss/sql-devel', // <groupId>com.aoapps</groupId><artifactId>ao-sql-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-style-devel</artifactId>
-  'oss/taglib-devel', // <groupId>com.aoapps</groupId><artifactId>ao-taglib-devel</artifactId>
+  'oss/taglib-devel-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-taglib-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-tempfiles-servlet-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-web-resources-registry-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-web-resources-renderer-devel</artifactId>
@@ -172,11 +172,11 @@ def upstreamProjects = [
   // Direct
   'oss/collections', // <groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId>
   'oss/encoding', // <groupId>com.aoapps</groupId><artifactId>ao-encoding</artifactId>
-  'oss/encoding-servlet', // <groupId>com.aoapps</groupId><artifactId>ao-encoding-servlet</artifactId>
-  'oss/encoding-taglib', // <groupId>com.aoapps</groupId><artifactId>ao-encoding-taglib</artifactId>
+  'oss/encoding-servlet-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-encoding-servlet</artifactId>
+  'oss/encoding-taglib-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-encoding-taglib</artifactId>
   'oss/fluent-html', // <groupId>com.aoapps</groupId><artifactId>ao-fluent-html</artifactId>
   'oss/fluent-html-any', // <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-any</artifactId>
-  'oss/fluent-html-servlet', // <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-servlet</artifactId>
+  'oss/fluent-html-servlet-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-servlet</artifactId>
   'oss/fluent-html-util', // <groupId>com.aoapps</groupId><artifactId>ao-fluent-html-util</artifactId>
   'oss/hodgepodge', // <groupId>com.aoapps</groupId><artifactId>ao-hodgepodge</artifactId>
   'oss/io-buffer', // <groupId>com.aoapps</groupId><artifactId>ao-io-buffer</artifactId>
@@ -184,16 +184,16 @@ def upstreamProjects = [
   'oss/net-types', // <groupId>com.aoapps</groupId><artifactId>ao-net-types</artifactId>
   'oss/payments/api', // <groupId>com.aoapps</groupId><artifactId>ao-payments-api</artifactId>
   'oss/security', // <groupId>com.aoapps</groupId><artifactId>ao-security</artifactId>
-  'oss/servlet-filter', // <groupId>com.aoapps</groupId><artifactId>ao-servlet-filter</artifactId>
-  'oss/servlet-last-modified', // <groupId>com.aoapps</groupId><artifactId>ao-servlet-last-modified</artifactId>
-  'oss/servlet-util', // <groupId>com.aoapps</groupId><artifactId>ao-servlet-util</artifactId>
+  'oss/servlet-filter-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-servlet-filter</artifactId>
+  'oss/servlet-last-modified-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-servlet-last-modified</artifactId>
+  'oss/servlet-util-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-servlet-util</artifactId>
   'oss/sql', // <groupId>com.aoapps</groupId><artifactId>ao-sql</artifactId>
-  'oss/style', // <groupId>com.aoapps</groupId><artifactId>ao-style</artifactId>
-  'oss/taglib', // <groupId>com.aoapps</groupId><artifactId>ao-taglib</artifactId>
-  'oss/tempfiles-servlet', // <groupId>com.aoapps</groupId><artifactId>ao-tempfiles-servlet</artifactId>
+  'oss/style-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-style</artifactId>
+  'oss/taglib-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-taglib</artifactId>
+  'oss/tempfiles-servlet-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-tempfiles-servlet</artifactId>
   'oss/web-resources/registry', // <groupId>com.aoapps</groupId><artifactId>ao-web-resources-registry</artifactId>
-  'oss/web-resources/renderer', // <groupId>com.aoapps</groupId><artifactId>ao-web-resources-renderer</artifactId>
-  'oss/web-resources/servlet', // <groupId>com.aoapps</groupId><artifactId>ao-web-resources-servlet</artifactId>
+  'oss/web-resources/renderer-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-web-resources-renderer</artifactId>
+  'oss/web-resources/servlet-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-web-resources-servlet</artifactId>
   'aoserv/client', // <groupId>com.aoindustries</groupId><artifactId>aoserv-client</artifactId>
   'aoserv/credit-cards', // <groupId>com.aoindustries</groupId><artifactId>aoserv-credit-cards</artifactId>
   'aoserv/daemon-client', // <groupId>com.aoindustries</groupId><artifactId>aoserv-daemon-client</artifactId>

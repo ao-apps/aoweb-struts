@@ -34,12 +34,12 @@ def upstreamProjects = [
   'oss/checkstyle-config', // <groupId>com.aoapps</groupId><artifactId>ao-checkstyle-config</artifactId>
 
   // Plugins
-  'aoweb-struts', // <groupId>com.aoindustries</groupId><artifactId>aoweb-struts</artifactId>
+  'aoweb-struts-javaee', // <groupId>com.aoindustries</groupId><artifactId>aoweb-struts</artifactId>
 
   // Direct
   'oss/badges-1.x', // <groupId>com.aoapps</groupId><artifactId>ao-badges</artifactId>
   'oss/lang', // <groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId>
-  'oss/taglib', // <groupId>com.aoapps</groupId><artifactId>ao-taglib</artifactId>
+  'oss/taglib-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-taglib</artifactId>
   // No Jenkins: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId>
   'semanticcms-1.x/changelog-taglib', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-changelog-taglib</artifactId>
   'semanticcms-1.x/core/taglib', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId>

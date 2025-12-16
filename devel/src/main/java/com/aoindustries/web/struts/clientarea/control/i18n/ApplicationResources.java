@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2009, 2016, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2009, 2016, 2020, 2021, 2022, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -47,7 +47,7 @@ public final class ApplicationResources extends EditableResourceBundle {
 
   static File getSourceFile(String filename) {
     try {
-      return new File(System.getProperty("user.home") + "/maven2/ao/aoweb-struts/src/main/resources/com/aoindustries/web/struts/clientarea/control/i18n", filename);
+      return new File(System.getProperty("user.home") + "/maven2/ao/aoweb-struts-javaee/src/main/resources/com/aoindustries/web/struts/clientarea/control/i18n", filename);
     } catch (SecurityException e) {
       Logger.getLogger(ApplicationResources.class.getName()).log(
           Level.WARNING,
