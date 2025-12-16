@@ -29,7 +29,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <relativePath>../../oss/parent/pom.xml</relativePath>
   </parent>
 
-  <groupId>com.aoindustries</groupId><artifactId>aoweb-struts-devel</artifactId><version>3.0.0-SNAPSHOT</version>
+  <groupId>com.aoindustries</groupId><artifactId>aoweb-struts-devel</artifactId><version>4.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <properties>
@@ -38,7 +38,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <subproject.subpath>devel/</subproject.subpath>
     <module.name>com.aoindustries.web.struts.devel</module.name>
     <!-- SonarQube -->
-    <sonar.projectKey>com.aoapps.platform:aoapps-brands-devel:javaee<!-- TODO: ${project.groupId}:${project.artifactId}:javaee --></sonar.projectKey>
+    <sonar.projectKey>com.aoapps.platform:aoapps-brands-devel<!-- TODO: ${project.groupId}:${project.artifactId} --></sonar.projectKey>
   </properties>
 
   <name>AOWeb Struts Devel</name>
