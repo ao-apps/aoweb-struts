@@ -215,7 +215,7 @@ def upstreamProjects = [
   // No Jenkins: <groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId>
 
   // Runtime Direct
-  'oss/mime-mappings', // <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings</artifactId>
+  'oss/mime-mappings-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings</artifactId>
   // No Jenkins: <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId>
   'semanticcms-1.x/core/servlet', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet</artifactId>
   // No Jenkins: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId>
