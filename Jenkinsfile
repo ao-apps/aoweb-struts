@@ -80,7 +80,7 @@ def upstreamProjects = [
   // No -devel: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api-devel</artifactId>
   // No -devel: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api-devel</artifactId>
   // No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1-devel</artifactId>
-  'semanticcms-1.x/core/taglib-devel', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib-devel</artifactId>
+  'semanticcms-2.x/core/taglib-devel', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib-devel</artifactId>
   // No -devel: <groupId>org.apache.struts</groupId><artifactId>struts-core-devel</artifactId>
   // No -devel: <groupId>org.apache.struts</groupId><artifactId>struts-taglib-devel</artifactId>
   // No -devel: <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin-devel</artifactId>
@@ -152,7 +152,7 @@ def upstreamProjects = [
   // Runtime Direct
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings-devel</artifactId>
   // No -devel: <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core-devel</artifactId>
-  'semanticcms-1.x/core/servlet-devel', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet-devel</artifactId>
+  'semanticcms-2.x/core/servlet-devel', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet-devel</artifactId>
   // No -devel: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl-devel</artifactId>
   // Runtime Transitive
   // No -devel: <groupId>com.google.android</groupId><artifactId>annotations-devel</artifactId>
@@ -208,7 +208,7 @@ def upstreamProjects = [
   // No Jenkins: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId>
   // No Jenkins: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId>
   // No Jenkins: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1</artifactId>
-  'semanticcms-1.x/core/taglib', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId>
+  'semanticcms-2.x/core/taglib', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId>
   // No Jenkins: <groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId>
   // No Jenkins: <groupId>org.apache.struts</groupId><artifactId>struts-taglib</artifactId>
   // No Jenkins: <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId>
@@ -217,7 +217,7 @@ def upstreamProjects = [
   // Runtime Direct
   'oss/mime-mappings', // <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings</artifactId>
   // No Jenkins: <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId>
-  'semanticcms-1.x/core/servlet', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet</artifactId>
+  'semanticcms-2.x/core/servlet', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet</artifactId>
   // No Jenkins: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId>
 
   // BOM
