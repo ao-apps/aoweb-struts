@@ -152,6 +152,19 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
               deployed or published artifacts.
             -->
             <exclude>sonatype-2016-0104</exclude>
+            <!--
+              We believe the reporting of CVE-2025-64775 by ossindex.sonartype.org to be a false positive:
+              https://ossindex.sonatype.org/component/pkg:maven/org.apache.struts/struts2-core@6.8.0
+              https://ossindex.sonatype.org/vulnerability/CVE-2025-64775?component-type=maven&component-name=org.apache.struts%2Fstruts2-core
+
+              We are already on struts2-6.8.0, which is reported to have solved this issue:
+              https://nvd.nist.gov/vuln/detail/CVE-2025-64775
+
+              Finally, should we be attacked with file uploads, we proactively monitor the disk usage of all supported
+              deployments of this project via the noc-monitor project:
+              https://github.com/ao-apps/noc-monitor
+            -->
+            <exclude>CVE-2025-64775</exclude>
           </excludeVulnerabilityIds>
         </configuration>
       </plugin>
