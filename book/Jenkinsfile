@@ -37,7 +37,7 @@ def upstreamProjects = [
   'aoweb-struts-javaee', // <groupId>com.aoindustries</groupId><artifactId>aoweb-struts</artifactId>
 
   // Direct
-  'oss/badges-1.x', // <groupId>com.aoapps</groupId><artifactId>ao-badges</artifactId>
+  'oss/badges-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-badges</artifactId>
   'oss/lang', // <groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId>
   'oss/taglib-javaee', // <groupId>com.aoapps</groupId><artifactId>ao-taglib</artifactId>
   // No Jenkins: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId>
