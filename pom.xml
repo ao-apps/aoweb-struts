@@ -468,6 +468,13 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                   https://github.com/ao-apps/noc-monitor
                 -->
                 <exclude>CVE-2025-64775</exclude>
+                <!--
+                  This appears to be a false positive.  CVE-2025-68161 is reported to be fixed in 2.25.3, which we are
+                  already on.
+                  https://ossindex.sonatype.org/component/pkg:maven/org.apache.logging.log4j/log4j-core@2.25.3
+                  https://ossindex.sonatype.org/vulnerability/CVE-2025-68161?component-type=maven&component-name=org.apache.logging.log4j%2Flog4j-core
+                -->
+                <exclude>CVE-2025-68161</exclude>
               </excludeVulnerabilityIds>
             </configuration>
           </plugin>
