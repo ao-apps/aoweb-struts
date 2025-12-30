@@ -1450,7 +1450,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>org.javassist</groupId><artifactId>javassist-devel</artifactId> -->
         <!-- No -devel: <groupId>javax.annotation</groupId><artifactId>javax.annotation-api-devel</artifactId> -->
         <!-- No -devel: <groupId>javax.el</groupId><artifactId>javax.el-api-devel</artifactId> -->
-        <!-- No -devel: <groupId>joda-time</groupId><artifactId>joda-time-devel</artifactId> -->
         <!-- No -devel: <groupId>org.jspecify</groupId><artifactId>jspecify-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.code.findbugs</groupId><artifactId>jsr305-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.guava</groupId><artifactId>listenablefuture-devel</artifactId> -->
@@ -1774,9 +1773,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <dependency>
         <groupId>javax.el</groupId><artifactId>javax.el-api</artifactId><version>3.0.0</version>
         <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>joda-time</groupId><artifactId>joda-time</artifactId><version>2.14.0</version>
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>org.jspecify</groupId><artifactId>jspecify</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId> -->

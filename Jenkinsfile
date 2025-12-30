@@ -134,7 +134,6 @@ def upstreamProjects = [
   // No -devel: <groupId>org.javassist</groupId><artifactId>javassist-devel</artifactId>
   // No -devel: <groupId>javax.annotation</groupId><artifactId>javax.annotation-api-devel</artifactId>
   // No -devel: <groupId>javax.el</groupId><artifactId>javax.el-api-devel</artifactId>
-  // No -devel: <groupId>joda-time</groupId><artifactId>joda-time-devel</artifactId>
   // No -devel: <groupId>com.google.code.findbugs</groupId><artifactId>jsr305-devel</artifactId>
   // No -devel: <groupId>com.google.guava</groupId><artifactId>listenablefuture-devel</artifactId>
   // No -devel: <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api-devel</artifactId>
