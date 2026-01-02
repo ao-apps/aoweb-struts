@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2019, 2021, 2022, 2025  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2019, 2021, 2022, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.struts2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.convention.annotation.Action;
 
 /**
  * @author  AO Industries, Inc.
@@ -52,6 +53,7 @@ public class LogoutAction extends ActionSupport {
     }
   }
 
+  @Action("/logout")
   @Override
   public String execute() throws Exception {
     HttpServletRequest request = ServletActionContext.getRequest();

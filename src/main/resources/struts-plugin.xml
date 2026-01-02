@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2021, 2022  AO Industries, Inc.
+Copyright (C) 2021, 2022, 2025, 2026  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -31,6 +31,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
   <!-- https://struts.apache.org/security/ -->
   <constant name="struts.enable.DynamicMethodInvocation" value="false" />
   <constant name="struts.ognl.allowStaticMethodAccess" value="false" />
+  <constant name="struts.parameters.requireAnnotations" value="true" /><!-- On by default in Struts 7 -->
   <!-- Default is 256 as of struts2-6.0.0 -->
   <constant name="struts.ognl.expressionMaxLength" value="100" />
 
@@ -42,6 +43,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 
   <!-- See https://struts.apache.org/plugins/convention/#actions-in-jar-files -->
   <constant name="struts.convention.action.includeJars" value=".*?/aoweb-struts.*?jar(!/)?" />
+
+  <!-- We'll always use action annotations -->
+  <constant name="struts.convention.action.alwaysMapExecute" value="false" />
 
   <!-- Avoid ClassNotFound problem in Tomcat 9.0 -->
   <constant name="struts.convention.exclude.parentClassLoader" value="false" />
