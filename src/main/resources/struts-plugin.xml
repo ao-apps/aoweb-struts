@@ -24,6 +24,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 <!DOCTYPE struts PUBLIC
   "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
   "http://struts.apache.org/dtds/struts-2.5.dtd">
+<!-- See https://struts.apache.org/core-developers/default-properties -->
 <struts>
   <!-- Changing extension to *.do for Struts 1 compatibility -->
   <constant name="struts.action.extension" value="do" />
@@ -31,9 +32,44 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
   <!-- https://struts.apache.org/security/ -->
   <constant name="struts.enable.DynamicMethodInvocation" value="false" />
   <constant name="struts.ognl.allowStaticMethodAccess" value="false" />
+  <constant name="struts.ognl.valueStackFallbackToContext" value="false" />
   <constant name="struts.parameters.requireAnnotations" value="true" /><!-- On by default in Struts 7 -->
   <!-- Default is 256 as of struts2-6.0.0 -->
   <constant name="struts.ognl.expressionMaxLength" value="100" />
+  <constant name="struts.allowlist.enable" value="true" /><!-- On by default in Struts 7 -->
+  <constant name="struts.allowlist.packageNames" value="com.aoindustries.web.struts." />
+  <constant name="struts.ognl.excludedNodeTypes" value="
+    ognl.ASTAdd,
+    ognl.ASTAssign,
+    ognl.ASTBitAnd,
+    ognl.ASTBitNegate,
+    ognl.ASTBitOr,
+    ognl.ASTCtor,
+    ognl.ASTDivide,
+    ognl.ASTEval,
+    ognl.ASTIn,
+    ognl.ASTInstanceof,
+    ognl.ASTKeyValue,
+    ognl.ASTList,
+    ognl.ASTMap,
+    ognl.ASTMultiply,
+    ognl.ASTNegate,
+    ognl.ASTNotIn,
+    ognl.ASTProject,
+    ognl.ASTRootVarRef,
+    ognl.ASTSelect,
+    ognl.ASTSelectFirst,
+    ognl.ASTSelectLast,
+    ognl.ASTSequence,
+    ognl.ASTShiftLeft,
+    ognl.ASTShiftRight,
+    ognl.ASTStaticField,
+    ognl.ASTStaticMethod,
+    ognl.ASTThisVarRef,
+    ognl.ASTUnsignedShiftRight,
+    ognl.ASTVarRef,
+    ognl.ASTXor
+  " />
 
   <!-- Disable package-based locators, only scanning the specifically listed packages -->
   <constant name="struts.convention.package.locators.disable" value="true" />
@@ -42,7 +78,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
   <constant name="struts.convention.action.packages" value="com.aoindustries.web.struts" />
 
   <!-- See https://struts.apache.org/plugins/convention/#actions-in-jar-files -->
-  <constant name="struts.convention.action.includeJars" value=".*?/aoweb-struts.*?jar(!/)?" />
+  <constant name="struts.convention.action.includeJars" value=".*?/aoweb-struts[^/]*?jar(!/)?" />
 
   <!-- We'll always use action annotations -->
   <constant name="struts.convention.action.alwaysMapExecute" value="false" />
