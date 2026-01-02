@@ -389,7 +389,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
             <!-- JSP Only -->
             <dependency>com.semanticcms:semanticcms-core-taglib</dependency>
             <dependency>org.apache.struts:struts-taglib</dependency>
-            <dependency>org.apache.struts:struts2-convention-plugin</dependency>
           </usedDependencies>
         </configuration>
       </plugin>
