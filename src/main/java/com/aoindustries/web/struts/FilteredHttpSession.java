@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2009, 2016, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2009, 2016, 2020, 2021, 2022, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -27,9 +27,9 @@ import static com.aoindustries.web.struts.Resources.PACKAGE_RESOURCES;
 
 import com.aoapps.servlet.attribute.AttributeEE;
 import com.aoapps.servlet.attribute.ScopeEE;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 import java.util.Enumeration;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
 
 /**
  * Filters setAttribute to make sure all session objects are precisely as
@@ -76,32 +76,14 @@ public class FilteredHttpSession implements HttpSession {
     return wrapped.getMaxInactiveInterval();
   }
 
-  @Deprecated(forRemoval = false)
-  @Override
-  public javax.servlet.http.HttpSessionContext getSessionContext() {
-    return wrapped.getSessionContext();
-  }
-
   @Override
   public Object getAttribute(String name) {
     return wrapped.getAttribute(name);
   }
 
-  @Deprecated(forRemoval = false)
-  @Override
-  public Object getValue(String name) {
-    return wrapped.getValue(name);
-  }
-
   @Override
   public Enumeration<String> getAttributeNames() {
     return wrapped.getAttributeNames();
-  }
-
-  @Deprecated(forRemoval = false)
-  @Override
-  public String[] getValueNames() {
-    return wrapped.getValueNames();
   }
 
   /**
@@ -141,22 +123,9 @@ public class FilteredHttpSession implements HttpSession {
     wrapped.setAttribute(name, value);
   }
 
-  @Deprecated(forRemoval = false)
-  @Override
-  public void putValue(String name, Object value) {
-    checkSessionAttribute(name, value);
-    wrapped.putValue(name, value);
-  }
-
   @Override
   public void removeAttribute(String name) {
     wrapped.removeAttribute(name);
-  }
-
-  @Deprecated(forRemoval = false)
-  @Override
-  public void removeValue(String name) {
-    wrapped.removeValue(name);
   }
 
   @Override

@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2009-2013, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2025  AO Industries, Inc.
+ * Copyright (C) 2009-2013, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -35,6 +35,7 @@ import com.aoindustries.aoserv.client.schema.AoservProtocol;
 import com.aoindustries.aoserv.daemon.client.AoservDaemonConnection;
 import com.aoindustries.aoserv.daemon.client.AoservDaemonConnector;
 import com.aoindustries.aoserv.daemon.client.AoservDaemonProtocol;
+import jakarta.servlet.ServletContext;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,7 +47,6 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.net.ssl.SSLHandshakeException;
-import javax.servlet.ServletContext;
 
 /**
  * Handles a single connection.

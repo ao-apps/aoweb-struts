@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2021, 2022, 2023  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2023, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -85,14 +85,15 @@ module com.aoindustries.web.struts {
   requires com.google.auth; // <groupId>com.google.auth</groupId><artifactId>google-auth-library-credentials</artifactId>
   requires com.google.auth.oauth2; // <groupId>com.google.auth</groupId><artifactId>google-auth-library-oauth2-http</artifactId>
   requires google.cloud.recaptchaenterprise; // <groupId>com.google.cloud</groupId><artifactId>google-cloud-recaptchaenterprise</artifactId>
-  requires java.mail; // <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId>
-  requires javax.servlet.api; // <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId>
-  requires javax.servlet.jsp.api; // <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId>
-  requires javax.websocket.api; // <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId>
+  requires jakarta.mail; // <groupId>jakarta.mail</groupId><artifactId>jakarta.mail-api</artifactId>
+  requires jakarta.servlet; // <groupId>jakarta.servlet</groupId><artifactId>jakarta.servlet-api</artifactId>
+  requires jakarta.servlet.jsp; // <groupId>jakarta.servlet.jsp</groupId><artifactId>jakarta.servlet.jsp-api</artifactId>
+  requires jakarta.websocket; // <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-api</artifactId>
+  requires jakarta.websocket.client; // <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-client-api</artifactId>
   requires proto.google.cloud.recaptchaenterprise.v1; // <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1</artifactId>
   requires com.semanticcms.core.taglib; // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId>
-  requires struts.core; // <groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId>
-  requires struts.taglib; // <groupId>org.apache.struts</groupId><artifactId>struts-taglib</artifactId>
+  requires org.apache.struts; // <groupId>io.github.weblegacy</groupId><artifactId>struts-core</artifactId>
+  requires org.apache.struts.taglib; // <groupId>io.github.weblegacy</groupId><artifactId>struts-taglib</artifactId>
   requires struts2.convention.plugin; // <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId>
   requires struts2.core; // <groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId>
   // Java SE

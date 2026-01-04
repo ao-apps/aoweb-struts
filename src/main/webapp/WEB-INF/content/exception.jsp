@@ -1,6 +1,6 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
+Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021, 2022, 2023, 2025, 2026  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -23,8 +23,8 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 %><%@ page isErrorPage="true"
 %><%@include file="/WEB-INF/taglibs.jspf"
 %><c:set var="code" value="${
-  empty requestScope['javax.servlet.error.status_code'] or requestScope['javax.servlet.error.status_code'] le 0
-    ? 500 : requestScope['javax.servlet.error.status_code']
+  empty requestScope['jakarta.servlet.error.status_code'] or requestScope['jakarta.servlet.error.status_code'] le 0
+    ? 500 : requestScope['jakarta.servlet.error.status_code']
 }" /><%
   if (exception != null) {
     log(null, exception);

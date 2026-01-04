@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2020, 2021, 2022, 2023  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2020, 2021, 2022, 2023, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -27,12 +27,12 @@ import com.aoapps.html.servlet.ContentEE;
 import com.aoapps.html.servlet.DocumentEE;
 import com.aoapps.lang.Strings;
 import com.aoindustries.web.struts.Skin;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.jsp.JspException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspException;
 
 /**
  * @author  AO Industries, Inc.
@@ -141,7 +141,7 @@ public class ContentTag extends PageAttributesBodyTag {
   }
 
   /**
-   * Gets the {@link ContentEE} that was returned from {@link Skin#startContent(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, com.aoindustries.web.struts.skintags.PageAttributes, int[], java.lang.String)}.
+   * Gets the {@link ContentEE} that was returned from {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, com.aoindustries.web.struts.skintags.PageAttributes, int[], java.lang.String)}.
    *
    * @throws IllegalStateException when not inside {@link #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)} and no content set
    */

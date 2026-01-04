@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2013, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2025  AO Industries, Inc.
+ * Copyright (C) 2007-2013, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -68,19 +68,19 @@ import com.aoindustries.aoserv.client.reseller.Brand;
 import com.aoindustries.web.struts.skintags.Child;
 import com.aoindustries.web.struts.skintags.PageAttributes;
 import com.aoindustries.web.struts.skintags.Parent;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
+import jakarta.servlet.annotation.WebListener;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.jsp.JspException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspException;
 
 /**
  * The skin for the home page of the site.
@@ -1088,7 +1088,7 @@ public class TextSkin extends Skin {
   /**
    * Begins a popup group.
    *
-   * @see  #defaultBeginPopupGroup(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.DocumentEE, long)
+   * @see  #defaultBeginPopupGroup(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.DocumentEE, long)
    */
   @Override
   public void beginPopupGroup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId) throws JspException, IOException {
@@ -1139,7 +1139,7 @@ public class TextSkin extends Skin {
   /**
    * Ends a popup group.
    *
-   * @see  #defaultEndPopupGroup(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.DocumentEE, long)
+   * @see  #defaultEndPopupGroup(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.DocumentEE, long)
    */
   @Override
   public void endPopupGroup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId) throws JspException, IOException {
@@ -1156,7 +1156,7 @@ public class TextSkin extends Skin {
   /**
    * Begins a popup that is in a popup group.
    *
-   * @see  #defaultBeginPopup(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.DocumentEE, long, long, java.lang.String, java.lang.String)
+   * @see  #defaultBeginPopup(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.DocumentEE, long, long, java.lang.String, java.lang.String)
    */
   @Override
   public void beginPopup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId, String width) throws JspException, IOException {
@@ -1280,7 +1280,7 @@ public class TextSkin extends Skin {
   /**
    * Prints a popup close link/image/button for a popup that is part of a popup group.
    *
-   * @see  #defaultPrintPopupClose(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.DocumentEE, long, long, java.lang.String)
+   * @see  #defaultPrintPopupClose(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.DocumentEE, long, long, java.lang.String)
    */
   @Override
   public void printPopupClose(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId) throws JspException, IOException {
@@ -1311,7 +1311,7 @@ public class TextSkin extends Skin {
   /**
    * Ends a popup that is in a popup group.
    *
-   * @see  #defaultEndPopup(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.aoapps.html.servlet.DocumentEE, long, long, java.lang.String, java.lang.String)
+   * @see  #defaultEndPopup(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.DocumentEE, long, long, java.lang.String, java.lang.String)
    */
   @Override
   public void endPopup(HttpServletRequest req, HttpServletResponse resp, DocumentEE document, long groupId, long popupId, String width) throws JspException, IOException {

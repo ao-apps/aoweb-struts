@@ -45,6 +45,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <javase.version>17</javase.version>
     <javase.release>17</javase.release>
     <javadoc.link.javase>${javadoc.link.javase.17}</javadoc.link.javase>
+    <!-- Jakarta EE 10 -->
+    <javaee.version>10</javaee.version>
+    <javadoc.link.javaee>${javadoc.link.jakartaee.10}</javadoc.link.javaee>
 
     <description.html><![CDATA[Template webapp for legacy Struts-based site framework with <a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ Platform</a> control panels.]]></description.html>
 
@@ -388,7 +391,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
           <usedDependencies>
             <!-- JSP Only -->
             <dependency>com.semanticcms:semanticcms-core-taglib</dependency>
-            <dependency>org.apache.struts:struts-taglib</dependency>
+            <dependency>io.github.weblegacy:struts-taglib</dependency>
           </usedDependencies>
         </configuration>
       </plugin>
@@ -439,8 +442,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
             <groupId>org.sonatype.ossindex.maven</groupId><artifactId>ossindex-maven-plugin</artifactId>
             <configuration>
               <excludeCoordinates>
-                <!-- TODO: Upgrade to Struts 2 -->
-                <exclude><groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId><version>1.3.10</version></exclude>
                 <!-- TODO:
                   See if vulnerabilities still reported in threetenbp > 1.7.0:
                   https://ossindex.sonatype.org/component/pkg:maven/org.threeten/threetenbp@1.7.0
@@ -454,19 +455,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                   deployed or published artifacts.
                 -->
                 <exclude>sonatype-2016-0104</exclude>
-                <!--
-                  We believe the reporting of CVE-2025-64775 by ossindex.sonartype.org to be a false positive:
-                  https://ossindex.sonatype.org/component/pkg:maven/org.apache.struts/struts2-core@6.8.0
-                  https://ossindex.sonatype.org/vulnerability/CVE-2025-64775?component-type=maven&component-name=org.apache.struts%2Fstruts2-core
-
-                  We are already on struts2-6.8.0, which is reported to have solved this issue:
-                  https://nvd.nist.gov/vuln/detail/CVE-2025-64775
-
-                  Finally, should we be attacked with file uploads, we proactively monitor the disk usage of all supported
-                  deployments of this project via the noc-monitor project:
-                  https://github.com/ao-apps/noc-monitor
-                -->
-                <exclude>CVE-2025-64775</exclude>
                 <!--
                   This appears to be a false positive.  CVE-2025-68161 is reported to be fixed in 2.25.3, which we are
                   already on.
@@ -1086,10 +1074,11 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                       <includes>element-list, package-list</includes>
                       <outputDirectory>${project.build.directory}/offlineLinks/com.google.cloud/google-cloud-recaptchaenterprise</outputDirectory>
                     </artifactItem>
-                    <!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><classifier>javadoc</classifier> -->
-                    <!-- ao-javadoc-offline: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><classifier>javadoc</classifier> -->
-                    <!-- ao-javadoc-offline: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId><classifier>javadoc</classifier> -->
-                    <!-- ao-javadoc-offline: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId><classifier>javadoc</classifier> -->
+                    <!-- ao-javadoc-offline: <groupId>jakarta.mail</groupId><artifactId>jakarta.mail-api</artifactId><classifier>javadoc</classifier> -->
+                    <!-- ao-javadoc-offline: <groupId>jakarta.servlet</groupId><artifactId>jakarta.servlet-api</artifactId><classifier>javadoc</classifier> -->
+                    <!-- ao-javadoc-offline: <groupId>jakarta.servlet.jsp</groupId><artifactId>jakarta.servlet.jsp-api</artifactId><classifier>javadoc</classifier> -->
+                    <!-- ao-javadoc-offline: <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-api</artifactId><classifier>javadoc</classifier> -->
+                    <!-- ao-javadoc-offline: <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-client-api</artifactId><classifier>javadoc</classifier> -->
                     <artifactItem>
                       <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1</artifactId><classifier>javadoc</classifier>
                       <includes>element-list, package-list</includes>
@@ -1097,11 +1086,11 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                     </artifactItem>
                     <!-- JSP Only: <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><classifier>javadoc</classifier> -->
                     <artifactItem>
-                      <groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId><classifier>javadoc</classifier>
+                      <groupId>io.github.weblegacy</groupId><artifactId>struts-core</artifactId><classifier>javadoc</classifier>
                       <includes>element-list, package-list</includes>
-                      <outputDirectory>${project.build.directory}/offlineLinks/org.apache.struts/struts-core</outputDirectory>
+                      <outputDirectory>${project.build.directory}/offlineLinks/io.github.weblegacy/struts-core</outputDirectory>
                     </artifactItem>
-                    <!-- JSP Only: <groupId>org.apache.struts</groupId><artifactId>struts-taglib</artifactId><classifier>javadoc</classifier> -->
+                    <!-- JSP Only: <groupId>io.github.weblegacy</groupId><artifactId>struts-taglib</artifactId><classifier>javadoc</classifier> -->
                     <artifactItem>
                       <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId><classifier>javadoc</classifier>
                       <includes>element-list, package-list</includes>
@@ -1254,26 +1243,27 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                   <url>https://javadoc.io/doc/com.google.cloud/google-cloud-recaptchaenterprise/${com.google.cloud:google-cloud-recaptchaenterprise:jar.version}/</url>
                   <location>${project.build.directory}/offlineLinks/com.google.cloud/google-cloud-recaptchaenterprise</location>
                 </offlineLink>
-                <!-- ao-javadoc-offline: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><classifier>javadoc</classifier> -->
-                <!-- ao-javadoc-offline: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><classifier>javadoc</classifier> -->
-                <!-- ao-javadoc-offline: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId><classifier>javadoc</classifier> -->
-                <!-- ao-javadoc-offline: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId><classifier>javadoc</classifier> -->
+                <!-- ao-javadoc-offline: <groupId>jakarta.mail</groupId><artifactId>jakarta.mail-api</artifactId><classifier>javadoc</classifier> -->
+                <!-- ao-javadoc-offline: <groupId>jakarta.servlet</groupId><artifactId>jakarta.servlet-api</artifactId><classifier>javadoc</classifier> -->
+                <!-- ao-javadoc-offline: <groupId>jakarta.servlet.jsp</groupId><artifactId>jakarta.servlet.jsp-api</artifactId><classifier>javadoc</classifier> -->
+                <!-- ao-javadoc-offline: <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-api</artifactId><classifier>javadoc</classifier> -->
+                <!-- ao-javadoc-offline: <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-client-api</artifactId><classifier>javadoc</classifier> -->
                 <offlineLink>
                   <url>https://javadoc.io/doc/com.google.api.grpc/proto-google-cloud-recaptchaenterprise-v1/${com.google.api.grpc:proto-google-cloud-recaptchaenterprise-v1:jar.version}/</url>
                   <location>${project.build.directory}/offlineLinks/com.google.api.grpc/proto-google-cloud-recaptchaenterprise-v1</location>
                 </offlineLink>
                 <!-- JSP Only: <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><classifier>javadoc</classifier> -->
                 <offlineLink>
-                  <url>https://tool.oschina.net/uploads/apidocs/struts-${org.apache.struts:struts-core:jar.version}/</url>
-                  <location>${project.build.directory}/offlineLinks/org.apache.struts/struts-core</location>
+                  <url>https://javadoc.io/doc/io.github.weblegacy/struts-core/${io.github.weblegacy:struts-core:jar.version}/</url>
+                  <location>${project.build.directory}/offlineLinks/io.github.weblegacy/struts-core</location>
                 </offlineLink>
-                <!-- JSP Only: <groupId>org.apache.struts</groupId><artifactId>struts-taglib</artifactId><classifier>javadoc</classifier> -->
+                <!-- JSP Only: <groupId>io.github.weblegacy</groupId><artifactId>struts-taglib</artifactId><classifier>javadoc</classifier> -->
                 <offlineLink>
-                  <url>https://struts.apache.org/maven/struts2-plugins/struts2-convention-plugin/apidocs/</url>
+                  <url>https://javadoc.io/doc/org.apache.struts/struts2-convention-plugin/${org.apache.struts:struts2-convention-plugin:jar.version}/</url>
                   <location>${project.build.directory}/offlineLinks/org.apache.struts/struts2-convention-plugin</location>
                 </offlineLink>
                 <offlineLink>
-                  <url>https://struts.apache.org/maven/struts2-core/apidocs/</url>
+                  <url>https://javadoc.io/doc/org.apache.struts/struts2-core/${org.apache.struts:struts2-core:jar.version}/</url>
                   <location>${project.build.directory}/offlineLinks/org.apache.struts/struts2-core</location>
                 </offlineLink>
               </offlineLinks>
@@ -1309,7 +1299,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <dependencies>
         <!-- Struts 2 Debugging: https://struts.apache.org/getting-started/debugging-struts.html -->
         <dependency>
-          <groupId>org.apache.struts</groupId><artifactId>struts2-config-browser-plugin</artifactId><version>6.8.0</version>
+          <groupId>org.apache.struts</groupId><artifactId>struts2-config-browser-plugin</artifactId><version>7.1.1</version>
           <scope>runtime</scope>
         </dependency>
         <!-- Own -devel package -->
@@ -1387,23 +1377,23 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>com.google.auth</groupId><artifactId>google-auth-library-credentials-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.auth</groupId><artifactId>google-auth-library-oauth2-http-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.cloud</groupId><artifactId>google-cloud-recaptchaenterprise-devel</artifactId> -->
-        <!-- No -devel: <groupId>com.sun.mail</groupId><artifactId>javax.mail-devel</artifactId> -->
-        <!-- No -devel: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api-devel</artifactId> -->
-        <!-- No -devel: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api-devel</artifactId> -->
-        <!-- No -devel: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api-devel</artifactId> -->
+        <!-- No -devel: <groupId>jakarta.mail</groupId><artifactId>jakarta.mail-api-devel</artifactId> -->
+        <!-- No -devel: <groupId>jakarta.servlet</groupId><artifactId>jakarta.servlet-api-devel</artifactId> -->
+        <!-- No -devel: <groupId>jakarta.servlet.jsp</groupId><artifactId>jakarta.servlet.jsp-api-devel</artifactId> -->
+        <!-- No -devel: <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-api-devel</artifactId> -->
+        <!-- No -devel: <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-client-api-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1-devel</artifactId> -->
         <dependency>
           <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib-devel</artifactId><version>2.0.0-SNAPSHOT</version>
           <scope>runtime</scope>
         </dependency>
-        <!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts-core-devel</artifactId> -->
-        <!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts-taglib-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.github.weblegacy</groupId><artifactId>struts-core-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.github.weblegacy</groupId><artifactId>struts-taglib-devel</artifactId> -->
         <!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin-devel</artifactId> -->
         <!-- No -devel: <groupId>org.apache.struts</groupId><artifactId>struts2-core-devel</artifactId> -->
         <!-- Transitive -->
-        <!-- No -devel: <groupId>javax.activation</groupId><artifactId>activation-devel</artifactId> -->
         <!-- No -devel: <groupId>org.codehaus.mojo</groupId><artifactId>animal-sniffer-annotations-devel</artifactId> -->
-        <!-- No -devel: <groupId>antlr</groupId><artifactId>antlr-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.antlr</groupId><artifactId>antlr4-runtime-devel</artifactId> -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-tempfiles-devel</artifactId> -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-tlds-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.api</groupId><artifactId>api-common-devel</artifactId> -->
@@ -1414,11 +1404,16 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine-devel</artifactId> -->
         <!-- No -devel: <groupId>org.checkerframework</groupId><artifactId>checker-qual-devel</artifactId> -->
         <!-- No -devel: <groupId>commons-beanutils</groupId><artifactId>commons-beanutils-devel</artifactId> -->
-        <!-- No -devel: <groupId>commons-chain</groupId><artifactId>commons-chain-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.github.weblegacy</groupId><artifactId>commons-chain-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.github.weblegacy</groupId><artifactId>commons-chain-web-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.github.weblegacy</groupId><artifactId>commons-chain-web-jakarta-devel</artifactId> -->
+        <!-- No -devel: <groupId>io.github.weblegacy</groupId><artifactId>commons-chain-web-jakarta-servlet-devel</artifactId> -->
         <!-- No -devel: <groupId>commons-codec</groupId><artifactId>commons-codec-devel</artifactId> -->
         <!-- No -devel: <groupId>commons-collections</groupId><artifactId>commons-collections-devel</artifactId> -->
         <!-- No -devel: <groupId>commons-digester</groupId><artifactId>commons-digester-devel</artifactId> -->
-        <!-- No -devel: <groupId>commons-fileupload</groupId><artifactId>commons-fileupload-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.apache.commons</groupId><artifactId>commons-fileupload2-core-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.apache.commons</groupId><artifactId>commons-fileupload2-jakarta-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.apache.commons</groupId><artifactId>commons-fileupload2-jakarta-servlet6-devel</artifactId> -->
         <!-- No -devel: <groupId>commons-io</groupId><artifactId>commons-io-devel</artifactId> -->
         <!-- No -devel: <groupId>org.apache.commons</groupId><artifactId>commons-lang3-devel</artifactId> -->
         <!-- No -devel: <groupId>commons-logging</groupId><artifactId>commons-logging-devel</artifactId> -->
@@ -1446,9 +1441,12 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>org.apache.httpcomponents</groupId><artifactId>httpclient-devel</artifactId> -->
         <!-- No -devel: <groupId>org.apache.httpcomponents</groupId><artifactId>httpcore-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.j2objc</groupId><artifactId>j2objc-annotations-devel</artifactId> -->
+        <!-- No -devel: <groupId>jakarta.activation</groupId><artifactId>jakarta.activation-api-devel</artifactId> -->
+        <!-- No -devel: <groupId>jakarta.el</groupId><artifactId>jakarta.el-api-devel</artifactId> -->
+        <!-- No -devel: <groupId>jakarta.servlet.jsp.jstl</groupId><artifactId>jakarta.servlet.jsp.jstl-api-devel</artifactId> -->
         <!-- No -devel: <groupId>org.javassist</groupId><artifactId>javassist-devel</artifactId> -->
         <!-- No -devel: <groupId>javax.annotation</groupId><artifactId>javax.annotation-api-devel</artifactId> -->
-        <!-- No -devel: <groupId>javax.el</groupId><artifactId>javax.el-api-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.slf4j</groupId><artifactId>jcl-over-slf4j-devel</artifactId> -->
         <!-- No -devel: <groupId>org.jspecify</groupId><artifactId>jspecify-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.code.findbugs</groupId><artifactId>jsr305-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.guava</groupId><artifactId>listenablefuture-devel</artifactId> -->
@@ -1456,22 +1454,22 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>ognl</groupId><artifactId>ognl-devel</artifactId> -->
         <!-- No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-api-devel</artifactId> -->
         <!-- No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-contrib-http-util-devel</artifactId> -->
-        <!-- No -devel: <groupId>oro</groupId><artifactId>oro-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1beta1-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-common-protos-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.protobuf</groupId><artifactId>protobuf-java-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.protobuf</groupId><artifactId>protobuf-java-util-devel</artifactId> -->
         <!-- No -devel: <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-model-devel</artifactId> -->
-        <!-- No -devel: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.slf4j</groupId><artifactId>slf4j-api-devel</artifactId> -->
         <!-- No -devel: <groupId>org.threeten</groupId><artifactId>threetenbp-devel</artifactId> -->
         <!-- Runtime Direct -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.glassfish.web</groupId><artifactId>jakarta.servlet.jsp.jstl-devel</artifactId> -->
         <!-- No -devel: <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core-devel</artifactId> -->
         <dependency>
           <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet-devel</artifactId><version>2.0.0-SNAPSHOT</version>
           <scope>runtime</scope>
         </dependency>
-        <!-- No -devel: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl-devel</artifactId> -->
+        <!-- No -devel: <groupId>org.slf4j</groupId><artifactId>slf4j-jdk14</artifactId> -->
         <!-- Runtime Transitive -->
         <!-- No -devel: <groupId>com.google.android</groupId><artifactId>annotations-devel</artifactId> -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-concurrent-devel</artifactId> -->
@@ -1484,7 +1482,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>io.perfmark</groupId><artifactId>perfmark-api-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.re2j</groupId><artifactId>re2j-devel</artifactId> -->
         <!-- Imports -->
-        <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom-devel</artifactId> -->
+        <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>jakartaee-web-profile-bom-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.cloud</groupId><artifactId>libraries-bom-devel</artifactId> -->
       </dependencies>
     </profile>
@@ -1537,17 +1535,10 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                 commons-digester-2.1.jar
                 gax-2.72.2.jar
                 google-cloud-recaptchaenterprise-3.78.0.jar
-                javax.el-api-3.0.0.jar
-                javax.servlet-api-3.1.0.jar
-                javax.servlet.jsp-api-2.3.3.jar
-                javax.websocket-api-1.1.jar
                 jsr305-3.0.2.jar
                 proto-google-cloud-recaptchaenterprise-v1-3.78.0.jar
-                struts-core-1.3.10.jar
-                struts-taglib-1.3.10.jar
-                struts2-convention-plugin-6.8.0.jar
-                struts2-core-6.8.0.jar
-                taglibs-standard-spec-1.2.5.jar
+                struts2-convention-plugin-7.1.1.jar
+                struts2-core-7.1.1.jar
               -->
               <archive>
                 <manifestEntries>
@@ -1666,18 +1657,22 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.auth</groupId><artifactId>google-auth-library-oauth2-http</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.cloud</groupId><artifactId>google-cloud-recaptchaenterprise</artifactId> -->
       <dependency>
-        <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId><version>1.6.2</version>
+        <groupId>jakarta.mail</groupId><artifactId>jakarta.mail-api</artifactId><version>2.1.5</version>
       </dependency>
       <dependency>
-        <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><version>3.1.0</version>
+        <groupId>jakarta.servlet</groupId><artifactId>jakarta.servlet-api</artifactId><version>6.0.0</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId><version>2.3.3</version>
+        <groupId>jakarta.servlet.jsp</groupId><artifactId>jakarta.servlet.jsp-api</artifactId><version>3.1.1</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId><version>1.1</version>
+        <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-api</artifactId><version>2.1.1</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-client-api</artifactId><version>2.1.1</version>
         <scope>provided</scope>
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1</artifactId> -->
@@ -1685,24 +1680,21 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><version>2.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
       <dependency>
-        <groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId><version>1.3.10</version>
+        <groupId>io.github.weblegacy</groupId><artifactId>struts-core</artifactId><version>1.5.0-RC2</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.struts</groupId><artifactId>struts-taglib</artifactId><version>1.3.10</version>
+        <groupId>io.github.weblegacy</groupId><artifactId>struts-taglib</artifactId><version>1.5.0-RC2</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId><version>6.8.0</version>
+        <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId><version>7.1.1</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId><version>6.8.0</version>
+        <groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId><version>7.1.1</version>
       </dependency>
       <!-- Transitive -->
-      <dependency>
-        <groupId>javax.activation</groupId><artifactId>activation</artifactId><version>1.1.1</version>
-      </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>org.codehaus.mojo</groupId><artifactId>animal-sniffer-annotations</artifactId> -->
       <dependency>
-        <groupId>antlr</groupId><artifactId>antlr</artifactId><version>2.7.7</version>
+        <groupId>org.antlr</groupId><artifactId>antlr4-runtime</artifactId><version>4.13.2</version>
       </dependency>
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-tempfiles</artifactId><version>3.1.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
@@ -1729,7 +1721,16 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>commons-beanutils</groupId><artifactId>commons-beanutils</artifactId><version>1.11.0</version>
       </dependency>
       <dependency>
-        <groupId>commons-chain</groupId><artifactId>commons-chain</artifactId><version>1.2</version>
+        <groupId>io.github.weblegacy</groupId><artifactId>commons-chain</artifactId><version>1.3.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.weblegacy</groupId><artifactId>commons-chain-web</artifactId><version>1.3.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.weblegacy</groupId><artifactId>commons-chain-web-jakarta</artifactId><version>1.3.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.weblegacy</groupId><artifactId>commons-chain-web-jakarta-servlet</artifactId><version>1.3.0</version>
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>commons-codec</groupId><artifactId>commons-codec</artifactId> -->
       <dependency>
@@ -1739,7 +1740,13 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>commons-digester</groupId><artifactId>commons-digester</artifactId><version>2.1</version>
       </dependency>
       <dependency>
-        <groupId>commons-fileupload</groupId><artifactId>commons-fileupload</artifactId><version>1.6.0</version>
+        <groupId>org.apache.commons</groupId><artifactId>commons-fileupload2-core</artifactId><version>2.0.0-M4</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId><artifactId>commons-fileupload2-jakarta</artifactId><version>2.0.0-M1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId><artifactId>commons-fileupload2-jakarta-servlet6</artifactId><version>2.0.0-M4</version>
       </dependency>
       <dependency>
         <groupId>commons-io</groupId><artifactId>commons-io</artifactId><version>2.21.0</version>
@@ -1781,12 +1788,19 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <!-- com.google.cloud:libraries-bom: <groupId>org.apache.httpcomponents</groupId><artifactId>httpcore</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.j2objc</groupId><artifactId>j2objc-annotations</artifactId> -->
       <dependency>
+        <groupId>jakarta.activation</groupId><artifactId>jakarta.activation-api</artifactId><version>2.1.4</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.el</groupId><artifactId>jakarta.el-api</artifactId><version>5.0.1</version>
+        <scope>provided</scope>
+      </dependency>
+      <!-- jakartaee-web-profile-bom: <groupId>jakarta.servlet.jsp.jstl</groupId><artifactId>jakarta.servlet.jsp.jstl-api</artifactId> -->
+      <dependency>
         <groupId>org.javassist</groupId><artifactId>javassist</artifactId><version>3.30.2-GA</version>
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>javax.annotation</groupId><artifactId>javax.annotation-api</artifactId> -->
       <dependency>
-        <groupId>javax.el</groupId><artifactId>javax.el-api</artifactId><version>3.0.0</version>
-        <scope>provided</scope>
+        <groupId>org.slf4j</groupId><artifactId>jcl-over-slf4j</artifactId><version>2.0.17</version>
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>org.jspecify</groupId><artifactId>jspecify</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId> -->
@@ -1799,9 +1813,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>io.opencensus</groupId><artifactId>opencensus-api</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.opencensus</groupId><artifactId>opencensus-contrib-http-util</artifactId> -->
-      <dependency>
-        <groupId>oro</groupId><artifactId>oro</artifactId><version>2.0.8</version>
-      </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1beta1</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-common-protos</artifactId> -->
       <dependency>
@@ -1813,19 +1824,24 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <dependency>
         <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-model</artifactId><version>2.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
-      <!-- javaee-web-api-bom: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec</artifactId> -->
+      <dependency>
+        <groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>2.0.17</version>
+      </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>org.threeten</groupId><artifactId>threetenbp</artifactId> -->
       <!-- Runtime Direct -->
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings</artifactId><version>2.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
+      <!-- jakartaee-web-profile-bom: <groupId>org.glassfish.web</groupId><artifactId>jakarta.servlet.jsp.jstl</artifactId> -->
       <dependency>
         <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId><version>2.25.3</version>
       </dependency>
       <dependency>
         <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet</artifactId><version>2.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
-      <!-- javaee-web-api-bom: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId> -->
+      <dependency>
+        <groupId>org.slf4j</groupId><artifactId>slf4j-jdk14</artifactId><version>2.0.17</version>
+      </dependency>
       <!-- Runtime Transitive -->
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.android</groupId><artifactId>annotations</artifactId> -->
       <dependency>
@@ -1843,7 +1859,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.re2j</groupId><artifactId>re2j</artifactId> -->
       <!-- Imports -->
       <dependency>
-        <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom</artifactId><version>7.0.1-POST-SNAPSHOT</version>
+        <groupId>com.aoapps</groupId><artifactId>jakartaee-web-profile-bom</artifactId><version>10.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -1957,16 +1973,19 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <groupId>com.google.cloud</groupId><artifactId>google-cloud-recaptchaenterprise</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId>
+      <groupId>jakarta.mail</groupId><artifactId>jakarta.mail-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId>
+      <groupId>jakarta.servlet</groupId><artifactId>jakarta.servlet-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId>
+      <groupId>jakarta.servlet.jsp</groupId><artifactId>jakarta.servlet.jsp-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId>
+      <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-client-api</artifactId>
     </dependency>
     <dependency>
       <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1</artifactId>
@@ -1975,10 +1994,10 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId>
+      <groupId>io.github.weblegacy</groupId><artifactId>struts-core</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.struts</groupId><artifactId>struts-taglib</artifactId>
+      <groupId>io.github.weblegacy</groupId><artifactId>struts-taglib</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId>
@@ -1993,6 +2012,10 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <scope>runtime</scope>
     </dependency>
     <dependency>
+      <groupId>org.glassfish.web</groupId><artifactId>jakarta.servlet.jsp.jstl</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
       <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId>
       <scope>runtime</scope>
     </dependency>
@@ -2001,7 +2024,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId>
+      <groupId>org.slf4j</groupId><artifactId>slf4j-jdk14</artifactId>
       <scope>runtime</scope>
     </dependency>
   </dependencies>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2020, 2021, 2022, 2023, 2024, 2025  AO Industries, Inc.
+Copyright (C) 2020, 2021, 2022, 2023, 2024, 2025, 2026  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -28,15 +28,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
   xsi:schemaLocation="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0 https://www.mojohaus.org/versions-maven-plugin/xsd/rule-2.0.0.xsd"
 >
   <rules>
-    <rule groupId="antlr" artifactId="antlr" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- Skip old YYYYMMDD versions -->
-        <ignoreVersion type="regex">[0-9]{8}.*</ignoreVersion>
-      </ignoreVersions>
-    </rule>
     <rule groupId="com.github.ben-manes.caffeine" artifactId="caffeine" comparisonMethod="maven">
       <ignoreVersions>
-        <!-- TODO: When updating new than struts2-6.8.0 make sure this is correct to still ignore -->
+        <!-- TODO: When updating new than struts2-7.1.1 make sure this is correct to still ignore -->
         <ignoreVersion type="regex">3\.[0-9]+\.[0-9]+</ignoreVersion>
       </ignoreVersions>
     </rule>
@@ -51,6 +45,34 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <ignoreVersion type="regex">.*-M[0-9]+</ignoreVersion>
       </ignoreVersions>
     </rule>
+    <rule groupId="jakarta.activation" artifactId="jakarta.activation-api" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="regex">.*-M[0-9]+</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="jakarta.mail" artifactId="jakarta.mail-api" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="regex">.*-M[0-9]+</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="org.slf4j" artifactId="jcl-over-slf4j" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="regex">.*-alpha[0-9]*</ignoreVersion>
+        <ignoreVersion type="regex">.*-beta[0-9]*</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="org.slf4j" artifactId="slf4j-api" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="regex">.*-alpha[0-9]*</ignoreVersion>
+        <ignoreVersion type="regex">.*-beta[0-9]*</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="org.slf4j" artifactId="slf4j-jdk14" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="regex">.*-alpha[0-9]*</ignoreVersion>
+        <ignoreVersion type="regex">.*-beta[0-9]*</ignoreVersion>
+      </ignoreVersions>
+    </rule>
     <rule groupId="com.stripe" artifactId="stripe-java" comparisonMethod="maven">
       <ignoreVersions>
         <ignoreVersion type="regex">.*-(alpha|beta)\.[0-9]+</ignoreVersion>
@@ -59,7 +81,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <rule groupId="ognl" comparisonMethod="ognl">
       <ignoreVersions>
         <ignoreVersion type="regex">.*-BETA[0-9]+</ignoreVersion>
-        <!-- TODO: Staying on ognl-3.3.5 for struts2-6.8.0 -->
+        <!-- TODO: Staying on ognl-3.3.5 for struts2-7.1.1 -->
         <ignoreVersion type="regex">3\.4\.[0-9]+</ignoreVersion>
       </ignoreVersions>
     </rule>
@@ -67,18 +89,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <ignoreVersions>
         <ignoreVersion type="regex">.*-(alpha|beta)[0-9]*</ignoreVersion>
       </ignoreVersions>
-    </rule>
-    <!--
-      struts2-7.* is for Jakarta EE, not Java EE.  Stay on 6.* until we're moving to Jakarta EE.
-    -->
-    <rule groupId="org.apache.struts" artifactId="struts2-config-browser-plugin" comparisonMethod="maven">
-      <ignoreVersions><ignoreVersion type="regex">7\..*</ignoreVersion></ignoreVersions>
-    </rule>
-    <rule groupId="org.apache.struts" artifactId="struts2-convention-plugin" comparisonMethod="maven">
-      <ignoreVersions><ignoreVersion type="regex">7\..*</ignoreVersion></ignoreVersions>
-    </rule>
-    <rule groupId="org.apache.struts" artifactId="struts2-core" comparisonMethod="maven">
-      <ignoreVersions><ignoreVersion type="regex">7\..*</ignoreVersion></ignoreVersions>
     </rule>
     <!--
       Begin versions provided by com.google.cloud:libraries-bom.

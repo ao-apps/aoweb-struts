@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2021, 2022, 2023, 2024, 2025  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2023, 2024, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -75,20 +75,20 @@ def upstreamProjects = [
   // No -devel: <groupId>com.google.auth</groupId><artifactId>google-auth-library-credentials-devel</artifactId>
   // No -devel: <groupId>com.google.auth</groupId><artifactId>google-auth-library-oauth2-http-devel</artifactId>
   // No -devel: <groupId>com.google.cloud</groupId><artifactId>google-cloud-recaptchaenterprise-devel</artifactId>
-  // No -devel: <groupId>com.sun.mail</groupId><artifactId>javax.mail-devel</artifactId>
-  // No -devel: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api-devel</artifactId>
-  // No -devel: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api-devel</artifactId>
-  // No -devel: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api-devel</artifactId>
+  // No -devel: <groupId>jakarta.mail</groupId><artifactId>jakarta.mail-api-devel</artifactId>
+  // No -devel: <groupId>jakarta.servlet</groupId><artifactId>jakarta.servlet-api-devel</artifactId>
+  // No -devel: <groupId>jakarta.servlet.jsp</groupId><artifactId>jakarta.servlet.jsp-api-devel</artifactId>
+  // No -devel: <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-api-devel</artifactId>
+  // No -devel: <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-client-api-devel</artifactId>
   // No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1-devel</artifactId>
   'semanticcms-2.x/core/taglib-devel', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib-devel</artifactId>
-  // No -devel: <groupId>org.apache.struts</groupId><artifactId>struts-core-devel</artifactId>
-  // No -devel: <groupId>org.apache.struts</groupId><artifactId>struts-taglib-devel</artifactId>
+  // No -devel: <groupId>io.github.weblegacy</groupId><artifactId>struts-core-devel</artifactId>
+  // No -devel: <groupId>io.github.weblegacy</groupId><artifactId>struts-taglib-devel</artifactId>
   // No -devel: <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin-devel</artifactId>
   // No -devel: <groupId>org.apache.struts</groupId><artifactId>struts2-core-devel</artifactId>
   // Transitive
-  // No -devel: <groupId>javax.activation</groupId><artifactId>activation-devel</artifactId>
   // No -devel: <groupId>org.codehaus.mojo</groupId><artifactId>animal-sniffer-annotations-devel</artifactId>
-  // No -devel: <groupId>antlr</groupId><artifactId>antlr-devel</artifactId>
+  // No -devel: <groupId>org.antlr</groupId><artifactId>antlr4-runtime-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-tempfiles-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-tlds-devel</artifactId>
   // No -devel: <groupId>com.google.api</groupId><artifactId>api-common-devel</artifactId>
@@ -99,11 +99,16 @@ def upstreamProjects = [
   // No -devel: <groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine-devel</artifactId>
   // No -devel: <groupId>org.checkerframework</groupId><artifactId>checker-qual-devel</artifactId>
   // No -devel: <groupId>commons-beanutils</groupId><artifactId>commons-beanutils-devel</artifactId>
-  // No -devel: <groupId>commons-chain</groupId><artifactId>commons-chain-devel</artifactId>
+  // No -devel: <groupId>io.github.weblegacy</groupId><artifactId>commons-chain-devel</artifactId>
+  // No -devel: <groupId>io.github.weblegacy</groupId><artifactId>commons-chain-web-devel</artifactId>
+  // No -devel: <groupId>io.github.weblegacy</groupId><artifactId>commons-chain-web-jakarta-devel</artifactId>
+  // No -devel: <groupId>io.github.weblegacy</groupId><artifactId>commons-chain-web-jakarta-servlet-devel</artifactId>
   // No -devel: <groupId>commons-codec</groupId><artifactId>commons-codec-devel</artifactId>
   // No -devel: <groupId>commons-collections</groupId><artifactId>commons-collections-devel</artifactId>
   // No -devel: <groupId>commons-digester</groupId><artifactId>commons-digester-devel</artifactId>
-  // No -devel: <groupId>commons-fileupload</groupId><artifactId>commons-fileupload-devel</artifactId>
+  // No -devel: <groupId>org.apache.commons</groupId><artifactId>commons-fileupload2-core-devel</artifactId>
+  // No -devel: <groupId>org.apache.commons</groupId><artifactId>commons-fileupload2-jakarta-devel</artifactId>
+  // No -devel: <groupId>org.apache.commons</groupId><artifactId>commons-fileupload2-jakarta-servlet6-devel</artifactId>
   // No -devel: <groupId>commons-io</groupId><artifactId>commons-io-devel</artifactId>
   // No -devel: <groupId>org.apache.commons</groupId><artifactId>commons-lang3-devel</artifactId>
   // No -devel: <groupId>commons-logging</groupId><artifactId>commons-logging-devel</artifactId>
@@ -131,28 +136,30 @@ def upstreamProjects = [
   // No -devel: <groupId>org.apache.httpcomponents</groupId><artifactId>httpclient-devel</artifactId>
   // No -devel: <groupId>org.apache.httpcomponents</groupId><artifactId>httpcore-devel</artifactId>
   // No -devel: <groupId>com.google.j2objc</groupId><artifactId>j2objc-annotations-devel</artifactId>
+  // No -devel: <groupId>jakarta.activation</groupId><artifactId>jakarta.activation-api-devel</artifactId>
+  // No -devel: <groupId>jakarta.el</groupId><artifactId>jakarta.el-api-devel</artifactId>
+  // No -devel: <groupId>jakarta.servlet.jsp.jstl</groupId><artifactId>jakarta.servlet.jsp.jstl-api-devel</artifactId>
   // No -devel: <groupId>org.javassist</groupId><artifactId>javassist-devel</artifactId>
   // No -devel: <groupId>javax.annotation</groupId><artifactId>javax.annotation-api-devel</artifactId>
-  // No -devel: <groupId>javax.el</groupId><artifactId>javax.el-api-devel</artifactId>
+  // No -devel: <groupId>org.slf4j</groupId><artifactId>jcl-over-slf4j-devel</artifactId>
   // No -devel: <groupId>com.google.code.findbugs</groupId><artifactId>jsr305-devel</artifactId>
   // No -devel: <groupId>com.google.guava</groupId><artifactId>listenablefuture-devel</artifactId>
   // No -devel: <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api-devel</artifactId>
   // No -devel: <groupId>ognl</groupId><artifactId>ognl-devel</artifactId>
   // No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-api-devel</artifactId>
   // No -devel: <groupId>io.opencensus</groupId><artifactId>opencensus-contrib-http-util-devel</artifactId>
-  // No -devel: <groupId>oro</groupId><artifactId>oro-devel</artifactId>
   // No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1beta1-devel</artifactId>
   // No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-common-protos-devel</artifactId>
   // No -devel: <groupId>com.google.protobuf</groupId><artifactId>protobuf-java-devel</artifactId>
   // No -devel: <groupId>com.google.protobuf</groupId><artifactId>protobuf-java-util-devel</artifactId>
   // No -devel: <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-model-devel</artifactId>
-  // No -devel: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec-devel</artifactId>
+  // No -devel: <groupId>org.slf4j</groupId><artifactId>slf4j-api-devel</artifactId>
   // No -devel: <groupId>org.threeten</groupId><artifactId>threetenbp-devel</artifactId>
   // Runtime Direct
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings-devel</artifactId>
+  // No -devel: <groupId>org.glassfish.web</groupId><artifactId>jakarta.servlet.jsp.jstl-devel</artifactId>
   // No -devel: <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core-devel</artifactId>
   'semanticcms-2.x/core/servlet-devel', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet-devel</artifactId>
-  // No -devel: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl-devel</artifactId>
   // Runtime Transitive
   // No -devel: <groupId>com.google.android</groupId><artifactId>annotations-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-concurrent-devel</artifactId>
@@ -165,7 +172,7 @@ def upstreamProjects = [
   // No -devel: <groupId>io.perfmark</groupId><artifactId>perfmark-api-devel</artifactId>
   // No -devel: <groupId>com.google.re2j</groupId><artifactId>re2j-devel</artifactId>
   // Imports
-  // No -devel: <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>jakartaee-web-profile-devel</artifactId>
   // No -devel: <groupId>com.google.cloud</groupId><artifactId>libraries-bom-devel</artifactId>
 
   // Direct
@@ -202,25 +209,26 @@ def upstreamProjects = [
   // No Jenkins: <groupId>com.google.auth</groupId><artifactId>google-auth-library-credentials</artifactId>
   // No Jenkins: <groupId>com.google.auth</groupId><artifactId>google-auth-library-oauth2-http</artifactId>
   // No Jenkins: <groupId>com.google.cloud</groupId><artifactId>google-cloud-recaptchaenterprise</artifactId>
-  // No Jenkins: <groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId>
-  // No Jenkins: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId>
-  // No Jenkins: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId>
-  // No Jenkins: <groupId>javax.websocket</groupId><artifactId>javax.websocket-api</artifactId>
+  // No Jenkins: <groupId>jakarta.mail</groupId><artifactId>jakarta.mail-api</artifactId>
+  // No Jenkins: <groupId>jakarta.servlet</groupId><artifactId>jakarta.servlet-api</artifactId>
+  // No Jenkins: <groupId>jakarta.servlet.jsp</groupId><artifactId>jakarta.servlet.jsp-api</artifactId>
+  // No Jenkins: <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-api</artifactId>
+  // No Jenkins: <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-client-api</artifactId>
   // No Jenkins: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1</artifactId>
   'semanticcms-2.x/core/taglib', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId>
-  // No Jenkins: <groupId>org.apache.struts</groupId><artifactId>struts-core</artifactId>
-  // No Jenkins: <groupId>org.apache.struts</groupId><artifactId>struts-taglib</artifactId>
+  // No Jenkins: <groupId>io.github.weblegacy</groupId><artifactId>struts-core</artifactId>
+  // No Jenkins: <groupId>io.github.weblegacy</groupId><artifactId>struts-taglib</artifactId>
   // No Jenkins: <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId>
   // No Jenkins: <groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId>
 
   // Runtime Direct
   'oss/mime-mappings', // <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings</artifactId>
+  // No Jenkins: <groupId>org.glassfish.web</groupId><artifactId>jakarta.servlet.jsp.jstl</artifactId>
   // No Jenkins: <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId>
   'semanticcms-2.x/core/servlet', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet</artifactId>
-  // No Jenkins: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId>
 
   // BOM
-  'oss/javaee-web-api-bom', // <groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom</artifactId>
+  'oss/jakartaee-web-profile-bom', // <groupId>com.aoapps</groupId><artifactId>jakartaee-web-profile-bom</artifactId>
 ]
 
 // Java 17

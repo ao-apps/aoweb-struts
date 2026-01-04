@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2023, 2024  AO Industries, Inc.
+ * Copyright (C) 2023, 2024, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -28,11 +28,11 @@ import com.google.api.gax.core.FixedCredentialsProvider;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseServiceSettings;
 import com.google.recaptchaenterprise.v1.ProjectName;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 
 /**
  * Consolidates access to reCAPTCHA services.
@@ -105,7 +105,7 @@ public final class ReCaptcha {
   }
 
   /**
-   * Builds the settings with credentials obtained from {@link #getGoogleCredentialsJson(javax.servlet.ServletContext)}.
+   * Builds the settings with credentials obtained from {@link #getGoogleCredentialsJson(jakarta.servlet.ServletContext)}.
    *
    * <p>See <a href="https://stackoverflow.com/a/65106296/7121505">How to point GOOGLE_APPLICATION_CREDENTIALS to my JSON file? - Stack Overflow</a>.</p>
    */

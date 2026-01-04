@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2013, 2016, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2013, 2016, 2020, 2021, 2022, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -26,10 +26,10 @@ package com.aoindustries.web.struts.skintags;
 import com.aoapps.encoding.MediaType;
 import com.aoapps.encoding.taglib.EncodingBufferedTag;
 import com.aoapps.io.buffer.BufferResult;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.PageContext;
 import java.io.IOException;
 import java.io.Writer;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 
 /**
  * Sets the copyright for the page.

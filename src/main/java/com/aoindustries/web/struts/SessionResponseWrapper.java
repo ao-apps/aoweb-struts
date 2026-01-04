@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2016, 2019, 2020, 2021, 2022, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -36,6 +36,11 @@ import com.aoapps.servlet.http.Canonical;
 import com.aoapps.servlet.http.HttpServletUtil;
 import com.aoapps.tempfiles.servlet.TempFileContextEE;
 import com.aoapps.web.resources.servlet.RegistryEE;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponseWrapper;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.jsp.JspException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Enumeration;
@@ -43,11 +48,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspException;
 
 /**
  * @author  AO Industries, Inc.
@@ -157,21 +157,9 @@ public class SessionResponseWrapper extends HttpServletResponseWrapper {
     }
   }
 
-  @Deprecated(forRemoval = false)
-  @Override
-  public String encodeUrl(String url) {
-    return encode(url, false);
-  }
-
   @Override
   public String encodeURL(String url) {
     return encode(url, false);
-  }
-
-  @Deprecated(forRemoval = false)
-  @Override
-  public String encodeRedirectUrl(String url) {
-    return encode(url, true);
   }
 
   @Override

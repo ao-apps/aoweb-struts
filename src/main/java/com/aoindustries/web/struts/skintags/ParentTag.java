@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
+ * Copyright (C) 2007-2009, 2015, 2016, 2019, 2020, 2021, 2022, 2023, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -24,14 +24,14 @@
 package com.aoindustries.web.struts.skintags;
 
 import com.aoapps.servlet.attribute.ScopeEE;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.jsp.JspException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
-import javax.servlet.ServletRequest;
-import javax.servlet.jsp.JspException;
 
 /**
  * Adds a parent to the hierarchy above this page.

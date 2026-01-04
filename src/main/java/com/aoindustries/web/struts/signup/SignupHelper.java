@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2009, 2016, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2009, 2016, 2020, 2021, 2022, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -24,8 +24,8 @@
 package com.aoindustries.web.struts.signup;
 
 import com.aoapps.servlet.attribute.ScopeEE;
+import jakarta.servlet.http.HttpSession;
 import java.util.function.Supplier;
-import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionServlet;
 
