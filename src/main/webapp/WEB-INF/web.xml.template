@@ -280,6 +280,10 @@ web.xml.servletMappingsPost   Servlet mappings placed after the Struts mappings
     <location>/WEB-INF/content/exception.jsp</location>
   </error-page>
   <error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/WEB-INF/content/exception.jsp</location>
+  </error-page>
+  <error-page>
     <location>/WEB-INF/content/exception.jsp</location>
   </error-page>
 
