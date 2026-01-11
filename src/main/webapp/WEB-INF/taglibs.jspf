@@ -20,7 +20,7 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 --%><%@ page language="java" pageEncoding="UTF-8"
-%><%-- JSTL 1.2
+%><%-- JSTL
 --%><%@ taglib prefix="c" uri="jakarta.tags.core"
 %><%@ taglib prefix="x" uri="jakarta.tags.xml"
 %><%@ taglib prefix="fmt" uri="jakarta.tags.fmt"
