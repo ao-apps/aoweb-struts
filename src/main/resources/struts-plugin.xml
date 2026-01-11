@@ -37,6 +37,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
   <!-- Default is 256 as of struts2-6.0.0 -->
   <constant name="struts.ognl.expressionMaxLength" value="100" />
   <constant name="struts.allowlist.enable" value="true" /><!-- On by default in Struts 7 -->
+  <!-- The list of specific packages to allow.  Each branded site will add to this list -->
   <constant name="struts.allowlist.packageNames" value="com.aoindustries.web.struts." />
   <constant name="struts.ognl.excludedNodeTypes" value="
     ognl.ASTAdd,
