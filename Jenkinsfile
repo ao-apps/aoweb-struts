@@ -160,6 +160,7 @@ def upstreamProjects = [
   // No -devel: <groupId>org.glassfish.web</groupId><artifactId>jakarta.servlet.jsp.jstl-devel</artifactId>
   // No -devel: <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core-devel</artifactId>
   'semanticcms-2.x/core/servlet-devel', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet-devel</artifactId>
+  // No -devel: <groupId>org.slf4j</groupId><artifactId>slf4j-jdk14-devel</artifactId>
   // Runtime Transitive
   // No -devel: <groupId>org.eclipse.angus</groupId><artifactId>angus-activation-devel</artifactId>
   // No -devel: <groupId>com.google.android</groupId><artifactId>annotations-devel</artifactId>
