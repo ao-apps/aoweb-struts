@@ -30,6 +30,7 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.struts2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.interceptor.parameter.StrutsParameter;
 
 /**
  * @author  AO Industries, Inc.
@@ -40,6 +41,7 @@ public class LogoutAction extends ActionSupport {
 
   private String target;
 
+  @StrutsParameter
   public void setTarget(String target) {
     this.target = target;
   }
