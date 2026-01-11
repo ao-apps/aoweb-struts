@@ -161,6 +161,7 @@ def upstreamProjects = [
   // No -devel: <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core-devel</artifactId>
   'semanticcms-2.x/core/servlet-devel', // <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-servlet-devel</artifactId>
   // Runtime Transitive
+  // No -devel: <groupId>org.eclipse.angus</groupId><artifactId>angus-activation-devel</artifactId>
   // No -devel: <groupId>com.google.android</groupId><artifactId>annotations-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-concurrent-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-subrequest-devel</artifactId>

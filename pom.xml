@@ -1425,6 +1425,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>org.slf4j</groupId><artifactId>slf4j-api-devel</artifactId> -->
         <!-- No -devel: <groupId>org.threeten</groupId><artifactId>threetenbp-devel</artifactId> -->
         <!-- Runtime Direct -->
+        <!-- No -devel: <groupId>org.eclipse.angus</groupId><artifactId>angus-mail-devel</artifactId> -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings-devel</artifactId> -->
         <!-- No -devel: <groupId>org.glassfish.web</groupId><artifactId>jakarta.servlet.jsp.jstl-devel</artifactId> -->
         <!-- No -devel: <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core-devel</artifactId> -->
@@ -1434,6 +1435,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         </dependency>
         <!-- No -devel: <groupId>org.slf4j</groupId><artifactId>slf4j-jdk14</artifactId> -->
         <!-- Runtime Transitive -->
+        <!-- No -devel: <groupId>org.eclipse.angus</groupId><artifactId>angus-activation-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.android</groupId><artifactId>annotations-devel</artifactId> -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-concurrent-devel</artifactId> -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-subrequest-devel</artifactId> -->
@@ -1793,6 +1795,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <!-- com.google.cloud:libraries-bom: <groupId>org.threeten</groupId><artifactId>threetenbp</artifactId> -->
       <!-- Runtime Direct -->
       <dependency>
+        <groupId>org.eclipse.angus</groupId><artifactId>angus-mail</artifactId><version>2.0.5</version>
+      </dependency>
+      <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings</artifactId><version>2.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
       <!-- jakartaee-web-profile-bom: <groupId>org.glassfish.web</groupId><artifactId>jakarta.servlet.jsp.jstl</artifactId> -->
@@ -1806,6 +1811,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>org.slf4j</groupId><artifactId>slf4j-jdk14</artifactId><version>2.0.17</version>
       </dependency>
       <!-- Runtime Transitive -->
+      <dependency>
+        <groupId>org.eclipse.angus</groupId><artifactId>angus-activation</artifactId><version>2.0.3</version>
+      </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.android</groupId><artifactId>annotations</artifactId> -->
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-concurrent</artifactId><version>4.1.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
@@ -1969,6 +1977,10 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId>
     </dependency>
     <!-- Runtime Direct -->
+    <dependency>
+      <groupId>org.eclipse.angus</groupId><artifactId>angus-mail</artifactId>
+      <scope>runtime</scope>
+    </dependency>
     <dependency>
       <!-- Required for UTF-8 static resources -->
       <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings</artifactId>

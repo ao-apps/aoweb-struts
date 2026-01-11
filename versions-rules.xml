@@ -50,7 +50,17 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <ignoreVersion type="regex">.*-M[0-9]+</ignoreVersion>
       </ignoreVersions>
     </rule>
+    <rule groupId="org.eclipse.angus" artifactId="angus-activation" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="regex">.*-M[0-9]+</ignoreVersion>
+      </ignoreVersions>
+    </rule>
     <rule groupId="jakarta.mail" artifactId="jakarta.mail-api" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="regex">.*-M[0-9]+</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="org.eclipse.angus" artifactId="angus-mail" comparisonMethod="maven">
       <ignoreVersions>
         <ignoreVersion type="regex">.*-M[0-9]+</ignoreVersion>
       </ignoreVersions>
