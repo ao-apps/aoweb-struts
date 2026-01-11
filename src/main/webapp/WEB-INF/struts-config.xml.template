@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2009, 2016, 2021, 2022  AO Industries, Inc.
+Copyright (C) 2009, 2016, 2021, 2022, 2026  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -50,7 +50,7 @@ struts-config.xml.messageResources    Additional message resources
   <!-- ========== Global Forward Definitions ============================== -->
   <global-forwards>
     <!-- / -->
-    <forward name="exception" path="/WEB-INF/content/exception.jspf" redirect="false" />
+    <forward name="exception" path="/WEB-INF/content/exception.jsp" redirect="false" />
     <forward name="login" path="/login.do" redirect="false" />
     <forward name="permission-denied" path="/permission-denied.do" redirect="false" />
   </global-forwards>
