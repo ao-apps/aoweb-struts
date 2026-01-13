@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2025  AO Industries, Inc.
+Copyright (C) 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2025, 2026  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -34,7 +34,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     title="@{documented.name}"
     description="@{documented.description}"
     datePublished="2016-10-17T00:09:00-05:00"
-    dateModified="2025-07-02T23:05:45Z"
+    dateModified="2026-01-13T07:54:24Z"
   >
     <core:child page="changelog.jspx" />
     <core:child page="aoweb-struts-aoweb.tld/" />
@@ -43,9 +43,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <header>
       <ao:include
         page="/ao-badges/badges.inc.jspx"
-        arg.projectStatus="current-stable"
-        arg.managementStatus="production"
-        arg.packagingStatus="active"
+        arg.projectStatus="end-of-life"
+        arg.managementStatus="cleanup"
+        arg.packagingStatus="unsupported"
         arg.javaseVersion="@{documented.javase.version}"
         arg.javaeeVersion="@{documented.javaee.version}"
         arg.semanticVersioning="2.0.0"
