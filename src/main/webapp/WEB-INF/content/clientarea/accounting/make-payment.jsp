@@ -1,6 +1,6 @@
 <%--
 aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
-Copyright (C) 2007-2009, 2016, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
+Copyright (C) 2007-2009, 2016, 2018, 2019, 2020, 2021, 2022, 2026  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -49,9 +49,12 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                 <skin:lightDarkTableRow>
                   <td style="white-space:nowrap"><ao:out value="${account.name}" /></td>
                   <td style="white-space:nowrap;text-align:right">
-                    <c:forEach var="monthlyRate" items="${account.monthlyRate.values}">
-                      <div><ao:out value="${monthlyRate}" /></div>
-                    </c:forEach>
+                    <%-- TODO: Filter within aoserv-client --%>
+                    <c:if test="${account.canSeePrices()}">
+                      <c:forEach var="monthlyRate" items="${account.monthlyRate.values}">
+                        <div><ao:out value="${monthlyRate}" /></div>
+                      </c:forEach>
+                    </c:if>
                   </td>
                   <td style="white-space:nowrap;text-align:right">
                     <c:forEach var="balance" items="${entry.value.values}">

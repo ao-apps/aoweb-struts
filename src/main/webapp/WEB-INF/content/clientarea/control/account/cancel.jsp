@@ -103,29 +103,32 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                                 </td>
                                 <td style="text-align:right; white-space:nowrap">
                                   <%-- TODO: Filter within aoserv-client --%>
-                                  <% Monies totalMonthlyRate = account.canSeePrices() ? account.getMonthlyRate() : null; %>
-                                  <% if (totalMonthlyRate != null) { %>
-                                    <% for (Money monthlyRate : totalMonthlyRate) { %>
-                                      <div>
-                                        <ao:message key="cancel.field.totalMonthlyRate" arg0="<%= monthlyRate %>" />
-                                      </div>
+                                  <% if (account.canSeePrices()) { %>
+                                    <% Monies totalMonthlyRate = account.getMonthlyRate(); %>
+                                    <% if (totalMonthlyRate != null) { %>
+                                      <% for (Money monthlyRate : totalMonthlyRate) { %>
+                                        <div>
+                                          <ao:message key="cancel.field.totalMonthlyRate" arg0="<%= monthlyRate %>" />
+                                        </div>
+                                      <% } %>
                                     <% } %>
                                   <% } %>
                                 </td>
                                 <td style="text-align:right; white-space:nowrap">
                                   <%-- TODO: Filter within aoserv-client --%>
-                                  <% Monies billingMonthlyRate = account.canSeePrices() ? account.getBillingMonthlyRate() : null; %>
-                                  <% if (billingMonthlyRate != null && !billingMonthlyRate.isEmpty()) { %>
-                                    <% for (Money monthlyRate : billingMonthlyRate) { %>
-                                      <div>
-                                        <ao:message key="cancel.field.totalMonthlyRate" arg0="<%= monthlyRate %>" />
-                                      </div>
-                                    <% } %>
-                                  <% } else { %>
-                                    <%-- TODO: Filter within aoserv-client --%>
-                                    <% Account billingAccount = account.canSeePrices() ? account.getBillingAccount() : null; %>
-                                    <% if (!account.equals(billingAccount)) { %>
-                                      <div><ao:out value="<%= billingAccount %>" /></div>
+                                  <% if (account.canSeePrices()) { %>
+                                    <% Monies billingMonthlyRate = account.getBillingMonthlyRate(); %>
+                                    <% if (billingMonthlyRate != null && !billingMonthlyRate.isEmpty()) { %>
+                                      <% for (Money monthlyRate : billingMonthlyRate) { %>
+                                        <div>
+                                          <ao:message key="cancel.field.totalMonthlyRate" arg0="<%= monthlyRate %>" />
+                                        </div>
+                                      <% } %>
+                                    <% } else { %>
+                                      <% Account billingAccount = account.getBillingAccount(); %>
+                                      <% if (!account.equals(billingAccount)) { %>
+                                        <div><ao:out value="<%= billingAccount %>" /></div>
+                                      <% } %>
                                     <% } %>
                                   <% } %>
                                 </td>
