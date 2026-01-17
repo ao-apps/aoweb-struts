@@ -52,6 +52,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <li><a target="${javadoc.target}" href="${project.url}aoweb-struts-aoweb.tld/">AOWeb Taglib Reference</a></li>
       <li><a target="${javadoc.target}" href="${project.url}aoweb-struts-skin.tld/">Skin Taglib Reference</a></li>
     ]]></javadoc.taglibReference>
+    <!-- Java 17 -->
+    <documented.javase.version>17</documented.javase.version>
+    <documented.javadoc.link.javase>${javadoc.link.javase.17}</documented.javadoc.link.javase>
     <!-- Jakarta EE 10 -->
     <documented.javaee.version>10</documented.javaee.version>
     <documented.javadoc.link.javaee>${javadoc.link.jakartaee.10}</documented.javadoc.link.javaee>
