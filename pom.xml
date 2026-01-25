@@ -63,9 +63,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <log4j2.struts2.level>warn</log4j2.struts2.level>
     <log4j2.xwork2.level>warn</log4j2.xwork2.level>
     <log4j2.root.level>info</log4j2.root.level>
-
-    <!-- Plugins -->
-    <org.codehaus.gmaven.groovy-maven-plugin.version>2.1.1</org.codehaus.gmaven.groovy-maven-plugin.version>
   </properties>
 
   <name>AOWeb Struts</name>
