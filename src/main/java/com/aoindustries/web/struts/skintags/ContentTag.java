@@ -143,7 +143,7 @@ public class ContentTag extends PageAttributesBodyTag {
   /**
    * Gets the {@link ContentEE} that was returned from {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, com.aoindustries.web.struts.skintags.PageAttributes, int[], java.lang.String)}.
    *
-   * @throws IllegalStateException when not inside {@link #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)} and no content set
+   * @throws IllegalStateException when not inside {@link ContentTag#doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)} and no content set
    */
   ContentEE<?> getContent() throws IllegalStateException {
     if (content == null) {

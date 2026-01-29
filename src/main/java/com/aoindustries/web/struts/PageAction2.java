@@ -42,7 +42,7 @@ public abstract class PageAction2 extends ActionSupport {
 
   /**
    * Creates the page-scope registry, if not already present, then invokes
-   * {@link #execute(com.aoapps.web.resources.registry.Registry)}.
+   * {@link PageAction2#execute(com.aoapps.web.resources.registry.Registry)}.
    * The registry if left on the request to be available to any forwarding target.
    */
   @Override

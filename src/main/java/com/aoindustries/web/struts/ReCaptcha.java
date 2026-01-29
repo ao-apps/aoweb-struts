@@ -105,7 +105,7 @@ public final class ReCaptcha {
   }
 
   /**
-   * Builds the settings with credentials obtained from {@link #getGoogleCredentialsJson(jakarta.servlet.ServletContext)}.
+   * Builds the settings with credentials obtained from {@link ReCaptcha#getGoogleCredentialsJson(jakarta.servlet.ServletContext)}.
    *
    * <p>See <a href="https://stackoverflow.com/a/65106296/7121505">How to point GOOGLE_APPLICATION_CREDENTIALS to my JSON file? - Stack Overflow</a>.</p>
    */

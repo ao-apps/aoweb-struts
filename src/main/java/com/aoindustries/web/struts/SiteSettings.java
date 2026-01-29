@@ -124,7 +124,7 @@ public class SiteSettings {
   /**
    * Gets the username for the root AoservConnector.
    *
-   * @see #getRootAoservConnector()
+   * @see SiteSettings#getRootAoservConnector()
    */
   protected User.Name getRootAoservConnectorUsername() {
     try {
@@ -137,7 +137,7 @@ public class SiteSettings {
   /**
    * Gets the password for the root AoservConnector.
    *
-   * @see #getRootAoservConnector()
+   * @see SiteSettings#getRootAoservConnector()
    */
   protected String getRootAoservConnectorPassword() {
     return servletContext.getInitParameter("root.aoserv.client.password");

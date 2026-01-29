@@ -156,7 +156,7 @@ public class ContentLineTag extends BodyTagSupport {
   /**
    * Gets the {@link FlowContent} that was returned from {@link Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)}.
    *
-   * @throws IllegalStateException when not inside {@link #doStartTag()} and no content set
+   * @throws IllegalStateException when not inside {@link ContentLineTag#doStartTag()} and no content set
    */
   @SuppressWarnings("unchecked")
   <__ extends FlowContent<__>> __ getContentLine() throws IllegalStateException {
@@ -170,7 +170,7 @@ public class ContentLineTag extends BodyTagSupport {
    * Called from {@link ContentVerticalDividerTag} when the current content line is replaced by
    * {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.DocumentEE, boolean, int, int, java.lang.String, java.lang.String)}.
    *
-   * @throws IllegalStateException when not inside {@link #doStartTag()} and no content set
+   * @throws IllegalStateException when not inside {@link ContentLineTag#doStartTag()} and no content set
    */
   void setContentLine(FlowContent<?> contentLine) throws IllegalStateException {
     if (this.contentLine == null) {

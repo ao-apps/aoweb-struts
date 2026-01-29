@@ -43,14 +43,14 @@ public final class Constants {
   }
 
   /**
-   * The session key that stores when a {@link #SU} has been requested.
+   * The session key that stores when a {@link Constants#SU} has been requested.
    */
   public static final ScopeEE.Session.Attribute<String> SU_REQUESTED =
       ScopeEE.SESSION.attribute("suRequested");
 
   /**
    * The session key used to store the effective <code>AoservConnector</code> when the user has successfully authenticated.
-   * Any {@link #SU} can change this.
+   * Any {@link Constants#SU} can change this.
    * Also stored per-request as request attribute once authentication resolved, this way a request is consistent even
    * when session state changing.
    */
@@ -59,7 +59,7 @@ public final class Constants {
 
   /**
    * The session key used to store the <code>AoservConnector</code> that the user has authenticated as.
-   * {@link #SU} will not changes this.
+   * {@link Constants#SU} will not changes this.
    */
   public static final ScopeEE.Session.Attribute<AoservConnector> AUTHENTICATED_AO_CONN =
       ScopeEE.SESSION.attribute("authenticatedAoConn");

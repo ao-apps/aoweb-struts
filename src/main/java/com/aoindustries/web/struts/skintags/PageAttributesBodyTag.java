@@ -54,9 +54,9 @@ public abstract class PageAttributesBodyTag extends BodyTagSupport {
   /**
    * {@inheritDoc}
    *
-   * @deprecated  You should probably be implementing in {@link #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)}
+   * @deprecated  You should probably be implementing in {@link PageAttributesBodyTag#doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)}
    *
-   * @see  #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)
+   * @see  PageAttributesBodyTag#doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)
    */
   @Deprecated(forRemoval = false)
   @Override
@@ -73,9 +73,9 @@ public abstract class PageAttributesBodyTag extends BodyTagSupport {
   }
 
   /* *
-   * @deprecated  You should probably be implementing in {@link #doAfterBody(com.aoindustries.web.struts.skintags.PageAttributes)}
+   * @deprecated  You should probably be implementing in {@link PageAttributesBodyTag#doAfterBody(com.aoindustries.web.struts.skintags.PageAttributes)}
    *
-   * @see  #doAfterBody(com.aoindustries.web.struts.skintags.PageAttributes)
+   * @see  PageAttributesBodyTag#doAfterBody(com.aoindustries.web.struts.skintags.PageAttributes)
    * /
   @Deprecated(forRemoval = false)
   public int doAfterBody() throws JspException {
@@ -89,9 +89,9 @@ public abstract class PageAttributesBodyTag extends BodyTagSupport {
   /**
    * {@inheritDoc}
    *
-   * @deprecated  You should probably be implementing in {@link #doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)}
+   * @deprecated  You should probably be implementing in {@link PageAttributesBodyTag#doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)}
    *
-   * @see  #doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)
+   * @see  PageAttributesBodyTag#doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)
    */
   @Deprecated(forRemoval = false)
   @Override

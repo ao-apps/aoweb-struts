@@ -43,7 +43,7 @@ public class PageAction extends Action {
 
   /**
    * Creates the page-scope registry, if not already present, then invokes
-   * {@link #execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.web.resources.registry.Registry)}.
+   * {@link PageAction#execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.web.resources.registry.Registry)}.
    * The registry if left on the request to be available to any forwarding target.
    */
   @Override

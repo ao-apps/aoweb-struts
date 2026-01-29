@@ -44,9 +44,9 @@ public abstract class PageAttributesTag extends TagSupport {
   /**
    * {@inheritDoc}
    *
-   * @deprecated  You should probably be implementing in {@link #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)}
+   * @deprecated  You should probably be implementing in {@link PageAttributesTag#doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)}
    *
-   * @see  #doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)
+   * @see  PageAttributesTag#doStartTag(com.aoindustries.web.struts.skintags.PageAttributes)
    */
   @Deprecated(forRemoval = false)
   @Override
@@ -65,9 +65,9 @@ public abstract class PageAttributesTag extends TagSupport {
   /**
    * {@inheritDoc}
    *
-   * @deprecated  You should probably be implementing in {@link #doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)}
+   * @deprecated  You should probably be implementing in {@link PageAttributesTag#doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)}
    *
-   * @see  #doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)
+   * @see  PageAttributesTag#doEndTag(com.aoindustries.web.struts.skintags.PageAttributes)
    */
   @Deprecated(forRemoval = false)
   @Override

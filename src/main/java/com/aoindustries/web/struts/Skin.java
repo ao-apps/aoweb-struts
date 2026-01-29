@@ -165,7 +165,7 @@ public abstract class Skin {
    * Gets the skin for the current request while {@linkplain SiteSettings#getInstance(jakarta.servlet.ServletContext) resolving site settings}.
    *
    * @see  SiteSettings#getInstance(jakarta.servlet.ServletContext)
-   * @see  #getSkin(com.aoindustries.web.struts.SiteSettings, jakarta.servlet.ServletRequest)
+   * @see  Skin#getSkin(com.aoindustries.web.struts.SiteSettings, jakarta.servlet.ServletRequest)
    */
   public static Skin getSkin(ServletRequest req) {
     return getSkin(SiteSettings.getInstance(req.getServletContext()), req);
@@ -298,7 +298,7 @@ public abstract class Skin {
    * on the request, and these must be considered in the HTML generation.</p>
    *
    * @return  The {@link FlowContent} that should be used to write the page contents.
-   *          This is also given to {@link #endPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
+   *          This is also given to {@link Skin#endPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
    *          to finish the template.
    *
    * @see  SerializationEE#get(jakarta.servlet.ServletContext, jakarta.servlet.http.HttpServletRequest)
@@ -318,7 +318,7 @@ public abstract class Skin {
    * on the request, and these must be considered in the HTML generation.</p>
    *
    * @param  flow  The {@link FlowContent} that was returned by
-   *               {@link #startPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.DocumentEE)}.
+   *               {@link Skin#startPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.DocumentEE)}.
    *
    * @see  SerializationEE#get(jakarta.servlet.ServletContext, jakarta.servlet.http.HttpServletRequest)
    * @see  DoctypeEE#get(jakarta.servlet.ServletContext, jakarta.servlet.ServletRequest)
@@ -331,17 +331,17 @@ public abstract class Skin {
   ) throws JspException, IOException;
 
   /**
-   * {@linkplain #startPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.DocumentEE) Starts the page},
+   * {@linkplain Skin#startPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.DocumentEE) Starts the page},
    * invokes the given page body, then
-   * {@linkplain #endPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent) ends the page}.
+   * {@linkplain Skin#endPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent) ends the page}.
    *
    * <p>Both the {@link Serialization} and {@link Doctype} may have been set
    * on the request, and these must be considered in the HTML generation.</p>
    *
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.DocumentEE)
-   * @see  #endPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#startPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.DocumentEE)
+   * @see  Skin#endPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)
    * @see  SerializationEE#get(jakarta.servlet.ServletContext, jakarta.servlet.http.HttpServletRequest)
    * @see  DoctypeEE#get(jakarta.servlet.ServletContext, jakarta.servlet.ServletRequest)
    */
@@ -360,17 +360,17 @@ public abstract class Skin {
   }
 
   /**
-   * {@linkplain #startPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.DocumentEE) Starts the page},
+   * {@linkplain Skin#startPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.DocumentEE) Starts the page},
    * invokes the given page body, then
-   * {@linkplain #endPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent) ends the page}.
+   * {@linkplain Skin#endPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent) ends the page}.
    *
    * <p>Both the {@link Serialization} and {@link Doctype} may have been set
    * on the request, and these must be considered in the HTML generation.</p>
    *
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.DocumentEE)
-   * @see  #endPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#startPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.DocumentEE)
+   * @see  Skin#endPage(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)
    * @see  SerializationEE#get(jakarta.servlet.ServletContext, jakarta.servlet.http.HttpServletRequest)
    * @see  DoctypeEE#get(jakarta.servlet.ServletContext, jakarta.servlet.ServletRequest)
    */
@@ -395,18 +395,18 @@ public abstract class Skin {
    * @param  <__>  This content model, which will be the parent content model of child elements
    *
    * @return  The {@link ContentEE} that should be used to write the area contents.
-   *          This is also given to {@link #contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, java.lang.String)},
-   *          {@link #contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)},
-   *          {@link #contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, java.lang.String, int)},
-   *          {@link #contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)},
-   *          {@link #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
-   *          {@link #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)},
-   *          {@link #contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
-   *          {@link #contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, boolean)},
-   *          {@link #contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int[], boolean)},
-   *          {@link #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)},
-   *          {@link #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)},
-   *          and {@link #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[])}.
+   *          This is also given to {@link Skin#contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, java.lang.String)},
+   *          {@link Skin#contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)},
+   *          {@link Skin#contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, java.lang.String, int)},
+   *          {@link Skin#contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)},
+   *          {@link Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
+   *          {@link Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)},
+   *          {@link Skin#contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
+   *          {@link Skin#contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, boolean)},
+   *          {@link Skin#contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int[], boolean)},
+   *          {@link Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)},
+   *          {@link Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)},
+   *          and {@link Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[])}.
    */
   public final <
       PC extends FlowContent<PC>,
@@ -429,18 +429,18 @@ public abstract class Skin {
    *                When {@code ""}, will force no width specified.
    *
    * @return  The {@link ContentEE} that should be used to write the area contents.
-   *          This is also given to {@link #contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, java.lang.String)},
-   *          {@link #contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)},
-   *          {@link #contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, java.lang.String, int)},
-   *          {@link #contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)},
-   *          {@link #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
-   *          {@link #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)},
-   *          {@link #contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
-   *          {@link #contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, boolean)},
-   *          {@link #contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int[], boolean)},
-   *          {@link #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)},
-   *          {@link #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)},
-   *          and {@link #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[])}.
+   *          This is also given to {@link Skin#contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, java.lang.String)},
+   *          {@link Skin#contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)},
+   *          {@link Skin#contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, java.lang.String, int)},
+   *          {@link Skin#contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)},
+   *          {@link Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
+   *          {@link Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)},
+   *          {@link Skin#contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
+   *          {@link Skin#contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, boolean)},
+   *          {@link Skin#contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int[], boolean)},
+   *          {@link Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)},
+   *          {@link Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)},
+   *          and {@link Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[])}.
    */
   public final <
       PC extends FlowContent<PC>,
@@ -465,18 +465,18 @@ public abstract class Skin {
    *                When {@code ""}, will force no width specified.
    *
    * @return  The {@link ContentEE} that should be used to write the area contents.
-   *          This is also given to {@link #contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, java.lang.String)},
-   *          {@link #contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)},
-   *          {@link #contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, java.lang.String, int)},
-   *          {@link #contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)},
-   *          {@link #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
-   *          {@link #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)},
-   *          {@link #contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
-   *          {@link #contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, boolean)},
-   *          {@link #contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int[], boolean)},
-   *          {@link #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)},
-   *          {@link #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)},
-   *          and {@link #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[])}.
+   *          This is also given to {@link Skin#contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, java.lang.String)},
+   *          {@link Skin#contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)},
+   *          {@link Skin#contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, java.lang.String, int)},
+   *          {@link Skin#contentTitle(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)},
+   *          {@link Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
+   *          {@link Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)},
+   *          {@link Skin#contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
+   *          {@link Skin#contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, boolean)},
+   *          {@link Skin#contentHorizontalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int[], boolean)},
+   *          {@link Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)},
+   *          {@link Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)},
+   *          and {@link Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[])}.
    */
   public abstract <
       PC extends FlowContent<PC>,
@@ -494,9 +494,9 @@ public abstract class Skin {
    * Prints an entire content line including the provided title.  The colspan should match the total colspan in startContent for proper appearance
    *
    * @param  content  The {@link ContentEE} that was returned by
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
-   *                  or {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
+   *                  or {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public final void contentTitle(
       HttpServletRequest req,
@@ -511,9 +511,9 @@ public abstract class Skin {
    * Prints an entire content line including the provided title.  The colspan should match the total colspan in startContent for proper appearance
    *
    * @param  content  The {@link ContentEE} that was returned by
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
-   *                  or {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
+   *                  or {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public final void contentTitle(
       HttpServletRequest req,
@@ -529,9 +529,9 @@ public abstract class Skin {
    * Prints an entire content line including the provided title.  The colspan should match the total colspan in startContent for proper appearance
    *
    * @param  content  The {@link ContentEE} that was returned by
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
-   *                  or {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
+   *                  or {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public final void contentTitle(
       HttpServletRequest req,
@@ -546,9 +546,9 @@ public abstract class Skin {
    * Prints an entire content line including the provided title.  The colspan should match the total colspan in startContent for proper appearance
    *
    * @param  content  The {@link ContentEE} that was returned by
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
-   *                  or {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
+   *                  or {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public abstract void contentTitle(
       HttpServletRequest req,
@@ -563,15 +563,15 @@ public abstract class Skin {
    *
    * @param  <__>  This content model, which will be the parent content model of child elements
    * @param  content  The {@link ContentEE} that was returned by
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
-   *                  or {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
+   *                  or {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    *
    * @return  The {@link FlowContent} that should be used to write the line contents.
-   *          This is also given to {@link #contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
-   *          {@link #contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)},
-   *          {@link #endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
-   *          and {@link #endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)}.
+   *          This is also given to {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
+   *          {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)},
+   *          {@link Skin#endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
+   *          and {@link Skin#endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)}.
    */
   public final <__ extends FlowContent<__>> __ startContentLine(
       HttpServletRequest req,
@@ -586,15 +586,15 @@ public abstract class Skin {
    *
    * @param  <__>  This content model, which will be the parent content model of child elements
    * @param  content  The {@link ContentEE} that was returned by
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
-   *                  or {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
+   *                  or {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    *
    * @return  The {@link FlowContent} that should be used to write the line contents.
-   *          This is also given to {@link #contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
-   *          {@link #contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)},
-   *          {@link #endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
-   *          and {@link #endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)}.
+   *          This is also given to {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
+   *          {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)},
+   *          {@link Skin#endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
+   *          and {@link Skin#endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)}.
    */
   public abstract <__ extends FlowContent<__>> __ startContentLine(
       HttpServletRequest req,
@@ -609,16 +609,16 @@ public abstract class Skin {
    * Ends one part of a line and starts the next.
    *
    * @param  contentLine  The {@link FlowContent} that was returned by
-   *                      {@link #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
-   *                      {@link #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)},
-   *                      {@link #contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
-   *                      or {@link #contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)}.
+   *                      {@link Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
+   *                      {@link Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)},
+   *                      {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
+   *                      or {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)}.
    *
    * @return  The {@link FlowContent} that should be used to write the line contents.
-   *          This is also given to {@link #contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
-   *          {@link #contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)},
-   *          {@link #endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
-   *          and {@link #endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)}.
+   *          This is also given to {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
+   *          {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)},
+   *          {@link Skin#endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
+   *          and {@link Skin#endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)}.
    */
   public final <__ extends FlowContent<__>> __ contentVerticalDivider(
       HttpServletRequest req,
@@ -632,16 +632,16 @@ public abstract class Skin {
    * Ends one part of a line and starts the next.
    *
    * @param  contentLine  The {@link FlowContent} that was returned by
-   *                      {@link #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
-   *                      {@link #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)},
-   *                      {@link #contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
-   *                      or {@link #contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)}.
+   *                      {@link Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
+   *                      {@link Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)},
+   *                      {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
+   *                      or {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)}.
    *
    * @return  The {@link FlowContent} that should be used to write the line contents.
-   *          This is also given to {@link #contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
-   *          {@link #contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)},
-   *          {@link #endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
-   *          and {@link #endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)}.
+   *          This is also given to {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
+   *          {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)},
+   *          {@link Skin#endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
+   *          and {@link Skin#endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)}.
    */
   public abstract <__ extends FlowContent<__>> __ contentVerticalDivider(
       HttpServletRequest req,
@@ -658,10 +658,10 @@ public abstract class Skin {
    * Ends one line of content.
    *
    * @param  contentLine  The {@link FlowContent} that was returned by
-   *                      {@link #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
-   *                      {@link #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)},
-   *                      {@link #contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
-   *                      or {@link #contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)}.
+   *                      {@link Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
+   *                      {@link Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)},
+   *                      {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
+   *                      or {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)}.
    */
   public final void endContentLine(
       HttpServletRequest req,
@@ -675,10 +675,10 @@ public abstract class Skin {
    * Ends one line of content.
    *
    * @param  contentLine  The {@link FlowContent} that was returned by
-   *                      {@link #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
-   *                      {@link #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)},
-   *                      {@link #contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
-   *                      or {@link #contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)}.
+   *                      {@link Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)},
+   *                      {@link Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)},
+   *                      {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)},
+   *                      or {@link Skin#contentVerticalDivider(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, boolean, int, int, java.lang.String, java.lang.String)}.
    */
   public abstract void endContentLine(
       HttpServletRequest req,
@@ -689,15 +689,15 @@ public abstract class Skin {
   ) throws JspException, IOException;
 
   /**
-   * {@linkplain #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE) Starts a content line},
+   * {@linkplain Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE) Starts a content line},
    * invokes the given line body, then
-   * {@linkplain #endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the content line}.
+   * {@linkplain Skin#endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the content line}.
    *
    * @param  <__>  This content model, which will be the parent content model of child elements
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)
-   * @see  #endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)
+   * @see  Skin#endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
       __ extends FlowContent<__>,
@@ -712,15 +712,15 @@ public abstract class Skin {
   }
 
   /**
-   * {@linkplain #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE) Starts a content line},
+   * {@linkplain Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE) Starts a content line},
    * invokes the given line body, then
-   * {@linkplain #endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the content line}.
+   * {@linkplain Skin#endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the content line}.
    *
    * @param  <__>  This content model, which will be the parent content model of child elements
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)
-   * @see  #endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE)
+   * @see  Skin#endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
       __ extends FlowContent<__>,
@@ -735,15 +735,15 @@ public abstract class Skin {
   }
 
   /**
-   * {@linkplain #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String) Starts a content line},
+   * {@linkplain Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String) Starts a content line},
    * invokes the given line body, then
-   * {@linkplain #endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean) ends the content line}.
+   * {@linkplain Skin#endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean) ends the content line}.
    *
    * @param  <__>  This content model, which will be the parent content model of child elements
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)
-   * @see  #endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)
+   * @see  Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)
+   * @see  Skin#endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)
    */
   public final <
       __ extends FlowContent<__>,
@@ -767,15 +767,15 @@ public abstract class Skin {
   }
 
   /**
-   * {@linkplain #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String) Starts a content line},
+   * {@linkplain Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String) Starts a content line},
    * invokes the given line body, then
-   * {@linkplain #endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean) ends the content line}.
+   * {@linkplain Skin#endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean) ends the content line}.
    *
    * @param  <__>  This content model, which will be the parent content model of child elements
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)
-   * @see  #endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)
+   * @see  Skin#startContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.ContentEE, int, java.lang.String, java.lang.String)
+   * @see  Skin#endContentLine(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, int, boolean)
    */
   public final <
       __ extends FlowContent<__>,
@@ -802,9 +802,9 @@ public abstract class Skin {
    * Prints a horizontal divider.
    *
    * @param  content  The {@link ContentEE} that was returned by
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
-   *                  or {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
+   *                  or {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public final void contentHorizontalDivider(
       HttpServletRequest req,
@@ -818,9 +818,9 @@ public abstract class Skin {
    * Prints a horizontal divider of the provided colspan.
    *
    * @param  content  The {@link ContentEE} that was returned by
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
-   *                  or {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
+   *                  or {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public final void contentHorizontalDivider(
       HttpServletRequest req,
@@ -836,9 +836,9 @@ public abstract class Skin {
    * Prints a horizontal divider of the provided colspans.
    *
    * @param  content  The {@link ContentEE} that was returned by
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
-   *                  or {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
+   *                  or {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public abstract void contentHorizontalDivider(
       HttpServletRequest req,
@@ -852,9 +852,9 @@ public abstract class Skin {
    * Ends the content area of a page.
    *
    * @param  content  The {@link ContentEE} that was returned by
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
-   *                  or {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
+   *                  or {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public final void endContent(
       HttpServletRequest req,
@@ -869,9 +869,9 @@ public abstract class Skin {
    * Ends the content area of a page.
    *
    * @param  content  The {@link ContentEE} that was returned by
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
-   *                  or {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
+   *                  or {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public final void endContent(
       HttpServletRequest req,
@@ -887,9 +887,9 @@ public abstract class Skin {
    * Ends the content area of a page.
    *
    * @param  content  The {@link ContentEE} that was returned by
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
-   *                  {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
-   *                  or {@link #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)}
+   *                  {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)}
+   *                  or {@link Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)}.
    */
   public abstract void endContent(
       HttpServletRequest req,
@@ -900,16 +900,16 @@ public abstract class Skin {
   ) throws JspException, IOException;
 
   /**
-   * {@linkplain #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent) Starts a content area},
+   * {@linkplain Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent) Starts a content area},
    * invokes the given area body, then
-   * {@linkplain #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE) ends the content area}.
+   * {@linkplain Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE) ends the content area}.
    *
    * @param  <PC>  The parent content model this area is within
    * @param  <__>  This content model, which will be the parent content model of child elements
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)
-   * @see  #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)
+   * @see  Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)
    */
   public final <
       PC extends FlowContent<PC>,
@@ -926,16 +926,16 @@ public abstract class Skin {
   }
 
   /**
-   * {@linkplain #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent) Starts a content area},
+   * {@linkplain Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent) Starts a content area},
    * invokes the given area body, then
-   * {@linkplain #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE) ends the content area}.
+   * {@linkplain Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE) ends the content area}.
    *
    * @param  <PC>  The parent content model this area is within
    * @param  <__>  This content model, which will be the parent content model of child elements
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)
-   * @see  #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)
+   * @see  Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE)
    */
   public final <
       PC extends FlowContent<PC>,
@@ -952,16 +952,16 @@ public abstract class Skin {
   }
 
   /**
-   * {@linkplain #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String) Starts a content area},
+   * {@linkplain Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String) Starts a content area},
    * invokes the given area body, then
-   * {@linkplain #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int) ends the content area}.
+   * {@linkplain Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int) ends the content area}.
    *
    * @param  <PC>  The parent content model this area is within
    * @param  <__>  This content model, which will be the parent content model of child elements
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)
-   * @see  #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)
+   * @see  Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)
+   * @see  Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)
    */
   public final <
       PC extends FlowContent<PC>,
@@ -981,16 +981,16 @@ public abstract class Skin {
   }
 
   /**
-   * {@linkplain #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String) Starts a content area},
+   * {@linkplain Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String) Starts a content area},
    * invokes the given area body, then
-   * {@linkplain #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int) ends the content area}.
+   * {@linkplain Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int) ends the content area}.
    *
    * @param  <PC>  The parent content model this area is within
    * @param  <__>  This content model, which will be the parent content model of child elements
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)
-   * @see  #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)
+   * @see  Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int, java.lang.String)
+   * @see  Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int)
    */
   public final <
       PC extends FlowContent<PC>,
@@ -1010,16 +1010,16 @@ public abstract class Skin {
   }
 
   /**
-   * {@linkplain #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String) Starts a content area},
+   * {@linkplain Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String) Starts a content area},
    * invokes the given area body, then
-   * {@linkplain #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[]) ends the content area}.
+   * {@linkplain Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[]) ends the content area}.
    *
    * @param  <PC>  The parent content model this area is within
    * @param  <__>  This content model, which will be the parent content model of child elements
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)
-   * @see  #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[])
+   * @see  Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)
+   * @see  Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[])
    */
   public final <
       PC extends FlowContent<PC>,
@@ -1043,16 +1043,16 @@ public abstract class Skin {
   }
 
   /**
-   * {@linkplain #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String) Starts a content area},
+   * {@linkplain Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String) Starts a content area},
    * invokes the given area body, then
-   * {@linkplain #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[]) ends the content area}.
+   * {@linkplain Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[]) ends the content area}.
    *
    * @param  <PC>  The parent content model this area is within
    * @param  <__>  This content model, which will be the parent content model of child elements
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)
-   * @see  #endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[])
+   * @see  Skin#startContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.FlowContent, int[], java.lang.String)
+   * @see  Skin#endContent(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoindustries.web.struts.skintags.PageAttributes, com.aoapps.html.servlet.ContentEE, int[])
    */
   public final <
       PC extends FlowContent<PC>,
@@ -1082,7 +1082,7 @@ public abstract class Skin {
    * @param  <__>  This content model, which will be the parent content model of child elements
    *
    * @return  The {@link FlowContent} that should be used to write the area contents.
-   *          This is also given to {@link #endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)}
+   *          This is also given to {@link Skin#endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)}
    *          to finish the area.
    */
   public final <
@@ -1103,7 +1103,7 @@ public abstract class Skin {
    * @param  <__>  This content model, which will be the parent content model of child elements
    *
    * @return  The {@link FlowContent} that should be used to write the area contents.
-   *          This is also given to {@link #endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)}
+   *          This is also given to {@link Skin#endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)}
    *          to finish the area.
    */
   public abstract <
@@ -1122,8 +1122,8 @@ public abstract class Skin {
    * Ends a lighter area of the site.
    *
    * @param  lightArea  The {@link FlowContent} that was returned by
-   *                    {@link #startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)}
-   *                    or {@link #startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)}.
+   *                    {@link Skin#startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)}
+   *                    or {@link Skin#startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)}.
    */
   public abstract void endLightArea(
       HttpServletRequest req,
@@ -1132,16 +1132,16 @@ public abstract class Skin {
   ) throws JspException, IOException;
 
   /**
-   * {@linkplain #startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) Begins a light area},
+   * {@linkplain Skin#startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) Begins a light area},
    * invokes the given area body, then
-   * {@linkplain #endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the light area}.
+   * {@linkplain Skin#endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the light area}.
    *
    * @param  <PC>  The parent content model this area is within
    * @param  <__>  This content model, which will be the parent content model of child elements
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
-   * @see  #endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
       PC extends FlowContent<PC>,
@@ -1161,15 +1161,15 @@ public abstract class Skin {
   }
 
   /**
-   * {@linkplain #startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) Begins a light area},
+   * {@linkplain Skin#startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) Begins a light area},
    * invokes the given area body, then
-   * {@linkplain #endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the light area}.
+   * {@linkplain Skin#endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the light area}.
    *
    * @param  <PC>  The parent content model this area is within
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
-   * @see  #endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
       PC extends FlowContent<PC>,
@@ -1188,16 +1188,16 @@ public abstract class Skin {
   }
 
   /**
-   * {@linkplain #startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean) Begins a light area},
+   * {@linkplain Skin#startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean) Begins a light area},
    * invokes the given area body, then
-   * {@linkplain #endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the light area}.
+   * {@linkplain Skin#endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the light area}.
    *
    * @param  <PC>  The parent content model this area is within
    * @param  <__>  This content model, which will be the parent content model of child elements
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)
-   * @see  #endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)
+   * @see  Skin#endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
       PC extends FlowContent<PC>,
@@ -1220,15 +1220,15 @@ public abstract class Skin {
   }
 
   /**
-   * {@linkplain #startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean) Begins a light area},
+   * {@linkplain Skin#startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean) Begins a light area},
    * invokes the given area body, then
-   * {@linkplain #endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the light area}.
+   * {@linkplain Skin#endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the light area}.
    *
    * @param  <PC>  The parent content model this area is within
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)
-   * @see  #endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#startLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)
+   * @see  Skin#endLightArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
       PC extends FlowContent<PC>,
@@ -1256,7 +1256,7 @@ public abstract class Skin {
    * @param  <__>  This content model, which will be the parent content model of child elements
    *
    * @return  The {@link FlowContent} that should be used to write the area contents.
-   *          This is also given to {@link #endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)}
+   *          This is also given to {@link Skin#endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)}
    *          to finish the area.
    */
   public final <
@@ -1277,7 +1277,7 @@ public abstract class Skin {
    * @param  <__>  This content model, which will be the parent content model of child elements
    *
    * @return  The {@link FlowContent} that should be used to write the area contents.
-   *          This is also given to {@link #endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)}
+   *          This is also given to {@link Skin#endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)}
    *          to finish the area.
    */
   public abstract <
@@ -1296,8 +1296,8 @@ public abstract class Skin {
    * Ends a white area of the site.
    *
    * @param  whiteArea  The {@link FlowContent} that was returned by
-   *                    {@link #startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)}
-   *                    or {@link #startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)}.
+   *                    {@link Skin#startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)}
+   *                    or {@link Skin#startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)}.
    */
   public abstract void endWhiteArea(
       HttpServletRequest req,
@@ -1306,16 +1306,16 @@ public abstract class Skin {
   ) throws JspException, IOException;
 
   /**
-   * {@linkplain #startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) Begins a white area},
+   * {@linkplain Skin#startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) Begins a white area},
    * invokes the given area body, then
-   * {@linkplain #endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the white area}.
+   * {@linkplain Skin#endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the white area}.
    *
    * @param  <PC>  The parent content model this area is within
    * @param  <__>  This content model, which will be the parent content model of child elements
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
-   * @see  #endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
       PC extends FlowContent<PC>,
@@ -1335,15 +1335,15 @@ public abstract class Skin {
   }
 
   /**
-   * {@linkplain #startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) Begins a white area},
+   * {@linkplain Skin#startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) Begins a white area},
    * invokes the given area body, then
-   * {@linkplain #endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the white area}.
+   * {@linkplain Skin#endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the white area}.
    *
    * @param  <PC>  The parent content model this area is within
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
-   * @see  #endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
       PC extends FlowContent<PC>,
@@ -1362,16 +1362,16 @@ public abstract class Skin {
   }
 
   /**
-   * {@linkplain #startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean) Begins a white area},
+   * {@linkplain Skin#startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean) Begins a white area},
    * invokes the given area body, then
-   * {@linkplain #endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the white area}.
+   * {@linkplain Skin#endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the white area}.
    *
    * @param  <PC>  The parent content model this area is within
    * @param  <__>  This content model, which will be the parent content model of child elements
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)
-   * @see  #endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)
+   * @see  Skin#endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
       PC extends FlowContent<PC>,
@@ -1394,15 +1394,15 @@ public abstract class Skin {
   }
 
   /**
-   * {@linkplain #startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean) Begins a white area},
+   * {@linkplain Skin#startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean) Begins a white area},
    * invokes the given area body, then
-   * {@linkplain #endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the white area}.
+   * {@linkplain Skin#endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent) ends the white area}.
    *
    * @param  <PC>  The parent content model this area is within
    * @param  <Ex>  An arbitrary exception type that may be thrown
    *
-   * @see  #startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)
-   * @see  #endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
+   * @see  Skin#startWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent, java.lang.String, java.lang.String, boolean)
+   * @see  Skin#endWhiteArea(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.aoapps.html.servlet.FlowContent)
    */
   public final <
       PC extends FlowContent<PC>,
