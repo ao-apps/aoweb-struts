@@ -1813,7 +1813,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.android</groupId><artifactId>annotations</artifactId> -->
       <dependency>
-        <groupId>com.aoapps</groupId><artifactId>ao-concurrent</artifactId><version>4.1.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+        <groupId>com.aoapps</groupId><artifactId>ao-concurrent</artifactId><version>4.1.0${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-servlet-subrequest</artifactId><version>3.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
