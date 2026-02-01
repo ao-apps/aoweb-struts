@@ -1795,7 +1795,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>org.eclipse.angus</groupId><artifactId>angus-mail</artifactId><version>2.0.5</version>
       </dependency>
       <dependency>
-        <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings</artifactId><version>2.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+        <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
       </dependency>
       <!-- jakartaee-web-profile-bom: <groupId>org.glassfish.web</groupId><artifactId>jakarta.servlet.jsp.jstl</artifactId> -->
       <dependency>
