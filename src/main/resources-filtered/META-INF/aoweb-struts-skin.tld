@@ -143,7 +143,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
   </tag>
   <tag>
     <!-- datePublished="2016-10-07T16:24:47-05:00" -->
-    <!-- dateModified="2021-09-25T23:27:50-05:00" -->
+    <!-- dateModified="2026-02-05T18:09:30Z" -->
     <description><![CDATA[
       <p class="semanticcms-tag-reference-summary">
         Provides a path to its
@@ -171,13 +171,13 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <p>
         When a parameter value is <code>null</code> it is not added.
         If the value is an
-        <a rel="nofollow" href="@{javadoc.link.javase}java/lang/Iterable.html">Iterable</a>,
-        <a rel="nofollow" href="@{javadoc.link.javase}java/util/Iterator.html">Iterator</a>,
-        <a rel="nofollow" href="@{javadoc.link.javase}java/util/Enumeration.html">Enumeration</a>,
+        <a rel="nofollow" href="@{javadoc.link.javase}java.base/java/lang/Iterable.html">Iterable</a>,
+        <a rel="nofollow" href="@{javadoc.link.javase}java.base/java/util/Iterator.html">Iterator</a>,
+        <a rel="nofollow" href="@{javadoc.link.javase}java.base/java/util/Enumeration.html">Enumeration</a>,
         or array, then each non-null element is coerced to
-        <a rel="nofollow" href="@{javadoc.link.javase}java/lang/String.html">String</a> as a separate
+        <a rel="nofollow" href="@{javadoc.link.javase}java.base/java/lang/String.html">String</a> as a separate
         parameter in iteration order.  Otherwise, the value itself is
-        coerced to <a rel="nofollow" href="@{javadoc.link.javase}java/lang/String.html">String</a>
+        coerced to <a rel="nofollow" href="@{javadoc.link.javase}java.base/java/lang/String.html">String</a>
         for the parameter value.
       </p>
       <p>
@@ -242,7 +242,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
   </tag>
   <tag>
     <!-- datePublished="2016-10-07T16:24:47-05:00" -->
-    <!-- dateModified="2023-10-03T00:39:18Z" -->
+    <!-- dateModified="2026-02-05T18:09:30Z" -->
     <description><![CDATA[
       <p>
         Adds a link tag to <a href="@{project.url}apidocs/com.aoindustries.web.struts/com/aoindustries/web/struts/skintags/PageAttributes.html">this page</a>.
@@ -270,13 +270,13 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <p>
         When a parameter value is <code>null</code> it is not added.
         If the value is an
-        <a rel="nofollow" href="@{javadoc.link.javase}java/lang/Iterable.html">Iterable</a>,
-        <a rel="nofollow" href="@{javadoc.link.javase}java/util/Iterator.html">Iterator</a>,
-        <a rel="nofollow" href="@{javadoc.link.javase}java/util/Enumeration.html">Enumeration</a>,
+        <a rel="nofollow" href="@{javadoc.link.javase}java.base/java/lang/Iterable.html">Iterable</a>,
+        <a rel="nofollow" href="@{javadoc.link.javase}java.base/java/util/Iterator.html">Iterator</a>,
+        <a rel="nofollow" href="@{javadoc.link.javase}java.base/java/util/Enumeration.html">Enumeration</a>,
         or array, then each non-null element is coerced to
-        <a rel="nofollow" href="@{javadoc.link.javase}java/lang/String.html">String</a> as a separate
+        <a rel="nofollow" href="@{javadoc.link.javase}java.base/java/lang/String.html">String</a> as a separate
         parameter in iteration order.  Otherwise, the value itself is
-        coerced to <a rel="nofollow" href="@{javadoc.link.javase}java/lang/String.html">String</a>
+        coerced to <a rel="nofollow" href="@{javadoc.link.javase}java.base/java/lang/String.html">String</a>
         for the parameter value.
       </p>
       <p>
