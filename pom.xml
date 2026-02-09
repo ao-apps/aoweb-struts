@@ -1309,7 +1309,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-filter-devel</artifactId> -->
         <!-- No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-last-modified-devel</artifactId> -->
         <dependency>
-          <groupId>com.aoapps</groupId><artifactId>ao-servlet-util-devel</artifactId><version>6.0.0-POST-SNAPSHOT</version>
+          <groupId>com.aoapps</groupId><artifactId>ao-servlet-util-devel</artifactId><version>6.0.1-SNAPSHOT</version>
           <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -1344,7 +1344,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-client-api-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1-devel</artifactId> -->
         <dependency>
-          <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib-devel</artifactId><version>2.0.0-POST-SNAPSHOT</version>
+          <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib-devel</artifactId><version>2.0.1-SNAPSHOT</version>
           <scope>runtime</scope>
         </dependency>
         <!-- No -devel: <groupId>io.github.weblegacy</groupId><artifactId>struts-core-devel</artifactId> -->
@@ -1576,7 +1576,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>com.aoapps</groupId><artifactId>ao-servlet-last-modified</artifactId><version>4.0.0${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
-        <groupId>com.aoapps</groupId><artifactId>ao-servlet-util</artifactId><version>6.0.0${POST-SNAPSHOT}</version>
+        <groupId>com.aoapps</groupId><artifactId>ao-servlet-util</artifactId><version>6.0.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
       <dependency>
         <groupId>com.aoapps</groupId><artifactId>ao-sql</artifactId><version>2.1.0${POST-SNAPSHOT}</version>
@@ -1639,7 +1639,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.api.grpc</groupId><artifactId>proto-google-cloud-recaptchaenterprise-v1</artifactId> -->
       <dependency>
-        <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
+        <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-taglib</artifactId><version>2.0.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
       </dependency>
       <dependency>
         <groupId>io.github.weblegacy</groupId><artifactId>struts-core</artifactId><version>1.5.0-RC2</version>
