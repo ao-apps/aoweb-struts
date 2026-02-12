@@ -1606,7 +1606,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>com.aoindustries</groupId><artifactId>aoserv-credit-cards</artifactId><version>3.1.0${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
-        <groupId>com.aoindustries</groupId><artifactId>aoserv-daemon-client</artifactId><version>1.92.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+        <groupId>com.aoindustries</groupId><artifactId>aoserv-daemon-client</artifactId><version>1.92.1${POST-SNAPSHOT}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId><artifactId>commons-collections4</artifactId><version>4.5.0</version>
