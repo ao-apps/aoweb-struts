@@ -1758,7 +1758,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <!-- jakartaee-web-profile-bom: <groupId>jakarta.servlet.jsp.jstl</groupId><artifactId>jakarta.servlet.jsp.jstl-api</artifactId> -->
       <dependency>
-        <groupId>org.javassist</groupId><artifactId>javassist</artifactId><version>3.30.2-GA</version>
+        <groupId>org.javassist</groupId><artifactId>javassist</artifactId><version>3.31.0-GA</version>
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>javax.annotation</groupId><artifactId>javax.annotation-api</artifactId> -->
       <dependency>
