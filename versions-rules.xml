@@ -105,6 +105,27 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       This is copied to aoweb-struts/versions-rules.xml, brands/versions-rules.xml, and all brands/*/versions-rules.xml
     -->
     <!-- Entire groupId, only used when all artifact versions in the groupId are via libraries-bom -->
+    <rule groupId="com.fasterxml.jackson.core" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.fasterxml.jackson.dataformat" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.fasterxml.jackson.datatype" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.fasterxml.jackson.jakarta.rs" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.fasterxml.jackson.jaxrs" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.fasterxml.jackson.jr" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.fasterxml.jackson.module" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
     <rule groupId="com.google.analytics" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
@@ -132,10 +153,16 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <rule groupId="com.google.cloud" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
+    <rule groupId="com.google.crypto.tink" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
     <rule groupId="com.google.code.findbugs" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
     <rule groupId="com.google.code.gson" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.flogger" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
     <rule groupId="com.google.guava" comparisonMethod="maven">
@@ -170,6 +197,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <rule groupId="commons-codec" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
+    <rule groupId="dev.cel" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
     <rule groupId="io.grafeas" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
@@ -188,6 +218,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <rule groupId="javax.annotation" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
+    <rule groupId="org.apache.arrow" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
     <rule groupId="org.apache.httpcomponents" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
@@ -201,6 +234,18 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
     <rule groupId="org.graalvm.sdk" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="org.json" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="org.junit.jupiter" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="org.junit.platform" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="org.junit.vintage" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
     <rule groupId="org.threeten" comparisonMethod="maven">
