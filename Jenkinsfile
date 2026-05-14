@@ -126,7 +126,6 @@ binding.setVariable('upstreamProjects', [
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-auth-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-context-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-core-devel</artifactId>
-  // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-grpclb-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-inprocess-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-netty-shaded-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-protobuf-devel</artifactId>

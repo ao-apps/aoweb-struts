@@ -1391,7 +1391,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-auth-devel</artifactId> -->
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-context-devel</artifactId> -->
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-core-devel</artifactId> -->
-        <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-grpclb-devel</artifactId> -->
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-inprocess-devel</artifactId> -->
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-netty-shaded-devel</artifactId> -->
         <!-- No -devel: <groupId>io.grpc</groupId><artifactId>grpc-protobuf-devel</artifactId> -->
@@ -1739,7 +1738,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-auth</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-context</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-core</artifactId> -->
-      <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-grpclb</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-inprocess</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-netty-shaded</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-protobuf</artifactId> -->
@@ -1832,7 +1830,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.google.cloud</groupId><artifactId>libraries-bom</artifactId><version>26.81.0</version>
+        <groupId>com.google.cloud</groupId><artifactId>libraries-bom</artifactId><version>26.82.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
