@@ -274,6 +274,11 @@ pipeline {
       description: abortOnUnreadyDependency_description
     )
     booleanParam(
+      name: 'ossindexEnabled',
+      defaultValue: true,
+      description: ossindexEnabled_description
+    )
+    booleanParam(
       name: 'requireLastBuild',
       defaultValue: true,
       description: requireLastBuild_description
