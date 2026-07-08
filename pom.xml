@@ -1259,7 +1259,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <dependencies>
         <!-- Struts 2 Debugging: https://struts.apache.org/getting-started/debugging-struts.html -->
         <dependency>
-          <groupId>org.apache.struts</groupId><artifactId>struts2-config-browser-plugin</artifactId><version>7.1.1</version>
+          <groupId>org.apache.struts</groupId><artifactId>struts2-config-browser-plugin</artifactId><version>7.2.1</version>
           <scope>runtime</scope>
         </dependency>
         <!-- Own -devel package -->
@@ -1362,7 +1362,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <!-- No -devel: <groupId>org.ow2.asm</groupId><artifactId>asm-tree-devel</artifactId> -->
         <!-- No -devel: <groupId>com.google.auto.value</groupId><artifactId>auto-value-annotations-devel</artifactId> -->
         <!-- No -devel: <groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine-devel</artifactId> -->
-        <!-- No -devel: <groupId>org.checkerframework</groupId><artifactId>checker-qual-devel</artifactId> -->
         <!-- No -devel: <groupId>commons-beanutils</groupId><artifactId>commons-beanutils-devel</artifactId> -->
         <!-- No -devel: <groupId>io.github.weblegacy</groupId><artifactId>commons-chain-devel</artifactId> -->
         <!-- No -devel: <groupId>io.github.weblegacy</groupId><artifactId>commons-chain-web-devel</artifactId> -->
@@ -1498,8 +1497,8 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                 google-cloud-recaptchaenterprise-3.78.0.jar
                 jsr305-3.0.2.jar
                 proto-google-cloud-recaptchaenterprise-v1-3.78.0.jar
-                struts2-convention-plugin-7.1.1.jar
-                struts2-core-7.1.1.jar
+                struts2-convention-plugin-7.2.1.jar
+                struts2-core-7.2.1.jar
               -->
               <archive>
                 <manifestEntries>
@@ -1647,10 +1646,10 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>io.github.weblegacy</groupId><artifactId>struts-taglib</artifactId><version>1.5.0-RC2</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId><version>7.1.1</version>
+        <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId><version>7.2.1</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId><version>7.1.1</version>
+        <groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId><version>7.2.1</version>
       </dependency>
       <!-- Transitive -->
       <!-- com.google.cloud:libraries-bom: <groupId>org.codehaus.mojo</groupId><artifactId>animal-sniffer-annotations</artifactId> -->
@@ -1675,9 +1674,8 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.auto.value</groupId><artifactId>auto-value-annotations</artifactId> -->
       <dependency>
-        <groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>2.9.3</version>
+        <groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>3.2.4</version>
       </dependency>
-      <!-- com.google.cloud:libraries-bom: <groupId>org.checkerframework</groupId><artifactId>checker-qual</artifactId> -->
       <dependency>
         <groupId>commons-beanutils</groupId><artifactId>commons-beanutils</artifactId><version>1.11.0</version>
       </dependency>
@@ -1769,7 +1767,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.26.1</version>
       </dependency>
       <dependency>
-        <groupId>ognl</groupId><artifactId>ognl</artifactId><version>3.3.5</version>
+        <groupId>ognl</groupId><artifactId>ognl</artifactId><version>3.4.11</version>
       </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>io.opencensus</groupId><artifactId>opencensus-api</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.opencensus</groupId><artifactId>opencensus-contrib-http-util</artifactId> -->

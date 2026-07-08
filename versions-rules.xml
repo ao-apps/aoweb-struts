@@ -28,12 +28,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
   xsi:schemaLocation="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0 https://www.mojohaus.org/versions-maven-plugin/xsd/rule-2.0.0.xsd"
 >
   <rules>
-    <rule groupId="com.github.ben-manes.caffeine" artifactId="caffeine" comparisonMethod="maven">
-      <ignoreVersions>
-        <!-- TODO: When updating new than struts2-7.1.1 make sure this is correct to still ignore -->
-        <ignoreVersion type="regex">3\.[0-9]+\.[0-9]+</ignoreVersion>
-      </ignoreVersions>
-    </rule>
     <rule groupId="commons-collections" artifactId="commons-collections" comparisonMethod="maven">
       <ignoreVersions>
         <!-- Skip old YYYYMMDD versions -->
@@ -91,8 +85,6 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <rule groupId="ognl" comparisonMethod="ognl">
       <ignoreVersions>
         <ignoreVersion type="regex">.*-BETA[0-9]+</ignoreVersion>
-        <!-- TODO: Staying on ognl-3.3.5 for struts2-7.1.1 -->
-        <ignoreVersion type="regex">3\.4\.[0-9]+</ignoreVersion>
       </ignoreVersions>
     </rule>
     <rule groupId="org.apache.logging.log4j" comparisonMethod="maven">
