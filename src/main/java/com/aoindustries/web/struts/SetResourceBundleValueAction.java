@@ -52,15 +52,15 @@ public class SetResourceBundleValueAction extends PageAction {
       response.sendError(HttpServletResponse.SC_NOT_FOUND);
       return null;
     }
-    /*Enumeration names = request.getHeaderNames();
-    while (names.hasMoreElements()) {
-      String name = (String)names.nextElement();
-      System.out.println(name);
-      Enumeration values = request.getHeaders(name);
-      while (values.hasMoreElements()) {
-        System.out.println("    "+values.nextElement());
-      }
-    }*/
+    // Enumeration names = request.getHeaderNames();
+    // while (names.hasMoreElements()) {
+    //   String name = (String)names.nextElement();
+    //   System.out.println(name);
+    //   Enumeration values = request.getHeaders(name);
+    //   while (values.hasMoreElements()) {
+    //     System.out.println("    "+values.nextElement());
+    //   }
+    // }
     String baseName = request.getParameter("baseName");
     // Java 19: Deprecation of Locale Class Constructors, see https://bugs.openjdk.org/browse/JDK-8282819
     Locale locale = new Locale(request.getParameter("locale")); // TODO: Parse country and variant, too.

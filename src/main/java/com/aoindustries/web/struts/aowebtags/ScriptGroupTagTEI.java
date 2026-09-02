@@ -44,7 +44,7 @@ public class ScriptGroupTagTEI extends TagExtraInfo {
             && !"before".equals(o)
             && !"after".equals(o)
     ) {
-      return new ValidationMessage[]{
+      return new ValidationMessage[] {
           new ValidationMessage(
               data.getId(),
               PACKAGE_RESOURCES.getMessage(

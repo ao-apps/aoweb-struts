@@ -202,45 +202,44 @@ public class MysqlReplicationMonitorAction extends PermissionAction {
               replications
           );
         }
-        /*
-        // Also an individual replication row error if too far behind in log file position or can't determine how far behind
-        if (masterStatus == null) {
-          mysqlServerRow.error = true;
-          for (ReplicationRow replication : replications) replication.error = true;
-        } else {
-          String masterLogFile = masterStatus.getFile();
-          String masterLogPosString = masterStatus.getPosition();
-          if (masterLogFile == null || masterLogPosString == null) {
-            for (ReplicationRow replication : replications) replication.error = true;
-          } else {
-            try {
-              long masterLogPos = Long.parseLong(masterLogPosString);
-              for (ReplicationRow replication : replications) {
-                String slaveLogFile = replication.getSlaveLogFile();
-                String slaveLogPosString = replication.getSlaveLogPos();
-                if (slaveLogFile == null || slaveLogPosString == null) {
-                  replication.error = true;
-                } else {
-                  try {
-                    long slaveLogPos = Long.parseLong(slaveLogPosString);
-                    long difference = masterLogPos - slaveLogPos;
-                    if (
-                      !slaveLogFile.equals(masterLogFile)
-                      || difference >= ERROR_BYTES_BEHIND
-                      || difference<0
-                    ) {
-                      replication.error = true;
-                    }
-                  } catch (NumberFormatException err) {
-                    replication.error = true;
-                  }
-                }
-              }
-            } catch (NumberFormatException err) {
-              for (ReplicationRow replication : replications) replication.error = true;
-            }
-          }
-        }*/
+        // // Also an individual replication row error if too far behind in log file position or can't determine how far behind
+        // if (masterStatus == null) {
+        //   mysqlServerRow.error = true;
+        //   for (ReplicationRow replication : replications) replication.error = true;
+        // } else {
+        //   String masterLogFile = masterStatus.getFile();
+        //   String masterLogPosString = masterStatus.getPosition();
+        //   if (masterLogFile == null || masterLogPosString == null) {
+        //     for (ReplicationRow replication : replications) replication.error = true;
+        //   } else {
+        //     try {
+        //       long masterLogPos = Long.parseLong(masterLogPosString);
+        //       for (ReplicationRow replication : replications) {
+        //         String slaveLogFile = replication.getSlaveLogFile();
+        //         String slaveLogPosString = replication.getSlaveLogPos();
+        //         if (slaveLogFile == null || slaveLogPosString == null) {
+        //           replication.error = true;
+        //         } else {
+        //           try {
+        //             long slaveLogPos = Long.parseLong(slaveLogPosString);
+        //             long difference = masterLogPos - slaveLogPos;
+        //             if (
+        //               !slaveLogFile.equals(masterLogFile)
+        //               || difference >= ERROR_BYTES_BEHIND
+        //               || difference<0
+        //             ) {
+        //               replication.error = true;
+        //             }
+        //           } catch (NumberFormatException err) {
+        //             replication.error = true;
+        //           }
+        //         }
+        //       }
+        //     } catch (NumberFormatException err) {
+        //       for (ReplicationRow replication : replications) replication.error = true;
+        //     }
+        //   }
+        // }
         mysqlServerRows.add(mysqlServerRow);
       }
     }

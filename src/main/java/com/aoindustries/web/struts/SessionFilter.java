@@ -68,17 +68,16 @@ public class SessionFilter implements Filter {
     SessionRequestWrapper myrequest = new SessionRequestWrapper(httpRequest);
     chain.doFilter(myrequest, myresponse);
     // Could improve the efficiency by removing temporary sessions proactively here
-    /*
-    // The only time we keep the session data is when the user is logged-in or supports cookie-based sessions
-    HttpSession session = myrequest.getSession(false);
-    if (session != null) {
-      if (session.isNew()...
-      try {
-        session.invalidate();
-      } catch (IllegalStateException err) {
-        // Ignore this because the session could have been already invalidated
-      }
-    }*/
+    // // The only time we keep the session data is when the user is logged-in or supports cookie-based sessions
+    // HttpSession session = myrequest.getSession(false);
+    // if (session != null) {
+    //   if (session.isNew()...
+    //   try {
+    //     session.invalidate();
+    //   } catch (IllegalStateException err) {
+    //     // Ignore this because the session could have been already invalidated
+    //   }
+    // }
   }
 
   @Override

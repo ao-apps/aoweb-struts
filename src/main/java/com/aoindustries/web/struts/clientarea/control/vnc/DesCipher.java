@@ -455,7 +455,7 @@ public final class DesCipher {
   public static void squashBytesToInts(byte[] inBytes, int inOff, int[] outInts, int outOff, int intLen) {
     for (int i = 0; i < intLen; i++) {
       outInts[outOff + i] =
-          ((inBytes[inOff + i * 4    ] & 0xff) << 24)
+          ((inBytes[inOff + i * 4] & 0xff) << 24)
               | ((inBytes[inOff + i * 4 + 1] & 0xff) << 16)
               | ((inBytes[inOff + i * 4 + 2] & 0xff) <<  8)
               | (inBytes[inOff + i * 4 + 3] & 0xff);
@@ -465,7 +465,7 @@ public final class DesCipher {
   // Spread ints into bytes.
   public static void spreadIntsToBytes(int[] inInts, int inOff, byte[] outBytes, int outOff, int intLen) {
     for (int i = 0; i < intLen; i++) {
-      outBytes[outOff + i * 4    ] = (byte) (inInts[inOff + i] >>> 24);
+      outBytes[outOff + i * 4] = (byte) (inInts[inOff + i] >>> 24);
       outBytes[outOff + i * 4 + 1] = (byte) (inInts[inOff + i] >>> 16);
       outBytes[outOff + i * 4 + 2] = (byte) (inInts[inOff + i] >>>  8);
       outBytes[outOff + i * 4 + 3] = (byte)  inInts[inOff + i];

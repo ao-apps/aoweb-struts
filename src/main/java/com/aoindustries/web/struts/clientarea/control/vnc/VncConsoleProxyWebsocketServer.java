@@ -235,7 +235,7 @@ public class VncConsoleProxyWebsocketServer {
           // Virtual Host not found
           logger.warning("Virtual Host not found");
           Thread.sleep(5000);
-          session.getAsyncRemote().sendBinary(ByteBuffer.wrap(new byte[]{0, 0, 0, 1}));
+          session.getAsyncRemote().sendBinary(ByteBuffer.wrap(new byte[] {0, 0, 0, 1}));
           session.close();
         } else {
           // Connect and authenticate to the real VNC server before sending security result
@@ -336,11 +336,11 @@ public class VncConsoleProxyWebsocketServer {
                     || daemonIn.read() != 0
             ) {
               Thread.sleep(5000);
-              session.getAsyncRemote().sendBinary(ByteBuffer.wrap(new byte[]{0, 0, 0, 1}));
+              session.getAsyncRemote().sendBinary(ByteBuffer.wrap(new byte[] {0, 0, 0, 1}));
               session.close();
               throw new IOException("Authentication to real VNC server failed");
             }
-            proxyFuture = session.getAsyncRemote().sendBinary(ByteBuffer.wrap(new byte[]{0, 0, 0, 0}));
+            proxyFuture = session.getAsyncRemote().sendBinary(ByteBuffer.wrap(new byte[] {0, 0, 0, 0}));
             // daemonIn -> socketOut in another thread
             assert outThread == null;
             @SuppressWarnings({"BroadCatchBlock", "AssignmentToCatchBlockParameter"})

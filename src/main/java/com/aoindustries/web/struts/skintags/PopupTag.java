@@ -104,7 +104,7 @@ public class PopupTag extends BodyTagSupport {
   }
 
   @Override
-  public int doEndTag() throws JspException  {
+  public int doEndTag() throws JspException {
     try {
       // Look for containing popupGroup
       PopupGroupTag popupGroupTag = JspTagUtils.requireAncestor(TAG_NAME, this, PopupGroupTag.TAG_NAME, PopupGroupTag.class);

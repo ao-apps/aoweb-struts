@@ -72,7 +72,7 @@ public class ContentTag extends PageAttributesBodyTag {
 
   private void init() {
     colspans = "1";
-    colspansParsed = new int[]{1};
+    colspansParsed = new int[] {1};
     width = null;
     content = null;
   }

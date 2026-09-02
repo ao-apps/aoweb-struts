@@ -41,7 +41,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author  AO Industries, Inc.
  */
-public class CancelFeedbackAction  extends PermissionAction {
+public class CancelFeedbackAction extends PermissionAction {
 
   @Override
   public ActionForward executePermissionGranted(

@@ -72,19 +72,19 @@ public abstract class PageAttributesBodyTag extends BodyTagSupport {
     return EVAL_BODY_BUFFERED;
   }
 
-  /* *
-   * @deprecated  You should probably be implementing in {@link PageAttributesBodyTag#doAfterBody(com.aoindustries.web.struts.skintags.PageAttributes)}
-   *
-   * @see  PageAttributesBodyTag#doAfterBody(com.aoindustries.web.struts.skintags.PageAttributes)
-   * /
-  @Deprecated(forRemoval = false)
-  public int doAfterBody() throws JspException {
-    return doAfterBody(getPageAttributes());
-  }
-
-  public int doAfterBody(PageAttributes pageAttributes) throws JspException, IOException {
-    return SKIP_BODY;
-  }*/
+  // /**
+  //  * @deprecated  You should probably be implementing in {@link PageAttributesBodyTag#doAfterBody(com.aoindustries.web.struts.skintags.PageAttributes)}
+  //  *
+  //  * @see  PageAttributesBodyTag#doAfterBody(com.aoindustries.web.struts.skintags.PageAttributes)
+  //  */
+  // @Deprecated(forRemoval = false)
+  // public int doAfterBody() throws JspException {
+  //   return doAfterBody(getPageAttributes());
+  // }
+  //
+  // public int doAfterBody(PageAttributes pageAttributes) throws JspException, IOException {
+  //   return SKIP_BODY;
+  // }
 
   /**
    * {@inheritDoc}

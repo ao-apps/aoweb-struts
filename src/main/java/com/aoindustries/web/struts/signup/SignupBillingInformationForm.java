@@ -91,14 +91,11 @@ public class SignupBillingInformationForm extends ActionForm implements Serializ
             && "".equals(billingZip);
   }
 
-  /*
-   * This is cleared in Dedicated5CompletedAction instead
-   *
-  public void reset(ActionMapping mapping, HttpServletRequest request) {
-    billingUseMonthly = false;
-    billingPayOneYear = false;
-  }
-   */
+  // This is cleared in Dedicated5CompletedAction instead
+  // public void reset(ActionMapping mapping, HttpServletRequest request) {
+  //   billingUseMonthly = false;
+  //   billingPayOneYear = false;
+  // }
 
   public final String getBillingContact() {
     return billingContact;

@@ -417,7 +417,7 @@ public abstract class Skin {
       PageAttributes pageAttributes,
       PC pc
   ) throws JspException, IOException {
-    return startContent(req, resp, pageAttributes, pc, new int[]{1}, null);
+    return startContent(req, resp, pageAttributes, pc, new int[] {1}, null);
   }
 
   /**
@@ -453,7 +453,7 @@ public abstract class Skin {
       int contentColumns,
       String width
   ) throws JspException, IOException {
-    return startContent(req, resp, pageAttributes, pc, new int[]{contentColumns}, width);
+    return startContent(req, resp, pageAttributes, pc, new int[] {contentColumns}, width);
   }
 
   /**
@@ -811,7 +811,7 @@ public abstract class Skin {
       HttpServletResponse resp,
       ContentEE<?> content
   ) throws JspException, IOException {
-    contentHorizontalDivider(req, resp, content, new int[]{1}, false);
+    contentHorizontalDivider(req, resp, content, new int[] {1}, false);
   }
 
   /**
@@ -829,7 +829,7 @@ public abstract class Skin {
       int colspan,
       boolean endsInternal
   ) throws JspException, IOException {
-    contentHorizontalDivider(req, resp, content, new int[]{colspan}, endsInternal);
+    contentHorizontalDivider(req, resp, content, new int[] {colspan}, endsInternal);
   }
 
   /**
@@ -862,7 +862,7 @@ public abstract class Skin {
       PageAttributes pageAttributes,
       ContentEE<?> content
   ) throws JspException, IOException {
-    endContent(req, resp, pageAttributes, content, new int[]{1});
+    endContent(req, resp, pageAttributes, content, new int[] {1});
   }
 
   /**
@@ -880,7 +880,7 @@ public abstract class Skin {
       ContentEE<?> content,
       int contentColumns
   ) throws JspException, IOException {
-    endContent(req, resp, pageAttributes, content, new int[]{contentColumns});
+    endContent(req, resp, pageAttributes, content, new int[] {contentColumns});
   }
 
   /**
@@ -922,7 +922,7 @@ public abstract class Skin {
       PC pc,
       JspConsumerE<? super __, Ex> content
   ) throws JspException, IOException, Ex {
-    this.<PC, __, Ex>content(req, resp, pageAttributes, pc, new int[]{1}, null, new int[]{1}, content);
+    this.<PC, __, Ex>content(req, resp, pageAttributes, pc, new int[] {1}, null, new int[] {1}, content);
   }
 
   /**
@@ -948,7 +948,7 @@ public abstract class Skin {
       PC pc,
       JspRunnableE<Ex> content
   ) throws JspException, IOException, Ex {
-    content(req, resp, pageAttributes, pc, new int[]{1}, null, new int[]{1}, content);
+    content(req, resp, pageAttributes, pc, new int[] {1}, null, new int[] {1}, content);
   }
 
   /**
@@ -977,7 +977,7 @@ public abstract class Skin {
       int endContentColumns,
       JspConsumerE<? super __, Ex> content
   ) throws JspException, IOException, Ex {
-    this.<PC, __, Ex>content(req, resp, pageAttributes, pc, new int[]{startContentColumns}, width, new int[]{endContentColumns}, content);
+    this.<PC, __, Ex>content(req, resp, pageAttributes, pc, new int[] {startContentColumns}, width, new int[] {endContentColumns}, content);
   }
 
   /**
@@ -1006,7 +1006,7 @@ public abstract class Skin {
       int endContentColumns,
       JspRunnableE<Ex> content
   ) throws JspException, IOException, Ex {
-    content(req, resp, pageAttributes, pc, new int[]{startContentColumns}, width, new int[]{endContentColumns}, content);
+    content(req, resp, pageAttributes, pc, new int[] {startContentColumns}, width, new int[] {endContentColumns}, content);
   }
 
   /**
