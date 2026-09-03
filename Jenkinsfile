@@ -153,6 +153,7 @@ binding.setVariable('upstreamProjects', [
   // No -devel: <groupId>com.semanticcms</groupId><artifactId>semanticcms-core-model-devel</artifactId>
   // No -devel: <groupId>org.slf4j</groupId><artifactId>slf4j-api-devel</artifactId>
   // No -devel: <groupId>org.threeten</groupId><artifactId>threetenbp-devel</artifactId>
+  // No -devel: <groupId>org.webjars</groupId><artifactId>webjars-locator-lite-devel</artifactId>
   // Runtime Direct
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-mime-mappings-devel</artifactId>
   // No -devel: <groupId>org.glassfish.web</groupId><artifactId>jakarta.servlet.jsp.jstl-devel</artifactId>
