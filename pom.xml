@@ -1259,7 +1259,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <dependencies>
         <!-- Struts 2 Debugging: https://struts.apache.org/getting-started/debugging-struts.html -->
         <dependency>
-          <groupId>org.apache.struts</groupId><artifactId>struts2-config-browser-plugin</artifactId><version>7.3.0</version>
+          <groupId>org.apache.struts</groupId><artifactId>struts2-config-browser-plugin</artifactId><version>7.4.0</version>
           <scope>runtime</scope>
         </dependency>
         <!-- Own -devel package -->
@@ -1498,8 +1498,8 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                 google-cloud-recaptchaenterprise-3.78.0.jar
                 jsr305-3.0.2.jar
                 proto-google-cloud-recaptchaenterprise-v1-3.78.0.jar
-                struts2-convention-plugin-7.3.0.jar
-                struts2-core-7.3.0.jar
+                struts2-convention-plugin-7.4.0.jar
+                struts2-core-7.4.0.jar
               -->
               <archive>
                 <manifestEntries>
@@ -1647,10 +1647,10 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
         <groupId>io.github.weblegacy</groupId><artifactId>struts-taglib</artifactId><version>1.5.0-RC2</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId><version>7.3.0</version>
+        <groupId>org.apache.struts</groupId><artifactId>struts2-convention-plugin</artifactId><version>7.4.0</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId><version>7.3.0</version>
+        <groupId>org.apache.struts</groupId><artifactId>struts2-core</artifactId><version>7.4.0</version>
       </dependency>
       <!-- Transitive -->
       <!-- com.google.cloud:libraries-bom: <groupId>org.codehaus.mojo</groupId><artifactId>animal-sniffer-annotations</artifactId> -->
