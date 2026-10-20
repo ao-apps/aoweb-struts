@@ -157,7 +157,10 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
     <rule groupId="com.google.flogger" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
-    <rule groupId="com.google.guava" comparisonMethod="maven">
+    <rule groupId="com.google.guava" artifactId="guava-gwt" comparisonMethod="maven">
+      <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
+    </rule>
+    <rule groupId="com.google.guava" artifactId="guava-testlib" comparisonMethod="maven">
       <ignoreVersions><ignoreVersion type="regex">.*</ignoreVersion></ignoreVersions>
     </rule>
     <rule groupId="com.google.http-client" comparisonMethod="maven">

@@ -1742,7 +1742,9 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-protobuf</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>io.grpc</groupId><artifactId>grpc-stub</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.code.gson</groupId><artifactId>gson</artifactId> -->
-      <!-- com.google.cloud:libraries-bom: <groupId>com.google.guava</groupId><artifactId>guava</artifactId> -->
+      <dependency>
+        <groupId>com.google.guava</groupId><artifactId>guava</artifactId><version>33.7.2-jre</version>
+      </dependency>
       <!-- com.google.cloud:libraries-bom: <groupId>org.apache.httpcomponents</groupId><artifactId>httpclient</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>org.apache.httpcomponents</groupId><artifactId>httpcore</artifactId> -->
       <!-- com.google.cloud:libraries-bom: <groupId>com.google.j2objc</groupId><artifactId>j2objc-annotations</artifactId> -->
