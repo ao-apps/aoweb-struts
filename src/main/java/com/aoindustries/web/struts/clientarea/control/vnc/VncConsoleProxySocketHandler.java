@@ -28,6 +28,7 @@ import com.aoapps.hodgepodge.io.AOPool;
 import com.aoapps.hodgepodge.io.stream.StreamableInput;
 import com.aoapps.hodgepodge.io.stream.StreamableOutput;
 import com.aoapps.hodgepodge.net.IpReputation;
+import com.aoapps.lang.util.BufferManager;
 import com.aoapps.net.InetAddress;
 import com.aoindustries.aoserv.client.AoservClientConfiguration;
 import com.aoindustries.aoserv.client.AoservConnector;
@@ -336,11 +337,15 @@ public class VncConsoleProxySocketHandler {
                   try {
                     inThread.setName(inThreadName);
                     try {
-                      byte[] buff = new byte[4096];
-                      int ret;
-                      while ((ret = socketIn.read(buff, 0, 4096)) != -1) {
-                        daemonOut.write(buff, 0, ret);
-                        daemonOut.flush();
+                      byte[] buff = BufferManager.getBytes();
+                      try {
+                        int ret;
+                        while ((ret = socketIn.read(buff, 0, BufferManager.BUFFER_SIZE)) != -1) {
+                          daemonOut.write(buff, 0, ret);
+                          daemonOut.flush();
+                        }
+                      } finally {
+                        BufferManager.release(buff, true);
                       }
                     } finally {
                       // Always close after VNC tunnel since this is a connection-terminal command
@@ -356,11 +361,15 @@ public class VncConsoleProxySocketHandler {
                 });
 
                 // daemonIn -> socketOut in this thread
-                byte[] buff = new byte[4096];
-                int ret;
-                while ((ret = daemonIn.read(buff, 0, 4096)) != -1) {
-                  socketOut.write(buff, 0, ret);
-                  socketOut.flush();
+                byte[] buff = BufferManager.getBytes();
+                try {
+                  int ret;
+                  while ((ret = daemonIn.read(buff, 0, BufferManager.BUFFER_SIZE)) != -1) {
+                    socketOut.write(buff, 0, ret);
+                    socketOut.flush();
+                  }
+                } finally {
+                  BufferManager.release(buff, true);
                 }
               } else {
                 if (result == AoservDaemonProtocol.IO_EXCEPTION) {

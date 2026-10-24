@@ -33,6 +33,7 @@ import com.aoapps.hodgepodge.io.stream.StreamableInput;
 import com.aoapps.hodgepodge.io.stream.StreamableOutput;
 import com.aoapps.hodgepodge.net.IpReputation;
 import com.aoapps.lang.Throwables;
+import com.aoapps.lang.util.BufferManager;
 import com.aoapps.net.InetAddress;
 import com.aoindustries.aoserv.client.AoservClientConfiguration;
 import com.aoindustries.aoserv.client.AoservConnector;
@@ -470,11 +471,15 @@ public class VncConsoleProxyWebsocketServer {
               try {
                 myOutThread.setName(outThreadName);
                 try {
-                  byte[] buff = new byte[4096];
-                  int ret;
-                  while ((ret = daemonIn.read(buff, 0, 4096)) != -1) {
-                    proxyFuture.get();
-                    proxyFuture = session.getAsyncRemote().sendBinary(ByteBuffer.wrap(Arrays.copyOf(buff, ret)));
+                  byte[] buff = BufferManager.getBytes();
+                  try {
+                    int ret;
+                    while ((ret = daemonIn.read(buff, 0, BufferManager.BUFFER_SIZE)) != -1) {
+                      proxyFuture.get();
+                      proxyFuture = session.getAsyncRemote().sendBinary(ByteBuffer.wrap(Arrays.copyOf(buff, ret)));
+                    }
+                  } finally {
+                    BufferManager.release(buff, true);
                   }
                   // Always close after VNC tunnel since this is a connection-terminal command
                   session.close(new CloseReason(CloseReason.CloseCodes.GOING_AWAY, "EOF at daemonIn"));
