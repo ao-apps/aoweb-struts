@@ -43,6 +43,7 @@ binding.setVariable('upstreamProjects', [
   'aoweb-struts-devel', // <groupId>com.aoindustries</groupId><artifactId>aoweb-struts-devel</artifactId>
   // Direct
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-collections-devel</artifactId>
+  // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-concurrent-devel</artifactId>
   'oss/encoding-devel', // <groupId>com.aoapps</groupId><artifactId>ao-encoding-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-encoding-servlet-devel</artifactId>
   'oss/encoding-taglib-devel', // <groupId>com.aoapps</groupId><artifactId>ao-encoding-taglib-devel</artifactId>
@@ -178,6 +179,7 @@ binding.setVariable('upstreamProjects', [
 
   // Direct
   'oss/collections', // <groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId>
+  'oss/concurrent', // <groupId>com.aoapps</groupId><artifactId>ao-concurrent</artifactId>
   'oss/encoding', // <groupId>com.aoapps</groupId><artifactId>ao-encoding</artifactId>
   'oss/encoding-servlet', // <groupId>com.aoapps</groupId><artifactId>ao-encoding-servlet</artifactId>
   'oss/encoding-taglib', // <groupId>com.aoapps</groupId><artifactId>ao-encoding-taglib</artifactId>

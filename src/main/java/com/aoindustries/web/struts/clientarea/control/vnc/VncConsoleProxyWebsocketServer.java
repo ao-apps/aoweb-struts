@@ -31,6 +31,7 @@ import static com.aoindustries.web.struts.clientarea.control.vnc.VncConsoleProxy
 import com.aoapps.hodgepodge.io.AOPool;
 import com.aoapps.hodgepodge.io.stream.StreamableInput;
 import com.aoapps.hodgepodge.io.stream.StreamableOutput;
+import com.aoapps.hodgepodge.net.IpReputation;
 import com.aoapps.lang.Throwables;
 import com.aoapps.net.InetAddress;
 import com.aoindustries.aoserv.client.AoservClientConfiguration;
@@ -41,24 +42,34 @@ import com.aoindustries.aoserv.client.schema.AoservProtocol;
 import com.aoindustries.aoserv.daemon.client.AoservDaemonConnection;
 import com.aoindustries.aoserv.daemon.client.AoservDaemonConnector;
 import com.aoindustries.aoserv.daemon.client.AoservDaemonProtocol;
+import com.aoindustries.web.struts.AowebExecutors;
 import com.aoindustries.web.struts.SiteSettings;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletRequestEvent;
+import jakarta.servlet.ServletRequestListener;
 import jakarta.servlet.annotation.WebListener;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.websocket.CloseReason;
+import jakarta.websocket.HandshakeResponse;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnError;
 import jakarta.websocket.OnMessage;
 import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
+import jakarta.websocket.server.HandshakeRequest;
 import jakarta.websocket.server.ServerEndpoint;
+import jakarta.websocket.server.ServerEndpointConfig;
 import java.io.ByteArrayOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,10 +80,83 @@ import java.util.logging.Logger;
  *
  * @author  AO Industries, Inc.
  */
-@ServerEndpoint(value = "/clientarea/control/vnc/vnc-console-websocket")
+@ServerEndpoint(value = "/clientarea/control/vnc/vnc-console-websocket", configurator = VncConsoleProxyWebsocketServer.GetRemoteInetAddressConfigurator.class)
 public class VncConsoleProxyWebsocketServer {
 
   private static final Logger logger = Logger.getLogger(VncConsoleProxyWebsocketServer.class.getName());
+
+  private static final String CLIENT_IP_PROPERTY = VncConsoleProxyWebsocketServer.class.getName() + ".clientIp";
+
+  @WebListener
+  public static class GetRemoteInetAddressRequestListener implements ServletRequestListener {
+
+    private static final ThreadLocal<String> clientIp = new ThreadLocal<>();
+
+    @Override
+    public void requestInitialized(ServletRequestEvent sre) {
+      logger.finer(() -> "Thread at requestInitialized: " + Thread.currentThread().getName());
+      ServletRequest req = sre.getServletRequest();
+      if (req instanceof HttpServletRequest httpReq) {
+        clientIp.set(httpReq.getRemoteAddr());
+      } else {
+        clientIp.remove();
+      }
+    }
+
+    @Override
+    public void requestDestroyed(ServletRequestEvent sre) {
+      clientIp.remove();
+    }
+  }
+
+  public static class GetRemoteInetAddressConfigurator extends ServerEndpointConfig.Configurator {
+
+    @Override
+    public void modifyHandshake(ServerEndpointConfig sec, HandshakeRequest request, HandshakeResponse response) {
+      logger.finer(() -> "Thread at modifyHandshake...: " + Thread.currentThread().getName());
+      String clientIp = GetRemoteInetAddressRequestListener.clientIp.get();
+      logger.finer("clientIp = " + clientIp);
+      if (clientIp == null || (clientIp = clientIp.trim()).isEmpty()) {
+        throw new SecurityException("WebSocket connection rejected: Client IP could not be determined.");
+      }
+      java.net.InetAddress clientInetAddress;
+      try {
+        clientInetAddress = java.net.InetAddress.getByName(clientIp);
+      } catch (UnknownHostException e) {
+        throw new SecurityException("WebSocket connection rejected: Client IP could not be resolved for " + clientIp, e);
+      }
+      // TODO: To be able to test in NetBeans/Tomcat locally, access the "devMode" from Maven properties, either
+      // by adding to all web.xml (which are filtered), or by writing into a Maven.properties file
+      if (clientInetAddress.isLoopbackAddress()) {
+        // Also allow X-Forwarded-For header when request coming from a proxy through loopback
+        final String headerName = "X-Forwarded-For";
+        List<String> xforwardedFor = request.getHeaders().get(headerName);
+        if (xforwardedFor == null) {
+          throw new SecurityException("WebSocket connection rejected: No " + headerName + " header and loopback connection");
+        }
+        // Verify Apache will not forward (or how it forwards) spoofed x-forward-for headers if ever allowing more than one
+        if (xforwardedFor.size() != 1) {
+          throw new SecurityException("WebSocket connection rejected: Only one value expected for " + headerName + " header and loopback connection, got " + xforwardedFor);
+        }
+        String firstHeader = xforwardedFor.get(0);
+        logger.finer("firstHeader = " + firstHeader);
+        if (firstHeader == null || (firstHeader = firstHeader.trim()).isEmpty()) {
+          throw new SecurityException("WebSocket connection rejected: Empty value for " + headerName + " on loopback connection.");
+        }
+        // Verify Apache will not forward (or how it forwards) spoofed x-forward-for headers if ever allowing more than one separated by commas
+        if (firstHeader.indexOf(',') != -1) {
+          // Could use first value here if needed (but confirm how Apache orders the header values)
+          throw new SecurityException("WebSocket connection rejected: Not allowing comma-separated value for " + headerName + " header and loopback connection, got " + firstHeader);
+        }
+        try {
+          clientInetAddress = java.net.InetAddress.getByName(firstHeader);
+        } catch (UnknownHostException e) {
+          throw new SecurityException("WebSocket connection rejected: Client IP could not be resolved for " + firstHeader, e);
+        }
+      }
+      sec.getUserProperties().put(CLIENT_IP_PROPERTY, clientInetAddress);
+    }
+  }
 
   private static ServletContext servletContext;
 
@@ -106,6 +190,7 @@ public class VncConsoleProxyWebsocketServer {
   }
 
   private volatile Phase phase = Phase.Protocol;
+  private volatile IpReputation.Connection repConn;
   private volatile Future<Void> protocolFuture;
   private volatile Future<Void> authFuture;
   private volatile Future<Void> proxyFuture;
@@ -115,15 +200,25 @@ public class VncConsoleProxyWebsocketServer {
   private volatile Thread outThread;
 
   @OnOpen
-  public void onOpen(Session session) {
+  public void onOpen(Session session) throws IOException {
+    java.net.InetAddress clientIp = (java.net.InetAddress) session.getUserProperties().get(CLIENT_IP_PROPERTY);
     if (logger.isLoggable(Level.FINE)) {
       logger.fine(
           "session.id: " + session.getId()
               + ", session.negotiatedSubprotocol: " + session.getNegotiatedSubprotocol()
               + ", session.protocolVersion: " + session.getProtocolVersion()
+              + ", clientIp: " + clientIp
       );
     }
-    protocolFuture = session.getAsyncRemote().sendBinary(ByteBuffer.wrap(protocolVersion_3_3));
+    repConn = VncConsoleProxySocketHandler.ipReputation.init(clientIp);
+    switch (repConn.accept()) {
+      case REJECT -> session.close();
+      case ACCEPT -> {
+        repConn.started();
+        protocolFuture = session.getAsyncRemote().sendBinary(ByteBuffer.wrap(protocolVersion_3_3));
+      }
+      default -> throw new AssertionError();
+    }
   }
 
   @OnClose
@@ -158,6 +253,7 @@ public class VncConsoleProxyWebsocketServer {
   private byte[] challenge;
 
   @OnMessage
+  @SuppressWarnings({"BroadCatchBlock", "TooBroadCatch", "AssignmentToCatchBlockParameter"})
   public void onMessage(byte[] message, Session session) throws IOException, SQLException, InterruptedException {
     if (phase == Phase.Protocol) {
       if (message != null) {
@@ -234,9 +330,18 @@ public class VncConsoleProxyWebsocketServer {
         if (virtualServer == null) {
           // Virtual Host not found
           logger.warning("Virtual Host not found");
-          Thread.sleep(5000);
-          session.getAsyncRemote().sendBinary(ByteBuffer.wrap(new byte[] {0, 0, 0, 1}));
-          session.close();
+          repConn.fail();
+          Thread.sleep(VncConsoleProxySocketHandler.FAIL_DELAY_MILLIS);
+          session.getAsyncRemote().sendBinary(
+              ByteBuffer.wrap(new byte[] {0, 0, 0, 1}),
+              sendResult -> {
+                try {
+                  session.close();
+                } catch (IOException e) {
+                  logger.log(Level.FINE, "Error closing WebSocket session", e);
+                }
+              }
+          );
         } else {
           // Connect and authenticate to the real VNC server before sending security result
 
@@ -335,49 +440,58 @@ public class VncConsoleProxyWebsocketServer {
                     || daemonIn.read() != 0
                     || daemonIn.read() != 0
             ) {
-              Thread.sleep(5000);
-              session.getAsyncRemote().sendBinary(ByteBuffer.wrap(new byte[] {0, 0, 0, 1}));
-              session.close();
+              repConn.fail();
+              Thread.sleep(VncConsoleProxySocketHandler.FAIL_DELAY_MILLIS);
+              session.getAsyncRemote().sendBinary(
+                  ByteBuffer.wrap(new byte[] {0, 0, 0, 1}),
+                  sendResult -> {
+                    try {
+                      session.close();
+                    } catch (IOException e) {
+                      logger.log(Level.FINE, "Error closing WebSocket session", e);
+                    }
+                  }
+              );
               throw new IOException("Authentication to real VNC server failed");
             }
+            repConn.success();
             proxyFuture = session.getAsyncRemote().sendBinary(ByteBuffer.wrap(new byte[] {0, 0, 0, 0}));
             // daemonIn -> socketOut in another thread
             assert outThread == null;
-            @SuppressWarnings({"BroadCatchBlock", "AssignmentToCatchBlockParameter"})
-            Thread myOutThread = new Thread(
-                () -> {
-                  try {
-                    try {
-                      byte[] buff = new byte[4096];
-                      int ret;
-                      while ((ret = daemonIn.read(buff, 0, 4096)) != -1) {
-                        proxyFuture.get();
-                        proxyFuture = session.getAsyncRemote().sendBinary(ByteBuffer.wrap(Arrays.copyOf(buff, ret)));
-                      }
-                      // Always close after VNC tunnel since this is a connection-terminal command
-                      session.close(new CloseReason(CloseReason.CloseCodes.GOING_AWAY, "EOF at daemonIn"));
-                    } finally {
-                      logger.fine("EOF at daemonIn, closing daemonConn");
-                      // Always close after VNC tunnel since this is a connection-terminal command
-                      myDaemonConn.abort();
-                    }
-                  } catch (ThreadDeath td) {
-                    throw td;
-                  } catch (Throwable t) {
-                    try {
-                      session.close(new CloseReason(CloseReason.CloseCodes.UNEXPECTED_CONDITION, t.toString()));
-                    } catch (Error | RuntimeException | IOException e) {
-                      t = Throwables.addSuppressed(t, e);
-                    }
-                    logger.log(Level.SEVERE, null, t);
+            String outThreadName = "VncConsoleProxyWebsocketServer daemonIn → socketOut: " + virtualServer.getHost().getName();
+            AowebExecutors.getExecutors(servletContext).getUnbounded().submit(() -> {
+              Thread myOutThread = Thread.currentThread();
+              outThread = myOutThread;
+              String oldOutThreadName = myOutThread.getName();
+              try {
+                myOutThread.setName(outThreadName);
+                try {
+                  byte[] buff = new byte[4096];
+                  int ret;
+                  while ((ret = daemonIn.read(buff, 0, 4096)) != -1) {
+                    proxyFuture.get();
+                    proxyFuture = session.getAsyncRemote().sendBinary(ByteBuffer.wrap(Arrays.copyOf(buff, ret)));
                   }
-                },
-                "VncConsoleProxyWebsocketServer daemonIn → socketOut: " + virtualServer.getHost().getName()
-            );
-            myOutThread.setDaemon(true); // Don't prevent JVM shutdown
-            myOutThread.setPriority(Thread.NORM_PRIORITY + 2); // Higher priority for higher performance
-            outThread = myOutThread;
-            myOutThread.start();
+                  // Always close after VNC tunnel since this is a connection-terminal command
+                  session.close(new CloseReason(CloseReason.CloseCodes.GOING_AWAY, "EOF at daemonIn"));
+                } finally {
+                  logger.fine("EOF at daemonIn, closing daemonConn");
+                  // Always close after VNC tunnel since this is a connection-terminal command
+                  myDaemonConn.abort();
+                }
+              } catch (ThreadDeath td) {
+                throw td;
+              } catch (Throwable t) {
+                try {
+                  session.close(new CloseReason(CloseReason.CloseCodes.UNEXPECTED_CONDITION, t.toString()));
+                } catch (Error | RuntimeException | IOException e) {
+                  t = Throwables.addSuppressed(t, e);
+                }
+                logger.log(Level.SEVERE, "", t);
+              } finally {
+                myOutThread.setName(oldOutThreadName);
+              }
+            });
             phase = Phase.Proxy;
           } else {
             String errMessage = null;
@@ -420,9 +534,8 @@ public class VncConsoleProxyWebsocketServer {
   public void onError(Session session, Throwable t) throws IOException {
     phase = Phase.Error;
     try {
-      logger.log(Level.SEVERE, null, t);
+      logger.log(Level.SEVERE, "", t);
     } finally {
-      // TODO: Required?  Helpful?
       session.close();
     }
   }

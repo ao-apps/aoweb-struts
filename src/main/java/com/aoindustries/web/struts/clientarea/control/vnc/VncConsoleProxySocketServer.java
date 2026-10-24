@@ -23,14 +23,18 @@
 
 package com.aoindustries.web.struts.clientarea.control.vnc;
 
+import com.aoapps.concurrent.Executor;
+import com.aoapps.hodgepodge.net.IpReputation;
 import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.net.Bind;
 import com.aoindustries.aoserv.client.reseller.Brand;
+import com.aoindustries.web.struts.AowebExecutors;
 import com.aoindustries.web.struts.SiteSettings;
 import jakarta.servlet.ServletContext;
 import java.io.File;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.security.KeyStore;
 import java.util.Collections;
 import java.util.logging.Level;
@@ -52,11 +56,16 @@ public class VncConsoleProxySocketServer implements Runnable {
 
   private static final Logger logger = Logger.getLogger(VncConsoleProxySocketServer.class.getName());
 
+  /**
+   * The amount of time to delay before closing on rejection.
+   */
   private ServletContext servletContext;
+  private Executor unboundedExecutor;
   private volatile Thread thread;
 
   public void init(ServletContext servletContext) {
     this.servletContext = servletContext;
+    this.unboundedExecutor = AowebExecutors.getExecutors(servletContext).getUnbounded();
     if (!"false".equalsIgnoreCase(servletContext.getInitParameter(VncConsoleProxySocketServer.class.getName() + ".enabled"))) {
       (thread = new Thread(this, "VNC Console Proxy Socket Host")).start();
     }
@@ -103,20 +112,38 @@ public class VncConsoleProxySocketServer implements Runnable {
           while (currentThread == this.thread && !currentThread.isInterrupted()) {
             Socket socket = ss.accept();
             socket.setKeepAlive(true);
-            new VncConsoleProxySocketHandler(servletContext, rootConn, socket);
+            IpReputation.Connection repConn = VncConsoleProxySocketHandler.ipReputation.init(socket.getInetAddress());
+            switch (repConn.accept()) {
+              case REJECT:
+                unboundedExecutor.submit(() -> {
+                  try {
+                    socket.close();
+                  } catch (SocketException err) {
+                    // Do not log any socket exceptions
+                  } catch (Throwable t) {
+                    logger.log(Level.SEVERE, "", t);
+                  }
+                });
+                break;
+              case ACCEPT:
+                new VncConsoleProxySocketHandler(servletContext, unboundedExecutor, rootConn, socket, repConn);
+                break;
+              default:
+                throw new AssertionError();
+            }
           }
         }
       } catch (ThreadDeath td) {
         throw td;
       } catch (Throwable t) {
-        logger.log(Level.SEVERE, null, t);
+        logger.log(Level.SEVERE, "", t);
       }
       if (currentThread == this.thread && !currentThread.isInterrupted()) {
         try {
           Thread.sleep(60000);
         } catch (InterruptedException err) {
           if (currentThread == this.thread) {
-            logger.log(Level.WARNING, null, err);
+            logger.log(Level.WARNING, "", err);
           }
           // Restore the interrupted status
           currentThread.interrupt();
