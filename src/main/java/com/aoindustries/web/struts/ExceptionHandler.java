@@ -53,13 +53,13 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
     Throwable globalsException = Globals.EXCEPTION_KEY.context(request).get();
     if (exception != null) {
       if (globalsException != null) {
-        logger.log(Level.SEVERE, null, new WrappedExceptions(exception, globalsException));
+        logger.log(Level.SEVERE, "TODO: message here", new WrappedExceptions(exception, globalsException));
       } else {
-        logger.log(Level.SEVERE, null, exception);
+        logger.log(Level.SEVERE, "TODO: message here", exception);
       }
     } else {
       if (globalsException != null) {
-        logger.log(Level.SEVERE, null, globalsException);
+        logger.log(Level.SEVERE, "TODO: message here", globalsException);
       }
       // Do nothing, neither exception exists
     }
@@ -69,7 +69,7 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
     try {
       siteSettings = SiteSettings.getInstance(servletContext);
     } catch (Exception err) {
-      logger.log(Level.SEVERE, null, err);
+      logger.log(Level.SEVERE, "TODO: message here", err);
       // Use default settings
       siteSettings = new SiteSettings(servletContext);
     }
@@ -82,7 +82,7 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
     } catch (ThreadDeath td) {
       throw td;
     } catch (Throwable t) {
-      logger.log(Level.SEVERE, null, t);
+      logger.log(Level.SEVERE, "TODO: message here", t);
       // Use default locale
       locale = Locale.getDefault();
     }
@@ -95,7 +95,7 @@ public class ExceptionHandler extends org.apache.struts.action.ExceptionHandler 
     } catch (ThreadDeath td) {
       throw td;
     } catch (Throwable t) {
-      logger.log(Level.SEVERE, null, t);
+      logger.log(Level.SEVERE, "TODO: message here", t);
       // Use text skin
       skin = TextSkin.getInstance();
     }

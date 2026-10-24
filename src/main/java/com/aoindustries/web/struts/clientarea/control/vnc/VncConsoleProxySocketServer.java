@@ -121,7 +121,7 @@ public class VncConsoleProxySocketServer implements Runnable {
                   } catch (SocketException err) {
                     // Do not log any socket exceptions
                   } catch (Throwable t) {
-                    logger.log(Level.SEVERE, "", t);
+                    logger.log(Level.SEVERE, "TODO: message here", t);
                   }
                 });
                 break;
@@ -136,14 +136,14 @@ public class VncConsoleProxySocketServer implements Runnable {
       } catch (ThreadDeath td) {
         throw td;
       } catch (Throwable t) {
-        logger.log(Level.SEVERE, "", t);
+        logger.log(Level.SEVERE, "TODO: message here", t);
       }
       if (currentThread == this.thread && !currentThread.isInterrupted()) {
         try {
           Thread.sleep(60000);
         } catch (InterruptedException err) {
           if (currentThread == this.thread) {
-            logger.log(Level.WARNING, "", err);
+            logger.log(Level.WARNING, "TODO: message here", err);
           }
           // Restore the interrupted status
           currentThread.interrupt();

@@ -118,7 +118,7 @@ public class LoginCompletedAction extends PageAction {
       if (message != null) {
         Constants.AUTHENTICATION_MESSAGE.context(request).set(message);
       } else {
-        logger.log(Level.SEVERE, null, err);
+        logger.log(Level.SEVERE, "TODO: message here", err);
       }
       return mapping.findForward("failure");
     }

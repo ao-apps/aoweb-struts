@@ -125,7 +125,7 @@ public abstract class AuthenticatedAction extends PageAction {
         Constants.AO_CONN.context(session).set(aoConn);
         return aoConn;
       } catch (IOException err) {
-        logger.log(Level.SEVERE, null, err);
+        logger.log(Level.SEVERE, "TODO: message here", err);
       }
     }
 

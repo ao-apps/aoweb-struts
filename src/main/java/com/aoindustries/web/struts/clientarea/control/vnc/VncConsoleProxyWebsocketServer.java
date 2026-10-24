@@ -487,7 +487,7 @@ public class VncConsoleProxyWebsocketServer {
                 } catch (Error | RuntimeException | IOException e) {
                   t = Throwables.addSuppressed(t, e);
                 }
-                logger.log(Level.SEVERE, "", t);
+                logger.log(Level.SEVERE, "TODO: message here", t);
               } finally {
                 myOutThread.setName(oldOutThreadName);
               }
@@ -534,7 +534,7 @@ public class VncConsoleProxyWebsocketServer {
   public void onError(Session session, Throwable t) throws IOException {
     phase = Phase.Error;
     try {
-      logger.log(Level.SEVERE, "", t);
+      logger.log(Level.SEVERE, "TODO: message here", t);
     } finally {
       session.close();
     }

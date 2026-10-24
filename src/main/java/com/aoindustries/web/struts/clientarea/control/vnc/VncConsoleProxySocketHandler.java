@@ -172,7 +172,7 @@ public class VncConsoleProxySocketHandler {
           } else {
             level = Level.FINER;
           }
-          logger.log(level, "", err);
+          logger.log(level, "TODO: message here", err);
           return;
         }
         repConn.started();
@@ -349,7 +349,7 @@ public class VncConsoleProxySocketHandler {
                   } catch (ThreadDeath td) {
                     throw td;
                   } catch (Throwable t) {
-                    logger.log(Level.SEVERE, "", t);
+                    logger.log(Level.SEVERE, "TODO: message here", t);
                   } finally {
                     inThread.setName(oldInThreadName);
                   }
@@ -384,16 +384,16 @@ public class VncConsoleProxySocketHandler {
       } catch (ThreadDeath td) {
         throw td;
       } catch (InterruptedException e) {
-        logger.log(Level.SEVERE, "", e);
+        logger.log(Level.SEVERE, "TODO: message here", e);
         // Restore the interrupted status
         Thread.currentThread().interrupt();
       } catch (Throwable t) {
-        logger.log(Level.SEVERE, "", t);
+        logger.log(Level.SEVERE, "TODO: message here", t);
       } finally {
         try {
           socket.close();
         } catch (IOException err) {
-          logger.log(Level.INFO, "", err);
+          logger.log(Level.INFO, "TODO: message here", err);
         } finally {
           outThread.setName(oldOutThreadName);
         }
