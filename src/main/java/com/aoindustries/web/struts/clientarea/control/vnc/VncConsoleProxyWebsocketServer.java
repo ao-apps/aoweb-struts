@@ -87,6 +87,8 @@ public class VncConsoleProxyWebsocketServer {
 
   private static final String CLIENT_IP_PROPERTY = VncConsoleProxyWebsocketServer.class.getName() + ".clientIp";
 
+  private static final int MAX_HANDSHAKE_BUFFER_SIZE = 1024; // Added to prevent OOM heap exhaustion
+
   @WebListener
   public static class GetRemoteInetAddressRequestListener implements ServletRequestListener {
 
@@ -255,11 +257,17 @@ public class VncConsoleProxyWebsocketServer {
   @OnMessage
   @SuppressWarnings({"BroadCatchBlock", "TooBroadCatch", "AssignmentToCatchBlockParameter"})
   public void onMessage(byte[] message, Session session) throws IOException, SQLException, InterruptedException {
-    if (phase == Phase.Protocol) {
+    if (phase == Phase.Protocol || phase == Phase.Auth) {
       if (message != null) {
+        if (message.length > (MAX_HANDSHAKE_BUFFER_SIZE - buffer.size())) {
+          session.close();
+          throw new SecurityException("WebSocket handshake rejected: Payload size limits exceeded.");
+        }
         buffer.write(message);
         message = null;
       }
+    }
+    if (phase == Phase.Protocol) {
       if (buffer.size() >= protocolVersion_3_3.length) {
         assert protocolFuture.isDone();
         byte[] bytes = buffer.toByteArray();
@@ -295,10 +303,6 @@ public class VncConsoleProxyWebsocketServer {
       }
     }
     if (phase == Phase.Auth) {
-      if (message != null) {
-        buffer.write(message);
-        message = null;
-      }
       if (buffer.size() >= 16) {
         assert authFuture.isDone();
         byte[] bytes = buffer.toByteArray();
