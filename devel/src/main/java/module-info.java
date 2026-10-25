@@ -1,6 +1,6 @@
 /*
  * aoweb-struts - Template webapp for legacy Struts-based site framework with AOServ Platform control panels.
- * Copyright (C) 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -21,6 +21,12 @@
  * along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
  */
 module com.aoindustries.web.struts.devel {
+  // Direct
+  requires com.aoapps.hodgepodge; // <groupId>com.aoapps</groupId><artifactId>ao-hodgepodge</artifactId>
+  requires static jsr305; // <groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId>
+  // Java SE
+  requires java.logging;
+
   exports com.aoindustries.web.struts.i18n;
   exports com.aoindustries.web.struts.clientarea.i18n;
   exports com.aoindustries.web.struts.clientarea.accounting.i18n;
@@ -38,9 +44,4 @@ module com.aoindustries.web.struts.devel {
   exports com.aoindustries.web.struts.clientarea.webmail.i18n;
   exports com.aoindustries.web.struts.signup.i18n;
   exports com.aoindustries.web.struts.webapp.i18n;
-  // Direct
-  requires com.aoapps.hodgepodge; // <groupId>com.aoapps</groupId><artifactId>ao-hodgepodge</artifactId>
-  requires static jsr305; // <groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId>
-  // Java SE
-  requires java.logging;
 }

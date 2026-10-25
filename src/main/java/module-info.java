@@ -21,36 +21,6 @@
  * along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
  */
 module com.aoindustries.web.struts {
-  exports com.aoindustries.web.struts;
-  exports com.aoindustries.web.struts.aowebtags;
-  exports com.aoindustries.web.struts.clientarea;
-  exports com.aoindustries.web.struts.clientarea.accounting;
-  exports com.aoindustries.web.struts.clientarea.control.account;
-  exports com.aoindustries.web.struts.clientarea.control.monitor;
-  exports com.aoindustries.web.struts.clientarea.control.password;
-  exports com.aoindustries.web.struts.clientarea.control.vnc;
-  exports com.aoindustries.web.struts.clientarea.ticket;
-  exports com.aoindustries.web.struts.signup;
-  exports com.aoindustries.web.struts.skintags;
-  exports com.aoindustries.web.struts.struts;
-  // ApplicationResources
-  opens com.aoindustries.web.struts.i18n;
-  opens com.aoindustries.web.struts.clientarea.i18n;
-  opens com.aoindustries.web.struts.clientarea.accounting.i18n;
-  opens com.aoindustries.web.struts.clientarea.control.i18n;
-  opens com.aoindustries.web.struts.clientarea.control.account.i18n;
-  opens com.aoindustries.web.struts.clientarea.control.admin.i18n;
-  opens com.aoindustries.web.struts.clientarea.control.database.i18n;
-  opens com.aoindustries.web.struts.clientarea.control.email.i18n;
-  opens com.aoindustries.web.struts.clientarea.control.httpd.i18n;
-  opens com.aoindustries.web.struts.clientarea.control.linux.i18n;
-  opens com.aoindustries.web.struts.clientarea.control.monitor.i18n;
-  opens com.aoindustries.web.struts.clientarea.control.password.i18n;
-  opens com.aoindustries.web.struts.clientarea.control.vnc.i18n;
-  opens com.aoindustries.web.struts.clientarea.ticket.i18n;
-  opens com.aoindustries.web.struts.clientarea.webmail.i18n;
-  opens com.aoindustries.web.struts.signup.i18n;
-  opens com.aoindustries.web.struts.webapp.i18n;
   // Direct
   requires com.aoapps.collections; // <groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId>
   requires com.aoapps.concurrent; // <groupId>com.aoapps</groupId><artifactId>ao-concurrent</artifactId>
@@ -100,4 +70,36 @@ module com.aoindustries.web.struts {
   // Java SE
   requires java.logging;
   requires java.sql;
+
+  exports com.aoindustries.web.struts;
+  exports com.aoindustries.web.struts.aowebtags;
+  exports com.aoindustries.web.struts.clientarea;
+  exports com.aoindustries.web.struts.clientarea.accounting;
+  exports com.aoindustries.web.struts.clientarea.control.account;
+  exports com.aoindustries.web.struts.clientarea.control.monitor;
+  exports com.aoindustries.web.struts.clientarea.control.password;
+  exports com.aoindustries.web.struts.clientarea.control.vnc;
+  exports com.aoindustries.web.struts.clientarea.ticket;
+  exports com.aoindustries.web.struts.signup;
+  exports com.aoindustries.web.struts.skintags;
+  exports com.aoindustries.web.struts.struts;
+
+  // ApplicationResources
+  opens com.aoindustries.web.struts.i18n;
+  opens com.aoindustries.web.struts.clientarea.i18n;
+  opens com.aoindustries.web.struts.clientarea.accounting.i18n;
+  opens com.aoindustries.web.struts.clientarea.control.i18n;
+  opens com.aoindustries.web.struts.clientarea.control.account.i18n;
+  opens com.aoindustries.web.struts.clientarea.control.admin.i18n;
+  opens com.aoindustries.web.struts.clientarea.control.database.i18n;
+  opens com.aoindustries.web.struts.clientarea.control.email.i18n;
+  opens com.aoindustries.web.struts.clientarea.control.httpd.i18n;
+  opens com.aoindustries.web.struts.clientarea.control.linux.i18n;
+  opens com.aoindustries.web.struts.clientarea.control.monitor.i18n;
+  opens com.aoindustries.web.struts.clientarea.control.password.i18n;
+  opens com.aoindustries.web.struts.clientarea.control.vnc.i18n;
+  opens com.aoindustries.web.struts.clientarea.ticket.i18n;
+  opens com.aoindustries.web.struts.clientarea.webmail.i18n;
+  opens com.aoindustries.web.struts.signup.i18n;
+  opens com.aoindustries.web.struts.webapp.i18n;
 }
