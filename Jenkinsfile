@@ -166,13 +166,17 @@ binding.setVariable('upstreamProjects', [
   // No -devel: <groupId>com.google.android</groupId><artifactId>annotations-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-concurrent-devel</artifactId>
   // No -devel: <groupId>com.aoapps</groupId><artifactId>ao-servlet-subrequest-devel</artifactId>
+  // No -devel: <groupId>dev.cel</groupId><artifactId>common-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-googleapis-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-protobuf-lite-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-services-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-util-devel</artifactId>
   // No -devel: <groupId>io.grpc</groupId><artifactId>grpc-xds-devel</artifactId>
   // No -devel: <groupId>io.perfmark</groupId><artifactId>perfmark-api-devel</artifactId>
+  // No -devel: <groupId>dev.cel</groupId><artifactId>protobuf-devel</artifactId>
   // No -devel: <groupId>com.google.re2j</groupId><artifactId>re2j-devel</artifactId>
+  // No -devel: <groupId>dev.cel</groupId><artifactId>runtime-devel</artifactId>
+  // No -devel: <groupId>org.threeten</groupId><artifactId>threeten-extra-devel</artifactId>
   // Imports
   // No -devel: <groupId>com.aoapps</groupId><artifactId>jakartaee-web-profile-devel</artifactId>
   // No -devel: <groupId>com.google.cloud</groupId><artifactId>libraries-bom-devel</artifactId>
