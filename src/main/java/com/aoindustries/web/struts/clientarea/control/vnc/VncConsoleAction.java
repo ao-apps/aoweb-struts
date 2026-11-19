@@ -24,6 +24,8 @@
 package com.aoindustries.web.struts.clientarea.control.vnc;
 
 import com.aoindustries.aoserv.client.AoservConnector;
+import com.aoindustries.aoserv.client.account.Account;
+import com.aoindustries.aoserv.client.account.AccountHost;
 import com.aoindustries.aoserv.client.infrastructure.VirtualServer;
 import com.aoindustries.aoserv.client.master.Permission;
 import com.aoindustries.aoserv.client.schema.AoservProtocol;
@@ -53,11 +55,15 @@ public class VncConsoleAction extends PermissionAction {
       HttpServletResponse response,
       AoservConnector aoConn
   ) throws Exception {
+    Account currentAccount = aoConn.getCurrentAdministrator().getUsername().getPackage().getAccount();
     List<VirtualServer> virtualServers = aoConn.getInfrastructure().getVirtualServer().getRows();
     List<VirtualServer> vncVirtualServers = new ArrayList<>(virtualServers.size());
     for (VirtualServer virtualServer : virtualServers) {
+      AccountHost accountHost = currentAccount.getAccountHost(virtualServer.getHost());
       String vncPassword = virtualServer.getVncPassword();
-      if (vncPassword != null && !vncPassword.equals(AoservProtocol.FILTERED)) {
+      if (
+          (accountHost.canVncConsole() && vncPassword != null && !vncPassword.equals(AoservProtocol.FILTERED))
+            || accountHost.canControlVirtualServer()) {
         vncVirtualServers.add(virtualServer);
       }
     }
