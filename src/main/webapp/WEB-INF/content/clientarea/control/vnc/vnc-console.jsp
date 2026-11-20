@@ -79,6 +79,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
 
                     if (!response.ok) {
                       throw new Error(
+                        <%-- TODO: <ao:message> for errors, too, how with JS substitution? --%>
                         'Request failed: HTTP ' + response.status + ' ' + response.statusText
                       );
                     }
@@ -148,6 +149,30 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                     </c:choose>
                     <c:choose>
                       <c:when test="${accountHost.canControlVirtualServer()}">
+                        <%-- TODO:
+                        303 redirect back from servlet if not JS client (use header).
+                        204 No Content from JS client (or give message for display, see below).
+
+                        Show current VM status and conditionally show buttons, possibly with background polling.
+                        Client long-poll, with server shorter polling, with only one poller per unique virtual server ID.
+                        Client would give its current value, server would only return once there is a different value or timeout.
+                        Server poller would stop when there are no current clients connecting for a certain amount of time.
+                        This is best done as an async servlet.
+
+                        Convert error messages like "Domain with name ... already exists." to helpful messages.
+                        Also have to handle the offline VM, which currently does errors and loop-retries as idempotent command.
+
+                        Serialize all access to "xl" command, perhaps with some sort of aggregation like ConcurrencyReducer.
+                        Maybe a delay between each call.
+                        Maybe error if too many calls already stacked up.
+
+                        Have a "confirm" checkbox in <noscript>, which the servlet would require checked for those without JS.
+                        Send a message.(pkey) back on 303 URL about checkbox needed.  For this, would probably put all
+                        buttons into a single form.
+
+                        For both JS client and non-JS mode, return message.(pkey).  JS client would set on the HTML directly.
+                        Non-JS page refresh would set the value inside the JSP.  Have the JS client send a header to distinguish.
+                        --%>
                         <td>
                           <ao:form method="post" action="/clientarea/control/vnc/reboot-virtual-server">
                             <ao:input type="hidden" name="virtual-server" value="${vncVirtualServer.host.pkey}" />
