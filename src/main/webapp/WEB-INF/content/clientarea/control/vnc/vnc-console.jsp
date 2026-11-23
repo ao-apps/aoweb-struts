@@ -144,7 +144,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                         </td>
                       </c:when>
                       <c:otherwise>
-                        <td colspan="2"><ao:message key="vncConsole.connectNow.notAllowed" /></td>
+                        <td colspan="2"><ao:message key="vncConsole.connectNow.disabled" /></td>
                       </c:otherwise>
                     </c:choose>
                     <c:choose>
