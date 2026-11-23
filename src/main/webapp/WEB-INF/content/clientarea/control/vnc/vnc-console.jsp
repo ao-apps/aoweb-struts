@@ -110,19 +110,19 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                   <c:set var="accountHost" value="${currentAccount.getAccountHost(vncVirtualServer.host)}" />
                   <skin:lightDarkTableRow>
                     <td><bean:write name="vncVirtualServer" property="host.name" /></td>
-                    <td>
-                      <c:choose>
-                        <c:when test="${siteSettings.brand.aowebStrutsVncBind.port.port < 5900}">
-                          <c:out value="${siteSettings.brand.aowebStrutsHttpsUrl.host}" />::<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port}" />
-                        </c:when>
-                        <c:otherwise>
-                          <c:out value="${siteSettings.brand.aowebStrutsHttpsUrl.host}" />:<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port - 5900}" />
-                        </c:otherwise>
-                      </c:choose>
-                    </td>
-                    <td><ao:message key="vncConsole.sslRequired.yes" /></td>
                     <c:choose>
                       <c:when test="${accountHost.canVncConsole() && vncVirtualServer.vncPassword != null && vncVirtualServer.vncPassword != '*'}">
+                        <td>
+                          <c:choose>
+                            <c:when test="${siteSettings.brand.aowebStrutsVncBind.port.port < 5900}">
+                              <c:out value="${siteSettings.brand.aowebStrutsHttpsUrl.host}" />::<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port}" />
+                            </c:when>
+                            <c:otherwise>
+                              <c:out value="${siteSettings.brand.aowebStrutsHttpsUrl.host}" />:<c:out value="${siteSettings.brand.aowebStrutsVncBind.port.port - 5900}" />
+                            </c:otherwise>
+                          </c:choose>
+                        </td>
+                        <td><ao:message key="vncConsole.sslRequired.yes" /></td>
                         <td><code><c:out value="${vncVirtualServer.vncPassword}" /></code></td>
                         <td style="white-space:nowrap">
                           <ao:a href="/clientarea/control/vnc/noVNC-1.3.0/vnc.html#autoconnect=true&path=${ao:encodeURIComponent(empty pageContext.request.contextPath ? '' : fn:substringAfter(pageContext.request.contextPath, '/').concat('/'))}${ao:encodeURIComponent('clientarea/control/vnc/vnc-console-websocket')}&password=${ao:encodeURIComponent(vncVirtualServer.vncPassword)}&shared=false&show_dot=true">
@@ -144,7 +144,7 @@ along with aoweb-struts.  If not, see <https://www.gnu.org/licenses/>.
                         </td>
                       </c:when>
                       <c:otherwise>
-                        <td colspan="2"><ao:message key="vncConsole.connectNow.disabled" /></td>
+                        <td colspan="4" style="text-align:center"><ao:message key="vncConsole.connectNow.disabled" /></td>
                       </c:otherwise>
                     </c:choose>
                     <c:choose>
